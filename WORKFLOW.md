@@ -20,7 +20,8 @@ An opinionated, non-overlapping tool stack for AI-assisted development, organize
 |------|------|-----|
 | CLAUDE.md + rules/ | built-in | Encode conventions, coding style, commit format, security checks |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | skill | Battle-tested engineering conventions from a working dev |
-| [graphify](https://github.com/safishamsi/graphify) | skill | Gives agents structural awareness of codebase, SQL, docs — not just file contents |
+| [codegraph](https://github.com/colbymchenry/codegraph) | MCP server | Always-on code knowledge graph that auto-syncs on changes — 58% fewer tool calls, 16% cheaper ([eval](evaluations/code-understanding.md)) |
+| [graphify](https://github.com/safishamsi/graphify) | skill | Deep analysis of code, SQL, docs, images, videos into architecture diagrams — periodic use, not live ([eval](evaluations/code-understanding.md)) |
 | [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data |
 | [reporails/cli](https://github.com/reporails/cli) | tool | Validates that instruction files aren't conflicting or malformed |
 
@@ -46,7 +47,8 @@ Everything from L2, plus:
 
 | Tool | Type | Why |
 |------|------|-----|
-| [superpowers](https://github.com/obra/superpowers) | plugin | TDD workflow, systematic debugging, verification-before-completion — the methodology layer |
+| [superpowers](https://github.com/obra/superpowers) | plugin | TDD workflow, systematic debugging, verification-before-completion — only harness with auto-triggering ([eval](evaluations/agent-harnesses.md)) |
+| [agent-skills](https://github.com/addyosmani/agent-skills) | skill | Lifecycle structure (plan → implement → verify) that mattpocock/skills doesn't cover ([eval](evaluations/skills-collections.md)) |
 | code-review plugin | plugin | Multi-agent code review with confidence-based scoring |
 | pr-review-toolkit | plugin | Structured review dimensions: type analysis, silent failures, test coverage |
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically |
@@ -80,20 +82,21 @@ Everything from L3, plus:
 
 | Tool | Type | Why |
 |------|------|-----|
-| claude-mem OR OMEGA | plugin / MCP | Persistent cross-session memory — pick ONE. You now have enough measurement to make memory meaningful. |
+| [claude-mem](https://github.com/thedotmack/claude-mem) | plugin | Persistent memory with semantic search, timeline views, observation-based capture — best-validated option ([eval](evaluations/memory-systems.md)) |
 | [headroom](https://github.com/chopratejas/headroom) | tool | Context compression (60-95% fewer tokens) — longer sessions mean more complex autonomous work |
 | [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts |
 | GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks |
 | feature-dev | plugin | Structured feature development: planning → implementation → verification |
 
-### Memory: pick one
+### Why claude-mem over alternatives ([full evaluation](evaluations/memory-systems.md))
 
-| Option | Strength | Choose if |
-|--------|----------|-----------|
-| claude-mem | Semantic search, timeline views, knowledge graph | You want structured, queryable memory with temporal awareness |
-| OMEGA | Coordination, handoff protocols, knowledge graphs | You want cross-agent coordination and handoff support |
+| Option | Stars | Why not |
+|--------|-------|---------|
+| claude-mem | 82.5K | **Recommended** — v13, observation-based capture, semantic search, timeline views |
+| agentmemory | 23K | Strong alternative if you need cross-agent memory (95.2% recall). Consider if using multiple AI tools. |
+| OMEGA | 162 | No benchmarks, much smaller community. Previously listed as equal — it isn't. |
 
-Do not run both. Conflicting memory systems create contradictory context.
+Do not run multiple memory systems. Conflicting context is worse than no memory.
 
 ### What to skip at this level
 
@@ -157,13 +160,14 @@ Everything from L5, plus:
 
 | Tool | Why excluded |
 |------|-------------|
-| gstack, ECC, ruflo, oh-my-openagent, compound-engineering | Overlap with superpowers. Pick one harness. |
+| gstack, ECC, ruflo, oh-my-openagent | Overlap with superpowers. Superpowers is the only one with TDD enforcement and auto-triggering ([eval](evaluations/agent-harnesses.md)). |
+| compound-engineering | Runner-up harness — lighter weight, good compounding philosophy. Consider if superpowers feels too heavy. |
 | agentmemory | Overlap with claude-mem/OMEGA. Pick one memory system. |
 | everything-claude-code (251+ skills) | Too broad. Use targeted skills (mattpocock, graphify) instead of a kitchen-sink plugin. |
 | Flowise, LangGraph | Visual/programmatic agent builders — useful for building AI products, not for your own dev workflow |
 | OpenHands | Full platform replacement — you're augmenting Claude Code, not replacing it |
 | sandcastle, gastown | Overlap with claude-squad for orchestration |
-| Understand-Anything, codegraph | Overlap with graphify. Pick one code understanding tool. |
+| Understand-Anything | Prettier dashboard but no live sync or efficiency benchmarks. codegraph + graphify cover both live and deep analysis ([eval](evaluations/code-understanding.md)). |
 | repomix | Different approach (serialization vs. graph) — useful for feeding code to non-agent LLMs, not needed when agents have file access |
 
 ---
@@ -237,4 +241,19 @@ The global tools (plugins, MCP servers, skills) are installed once in `~/.claude
 
 **ACMM level:** L2 (Instructed) — strong instruction files, codebase awareness via graphify, but no measurement infrastructure
 
-**Next step:** Add superpowers + code-review plugin to reach L3. The biggest unlock is testing infrastructure and acceptance rate tracking, not more tools.
+**Next steps to reach L3:**
+1. Add **codegraph** MCP server alongside graphify — live code awareness during sessions ([eval](evaluations/code-understanding.md))
+2. Add **superpowers** for TDD and verification methodology ([eval](evaluations/agent-harnesses.md))
+3. Add **agent-skills** for lifecycle structure ([eval](evaluations/skills-collections.md))
+4. Add **code-review plugin + pr-review-toolkit** for automated review
+5. Add **claude-reflect** to capture corrections automatically
+6. Build coverage gating and PR acceptance rate tracking in CI
+
+## Evaluations
+
+All recommendations are backed by evidence. See the full evaluations:
+
+- [Code Understanding](evaluations/code-understanding.md) — graphify + codegraph (complementary), skip Understand-Anything
+- [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers (only TDD enforcer), skip gstack/ECC/ruflo
+- [Memory Systems](evaluations/memory-systems.md) — claude-mem (best validated), skip OMEGA
+- [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills, skip everything-claude-code

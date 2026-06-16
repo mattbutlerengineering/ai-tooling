@@ -8,6 +8,11 @@ Uses the [ACMM (AI Codebase Maturity Model)](https://arxiv.org/abs/2604.09388) a
 
 - [CATALOG.md](CATALOG.md) — flat inventory of every tool with definitions, problem statements, and overlap markers
 - [WORKFLOW.md](WORKFLOW.md) — recommended tool stack per ACMM level, with exclusions and rationale
+- [evaluations/](evaluations/) — evidence-based comparisons of each overlap group:
+  - [Code Understanding](evaluations/code-understanding.md) — codegraph + graphify > Understand-Anything > repomix
+  - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
+  - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
+  - [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
 
 ## Quick Start
 
