@@ -38,6 +38,13 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - GitHub stars: `gh api user/starred --paginate --jq '.[].full_name'`
 - Locally installed: `~/.claude/plugins/`, `~/.claude/skills/`, MCP servers in settings.json
 
+## Skills
+
+- `skills/setup-workflow/` — bootstrap the workflow in any repo
+- `skills/evaluate-tool/` — evaluate a new tool against catalog and ACMM fit
+- `skills/audit-workflow/` — audit installed tools against recommended stack
+- `skills/update-catalog/` — sync catalog with GitHub stars and local installs
+
 ## Adding entries
 
 - Fetch repo description: `gh api repos/{owner}/{repo} --jq '.description'`

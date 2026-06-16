@@ -168,6 +168,69 @@ Everything from L5, plus:
 
 ---
 
+## Daily Practice
+
+How to actually use these tools together, not just have them installed.
+
+### Starting a session
+
+1. **graphify** scans the codebase on entry — agents start with structural awareness, not blind file reads
+2. **CLAUDE.md** loads automatically — conventions, style rules, and project-specific patterns are active from the first prompt
+3. **claude-reflect** (L3+) injects learnings from past sessions — mistakes you corrected before won't recur
+4. **Memory** (L4+) provides cross-session context — ongoing work, decisions, and handoffs carry forward
+
+### Writing code
+
+1. **State the task clearly** — one feature, one bug, one refactor. Agents perform better with focused scope.
+2. **TDD via superpowers** (L3+) — write test first (RED), implement (GREEN), refactor. The skill enforces this sequence.
+3. **graphify for orientation** — before touching unfamiliar code, run `/graphify` to see how components connect. Prevents the "fix one thing, break three others" cascade.
+4. **context7 for APIs** — when using any library, let context7 pull current docs rather than relying on training data.
+
+### Reviewing code
+
+1. **code-review plugin** (L3+) — run multi-agent review with confidence scoring before committing. Catches real issues, not style nitpicks.
+2. **pr-review-toolkit** (L3+) — structured dimensions: type analysis, silent failure hunting, test coverage gaps, comment accuracy.
+3. **Review the diff yourself** — tools catch patterns, you catch intent. Both are needed.
+
+### Ending a session
+
+1. **claude-reflect** (L3+) captures what went well and what was corrected — syncs to CLAUDE.md so the next session is better.
+2. **Commit with conventional commits** — `feat:`, `fix:`, `refactor:` etc. The commit log is a feedback loop too.
+
+### Weekly maintenance
+
+1. **Run `/audit-workflow`** — check for tool redundancies, missing feedback loops, and ACMM level progress.
+2. **Review PR acceptance rates** (L3+) — which categories get merged vs. closed? Data drives the next tuning cycle.
+3. **Flaky test analysis** (L3+) — a flaky test in an autonomous workflow randomly blocks good PRs and passes bad ones. Fix or delete.
+
+### Continuous improvement loop
+
+The workflow improves itself through these mechanisms:
+
+| Mechanism | Level | What it does |
+|-----------|-------|-------------|
+| claude-reflect | L3 | Captures corrections → updates CLAUDE.md → fewer repeated mistakes |
+| PR acceptance tracking | L3 | Reveals which AI work categories succeed vs. fail → focus investment |
+| Flaky test detection | L3 | Identifies unreliable tests → improves CI trustworthiness |
+| Self-tuning weights | L4 | Automatically adjusts priority based on acceptance rates → less manual config |
+| Self-improvement analysis | L5 | System analyzes its own merged PRs → updates its own guidance |
+
+The key insight from ACMM: the intelligence lives in the infrastructure (tests, metrics, feedback loops), not in the AI model. A better model with no tests is worse than a mediocre model with 91% coverage and acceptance rate tracking.
+
+---
+
+## Adopting this workflow in a new repo
+
+Run `/setup-workflow` in any repo to bootstrap:
+- Creates a CLAUDE.md with quality-producing rules (coding style, TDD, security, git workflow)
+- Checks which global tools are installed
+- Identifies gaps for your target ACMM level
+- Reports next steps
+
+The global tools (plugins, MCP servers, skills) are installed once in `~/.claude/` and available everywhere. What varies per repo is the CLAUDE.md configuration — that's what `/setup-workflow` generates.
+
+---
+
 ## Current position
 
 **Using:** mattpocock/skills + graphify + ACMM framework
