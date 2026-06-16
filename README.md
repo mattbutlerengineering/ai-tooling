@@ -24,11 +24,15 @@ This gives you four skills:
 
 - [CATALOG.md](CATALOG.md) — flat inventory of every tool with definitions, problem statements, and overlap markers
 - [WORKFLOW.md](WORKFLOW.md) — recommended tool stack per ACMM level, with exclusions and rationale
-- [evaluations/](evaluations/) — evidence-based comparisons of each overlap group:
+- [evaluations/](evaluations/) — 8 evidence-based evaluations covering every recommended tool:
   - [Code Understanding](evaluations/code-understanding.md) — codegraph + graphify > Understand-Anything > repomix
   - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
   - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
   - [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
+  - [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for 15 tools with no direct competitor
+  - [Composio](evaluations/composio.md) — CONDITIONAL: skip below L4
+  - [mem0 vs claude-mem](evaluations/mem0-vs-claude-mem.md) — keep claude-mem unless multi-tool or scale needs emerge
+  - [New Tools (Loop 1)](evaluations/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
 
 ## Quick Start
 

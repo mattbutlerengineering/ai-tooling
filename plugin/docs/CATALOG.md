@@ -63,6 +63,8 @@ Frameworks that structure, enhance, or optimize how a single coding agent operat
 | [Fabric](https://github.com/danielmiessler/Fabric) | framework | Modular AI framework with crowdsourced prompt patterns | Want reusable AI patterns (extract, summarize, analyze) as composable modules | superpowers |
 | [claude-code-staff-engineer](https://github.com/FareedKhan-dev/claude-code-staff-engineer) | harness | Staff engineer with sub-agent teams in Claude Code | Want hierarchical agent teams with a lead engineer coordinating specialists | gstack, agency-agents |
 | [humanlayer](https://github.com/humanlayer/humanlayer) | harness | AI coding agents for hard problems in complex codebases | Need agents tuned for difficult, multi-file problems in large repos | superpowers, oh-my-openagent |
+| [claude-code-harness](https://github.com/Chachamaru127/claude-code-harness) | harness | Autonomous Plan-Work-Review cycle harness for Claude Code (2.7K stars) | Want a structured autonomous dev loop with built-in review gates | superpowers, ralph-claude-code |
+| [KARIMO](https://github.com/opensesh/KARIMO) | plugin | Product design-driven agent orchestration with sub-agents and agent teams | Need phased adoption from PRD execution to automated review and CI-friendly agent teams | superpowers, gstack |
 
 ## Memory & Context
 
