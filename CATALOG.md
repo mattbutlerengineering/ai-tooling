@@ -98,6 +98,14 @@ Tools for automated code review, quality checks, and codebase improvement.
 | pr-review-toolkit | plugin | PR review utilities: type analysis, silent failure hunting, test coverage, comment analysis | Need structured review dimensions beyond just "looks good" | code-review |
 | [shadcn/improve](https://github.com/shadcn/improve) | tool | Use the most capable model to audit codebase, write plans for cheaper models to execute | Want high-quality codebase audits without burning expensive model tokens on execution | code-review |
 
+## Maturity Frameworks
+
+Frameworks for assessing and systematically improving how a codebase leverages AI-assisted development.
+
+| Name | Type | One-liner | Problem it solves | Overlaps with |
+|------|------|-----------|-------------------|---------------|
+| [ACMM](https://arxiv.org/abs/2604.09388) | framework | 6-level AI Codebase Maturity Model defined by feedback loop topology, not autonomy | Teams plateau at "prompt and review" without a systematic progression path; tools without feedback loops produce chaos | — |
+
 ## Dev Workflow
 
 Tools for git management, planning, project orchestration, and development process.
