@@ -12,7 +12,7 @@ Uses the ACMM (AI Codebase Maturity Model) as a lens for evaluating which tools 
 
 - `CATALOG.md` — flat inventory of 117 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — recommended tool stack per ACMM level (L2-L6) with daily practice guide
-- `evaluations/` — 11 evidence-based evaluation files covering every recommended tool
+- `evaluations/` — 12 evidence-based evaluation files covering every recommended tool
 - `skills/` — source skills for reference
 - `plugin/` — installable Claude Code marketplace package (skills, docs, hooks)
 - `README.md` — repo overview with install instructions
