@@ -19,6 +19,7 @@ This gives you four skills:
 - `/evaluate-tool` — evaluate a new tool before adopting it (checks overlap, ACMM fit)
 - `/audit-workflow` — audit your current setup against the recommended workflow
 - `/update-catalog` — sync the catalog with current GitHub stars and local installs
+- `/sync-stars` — find starred repos not in CATALOG.md and generate ready-to-paste entries
 
 ## Contents
 

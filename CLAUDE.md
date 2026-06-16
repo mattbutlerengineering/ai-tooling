@@ -46,6 +46,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `skills/evaluate-tool/` — evaluate a new tool against catalog and ACMM fit
 - `skills/audit-workflow/` — audit installed tools against recommended stack
 - `skills/update-catalog/` — sync catalog with GitHub stars and local installs
+- `skills/sync-stars/` — find starred repos not in CATALOG.md and generate entries
 
 ## Adding entries
 
