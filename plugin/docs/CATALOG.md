@@ -38,6 +38,11 @@ Tools for running, managing, and coordinating multiple AI agents working in para
 | [Flowise](https://github.com/FlowiseAI/Flowise) | platform | Build AI agents visually with drag-and-drop | Want to compose agent workflows without writing code | LangGraph |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | platform | AI-driven development platform (formerly OpenDevin) | Want a full AI dev environment, not just a CLI agent | claude-squad, gastown |
 | [superset](https://github.com/superset-sh/superset) | tool | Code editor for the AI agents era — run an army of Claude Code, Codex, etc. on your machine | Need a unified editor that manages multiple agent instances natively | claude-squad, gastown |
+| [goose](https://github.com/aaif-goose/goose) | platform | Extensible AI agent that can install, execute, edit, and test with any LLM | Want a model-agnostic agent platform with plugin extensibility | OpenHands, claude-squad |
+| [opencode](https://github.com/anomalyco/opencode) | platform | Open source coding agent | Want an open source alternative to Claude Code | OpenHands, goose |
+| [dify](https://github.com/langgenius/dify) | platform | Production-ready agentic workflow platform with visual orchestration | Need visual agent workflow design at production scale | Flowise, LangGraph |
+| [codex-plugin-cc](https://github.com/openai/codex-plugin-cc) | plugin | Use OpenAI Codex from Claude Code to review code or delegate tasks | Want to leverage multiple AI providers within a single agent session | — (unique: cross-provider bridge) |
+| [opencode-swarm](https://github.com/zaxbysauce/opencode-swarm) | plugin | Architect-centric swarm plugin for OpenCode | Need swarm orchestration with architect agent coordination | claude-squad, gastown |
 
 ## Agent Harnesses
 
@@ -55,6 +60,9 @@ Frameworks that structure, enhance, or optimize how a single coding agent operat
 | [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) | plugin | Compound engineering plugin for Claude Code, Codex, Cursor, and more | Want a unified engineering methodology that works across multiple AI editors | superpowers, gstack |
 | [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | harness | Autonomous AI development loop with intelligent exit detection | Want Claude Code to run autonomously with self-termination when work is done | superpowers, ruflo |
 | [agency-agents](https://github.com/msitarzewski/agency-agents) | harness | Complete AI agency with specialized expert agents (frontend, marketing, QA, etc.) | Want a pre-built team of domain experts rather than configuring individual skills | gstack, harness |
+| [Fabric](https://github.com/danielmiessler/Fabric) | framework | Modular AI framework with crowdsourced prompt patterns | Want reusable AI patterns (extract, summarize, analyze) as composable modules | superpowers |
+| [claude-code-staff-engineer](https://github.com/FareedKhan-dev/claude-code-staff-engineer) | harness | Staff engineer with sub-agent teams in Claude Code | Want hierarchical agent teams with a lead engineer coordinating specialists | gstack, agency-agents |
+| [humanlayer](https://github.com/humanlayer/humanlayer) | harness | AI coding agents for hard problems in complex codebases | Need agents tuned for difficult, multi-file problems in large repos | superpowers, oh-my-openagent |
 
 ## Memory & Context
 
@@ -68,6 +76,8 @@ Tools for persistent memory across sessions, context compression, and learning f
 | claude-mem | plugin | Persistent memory with semantic search, timeline views, and knowledge graph management | Need searchable, structured memory with temporal awareness | OMEGA, agentmemory, beads |
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Self-learning system that captures corrections and preferences, syncs to CLAUDE.md | Agent keeps making the same mistakes; doesn't learn from feedback | claude-mem, OMEGA (different focus: learning vs. recall) |
 | [headroom](https://github.com/chopratejas/headroom) | tool | Compresses tool outputs, logs, and files before they reach the LLM (60-95% fewer tokens) | Context window fills up too fast with verbose tool output | token-optimizer-mcp |
+| [SimpleMem](https://github.com/aiming-lab/SimpleMem) | tool | Efficient lifelong memory for LLM agents (text and multimodal) | Need lightweight memory with multimodal support and academic backing | claude-mem, OMEGA, agentmemory |
+| [claude-subconscious](https://github.com/letta-ai/claude-subconscious) | plugin | Give Claude Code a subconscious — persistent state across sessions | Want transparent persistent state without explicit memory commands | claude-mem, OMEGA |
 
 ## Skills & Plugins
 
@@ -85,6 +95,10 @@ Extensions that add domain-specific capabilities to coding agents.
 | [stop-slop](https://github.com/hardikpandya/stop-slop) | skill | Removes AI tells from prose (filler words, hedging, corporate speak) | AI-written text is obviously AI-written | taste-skill |
 | [impeccable](https://github.com/pbakaus/impeccable) | skill | Design language that makes AI better at visual design | AI struggles with aesthetics and design consistency | ui-ux-pro-max, frontend-design plugin |
 | [open-slide](https://github.com/1weiho/open-slide) | tool | Slide framework built for AI agents | Need agents to create presentations, not just code | — |
+| [design-council](https://github.com/sjsyrek/design-council) | plugin | 11 role-specialized peer agents debate technical decisions | Want multiple perspectives (security, perf, UX, etc.) on architecture choices | — (unique: adversarial design review) |
+| [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | skill | CLAUDE.md based on Karpathy's LLM coding pitfall observations | Want coding guidelines derived from known LLM failure modes | mattpocock/skills, agent-skills |
+| [excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill) | skill | Generates Excalidraw diagrams from Claude Code | Need agents to create visual architecture diagrams, not just code | graphify |
+| [google/skills](https://github.com/google/skills) | skill | Agent skills for Google products and technologies | Need AI assistance with Google Cloud, Workspace, Firebase workflows | — (domain-specific) |
 | skill-creator | plugin | Create, document, and publish Claude Code skills | Need to author custom skills efficiently | plugin-dev plugin |
 | plugin-dev | plugin | Plugin development framework with agent, command, and hook support | Need to build Claude Code plugins | skill-creator |
 
@@ -119,6 +133,9 @@ Tools for git management, planning, project orchestration, and development proce
 | [reporails/cli](https://github.com/reporails/cli) | tool | AI instructions diagnostics for Claude, Codex, Copilot, Cursor, Gemini agents | Don't know if CLAUDE.md / agent instructions are well-formed or conflicting | — |
 | [CLI-Anything](https://github.com/HKUDS/CLI-Anything) | tool | Making all software agent-native via CLI wrappers | Existing tools don't expose interfaces that AI agents can use | — |
 | feature-dev | plugin | Feature development workflow with planning, implementation, and verification stages | Need a structured feature development process with AI agents | GSD |
+| [claude-code-action](https://github.com/anthropics/claude-code-action) | tool | Run Claude Code as a GitHub Action for CI/CD automation | Want AI agents to respond to issues/PRs automatically in CI pipelines | — (unique: CI integration) |
+| [claude-task-master](https://github.com/eyaltoledano/claude-task-master) | tool | AI-powered task management for Cursor, Windsurf, Roo, and other editors | Need structured task breakdown and tracking across AI editors | GSD |
+| [gsd-build](https://github.com/gsd-build/get-shit-done) | framework | Standalone GSD: meta-prompting and spec-driven dev for Claude Code | Want GSD methodology without the full superpowers plugin | GSD (superpowers), feature-dev |
 
 ## MCP Servers
 
@@ -148,6 +165,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | supabase | MCP server | Supabase database and auth operations | Agent needs to interact with Supabase projects during development | prisma |
 | jira | MCP server | Jira issue tracking integration | Agent needs to read/update Jira tickets during development | — |
 | confluence | MCP server | Confluence wiki integration | Agent needs to read/write team documentation | — |
+| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | MCP server | Chrome DevTools integration for coding agents | Need agents to inspect, debug, and profile web apps in Chrome | playwright |
 
 ## Observability
 
@@ -156,6 +174,7 @@ Tools for monitoring, debugging, and understanding AI agent behavior and perform
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Open source AI engineering: evals, observability, prompt management, datasets | Can't see what agents are doing, how well they perform, or where they fail | evalview |
+| [tokencost](https://github.com/mr-beaver/tokencost) | tool | Track exactly what you spend on Claude CLI with cost optimization insights | Can't see how much agent sessions cost or where tokens are wasted | — (unique: cost tracking) |
 
 ## Research & Discovery
 
@@ -177,7 +196,9 @@ Tools for scanning agent-generated code and skills for vulnerabilities.
 |------|------|-----------|-------------------|---------------|
 | [SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | Security scanner for AI agent skills — detects vulnerabilities and malicious patterns | Downloaded skills could contain prompt injection or exfiltration | scorecard |
 | [scorecard](https://github.com/ossf/scorecard) | tool | OpenSSF security health metrics for open source projects | Can't quickly assess if a dependency or tool is maintained and secure | SkillSpector |
-| security-guidance | plugin | Security review and vulnerability detection for code | Agent-generated code may introduce security vulnerabilities | — |
+| [ghostsecurity/skills](https://github.com/ghostsecurity/skills) | skill | AppSec skills for AI coding agents — OWASP, threat modeling, secure defaults | Need security-focused skills that catch vulnerabilities during development, not just review | SkillSpector, security-guidance |
+| [agentlint](https://github.com/mauhpr/agentlint) | tool | Real-time guardrails for AI agents: 77 rules, 8 packs, inline ignores | Need runtime guardrails that prevent agents from doing dangerous things, not just scan after | SkillSpector |
+| security-guidance | plugin | Security review and vulnerability detection for code | Agent-generated code may introduce security vulnerabilities | ghostsecurity/skills |
 
 ## Reference
 
