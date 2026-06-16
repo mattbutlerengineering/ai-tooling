@@ -24,6 +24,7 @@ An opinionated, non-overlapping tool stack for AI-assisted development, organize
 | [graphify](https://github.com/safishamsi/graphify) | skill | Deep analysis of code, SQL, docs, images, videos into architecture diagrams — periodic use, not live ([eval](evaluations/code-understanding.md)) |
 | [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data ([eval](evaluations/recommended-tools.md#context7)) |
 | [reporails/cli](https://github.com/reporails/cli) | tool | Validates that instruction files aren't conflicting or malformed ([eval](evaluations/recommended-tools.md#reporailscli)) |
+| [caveman](https://github.com/JuliusBrussee/caveman) | skill | Cuts ~75% of agent output tokens while keeping full technical accuracy - makes every session cheaper and faster ([eval](evaluations/new-tools-loop1.md#caveman)) |
 
 ### What to skip at this level
 
@@ -53,6 +54,7 @@ Everything from L2, plus:
 | pr-review-toolkit | plugin | Structured review dimensions: type analysis, silent failures, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) |
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically ([eval](evaluations/recommended-tools.md#claude-reflect)) |
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time ([eval](evaluations/recommended-tools.md#langfuse)) |
+| [trailofbits/skills](https://github.com/trailofbits/skills) | plugin | Professional security audit skills from Trail of Bits - differential review, C/C++ analysis, Actions auditing ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) |
 
 ### Key feedback loops to build (not tools — infrastructure)
 
