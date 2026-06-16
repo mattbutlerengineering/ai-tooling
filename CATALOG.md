@@ -47,6 +47,12 @@ Tools for running, managing, and coordinating multiple AI agents working in para
 | [lobehub](https://github.com/lobehub/lobehub) | platform | Agent operations platform — hire, schedule, and report on 7x24 AI agent teams | Want always-on agent fleet management with scheduling and reporting | claude-squad, OpenHands |
 | [cherry-studio](https://github.com/CherryHQ/cherry-studio) | platform | AI productivity studio with smart chat, autonomous agents, and 300+ assistants | Want a unified desktop AI workspace with multi-model support | lobehub, OpenHands |
 | [dmux](https://github.com/standardagents/dmux) | tool | Dev agent multiplexer for git worktrees and coding agents | Need lightweight worktree-based agent isolation without full orchestration | worktrunk, claude-squad |
+| [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) | harness | Teams-first multi-agent orchestration for Claude Code | Need team-oriented multi-agent coordination beyond solo use | claude-squad, agent-orchestrator |
+| [CowAgent](https://github.com/zhayujie/CowAgent) | harness | Open-source super AI assistant — plans tasks, runs tools, self-evolves with memory and knowledge | Want a self-evolving agent harness with built-in memory and multi-channel support | superpowers, ralph-claude-code |
+| [nanoclaw](https://github.com/nanocoai/nanoclaw) | platform | Lightweight containerized agent runtime with WhatsApp, Telegram, Slack, Discord, Gmail integration | Need a secure container-based agent with messaging app integration | goose, OpenHands |
+| [hive](https://github.com/aden-hive/hive) | harness | Multi-agent harness for production AI | Need production-grade multi-agent orchestration | superpowers, agent-orchestrator |
+| [happy](https://github.com/slopus/happy) | platform | Mobile and web client for Codex and Claude Code with realtime voice and encryption | Want to use Claude Code from mobile/web with voice support | — (unique: mobile client) |
+| [claurst](https://github.com/Kuberwastaken/claurst) | harness | Agentic coding for builders who ship | Need a shipping-focused agent harness with minimal ceremony | superpowers, compound-engineering |
 
 ## Agent Harnesses
 
@@ -87,6 +93,7 @@ Tools for persistent memory across sessions, context compression, and learning f
 | [mem0](https://github.com/mem0ai/mem0) | MCP server | AI memory layer storing relationships between people, code, and concepts across sessions | Need structured relationship-aware memory, not just key-value persistence | claude-mem, OMEGA, SimpleMem |
 | [cognee](https://github.com/topoteretes/cognee) | platform | Open-source AI memory with self-hosted knowledge graph engine for persistent agent memory | Need structured knowledge graph memory that agents can query across sessions | claude-mem, OMEGA, SimpleMem |
 | [context-mode](https://github.com/mksglu/context-mode) | skill | Context window optimization — sandboxes tool output for 98% reduction across 15 platforms | Context window fills up with verbose tool output; need aggressive compression | headroom, caveman, token-optimizer-mcp |
+| [rtk](https://github.com/rtk-ai/rtk) | tool | CLI proxy that reduces LLM token consumption by 60-90% on common dev commands | Dev commands waste tokens on verbose output agents don't need | headroom, context-mode, caveman |
 
 ## Skills & Plugins
 
@@ -130,6 +137,19 @@ Extensions that add domain-specific capabilities to coding agents.
 | [html-anything](https://github.com/nexu-io/html-anything) | tool | Agentic HTML editor — AI writes HTML across 9 surfaces (magazine, deck, poster, etc.) | Need AI to generate publication-quality HTML for specific formats | open-design |
 | [fast-agent](https://github.com/evalstate/fast-agent) | framework | Code, build, and evaluate agents with excellent model and MCP/ACP support | Want a framework for building and evaluating custom agents | — |
 | [arrow-js](https://github.com/standardagents/arrow-js) | framework | First UI framework for the agentic era — tiny, performant, with WASM sandboxes | Need a UI framework designed for safe agent-generated code execution | — |
+| [claude-seo](https://github.com/AgriciDaniel/claude-seo) | skill | 25 SEO sub-skills + 18 sub-agents covering technical SEO, E-E-A-T, schema, GEO/AEO, and reporting | Need AI-assisted SEO analysis and optimization | — (domain-specific: SEO) |
+| [Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) | plugin | 49 AI agents and 72 workflow skills mimicking a full game dev studio hierarchy | Want a complete AI game development workflow | — (domain-specific: game dev) |
+| [gemini-skills](https://github.com/google-gemini/gemini-skills) | skill | Skills for Gemini API, SDK, and model/agent interactions | Need AI assistance with Gemini API workflows | google/skills |
+| [academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | skill | Academic research workflow: research, write, review, revise, finalize | Need structured academic writing assistance from AI agents | AI-Research-SKILLs |
+| [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) | skill | 66 specialized skills for full-stack developers | Want a focused full-stack skill set for pair programming | mattpocock/skills, alirezarezvani/claude-skills |
+| [Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | skill | 754 cybersecurity skills mapped to MITRE ATT&CK, NIST CSF, D3FEND, and ATLAS frameworks | Need comprehensive security skills aligned with industry frameworks | trailofbits/skills, ghostsecurity/skills |
+| [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) | skill | Generates polished HTML slide decks with editorial magazine and Swiss layouts | Need AI to create presentation slides, not just code | open-slide, frontend-slides |
+| [frontend-slides](https://github.com/zarazhangrui/frontend-slides) | skill | Create beautiful slides using a coding agent's frontend skills | Need web-based slide creation from AI agents | guizang-ppt-skill, open-slide |
+| [Waza](https://github.com/tw93/Waza) | skill | Engineering habits turned into skills Claude can run | Want everyday engineering practices available as agent skills | mattpocock/skills, agent-skills |
+| [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | skill | Secure, validated skill registry for professional AI coding agents | Need security-validated skills with confidence guarantees | SkillSpector, antigravity-awesome-skills |
+| [formkit](https://github.com/formkit/formkit) | framework | The form framework for coding agents | Need agent-optimized form building and validation | — (domain-specific: forms) |
+| [googleworkspace/cli](https://github.com/googleworkspace/cli) | tool | Google Workspace CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, and Admin with AI agent skills | Need agents to interact with Google Workspace services via CLI | google/skills |
+| [code-review-graph](https://github.com/tirth8205/code-review-graph) | tool | Local-first code intelligence graph for MCP and CLI with benchmarked context reduction | Need a persistent codebase map so AI tools read only what matters | codegraph, graphify |
 
 ## Code Review & Quality
 
@@ -166,6 +186,9 @@ Tools for git management, planning, project orchestration, and development proce
 | [claude-task-master](https://github.com/eyaltoledano/claude-task-master) | tool | AI-powered task management for Cursor, Windsurf, Roo, and other editors | Need structured task breakdown and tracking across AI editors | GSD |
 | [gsd-build](https://github.com/gsd-build/get-shit-done) | framework | Standalone GSD: meta-prompting and spec-driven dev for Claude Code | Want GSD methodology without the full superpowers plugin | GSD (superpowers), feature-dev |
 | [docmd](https://github.com/docmd-io/docmd) | tool | Markdown-to-docs-site generator with MCP server and llms.txt for AI-native documentation | Need to publish docs that agents can also query programmatically | — (unique: AI-native docs site) |
+| [claude-code-templates](https://github.com/davila7/claude-code-templates) | tool | CLI tool for configuring and monitoring Claude Code sessions | Need structured configuration and monitoring for Claude Code | ccstatusline, claude-hud |
+| [claude-hud](https://github.com/jarrodwatts/claude-hud) | plugin | Shows context usage, active tools, running agents, and todo progress in Claude Code | Can't see what's happening inside Claude Code sessions — context, tools, agents | ccstatusline, claude-code-templates |
+| [ccstatusline](https://github.com/sirmalloc/ccstatusline) | plugin | Beautiful customizable statusline for Claude Code CLI with powerline and themes | Want a richer status display for Claude Code sessions | claude-hud, claude-code-templates |
 | [agent-rules-books](https://github.com/ciembor/agent-rules-books) | skill | 13 classic engineering books distilled into CLAUDE.md rule sets with tiered token budgets | Want canonical software engineering principles (DDD, Clean Architecture, DDIA) as agent rules | mattpocock/skills, andrej-karpathy-skills |
 
 ## MCP Servers
@@ -253,3 +276,10 @@ Curated lists, glossaries, and system prompt collections for learning and discov
 | [awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills) | reference | 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry | Need the broadest possible skills discovery across the ecosystem | awesome-agent-skills, antigravity-awesome-skills |
 | [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | reference | 1,500+ installable agentic skills with CLI installer and bundles | Need bulk-installable skill collections with workflow bundles | awesome-agent-skills, awesome-openclaw-skills |
 | [tolaria](https://github.com/refactoringhq/tolaria) | tool | Desktop app to manage markdown knowledge bases | Need a visual editor for CLAUDE.md, skills, and documentation files | — |
+| [claude-howto](https://github.com/luongnv89/claude-howto) | reference | Visual, example-driven guide to Claude Code from basics to advanced agents | Need a structured learning path for Claude Code with copy-paste templates | claude-code-tips, learn-claude-code |
+| [claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | reference | From vibe coding to agentic engineering — comprehensive best practices guide | Want proven patterns for getting the most out of Claude Code | claude-howto, claude-code-tips |
+| [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) | reference | Build a Claude Code-like agent harness from scratch — educational deep dive | Want to understand how agent harnesses work by building one | claude-howto, claude-code-system-prompts |
+| [claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts) | reference | All parts of Claude Code's system prompt, 27 tool descriptions, sub-agent prompts | Want to understand Claude Code's internal architecture and prompts | system-prompts-and-models, learn-claude-code |
+| [claude-code-tips](https://github.com/ykdojo/claude-code-tips) | reference | 43 tips for getting the most out of Claude Code with status line script and container setup | Need practical tips and tricks for Claude Code power users | claude-code-best-practice, claude-howto |
+| [awesome-agent-skills (libukai)](https://github.com/libukai/awesome-agent-skills) | reference | Agent Skills ultimate guide with quick start, resources, and curated tools | Need a comprehensive Chinese-language guide to the skills ecosystem | awesome-agent-skills (VoltAgent) |
+| [awesome-codex-skills](https://github.com/ComposioHQ/awesome-codex-skills) | reference | Curated list of practical Codex skills for automating workflows | Need a catalog of Codex-specific skills to evaluate | awesome-claude-skills, awesome-agent-skills |

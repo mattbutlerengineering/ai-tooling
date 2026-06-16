@@ -10,7 +10,7 @@ Uses the ACMM (AI Codebase Maturity Model) as a lens for evaluating which tools 
 
 ## Structure
 
-- `CATALOG.md` — flat inventory of 149 tools, organized by 13 categories with overlap markers
+- `CATALOG.md` — flat inventory of 179 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — recommended tool stack per ACMM level (L2-L6) with daily practice guide
 - `evaluations/` — 16 evidence-based evaluation files covering every recommended tool
 - `skills/` — source skills for reference
