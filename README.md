@@ -1,8 +1,8 @@
 # ai-tooling
 
-Inventory and evaluation of AI tools, skills, agents, frameworks, harnesses, and workflows for building an ideal AI-assisted development setup.
+An operating manual for AI-assisted development that produces high-quality code — and keeps getting better.
 
-Uses the [ACMM (AI Codebase Maturity Model)](https://arxiv.org/abs/2604.09388) as a framework for evaluating which tools matter at each maturity level.
+Evaluates tools against five quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency) across the dev loop stages where they intervene.
 
 ## Install
 
@@ -13,36 +13,42 @@ claude plugins:add-marketplace https://github.com/mattbutlerengineering/ai-tooli
 claude plugins:install ai-tooling
 ```
 
-This gives you four skills:
+This gives you five skills:
 
 - `/setup-workflow` — bootstrap the recommended AI workflow in any repo
-- `/evaluate-tool` — evaluate a new tool before adopting it (checks overlap, ACMM fit)
+- `/evaluate-tool` — evaluate a new tool before adopting it (checks stage fit, quality signals, overlap)
 - `/audit-workflow` — audit your current setup against the recommended workflow
 - `/update-catalog` — sync the catalog with current GitHub stars and local installs
 - `/sync-stars` — find starred repos not in CATALOG.md and generate ready-to-paste entries
 
 ## Contents
 
+- [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
 - [CATALOG.md](CATALOG.md) — flat inventory of every tool with definitions, problem statements, and overlap markers
-- [WORKFLOW.md](WORKFLOW.md) — recommended tool stack per ACMM level, with exclusions and rationale
-- [evaluations/](evaluations/) — 16 evidence-based evaluations covering every recommended tool:
+- [evaluations/](evaluations/) — evidence-based evaluations covering every recommended tool:
   - [Code Understanding](evaluations/code-understanding.md) — codegraph + graphify > Understand-Anything > repomix
   - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
   - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
   - [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
-  - [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for 15 tools with no direct competitor
-  - [Composio](evaluations/composio.md) — CONDITIONAL: skip below L4
-  - [mem0 vs claude-mem](evaluations/mem0-vs-claude-mem.md) — keep claude-mem unless multi-tool or scale needs emerge
-  - [New Tools (Loop 1)](evaluations/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
-  - [New Tools (Loop 2)](evaluations/new-tools-loop2.md) — claude-code-action, shadcn/improve, design-council
-  - [New Tools (Loop 3)](evaluations/new-tools-loop3.md) — CLI-Anything, chrome-devtools-mcp, claude-subconscious, tokencost
-  - [New Tools (Loop 4)](evaluations/new-tools-loop4.md) — Fabric, claude-task-master, scorecard, SimpleMem
-  - [New Tools (Loop 5)](evaluations/new-tools-loop5.md) — andrej-karpathy-skills, autoresearch, google/skills, impeccable
-  - [New Tools (Loop 6)](evaluations/new-tools-loop6.md) — opencode, dify, goose, agentskills
-  - [New Tools (Loop 7)](evaluations/new-tools-loop7.md) — docmd, agent-rules-books, ralph-claude-code, ghostsecurity/skills
-  - [New Tools (Loop 8)](evaluations/new-tools-loop8.md) — last30days-skill, Agent-Reach, llm-council
-  - [New Tools (Loop 9)](evaluations/new-tools-loop9.md) — context-mode, planning-with-files, cognee, ponytail
+  - [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for tools with no direct competitor
+  - [New Tool Evaluations](evaluations/) — 9 loops of catalog scan evaluations
 
 ## Quick Start
 
-After installing, run `/setup-workflow` in any repo to bootstrap the recommended workflow. It creates a CLAUDE.md with quality-producing rules, checks your global tool installation, and identifies gaps for your target ACMM level.
+After installing, run `/setup-workflow` in any repo to bootstrap the recommended workflow. It creates a CLAUDE.md with quality-producing rules, checks your global tool installation, and identifies gaps.
+
+## The Workflow
+
+Two loops, three layers, five signals.
+
+**Inner loop** (single task): Plan → Implement → Verify → Review → Ship, with Reflect as the feedback arc.
+
+**Outer loop** (epic/project): Discover → Architect → Decompose → [inner loop per task] → Integrate → Retrospect.
+
+**Three layers** per stage: Process (what you do), Tooling (what automates it), Infrastructure (what measures it) — connected by feedback arcs that close the loop.
+
+**Five quality signals**: Correctness, Speed, Maintainability, Safety, Cost Efficiency. Every tool is justified by which signals it moves.
+
+**Adopt in layers**: Start with process (skills, conventions, TDD). Add infrastructure when you want data. Add orchestration when you want autonomy.
+
+See [WORKFLOW.md](WORKFLOW.md) for the full operating manual.

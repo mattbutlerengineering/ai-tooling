@@ -4,15 +4,15 @@ Documentation-only repo. No build, test, or deploy commands.
 
 ## Purpose
 
-Inventory and evaluation of AI tools, skills, agents, frameworks, harnesses, workflows, and MCP servers. The goal is to see everything at a glance, spot redundancy across tools that solve the same problem, and converge on an ideal AI-assisted dev workflow.
+An operating manual for AI-assisted development that produces high-quality code and keeps improving. Inventory and evaluation of AI tools, skills, agents, frameworks, harnesses, workflows, and MCP servers — organized around the dev loop stages where tools intervene and the quality signals they move.
 
-Uses the ACMM (AI Codebase Maturity Model) as a lens for evaluating which tools matter at each maturity level — the right tool stack depends on what feedback loops exist in a codebase, not on how many tools are installed.
+Evaluates tools against five quality signals: Correctness, Speed, Maintainability, Safety, and Cost Efficiency. The workflow has three layers per stage (process, tooling, infrastructure) connected by feedback arcs that make each cycle better than the last.
 
 ## Structure
 
-- `CATALOG.md` — flat inventory of 180 tools, organized by 13 categories with overlap markers
-- `WORKFLOW.md` — recommended tool stack per ACMM level (L2-L6) with daily practice guide
-- `evaluations/` — 16 evidence-based evaluation files covering every recommended tool
+- `CATALOG.md` — flat inventory of 183 tools, organized by 13 categories with overlap markers
+- `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
+- `evaluations/` — evidence-based evaluation files covering every recommended tool
 - `skills/` — source skills for reference
 - `plugin/` — installable Claude Code marketplace package (skills, docs, hooks)
 - `README.md` — repo overview with install instructions
@@ -43,7 +43,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 ## Skills
 
 - `skills/setup-workflow/` — bootstrap the workflow in any repo
-- `skills/evaluate-tool/` — evaluate a new tool against catalog and ACMM fit
+- `skills/evaluate-tool/` — evaluate a new tool against catalog, dev loop stage, and quality signals
 - `skills/audit-workflow/` — audit installed tools against recommended stack
 - `skills/update-catalog/` — sync catalog with GitHub stars and local installs
 - `skills/sync-stars/` — find starred repos not in CATALOG.md and generate entries

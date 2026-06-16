@@ -24,6 +24,7 @@ Tools that help you visualize, navigate, and comprehend codebases before or duri
 | [codegraph](https://github.com/colbymchenry/codegraph) | tool | Pre-indexed code knowledge graph that auto-syncs on changes | Agents lack structural awareness of the codebase they're working in | Understand-Anything, graphify |
 | [graphify](https://github.com/safishamsi/graphify) | skill | Turns code, SQL, docs, images, or videos into queryable knowledge graphs | Need to convert diverse artifacts (not just code) into navigable structure | Understand-Anything, codegraph |
 | [repomix](https://github.com/yamadashy/repomix) | tool | Packs entire repo into a single AI-friendly file | Need to feed a full codebase to an LLM that doesn't have file access | — (different approach: serialization vs. graph) |
+| [code-review-graph](https://github.com/tirth8205/code-review-graph) | tool | Local-first code intelligence graph with blast-radius analysis for reviews | Agents read too many files during review; need to know exactly what a change affects | codegraph, graphify |
 
 ## Agent Orchestration
 
@@ -69,6 +70,7 @@ Frameworks that structure, enhance, or optimize how a single coding agent operat
 | [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | harness | Audit-grade multi-agent orchestration with HMAC-chained audit log and signed agent cards | Need compliance-ready agent orchestration with tamper-proof logs | superpowers, ruflo |
 | [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) | plugin | Compound engineering plugin for Claude Code, Codex, Cursor, and more | Want a unified engineering methodology that works across multiple AI editors | superpowers, gstack |
 | [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | harness | Autonomous AI development loop with intelligent exit detection | Want Claude Code to run autonomously with self-termination when work is done | superpowers, ruflo |
+| [deer-flow](https://github.com/bytedance/deer-flow) | harness | ByteDance's long-horizon agent harness for tasks spanning minutes to hours | Need autonomous agent work beyond single-session scope with sandboxes and memory | ralph-claude-code, GSD |
 | [agency-agents](https://github.com/msitarzewski/agency-agents) | harness | Complete AI agency with specialized expert agents (frontend, marketing, QA, etc.) | Want a pre-built team of domain experts rather than configuring individual skills | gstack, harness |
 | [Fabric](https://github.com/danielmiessler/Fabric) | framework | Modular AI framework with crowdsourced prompt patterns | Want reusable AI patterns (extract, summarize, analyze) as composable modules | superpowers |
 | [claude-code-staff-engineer](https://github.com/FareedKhan-dev/claude-code-staff-engineer) | harness | Staff engineer with sub-agent teams in Claude Code | Want hierarchical agent teams with a lead engineer coordinating specialists | gstack, agency-agents |
@@ -160,6 +162,7 @@ Tools for automated code review, quality checks, and codebase improvement.
 | code-review | plugin | Multi-agent code review with confidence-based scoring | Need automated review that catches real issues, not noise | pr-review-toolkit, shadcn/improve |
 | pr-review-toolkit | plugin | PR review utilities: type analysis, silent failure hunting, test coverage, comment analysis | Need structured review dimensions beyond just "looks good" | code-review |
 | [shadcn/improve](https://github.com/shadcn/improve) | tool | Use the most capable model to audit codebase, write plans for cheaper models to execute | Want high-quality codebase audits without burning expensive model tokens on execution | code-review |
+| [stryker-js](https://github.com/stryker-mutator/stryker-js) | tool | Mutation testing for JS/TS — tests whether your tests actually catch bugs | Coverage says "tests exist" but not "tests are good"; mutation testing reveals weak test suites | — (unique: test quality verification) |
 
 ## Maturity Frameworks
 
@@ -229,6 +232,7 @@ Tools for monitoring, debugging, and understanding AI agent behavior and perform
 |------|------|-----------|-------------------|---------------|
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Open source AI engineering: evals, observability, prompt management, datasets | Can't see what agents are doing, how well they perform, or where they fail | evalview |
 | [tokencost](https://github.com/mr-beaver/tokencost) | tool | Track exactly what you spend on Claude CLI with cost optimization insights | Can't see how much agent sessions cost or where tokens are wasted | — (unique: cost tracking) |
+| [Apache DevLake](https://github.com/apache/incubator-devlake) | platform | Open-source dev data platform: DORA metrics, engineering throughput, Grafana dashboards | Can't measure delivery performance (PR rates, lead time, MTTR) without building custom scripts | langfuse (complementary: DevLake = delivery metrics, langfuse = LLM behavior) |
 
 ## Research & Discovery
 
