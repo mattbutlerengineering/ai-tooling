@@ -22,8 +22,8 @@ An opinionated, non-overlapping tool stack for AI-assisted development, organize
 | [mattpocock/skills](https://github.com/mattpocock/skills) | skill | Battle-tested engineering conventions from a working dev |
 | [codegraph](https://github.com/colbymchenry/codegraph) | MCP server | Always-on code knowledge graph that auto-syncs on changes — 58% fewer tool calls, 16% cheaper ([eval](evaluations/code-understanding.md)) |
 | [graphify](https://github.com/safishamsi/graphify) | skill | Deep analysis of code, SQL, docs, images, videos into architecture diagrams — periodic use, not live ([eval](evaluations/code-understanding.md)) |
-| [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data |
-| [reporails/cli](https://github.com/reporails/cli) | tool | Validates that instruction files aren't conflicting or malformed |
+| [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data ([eval](evaluations/recommended-tools.md#context7)) |
+| [reporails/cli](https://github.com/reporails/cli) | tool | Validates that instruction files aren't conflicting or malformed ([eval](evaluations/recommended-tools.md#reporailscli)) |
 
 ### What to skip at this level
 
@@ -49,10 +49,10 @@ Everything from L2, plus:
 |------|------|-----|
 | [superpowers](https://github.com/obra/superpowers) | plugin | TDD workflow, systematic debugging, verification-before-completion — only harness with auto-triggering ([eval](evaluations/agent-harnesses.md)) |
 | [agent-skills](https://github.com/addyosmani/agent-skills) | skill | Lifecycle structure (plan → implement → verify) that mattpocock/skills doesn't cover ([eval](evaluations/skills-collections.md)) |
-| code-review plugin | plugin | Multi-agent code review with confidence-based scoring |
-| pr-review-toolkit | plugin | Structured review dimensions: type analysis, silent failures, test coverage |
-| [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically |
-| [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time |
+| code-review plugin | plugin | Multi-agent code review with confidence-based scoring ([eval](evaluations/recommended-tools.md#code-review-plugin-anthropic)) |
+| pr-review-toolkit | plugin | Structured review dimensions: type analysis, silent failures, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) |
+| [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically ([eval](evaluations/recommended-tools.md#claude-reflect)) |
+| [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time ([eval](evaluations/recommended-tools.md#langfuse)) |
 
 ### Key feedback loops to build (not tools — infrastructure)
 
@@ -83,10 +83,10 @@ Everything from L3, plus:
 | Tool | Type | Why |
 |------|------|-----|
 | [claude-mem](https://github.com/thedotmack/claude-mem) | plugin | Persistent memory with semantic search, timeline views, observation-based capture — best-validated option ([eval](evaluations/memory-systems.md)) |
-| [headroom](https://github.com/chopratejas/headroom) | tool | Context compression (60-95% fewer tokens) — longer sessions mean more complex autonomous work |
-| [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts |
-| GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks |
-| feature-dev | plugin | Structured feature development: planning → implementation → verification |
+| [headroom](https://github.com/chopratejas/headroom) | tool | Context compression (60-95% fewer tokens) — longer sessions mean more complex autonomous work ([eval](evaluations/recommended-tools.md#headroom)) |
+| [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
+| GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
+| feature-dev | plugin | Structured feature development: planning → implementation → verification ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
 
 ### Why claude-mem over alternatives ([full evaluation](evaluations/memory-systems.md))
 
@@ -118,9 +118,9 @@ Everything from L4, plus:
 
 | Tool | Type | Why |
 |------|------|-----|
-| [claude-squad](https://github.com/smtg-ai/claude-squad) | tool | Manage multiple parallel agent sessions — the system now runs enough concurrent work to need this |
-| [plannotator](https://github.com/backnotprop/plannotator) | tool | Visual review of agent plans and diffs — you're reviewing proposals, not writing code |
-| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | Security scanning for any new skills the system proposes to install |
+| [claude-squad](https://github.com/smtg-ai/claude-squad) | tool | Manage multiple parallel agent sessions — the system now runs enough concurrent work to need this ([eval](evaluations/recommended-tools.md#claude-squad)) |
+| [plannotator](https://github.com/backnotprop/plannotator) | tool | Visual review of agent plans and diffs — you're reviewing proposals, not writing code ([eval](evaluations/recommended-tools.md#plannotator)) |
+| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | Security scanning for any new skills the system proposes to install ([eval](evaluations/recommended-tools.md#skillspector)) |
 
 ### What to skip at this level
 
@@ -142,8 +142,8 @@ Everything from L5, plus:
 
 | Tool | Type | Why |
 |------|------|-----|
-| [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | harness | Audit-grade orchestration with tamper-proof logs — compliance for autonomous merges |
-| [beads](https://github.com/gastownhall/beads) | tool | Work ledger so agents claim tasks and don't duplicate effort |
+| [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | harness | Audit-grade orchestration with tamper-proof logs — compliance for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
+| [beads](https://github.com/gastownhall/beads) | tool | Work ledger so agents claim tasks and don't duplicate effort ([eval](evaluations/recommended-tools.md#beads)) |
 | Push notification infrastructure | infra | ntfy, Slack, Discord — humans get notified for strategic decisions only |
 
 ### What this level requires beyond tools
@@ -207,16 +207,41 @@ How to actually use these tools together, not just have them installed.
 2. **Review PR acceptance rates** (L3+) — which categories get merged vs. closed? Data drives the next tuning cycle.
 3. **Flaky test analysis** (L3+) — a flaky test in an autonomous workflow randomly blocks good PRs and passes bad ones. Fix or delete.
 
-### Continuous improvement loop
+### Continuous improvement — what actually happens
 
-The workflow improves itself through these mechanisms:
+**Automatic (built into the plugin):**
+
+The ai-tooling plugin runs a SessionStart hook on every session that:
+1. Checks if any evaluation file is >30 days old → surfaces a prompt to run `/update-catalog`
+2. Checks for new GitHub stars not in the catalog → surfaces a prompt to run `/update-catalog`
+3. Stays silent if everything is current
+
+This means stale recommendations and new tools don't go unnoticed — the plugin tells you when the workflow needs attention.
+
+**Manual (you run these):**
+
+| Action | Trigger | What it does |
+|--------|---------|-------------|
+| `/audit-workflow` | Weekly or after installing new tools | Compares installed tools against recommended stack, flags redundancies and anti-patterns |
+| `/update-catalog` | When hook flags stale evals or new stars | Syncs catalog with current GitHub stars and local installs |
+| `/evaluate-tool` | Before adopting any new tool | Checks overlap, ACMM fit, and whether it justifies a slot |
+
+**Per-session (via other recommended tools):**
+
+| Mechanism | Tool | What it does |
+|-----------|------|-------------|
+| Correction capture | claude-reflect (L3) | Captures mistakes and preferences → syncs to CLAUDE.md → fewer repeated errors |
+| Code review | code-review + pr-review-toolkit (L3) | Multi-agent review catches issues before commit → quality improves per session |
+| TDD enforcement | superpowers (L3) | Forces test-first workflow → coverage stays high without manual discipline |
+
+**Infrastructure you build (not installable tools):**
 
 | Mechanism | Level | What it does |
 |-----------|-------|-------------|
-| claude-reflect | L3 | Captures corrections → updates CLAUDE.md → fewer repeated mistakes |
-| PR acceptance tracking | L3 | Reveals which AI work categories succeed vs. fail → focus investment |
-| Flaky test detection | L3 | Identifies unreliable tests → improves CI trustworthiness |
-| Self-tuning weights | L4 | Automatically adjusts priority based on acceptance rates → less manual config |
+| Coverage gating in CI | L3 | Rejects PRs below threshold → coverage never regresses |
+| PR acceptance rate tracking | L3 | Logs merged vs. closed by category → reveals what AI does well vs. poorly |
+| Flaky test detection | L3 | Weekly analysis → removes non-determinism that corrupts autonomous workflows |
+| Self-tuning weights | L4 | Adjusts category priorities based on acceptance rates → less manual config |
 | Self-improvement analysis | L5 | System analyzes its own merged PRs → updates its own guidance |
 
 The key insight from ACMM: the intelligence lives in the infrastructure (tests, metrics, feedback loops), not in the AI model. A better model with no tests is worse than a mediocre model with 91% coverage and acceptance rate tracking.
@@ -253,7 +278,19 @@ The global tools (plugins, MCP servers, skills) are installed once in `~/.claude
 
 All recommendations are backed by evidence. See the full evaluations:
 
+**Overlap groups** (compared competitors, picked a winner):
 - [Code Understanding](evaluations/code-understanding.md) — graphify + codegraph (complementary), skip Understand-Anything
 - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers (only TDD enforcer), skip gstack/ECC/ruflo
 - [Memory Systems](evaluations/memory-systems.md) — claude-mem (best validated), skip OMEGA
 - [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills, skip everything-claude-code
+
+**Individual tools** (justified their slot, no direct competitor):
+- [Recommended Tools](evaluations/recommended-tools.md) — 15 tools evaluated: 10 KEEP, 5 CONDITIONAL
+
+## Continuous improvement
+
+The plugin includes a SessionStart hook (`plugin/hooks/check-freshness.sh`) that runs on every session:
+- Checks if any evaluation file is >30 days old
+- Checks for new GitHub stars not in the catalog
+- Outputs a prompt to run `/update-catalog` if anything is stale
+- Outputs nothing if everything is current (suppressed)

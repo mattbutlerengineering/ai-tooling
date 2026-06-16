@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# ai-tooling session-start hook
+# Checks for stale evaluations and new untracked GitHub stars.
+# Output is injected into the session as context.
+
+set -euo pipefail
+
+PLUGIN_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DOCS_DIR="${PLUGIN_ROOT}/docs"
+EVALS_DIR="${DOCS_DIR}/evaluations"
+CATALOG="${DOCS_DIR}/CATALOG.md"
+
+warnings=()
+
+# 1. Check evaluation freshness (>30 days = stale)
+if [ -d "$EVALS_DIR" ]; then
+  now=$(date +%s)
+  for eval_file in "$EVALS_DIR"/*.md; do
+    [ -f "$eval_file" ] || continue
+    file_mod=$(stat -f %m "$eval_file" 2>/dev/null || stat -c %Y "$eval_file" 2>/dev/null || echo 0)
+    age_days=$(( (now - file_mod) / 86400 ))
+    if [ "$age_days" -gt 30 ]; then
+      basename=$(basename "$eval_file" .md)
+      warnings+=("Evaluation '${basename}' is ${age_days} days old. Run /update-catalog to refresh.")
+    fi
+  done
+fi
+
+# 2. Check for new GitHub stars not in catalog
+if command -v gh &>/dev/null && [ -f "$CATALOG" ]; then
+  new_stars=()
+  while IFS= read -r repo; do
+    repo_name=$(echo "$repo" | awk -F/ '{print $2}')
+    if ! grep -qi "$repo_name" "$CATALOG" 2>/dev/null; then
+      new_stars+=("$repo")
+    fi
+  done < <(gh api user/starred --paginate --jq '.[].full_name' 2>/dev/null | head -100)
+
+  if [ ${#new_stars[@]} -gt 0 ]; then
+    star_list=$(printf ", %s" "${new_stars[@]}")
+    warnings+=("${#new_stars[@]} new GitHub star(s) not in catalog: ${star_list:2}. Run /update-catalog to add them.")
+  fi
+fi
+
+# 3. Output
+if [ ${#warnings[@]} -gt 0 ]; then
+  echo "# ai-tooling: workflow maintenance"
+  for w in "${warnings[@]}"; do
+    echo "- $w"
+  done
+else
+  echo '{"continue":true,"suppressOutput":true}'
+fi

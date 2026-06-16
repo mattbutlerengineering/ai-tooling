@@ -17,3 +17,10 @@ The plugin includes reference documents under `docs/`:
 - `evaluations/` — evidence-based comparisons for each tool overlap group
 
 Skills reference these docs via `${CLAUDE_PLUGIN_ROOT}/docs/` paths.
+
+## Hooks
+
+A SessionStart hook runs on every session:
+- Checks if any evaluation file is >30 days old → prompts to run `/update-catalog`
+- Checks for new GitHub stars not in the catalog → prompts to run `/update-catalog`
+- Outputs nothing if everything is current (suppressed)
