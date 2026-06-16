@@ -78,6 +78,7 @@ Tools for persistent memory across sessions, context compression, and learning f
 | [headroom](https://github.com/chopratejas/headroom) | tool | Compresses tool outputs, logs, and files before they reach the LLM (60-95% fewer tokens) | Context window fills up too fast with verbose tool output | token-optimizer-mcp |
 | [SimpleMem](https://github.com/aiming-lab/SimpleMem) | tool | Efficient lifelong memory for LLM agents (text and multimodal) | Need lightweight memory with multimodal support and academic backing | claude-mem, OMEGA, agentmemory |
 | [claude-subconscious](https://github.com/letta-ai/claude-subconscious) | plugin | Give Claude Code a subconscious — persistent state across sessions | Want transparent persistent state without explicit memory commands | claude-mem, OMEGA |
+| [mem0](https://github.com/mem0ai/mem0) | MCP server | AI memory layer storing relationships between people, code, and concepts across sessions | Need structured relationship-aware memory, not just key-value persistence | claude-mem, OMEGA, SimpleMem |
 
 ## Skills & Plugins
 
@@ -99,6 +100,7 @@ Extensions that add domain-specific capabilities to coding agents.
 | [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | skill | CLAUDE.md based on Karpathy's LLM coding pitfall observations | Want coding guidelines derived from known LLM failure modes | mattpocock/skills, agent-skills |
 | [excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill) | skill | Generates Excalidraw diagrams from Claude Code | Need agents to create visual architecture diagrams, not just code | graphify |
 | [google/skills](https://github.com/google/skills) | skill | Agent skills for Google products and technologies | Need AI assistance with Google Cloud, Workspace, Firebase workflows | — (domain-specific) |
+| [Composio](https://github.com/ComposioHQ/composio) | plugin | Cross-app workflow integration - connect Claude Code to Linear, Figma, GitHub, Sentry, Slack | Need agents to trigger actions across external tools in one workflow | — (unique: workflow integration layer) |
 | skill-creator | plugin | Create, document, and publish Claude Code skills | Need to author custom skills efficiently | plugin-dev plugin |
 | plugin-dev | plugin | Plugin development framework with agent, command, and hook support | Need to build Claude Code plugins | skill-creator |
 
