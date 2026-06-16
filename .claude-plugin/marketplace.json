@@ -1,0 +1,19 @@
+{
+  "name": "ai-tooling",
+  "owner": {
+    "name": "Matt Butler",
+    "email": "mattwbutler@gmail.com"
+  },
+  "metadata": {
+    "description": "ACMM-based AI workflow toolkit — evaluate tools, adopt an optimal workflow, and continuously improve",
+    "homepage": "https://github.com/mattbutlerengineering/ai-tooling"
+  },
+  "plugins": [
+    {
+      "name": "ai-tooling",
+      "version": "1.0.0",
+      "source": "./plugin",
+      "description": "ACMM-based AI workflow toolkit with evaluations, recommended tool stack, and skills for setup, audit, and tool evaluation"
+    }
+  ]
+}
