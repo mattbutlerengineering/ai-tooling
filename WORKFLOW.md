@@ -19,7 +19,7 @@ An opinionated, non-overlapping tool stack for AI-assisted development, organize
 | Tool | Type | Why |
 |------|------|-----|
 | CLAUDE.md + rules/ | built-in | Encode conventions, coding style, commit format, security checks |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | skill | Battle-tested engineering conventions from a working dev |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | skill | Battle-tested engineering conventions from a working dev ([eval](evaluations/skills-collections.md)) |
 | [codegraph](https://github.com/colbymchenry/codegraph) | MCP server | Always-on code knowledge graph that auto-syncs on changes — 58% fewer tool calls, 16% cheaper ([eval](evaluations/code-understanding.md)) |
 | [graphify](https://github.com/safishamsi/graphify) | skill | Deep analysis of code, SQL, docs, images, videos into architecture diagrams — periodic use, not live ([eval](evaluations/code-understanding.md)) |
 | [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data ([eval](evaluations/recommended-tools.md#context7)) |

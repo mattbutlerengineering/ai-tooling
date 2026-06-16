@@ -93,7 +93,10 @@ Extensions that add domain-specific capabilities to coding agents.
 | [marketingskills](https://github.com/coreyhaines31/marketingskills) | skill | Marketing skills: CRO, copywriting, SEO, analytics, growth engineering | Need AI assistance with marketing tasks | — (domain-specific) |
 | [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | skill | Design intelligence for professional UI/UX across platforms | AI generates ugly or generic UIs without design guidance | impeccable, frontend-design plugin |
 | [taste-skill](https://github.com/Leonxlnx/taste-skill) | skill | Prevents AI from generating boring, generic output — gives AI good taste | AI output reads as bland, cookie-cutter slop | stop-slop |
-| [stop-slop](https://github.com/hardikpandya/stop-slop) | skill | Removes AI tells from prose (filler words, hedging, corporate speak) | AI-written text is obviously AI-written | taste-skill |
+| [stop-slop](https://github.com/hardikpandya/stop-slop) | skill | Removes AI tells from prose (filler words, hedging, corporate speak) | AI-written text is obviously AI-written | taste-skill, humanizer |
+| [caveman](https://github.com/JuliusBrussee/caveman) | skill | Ultra-compressed communication that cuts 65% of tokens by dropping filler | Context window fills up with verbose agent responses; need token efficiency | headroom, token-optimizer-mcp |
+| [humanizer](https://github.com/blader/humanizer) | skill | Removes signs of AI-generated writing from text | AI output reads as obviously machine-generated | taste-skill, stop-slop |
+| [book-to-skill](https://github.com/virgiliojr94/book-to-skill) | skill | Turn any technical book PDF into a Claude Code skill for reference while working | Want domain knowledge from a book available as agent context without manual extraction | — (unique: book → skill converter) |
 | [impeccable](https://github.com/pbakaus/impeccable) | skill | Design language that makes AI better at visual design | AI struggles with aesthetics and design consistency | ui-ux-pro-max, frontend-design plugin |
 | [open-slide](https://github.com/1weiho/open-slide) | tool | Slide framework built for AI agents | Need agents to create presentations, not just code | — |
 | [design-council](https://github.com/sjsyrek/design-council) | plugin | 11 role-specialized peer agents debate technical decisions | Want multiple perspectives (security, perf, UX, etc.) on architecture choices | — (unique: adversarial design review) |
@@ -200,6 +203,7 @@ Tools for scanning agent-generated code and skills for vulnerabilities.
 | [scorecard](https://github.com/ossf/scorecard) | tool | OpenSSF security health metrics for open source projects | Can't quickly assess if a dependency or tool is maintained and secure | SkillSpector |
 | [ghostsecurity/skills](https://github.com/ghostsecurity/skills) | skill | AppSec skills for AI coding agents — OWASP, threat modeling, secure defaults | Need security-focused skills that catch vulnerabilities during development, not just review | SkillSpector, security-guidance |
 | [agentlint](https://github.com/mauhpr/agentlint) | tool | Real-time guardrails for AI agents: 77 rules, 8 packs, inline ignores | Need runtime guardrails that prevent agents from doing dangerous things, not just scan after | SkillSpector |
+| [trailofbits/skills](https://github.com/trailofbits/skills) | skill | Trail of Bits security research skills for vulnerability detection and audit workflows | Need professional-grade security analysis from a top security firm's methodology | ghostsecurity/skills, SkillSpector |
 | security-guidance | plugin | Security review and vulnerability detection for code | Agent-generated code may introduce security vulnerabilities | ghostsecurity/skills |
 
 ## Reference
