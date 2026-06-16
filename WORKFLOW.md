@@ -91,6 +91,7 @@ Everything from L3, plus:
 | [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
 | GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | feature-dev | plugin | Structured feature development: planning → implementation → verification ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
+| [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | harness | Unattended autonomous dev loop with intelligent exit detection, rate limiting, and Docker sandboxing ([eval](evaluations/new-tools-loop7.md#ralph-claude-code)) |
 
 ### Why claude-mem over alternatives ([full evaluation](evaluations/memory-systems.md))
 
