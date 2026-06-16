@@ -56,6 +56,7 @@ Everything from L2, plus:
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time ([eval](evaluations/recommended-tools.md#langfuse)) |
 | [trailofbits/skills](https://github.com/trailofbits/skills) | plugin | Professional security audit skills from Trail of Bits - differential review, C/C++ analysis, Actions auditing ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) |
 | [claude-code-action](https://github.com/anthropics/claude-code-action) | tool | GitHub-native AI — `@claude` in PRs/issues triggers async review, fixes, and automation ([eval](evaluations/new-tools-loop2.md#claude-code-action)) |
+| [context-mode](https://github.com/mksglu/context-mode) | MCP server | Proactive context sandboxing — intercepts tool output at the MCP layer for 98% reduction ([eval](evaluations/new-tools-loop9.md#context-mode)) |
 
 ### Key feedback loops to build (not tools — infrastructure)
 
