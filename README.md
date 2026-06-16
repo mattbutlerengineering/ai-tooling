@@ -24,7 +24,7 @@ This gives you four skills:
 
 - [CATALOG.md](CATALOG.md) — flat inventory of every tool with definitions, problem statements, and overlap markers
 - [WORKFLOW.md](WORKFLOW.md) — recommended tool stack per ACMM level, with exclusions and rationale
-- [evaluations/](evaluations/) — 10 evidence-based evaluations covering every recommended tool:
+- [evaluations/](evaluations/) — 11 evidence-based evaluations covering every recommended tool:
   - [Code Understanding](evaluations/code-understanding.md) — codegraph + graphify > Understand-Anything > repomix
   - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
   - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
@@ -35,6 +35,7 @@ This gives you four skills:
   - [New Tools (Loop 1)](evaluations/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
   - [New Tools (Loop 2)](evaluations/new-tools-loop2.md) — claude-code-action, shadcn/improve, design-council
   - [New Tools (Loop 3)](evaluations/new-tools-loop3.md) — CLI-Anything, chrome-devtools-mcp, claude-subconscious, tokencost
+  - [New Tools (Loop 4)](evaluations/new-tools-loop4.md) — Fabric, claude-task-master, scorecard, SimpleMem
 
 ## Quick Start
 
