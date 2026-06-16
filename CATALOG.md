@@ -214,6 +214,7 @@ Curated lists, glossaries, and system prompt collections for learning and discov
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
+| [agentskills](https://github.com/agentskills/agentskills) | reference | Canonical open specification for portable AI agent skills (SKILL.md format) | No standard format for writing skills that work across agents and editors | — (unique: the spec itself) |
 | [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | reference | Curated skills, hooks, slash-commands, and agent orchestrators for Claude Code | Hard to discover what's available in the Claude Code ecosystem | awesome-claude-skills (travisvn), awesome-claude-skills (Composio) |
 | [awesome-claude-skills (travisvn)](https://github.com/travisvn/awesome-claude-skills) | reference | Curated Claude Skills and customization tools | Need a catalog of available skills to evaluate | awesome-claude-code, awesome-claude-skills (Composio) |
 | [awesome-claude-skills (Composio)](https://github.com/ComposioHQ/awesome-claude-skills) | reference | Curated list of Claude Skills and customization resources | Need a catalog of available skills to evaluate | awesome-claude-code, awesome-claude-skills (travisvn) |
