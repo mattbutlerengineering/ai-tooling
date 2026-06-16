@@ -55,6 +55,7 @@ Everything from L2, plus:
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically ([eval](evaluations/recommended-tools.md#claude-reflect)) |
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time ([eval](evaluations/recommended-tools.md#langfuse)) |
 | [trailofbits/skills](https://github.com/trailofbits/skills) | plugin | Professional security audit skills from Trail of Bits - differential review, C/C++ analysis, Actions auditing ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) |
+| [claude-code-action](https://github.com/anthropics/claude-code-action) | tool | GitHub-native AI — `@claude` in PRs/issues triggers async review, fixes, and automation ([eval](evaluations/new-tools-loop2.md#claude-code-action)) |
 
 ### Key feedback loops to build (not tools — infrastructure)
 
@@ -86,6 +87,7 @@ Everything from L3, plus:
 |------|------|-----|
 | [claude-mem](https://github.com/thedotmack/claude-mem) | plugin | Persistent memory with semantic search, timeline views, observation-based capture — best-validated option ([eval](evaluations/memory-systems.md)) |
 | [headroom](https://github.com/chopratejas/headroom) | tool | Context compression (60-95% fewer tokens) — longer sessions mean more complex autonomous work ([eval](evaluations/recommended-tools.md#headroom)) |
+| [shadcn/improve](https://github.com/shadcn/improve) | tool | Two-model codebase audit: expensive model writes plans, cheap model executes — proactive quality improvement ([eval](evaluations/new-tools-loop2.md#shadcnimprove)) |
 | [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
 | GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | feature-dev | plugin | Structured feature development: planning → implementation → verification ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
