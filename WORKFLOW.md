@@ -155,6 +155,8 @@ What are we building and why? Research, requirements, stakeholder interviews. Th
 | **Tooling** | GSD `new-project` — deep context gathering ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | | agent-skills `spec-driven-development` — requirements as living specs ([eval](evaluations/skills-collections.md)) |
 | | mattpocock `grill-me` / `grill-with-docs` — stress-test the plan against existing domain language ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Requirements churn tracking — measure how often specs change after sign-off | Speed, Correctness |
+| | [Apache DevLake](https://github.com/apache/incubator-devlake) — track issue creation rate and requirements-to-code lead time | Speed |
 
 ### Architect
 
@@ -168,6 +170,8 @@ How do we build it? Solution design, technology choices, interface boundaries. A
 | **Tooling** | GSD `map-codebase` + `plan-phase` — parallel mapper agents produce structured analysis ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | | feature-dev `code-architect` — architecture design with codebase awareness ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
 | | graphify — architecture visualization for understanding component relationships ([eval](evaluations/code-understanding.md)) |
+| **Infrastructure** | ADR count and staleness tracking — flag decisions older than 90 days with no review | Maintainability |
+| | Architecture fitness functions in CI — automated checks that dependencies respect module boundaries | Maintainability, Safety |
 
 ### Decompose
 
@@ -180,6 +184,8 @@ Break the architecture into independently shippable tasks. Each task should be o
 | **Process** | Epic → issues with dependency ordering. Each issue has clear acceptance criteria. |
 | **Tooling** | GSD milestone/phase breakdown — structured decomposition with verification at each phase ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | | mattpocock `to-issues` / `to-prd` — convert plans into issue tracker tickets ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Task estimation accuracy — compare planned vs. actual session count per issue | Speed |
+| | Issue dependency cycle detection — flag circular or stalled chains before work starts | Speed, Correctness |
 
 ### Integrate
 
@@ -192,6 +198,8 @@ Merge branches, resolve conflicts, verify end-to-end. This matters most when mul
 | **Process** | Merge frequently. Run E2E verification after integration, not just unit tests. |
 | **Tooling** | [claude-squad](https://github.com/smtg-ai/claude-squad) — manage multiple parallel agent sessions ([eval](evaluations/recommended-tools.md#claude-squad)) |
 | | worktrunk — worktree management prevents branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
+| **Infrastructure** | Merge conflict frequency per branch — rising conflicts signal architectural coupling | Maintainability |
+| | E2E integration test suite in CI — runs after merge, not just per-branch unit tests | Correctness, Safety |
 
 ### Retrospect
 
@@ -204,6 +212,10 @@ What worked across the whole epic? What didn't? Retrospect operates at a higher 
 | **Process** | Review the full epic: which tasks went smoothly, which required rework, which assumptions were wrong. Update architecture docs and CLAUDE.md rules. |
 | **Tooling** | claude-mem timeline views — see patterns across sessions ([eval](evaluations/memory-systems.md)) |
 | | mattpocock `improve-codebase-architecture` — systematic architecture improvement ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Retro action completion rate — track whether retrospective actions actually get implemented | All |
+| | [Apache DevLake](https://github.com/apache/incubator-devlake) — DORA metrics trend over epics: is lead time/MTTR improving? | Speed, Safety |
+
+**Feedback arc:** If retrospective actions consistently don't convert to completed issues, the retro process has failed. Track retro → issue → close rate.
 
 ---
 

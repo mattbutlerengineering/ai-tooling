@@ -59,6 +59,9 @@ Tools for running, managing, and coordinating multiple AI agents working in para
 | [qwen-code](https://github.com/QwenLM/qwen-code) | platform | Alibaba's open-source terminal coding agent powered by Qwen models | Want a Qwen-native coding agent alternative to Claude Code | opencode, goose, OpenHands |
 | [DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | platform | DeepSeek-native terminal coding agent optimized for prefix-cache stability | Want a long-running coding agent that exploits DeepSeek's prefix caching | opencode, qwen-code, goose |
 | [oh-my-pi](https://github.com/can1357/oh-my-pi) | platform | Full coding agent with 32 tools, LSP/DAP integration, hash-anchored edits, 40+ providers | Need a feature-complete open-source coding agent with built-in IDE integration | opencode, goose, OpenHands |
+| [omnigent](https://github.com/omnigent-ai/omnigent) | framework | Meta-harness: orchestrate Claude Code, Codex, Cursor, Pi — swap harnesses without rewriting | Need to mix and match different agent harnesses with shared policies and sandboxing | claude-squad, oh-my-claudecode |
+| [forkd](https://github.com/deeplethe/forkd) | tool | Fork() for AI agent microVMs — spawn 100 children in ~100ms from a warm parent with KVM isolation | Need fast, isolated agent sandboxes for parallel work without container overhead | nanoclaw, sandcastle |
+| [opensquilla](https://github.com/opensquilla/opensquilla) | tool | Token-efficient AI agent — same budget, higher intelligence density via optimized context | Need to get more out of each agent session without increasing token spend | headroom, context-mode, caveman |
 
 ## Agent Harnesses
 
