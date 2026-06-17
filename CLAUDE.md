@@ -75,3 +75,9 @@ Single-context layout. See `docs/agents/domain.md`.
 - Place in the correct category table
 - Always fill the "Overlaps with" column — check existing entries in the same category
 - If a new category is needed, add a section header with a one-line description
+
+## Evaluations
+
+- **Hands-on evaluations** use `evaluations/TEMPLATE.md` — copy it and fill every section with evidence from actual usage. The "How we tested it" section is mandatory; README-only evaluations are discovery logs, not evaluations.
+- **Discovery logs** (`evaluations/new-tools-loopN.md`) are for bulk triage — one-liner verdicts from scanning repos. They feed the catalog but don't constitute a full evaluation.
+- Use inner/outer loop vocabulary (Plan, Implement, Verify, Review, Ship, Reflect), not ACMM levels.
