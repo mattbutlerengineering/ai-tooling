@@ -40,6 +40,8 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 
 - GitHub stars: `gh api user/starred --paginate --jq '.[].full_name'`
 - Locally installed: `~/.claude/plugins/`, `~/.claude/skills/`, MCP servers in settings.json
+- Newsletters: TLDR AI, The Rundown AI, The Neuron, AI Leadership Edge, Practical AI, AI Adopters Club
+- Registries: skills.sh, npm (claude-code plugins), GitHub trending (AI topic)
 
 ## Skills
 
