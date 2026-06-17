@@ -12,6 +12,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 
 - `CATALOG.md` — flat inventory of 208 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
+- `STACK.md` — recommended stack (~20 tools to actually install, with commands)
 - `evaluations/` — hands-on tool evaluations following `TEMPLATE.md`
 - `discovery/` — bulk discovery logs (`new-tools-loopN.md`) from scanning sessions
 - `skills/` — source skills for reference

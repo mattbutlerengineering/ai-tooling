@@ -14,6 +14,7 @@ mkdir -p "$PLUGIN_DOCS/evaluations" "$PLUGIN_DOCS/discovery"
 
 cp "$REPO_ROOT/CATALOG.md" "$PLUGIN_DOCS/CATALOG.md"
 cp "$REPO_ROOT/WORKFLOW.md" "$PLUGIN_DOCS/WORKFLOW.md"
+cp "$REPO_ROOT/STACK.md" "$PLUGIN_DOCS/STACK.md"
 rsync -a --delete "$REPO_ROOT/evaluations/" "$PLUGIN_DOCS/evaluations/"
 rsync -a --delete "$REPO_ROOT/discovery/" "$PLUGIN_DOCS/discovery/"
 
