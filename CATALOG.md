@@ -240,6 +240,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | jira | MCP server | Jira issue tracking integration | Agent needs to read/update Jira tickets during development | — |
 | confluence | MCP server | Confluence wiki integration | Agent needs to read/write team documentation | — |
 | [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | MCP server | Chrome DevTools integration for coding agents | Need agents to inspect, debug, and profile web apps in Chrome | playwright |
+| [mdn/mcp](https://github.com/mdn/mcp) | MCP server | MDN Web Docs lookup — current browser compatibility data and web platform documentation | Agent's training data has outdated web API info; needs accurate browser support tables | context7 |
 | [fastmcp](https://github.com/PrefectHQ/fastmcp) | framework | Fast, Pythonic way to build MCP servers and clients with minimal boilerplate | Building MCP servers requires too much setup; need a framework that makes it easy | — (unique: MCP server builder) |
 | [git-mcp](https://github.com/idosal/git-mcp) | MCP server | Remote MCP server for any GitHub project — eliminates code hallucinations | Agents hallucinate APIs and functions; need live repo context as MCP resource | context7 (complementary: context7 = library docs, git-mcp = repo source) |
 | [awslabs/mcp](https://github.com/awslabs/mcp) | MCP server | Official AWS MCP servers for S3, Lambda, DynamoDB, CDK, and more | Need agents to interact with AWS services directly during development | cloudflare-mcp |
