@@ -205,6 +205,8 @@ Tools for git management, planning, project orchestration, and development proce
 | [scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | skill | 140 scientific skills + 100 database connectors for biology, chemistry, medicine, and drug discovery | Need deep domain skills for scientific research and lab workflows | AI-Research-SKILLs, academic-research-skills |
 | [openskills](https://github.com/numman-ali/openskills) | tool | Universal skills loader — installs SKILL.md to any agent (Claude Code, Cursor, Codex, Aider) | Skills are editor-specific; need a universal installer that works across all AI editors | refly, skill-creator |
 | [agents (wshobson)](https://github.com/wshobson/agents) | plugin | Multi-harness plugin marketplace — 84 plugins, 192 agents, 156 skills across 6 editors | Need a single source of production-ready agents and skills for all AI coding tools | everything-claude-code, alirezarezvani/claude-skills, antigravity-awesome-skills |
+| [agent-browser](https://github.com/vercel-labs/agent-browser) | tool | Browser automation CLI for AI agents — navigate, fill forms, screenshot, scrape, test web apps | Agents can't interact with web UIs for testing, verification, or data extraction | playwright, browser-use |
+| [azure-skills](https://github.com/microsoft/azure-skills) | plugin | Official Azure agent plugin — skills and MCP configs for Azure scenarios (258K installs) | Need AI assistance with Azure deployment, infrastructure, and cloud workflows | microsoft/skills, google/skills |
 
 ## MCP Servers
 
@@ -220,7 +222,8 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [blender-mcp](https://github.com/ahujasid/blender-mcp) | MCP server | Blender 3D modeling integration | Need AI to control 3D modeling workflows | — |
 | sequential-thinking | MCP server | Chain-of-thought reasoning enhancement via structured thinking steps | Agent's reasoning is shallow on complex problems | — |
 | server-memory | MCP server | Basic persistent key-value memory | Need simple state persistence between agent calls | OMEGA, claude-mem |
-| server-github | MCP server | GitHub operations (repos, issues, PRs, actions) | Agent needs to interact with GitHub beyond local git | github plugin |
+| server-github | MCP server | GitHub operations (repos, issues, PRs, actions) | Agent needs to interact with GitHub beyond local git | github-mcp-server |
+| [github-mcp-server](https://github.com/github/github-mcp-server) | MCP server | GitHub's official MCP server — repos, issues, PRs, actions, search, code navigation | Need first-party GitHub integration with full API coverage and official support | server-github |
 | server-filesystem | MCP server | Local filesystem access with safety controls | Agent needs structured file operations with guardrails | — |
 | exa-mcp-server | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | — |
 | firecrawl-mcp | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
