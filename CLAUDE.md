@@ -12,7 +12,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 
 - `CATALOG.md` — flat inventory of 208 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
-- `evaluations/` — evidence-based evaluation files covering every recommended tool
+- `evaluations/` — 25 evidence-based evaluation files; loop files named `new-tools-loopN.md`
 - `skills/` — source skills for reference
 - `plugin/` — installable Claude Code marketplace package (skills, docs, hooks)
 - `README.md` — repo overview with install instructions
@@ -42,11 +42,11 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 
 ## Skills
 
-- `skills/setup-workflow/` — bootstrap the workflow in any repo
-- `skills/evaluate-tool/` — evaluate a new tool against catalog, dev loop stage, and quality signals
-- `skills/audit-workflow/` — audit installed tools against recommended stack
-- `skills/update-catalog/` — sync catalog with GitHub stars and local installs
-- `skills/sync-stars/` — find starred repos not in CATALOG.md and generate entries
+- `skills/setup-workflow/` — bootstrap the workflow in any repo (use first time on a new project)
+- `skills/evaluate-tool/` — evaluate a new tool against catalog, dev loop stage, and quality signals (use when considering a new tool)
+- `skills/audit-workflow/` — audit installed tools against recommended stack (use periodically)
+- `skills/update-catalog/` — sync catalog with GitHub stars and local installs (use when catalog may be stale)
+- `skills/sync-stars/` — find starred repos not in CATALOG.md and generate entries (use after starring new repos)
 
 ## Adding entries
 
