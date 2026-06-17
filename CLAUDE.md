@@ -55,6 +55,20 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `plugin/skills/` is authoritative for skills; `skills/` is derived (paths stripped)
 - Run `./sync-plugin-docs.sh` after any root doc or plugin skill change
 
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues on `mattbutlerengineering/ai-tooling`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout. See `docs/agents/domain.md`.
+
 ## Adding entries
 
 - Fetch repo description: `gh api repos/{owner}/{repo} --jq '.description'`
