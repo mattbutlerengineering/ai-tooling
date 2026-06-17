@@ -89,7 +89,7 @@
 **Keep claude-mem as the primary recommendation. Add mem0 as a conditional alternative.**
 
 **Why claude-mem stays on top for most users:**
-1. Zero-friction install. A one-line marketplace install vs. Docker + MCP config or cloud signup. For someone at ACMM L4 who is just adding memory for the first time, friction kills adoption.
+1. Zero-friction install. A one-line marketplace install vs. Docker + MCP config or cloud signup. For someone who is just adding memory for the first time, friction kills adoption.
 2. Observation-based auto-capture. You don't have to remember to save memories — the hooks do it. mem0 requires explicit `mem0 add` calls, which means the agent has to be instructed to save, and it will forget.
 3. The 18+ bundled skills (make-plan, do, learn-codebase, pathfinder, weekly-digests) provide immediate workflow value beyond raw memory. mem0 is memory-only.
 

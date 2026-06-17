@@ -156,7 +156,7 @@ The key differentiator: superpowers changes *how agents think about work*, not j
 
 Pick compound-engineering when:
 - You want a lighter-weight methodology without auto-triggering (more control, less magic)
-- The "compound learnings" step matters to you — explicitly capturing what was learned after each cycle is unique and aligns with ACMM's continuous improvement philosophy
+- The "compound learnings" step matters to you — explicitly capturing what was learned after each cycle is unique and aligns with the continuous improvement philosophy
 - You're building a product (not a library) and want strategy/product-pulse features
 
 **When to consider ECC instead:**

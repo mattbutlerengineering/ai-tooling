@@ -43,17 +43,17 @@ Secondary value: tool discovery. Instead of knowing which MCP server exists for 
 - No external dependency or API key required (most MCP servers run locally)
 - No vendor lock-in (Composio is a SaaS with an API key)
 
-## ACMM Level fit
+## Dev loop fit
 
-**L4 (Adaptive) or L5 (Semi-Automated).**
+**Outer loop (Automate) — for cross-service orchestration.**
 
-At L2-L3, you're still building instructions and measurement infrastructure. Individual MCP servers for GitHub and Sentry are sufficient. At L4+, when feedback loops are closing themselves and agents are taking autonomous actions across services (triage issue in Linear, notify Slack, create PR in GitHub), the unified auth and cross-app workflow capability becomes valuable.
+For the inner loop, individual MCP servers for GitHub and Sentry are sufficient. When feedback loops close themselves and agents take autonomous actions across services (triage issue in Linear, notify Slack, create PR in GitHub), the unified auth and cross-app workflow capability becomes valuable.
 
-Below L4, Composio is overhead — you don't need 500 integrations when you're using 5.
+For simpler workflows, Composio is overhead — you don't need 500 integrations when you're using 5.
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you need cross-app automation across 5+ external services at L4+, AND individual MCP servers aren't covering your needs.
+**CONDITIONAL** — adopt if you need cross-app automation across 5+ external services in the outer loop, AND individual MCP servers aren't covering your needs.
 
 **Reasons to skip for now:**
 1. Individual MCP servers (GitHub, Sentry, Jira, Playwright, Prisma) already cover the most critical integrations in the recommended stack
@@ -62,7 +62,7 @@ Below L4, Composio is overhead — you don't need 500 integrations when you're u
 4. Rube (their MCP product) competes with the individual MCP servers already installed, creating overlap rather than filling a gap
 
 **Reasons to adopt later (L4+):**
-1. If you're building autonomous workflows that chain actions across services (the ACMM L4-L5 pattern)
+1. If you're building autonomous workflows that chain actions across services
 2. If managing OAuth tokens across 10+ MCP servers becomes painful
 3. If you need integrations the MCP ecosystem doesn't cover yet (500 vs. ~50 MCP servers available)
 

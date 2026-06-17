@@ -136,7 +136,7 @@ Evaluation date: 2026-06-15
 
 **Recommended: codegraph**
 
-**Why:** For the specific use case of "help AI agents understand my codebase during development," codegraph wins on the dimension that matters most: **it's always on and always current.** The MCP server integration means agents automatically query the knowledge graph without you running a command — and the graph never goes stale because it auto-syncs on every file change. The benchmarked 16% cost savings and 58% fewer tool calls across 7 real codebases provide concrete evidence, not just claims. For an ACMM-oriented workflow where agents are running increasingly autonomously, having a live, always-current code understanding layer is more valuable than a richer-but-stale batch analysis.
+**Why:** For the specific use case of "help AI agents understand my codebase during development," codegraph wins on the dimension that matters most: **it's always on and always current.** The MCP server integration means agents automatically query the knowledge graph without you running a command — and the graph never goes stale because it auto-syncs on every file change. The benchmarked 16% cost savings and 58% fewer tool calls across 7 real codebases provide concrete evidence, not just claims. For a workflow where agents are running increasingly autonomously, having a live, always-current code understanding layer is more valuable than a richer-but-stale batch analysis.
 
 **Runner-up: graphify — use when you need broader analysis**
 
