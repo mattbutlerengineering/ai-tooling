@@ -48,6 +48,13 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `skills/update-catalog/` — sync catalog with GitHub stars and local installs (use when catalog may be stale)
 - `skills/sync-stars/` — find starred repos not in CATALOG.md and generate entries (use after starring new repos)
 
+## Source of truth
+
+- Root files (`CATALOG.md`, `WORKFLOW.md`, `evaluations/`) are authoritative
+- `plugin/docs/` is a synced copy — never edit directly
+- `plugin/skills/` is authoritative for skills; `skills/` is derived (paths stripped)
+- Run `./sync-plugin-docs.sh` after any root doc or plugin skill change
+
 ## Adding entries
 
 - Fetch repo description: `gh api repos/{owner}/{repo} --jq '.description'`

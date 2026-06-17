@@ -37,6 +37,15 @@ if [ -n "$claude_evals" ] && [ "$claude_evals" != "$actual_evals" ]; then
   issues="${issues}CLAUDE.md says $claude_evals eval files but evaluations/ has $actual_evals\n"
 fi
 
+# Check plugin/docs sync
+PLUGIN_CATALOG="$REPO_ROOT/plugin/docs/CATALOG.md"
+if [ -f "$PLUGIN_CATALOG" ]; then
+  plugin_entries=$(grep '^| ' "$PLUGIN_CATALOG" | grep -v '^| Name' | grep -v '^|---' | wc -l | tr -d ' ')
+  if [ "$plugin_entries" != "$actual_entries" ]; then
+    issues="${issues}plugin/docs/CATALOG.md has $plugin_entries entries but root has $actual_entries — run ./sync-plugin-docs.sh\n"
+  fi
+fi
+
 if [ -n "$issues" ]; then
   echo ""
   echo "⚠️  ai-tooling: count drift detected"

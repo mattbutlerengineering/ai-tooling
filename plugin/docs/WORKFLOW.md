@@ -1,298 +1,359 @@
-# Recommended AI Workflow
+# AI Development Workflow
 
-An opinionated, non-overlapping tool stack for AI-assisted development, organized by ACMM level. Each level builds on the previous — don't skip ahead.
+An operating manual for AI-assisted development that produces high-quality code — and keeps getting better.
 
-## Principles
+This isn't a tool list. It's a workflow: the dev loop you run every session, the tools that improve each stage, the infrastructure that measures whether it's working, and the feedback arcs that make the next cycle better than the last.
 
-1. **Fewer tools, more feedback loops.** Five overlapping memory systems don't make you more mature than one memory system with acceptance rate tracking.
+## Design Principles
+
+1. **Fewer tools, more feedback loops.** Five overlapping memory systems don't beat one with acceptance rate tracking.
 2. **Each tool earns its slot.** If two tools solve the same problem, pick one. The overlap markers in [CATALOG.md](CATALOG.md) show where to consolidate.
-3. **Match tools to your level.** Installing L5 orchestration tools when you don't have L3 test coverage is the "autonomous action without sufficient guardrails" anti-pattern.
+3. **No context-switching tax.** If a tool pulls you out of flow to use it, it's not earning its slot. The best tools are invisible — they trigger automatically or integrate into commands you already run.
+4. **Process + Tooling + Infrastructure.** Process alone is hope. Tooling alone is shelfware. Infrastructure alone is dashboards nobody reads. All three, connected by feedback arcs, is how quality compounds.
+
+## Quality Signals
+
+Every tool recommendation is justified by which of these signals it moves. If a tool doesn't improve at least one, it doesn't belong in the workflow.
+
+| Signal | What it measures | Example metrics |
+|--------|-----------------|-----------------|
+| **Correctness** | Does the code do what it's supposed to? | Test pass rate on first run, bugs caught before merge, production incidents |
+| **Speed** | How fast from prompt to merged PR? | Time-to-merge, review round-trips, rework rate |
+| **Maintainability** | Can someone else work with this code? | File size discipline, review simplification trends, no unnecessary abstraction |
+| **Safety** | Does it avoid breaking things — and recover fast when it does? | Security findings per PR, CI gate pass rate, rollback frequency, mean time to recovery |
+| **Cost Efficiency** | Does the workflow avoid wasting tokens and money? | Tokens per session, redundant tool calls, agent invocations per task |
 
 ---
 
-## L2 — Instructed: Encode Your Preferences
+## The Inner Loop
 
-**Goal:** AI output becomes consistent across sessions and agents. Decisions live in files, not your head.
+For a single task — one issue, one bug, one feature. This is what you run every session.
 
-### Recommended Stack
+```
+Plan → Implement → Verify → Review → Ship
+        ↑                              |
+        └──────── Reflect ─────────────┘
+```
 
-| Tool | Type | Why |
-|------|------|-----|
-| CLAUDE.md + rules/ | built-in | Encode conventions, coding style, commit format, security checks |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | skill | Battle-tested engineering conventions from a working dev ([eval](evaluations/skills-collections.md)) |
-| [codegraph](https://github.com/colbymchenry/codegraph) | MCP server | Always-on code knowledge graph that auto-syncs on changes — 58% fewer tool calls, 16% cheaper ([eval](evaluations/code-understanding.md)) |
-| [graphify](https://github.com/safishamsi/graphify) | skill | Deep analysis of code, SQL, docs, images, videos into architecture diagrams — periodic use, not live ([eval](evaluations/code-understanding.md)) |
-| [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup so agents use current APIs, not stale training data ([eval](evaluations/recommended-tools.md#context7)) |
-| [reporails/cli](https://github.com/reporails/cli) | tool | Validates that instruction files aren't conflicting or malformed ([eval](evaluations/recommended-tools.md#reporailscli)) |
-| [caveman](https://github.com/JuliusBrussee/caveman) | skill | Cuts ~75% of agent output tokens while keeping full technical accuracy - makes every session cheaper and faster ([eval](evaluations/new-tools-loop1.md#caveman)) |
+### Plan
 
-### What to skip at this level
+*Prevents: building the wrong thing, touching code you don't understand*
 
-- Multiple harnesses (superpowers, gstack, ECC, ruflo) — you don't need methodology enforcement yet, you need instructions
-- Memory systems — no point remembering across sessions if each session does the wrong thing consistently
-- Agent orchestration — one agent doing the right thing beats five doing the wrong thing
+Understand the codebase and task before writing a line of code. Break the work into verifiable steps. Surface assumptions early — they're cheaper to fix now than after implementation.
 
-### Transition trigger
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | Read the relevant code. State assumptions. Define what "done" means before starting. | Speed |
+| **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/code-understanding.md)) | Correctness |
+| | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/code-understanding.md)) | Speed, Cost Efficiency |
+| | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 
-You notice the AI is consistent but you can't tell whether it's actually performing well. You want data.
+**Feedback arc:** If you frequently discover mid-implementation that your plan was wrong, your Plan stage is too shallow. Track how often you restart or significantly change direction — that's the signal.
 
----
+### Implement
 
-## L3 — Measured: Make Feedback Visible
+*Prevents: bugs at the source, stale API usage, wasted tokens*
 
-**Goal:** Quantitative signals about AI agent performance. Tests gate quality. Acceptance rates reveal what works.
+Write code test-first. Use current docs, not training data. Minimize token waste — cheaper sessions mean more iterations.
 
-### Recommended Stack
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | TDD: write test first (RED), implement (GREEN), refactor. Use current library docs for every API call. | Correctness |
+| **Tooling** | [superpowers](https://github.com/obra/superpowers) — TDD enforcement, systematic debugging, verification-before-completion ([eval](evaluations/agent-harnesses.md)) | Correctness, Maintainability |
+| | [mattpocock/skills](https://github.com/mattpocock/skills) — engineering conventions, grilling, architecture improvement ([eval](evaluations/skills-collections.md)) | Maintainability |
+| | [agent-skills](https://github.com/addyosmani/agent-skills) — lifecycle structure with verification gates at each step ([eval](evaluations/skills-collections.md)) | Correctness |
+| | [context7](https://github.com/upstash/context7) — live docs during coding ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
+| | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/new-tools-loop1.md#caveman)) | Cost Efficiency |
+| | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/new-tools-loop9.md#context-mode)) | Cost Efficiency |
+| | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/recommended-tools.md#headroom)) | Cost Efficiency |
+| **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
 
-Everything from L2, plus:
+**Feedback arc:** If test pass rate on first run is declining, you're either writing shallow tests or skipping TDD for "simple" changes. Neither is simple.
 
-| Tool | Type | Why |
-|------|------|-----|
-| [superpowers](https://github.com/obra/superpowers) | plugin | TDD workflow, systematic debugging, verification-before-completion — only harness with auto-triggering ([eval](evaluations/agent-harnesses.md)) |
-| [agent-skills](https://github.com/addyosmani/agent-skills) | skill | Lifecycle structure (plan → implement → verify) that mattpocock/skills doesn't cover ([eval](evaluations/skills-collections.md)) |
-| code-review plugin | plugin | Multi-agent code review with confidence-based scoring ([eval](evaluations/recommended-tools.md#code-review-plugin-anthropic)) |
-| pr-review-toolkit | plugin | Structured review dimensions: type analysis, silent failures, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) |
-| [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | plugin | Captures corrections and preferences, syncs learnings to CLAUDE.md automatically ([eval](evaluations/recommended-tools.md#claude-reflect)) |
-| [langfuse](https://github.com/langfuse/langfuse) | platform | Observability: see what agents are doing, track evals, measure performance over time ([eval](evaluations/recommended-tools.md#langfuse)) |
-| [trailofbits/skills](https://github.com/trailofbits/skills) | plugin | Professional security audit skills from Trail of Bits - differential review, C/C++ analysis, Actions auditing ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) |
+### Verify
 
-### Key feedback loops to build (not tools — infrastructure)
+*Prevents: code that "seems to work" but doesn't*
 
-- **Coverage gating in CI** — enforce minimum coverage on every PR
-- **PR acceptance rate tracking** — log merged vs. closed PRs by category
-- **Flaky test detection** — weekly analysis of non-deterministic test results
-- **Error monitoring → issues** — production errors auto-create GitHub issues
+Does it actually work? Tests passing is necessary but not sufficient — run the code, check the behavior, confirm the output matches intent. "Seems right" is never evidence.
 
-### What to skip at this level
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | Run tests, build, verify behavior matches intent. Evidence required: test output, build output, runtime data. | Correctness |
+| **Tooling** | superpowers verification-before-completion — blocks claiming "done" without running verification commands | Correctness |
+| **Infrastructure** | CI pipeline — automated test runs on every push | Correctness, Safety |
+| | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](evaluations/new-tools-loop10.md#stryker-js-mutation-testing)) | Correctness |
+| | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests | Correctness |
 
-- Memory systems — you're still building the measurement infrastructure that makes memory useful
-- Multi-agent orchestration — premature without quality gates
+**Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
-### Transition trigger
+### Review
 
-You see patterns in the data and realize certain responses should be automated. "Why am I manually adjusting weights when the data tells me what to do?"
+*Prevents: bugs that pass tests but break in production, silent failures masked by catch blocks, security holes, unnecessary complexity*
 
----
+Is the code good? This is where maintainability and safety get their primary check. Multi-perspective review catches what single-perspective testing misses.
 
-## L4 — Adaptive: Loops Close Themselves
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | Run automated review before committing. Review the diff yourself — tools catch patterns, you catch intent. | Maintainability, Safety |
+| **Tooling** | [code-review plugin](evaluations/recommended-tools.md#code-review-plugin-anthropic) — multi-agent review with confidence scoring, filters noise ([eval](evaluations/recommended-tools.md#code-review-plugin-anthropic)) | Correctness, Maintainability |
+| | [pr-review-toolkit](evaluations/recommended-tools.md#pr-review-toolkit-anthropic) — dimension-specific agents: silent failure hunting, type design, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) | Maintainability, Safety |
+| | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) | Safety |
+| | [shadcn/improve](https://github.com/shadcn/improve) — two-model codebase audit: expensive model plans, cheap model executes ([eval](evaluations/new-tools-loop2.md#shadcnimprove)) | Maintainability |
+| **Infrastructure** | Review findings tracked by category — are "simplify this" comments decreasing over time? | Maintainability |
 
-**Goal:** The system acts on its own metrics. Thresholds trigger automated responses. Human oversight shifts from execution to governance.
+**Feedback arc:** If the same category of review finding keeps appearing (e.g., "missing error handling"), that's a CLAUDE.md rule waiting to be written. claude-reflect captures these automatically.
 
-### Recommended Stack
+### Ship
 
-Everything from L3, plus:
+*Prevents: broken deploys, unreviewed merges, regressions that slip through*
 
-| Tool | Type | Why |
-|------|------|-----|
-| [claude-mem](https://github.com/thedotmack/claude-mem) | plugin | Persistent memory with semantic search, timeline views, observation-based capture — best-validated option ([eval](evaluations/memory-systems.md)) |
-| [headroom](https://github.com/chopratejas/headroom) | tool | Context compression (60-95% fewer tokens) — longer sessions mean more complex autonomous work ([eval](evaluations/recommended-tools.md#headroom)) |
-| [worktrunk](https://github.com/max-sixty/worktrunk) | tool | Git worktree management for parallel agent workflows without branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
-| GSD | framework | Project orchestration with milestones, phases, verification — structure for larger autonomous tasks ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
-| feature-dev | plugin | Structured feature development: planning → implementation → verification ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
+Commit, push, pass CI, merge. This stage is where infrastructure earns its keep — automated gates prevent human oversight failures.
 
-### Why claude-mem over alternatives ([full evaluation](evaluations/memory-systems.md))
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | Conventional commits. PR with summary and test plan. Never skip CI. | Speed |
+| **Tooling** | [claude-code-action](https://github.com/anthropics/claude-code-action) — `@claude` in PRs/issues for async review and fixes ([eval](evaluations/new-tools-loop2.md#claude-code-action)) | Speed |
+| | [worktrunk](https://github.com/max-sixty/worktrunk) — git worktree management for parallel branches ([eval](evaluations/recommended-tools.md#worktrunk)) | Speed |
+| **Infrastructure** | PR acceptance rate tracking — merged vs. closed by category reveals what AI does well vs. poorly | Speed, Correctness |
+| | Flaky test detection — weekly analysis removes non-determinism that corrupts results | Correctness |
+| | Error monitoring → issues — production errors auto-create GitHub issues | Safety |
 
-| Option | Stars | Why not |
-|--------|-------|---------|
-| claude-mem | 82.5K | **Recommended** — v13, observation-based capture, semantic search, timeline views |
-| agentmemory | 23K | Strong alternative if you need cross-agent memory (95.2% recall). Consider if using multiple AI tools. |
-| OMEGA | 162 | No benchmarks, much smaller community. Previously listed as equal — it isn't. |
+**Feedback arc:** If PR acceptance rate is low for a category (e.g., refactoring PRs keep getting closed), either the AI needs better instructions for that category or you're assigning it work it can't do well yet. Also watch **AI code churn rate** — how much recently merged code gets rewritten within 7 days. [Research shows](https://oobeya.io/blog/dora-metrics-not-enough-2026) AI can push throughput up 30-40% while doubling churn and dropping delivery stability by 7.2%. High speed + high churn = generating throwaway code.
 
-Do not run multiple memory systems. Conflicting context is worse than no memory.
+### Reflect (the feedback arc)
 
-### What to skip at this level
+*Prevents: repeating the same mistakes, losing context between sessions*
 
-- Multiple agent orchestration (claude-squad, gastown) — you're still one human directing agents, just with better automation
+Reflect isn't a stage with a "done" moment — it's the arc that connects the end of one loop to the start of the next. What went wrong? What went right? Update the instructions so the next session is better.
 
-### Transition trigger
-
-The system's behavior is now primarily determined by its artifacts — tests, configs, workflows — not by your real-time decisions. You realize the bottleneck is your availability to approve, not the system's ability to propose.
-
----
-
-## L5 — Semi-Automated: The System Proposes, You Approve
-
-**Goal:** The system detects problems, proposes fixes, and implements them. You review and merge. Issues filed at 2 AM are fixed, tested, and ready for review by 6 AM.
-
-### Recommended Stack
-
-Everything from L4, plus:
-
-| Tool | Type | Why |
-|------|------|-----|
-| [claude-squad](https://github.com/smtg-ai/claude-squad) | tool | Manage multiple parallel agent sessions — the system now runs enough concurrent work to need this ([eval](evaluations/recommended-tools.md#claude-squad)) |
-| [plannotator](https://github.com/backnotprop/plannotator) | tool | Visual review of agent plans and diffs — you're reviewing proposals, not writing code ([eval](evaluations/recommended-tools.md#plannotator)) |
-| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | Security scanning for any new skills the system proposes to install ([eval](evaluations/recommended-tools.md#skillspector)) |
-
-### What to skip at this level
-
-- Full autonomy tools (bernstein audit logs, adaptive workload governance) — you're still approving merges
-
-### Transition trigger
-
-You realize the bottleneck is no longer AI quality — it's your human availability. The system proposes well, but proposals sit unreviewed.
+| Layer | What | Signals |
+|-------|------|---------|
+| **Process** | End each session by reviewing what was corrected. Commit with conventional commits — the commit log is a feedback loop too. | All |
+| **Tooling** | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) — captures corrections and preferences, syncs to CLAUDE.md ([eval](evaluations/recommended-tools.md#claude-reflect)) | Correctness, Speed |
+| | [claude-mem](https://github.com/thedotmack/claude-mem) — persistent cross-session memory with semantic search ([eval](evaluations/memory-systems.md)) | Speed |
+| **Infrastructure** | Track whether the same correction recurs — if it does, the learning failed | All |
 
 ---
 
-## L6 — Fully Autonomous: The System Runs Itself
+## The Outer Loop
 
-**Goal:** Agents generate issues, dispatch fixes, merge verified PRs, and roll back failures. You set strategy and policy.
+For larger work — an epic, a new feature that spans multiple sessions, a project. The outer loop produces tasks that the inner loop executes.
 
-### Recommended Stack
+```
+Discover → Architect → Decompose → [inner loop per task] → Integrate → Retrospect
+```
 
-Everything from L5, plus:
+### Discover
 
-| Tool | Type | Why |
-|------|------|-----|
-| [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | harness | Audit-grade orchestration with tamper-proof logs — compliance for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
-| [beads](https://github.com/gastownhall/beads) | tool | Work ledger so agents claim tasks and don't duplicate effort ([eval](evaluations/recommended-tools.md#beads)) |
-| Push notification infrastructure | infra | ntfy, Slack, Discord — humans get notified for strategic decisions only |
+*Prevents: building the wrong product, missing requirements, solving a problem nobody has*
 
-### What this level requires beyond tools
+What are we building and why? Research, requirements, stakeholder interviews. This is where you figure out whether the work is worth doing at all.
 
-- Automated merge queue with verification gates
-- Adaptive workload governance (SURGE/BUSY/QUIET/IDLE modes)
-- Risk assessment configuration (high-risk paths always require human review)
-- Rollback drills and documented procedures
-- Strategic dashboard for real-time visibility into agent fleet
+| Layer | What |
+|-------|------|
+| **Process** | Define the problem before proposing solutions. Interview stakeholders. Write a spec or PRD. |
+| **Tooling** | GSD `new-project` — deep context gathering ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
+| | agent-skills `spec-driven-development` — requirements as living specs ([eval](evaluations/skills-collections.md)) |
+| | mattpocock `grill-me` / `grill-with-docs` — stress-test the plan against existing domain language ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Requirements churn tracking — measure how often specs change after sign-off | Speed, Correctness |
+| | [Apache DevLake](https://github.com/apache/incubator-devlake) — track issue creation rate and requirements-to-code lead time | Speed |
+
+### Architect
+
+*Prevents: wrong technical decisions that are expensive to reverse, spaghetti across components*
+
+How do we build it? Solution design, technology choices, interface boundaries. Architecture decisions made here constrain every inner-loop iteration that follows.
+
+| Layer | What |
+|-------|------|
+| **Process** | Map the codebase before proposing changes. Design interfaces before implementations. Record non-obvious decisions in ADRs. |
+| **Tooling** | GSD `map-codebase` + `plan-phase` — parallel mapper agents produce structured analysis ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
+| | feature-dev `code-architect` — architecture design with codebase awareness ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
+| | graphify — architecture visualization for understanding component relationships ([eval](evaluations/code-understanding.md)) |
+| **Infrastructure** | ADR count and staleness tracking — flag decisions older than 90 days with no review | Maintainability |
+| | Architecture fitness functions in CI — automated checks that dependencies respect module boundaries | Maintainability, Safety |
+
+### Decompose
+
+*Prevents: monolithic PRs, blocked dependencies, unclear scope, multi-day branches that diverge*
+
+Break the architecture into independently shippable tasks. Each task should be one inner-loop iteration — small enough to plan, implement, verify, review, and ship in a single session.
+
+| Layer | What |
+|-------|------|
+| **Process** | Epic → issues with dependency ordering. Each issue has clear acceptance criteria. |
+| **Tooling** | GSD milestone/phase breakdown — structured decomposition with verification at each phase ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
+| | mattpocock `to-issues` / `to-prd` — convert plans into issue tracker tickets ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Task estimation accuracy — compare planned vs. actual session count per issue | Speed |
+| | Issue dependency cycle detection — flag circular or stalled chains before work starts | Speed, Correctness |
+
+### Integrate
+
+*Prevents: merge conflicts, divergent implementations, "it worked on my branch" failures*
+
+Merge branches, resolve conflicts, verify end-to-end. This matters most when multiple agents or sessions produce parallel work.
+
+| Layer | What |
+|-------|------|
+| **Process** | Merge frequently. Run E2E verification after integration, not just unit tests. |
+| **Tooling** | [claude-squad](https://github.com/smtg-ai/claude-squad) — manage multiple parallel agent sessions ([eval](evaluations/recommended-tools.md#claude-squad)) |
+| | worktrunk — worktree management prevents branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
+| **Infrastructure** | Merge conflict frequency per branch — rising conflicts signal architectural coupling | Maintainability |
+| | E2E integration test suite in CI — runs after merge, not just per-branch unit tests | Correctness, Safety |
+
+### Retrospect
+
+*Prevents: repeating systemic mistakes, drifting architecture, accumulated technical debt*
+
+What worked across the whole epic? What didn't? Retrospect operates at a higher level than Reflect — it's about patterns across multiple inner-loop iterations, not individual session corrections.
+
+| Layer | What |
+|-------|------|
+| **Process** | Review the full epic: which tasks went smoothly, which required rework, which assumptions were wrong. Update architecture docs and CLAUDE.md rules. |
+| **Tooling** | claude-mem timeline views — see patterns across sessions ([eval](evaluations/memory-systems.md)) |
+| | mattpocock `improve-codebase-architecture` — systematic architecture improvement ([eval](evaluations/skills-collections.md)) |
+| **Infrastructure** | Retro action completion rate — track whether retrospective actions actually get implemented | All |
+| | [Apache DevLake](https://github.com/apache/incubator-devlake) — DORA metrics trend over epics: is lead time/MTTR improving? | Speed, Safety |
+
+**Feedback arc:** If retrospective actions consistently don't convert to completed issues, the retro process has failed. Track retro → issue → close rate.
 
 ---
 
-## Tools deliberately excluded from the workflow
+## Cross-Cutting: Cost Efficiency
+
+Cost efficiency isn't a stage — it's a property of every stage. These tools reduce token waste across the entire workflow:
+
+| Tool | What it reduces | Where it helps |
+|------|----------------|----------------|
+| [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](evaluations/new-tools-loop1.md#caveman)) |
+| [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](evaluations/new-tools-loop9.md#context-mode)) |
+| [headroom](https://github.com/chopratejas/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/recommended-tools.md#headroom)) |
+
+---
+
+## Cross-Cutting: Security & Supply Chain
+
+Safety runs through every stage, but supply chain security is its own concern — especially as the skill ecosystem grows:
+
+| Tool | What it does |
+|------|-------------|
+| [SkillSpector](https://github.com/NVIDIA/SkillSpector) — scans skills for prompt injection, data exfiltration, malicious commands ([eval](evaluations/recommended-tools.md#skillspector)) |
+| [reporails/cli](https://github.com/reporails/cli) — validates instruction files for conflicts and anti-patterns ([eval](evaluations/recommended-tools.md#reporailscli)) |
+| **Agent bounding** — set explicit stop rules: token budgets per task, scope limits, auto-termination conditions. Prevents runaway agents from burning tokens or making unbounded changes. |
+
+---
+
+## Autonomy Tools
+
+These tools don't fit a single stage — they change *how much human involvement* the workflow requires. Adopt when you trust the process and infrastructure enough to reduce your oversight.
+
+| Tool | What it enables |
+|------|----------------|
+| [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](evaluations/new-tools-loop7.md#ralph-claude-code)) |
+| [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | Audit-grade orchestration with tamper-proof logs for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
+| [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/recommended-tools.md#beads)) |
+| [plannotator](https://github.com/backnotprop/plannotator) | Visual review of agent proposals — for when raw diffs aren't enough ([eval](evaluations/recommended-tools.md#plannotator)) |
+
+---
+
+## Observability
+
+Knowing what your agents are doing and whether the workflow is improving requires observability infrastructure:
+
+| Tool | What it provides |
+|------|-----------------|
+| [langfuse](https://github.com/langfuse/langfuse) | LLM tracing, evals, cost tracking, latency monitoring — production-grade observability ([eval](evaluations/recommended-tools.md#langfuse)) |
+| [tokencost](https://github.com/mr-beaver/tokencost) | Per-session cost tracking — see exactly what each agent run costs |
+| [Infracost](https://github.com/infracost/infracost) | Cloud infrastructure cost estimates — catch expensive Terraform/CDK before deploy |
+| [abtop](https://github.com/graykode/abtop) | Real-time multi-session agent monitor — htop for AI coding agents |
+| [Apache DevLake](https://github.com/apache/incubator-devlake) | DORA metrics, engineering throughput, delivery performance dashboards |
+
+---
+
+## Adopting This Workflow
+
+Don't install everything at once. Adopt in layers:
+
+### Start here: Process
+
+Install the skills that enforce discipline. No infrastructure needed — just better habits.
+
+- **CLAUDE.md + rules/** — encode conventions, coding style, commit format, security checks
+- **mattpocock/skills** — engineering conventions, grilling, architecture improvement
+- **agent-skills** — lifecycle structure with verification gates
+- **superpowers** — TDD enforcement, systematic debugging
+- **caveman** — reduce token waste from day one
+
+This alone will improve your output. You're running the inner loop with process discipline.
+
+### Add when you want data: Infrastructure
+
+Build the infrastructure that tells you whether the process is working.
+
+- **code-review plugin + pr-review-toolkit** — automated multi-perspective review
+- **claude-reflect** — capture corrections, turn them into persistent rules
+- **trailofbits/skills** — security audit methodology
+- **Coverage gating in CI** — coverage never regresses
+- **PR acceptance rate tracking** — reveals what AI does well vs. poorly
+- **Flaky test detection** — removes non-determinism
+
+Now you can answer: "Is the workflow producing better code this month than last month?"
+
+### Add when you want autonomy: Orchestration
+
+Once you trust the process and the data confirms it's working, reduce human involvement.
+
+- **claude-mem** — cross-session memory so agents carry context forward
+- **GSD** — structured project orchestration for multi-phase work
+- **claude-squad** — manage parallel agent sessions
+- **worktrunk** — worktree management for concurrent branches
+- **headroom + context-mode** — token compression for longer autonomous sessions
+- **ralph-claude-code** — unattended autonomous dev loop
+- **SkillSpector** — security scanning for skills the system proposes to install
+
+And eventually, when agents merge autonomously:
+
+- **bernstein** — audit-grade orchestration with tamper-proof logs
+- **beads** — work coordination to prevent duplicate effort
+
+---
+
+## Tools Deliberately Excluded
 
 | Tool | Why excluded |
 |------|-------------|
 | gstack, ECC, ruflo, oh-my-openagent | Overlap with superpowers. Superpowers is the only one with TDD enforcement and auto-triggering ([eval](evaluations/agent-harnesses.md)). |
 | compound-engineering | Runner-up harness — lighter weight, good compounding philosophy. Consider if superpowers feels too heavy. |
-| agentmemory | Overlap with claude-mem/OMEGA. Pick one memory system. |
-| everything-claude-code (251+ skills) | Too broad. Use targeted skills (mattpocock, graphify) instead of a kitchen-sink plugin. |
-| Flowise, LangGraph | Visual/programmatic agent builders — useful for building AI products, not for your own dev workflow |
-| OpenHands | Full platform replacement — you're augmenting Claude Code, not replacing it |
-| sandcastle, gastown | Overlap with claude-squad for orchestration |
-| Understand-Anything | Prettier dashboard but no live sync or efficiency benchmarks. codegraph + graphify cover both live and deep analysis ([eval](evaluations/code-understanding.md)). |
-| repomix | Different approach (serialization vs. graph) — useful for feeding code to non-agent LLMs, not needed when agents have file access |
+| agentmemory | Overlap with claude-mem. Pick one memory system. Conflicting context is worse than no memory. |
+| everything-claude-code (251+ skills) | Too broad. Use targeted skills (mattpocock, agent-skills) instead of a kitchen-sink plugin. |
+| Flowise, LangGraph | Visual/programmatic agent builders — for building AI products, not for your own dev workflow. |
+| OpenHands | Full platform replacement — you're augmenting Claude Code, not replacing it. |
+| sandcastle, gastown | Overlap with claude-squad for orchestration. |
+| Understand-Anything | Prettier dashboard but no live sync. codegraph + graphify cover both live and deep analysis ([eval](evaluations/code-understanding.md)). |
+| repomix | Different approach (serialization vs. graph) — useful for feeding code to non-agent LLMs, not needed when agents have file access. |
 
 ---
-
-## Daily Practice
-
-How to actually use these tools together, not just have them installed.
-
-### Starting a session
-
-1. **graphify** scans the codebase on entry — agents start with structural awareness, not blind file reads
-2. **CLAUDE.md** loads automatically — conventions, style rules, and project-specific patterns are active from the first prompt
-3. **claude-reflect** (L3+) injects learnings from past sessions — mistakes you corrected before won't recur
-4. **Memory** (L4+) provides cross-session context — ongoing work, decisions, and handoffs carry forward
-
-### Writing code
-
-1. **State the task clearly** — one feature, one bug, one refactor. Agents perform better with focused scope.
-2. **TDD via superpowers** (L3+) — write test first (RED), implement (GREEN), refactor. The skill enforces this sequence.
-3. **graphify for orientation** — before touching unfamiliar code, run `/graphify` to see how components connect. Prevents the "fix one thing, break three others" cascade.
-4. **context7 for APIs** — when using any library, let context7 pull current docs rather than relying on training data.
-
-### Reviewing code
-
-1. **code-review plugin** (L3+) — run multi-agent review with confidence scoring before committing. Catches real issues, not style nitpicks.
-2. **pr-review-toolkit** (L3+) — structured dimensions: type analysis, silent failure hunting, test coverage gaps, comment accuracy.
-3. **Review the diff yourself** — tools catch patterns, you catch intent. Both are needed.
-
-### Ending a session
-
-1. **claude-reflect** (L3+) captures what went well and what was corrected — syncs to CLAUDE.md so the next session is better.
-2. **Commit with conventional commits** — `feat:`, `fix:`, `refactor:` etc. The commit log is a feedback loop too.
-
-### Weekly maintenance
-
-1. **Run `/audit-workflow`** — check for tool redundancies, missing feedback loops, and ACMM level progress.
-2. **Review PR acceptance rates** (L3+) — which categories get merged vs. closed? Data drives the next tuning cycle.
-3. **Flaky test analysis** (L3+) — a flaky test in an autonomous workflow randomly blocks good PRs and passes bad ones. Fix or delete.
-
-### Continuous improvement — what actually happens
-
-**Automatic (built into the plugin):**
-
-The ai-tooling plugin runs a SessionStart hook on every session that:
-1. Checks if any evaluation file is >30 days old → surfaces a prompt to run `/update-catalog`
-2. Checks for new GitHub stars not in the catalog → surfaces a prompt to run `/update-catalog`
-3. Stays silent if everything is current
-
-This means stale recommendations and new tools don't go unnoticed — the plugin tells you when the workflow needs attention.
-
-**Manual (you run these):**
-
-| Action | Trigger | What it does |
-|--------|---------|-------------|
-| `/audit-workflow` | Weekly or after installing new tools | Compares installed tools against recommended stack, flags redundancies and anti-patterns |
-| `/update-catalog` | When hook flags stale evals or new stars | Syncs catalog with current GitHub stars and local installs |
-| `/evaluate-tool` | Before adopting any new tool | Checks overlap, ACMM fit, and whether it justifies a slot |
-
-**Per-session (via other recommended tools):**
-
-| Mechanism | Tool | What it does |
-|-----------|------|-------------|
-| Correction capture | claude-reflect (L3) | Captures mistakes and preferences → syncs to CLAUDE.md → fewer repeated errors |
-| Code review | code-review + pr-review-toolkit (L3) | Multi-agent review catches issues before commit → quality improves per session |
-| TDD enforcement | superpowers (L3) | Forces test-first workflow → coverage stays high without manual discipline |
-
-**Infrastructure you build (not installable tools):**
-
-| Mechanism | Level | What it does |
-|-----------|-------|-------------|
-| Coverage gating in CI | L3 | Rejects PRs below threshold → coverage never regresses |
-| PR acceptance rate tracking | L3 | Logs merged vs. closed by category → reveals what AI does well vs. poorly |
-| Flaky test detection | L3 | Weekly analysis → removes non-determinism that corrupts autonomous workflows |
-| Self-tuning weights | L4 | Adjusts category priorities based on acceptance rates → less manual config |
-| Self-improvement analysis | L5 | System analyzes its own merged PRs → updates its own guidance |
-
-The key insight from ACMM: the intelligence lives in the infrastructure (tests, metrics, feedback loops), not in the AI model. A better model with no tests is worse than a mediocre model with 91% coverage and acceptance rate tracking.
-
----
-
-## Adopting this workflow in a new repo
-
-Run `/setup-workflow` in any repo to bootstrap:
-- Creates a CLAUDE.md with quality-producing rules (coding style, TDD, security, git workflow)
-- Checks which global tools are installed
-- Identifies gaps for your target ACMM level
-- Reports next steps
-
-The global tools (plugins, MCP servers, skills) are installed once in `~/.claude/` and available everywhere. What varies per repo is the CLAUDE.md configuration — that's what `/setup-workflow` generates.
-
----
-
-## Current position
-
-**Using:** mattpocock/skills + graphify + ACMM framework
-
-**ACMM level:** L2 (Instructed) — strong instruction files, codebase awareness via graphify, but no measurement infrastructure
-
-**Next steps to reach L3:**
-1. Add **codegraph** MCP server alongside graphify — live code awareness during sessions ([eval](evaluations/code-understanding.md))
-2. Add **superpowers** for TDD and verification methodology ([eval](evaluations/agent-harnesses.md))
-3. Add **agent-skills** for lifecycle structure ([eval](evaluations/skills-collections.md))
-4. Add **code-review plugin + pr-review-toolkit** for automated review
-5. Add **claude-reflect** to capture corrections automatically
-6. Build coverage gating and PR acceptance rate tracking in CI
 
 ## Evaluations
 
 All recommendations are backed by evidence. See the full evaluations:
 
 **Overlap groups** (compared competitors, picked a winner):
-- [Code Understanding](evaluations/code-understanding.md) — graphify + codegraph (complementary), skip Understand-Anything
-- [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers (only TDD enforcer), skip gstack/ECC/ruflo
-- [Memory Systems](evaluations/memory-systems.md) — claude-mem (best validated), skip OMEGA
-- [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills, skip everything-claude-code
+- [Code Understanding](evaluations/code-understanding.md) — graphify + codegraph > Understand-Anything > repomix
+- [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
+- [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
+- [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
 
 **Individual tools** (justified their slot, no direct competitor):
-- [Recommended Tools](evaluations/recommended-tools.md) — 15 tools evaluated: 10 KEEP, 5 CONDITIONAL
+- [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for tools with no direct competitor
 
-## Continuous improvement
-
-The plugin includes a SessionStart hook (`plugin/hooks/check-freshness.sh`) that runs on every session:
-- Checks if any evaluation file is >30 days old
-- Checks for new GitHub stars not in the catalog
-- Outputs a prompt to run `/update-catalog` if anything is stale
-- Outputs nothing if everything is current (suppressed)
+**New tool evaluations** (from catalog scans):
+- [Loop 1](evaluations/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
+- [Loop 2](evaluations/new-tools-loop2.md) — claude-code-action, shadcn/improve, design-council
+- [Loop 3](evaluations/new-tools-loop3.md) — CLI-Anything, chrome-devtools-mcp, claude-subconscious, tokencost
+- [Loop 4](evaluations/new-tools-loop4.md) — Fabric, claude-task-master, scorecard, SimpleMem
+- [Loop 5](evaluations/new-tools-loop5.md) — andrej-karpathy-skills, autoresearch, google/skills, impeccable
+- [Loop 6](evaluations/new-tools-loop6.md) — opencode, dify, goose, agentskills
+- [Loop 7](evaluations/new-tools-loop7.md) — docmd, agent-rules-books, ralph-claude-code, ghostsecurity/skills
+- [Loop 8](evaluations/new-tools-loop8.md) — last30days-skill, Agent-Reach, llm-council
+- [Loop 9](evaluations/new-tools-loop9.md) — context-mode, planning-with-files, cognee, ponytail

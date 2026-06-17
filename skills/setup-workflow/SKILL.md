@@ -5,11 +5,11 @@ description: Bootstrap the recommended AI workflow in any repo — checks what's
 
 # Setup Workflow
 
-Bootstrap the recommended AI workflow in the current repo. Creates a project CLAUDE.md with quality-producing rules, checks which global tools are installed, and identifies what's missing for your ACMM level.
+Bootstrap the recommended AI workflow in the current repo. Creates a project CLAUDE.md with quality-producing rules, checks which global tools are installed, and identifies gaps in dev loop stage coverage.
 
 ## Trigger
 
-`/setup-workflow` or `/setup-workflow L3` (to target a specific ACMM level)
+`/setup-workflow`
 
 ## Workflow
 
@@ -41,7 +41,7 @@ ls ~/.claude/skills/ 2>/dev/null
 grep -c "mcpServers" ~/.claude/settings.json 2>/dev/null
 ```
 
-Map against the recommended stack from WORKFLOW.md for the target ACMM level.
+Map against the recommended stack from `WORKFLOW.md` — check inner loop stages (Plan, Implement, Verify, Review, Ship, Reflect) and outer loop stages (Discover, Architect, Decompose, Integrate, Retrospect).
 
 ### 3. Create or update CLAUDE.md
 
@@ -62,14 +62,12 @@ The CLAUDE.md should include these sections based on what's detected:
 - Key file locations (entry points, config, routes)
 - Environment setup (required env vars)
 
-**Include for L3+:**
+**Include when infrastructure is in place:**
 - PR acceptance criteria
 - Coverage gating thresholds
 - Error handling policy
-
-**Include for L4+:**
 - Feedback loop configuration
-- Automation boundaries (what agents can/cannot do autonomously)
+- Agent bounding rules (scope limits, token budgets, stop conditions)
 
 ### 4. Create .claude.local.md for personal preferences
 
@@ -85,14 +83,15 @@ If it doesn't exist, create with:
 
 **Repo:** {name}
 **Detected:** {language/framework}
-**Target ACMM Level:** L{n}
-
 ### Global Tools
-| Tool | Required for L{n} | Installed |
-|------|-------------------|-----------|
-| mattpocock/skills | ✅ | ✅ / ❌ |
-| graphify | ✅ | ✅ / ❌ |
-| ... | ... | ... |
+| Stage | Tool | Installed |
+|-------|------|-----------|
+| Plan | GSD / brainstorming | ✅ / ❌ |
+| Implement | superpowers TDD | ✅ / ❌ |
+| Verify | stryker-js / agent-browser | ✅ / ❌ |
+| Review | code-review / pr-review-toolkit | ✅ / ❌ |
+| Cost | caveman / context-mode | ✅ / ❌ |
+| Security | SkillSpector | ✅ / ❌ |
 
 ### Files Created/Updated
 - {list of files created or modified}

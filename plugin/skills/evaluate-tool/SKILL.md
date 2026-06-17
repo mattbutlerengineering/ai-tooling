@@ -1,11 +1,11 @@
 ---
 name: evaluate-tool
-description: Evaluate an AI tool, skill, or plugin against the catalog and ACMM framework before adopting it
+description: Evaluate an AI tool, skill, or plugin against the catalog and dev loop quality signals before adopting it
 ---
 
 # Evaluate Tool
 
-Evaluate a new AI tool before adding it to your workflow. Prevents tool sprawl by checking for overlap and assessing ACMM-level fit.
+Evaluate a new AI tool before adding it to your workflow. Prevents tool sprawl by checking for overlap and assessing fit against the five quality signals.
 
 ## Trigger
 
@@ -35,16 +35,14 @@ Read the catalog at `${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md` and find entries in 
 - Does it replace something already in the workflow, or add alongside it?
 - Would adopting it mean running two tools that solve the same problem?
 
-### 3. Assess ACMM-level fit
+### 3. Assess dev loop stage and quality signal fit
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/WORKFLOW.md`. Determine which ACMM level this tool belongs to:
-- L2 (instructions/preferences)
-- L3 (measurement/testing)
-- L4 (adaptive/automated)
-- L5 (semi-automated)
-- L6 (fully autonomous)
+Read `${CLAUDE_PLUGIN_ROOT}/docs/WORKFLOW.md`. Determine:
+- Which dev loop stage does this tool serve? (Inner: Plan, Implement, Verify, Review, Ship, Reflect; Outer: Discover, Architect, Decompose, Integrate, Retrospect)
+- Which quality signals does it improve? (Correctness, Speed, Maintainability, Safety, Cost Efficiency)
+- Which layer does it operate at? (Process, Tooling, Infrastructure)
 
-Check: is the user at or approaching that level? Adopting L5 tools without L3 infrastructure is the "autonomous action without guardrails" anti-pattern.
+Check: does the user's current setup already have strong coverage for this stage and signal? Adding a third code review tool when Review is already well-covered is lower value than filling a gap in Verify or Integrate.
 
 ### 4. Report
 
@@ -57,7 +55,8 @@ Output a structured evaluation:
 **Problem it solves:** {pain point}
 **Type:** {type}
 **Category:** {category}
-**ACMM Level:** L{n}
+**Dev loop stage:** {stage}
+**Quality signals:** {signals}
 
 ### Overlap Analysis
 {list overlapping tools from catalog, with comparison}
@@ -66,7 +65,7 @@ Output a structured evaluation:
 - **ADOPT** — fills a gap in the current workflow
 - **REPLACE {x}** — better than current tool for this problem
 - **SKIP** — overlaps with {x} which is already in the workflow
-- **DEFER** — relevant at L{n}, but you're at L{m}. Revisit when {condition}.
+- **DEFER** — relevant but current setup has higher-priority gaps elsewhere
 
 ### Catalog Entry (if adopting)
 {pre-filled table row for CATALOG.md}
