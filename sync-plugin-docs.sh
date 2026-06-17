@@ -10,11 +10,12 @@ PLUGIN_SKILLS="$REPO_ROOT/plugin/skills"
 ROOT_SKILLS="$REPO_ROOT/skills"
 
 # --- Docs: root → plugin/docs/ ---
-mkdir -p "$PLUGIN_DOCS/evaluations"
+mkdir -p "$PLUGIN_DOCS/evaluations" "$PLUGIN_DOCS/discovery"
 
 cp "$REPO_ROOT/CATALOG.md" "$PLUGIN_DOCS/CATALOG.md"
 cp "$REPO_ROOT/WORKFLOW.md" "$PLUGIN_DOCS/WORKFLOW.md"
 rsync -a --delete "$REPO_ROOT/evaluations/" "$PLUGIN_DOCS/evaluations/"
+rsync -a --delete "$REPO_ROOT/discovery/" "$PLUGIN_DOCS/discovery/"
 
 # --- Skills: plugin/skills/ → root/skills/ (strip ${CLAUDE_PLUGIN_ROOT}/docs/ paths) ---
 for skill_dir in "$PLUGIN_SKILLS"/*/; do
@@ -28,11 +29,13 @@ root_entries=$(grep "^|" "$REPO_ROOT/CATALOG.md" | grep -v "^| Name " | grep -v 
 plugin_entries=$(grep "^|" "$PLUGIN_DOCS/CATALOG.md" | grep -v "^| Name " | grep -v "^|---" | wc -l | tr -d ' ')
 root_evals=$(ls "$REPO_ROOT/evaluations/"*.md 2>/dev/null | wc -l | tr -d ' ')
 plugin_evals=$(ls "$PLUGIN_DOCS/evaluations/"*.md 2>/dev/null | wc -l | tr -d ' ')
+root_discovery=$(ls "$REPO_ROOT/discovery/"*.md 2>/dev/null | wc -l | tr -d ' ')
+plugin_discovery=$(ls "$PLUGIN_DOCS/discovery/"*.md 2>/dev/null | wc -l | tr -d ' ')
 skill_count=$(ls -d "$PLUGIN_SKILLS"/*/ 2>/dev/null | wc -l | tr -d ' ')
 
-echo "Synced: CATALOG.md ($plugin_entries entries), WORKFLOW.md, evaluations/ ($plugin_evals files), skills/ ($skill_count skills)"
+echo "Synced: CATALOG.md ($plugin_entries entries), WORKFLOW.md, evaluations/ ($plugin_evals files), discovery/ ($plugin_discovery files), skills/ ($skill_count skills)"
 
-if [ "$root_entries" != "$plugin_entries" ] || [ "$root_evals" != "$plugin_evals" ]; then
-  echo "WARNING: count mismatch after sync — root has $root_entries entries/$root_evals evals, plugin has $plugin_entries/$plugin_evals"
+if [ "$root_entries" != "$plugin_entries" ] || [ "$root_evals" != "$plugin_evals" ] || [ "$root_discovery" != "$plugin_discovery" ]; then
+  echo "WARNING: count mismatch after sync — root has $root_entries entries/$root_evals evals/$root_discovery discovery, plugin has $plugin_entries/$plugin_evals/$plugin_discovery"
   exit 1
 fi

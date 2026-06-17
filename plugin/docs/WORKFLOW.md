@@ -63,8 +63,8 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [mattpocock/skills](https://github.com/mattpocock/skills) — engineering conventions, grilling, architecture improvement ([eval](evaluations/skills-collections.md)) | Maintainability |
 | | [agent-skills](https://github.com/addyosmani/agent-skills) — lifecycle structure with verification gates at each step ([eval](evaluations/skills-collections.md)) | Correctness |
 | | [context7](https://github.com/upstash/context7) — live docs during coding ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
-| | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/new-tools-loop1.md#caveman)) | Cost Efficiency |
-| | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/new-tools-loop9.md#context-mode)) | Cost Efficiency |
+| | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](discovery/new-tools-loop1.md#caveman)) | Cost Efficiency |
+| | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](discovery/new-tools-loop9.md#context-mode)) | Cost Efficiency |
 | | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/recommended-tools.md#headroom)) | Cost Efficiency |
 | **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
 
@@ -81,7 +81,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | **Process** | Run tests, build, verify behavior matches intent. Evidence required: test output, build output, runtime data. | Correctness |
 | **Tooling** | superpowers verification-before-completion — blocks claiming "done" without running verification commands | Correctness |
 | **Infrastructure** | CI pipeline — automated test runs on every push | Correctness, Safety |
-| | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](evaluations/new-tools-loop10.md#stryker-js-mutation-testing)) | Correctness |
+| | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](discovery/new-tools-loop10.md#stryker-js-mutation-testing)) | Correctness |
 | | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests | Correctness |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
@@ -97,8 +97,8 @@ Is the code good? This is where maintainability and safety get their primary che
 | **Process** | Run automated review before committing. Review the diff yourself — tools catch patterns, you catch intent. | Maintainability, Safety |
 | **Tooling** | [code-review plugin](evaluations/recommended-tools.md#code-review-plugin-anthropic) — multi-agent review with confidence scoring, filters noise ([eval](evaluations/recommended-tools.md#code-review-plugin-anthropic)) | Correctness, Maintainability |
 | | [pr-review-toolkit](evaluations/recommended-tools.md#pr-review-toolkit-anthropic) — dimension-specific agents: silent failure hunting, type design, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) | Maintainability, Safety |
-| | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology ([eval](evaluations/new-tools-loop1.md#trailofbitsskills)) | Safety |
-| | [shadcn/improve](https://github.com/shadcn/improve) — two-model codebase audit: expensive model plans, cheap model executes ([eval](evaluations/new-tools-loop2.md#shadcnimprove)) | Maintainability |
+| | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology ([eval](discovery/new-tools-loop1.md#trailofbitsskills)) | Safety |
+| | [shadcn/improve](https://github.com/shadcn/improve) — two-model codebase audit: expensive model plans, cheap model executes ([eval](discovery/new-tools-loop2.md#shadcnimprove)) | Maintainability |
 | **Infrastructure** | Review findings tracked by category — are "simplify this" comments decreasing over time? | Maintainability |
 
 **Feedback arc:** If the same category of review finding keeps appearing (e.g., "missing error handling"), that's a CLAUDE.md rule waiting to be written. claude-reflect captures these automatically.
@@ -112,7 +112,7 @@ Commit, push, pass CI, merge. This stage is where infrastructure earns its keep 
 | Layer | What | Signals |
 |-------|------|---------|
 | **Process** | Conventional commits. PR with summary and test plan. Never skip CI. | Speed |
-| **Tooling** | [claude-code-action](https://github.com/anthropics/claude-code-action) — `@claude` in PRs/issues for async review and fixes ([eval](evaluations/new-tools-loop2.md#claude-code-action)) | Speed |
+| **Tooling** | [claude-code-action](https://github.com/anthropics/claude-code-action) — `@claude` in PRs/issues for async review and fixes ([eval](discovery/new-tools-loop2.md#claude-code-action)) | Speed |
 | | [worktrunk](https://github.com/max-sixty/worktrunk) — git worktree management for parallel branches ([eval](evaluations/recommended-tools.md#worktrunk)) | Speed |
 | **Infrastructure** | PR acceptance rate tracking — merged vs. closed by category reveals what AI does well vs. poorly | Speed, Correctness |
 | | Flaky test detection — weekly analysis removes non-determinism that corrupts results | Correctness |
@@ -225,8 +225,8 @@ Cost efficiency isn't a stage — it's a property of every stage. These tools re
 
 | Tool | What it reduces | Where it helps |
 |------|----------------|----------------|
-| [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](evaluations/new-tools-loop1.md#caveman)) |
-| [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](evaluations/new-tools-loop9.md#context-mode)) |
+| [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](discovery/new-tools-loop1.md#caveman)) |
+| [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](discovery/new-tools-loop9.md#context-mode)) |
 | [headroom](https://github.com/chopratejas/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/recommended-tools.md#headroom)) |
 
 ---
@@ -249,7 +249,7 @@ These tools don't fit a single stage — they change *how much human involvement
 
 | Tool | What it enables |
 |------|----------------|
-| [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](evaluations/new-tools-loop7.md#ralph-claude-code)) |
+| [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](discovery/new-tools-loop7.md#ralph-claude-code)) |
 | [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | Audit-grade orchestration with tamper-proof logs for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/recommended-tools.md#beads)) |
 | [plannotator](https://github.com/backnotprop/plannotator) | Visual review of agent proposals — for when raw diffs aren't enough ([eval](evaluations/recommended-tools.md#plannotator)) |
@@ -348,12 +348,12 @@ All recommendations are backed by evidence. See the full evaluations:
 - [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for tools with no direct competitor
 
 **New tool evaluations** (from catalog scans):
-- [Loop 1](evaluations/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
-- [Loop 2](evaluations/new-tools-loop2.md) — claude-code-action, shadcn/improve, design-council
-- [Loop 3](evaluations/new-tools-loop3.md) — CLI-Anything, chrome-devtools-mcp, claude-subconscious, tokencost
-- [Loop 4](evaluations/new-tools-loop4.md) — Fabric, claude-task-master, scorecard, SimpleMem
-- [Loop 5](evaluations/new-tools-loop5.md) — andrej-karpathy-skills, autoresearch, google/skills, impeccable
-- [Loop 6](evaluations/new-tools-loop6.md) — opencode, dify, goose, agentskills
-- [Loop 7](evaluations/new-tools-loop7.md) — docmd, agent-rules-books, ralph-claude-code, ghostsecurity/skills
-- [Loop 8](evaluations/new-tools-loop8.md) — last30days-skill, Agent-Reach, llm-council
-- [Loop 9](evaluations/new-tools-loop9.md) — context-mode, planning-with-files, cognee, ponytail
+- [Loop 1](discovery/new-tools-loop1.md) — caveman, trailofbits/skills, book-to-skill, humanizer
+- [Loop 2](discovery/new-tools-loop2.md) — claude-code-action, shadcn/improve, design-council
+- [Loop 3](discovery/new-tools-loop3.md) — CLI-Anything, chrome-devtools-mcp, claude-subconscious, tokencost
+- [Loop 4](discovery/new-tools-loop4.md) — Fabric, claude-task-master, scorecard, SimpleMem
+- [Loop 5](discovery/new-tools-loop5.md) — andrej-karpathy-skills, autoresearch, google/skills, impeccable
+- [Loop 6](discovery/new-tools-loop6.md) — opencode, dify, goose, agentskills
+- [Loop 7](discovery/new-tools-loop7.md) — docmd, agent-rules-books, ralph-claude-code, ghostsecurity/skills
+- [Loop 8](discovery/new-tools-loop8.md) — last30days-skill, Agent-Reach, llm-council
+- [Loop 9](discovery/new-tools-loop9.md) — context-mode, planning-with-files, cognee, ponytail
