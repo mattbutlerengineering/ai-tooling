@@ -82,6 +82,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | **Tooling** | superpowers verification-before-completion — blocks claiming "done" without running verification commands | Correctness |
 | **Infrastructure** | CI pipeline — automated test runs on every push | Correctness, Safety |
 | | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](evaluations/new-tools-loop10.md#stryker-js-mutation-testing)) | Correctness |
+| | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests | Correctness |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
@@ -226,6 +227,7 @@ Safety runs through every stage, but supply chain security is its own concern �
 |------|-------------|
 | [SkillSpector](https://github.com/NVIDIA/SkillSpector) — scans skills for prompt injection, data exfiltration, malicious commands ([eval](evaluations/recommended-tools.md#skillspector)) |
 | [reporails/cli](https://github.com/reporails/cli) — validates instruction files for conflicts and anti-patterns ([eval](evaluations/recommended-tools.md#reporailscli)) |
+| **Agent bounding** — set explicit stop rules: token budgets per task, scope limits, auto-termination conditions. Prevents runaway agents from burning tokens or making unbounded changes. |
 
 ---
 
@@ -249,6 +251,10 @@ Knowing what your agents are doing and whether the workflow is improving require
 | Tool | What it provides |
 |------|-----------------|
 | [langfuse](https://github.com/langfuse/langfuse) | LLM tracing, evals, cost tracking, latency monitoring — production-grade observability ([eval](evaluations/recommended-tools.md#langfuse)) |
+| [tokencost](https://github.com/mr-beaver/tokencost) | Per-session cost tracking — see exactly what each agent run costs |
+| [Infracost](https://github.com/infracost/infracost) | Cloud infrastructure cost estimates — catch expensive Terraform/CDK before deploy |
+| [abtop](https://github.com/graykode/abtop) | Real-time multi-session agent monitor — htop for AI coding agents |
+| [Apache DevLake](https://github.com/apache/incubator-devlake) | DORA metrics, engineering throughput, delivery performance dashboards |
 
 ---
 

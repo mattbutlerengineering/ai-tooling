@@ -10,7 +10,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 
 ## Structure
 
-- `CATALOG.md` — flat inventory of 206 tools, organized by 13 categories with overlap markers
+- `CATALOG.md` — flat inventory of 205 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
 - `evaluations/` — evidence-based evaluation files covering every recommended tool
 - `skills/` — source skills for reference
