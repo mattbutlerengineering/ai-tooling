@@ -122,7 +122,7 @@ All 235 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | trailofbits/skills | skill | | ✓ | ADOPT |
 | cve-mcp-server | MCP server | ✓ | ✓ | |
 | pentest-ai | MCP server | ✓ | ✓ | |
-| Claude-BugHunter | skill | | ✓ | |
+| Claude-BugHunter | skill | | ✓ | CONDITIONAL |
 
 ## Ship
 
@@ -208,8 +208,8 @@ All 235 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Waza | skill | | ✓ | |
 | agents (wshobson) | plugin | | ✓ | |
 | agent-sprite-forge | skill | | ✓ | |
-| SwiftUI-Agent-Skill | skill | | ✓ | |
-| guard-skills | skill | | ✓ | |
+| SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
+| guard-skills | skill | | ✓ | CONDITIONAL |
 
 ## Memory & Context
 
@@ -315,13 +315,13 @@ All 235 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 22 | 7 | 32% |
 | Implement | 60 | 8 | 13% |
 | Verify | 7 | 3 | 43% |
-| Review | 13 | 6 | 46% |
+| Review | 13 | 7 | 54% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 8 | 6 | 75% |
-| Skills & Plugins | 52 | 5 | 10% |
+| Skills & Plugins | 52 | 7 | 13% |
 | Memory & Context | 13 | 1 | 8% |
 | MCP Servers | 22 | 5 | 23% |
-| Research & Discovery | 5 | 0 | 0% |
+| Research & Discovery | 5 | 1 | 20% |
 | Reference | 26 | 0 | 0% |
-| **Total** | **235** | **48** | **20%** |
+| **Total** | **235** | **52** | **22%** |
