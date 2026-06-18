@@ -105,7 +105,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agent-browser | tool | | ✓ | ADOPT |
 | browser-use | MCP server | | ✓ | |
-| chrome-devtools-mcp | MCP server | | ✓ | |
+| chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
 | evalview | MCP server | ✓ | ✓ | |
 | playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
