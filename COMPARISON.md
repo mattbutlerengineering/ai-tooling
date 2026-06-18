@@ -171,7 +171,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skills | skill | | ✓ | |
 | AI-Research-SKILLs | skill | | ✓ | |
 | alirezarezvani/claude-skills | plugin | | ✓ | |
-| andrej-karpathy-skills | skill | | ✓ | |
+| andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | |
 | anthropics/skills | reference | | ✓ | |
 | antfu/skills | skill | | ✓ | |
@@ -282,7 +282,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | antigravity-awesome-skills | reference | | ✓ | |
-| awesome-agent-skills | reference | | ✓ | |
+| awesome-agent-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills (libukai) | reference | | ✓ | |
 | awesome-ai-agents | reference | | ✓ | |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
