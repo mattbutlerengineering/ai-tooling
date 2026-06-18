@@ -222,6 +222,8 @@ What worked across the whole epic? What didn't? Retrospect operates at a higher 
 |-------|------|
 | **Process** | Review the full epic: which tasks went smoothly, which required rework, which assumptions were wrong. Update architecture docs and CLAUDE.md rules. |
 | **Tooling** | claude-mem timeline views — see patterns across sessions ([eval](evaluations/memory-systems.md)) |
+| | [engram](https://github.com/Gentleman-Programming/engram) — agent-agnostic memory with topic-key upserts and conflict surfacing, portable across 7+ agents ([eval](evaluations/engram.md)) |
+| | [mem0](https://github.com/mem0ai/mem0) — relationship-aware memory with entity linking and published retrieval benchmarks, cross-editor support ([eval](evaluations/mem0.md)) |
 | | mattpocock `improve-codebase-architecture` — systematic architecture improvement ([eval](evaluations/skills-collections.md)) |
 | **Infrastructure** | Retro action completion rate — track whether retrospective actions actually get implemented | All |
 | | [Apache DevLake](https://github.com/apache/incubator-devlake) — DORA metrics trend over epics: is lead time/MTTR improving? ([eval](evaluations/apache-devlake.md)) | Speed, Safety |
@@ -249,6 +251,7 @@ Safety runs through every stage, but supply chain security is its own concern �
 | Tool | What it does |
 |------|-------------|
 | [SkillSpector](https://github.com/NVIDIA/SkillSpector) — scans skills for prompt injection, data exfiltration, malicious commands ([eval](evaluations/recommended-tools.md#skillspector)) |
+| [hol-guard](https://github.com/hashgraph-online/hol-guard) — AI antivirus: 6-step detection pipeline scans plugins, skills, MCP servers before execution ([eval](evaluations/hol-guard.md)) |
 | [reporails/cli](https://github.com/reporails/cli) — validates instruction files for conflicts and anti-patterns ([eval](evaluations/recommended-tools.md#reporailscli)) |
 | **Agent bounding** — set explicit stop rules: token budgets per task, scope limits, auto-termination conditions. Prevents runaway agents from burning tokens or making unbounded changes. |
 
@@ -263,6 +266,7 @@ These tools don't fit a single stage — they change *how much human involvement
 | [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](evaluations/ralph-claude-code.md)) |
 | [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | Audit-grade orchestration with tamper-proof logs for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/recommended-tools.md#beads)) |
+| [deer-flow](https://github.com/bytedance/deer-flow) | ByteDance's long-horizon agent runtime: sandboxed execution, sub-agent orchestration, persistent memory (71.5K stars) ([eval](evaluations/deer-flow.md)) |
 | [plannotator](https://github.com/backnotprop/plannotator) | Visual review of agent proposals — for when raw diffs aren't enough ([eval](evaluations/recommended-tools.md#plannotator)) |
 
 ---
