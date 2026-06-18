@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 222 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 220 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -14,11 +14,11 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-review-graph | tool | | ✓ | |
 | context7 | MCP server | ✓ | ✓ | KEEP |
 | feature-dev | plugin | | ✓ | KEEP |
-| graphify | skill | | ✓ | |
+| graphify | skill | | ✓ | CONDITIONAL |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | |
 | git-mcp | MCP server | ✓ | ✓ | |
 | GSD | framework | | ✓ | KEEP |
-| mdn/mcp | MCP server | ✓ | ✓ | |
+| mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | |
 | planning-with-files | skill | | ✓ | |
 | reporails/cli | tool | | $ | CONDITIONAL |
@@ -64,7 +64,7 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gstack | harness | | ✓ | |
 | happy | platform | | $ | |
 | harness | skill | | ✓ | |
-| headroom | tool | ✓ | ✓ | KEEP |
+| headroom | tool | ✓ | ✓ | ADOPT |
 | hive | harness | | ✓ | |
 | humanlayer | harness | | ✓ | |
 | KARIMO | plugin | | ✓ | |
@@ -98,7 +98,7 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | browser-use | MCP server | | ✓ | |
 | chrome-devtools-mcp | MCP server | | ✓ | |
 | evalview | MCP server | ✓ | ✓ | |
-| playwright | MCP server | | ✓ | |
+| playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
 | diagnosing-bugs | skill | | ✓ | |
 
@@ -232,11 +232,11 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | fastmcp | framework | | ✓ | |
 | Figma-Context-MCP | MCP server | ✓ | ✓ | |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | |
-| github-mcp-server | MCP server | ✓ | ✓ | |
+| github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
 | jira | MCP server | ✓ | ✓ | |
 | mcp-toolbox | MCP server | ✓ | ✓ | |
 | prisma | MCP server | ✓ | ✓ | |
-| sequential-thinking | MCP server | ✓ | ✓ | |
+| sequential-thinking | MCP server | ✓ | ✓ | SKIP |
 | sentry | MCP server | ✓ | ✓ | |
 | server-filesystem | MCP server | ✓ | ✓ | |
 | server-github | MCP server | ✓ | ✓ | |
@@ -297,16 +297,16 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 20 | 6 | 30% |
-| Implement | 57 | 10 | 18% |
-| Verify | 7 | 2 | 29% |
-| Review | 10 | 7 | 70% |
+| Plan | 20 | 7 | 35% |
+| Implement | 58 | 8 | 14% |
+| Verify | 7 | 3 | 43% |
+| Review | 10 | 6 | 60% |
 | Ship | 2 | 2 | 100% |
-| Reflect | 5 | 4 | 80% |
-| Outer Loop | 8 | 5 | 63% |
+| Reflect | 5 | 5 | 100% |
+| Outer Loop | 8 | 6 | 75% |
 | Skills & Plugins | 50 | 5 | 10% |
 | Memory & Context | 11 | 1 | 9% |
-| MCP Servers | 20 | 0 | 0% |
+| MCP Servers | 20 | 2 | 10% |
 | Research & Discovery | 5 | 0 | 0% |
 | Reference | 24 | 0 | 0% |
-| **Total** | **222** | **42** | **19%** |
+| **Total** | **220** | **45** | **20%** |
