@@ -325,15 +325,15 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 24 | 7 | 29% |
-| Implement | 63 | 11 | 17% |
+| Implement | 63 | 12 | 19% |
 | Verify | 7 | 3 | 43% |
-| Review | 16 | 7 | 44% |
+| Review | 16 | 8 | 50% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 8 | 6 | 75% |
 | Skills & Plugins | 53 | 8 | 15% |
-| Memory & Context | 15 | 3 | 20% |
+| Memory & Context | 15 | 5 | 33% |
 | MCP Servers | 22 | 5 | 23% |
 | Research & Discovery | 5 | 1 | 20% |
 | Reference | 27 | 2 | 7% |
-| **Total** | **247** | **60** | **24%** |
+| **Total** | **247** | **64** | **26%** |
