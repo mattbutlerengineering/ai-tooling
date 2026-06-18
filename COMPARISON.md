@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 209 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 220 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -24,6 +24,8 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | |
 | Understand-Anything | tool | | ✓ | |
+| codebase-design | skill | | ✓ | |
+| domain-modeling | skill | | ✓ | |
 
 ## Implement
 
@@ -85,6 +87,8 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | superpowers | plugin | | ✓ | ADOPT |
 | superset | tool | | ✓ | |
 | worktrunk | tool | | $ | CONDITIONAL |
+| implement | skill | | ✓ | |
+| resolving-merge-conflicts | skill | | ✓ | |
 
 ## Verify
 
@@ -96,6 +100,7 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | evalview | MCP server | ✓ | ✓ | |
 | playwright | MCP server | | ✓ | |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
+| diagnosing-bugs | skill | | ✓ | |
 
 ## Review
 
@@ -124,6 +129,10 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | claude-reflect | plugin | | ✓ | KEEP |
+| documentation-writer | skill | | ✓ | ADOPT |
+| documentation-and-adrs | skill | | ✓ | ADOPT |
+| documentation (anthropics) | skill | | ✓ | CONDITIONAL |
+| oo-component-documentation | skill | | ✓ | SKIP |
 
 ## Outer Loop
 
@@ -174,6 +183,8 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | obsidian-skills | skill | | ✓ | |
 | open-design | platform | | ✓ | |
 | open-slide | tool | | ✓ | |
+| slidev | skill | | ✓ | CONDITIONAL |
+| powerpoint | skill | | ✓ | CONDITIONAL |
 | openskills | tool | | ✓ | |
 | plugin-dev | plugin | | ✓ | |
 | pm-skills | skill | | ✓ | |
@@ -284,16 +295,16 @@ All 209 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 18 | 6 | 33% |
-| Implement | 55 | 10 | 18% |
-| Verify | 6 | 2 | 33% |
+| Plan | 20 | 6 | 30% |
+| Implement | 57 | 10 | 18% |
+| Verify | 7 | 2 | 29% |
 | Review | 10 | 6 | 60% |
 | Ship | 2 | 2 | 100% |
-| Reflect | 1 | 1 | 100% |
+| Reflect | 5 | 4 | 80% |
 | Outer Loop | 8 | 5 | 63% |
-| Skills & Plugins | 46 | 1 | 2% |
+| Skills & Plugins | 48 | 3 | 6% |
 | Memory & Context | 11 | 1 | 9% |
 | MCP Servers | 20 | 0 | 0% |
 | Research & Discovery | 5 | 0 | 0% |
 | Reference | 24 | 0 | 0% |
-| **Total** | **209** | **34** | **16%** |
+| **Total** | **220** | **39** | **18%** |
