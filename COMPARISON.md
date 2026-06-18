@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 237 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 247 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -29,6 +29,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | plannotator | tool | | ✓ | |
 | code-context-engine | MCP server | ✓ | ✓ | |
 | trace-mcp | MCP server | ✓ | ✓ | |
+| SocratiCode | tool | ✓ | ✓ | |
 
 ## Implement
 
@@ -42,14 +43,15 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | caveman | skill | | ✓ | ADOPT |
 | cherry-studio | platform | | ✓ | |
 | claurst | harness | | ✓ | |
-| claude-code-harness | harness | | ✓ | |
+| claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | |
 | claude-code-staff-engineer | harness | | ✓ | |
 | claude-squad | tool | | ✓ | KEEP |
 | claude-task-master | tool | | ✓ | |
+| capa | tool | | ✓ | |
 | cc-switch | tool | | ✓ | |
 | commit-commands | plugin | | ✓ | |
-| compound-engineering | plugin | | ✓ | |
+| compound-engineering | plugin | | ✓ | CONDITIONAL |
 | context-mode | skill | ✓ | ✓ | CONDITIONAL |
 | Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
 | CowAgent | harness | | ✓ | |
@@ -95,6 +97,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | implement | skill | | ✓ | |
 | resolving-merge-conflicts | skill | | ✓ | |
 | codex-plugin-cc | plugin | | ✓ | |
+| vibecode-pro-max-kit | harness | | ✓ | |
 
 ## Verify
 
@@ -125,6 +128,9 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cve-mcp-server | MCP server | ✓ | ✓ | |
 | pentest-ai | MCP server | ✓ | ✓ | |
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
+| hol-guard | tool | ✓ | ✓ | |
+| OpenOSINT | MCP server | ✓ | ✓ | |
+| agnix | tool | ✓ | ✓ | |
 
 ## Ship
 
@@ -212,6 +218,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-sprite-forge | skill | | ✓ | |
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
+| claude-night-market | plugin | | ✓ | |
 
 ## Memory & Context
 
@@ -221,7 +228,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | |
-| engram | tool | | ✓ | |
+| engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | |
 | OMEGA | MCP server | ✓ | ✓/$ | |
 | server-memory | MCP server | ✓ | ✓ | |
@@ -230,6 +237,8 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | longhand | MCP server | | ✓ | |
 | storybloq | plugin | ✓ | ✓ | |
 | ArcRift | tool | | ✓ | |
+| context-infrastructure | tool | | ✓ | |
+| AgentRecall-MCP | MCP server | ✓ | ✓ | |
 
 ## MCP Servers (infrastructure)
 
@@ -276,7 +285,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-agent-skills | reference | | ✓ | |
 | awesome-agent-skills (libukai) | reference | | ✓ | |
 | awesome-ai-agents | reference | | ✓ | |
-| awesome-claude-code | reference | | ✓ | |
+| awesome-claude-code | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | |
 | awesome-claude-skills (travisvn) | reference | | ✓ | |
 | awesome-codex-skills | reference | | ✓ | |
@@ -298,6 +307,7 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentskills | reference | | ✓ | |
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
 | design-extract | MCP server | ✓ | ✓ | |
+| buildwithclaude | reference | | ✓ | |
 
 ---
 
@@ -314,16 +324,16 @@ All 237 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 23 | 7 | 30% |
-| Implement | 61 | 9 | 15% |
+| Plan | 24 | 7 | 29% |
+| Implement | 63 | 11 | 17% |
 | Verify | 7 | 3 | 43% |
-| Review | 13 | 7 | 54% |
+| Review | 16 | 7 | 44% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 8 | 6 | 75% |
-| Skills & Plugins | 52 | 8 | 15% |
-| Memory & Context | 13 | 2 | 15% |
+| Skills & Plugins | 53 | 8 | 15% |
+| Memory & Context | 15 | 3 | 20% |
 | MCP Servers | 22 | 5 | 23% |
 | Research & Discovery | 5 | 1 | 20% |
-| Reference | 26 | 1 | 4% |
-| **Total** | **237** | **56** | **24%** |
+| Reference | 27 | 2 | 7% |
+| **Total** | **247** | **60** | **24%** |

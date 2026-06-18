@@ -24,14 +24,10 @@ This gives you five skills:
 ## Contents
 
 - [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
-- [CATALOG.md](CATALOG.md) — flat inventory of every tool with definitions, problem statements, and overlap markers
-- [evaluations/](evaluations/) — evidence-based evaluations covering every recommended tool:
-  - [Code Understanding](evaluations/code-understanding.md) — codegraph + graphify > Understand-Anything > repomix
-  - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
-  - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
-  - [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
-  - [Recommended Tools](evaluations/recommended-tools.md) — individual evaluations for tools with no direct competitor
-  - [New Tool Evaluations](evaluations/) — 9 loops of catalog scan evaluations
+- [CATALOG.md](CATALOG.md) — flat inventory of 237 tools with definitions, problem statements, and overlap markers
+- [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
+- [STACK.md](STACK.md) — the ~25 tools worth installing, distilled from 56 hands-on evaluations
+- [evaluations/](evaluations/) — 49 evidence-based evaluations with verdicts (ADOPT/CONDITIONAL/SKIP)
 
 ## Quick Start
 
