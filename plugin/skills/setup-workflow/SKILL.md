@@ -37,11 +37,36 @@ ls ~/.claude/plugins/cache/ 2>/dev/null
 # Skills
 ls ~/.claude/skills/ 2>/dev/null
 
-# MCP servers
-grep -c "mcpServers" ~/.claude/settings.json 2>/dev/null
+# MCP servers (check settings for configured servers)
+cat ~/.claude/settings.json 2>/dev/null | grep -o '"[^"]*"' | head -20
+# Also check project-level MCP config
+cat .mcp.json 2>/dev/null
 ```
 
-Map against the recommended stack from `${CLAUDE_PLUGIN_ROOT}/docs/WORKFLOW.md` — check inner loop stages (Plan, Implement, Verify, Review, Ship, Reflect) and outer loop stages (Discover, Architect, Decompose, Integrate, Retrospect).
+Map against the recommended stack from `${CLAUDE_PLUGIN_ROOT}/docs/STACK.md` — check each dev loop stage (Plan, Implement, Verify, Review, Ship, Reflect, Outer Loop).
+
+### 2b. Offer to install missing tools
+
+For each stage in STACK.md, compare installed tools against recommendations. Present missing tools grouped by stage and ask which to install:
+
+```
+Missing from your setup:
+  Plan:    [ ] context7 (MCP server — live docs lookup)
+  Verify:  [ ] agent-browser (skill — visual verification)
+  Review:  [ ] trailofbits/skills (skill — security audit)
+  Ship:    [ ] claude-code-action (GitHub Action — async review)
+
+Install all missing? Or pick specific stages?
+```
+
+For each selected tool, run the install command from STACK.md:
+- MCP servers: `claude mcp add ...`
+- Skills: `claude install-skill ...`
+- Plugins: `claude install-plugin ...`
+- npm packages: `npm install -D ...`
+- GitHub Actions: create workflow YAML file
+
+Skip any tool that's already detected as installed.
 
 ### 3. Create or update CLAUDE.md
 
@@ -83,24 +108,31 @@ If it doesn't exist, create with:
 
 **Repo:** {name}
 **Detected:** {language/framework}
-### Global Tools
-| Stage | Tool | Installed |
-|-------|------|-----------|
-| Plan | GSD / brainstorming | ✅ / ❌ |
-| Implement | superpowers TDD | ✅ / ❌ |
-| Verify | stryker-js / agent-browser | ✅ / ❌ |
-| Review | code-review / pr-review-toolkit | ✅ / ❌ |
-| Cost | caveman / context-mode | ✅ / ❌ |
-| Security | SkillSpector | ✅ / ❌ |
+### Recommended Stack (from STACK.md)
+| Stage | Tool | Installed | Signal |
+|-------|------|-----------|--------|
+| Plan | context7 | ✅ / ❌ | Correctness |
+| Plan | GSD | ✅ / ❌ | Correctness, Speed |
+| Plan | feature-dev | ✅ / ❌ | Correctness |
+| Implement | caveman | ✅ / ❌ | Cost Efficiency |
+| Implement | headroom | ✅ / ❌ | Cost Efficiency |
+| Verify | agent-browser | ✅ / ❌ | Correctness |
+| Verify | stryker-js | ✅ / ❌ | Correctness |
+| Review | code-review | ✅ / ❌ | Correctness, Safety |
+| Review | trailofbits/skills | ✅ / ❌ | Safety |
+| Ship | claude-code-action | ✅ / ❌ | Speed |
+| Reflect | claude-reflect | ✅ / ❌ | Maintainability |
+| Outer | abtop | ✅ / ❌ | Cost Efficiency |
+| Outer | SkillSpector | ✅ / ❌ | Safety |
 
 ### Files Created/Updated
 - {list of files created or modified}
 
-### Missing Tools
-{list of tools to install globally with install commands}
+### Tools Installed This Run
+- {list of tools installed, or "None — all recommended tools already present"}
 
 ### Next Steps
-1. {most important thing to do next}
+1. {most important gap to close}
 2. {second}
 ```
 
