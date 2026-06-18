@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~20 tools worth installing on every project, distilled from 235 catalog entries and 48 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~20 tools worth installing on every project, distilled from 247 catalog entries and 60 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -89,6 +89,6 @@ claude install-skill nichochar/agent-browser
 
 ## What's NOT here
 
-- **235 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **247 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage

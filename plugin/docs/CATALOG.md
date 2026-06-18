@@ -28,6 +28,7 @@ Tools that help you visualize, navigate, and comprehend codebases before or duri
 | [opensrc](https://github.com/vercel-labs/opensrc) | tool | Fetch npm package source code to give AI coding agents deeper dependency context | Agent can't read inside node_modules to understand dependency internals | context7 (complementary: context7 = docs, opensrc = source) |
 | [code-context-engine](https://github.com/elara-labs/code-context-engine) | MCP server | Index codebase, agents search instead of reading files — 94% token savings | AI agents read too many files and waste tokens; indexed search is faster and cheaper | repomix, codegraph, context7 |
 | [trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp) | MCP server | One tool call replaces ~42 minutes of agent exploration via deep trace-based code understanding | Agents waste time exploring codebases file-by-file | codegraph, code-context-engine |
+| [SocratiCode](https://github.com/giancarloerra/SocratiCode) | tool | Enterprise-grade codebase intelligence — semantic search, dependency graphs, 61% fewer tokens (3K stars) | Agents waste tokens on large codebases; need indexed code intelligence with impact analysis | codegraph, code-context-engine, trace-mcp |
 
 ## Agent Orchestration
 
@@ -88,6 +89,7 @@ Frameworks that structure, enhance, or optimize how a single coding agent operat
 | [claude-code-staff-engineer](https://github.com/FareedKhan-dev/claude-code-staff-engineer) | harness | Staff engineer with sub-agent teams in Claude Code | Want hierarchical agent teams with a lead engineer coordinating specialists | gstack, agency-agents |
 | [humanlayer](https://github.com/humanlayer/humanlayer) | harness | AI coding agents for hard problems in complex codebases | Need agents tuned for difficult, multi-file problems in large repos | superpowers, oh-my-openagent |
 | [claude-code-harness](https://github.com/Chachamaru127/claude-code-harness) | harness | Autonomous Plan-Work-Review cycle harness for Claude Code (2.7K stars) | Want a structured autonomous dev loop with built-in review gates | superpowers, ralph-claude-code |
+| [vibecode-pro-max-kit](https://github.com/withkynam/vibecode-pro-max-kit) | harness | Spec-driven coding harness with self-improving context memory and 15-agent autopilot | Agent forgets context and produces spaghetti; need spec-driven memory with automated workflows | superpowers, GSD, ralph-claude-code |
 | [KARIMO](https://github.com/opensesh/KARIMO) | plugin | Product design-driven agent orchestration with sub-agents and agent teams | Need phased adoption from PRD execution to automated review and CI-friendly agent teams | superpowers, gstack |
 
 ## Memory & Context
@@ -111,6 +113,8 @@ Tools for persistent memory across sessions, context compression, and learning f
 | [engram](https://github.com/Gentleman-Programming/engram) | tool | Agent-agnostic persistent memory — Go binary with SQLite, FTS5, MCP, CLI, and TUI | Need a single portable binary for memory that works with any AI coding agent | OMEGA, claude-mem, SimpleMem, agentmemory |
 | [storybloq](https://github.com/Storybloq/storybloq) | plugin | Cross-session context for Claude Code — CLI + MCP server + /story skill | Claude Code loses context across sessions; tracks tickets, issues, handovers in .story/ | claude-mem, OMEGA, engram |
 | [ArcRift](https://github.com/Eshaan-Nair/ArcRift) | tool | Sync browser AI chat context to local IDE agents via SQLite knowledge graph | Context from browser-based AI chats is siloed from IDE agents | claude-mem, OMEGA, storybloq |
+| [context-infrastructure](https://github.com/grapeot/context-infrastructure) | tool | Structured context and memory system with personal rules, skills, and scheduled observations | Agent memory is ad-hoc; need a system for rules, observations, and scheduled refresh | OMEGA, claude-mem, engram |
+| [AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-MCP) | MCP server | Correction-driven memory — learns from mistakes, compresses context, consolidates overnight | Memory systems store facts but don't learn from corrections | claude-mem, OMEGA, claude-subconscious |
 
 ## Skills & Plugins
 
@@ -179,6 +183,7 @@ Extensions that add domain-specific capabilities to coding agents.
 | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | skill | Secure, validated skill registry for professional AI coding agents | Need security-validated skills with confidence guarantees | SkillSpector, antigravity-awesome-skills |
 | [formkit](https://github.com/formkit/formkit) | framework | The form framework for coding agents | Need agent-optimized form building and validation | — (domain-specific: forms) |
 | [googleworkspace/cli](https://github.com/googleworkspace/cli) | tool | Google Workspace CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, and Admin with AI agent skills | Need agents to interact with Google Workspace services via CLI | google/skills |
+| [claude-night-market](https://github.com/athola/claude-night-market) | plugin | 23 plugins: TDD hooks, git/PR workflows, spec-driven dev, multi-LLM delegation (186 skills) | Setting up TDD enforcement, code review, and workflow automation requires many separate tools | superpowers, compound-engineering, commit-commands |
 | [SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) | skill | SwiftUI agent skill for Claude Code, Codex, and other AI tools (4.1K stars) | AI agents generate outdated or incorrect SwiftUI code | — (domain-specific: SwiftUI) |
 | [guard-skills](https://github.com/amElnagdy/guard-skills) | skill | Quality gates that catch AI-generated failure modes in code, tests, and docs | AI-generated code has distinct failure patterns not caught by traditional linters | code-review, pr-review-toolkit, trailofbits/skills |
 
@@ -200,7 +205,7 @@ Frameworks for assessing and systematically improving how a codebase leverages A
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [ACMM](https://arxiv.org/abs/2604.09388) | framework | 6-level AI Codebase Maturity Model defined by feedback loop topology, not autonomy | Teams plateau at "prompt and review" without a systematic progression path; tools without feedback loops produce chaos | — |
+| [ACMM](https://arxiv.org/abs/2604.09388) | framework | 6-level AI Codebase Maturity Model defined by feedback loop topology, not autonomy | Teams plateau at "prompt and review" without a systematic progression path; tools without feedback loops produce chaos | agents-best-practices (complementary: ACMM = maturity model, ABP = implementation patterns) |
 
 ## Dev Workflow
 
@@ -210,8 +215,8 @@ Tools for git management, planning, project orchestration, and development proce
 |------|------|-----------|-------------------|---------------|
 | GSD (Get Shit Done) | framework | Project orchestration: milestones, phases, planning, execution, and verification with 12 specialized agents | Need structured project management around AI-assisted development | superpowers (GSD is part of superpowers), feature-dev |
 | [worktrunk](https://github.com/max-sixty/worktrunk) | tool | CLI for git worktree management, designed for parallel AI agent workflows | Need isolated git branches for multiple agents working simultaneously | dmux |
-| [plannotator](https://github.com/backnotprop/plannotator) | tool | Annotate and review coding agent plans and code diffs visually, share with team | Agent plans are hard to review and discuss with teammates | — |
-| commit-commands | plugin | Git workflow shortcuts: clean_gone, commit, commit-push-pr | Repetitive git operations slow down agent-assisted workflow | — |
+| [plannotator](https://github.com/backnotprop/plannotator) | tool | Annotate and review coding agent plans and code diffs visually, share with team | Agent plans are hard to review and discuss with teammates | planning-with-files (complementary: plannotator = visual review, planning-with-files = persistence) |
+| commit-commands | plugin | Git workflow shortcuts: clean_gone, commit, commit-push-pr | Repetitive git operations slow down agent-assisted workflow | claude-code-action (complementary: commit-commands = local, CCA = CI) |
 | [reporails/cli](https://github.com/reporails/cli) | tool | AI instructions diagnostics for Claude, Codex, Copilot, Cursor, Gemini agents | Don't know if CLAUDE.md / agent instructions are well-formed or conflicting | — |
 | [CLI-Anything](https://github.com/HKUDS/CLI-Anything) | tool | Making all software agent-native via CLI wrappers | Existing tools don't expose interfaces that AI agents can use | — |
 | feature-dev | plugin | Feature development workflow with planning, implementation, and verification stages | Need a structured feature development process with AI agents | GSD |
@@ -222,6 +227,7 @@ Tools for git management, planning, project orchestration, and development proce
 | [gsd-build](https://github.com/gsd-build/get-shit-done) | framework | Standalone GSD: meta-prompting and spec-driven dev for Claude Code | Want GSD methodology without the full superpowers plugin | GSD (superpowers), feature-dev |
 | [docmd](https://github.com/docmd-io/docmd) | tool | Markdown-to-docs-site generator with MCP server and llms.txt for AI-native documentation | Need to publish docs that agents can also query programmatically | — (unique: AI-native docs site) |
 | [claude-code-templates](https://github.com/davila7/claude-code-templates) | tool | CLI tool for configuring and monitoring Claude Code sessions | Need structured configuration and monitoring for Claude Code | ccstatusline, claude-hud |
+| [capa](https://github.com/infragate/capa) | tool | One capabilities.yaml wires skills, tools, rules, agents, and MCP servers across 30+ AI editors | Configuring agent capabilities is per-tool; need a single config format portable across editors | reporails/cli (complementary: capa = config, reporails = diagnostics) |
 | [claude-hud](https://github.com/jarrodwatts/claude-hud) | plugin | Shows context usage, active tools, running agents, and todo progress in Claude Code | Can't see what's happening inside Claude Code sessions — context, tools, agents | ccstatusline, claude-code-templates |
 | [ccstatusline](https://github.com/sirmalloc/ccstatusline) | plugin | Beautiful customizable statusline for Claude Code CLI with powerline and themes | Want a richer status display for Claude Code sessions | claude-hud, claude-code-templates |
 | [agent-rules-books](https://github.com/ciembor/agent-rules-books) | skill | 13 classic engineering books distilled into CLAUDE.md rule sets with tiered token budgets | Want canonical software engineering principles (DDD, Clean Architecture, DDIA) as agent rules | mattpocock/skills, andrej-karpathy-skills |
@@ -248,7 +254,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | server-github | MCP server | GitHub operations (repos, issues, PRs, actions) | Agent needs to interact with GitHub beyond local git | github-mcp-server |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | MCP server | GitHub's official MCP server — repos, issues, PRs, actions, search, code navigation | Need first-party GitHub integration with full API coverage and official support | server-github |
 | server-filesystem | MCP server | Local filesystem access with safety controls | Agent needs structured file operations with guardrails | — |
-| exa-mcp-server | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | — |
+| exa-mcp-server | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | firecrawl-mcp, Agent-Reach |
 | firecrawl-mcp | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
 | fal-ai-mcp-server | MCP server | Image, video, and audio generation via fal.ai | Agent needs to generate media assets | — |
 | token-optimizer-mcp | MCP server | 95%+ context reduction for tool outputs | Context window fills up too fast | headroom |
@@ -258,16 +264,16 @@ Model Context Protocol servers that connect AI agents to external services and c
 | longhand | MCP server | Session history indexing for cross-session search | Need to find what happened in past agent sessions | OMEGA, claude-mem |
 | devfleet | MCP server | Multi-agent orchestration via MCP | Need to coordinate agents through the MCP protocol rather than CLI | claude-squad, gastown |
 | supabase | MCP server | Supabase database and auth operations | Agent needs to interact with Supabase projects during development | prisma |
-| jira | MCP server | Jira issue tracking integration | Agent needs to read/update Jira tickets during development | — |
-| confluence | MCP server | Confluence wiki integration | Agent needs to read/write team documentation | — |
+| jira | MCP server | Jira issue tracking integration | Agent needs to read/update Jira tickets during development | github-mcp-server (complementary: Jira = issues, GitHub = code) |
+| confluence | MCP server | Confluence wiki integration | Agent needs to read/write team documentation | gentleman-book-mcp (complementary: confluence = team wiki, gentleman = architecture book) |
 | [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | MCP server | Chrome DevTools integration for coding agents | Need agents to inspect, debug, and profile web apps in Chrome | playwright |
 | [mdn/mcp](https://github.com/mdn/mcp) | MCP server | MDN Web Docs lookup — current browser compatibility data and web platform documentation | Agent's training data has outdated web API info; needs accurate browser support tables | context7 |
 | [fastmcp](https://github.com/PrefectHQ/fastmcp) | framework | Fast, Pythonic way to build MCP servers and clients with minimal boilerplate | Building MCP servers requires too much setup; need a framework that makes it easy | — (unique: MCP server builder) |
 | [git-mcp](https://github.com/idosal/git-mcp) | MCP server | Remote MCP server for any GitHub project — eliminates code hallucinations | Agents hallucinate APIs and functions; need live repo context as MCP resource | context7 (complementary: context7 = library docs, git-mcp = repo source) |
 | [awslabs/mcp](https://github.com/awslabs/mcp) | MCP server | Official AWS MCP servers for S3, Lambda, DynamoDB, CDK, and more | Need agents to interact with AWS services directly during development | cloudflare-mcp |
-| [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP) | MCP server | Figma layout information for AI coding agents — bridge designs to code | Need agents to read Figma designs and translate them into code accurately | — |
+| [Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP) | MCP server | Figma layout information for AI coding agents — bridge designs to code | Need agents to read Figma designs and translate them into code accurately | plumb-mcp, design-extract |
 | [mcp-toolbox](https://github.com/googleapis/mcp-toolbox) | MCP server | Google's MCP server for databases — schema inspection, queries, migrations | Need agents to interact with databases via a standardized MCP interface | prisma, supabase |
-| [gentleman-book-mcp](https://github.com/Alan-TheGentleman/gentleman-book-mcp) | MCP server | 18 chapters of software architecture knowledge accessible to AI agents | Agent lacks deep architecture knowledge for design decisions | — |
+| [gentleman-book-mcp](https://github.com/Alan-TheGentleman/gentleman-book-mcp) | MCP server | 18 chapters of software architecture knowledge accessible to AI agents | Agent lacks deep architecture knowledge for design decisions | book-to-skill (complementary: gentleman = fixed book, book-to-skill = any book) |
 | [opendocswork-mcp](https://github.com/Aimino-Tech/opendocswork-mcp) | MCP server | Rust-native Office document processing — Excel, Word, PowerPoint at sub-millisecond speed | AI agents can't natively read or write Office documents | powerpoint, powerpoint-ppt |
 | [plumb-mcp](https://github.com/tathagat22/plumb-mcp) | MCP server | Local Figma MCP server with no REST rate limits and a verification loop | Figma's official MCP has rate limits and metered tool-call quotas | Figma-Context-MCP |
 
@@ -290,8 +296,8 @@ Tools for AI-assisted research, information gathering, and multi-model reasoning
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [autoresearch](https://github.com/karpathy/autoresearch) | tool | AI agents running automated research experiments | Research is tedious; want AI to run experiments autonomously | — |
-| [llm-council](https://github.com/karpathy/llm-council) | tool | Multiple LLMs work together to answer the hardest questions | Single model has blind spots; committee of models is more reliable | — |
+| [autoresearch](https://github.com/karpathy/autoresearch) | tool | AI agents running automated research experiments | Research is tedious; want AI to run experiments autonomously | last30days-skill, AI-Research-SKILLs |
+| [llm-council](https://github.com/karpathy/llm-council) | tool | Multiple LLMs work together to answer the hardest questions | Single model has blind spots; committee of models is more reliable | design-council (similar multi-perspective approach) |
 | [last30days-skill](https://github.com/mvanhorn/last30days-skill) | skill | Research any topic across Reddit, X, YouTube, HN, Polymarket, and the web | Need current sentiment and discussion, not just static docs | Agent-Reach |
 | [Agent-Reach](https://github.com/Panniantong/Agent-Reach) | tool | Give AI agents eyes to see the internet — read and search Twitter, Reddit, YouTube, GitHub, zero API fees | Need agents to access social/web content without paid APIs | last30days-skill, exa-mcp-server |
 | [aisuite](https://github.com/andrewyng/aisuite) | framework | Simple unified interface to multiple generative AI providers | Switching between AI providers requires different SDKs and APIs | — |
@@ -311,6 +317,9 @@ Tools for scanning agent-generated code and skills for vulnerabilities.
 | [cve-mcp-server](https://github.com/mukul975/cve-mcp-server) | MCP server | 27 security intelligence tools across 21 APIs — CVE, EPSS, CISA KEV, MITRE ATT&CK, Shodan | Security research requires querying many APIs manually; unifies vulnerability intelligence | ghostsecurity/skills, Anthropic-Cybersecurity-Skills |
 | [pentest-ai](https://github.com/0xSteph/pentest-ai) | MCP server | Offensive-security MCP server with 205 tools, 17 specialist agents, 60 SPA-aware probes | Penetration testing involves many disconnected tools; unifies under MCP for agent-driven testing | ghostsecurity/skills, cve-mcp-server |
 | [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter) | skill | Bug hunting and red-team skill bundle — 71 skills, 15 slash commands, 681 disclosed-report patterns | External security testing lacks structure; provides vulnerability-class-organized hunting patterns | ghostsecurity/skills, Anthropic-Cybersecurity-Skills, pentest-ai |
+| [hol-guard](https://github.com/hashgraph-online/hol-guard) | tool | AI antivirus for developer agents — scans plugins, skills, MCP servers before tools run | Downloaded agent extensions could be malicious; need pre-execution scanning | SkillSpector, agentlint |
+| [OpenOSINT](https://github.com/OpenOSINT/OpenOSINT) | MCP server | AI-powered OSINT agent with 16 tools for authorized security research | OSINT research requires querying many sources; agent-driven intelligence gathering | cve-mcp-server, pentest-ai |
+| [agnix](https://github.com/agent-sh/agnix) | tool | Linter and LSP for AI coding configs — validates CLAUDE.md, AGENTS.md, SKILL.md, hooks, MCP | No validation for AI agent configuration files; errors are silent until runtime | SkillSpector (complementary: agnix validates config, SkillSpector scans for malice) |
 
 ## Reference
 
@@ -339,5 +348,6 @@ Curated lists, glossaries, and system prompt collections for learning and discov
 | [claude-code-tips](https://github.com/ykdojo/claude-code-tips) | reference | 43 tips for getting the most out of Claude Code with status line script and container setup | Need practical tips and tricks for Claude Code power users | claude-code-best-practice, claude-howto |
 | [claude-code](https://github.com/anthropics/claude-code) | reference | Official Claude Code repository — source of truth for features, issues, and releases | Want to track Claude Code development, file issues, or understand capabilities | — |
 | [awesome-agent-skills (libukai)](https://github.com/libukai/awesome-agent-skills) | reference | Agent Skills ultimate guide with quick start, resources, and curated tools | Need a comprehensive Chinese-language guide to the skills ecosystem | awesome-agent-skills (VoltAgent) |
+| [buildwithclaude](https://github.com/davepoon/buildwithclaude) | reference | Hub for finding Claude skills, agents, commands, hooks, plugins, and marketplace collections (3.1K stars) | Discovering Claude Code extensions is fragmented across GitHub, npm, and skills.sh | awesome-claude-code, awesome-claude-skills |
 | [agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices) | skill | Provider-neutral agent skill for Codex, Claude Code, and agentic harness design (2K stars) | Agent design best practices are scattered; provides a consolidated reference | claude-code-best-practice, andrej-karpathy-skills |
 | [design-extract](https://github.com/Manavarya09/design-extract) | MCP server | Extract any website's complete design system — DTCG tokens, multi-platform emitters, WCAG remediation (3.3K stars) | Manual design-token extraction is slow and error-prone | Figma-Context-MCP, web-quality-skills |
