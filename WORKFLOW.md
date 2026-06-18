@@ -68,6 +68,7 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/caveman.md)) | Cost Efficiency |
 | | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/context-mode.md)) | Cost Efficiency |
 | | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/headroom.md)) | Cost Efficiency |
+| | [typescript-mcp-server-generator](https://github.com/github/awesome-copilot) — skill-driven MCP server scaffolding: generates working TypeScript MCP project from a description ([eval](evaluations/typescript-mcp-server-generator.md)) | Speed |
 | **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
 
 **Feedback arc:** If test pass rate on first run is declining, you're either writing shallow tests or skipping TDD for "simple" changes. Neither is simple.
@@ -86,6 +87,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](evaluations/stryker-js.md)) | Correctness |
 | | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests ([eval](evaluations/agent-browser.md)) | Correctness |
 | | [diagnosing-bugs](https://github.com/mattpocock/skills) — structured diagnosis loop: build feedback loop first, then bisect and instrument | Correctness, Speed |
+| | [web-quality-skills](https://github.com/addyosmani/web-quality-skills) — six domain-reference skills (accessibility, SEO, performance, Core Web Vitals, best practices, audit) loaded on demand for web quality checks ([eval](evaluations/web-quality-skills.md)) | Correctness, Maintainability |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
