@@ -263,7 +263,7 @@ All 235 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Agent-Reach | tool | | ✓ | |
 | aisuite | framework | | ✓ | |
 | autoresearch | tool | ✓ | ✓ | |
-| last30days-skill | skill | | ✓ | |
+| last30days-skill | skill | | ✓ | ADOPT |
 | llm-council | tool | | ✓ | |
 
 ## Reference
