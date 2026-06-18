@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~20 tools worth installing on every project, distilled from 220 catalog entries and 35 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~20 tools worth installing on every project, distilled from 235 catalog entries and 48 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -30,6 +30,7 @@ claude install-skill nichochar/agent-browser
 | [context7](https://github.com/upstash/context7) | Live documentation lookup — current APIs, not stale training data | `claude mcp add --transport sse context7 https://mcp.context7.com/sse` | Correctness |
 | [GSD](https://github.com/obra/superpowers) | Structured project planning with milestone/phase management | `claude install-plugin obra/superpowers` | Correctness, Speed |
 | [feature-dev](https://github.com/anthropics/claude-plugins-official) | 7-phase guided feature development for single features | `claude install-plugin anthropics/claude-plugins-official` | Correctness |
+| [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add github -- npx -y @anthropic-ai/mcp-proxy@latest --transport sse https://api.githubcopilot.com/mcp/` | Speed, Correctness |
 
 ## Implement
 
@@ -46,6 +47,8 @@ claude install-skill nichochar/agent-browser
 |------|-------------|---------|--------|
 | [agent-browser](https://github.com/nichochar/agent-browser) | Browser automation for visual verification of UI changes | `claude install-skill nichochar/agent-browser` | Correctness |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | Mutation testing — tests the quality of your tests | `npm install -D @stryker-mutator/core` | Correctness |
+| [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Six web quality audit skills: accessibility, SEO, perf, Core Web Vitals, best practices | `npx skills add addyosmani/web-quality-skills -g -y` | Correctness, Maintainability |
+| [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and testing via MCP — lets agents drive real browsers | `claude mcp add playwright -- npx @anthropic-ai/mcp-proxy@latest --transport sse https://cdn.jsdelivr.net/npm/@anthropic-ai/mcp-playwright@latest/dist/sse.js` | Correctness |
 
 ## Review
 
@@ -78,8 +81,14 @@ claude install-skill nichochar/agent-browser
 
 ---
 
+## Research
+
+| Tool | What it does | Install | Signal |
+|------|-------------|---------|--------|
+| [last30days](https://github.com/mvanhorn/last30days-skill) | Research any topic across Reddit, X, YouTube, HN, Polymarket — engagement-weighted | `npx skills add mvanhorn/last30days-skill -g -y` | Speed, Correctness |
+
 ## What's NOT here
 
-- **220 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **235 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage

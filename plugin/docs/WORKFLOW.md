@@ -163,6 +163,7 @@ What are we building and why? Research, requirements, stakeholder interviews. Th
 | **Tooling** | GSD `new-project` — deep context gathering ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | | agent-skills `spec-driven-development` — requirements as living specs ([eval](evaluations/skills-collections.md)) |
 | | mattpocock `grill-me` / `grill-with-docs` — stress-test the plan against existing domain language ([eval](evaluations/skills-collections.md)) |
+| | [last30days](https://github.com/mvanhorn/last30days-skill) — engagement-weighted research across Reddit, X, YouTube, HN, Polymarket — 15+ real scrapers with synthesis contract ([eval](evaluations/last30days.md)) |
 | **Infrastructure** | Requirements churn tracking — measure how often specs change after sign-off | Speed, Correctness |
 | | [Apache DevLake](https://github.com/apache/incubator-devlake) — track issue creation rate and requirements-to-code lead time ([eval](evaluations/apache-devlake.md)) | Speed |
 
