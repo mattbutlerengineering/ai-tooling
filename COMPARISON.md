@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 247 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 256 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -45,10 +45,12 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claurst | harness | | ✓ | |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | |
-| claude-code-staff-engineer | harness | | ✓ | |
+| claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | KEEP |
-| claude-task-master | tool | | ✓ | |
+| claude-task-master | tool | | ✓ | CONDITIONAL |
 | capa | tool | | ✓ | |
+| skills-manage | tool | | ✓ | |
+| align-dev | tool | | ✓ | |
 | cc-switch | tool | | ✓ | |
 | commit-commands | plugin | | ✓ | |
 | compound-engineering | plugin | | ✓ | CONDITIONAL |
@@ -172,7 +174,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AI-Research-SKILLs | skill | | ✓ | |
 | alirezarezvani/claude-skills | plugin | | ✓ | |
 | andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
-| Anthropic-Cybersecurity-Skills | skill | | ✓ | |
+| Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
 | anthropics/skills | reference | | ✓ | |
 | antfu/skills | skill | | ✓ | |
 | azure-skills | plugin | | ✓ | |
@@ -219,6 +221,9 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
 | claude-night-market | plugin | | ✓ | |
+| huashu-design | skill | | ✓ | |
+| baoyu-design | skill | | ✓ | |
+| AlphaGBM/skills | skill | | ✓ | |
 
 ## Memory & Context
 
@@ -238,6 +243,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | storybloq | plugin | ✓ | ✓ | CONDITIONAL |
 | ArcRift | tool | | ✓ | |
 | context-infrastructure | tool | | ✓ | |
+| agentic-stack | tool | | ✓ | |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
 
 ## MCP Servers (infrastructure)
@@ -276,6 +282,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | autoresearch | tool | ✓ | ✓ | |
 | last30days-skill | skill | | ✓ | ADOPT |
 | llm-council | tool | | ✓ | |
+| PaperOrchestra | skill | | ✓ | |
 
 ## Reference
 
@@ -308,6 +315,8 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
 | design-extract | MCP server | ✓ | ✓ | |
 | buildwithclaude | reference | | ✓ | |
+| karpathy-llm-wiki | skill | | ✓ | |
+| ctx | tool | | ✓ | |
 
 ---
 
@@ -325,15 +334,15 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 24 | 7 | 29% |
-| Implement | 63 | 12 | 19% |
-| Verify | 7 | 3 | 43% |
+| Implement | 65 | 14 | 22% |
+| Verify | 7 | 4 | 57% |
 | Review | 16 | 8 | 50% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 8 | 6 | 75% |
-| Skills & Plugins | 53 | 8 | 15% |
-| Memory & Context | 15 | 5 | 33% |
+| Skills & Plugins | 56 | 10 | 18% |
+| Memory & Context | 16 | 5 | 31% |
 | MCP Servers | 22 | 5 | 23% |
-| Research & Discovery | 5 | 1 | 20% |
-| Reference | 27 | 2 | 7% |
-| **Total** | **247** | **64** | **26%** |
+| Research & Discovery | 6 | 1 | 17% |
+| Reference | 29 | 3 | 10% |
+| **Total** | **256** | **70** | **27%** |
