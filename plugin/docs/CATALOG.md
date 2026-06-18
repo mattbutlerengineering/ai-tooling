@@ -44,7 +44,7 @@ Tools for running, managing, and coordinating multiple AI agents working in para
 | [opencode](https://github.com/anomalyco/opencode) | platform | Open source coding agent | Want an open source alternative to Claude Code | OpenHands, goose |
 | [dify](https://github.com/langgenius/dify) | platform | Production-ready agentic workflow platform with visual orchestration | Need visual agent workflow design at production scale | Flowise, LangGraph |
 | [codex-plugin-cc](https://github.com/openai/codex-plugin-cc) | plugin | Use OpenAI Codex from Claude Code to review code or delegate tasks | Want to leverage multiple AI providers within a single agent session | — (unique: cross-provider bridge) |
-| [opencode-swarm](https://github.com/zaxbysauce/opencode-swarm) | plugin | Architect-centric swarm plugin for OpenCode | Need swarm orchestration with architect agent coordination | claude-squad, gastown |
+| [opencode-swarm](https://github.com/ZaxbyHub/opencode-swarm) | plugin | Architect-centric swarm plugin for OpenCode | Need swarm orchestration with architect agent coordination | claude-squad, gastown |
 | [agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator) | tool | Plans tasks, spawns parallel coding agents, handles CI fixes and merge conflicts autonomously | Need automated orchestration of multiple agents with conflict resolution | claude-squad, gastown |
 | [lobehub](https://github.com/lobehub/lobehub) | platform | Agent operations platform — hire, schedule, and report on 7x24 AI agent teams | Want always-on agent fleet management with scheduling and reporting | claude-squad, OpenHands |
 | [cherry-studio](https://github.com/CherryHQ/cherry-studio) | platform | AI productivity studio with smart chat, autonomous agents, and 300+ assistants | Want a unified desktop AI workspace with multi-model support | lobehub, OpenHands |
@@ -143,7 +143,7 @@ Extensions that add domain-specific capabilities to coding agents.
 | [Composio](https://github.com/ComposioHQ/composio) | plugin | Cross-app workflow integration - connect Claude Code to Linear, Figma, GitHub, Sentry, Slack | Need agents to trigger actions across external tools in one workflow | — (unique: workflow integration layer) |
 | skill-creator | plugin | Create, document, and publish Claude Code skills | Need to author custom skills efficiently | plugin-dev plugin |
 | plugin-dev | plugin | Plugin development framework with agent, command, and hook support | Need to build Claude Code plugins | skill-creator |
-| [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | skill | Web quality audit suite: accessibility, SEO, performance, Core Web Vitals, best practices | Agent produces web UIs without checking accessibility, perf, or SEO | web-design-guidelines, ui-ux-pro-max |
+| [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | skill | Web quality audit suite: accessibility, SEO, performance, Core Web Vitals, best practices | Agent produces web UIs without checking accessibility, perf, or SEO | claude-seo (SEO overlap), security-best-practices (security headers overlap) |
 | [typescript-mcp-server-generator](https://github.com/github/awesome-copilot) | skill | Generate TypeScript MCP servers from API specs or descriptions (10.7K installs) | Building MCP servers requires too much boilerplate; need a generator | fastmcp |
 | [anthropics/skills](https://github.com/anthropics/skills) | reference | Official Anthropic skills repository — canonical SKILL.md examples and patterns | Need the authoritative reference for writing agent skills | agentskills |
 | [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | reference | Official Anthropic-managed directory of high-quality Claude Code plugins | Need a curated, trusted source for Claude Code plugins | — |
@@ -184,7 +184,7 @@ Tools for automated code review, quality checks, and codebase improvement.
 | pr-review-toolkit | plugin | PR review utilities: type analysis, silent failure hunting, test coverage, comment analysis | Need structured review dimensions beyond just "looks good" | code-review |
 | [shadcn/improve](https://github.com/shadcn/improve) | tool | Use the most capable model to audit codebase, write plans for cheaper models to execute | Want high-quality codebase audits without burning expensive model tokens on execution | code-review |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | tool | Mutation testing for JS/TS — tests whether your tests actually catch bugs | Coverage says "tests exist" but not "tests are good"; mutation testing reveals weak test suites | — (unique: test quality verification) |
-| [PR-Agent](https://github.com/Qodo-ai/pr-agent) | tool | Open-source AI PR reviewer with auto-describe, review, improve, and custom prompts | Need automated PR review that adds descriptions, finds bugs, and suggests improvements | code-review, pr-review-toolkit |
+| [PR-Agent](https://github.com/The-PR-Agent/pr-agent) | tool | Open-source AI PR reviewer with auto-describe, review, improve, and custom prompts | Need automated PR review that adds descriptions, finds bugs, and suggests improvements | code-review, pr-review-toolkit |
 
 ## Maturity Frameworks
 
@@ -230,7 +230,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
 | [context7](https://github.com/upstash/context7) | MCP server | Live documentation lookup with semantic search across library/framework docs | Agent's training data is outdated; needs current API docs | — |
-| [playwright](https://github.com/playwright-community/mcp) | MCP server | Browser automation and testing from within agent sessions | Agent can't interact with web UIs or run browser tests | agent-browser, chrome-devtools-mcp, browser-use |
+| [playwright](https://github.com/microsoft/playwright-mcp) | MCP server | Browser automation and testing from within agent sessions | Agent can't interact with web UIs or run browser tests | agent-browser, chrome-devtools-mcp, browser-use |
 | [cloudflare-mcp](https://github.com/cloudflare/mcp-server-cloudflare) | MCP server | Cloudflare integration: workers, builds, bindings, observability | Need to manage Cloudflare infrastructure from agent sessions | — |
 | prisma | MCP server | Database operations via Prisma ORM (migrations, studio, status) | Agent needs to interact with databases during development | — |
 | sentry | MCP server | Error tracking and monitoring integration | Agent needs access to production error data for debugging | — |
@@ -269,7 +269,7 @@ Tools for monitoring, debugging, and understanding AI agent behavior and perform
 |------|------|-----------|-------------------|---------------|
 | [langfuse](https://github.com/langfuse/langfuse) | platform | Open source AI engineering: evals, observability, prompt management, datasets | Can't see what agents are doing, how well they perform, or where they fail | evalview |
 | [tokencost](https://github.com/mr-beaver/tokencost) | tool | Track exactly what you spend on Claude CLI with cost optimization insights | Can't see how much agent sessions cost or where tokens are wasted | — (unique: cost tracking) |
-| [Apache DevLake](https://github.com/apache/incubator-devlake) | platform | Open-source dev data platform: DORA metrics, engineering throughput, Grafana dashboards | Can't measure delivery performance (PR rates, lead time, MTTR) without building custom scripts | langfuse (complementary: DevLake = delivery metrics, langfuse = LLM behavior) |
+| [Apache DevLake](https://github.com/apache/devlake) | platform | Open-source dev data platform: DORA metrics, engineering throughput, Grafana dashboards | Can't measure delivery performance (PR rates, lead time, MTTR) without building custom scripts | langfuse (complementary: DevLake = delivery metrics, langfuse = LLM behavior) |
 | [Infracost](https://github.com/infracost/infracost) | tool | Cloud cost estimates for Terraform, CloudFormation, and CDK — in terminal, editor, agent, or CI | AI agents generate infrastructure code without knowing what it costs; need cost visibility before deploy | tokencost (complementary: Infracost = infra costs, tokencost = LLM token costs) |
 | [abtop](https://github.com/graykode/abtop) | tool | Real-time TUI monitor for AI agent sessions — tokens, context %, rate limits, ports | Can't see what multiple agents are doing across projects without checking each one | tokencost, claude-hud |
 | [Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) | harness | Context management via hooks — ledgers, handoffs, and MCP execution without context pollution | Agents lose state across sessions and pollute context with MCP output | headroom, claude-mem |
