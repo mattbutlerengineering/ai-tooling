@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 220 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 222 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -195,7 +195,9 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | stop-slop | skill | | ✓ | |
 | taste-skill | skill | | ✓ | |
 | tech-leads-club/agent-skills | skill | | ✓ | |
+| typescript-mcp-server-generator | skill | | ✓ | |
 | ui-ux-pro-max | skill | | ✓ | |
+| web-quality-skills | skill | | ✓ | ADOPT |
 | Waza | skill | | ✓ | |
 | agents (wshobson) | plugin | | ✓ | |
 | agent-sprite-forge | skill | | ✓ | |
@@ -302,9 +304,9 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 4 | 80% |
 | Outer Loop | 8 | 5 | 63% |
-| Skills & Plugins | 48 | 3 | 6% |
+| Skills & Plugins | 50 | 4 | 8% |
 | Memory & Context | 11 | 1 | 9% |
 | MCP Servers | 20 | 0 | 0% |
 | Research & Discovery | 5 | 0 | 0% |
 | Reference | 24 | 0 | 0% |
-| **Total** | **220** | **39** | **18%** |
+| **Total** | **222** | **40** | **18%** |
