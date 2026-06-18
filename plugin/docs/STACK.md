@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~20 tools worth installing on every project, distilled from 209 catalog entries and 19 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~20 tools worth installing on every project, distilled from 220 catalog entries and 35 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -66,6 +66,8 @@ claude install-skill nichochar/agent-browser
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | Turns session corrections into persistent CLAUDE.md rules | `claude install-plugin BayramAnnakov/claude-reflect` | Speed, Maintainability |
+| [documentation-writer](https://github.com/github/awesome-copilot) | Diátaxis-framework docs: clarify purpose, outline, then generate | `npx skills add github/awesome-copilot@documentation-writer -g -y` | Maintainability |
+| [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | ADR templates and agent-context documentation guidelines | `npx skills add addyosmani/agent-skills@documentation-and-adrs -g -y` | Maintainability |
 
 ## Outer Loop
 
@@ -78,6 +80,6 @@ claude install-skill nichochar/agent-browser
 
 ## What's NOT here
 
-- **209 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **220 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage
