@@ -110,7 +110,7 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-review | plugin | ✓ | ✓ | KEEP |
 | design-council | plugin | | ✓ | |
 | ghostsecurity/skills | skill | | ✓ | |
-| PR-Agent | tool | ✓ | ✓ | |
+| PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
@@ -300,7 +300,7 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 20 | 6 | 30% |
 | Implement | 57 | 10 | 18% |
 | Verify | 7 | 2 | 29% |
-| Review | 10 | 6 | 60% |
+| Review | 10 | 7 | 70% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 4 | 80% |
 | Outer Loop | 8 | 5 | 63% |
@@ -309,4 +309,4 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 20 | 0 | 0% |
 | Research & Discovery | 5 | 0 | 0% |
 | Reference | 24 | 0 | 0% |
-| **Total** | **222** | **41** | **18%** |
+| **Total** | **222** | **42** | **19%** |
