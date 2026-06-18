@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 220 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 235 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -26,6 +26,8 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Understand-Anything | tool | | ✓ | |
 | codebase-design | skill | | ✓ | |
 | domain-modeling | skill | | ✓ | |
+| code-context-engine | MCP server | ✓ | ✓ | |
+| trace-mcp | MCP server | ✓ | ✓ | |
 
 ## Implement
 
@@ -79,6 +81,8 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opencode-swarm | plugin | | ✓ | |
 | OpenHands | platform | | ✓ | |
 | opensquilla | tool | | ✓ | |
+| architect-loop | skill | | ✓ | |
+| adhd | skill | | ✓ | |
 | qwen-code | platform | | ✓ | |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | |
@@ -116,6 +120,9 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
 | SkillSpector | tool | | ✓ | KEEP |
 | trailofbits/skills | skill | | ✓ | ADOPT |
+| cve-mcp-server | MCP server | ✓ | ✓ | |
+| pentest-ai | MCP server | ✓ | ✓ | |
+| Claude-BugHunter | skill | | ✓ | |
 
 ## Ship
 
@@ -201,6 +208,8 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Waza | skill | | ✓ | |
 | agents (wshobson) | plugin | | ✓ | |
 | agent-sprite-forge | skill | | ✓ | |
+| SwiftUI-Agent-Skill | skill | | ✓ | |
+| guard-skills | skill | | ✓ | |
 
 ## Memory & Context
 
@@ -217,6 +226,8 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SimpleMem | tool | | ✓ | |
 | squish-memory | MCP server | | ✓ | |
 | longhand | MCP server | | ✓ | |
+| storybloq | plugin | ✓ | ✓ | |
+| ArcRift | tool | | ✓ | |
 
 ## MCP Servers (infrastructure)
 
@@ -230,18 +241,20 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | exa-mcp-server | MCP server | ✓ | ✓/$ | |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | |
 | fastmcp | framework | | ✓ | |
-| Figma-Context-MCP | MCP server | ✓ | ✓ | |
+| Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
 | jira | MCP server | ✓ | ✓ | |
 | mcp-toolbox | MCP server | ✓ | ✓ | |
 | prisma | MCP server | ✓ | ✓ | |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP |
-| sentry | MCP server | ✓ | ✓ | |
+| sentry | MCP server | ✓ | ✓ | CONDITIONAL |
 | server-filesystem | MCP server | ✓ | ✓ | |
 | server-github | MCP server | ✓ | ✓ | |
-| supabase | MCP server | ✓ | ✓ | |
+| supabase | MCP server | ✓ | ✓ | CONDITIONAL |
 | token-optimizer-mcp | MCP server | ✓ | ✓ | |
+| opendocswork-mcp | MCP server | ✓ | ✓ | |
+| plumb-mcp | MCP server | ✓ | ✓ | |
 
 ## Research & Discovery
 
@@ -281,6 +294,8 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | tolaria | tool | | ✓ | |
 | docmd | tool | | ✓ | |
 | agentskills | reference | | ✓ | |
+| agents-best-practices | skill | | ✓ | |
+| design-extract | MCP server | ✓ | ✓ | |
 
 ---
 
@@ -297,16 +312,16 @@ All 220 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 20 | 7 | 35% |
-| Implement | 58 | 8 | 14% |
+| Plan | 22 | 7 | 32% |
+| Implement | 60 | 8 | 13% |
 | Verify | 7 | 3 | 43% |
-| Review | 10 | 6 | 60% |
+| Review | 13 | 6 | 46% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 8 | 6 | 75% |
-| Skills & Plugins | 50 | 5 | 10% |
-| Memory & Context | 11 | 1 | 9% |
-| MCP Servers | 20 | 2 | 10% |
+| Skills & Plugins | 52 | 5 | 10% |
+| Memory & Context | 13 | 1 | 8% |
+| MCP Servers | 22 | 5 | 23% |
 | Research & Discovery | 5 | 0 | 0% |
-| Reference | 24 | 0 | 0% |
-| **Total** | **220** | **45** | **20%** |
+| Reference | 26 | 0 | 0% |
+| **Total** | **235** | **48** | **20%** |
