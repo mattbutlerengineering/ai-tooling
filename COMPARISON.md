@@ -128,7 +128,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cve-mcp-server | MCP server | ✓ | ✓ | |
 | pentest-ai | MCP server | ✓ | ✓ | |
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
-| hol-guard | tool | ✓ | ✓ | |
+| hol-guard | tool | ✓ | ✓ | CONDITIONAL |
 | OpenOSINT | MCP server | ✓ | ✓ | |
 | agnix | tool | ✓ | ✓ | |
 
