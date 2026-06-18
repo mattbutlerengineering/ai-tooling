@@ -131,6 +131,8 @@ Reflect isn't a stage with a "done" moment — it's the arc that connects the en
 | **Process** | End each session by reviewing what was corrected. Commit with conventional commits — the commit log is a feedback loop too. | All |
 | **Tooling** | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) — captures corrections and preferences, syncs to CLAUDE.md ([eval](evaluations/recommended-tools.md#claude-reflect)) | Correctness, Speed |
 | | [claude-mem](https://github.com/thedotmack/claude-mem) — persistent cross-session memory with semantic search ([eval](evaluations/memory-systems.md)) | Speed |
+| | [documentation-writer](https://github.com/github/awesome-copilot) — Diátaxis-framework documentation expert: clarify, outline, generate purpose-specific docs ([eval](evaluations/documentation-writer.md)) | Maintainability |
+| | [documentation-and-adrs](https://github.com/addyosmani/agent-skills) — ADR templates and decision-recording guidelines for architectural choices ([eval](evaluations/documentation-and-adrs.md)) | Maintainability |
 | **Infrastructure** | Track whether the same correction recurs — if it does, the learning failed | All |
 
 ---
