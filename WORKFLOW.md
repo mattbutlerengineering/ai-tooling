@@ -44,8 +44,8 @@ Understand the codebase and task before writing a line of code. Break the work i
 | Layer | What | Signals |
 |-------|------|---------|
 | **Process** | Read the relevant code. State assumptions. Define what "done" means before starting. | Speed |
-| **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/code-understanding.md)) | Correctness |
-| | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/code-understanding.md)) | Speed, Cost Efficiency |
+| **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/graphify.md)) | Correctness |
+| | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/codegraph.md)) | Speed, Cost Efficiency |
 | | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 
 **Feedback arc:** If you frequently discover mid-implementation that your plan was wrong, your Plan stage is too shallow. Track how often you restart or significantly change direction — that's the signal.
@@ -65,7 +65,7 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [context7](https://github.com/upstash/context7) — live docs during coding ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 | | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/caveman.md)) | Cost Efficiency |
 | | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/context-mode.md)) | Cost Efficiency |
-| | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/recommended-tools.md#headroom)) | Cost Efficiency |
+| | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/headroom.md)) | Cost Efficiency |
 | **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
 
 **Feedback arc:** If test pass rate on first run is declining, you're either writing shallow tests or skipping TDD for "simple" changes. Neither is simple.
@@ -113,7 +113,7 @@ Commit, push, pass CI, merge. This stage is where infrastructure earns its keep 
 |-------|------|---------|
 | **Process** | Conventional commits. PR with summary and test plan. Never skip CI. | Speed |
 | **Tooling** | [claude-code-action](https://github.com/anthropics/claude-code-action) — `@claude` in PRs/issues for async review and fixes ([eval](evaluations/claude-code-action.md)) | Speed |
-| | [worktrunk](https://github.com/max-sixty/worktrunk) — git worktree management for parallel branches ([eval](evaluations/recommended-tools.md#worktrunk)) | Speed |
+| | [worktrunk](https://github.com/max-sixty/worktrunk) — git worktree management for parallel branches ([eval](evaluations/worktrunk.md)) | Speed |
 | **Infrastructure** | PR acceptance rate tracking — merged vs. closed by category reveals what AI does well vs. poorly | Speed, Correctness |
 | | Flaky test detection — weekly analysis removes non-determinism that corrupts results | Correctness |
 | | Error monitoring → issues — production errors auto-create GitHub issues | Safety |
@@ -169,7 +169,7 @@ How do we build it? Solution design, technology choices, interface boundaries. A
 | **Process** | Map the codebase before proposing changes. Design interfaces before implementations. Record non-obvious decisions in ADRs. |
 | **Tooling** | GSD `map-codebase` + `plan-phase` — parallel mapper agents produce structured analysis ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
 | | feature-dev `code-architect` — architecture design with codebase awareness ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
-| | graphify — architecture visualization for understanding component relationships ([eval](evaluations/code-understanding.md)) |
+| | graphify — architecture visualization for understanding component relationships ([eval](evaluations/graphify.md)) |
 | **Infrastructure** | ADR count and staleness tracking — flag decisions older than 90 days with no review | Maintainability |
 | | Architecture fitness functions in CI — automated checks that dependencies respect module boundaries | Maintainability, Safety |
 
@@ -197,7 +197,7 @@ Merge branches, resolve conflicts, verify end-to-end. This matters most when mul
 |-------|------|
 | **Process** | Merge frequently. Run E2E verification after integration, not just unit tests. |
 | **Tooling** | [claude-squad](https://github.com/smtg-ai/claude-squad) — manage multiple parallel agent sessions ([eval](evaluations/recommended-tools.md#claude-squad)) |
-| | worktrunk — worktree management prevents branch conflicts ([eval](evaluations/recommended-tools.md#worktrunk)) |
+| | worktrunk — worktree management prevents branch conflicts ([eval](evaluations/worktrunk.md)) |
 | **Infrastructure** | Merge conflict frequency per branch — rising conflicts signal architectural coupling | Maintainability |
 | | E2E integration test suite in CI — runs after merge, not just per-branch unit tests | Correctness, Safety |
 
@@ -227,7 +227,7 @@ Cost efficiency isn't a stage — it's a property of every stage. These tools re
 |------|----------------|----------------|
 | [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](evaluations/caveman.md)) |
 | [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](evaluations/context-mode.md)) |
-| [headroom](https://github.com/chopratejas/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/recommended-tools.md#headroom)) |
+| [headroom](https://github.com/chopratejas/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/headroom.md)) |
 
 ---
 
@@ -329,7 +329,7 @@ And eventually, when agents merge autonomously:
 | Flowise, LangGraph | Visual/programmatic agent builders — for building AI products, not for your own dev workflow. |
 | OpenHands | Full platform replacement — you're augmenting Claude Code, not replacing it. |
 | sandcastle, gastown | Overlap with claude-squad for orchestration. |
-| Understand-Anything | Prettier dashboard but no live sync. codegraph + graphify cover both live and deep analysis ([eval](evaluations/code-understanding.md)). |
+| Understand-Anything | Prettier dashboard but no live sync. codegraph ([eval](evaluations/codegraph.md)) + graphify ([eval](evaluations/graphify.md)) cover both live and deep analysis. |
 | repomix | Different approach (serialization vs. graph) — useful for feeding code to non-agent LLMs, not needed when agents have file access. |
 
 ---
