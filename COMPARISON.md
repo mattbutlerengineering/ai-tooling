@@ -195,7 +195,7 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | stop-slop | skill | | ✓ | |
 | taste-skill | skill | | ✓ | |
 | tech-leads-club/agent-skills | skill | | ✓ | |
-| typescript-mcp-server-generator | skill | | ✓ | |
+| typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
 | ui-ux-pro-max | skill | | ✓ | |
 | web-quality-skills | skill | | ✓ | ADOPT |
 | Waza | skill | | ✓ | |
@@ -304,9 +304,9 @@ All 222 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 4 | 80% |
 | Outer Loop | 8 | 5 | 63% |
-| Skills & Plugins | 50 | 4 | 8% |
+| Skills & Plugins | 50 | 5 | 10% |
 | Memory & Context | 11 | 1 | 9% |
 | MCP Servers | 20 | 0 | 0% |
 | Research & Discovery | 5 | 0 | 0% |
 | Reference | 24 | 0 | 0% |
-| **Total** | **222** | **40** | **18%** |
+| **Total** | **222** | **41** | **18%** |
