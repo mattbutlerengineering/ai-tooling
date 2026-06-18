@@ -55,7 +55,7 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | context-mode | skill | ✓ | ✓ | CONDITIONAL |
 | Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
 | CowAgent | harness | | ✓ | |
-| deer-flow | harness | | ✓ | |
+| deer-flow | harness | | ✓ | CONDITIONAL |
 | DeepSeek-Reasonix | platform | | ✓ | |
 | dify | platform | | ✓ | |
 | dmux | tool | | ✓ | |
@@ -229,13 +229,13 @@ All 247 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | |
 | engram | tool | | ✓ | CONDITIONAL |
-| mem0 | MCP server | | ✓ | |
+| mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | |
 | server-memory | MCP server | ✓ | ✓ | |
 | SimpleMem | tool | | ✓ | |
 | squish-memory | MCP server | | ✓ | |
 | longhand | MCP server | | ✓ | |
-| storybloq | plugin | ✓ | ✓ | |
+| storybloq | plugin | ✓ | ✓ | CONDITIONAL |
 | ArcRift | tool | | ✓ | |
 | context-infrastructure | tool | | ✓ | |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
