@@ -47,6 +47,8 @@ Understand the codebase and task before writing a line of code. Break the work i
 | **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/graphify.md)) | Correctness |
 | | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/codegraph.md)) | Speed, Cost Efficiency |
 | | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
+| | [codebase-design](https://github.com/mattpocock/skills) — shared vocabulary for deep modules: interfaces, seams, depth, leverage, locality | Maintainability |
+| | [domain-modeling](https://github.com/mattpocock/skills) — build CONTEXT.md glossaries and ADRs as designs evolve | Correctness, Maintainability |
 
 **Feedback arc:** If you frequently discover mid-implementation that your plan was wrong, your Plan stage is too shallow. Track how often you restart or significantly change direction — that's the signal.
 
@@ -83,6 +85,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | **Infrastructure** | CI pipeline — automated test runs on every push | Correctness, Safety |
 | | [stryker-js](https://github.com/stryker-mutator/stryker-js) — mutation testing: tests the quality of your tests, not just whether they pass ([eval](evaluations/stryker-js.md)) | Correctness |
 | | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests ([eval](evaluations/agent-browser.md)) | Correctness |
+| | [diagnosing-bugs](https://github.com/mattpocock/skills) — structured diagnosis loop: build feedback loop first, then bisect and instrument | Correctness, Speed |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
@@ -99,6 +102,7 @@ Is the code good? This is where maintainability and safety get their primary che
 | | [pr-review-toolkit](evaluations/recommended-tools.md#pr-review-toolkit-anthropic) — dimension-specific agents: silent failure hunting, type design, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) | Maintainability, Safety |
 | | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology ([eval](evaluations/trailofbits-skills.md)) | Safety |
 | | [shadcn/improve](https://github.com/shadcn/improve) — two-model codebase audit: expensive model plans, cheap model executes ([eval](evaluations/shadcn-improve.md)) | Maintainability |
+| | [PR-Agent](https://github.com/The-PR-Agent/pr-agent) — CI-native PR reviewer: auto-describe, review, improve on every push, works for non-Claude-Code users ([eval](evaluations/pr-agent.md)) | Correctness, Speed |
 | **Infrastructure** | Review findings tracked by category — are "simplify this" comments decreasing over time? | Maintainability |
 
 **Feedback arc:** If the same category of review finding keeps appearing (e.g., "missing error handling"), that's a CLAUDE.md rule waiting to be written. claude-reflect captures these automatically.
