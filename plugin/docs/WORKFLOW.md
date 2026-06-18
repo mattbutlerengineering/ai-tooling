@@ -49,6 +49,7 @@ Understand the codebase and task before writing a line of code. Break the work i
 | | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 | | [codebase-design](https://github.com/mattpocock/skills) — shared vocabulary for deep modules: interfaces, seams, depth, leverage, locality | Maintainability |
 | | [domain-modeling](https://github.com/mattpocock/skills) — build CONTEXT.md glossaries and ADRs as designs evolve | Correctness, Maintainability |
+| **Infrastructure** | [github-mcp-server](https://github.com/github/github-mcp-server) — GitHub's official MCP: search repos, read issues/PRs, browse code during planning ([eval](evaluations/github-mcp-server.md)) | Speed, Correctness |
 
 **Feedback arc:** If you frequently discover mid-implementation that your plan was wrong, your Plan stage is too shallow. Track how often you restart or significantly change direction — that's the signal.
 
@@ -88,6 +89,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | | [agent-browser](https://github.com/vercel-labs/agent-browser) — browser automation for verifying UI changes visually, not just via tests ([eval](evaluations/agent-browser.md)) | Correctness |
 | | [diagnosing-bugs](https://github.com/mattpocock/skills) — structured diagnosis loop: build feedback loop first, then bisect and instrument | Correctness, Speed |
 | | [web-quality-skills](https://github.com/addyosmani/web-quality-skills) — six domain-reference skills (accessibility, SEO, performance, Core Web Vitals, best practices, audit) loaded on demand for web quality checks ([eval](evaluations/web-quality-skills.md)) | Correctness, Maintainability |
+| | [playwright](https://github.com/microsoft/playwright-mcp) — MCP-based browser automation: agents drive real browsers to verify UI changes and run E2E flows ([eval](evaluations/playwright-mcp.md)) | Correctness |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
