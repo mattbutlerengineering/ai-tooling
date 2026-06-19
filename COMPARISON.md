@@ -85,7 +85,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | omnigent | framework | | ✓ | |
 | opencode | platform | | ✓ | CONDITIONAL |
 | opencode-swarm | plugin | | ✓ | |
-| OpenHands | platform | | ✓ | |
+| OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | |
 | architect-loop | skill | | ✓ | |
 | adhd | skill | | ✓ | |
