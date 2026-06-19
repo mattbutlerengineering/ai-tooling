@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 280 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -18,7 +18,6 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
-| get-shit-done (TÂCHES) | framework | | ✓ | |
 | claude-modular | framework | | ✓ | SKIP |
 | spec-kit | framework | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
@@ -44,7 +43,7 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agency-agents | harness | | ✓ | CONDITIONAL |
 | agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL |
 | aidlc-workflows | framework | | ✓ | CONDITIONAL |
-| arrow-js | framework | | ✓ | |
+| arrow-js | framework | | ✓ | CONDITIONAL |
 | beads | tool | ✓ | ✓ | KEEP |
 | caveman | skill | | ✓ | ADOPT |
 | cherry-studio | platform | | ✓ | SKIP |
@@ -64,12 +63,12 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
 | CowAgent | harness | | ✓ | SKIP |
 | deer-flow | harness | | ✓ | CONDITIONAL |
-| DeepSeek-Reasonix | platform | | ✓ | |
+| DeepSeek-Reasonix | platform | | ✓ | CONDITIONAL |
 | dify | platform | | ✓ | SKIP |
 | dmux | tool | | ✓ | CONDITIONAL |
 | ECC | harness | | ✓ | CONDITIONAL |
 | fast-agent | framework | | ✓ | CONDITIONAL |
-| Flowise | platform | | ✓ | |
+| Flowise | platform | | ✓ | SKIP |
 | forkd | tool | | ✓ | CONDITIONAL |
 | gastown | tool | | ✓ | CONDITIONAL |
 | goose | platform | | ✓ | CONDITIONAL |
@@ -190,28 +189,28 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
 | anthropics/skills | reference | | ✓ | CONDITIONAL |
 | antfu/skills | skill | | ✓ | CONDITIONAL |
-| azure-skills | plugin | | ✓ | |
+| azure-skills | plugin | | ✓ | CONDITIONAL |
 | book-to-skill | skill | | ✓ | CONDITIONAL |
-| Claude-Code-Game-Studios | plugin | | ✓ | |
+| Claude-Code-Game-Studios | plugin | | ✓ | CONDITIONAL |
 | claude-seo | skill | | ✓ | CONDITIONAL |
-| excalidraw-diagram-skill | skill | | ✓ | |
+| excalidraw-diagram-skill | skill | | ✓ | CONDITIONAL |
 | formkit | framework | | ✓ | SKIP |
 | frontend-slides | skill | | ✓ | CONDITIONAL |
-| garden-skills | skill | | ✓ | |
+| garden-skills | skill | | ✓ | CONDITIONAL |
 | gemini-skills | skill | | ✓ | CONDITIONAL |
 | google/skills | skill | | ✓ | CONDITIONAL |
-| googleworkspace/cli | tool | | ✓ | |
-| guizang-ppt-skill | skill | | ✓ | |
+| googleworkspace/cli | tool | | ✓ | SKIP |
+| guizang-ppt-skill | skill | | ✓ | CONDITIONAL |
 | html-anything | tool | | ✓ | SKIP |
 | humanizer | skill | | ✓ | CONDITIONAL |
 | impeccable | skill | | ✓ | CONDITIONAL |
-| Jeffallan/claude-skills | skill | | ✓ | |
+| Jeffallan/claude-skills | skill | | ✓ | CONDITIONAL |
 | marketingskills | skill | | ✓ | CONDITIONAL |
 | mattpocock/skills | skill | | ✓ | ADOPT |
 | microsoft/skills | skill | | ✓ | CONDITIONAL |
 | obsidian-skills | skill | | ✓ | CONDITIONAL |
 | open-design | platform | | ✓ | SKIP |
-| open-slide | tool | | ✓ | |
+| open-slide | tool | | ✓ | CONDITIONAL |
 | slidev | skill | | ✓ | CONDITIONAL |
 | powerpoint | skill | | ✓ | CONDITIONAL |
 | openskills | tool | | ✓ | CONDITIONAL |
@@ -224,13 +223,13 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skill-creator | plugin | | ✓ | ADOPT |
 | stop-slop | skill | | ✓ | CONDITIONAL |
 | taste-skill | skill | | ✓ | CONDITIONAL |
-| tech-leads-club/agent-skills | skill | | ✓ | |
+| tech-leads-club/agent-skills | skill | | ✓ | CONDITIONAL |
 | typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
 | ui-ux-pro-max | skill | | ✓ | CONDITIONAL |
 | web-quality-skills | skill | | ✓ | ADOPT |
 | Waza | skill | | ✓ | CONDITIONAL |
 | agents (wshobson) | plugin | | ✓ | CONDITIONAL |
-| agent-sprite-forge | skill | | ✓ | |
+| agent-sprite-forge | skill | | ✓ | SKIP |
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
 | claude-night-market | plugin | | ✓ | CONDITIONAL |
@@ -238,7 +237,7 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | baoyu-design | skill | | ✓ | CONDITIONAL |
 | AlphaGBM/skills | skill | | ✓ | CONDITIONAL |
 | himself65/finance-skills | skill | | ✓ | CONDITIONAL |
-| cc-skills-golang | skill | | ✓ | |
+| cc-skills-golang | skill | | ✓ | ADOPT |
 
 ## Memory & Context
 
@@ -317,7 +316,7 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
-| awesome-codex-skills | reference | | ✓ | |
+| awesome-codex-skills | reference | | ✓ | CONDITIONAL |
 | awesome-llm-agents | reference | | ✓ | CONDITIONAL |
 | awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
 | ai-engineering-from-scratch | reference | | ✓ | |
@@ -357,16 +356,16 @@ All 280 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 30 | 29 | 97% |
-| Implement | 66 | 63 | 95% |
+| Plan | 29 | 29 | 100% |
+| Implement | 66 | 66 | 100% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 19 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 9 | 100% |
-| Skills & Plugins | 59 | 48 | 81% |
+| Skills & Plugins | 59 | 59 | 100% |
 | Memory & Context | 20 | 19 | 95% |
 | MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 31 | 23 | 74% |
-| **Total** | **280** | **256** | **91%** |
+| Reference | 31 | 24 | 77% |
+| **Total** | **279** | **271** | **97%** |
