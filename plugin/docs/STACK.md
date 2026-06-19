@@ -62,6 +62,7 @@ claude install-skill nichochar/agent-browser
 | [code-review](https://github.com/anthropics/claude-plugins-official) | 4-agent parallel PR review with confidence scoring | `claude install-plugin anthropics/claude-plugins-official` | Correctness, Safety |
 | [pr-review-toolkit](https://github.com/anthropics/claude-plugins-official) | 6 dimension-specific review agents (silent failures, type design, etc.) | Included in claude-plugins-official | Correctness, Safety |
 | [trailofbits/skills](https://github.com/trailofbits/skills) | Structured security audit methodology | `claude install-skill trailofbits/skills` | Safety |
+| [security-guidance](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance) | First-party in-loop security review (regex + LLM diff review + commit-time cross-file) with self-correction before output | `claude install-plugin anthropics/claude-plugins-official` | Safety |
 
 ## Ship
 
