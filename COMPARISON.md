@@ -129,8 +129,8 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | design-council | plugin | | ✓ | CONDITIONAL |
 | ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
-| claude-octopus | plugin | ✓ | ✓ | |
-| cc-safety-net | tool | ✓ | ✓ | |
+| claude-octopus | plugin | ✓ | ✓ | CONDITIONAL |
+| cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
@@ -257,7 +257,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | context-infrastructure | tool | | ✓ | |
 | agentic-stack | tool | | ✓ | |
 | guild | tool | | ✓ | |
-| memsearch | tool | ✓ | ✓ | |
+| memsearch | tool | ✓ | ✓ | CONDITIONAL |
 | pro-workflow | plugin | ✓ | ✓ | |
 | hivemind | tool | ✓ | ✓ | |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
@@ -356,13 +356,13 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 29 | 12 | 41% |
 | Implement | 67 | 27 | 40% |
 | Verify | 7 | 5 | 71% |
-| Review | 19 | 12 | 63% |
+| Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
 | Skills & Plugins | 57 | 20 | 35% |
-| Memory & Context | 20 | 7 | 35% |
+| Memory & Context | 20 | 8 | 40% |
 | MCP Servers | 25 | 8 | 32% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **118** | **43%** |
+| **Total** | **276** | **121** | **44%** |
