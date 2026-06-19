@@ -235,7 +235,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| agentmemory | tool | | ✓ | |
+| agentmemory | tool | | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | CONDITIONAL |
@@ -286,7 +286,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | Agent-Reach | tool | | ✓ | |
-| aisuite | framework | | ✓ | |
+| aisuite | framework | | ✓ | SKIP |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
 | last30days-skill | skill | | ✓ | ADOPT |
 | llm-council | tool | | ✓ | CONDITIONAL |
