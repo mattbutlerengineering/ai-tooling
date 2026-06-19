@@ -42,7 +42,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | arrow-js | framework | | ✓ | |
 | beads | tool | ✓ | ✓ | KEEP |
 | caveman | skill | | ✓ | ADOPT |
-| cherry-studio | platform | | ✓ | |
+| cherry-studio | platform | | ✓ | SKIP |
 | claurst | harness | | ✓ | |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | |
@@ -289,7 +289,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | aisuite | framework | | ✓ | |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
 | last30days-skill | skill | | ✓ | ADOPT |
-| llm-council | tool | | ✓ | |
+| llm-council | tool | | ✓ | CONDITIONAL |
 | PaperOrchestra | skill | | ✓ | |
 
 ## Reference
@@ -302,7 +302,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-ai-agents | reference | | ✓ | |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | |
-| awesome-claude-skills (travisvn) | reference | | ✓ | |
+| awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | |
 | awesome-llm-agents | reference | | ✓ | |
 | awesome-openclaw-skills | reference | | ✓ | |
@@ -310,7 +310,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code | reference | | ✓ | CONDITIONAL |
 | claude-code-best-practice | reference | | ✓ | |
 | claude-code-system-prompts | reference | | ✓ | |
-| claude-code-tips | reference | | ✓ | |
+| claude-code-tips | reference | | ✓ | CONDITIONAL |
 | claude-howto | reference | | ✓ | |
 | claude-plugins-official | reference | | ✓ | |
 | dictionary-of-ai-coding | reference | | ✓ | |
