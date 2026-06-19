@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 293 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 300 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -28,6 +28,7 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
 | markitdown | tool | | ✓ | ADOPT |
+| serena | MCP server | ✓ | ✓ | ADOPT |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -145,6 +146,7 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SkillSpector | tool | | ✓ | KEEP |
 | trailofbits/skills | skill | | ✓ | ADOPT |
 | cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL |
+| ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL |
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
 | hol-guard | tool | ✓ | ✓ | CONDITIONAL |
@@ -230,6 +232,8 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | refly | platform | | ✓ | SKIP |
 | scientific-agent-skills | skill | | ✓ | CONDITIONAL |
 | skill-creator | plugin | | ✓ | ADOPT |
+| Skill_Seekers | tool | | ✓ | CONDITIONAL |
+| SkillOpt | framework | | ✓ | DEFER |
 | stop-slop | skill | | ✓ | CONDITIONAL |
 | taste-skill | skill | | ✓ | CONDITIONAL |
 | tech-leads-club/agent-skills | skill | | ✓ | CONDITIONAL |
@@ -281,6 +285,8 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
+| fastapi_mcp | framework | | ✓ | CONDITIONAL |
+| mcp-use | framework | | ✓ | CONDITIONAL |
 | cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | confluence | MCP server | ✓ | ✓ | CONDITIONAL |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -327,6 +333,7 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
 | awesome-claude-code-subagents | reference | | ✓ | CONDITIONAL |
 | ai-agents-for-beginners | reference | | ✓ | CONDITIONAL |
+| mcp-for-beginners | reference | | ✓ | ADOPT |
 | genai-agents | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
@@ -370,16 +377,16 @@ All 293 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 30 | 30 | 100% |
+| Plan | 31 | 31 | 100% |
 | Implement | 73 | 73 | 100% |
 | Verify | 8 | 8 | 100% |
-| Review | 19 | 19 | 100% |
+| Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 10 | 10 | 100% |
-| Skills & Plugins | 59 | 59 | 100% |
+| Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 21 | 21 | 100% |
-| MCP Servers | 26 | 26 | 100% |
+| MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 34 | 34 | 100% |
-| **Total** | **293** | **293** | **100%** |
+| Reference | 35 | 35 | 100% |
+| **Total** | **300** | **300** | **100%** |
