@@ -331,7 +331,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | docmd | tool | | ✓ | CONDITIONAL |
 | agentskills | reference | | ✓ | |
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
-| design-extract | MCP server | ✓ | ✓ | |
+| design-extract | MCP server | ✓ | ✓ | CONDITIONAL |
 | buildwithclaude | reference | | ✓ | |
 | karpathy-llm-wiki | skill | | ✓ | |
 | ctx | tool | | ✓ | |
@@ -363,5 +363,5 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 20 | 80% |
 | Research & Discovery | 6 | 5 | 83% |
-| Reference | 30 | 12 | 40% |
-| **Total** | **275** | **212** | **77%** |
+| Reference | 30 | 13 | 43% |
+| **Total** | **275** | **213** | **77%** |
