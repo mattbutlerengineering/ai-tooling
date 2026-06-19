@@ -165,7 +165,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| ACMM | framework | | ✓ | |
+| ACMM | framework | | ✓ | CONDITIONAL |
 | abtop | tool | | ✓ | ADOPT |
 | Apache DevLake | platform | ✓ | ✓ | DEFER |
 | Composio | plugin | | ✓/$ | CONDITIONAL |
@@ -180,7 +180,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | academic-research-skills | skill | | ✓ | |
-| agent-rules-books | skill | | ✓ | |
+| agent-rules-books | skill | | ✓ | CONDITIONAL |
 | agent-skills | skill | | ✓ | ADOPT |
 | AI-Research-SKILLs | skill | | ✓ | |
 | alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL |
@@ -358,10 +358,10 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 19 | 17 | 89% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 56 | 31 | 55% |
+| Outer Loop | 9 | 8 | 89% |
+| Skills & Plugins | 56 | 32 | 57% |
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 12 | 40% |
-| **Total** | **275** | **208** | **76%** |
+| **Total** | **275** | **210** | **76%** |
