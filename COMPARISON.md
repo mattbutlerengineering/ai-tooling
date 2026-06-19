@@ -7,9 +7,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | CLI-Anything | tool | | ✓ | CONDITIONAL |
-| claude-code-templates | tool | | ✓ | |
+| claude-code-templates | tool | | ✓ | SKIP |
 | claude-hud | plugin | ✓ | ✓ | CONDITIONAL |
-| ccstatusline | plugin | ✓ | ✓ | |
+| ccstatusline | plugin | ✓ | ✓ | CONDITIONAL |
 | codegraph | tool | ✓ | ✓ | ADOPT |
 | code-review-graph | tool | | ✓ | CONDITIONAL |
 | context7 | MCP server | ✓ | ✓ | KEEP |
@@ -85,7 +85,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
 | oh-my-pi | platform | | ✓ | |
-| omnigent | framework | | ✓ | |
+| omnigent | framework | | ✓ | CONDITIONAL |
 | opencode | platform | | ✓ | CONDITIONAL |
 | opencode-swarm | plugin | | ✓ | |
 | OpenHands | platform | | ✓ | CONDITIONAL |
@@ -352,8 +352,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 26 | 90% |
-| Implement | 66 | 51 | 77% |
+| Plan | 29 | 28 | 97% |
+| Implement | 66 | 52 | 79% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 16 | 84% |
 | Ship | 2 | 2 | 100% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **165** | **60%** |
+| **Total** | **275** | **168** | **61%** |
