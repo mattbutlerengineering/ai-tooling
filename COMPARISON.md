@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 277 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -74,11 +74,11 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | goose | platform | | ✓ | CONDITIONAL |
 | gstack | harness | | ✓ | CONDITIONAL |
 | happy | platform | | $ | CONDITIONAL |
-| harness | skill | | ✓ | |
+| harness | skill | | ✓ | CONDITIONAL |
 | headroom | tool | ✓ | ✓ | CONDITIONAL |
 | hive | harness | | ✓ | SKIP |
 | humanlayer | harness | | ✓ | SKIP |
-| KARIMO | plugin | | ✓ | |
+| KARIMO | plugin | | ✓ | CONDITIONAL |
 | LangGraph | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
@@ -87,11 +87,11 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-pi | platform | | ✓ | SKIP |
 | omnigent | framework | | ✓ | CONDITIONAL |
 | opencode | platform | | ✓ | CONDITIONAL |
-| opencode-swarm | plugin | | ✓ | |
+| opencode-swarm | plugin | | ✓ | CONDITIONAL |
 | OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
-| adhd | skill | | ✓ | |
+| adhd | skill | | ✓ | CONDITIONAL |
 | sandboxd | tool | | ✓ | CONDITIONAL |
 | qwen-code | platform | | ✓ | CONDITIONAL |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
@@ -195,9 +195,9 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-seo | skill | | ✓ | CONDITIONAL |
 | excalidraw-diagram-skill | skill | | ✓ | |
 | formkit | framework | | ✓ | SKIP |
-| frontend-slides | skill | | ✓ | |
+| frontend-slides | skill | | ✓ | CONDITIONAL |
 | garden-skills | skill | | ✓ | |
-| gemini-skills | skill | | ✓ | |
+| gemini-skills | skill | | ✓ | CONDITIONAL |
 | google/skills | skill | | ✓ | CONDITIONAL |
 | googleworkspace/cli | tool | | ✓ | |
 | guizang-ppt-skill | skill | | ✓ | |
@@ -234,8 +234,9 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | guard-skills | skill | | ✓ | CONDITIONAL |
 | claude-night-market | plugin | | ✓ | CONDITIONAL |
 | huashu-design | skill | | ✓ | CONDITIONAL |
-| baoyu-design | skill | | ✓ | |
-| AlphaGBM/skills | skill | | ✓ | |
+| baoyu-design | skill | | ✓ | CONDITIONAL |
+| AlphaGBM/skills | skill | | ✓ | CONDITIONAL |
+| himself65/finance-skills | skill | | ✓ | CONDITIONAL |
 | cc-skills-golang | skill | | ✓ | |
 
 ## Memory & Context
@@ -323,9 +324,10 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-best-practice | reference | | ✓ | CONDITIONAL |
 | claude-code-system-prompts | reference | | ✓ | |
 | claude-code-tips | reference | | ✓ | CONDITIONAL |
-| claude-howto | reference | | ✓ | |
+| claude-howto | reference | | ✓ | CONDITIONAL |
+| Awesome-finance-skills | skill | | ✓ | SKIP |
 | claude-plugins-official | reference | | ✓ | KEEP |
-| dictionary-of-ai-coding | reference | | ✓ | |
+| dictionary-of-ai-coding | reference | | ✓ | ADOPT |
 | Fabric | framework | | ✓ | SKIP |
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
 | system-prompts-and-models | reference | | ✓ | |
@@ -355,15 +357,15 @@ All 277 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 29 | 100% |
-| Implement | 66 | 59 | 89% |
+| Implement | 66 | 63 | 95% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 19 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 9 | 100% |
-| Skills & Plugins | 58 | 43 | 74% |
+| Skills & Plugins | 59 | 48 | 81% |
 | Memory & Context | 20 | 19 | 95% |
 | MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 30 | 20 | 67% |
-| **Total** | **277** | **244** | **88%** |
+| Reference | 31 | 23 | 74% |
+| **Total** | **279** | **256** | **92%** |
