@@ -258,8 +258,8 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentic-stack | tool | | ✓ | |
 | guild | tool | | ✓ | |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
-| pro-workflow | plugin | ✓ | ✓ | |
-| hivemind | tool | ✓ | ✓ | |
+| pro-workflow | plugin | ✓ | ✓ | SKIP |
+| hivemind | tool | ✓ | ✓ | CONDITIONAL |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
 
 ## MCP Servers (infrastructure)
@@ -289,7 +289,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
 | figma-mcp-go | MCP server | ✓ | ✓ | |
-| pg-aiguide | MCP server | ✓ | ✓ | |
+| pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | |
 
 ## Research & Discovery
@@ -361,8 +361,8 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
 | Skills & Plugins | 57 | 20 | 35% |
-| Memory & Context | 20 | 8 | 40% |
-| MCP Servers | 25 | 8 | 32% |
+| Memory & Context | 20 | 10 | 50% |
+| MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **121** | **44%** |
+| **Total** | **276** | **124** | **45%** |

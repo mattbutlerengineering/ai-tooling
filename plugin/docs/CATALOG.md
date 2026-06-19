@@ -297,7 +297,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [opendocswork-mcp](https://github.com/Aimino-Tech/opendocswork-mcp) | MCP server | Rust-native Office document processing — Excel, Word, PowerPoint at sub-millisecond speed | AI agents can't natively read or write Office documents | powerpoint, powerpoint-ppt |
 | [plumb-mcp](https://github.com/tathagat22/plumb-mcp) | MCP server | Local Figma MCP server with no REST rate limits and a verification loop | Figma's official MCP has rate limits and metered tool-call quotas | Figma-Context-MCP |
 | [figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) | MCP server | Figma MCP for free users — no rate limits, full read/write, text to designs (1.1K stars) | Official Figma MCP has paid quotas; free users need an alternative | Figma-Context-MCP, plumb-mcp |
-| [pg-aiguide](https://github.com/timescale/pg-aiguide) | MCP server | MCP server + Claude plugin for Postgres — helps AI tools generate correct, idiomatic Postgres (1.8K stars) | AI tools generate incorrect or non-idiomatic Postgres SQL and schema | supabase, prisma |
+| [pg-aiguide](https://github.com/timescale/pg-aiguide) | MCP server | MCP server + Claude plugin for Postgres — helps AI tools generate correct, idiomatic Postgres (1.8K stars) | AI tools generate incorrect or non-idiomatic Postgres SQL and schema | supabase, prisma (complementary: supabase/prisma do DB operations, pg-aiguide is a Postgres knowledge layer) |
 
 ## Observability
 
