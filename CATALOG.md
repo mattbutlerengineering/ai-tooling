@@ -279,7 +279,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [Pare](https://github.com/Dave-London/Pare) | MCP server | Token-efficient, structured MCP servers for git, test runners, npm, Docker, and more (129 stars) | Generic dev-tool output wastes tokens; agents need structured, compact tool interfaces | git-mcp, token-optimizer-mcp, headroom |
 | [browser-use](https://github.com/browser-use/browser-use) | framework | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
 | [evalview](https://github.com/hidai25/eval-view) | MCP server | AI agent regression testing | Can't tell if agent behavior regressed after config changes | langfuse |
-| squish-memory | MCP server | Local-first persistent memory runtime | Need memory that runs locally without external dependencies | OMEGA, claude-mem, server-memory |
+| [squish-memory](https://github.com/michielhdoteth/squish) | MCP server | Local-first persistent memory runtime | Need memory that runs locally without external dependencies | OMEGA, claude-mem, server-memory |
 | [longhand](https://github.com/Wynelson94/longhand) | MCP server | Session history indexing for cross-session search | Need to find what happened in past agent sessions | OMEGA, claude-mem |
 | devfleet | MCP server | Multi-agent orchestration via MCP | Need to coordinate agents through the MCP protocol rather than CLI | claude-squad, gastown |
 | [supabase](https://github.com/supabase-community/supabase-mcp) | MCP server | Supabase database and auth operations | Agent needs to interact with Supabase projects during development | prisma |

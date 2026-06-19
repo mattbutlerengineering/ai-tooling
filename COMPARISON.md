@@ -249,11 +249,11 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OMEGA | MCP server | ✓ | ✓/$ | |
 | server-memory | MCP server | ✓ | ✓ | |
 | SimpleMem | tool | | ✓ | CONDITIONAL |
-| squish-memory | MCP server | | ✓ | |
+| squish-memory | MCP server | | ✓ | SKIP |
 | longhand | MCP server | | ✓ | CONDITIONAL |
 | storybloq | plugin | ✓ | ✓ | CONDITIONAL |
-| ArcRift | tool | | ✓ | |
-| context-infrastructure | tool | | ✓ | |
+| ArcRift | tool | | ✓ | CONDITIONAL |
+| context-infrastructure | reference | | ✓ | SKIP |
 | agentic-stack | tool | | ✓ | CONDITIONAL |
 | guild | tool | | ✓ | |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
@@ -360,8 +360,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
 | Skills & Plugins | 56 | 23 | 41% |
-| Memory & Context | 20 | 14 | 70% |
+| Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **180** | **65%** |
+| **Total** | **275** | **183** | **67%** |
