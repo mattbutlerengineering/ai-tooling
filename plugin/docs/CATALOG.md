@@ -268,11 +268,11 @@ Model Context Protocol servers that connect AI agents to external services and c
 | prisma | MCP server | Database operations via Prisma ORM (migrations, studio, status) | Agent needs to interact with databases during development | supabase, mcp-toolbox |
 | sentry | MCP server | Error tracking and monitoring integration | Agent needs access to production error data for debugging | langfuse (complementary: sentry = errors, langfuse = LLM behavior) |
 | [blender-mcp](https://github.com/ahujasid/blender-mcp) | MCP server | Blender 3D modeling integration | Need AI to control 3D modeling workflows | — |
-| sequential-thinking | MCP server | Chain-of-thought reasoning enhancement via structured thinking steps | Agent's reasoning is shallow on complex problems | gentleman-book-mcp (complementary: sequential-thinking = reasoning, gentleman-book-mcp = architecture knowledge) |
-| server-memory | MCP server | Basic persistent key-value memory | Need simple state persistence between agent calls | OMEGA, claude-mem |
+| [sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking) | MCP server | Chain-of-thought reasoning enhancement via structured thinking steps | Agent's reasoning is shallow on complex problems | gentleman-book-mcp (complementary: sequential-thinking = reasoning, gentleman-book-mcp = architecture knowledge) |
+| [server-memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory) | MCP server | Basic persistent key-value memory | Need simple state persistence between agent calls | OMEGA, claude-mem |
 | server-github | MCP server | GitHub operations (repos, issues, PRs, actions) | Agent needs to interact with GitHub beyond local git | github-mcp-server |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | MCP server | GitHub's official MCP server — repos, issues, PRs, actions, search, code navigation | Need first-party GitHub integration with full API coverage and official support | server-github |
-| server-filesystem | MCP server | Local filesystem access with safety controls | Agent needs structured file operations with guardrails | — |
+| [server-filesystem](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) | MCP server | Local filesystem access with safety controls | Agent needs structured file operations with guardrails | — |
 | [exa-mcp-server](https://github.com/exa-labs/exa-mcp-server) | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | firecrawl-mcp, Agent-Reach |
 | [firecrawl-mcp](https://github.com/firecrawl/firecrawl-mcp-server) | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
 | fal-ai-mcp-server | MCP server | Image, video, and audio generation via fal.ai | Agent needs to generate media assets | — |
