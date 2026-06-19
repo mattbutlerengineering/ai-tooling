@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 281 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -80,6 +80,8 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | humanlayer | harness | | ✓ | SKIP |
 | KARIMO | plugin | | ✓ | CONDITIONAL |
 | LangGraph | framework | | ✓ | SKIP |
+| LangChain.js | framework | | ✓ | SKIP |
+| LangGraph.js | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
@@ -357,7 +359,7 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 29 | 100% |
-| Implement | 66 | 66 | 100% |
+| Implement | 68 | 68 | 100% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 19 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -368,4 +370,4 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 31 | 31 | 100% |
-| **Total** | **279** | **279** | **100%** |
+| **Total** | **281** | **281** | **100%** |
