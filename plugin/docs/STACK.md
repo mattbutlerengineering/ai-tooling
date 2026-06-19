@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~25 tools worth installing on every project, distilled from 256 catalog entries and 70 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~25 tools worth installing on every project, distilled from 275 catalog entries and 145 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -31,6 +31,7 @@ claude install-skill nichochar/agent-browser
 | [GSD](https://github.com/obra/superpowers) | Structured project planning with milestone/phase management | `claude install-plugin obra/superpowers` | Correctness, Speed |
 | [feature-dev](https://github.com/anthropics/claude-plugins-official) | 7-phase guided feature development for single features | `claude install-plugin anthropics/claude-plugins-official` | Correctness |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add github -- npx -y @anthropic-ai/mcp-proxy@latest --transport sse https://api.githubcopilot.com/mcp/` | Speed, Correctness |
+| [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `claude mcp add codegraph` | Speed, Cost Efficiency |
 
 ## Implement
 
@@ -42,6 +43,7 @@ claude install-skill nichochar/agent-browser
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g beads` | Correctness, Speed |
 | [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Skills for Real Engineers — TDD, debugging, planning skills from a working dev | `npx skills add mattpocock/skills -g -y` | Correctness, Speed |
 
 ## Verify
 
@@ -65,6 +67,7 @@ claude install-skill nichochar/agent-browser
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [claude-code-action](https://github.com/anthropics/claude-code-action) | @claude in GitHub PRs/issues for async review and fixes | Add GitHub Actions workflow YAML | Speed, Correctness |
+| [resolving-merge-conflicts](https://github.com/mattpocock/skills) | Intent-preserving merge resolution — trace both sides, resolve, run checks | `npx skills add mattpocock/skills@resolving-merge-conflicts -g -y` | Correctness, Safety |
 
 ## Reflect
 
@@ -73,6 +76,12 @@ claude install-skill nichochar/agent-browser
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | Turns session corrections into persistent CLAUDE.md rules | `claude install-plugin BayramAnnakov/claude-reflect` | Speed, Maintainability |
 | [documentation-writer](https://github.com/github/awesome-copilot) | Diátaxis-framework docs: clarify purpose, outline, then generate | `npx skills add github/awesome-copilot@documentation-writer -g -y` | Maintainability |
 | [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | ADR templates and agent-context documentation guidelines | `npx skills add addyosmani/agent-skills@documentation-and-adrs -g -y` | Maintainability |
+
+## Memory
+
+| Tool | What it does | Install | Signal |
+|------|-------------|---------|--------|
+| [claude-mem](https://github.com/thedotmack/claude-mem) | Persistent memory with semantic search, timeline, and knowledge-graph recall across sessions | `claude install-plugin thedotmack/claude-mem` | Maintainability, Speed |
 
 ## Outer Loop
 
@@ -91,6 +100,6 @@ claude install-skill nichochar/agent-browser
 
 ## What's NOT here
 
-- **256 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **275 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage
