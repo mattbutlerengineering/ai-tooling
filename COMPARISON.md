@@ -201,8 +201,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | googleworkspace/cli | tool | | ✓ | |
 | guizang-ppt-skill | skill | | ✓ | |
 | html-anything | tool | | ✓ | SKIP |
-| humanizer | skill | | ✓ | |
-| impeccable | skill | | ✓ | |
+| humanizer | skill | | ✓ | CONDITIONAL |
+| impeccable | skill | | ✓ | CONDITIONAL |
 | Jeffallan/claude-skills | skill | | ✓ | |
 | marketingskills | skill | | ✓ | |
 | mattpocock/skills | skill | | ✓ | ADOPT |
@@ -220,7 +220,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | scientific-agent-skills | skill | | ✓ | |
 | skill-creator | plugin | | ✓ | ADOPT |
 | stop-slop | skill | | ✓ | CONDITIONAL |
-| taste-skill | skill | | ✓ | |
+| taste-skill | skill | | ✓ | CONDITIONAL |
 | tech-leads-club/agent-skills | skill | | ✓ | |
 | typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
 | ui-ux-pro-max | skill | | ✓ | |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 56 | 26 | 46% |
+| Skills & Plugins | 56 | 29 | 52% |
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 12 | 40% |
-| **Total** | **275** | **203** | **74%** |
+| **Total** | **275** | **206** | **75%** |
