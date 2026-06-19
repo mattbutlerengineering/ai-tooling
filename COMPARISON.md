@@ -53,8 +53,8 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | claude-task-master | tool | | ✓ | CONDITIONAL |
-| capa | tool | | ✓ | |
-| skills-manage | tool | | ✓ | |
+| capa | tool | | ✓ | CONDITIONAL |
+| skills-manage | tool | | ✓ | SKIP |
 | align-dev | tool | | ✓ | |
 | cc-switch | tool | | ✓ | SKIP |
 | commit-commands | plugin | | ✓ | |
@@ -354,7 +354,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 39 | 58% |
+| Implement | 67 | 41 | 61% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -365,4 +365,4 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **135** | **49%** |
+| **Total** | **276** | **137** | **50%** |
