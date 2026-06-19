@@ -268,7 +268,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | blender-mcp | MCP server | ✓ | ✓ | |
 | cloudflare-mcp | MCP server | ✓ | ✓ | |
-| confluence | MCP server | ✓ | ✓ | |
+| confluence | MCP server | ✓ | ✓ | CONDITIONAL |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | |
@@ -276,7 +276,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
-| jira | MCP server | ✓ | ✓ | |
+| jira | MCP server | ✓ | ✓ | CONDITIONAL |
 | mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL |
 | prisma | MCP server | ✓ | ✓ | CONDITIONAL |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 16 | 64% |
+| MCP Servers | 25 | 18 | 72% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **193** | **70%** |
+| **Total** | **275** | **195** | **71%** |
