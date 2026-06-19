@@ -265,16 +265,16 @@ Model Context Protocol servers that connect AI agents to external services and c
 | server-github | MCP server | GitHub operations (repos, issues, PRs, actions) | Agent needs to interact with GitHub beyond local git | github-mcp-server |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | MCP server | GitHub's official MCP server — repos, issues, PRs, actions, search, code navigation | Need first-party GitHub integration with full API coverage and official support | server-github |
 | server-filesystem | MCP server | Local filesystem access with safety controls | Agent needs structured file operations with guardrails | — |
-| exa-mcp-server | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | firecrawl-mcp, Agent-Reach |
-| firecrawl-mcp | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
+| [exa-mcp-server](https://github.com/exa-labs/exa-mcp-server) | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | firecrawl-mcp, Agent-Reach |
+| [firecrawl-mcp](https://github.com/firecrawl/firecrawl-mcp-server) | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
 | fal-ai-mcp-server | MCP server | Image, video, and audio generation via fal.ai | Agent needs to generate media assets | — |
 | token-optimizer-mcp | MCP server | 95%+ context reduction for tool outputs | Context window fills up too fast | headroom |
-| browser-use | MCP server | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
+| [browser-use](https://github.com/browser-use/browser-use) | MCP server | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
 | evalview | MCP server | AI agent regression testing | Can't tell if agent behavior regressed after config changes | langfuse |
 | squish-memory | MCP server | Local-first persistent memory runtime | Need memory that runs locally without external dependencies | OMEGA, claude-mem, server-memory |
 | longhand | MCP server | Session history indexing for cross-session search | Need to find what happened in past agent sessions | OMEGA, claude-mem |
 | devfleet | MCP server | Multi-agent orchestration via MCP | Need to coordinate agents through the MCP protocol rather than CLI | claude-squad, gastown |
-| supabase | MCP server | Supabase database and auth operations | Agent needs to interact with Supabase projects during development | prisma |
+| [supabase](https://github.com/supabase-community/supabase-mcp) | MCP server | Supabase database and auth operations | Agent needs to interact with Supabase projects during development | prisma |
 | jira | MCP server | Jira issue tracking integration | Agent needs to read/update Jira tickets during development | github-mcp-server (complementary: Jira = issues, GitHub = code) |
 | confluence | MCP server | Confluence wiki integration | Agent needs to read/write team documentation | gentleman-book-mcp (complementary: confluence = team wiki, gentleman = architecture book) |
 | [chrome-devtools-mcp](https://github.com/benjaminr/chrome-devtools-mcp) | MCP server | Chrome DevTools Protocol integration — network, console, DOM, CSS, performance inspection | Need agents to inspect, debug, and profile web apps in Chrome, not just automate them | playwright (complementary: playwright = automation, chrome-devtools = inspection) |
