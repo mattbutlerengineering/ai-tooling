@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 275 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 277 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -181,8 +181,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | academic-research-skills | skill | | ✓ | CONDITIONAL |
 | agent-rules-books | skill | | ✓ | CONDITIONAL |
+| vercel-labs/agent-skills | skill | | ✓ | CONDITIONAL |
 | agent-skills | skill | | ✓ | ADOPT |
-| AI-Research-SKILLs | skill | | ✓ | |
+| AI-Research-SKILLs | skill | | ✓ | CONDITIONAL |
 | alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL |
 | andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
@@ -204,17 +205,18 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | humanizer | skill | | ✓ | CONDITIONAL |
 | impeccable | skill | | ✓ | CONDITIONAL |
 | Jeffallan/claude-skills | skill | | ✓ | |
-| marketingskills | skill | | ✓ | |
+| marketingskills | skill | | ✓ | CONDITIONAL |
 | mattpocock/skills | skill | | ✓ | ADOPT |
 | microsoft/skills | skill | | ✓ | CONDITIONAL |
-| obsidian-skills | skill | | ✓ | |
+| obsidian-skills | skill | | ✓ | CONDITIONAL |
 | open-design | platform | | ✓ | SKIP |
 | open-slide | tool | | ✓ | |
 | slidev | skill | | ✓ | CONDITIONAL |
 | powerpoint | skill | | ✓ | CONDITIONAL |
 | openskills | tool | | ✓ | CONDITIONAL |
+| vercel-labs/skills | tool | | ✓ | CONDITIONAL |
 | plugin-dev | plugin | | ✓ | CONDITIONAL |
-| pm-skills | skill | | ✓ | |
+| pm-skills | skill | | ✓ | CONDITIONAL |
 | ponytail | skill | | ✓ | CONDITIONAL |
 | refly | platform | | ✓ | SKIP |
 | scientific-agent-skills | skill | | ✓ | CONDITIONAL |
@@ -247,7 +249,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | |
-| server-memory | MCP server | ✓ | ✓ | |
+| server-memory | MCP server | ✓ | ✓ | CONDITIONAL |
 | SimpleMem | tool | | ✓ | CONDITIONAL |
 | squish-memory | MCP server | | ✓ | SKIP |
 | longhand | MCP server | | ✓ | CONDITIONAL |
@@ -266,7 +268,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| blender-mcp | MCP server | ✓ | ✓ | |
+| blender-mcp | MCP server | ✓ | ✓ | SKIP |
 | cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | confluence | MCP server | ✓ | ✓ | CONDITIONAL |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -309,12 +311,12 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | antigravity-awesome-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills (libukai) | reference | | ✓ | |
-| awesome-ai-agents | reference | | ✓ | |
+| awesome-ai-agents | reference | | ✓ | SKIP |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | |
-| awesome-llm-agents | reference | | ✓ | |
+| awesome-llm-agents | reference | | ✓ | CONDITIONAL |
 | awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
 | ai-engineering-from-scratch | reference | | ✓ | |
 | claude-code | reference | | ✓ | CONDITIONAL |
@@ -359,9 +361,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 9 | 100% |
-| Skills & Plugins | 56 | 37 | 66% |
-| Memory & Context | 20 | 18 | 90% |
-| MCP Servers | 25 | 24 | 96% |
+| Skills & Plugins | 58 | 43 | 74% |
+| Memory & Context | 20 | 19 | 95% |
+| MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 30 | 18 | 60% |
-| **Total** | **275** | **234** | **85%** |
+| Reference | 30 | 20 | 67% |
+| **Total** | **277** | **244** | **88%** |
