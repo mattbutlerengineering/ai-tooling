@@ -226,7 +226,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
 | claude-night-market | plugin | | ✓ | |
-| huashu-design | skill | | ✓ | |
+| huashu-design | skill | | ✓ | CONDITIONAL |
 | baoyu-design | skill | | ✓ | |
 | AlphaGBM/skills | skill | | ✓ | |
 | cc-skills-golang | skill | | ✓ | |
@@ -342,15 +342,15 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 25 | 7 | 28% |
-| Implement | 67 | 18 | 27% |
+| Implement | 67 | 19 | 28% |
 | Verify | 7 | 4 | 57% |
 | Review | 17 | 8 | 47% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 57 | 15 | 26% |
+| Skills & Plugins | 57 | 16 | 28% |
 | Memory & Context | 17 | 6 | 35% |
 | MCP Servers | 23 | 8 | 35% |
-| Research & Discovery | 6 | 2 | 33% |
-| Reference | 29 | 5 | 17% |
-| **Total** | **264** | **86** | **33%** |
+| Research & Discovery | 6 | 3 | 50% |
+| Reference | 29 | 7 | 24% |
+| **Total** | **264** | **91** | **34%** |
