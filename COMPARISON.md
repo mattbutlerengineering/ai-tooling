@@ -76,7 +76,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | hive | harness | | ✓ | |
 | humanlayer | harness | | ✓ | |
 | KARIMO | plugin | | ✓ | |
-| LangGraph | framework | | ✓ | |
+| LangGraph | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | |
 | oh-my-claudecode | harness | | ✓ | |
