@@ -119,6 +119,9 @@ Tools for persistent memory across sessions, context compression, and learning f
 | [AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-MCP) | MCP server | Correction-driven memory — learns from mistakes, compresses context, consolidates overnight | Memory systems store facts but don't learn from corrections | claude-mem, OMEGA, claude-subconscious |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | tool | Portable .agent/ folder (memory + skills + protocols) that plugs into any harness (2.1K stars) | Agent config and memory are locked to one editor; need a portable brain that survives harness changes | engram, OMEGA, capa |
 | [guild](https://github.com/mathomhaus/guild) | tool | Shared context, memory, and task coordination across AI agents — single Go binary, local SQLite | Multiple agents working on the same project can't share context or coordinate tasks | engram, beads (complementary: guild = multi-agent coordination, beads = work ledger) |
+| [memsearch](https://github.com/zilliztech/memsearch) | tool | Persistent, unified memory layer for AI agents (Claude Code, Codex), backed by Zilliz/Milvus (2.1K stars) | Agents lose context across sessions; need shared vector-backed memory | claude-mem, OMEGA, mem0, supermemory |
+| [pro-workflow](https://github.com/rohitg00/pro-workflow) | plugin | Claude Code learns from your corrections — self-correcting memory that compounds over 50+ sessions (2.3K stars) | Agents repeat the same mistakes; corrections do not persist or compound | claude-mem, OMEGA |
+| [hivemind](https://github.com/activeloopai/hivemind) | tool | Turns agent execution traces into reusable skills shared across agents (1.3K stars) | Agents re-derive the same solutions; successful runs are not captured as skills | claude-mem, openskills |
 
 ## Skills & Plugins
 
@@ -206,6 +209,7 @@ Tools for automated code review, quality checks, and codebase improvement.
 | [shadcn/improve](https://github.com/shadcn/improve) | tool | Use the most capable model to audit codebase, write plans for cheaper models to execute | Want high-quality codebase audits without burning expensive model tokens on execution | code-review |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | tool | Mutation testing for JS/TS — tests whether your tests actually catch bugs | Coverage says "tests exist" but not "tests are good"; mutation testing reveals weak test suites | — (unique: test quality verification) |
 | [PR-Agent](https://github.com/The-PR-Agent/pr-agent) | tool | Open-source AI PR reviewer with auto-describe, review, improve, and custom prompts | Need automated PR review that adds descriptions, finds bugs, and suggests improvements | code-review, pr-review-toolkit |
+| [claude-octopus](https://github.com/nyldn/claude-octopus) | plugin | Run up to 8 AI models in parallel on research, design, or code to surface blindspots before shipping (3.6K stars) | Single-model review misses blindspots; want cross-model consensus before merge | PR-Agent, code-review-graph |
 
 ## Maturity Frameworks
 
@@ -249,8 +253,8 @@ Tools for git management, planning, project orchestration, and development proce
 | [azure-skills](https://github.com/microsoft/azure-skills) | plugin | Official Azure agent plugin — skills and MCP configs for Azure scenarios (258K installs) | Need AI assistance with Azure deployment, infrastructure, and cloud workflows | microsoft/skills, google/skills |
 | [claude-modular](https://github.com/oxygen-fragment/claude-modular) | framework | Modular Claude Code command framework — 30+ commands, token optimization, hierarchical config, MCP integration (284 stars) | Ad-hoc Claude Code setups lack systematic command organization and reuse | superpowers, claude-night-market, GSD |
 | [spec-kit](https://github.com/github/spec-kit) | framework | GitHub's Spec-Driven Development toolkit — Specify→Plan→Tasks→Implement, each with a human checkpoint (114K stars) | "Prompt and pray" yields misaligned code; make the spec the durable artifact and code the build output | OpenSpec, BMAD-METHOD, GSD |
-| [OpenSpec](https://github.com/Fission-AI/OpenSpec) | framework | Spec-driven development for AI coding assistants — lightweight, agent-agnostic specs that act as validation gates (55.6K stars) | Need SDD discipline without heavy four-phase ceremony, portable across agents | spec-kit, BMAD-METHOD |
-| [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | framework | Agentic agile dev framework — specialized agent roles (analyst, PM, architect, dev) drive a spec-to-code pipeline (49.4K stars) | Unstructured AI dev lacks defined roles and phased handoffs | spec-kit, OpenSpec, GSD |
+| [OpenSpec](https://github.com/Fission-AI/OpenSpec) | framework | Spec-driven development for AI coding assistants — lightweight, agent-agnostic spec/alignment layer (specs/changes split, brownfield deltas) (55.6K stars) | Need SDD discipline without heavy four-phase ceremony, portable across agents | spec-kit, BMAD-METHOD, architect-loop |
+| [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | framework | Role-based agentic agile framework (V6) — installs ~45 native SKILL.md skills for Claude Code; Analysis→Planning→Solutioning→Implementation pipeline (49.4K stars) | Unstructured AI dev lacks defined roles and phased handoffs | spec-kit, OpenSpec, GSD |
 
 ## MCP Servers
 
@@ -293,6 +297,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [opendocswork-mcp](https://github.com/Aimino-Tech/opendocswork-mcp) | MCP server | Rust-native Office document processing — Excel, Word, PowerPoint at sub-millisecond speed | AI agents can't natively read or write Office documents | powerpoint, powerpoint-ppt |
 | [plumb-mcp](https://github.com/tathagat22/plumb-mcp) | MCP server | Local Figma MCP server with no REST rate limits and a verification loop | Figma's official MCP has rate limits and metered tool-call quotas | Figma-Context-MCP |
 | [figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) | MCP server | Figma MCP for free users — no rate limits, full read/write, text to designs (1.1K stars) | Official Figma MCP has paid quotas; free users need an alternative | Figma-Context-MCP, plumb-mcp |
+| [pg-aiguide](https://github.com/timescale/pg-aiguide) | MCP server | MCP server + Claude plugin for Postgres — helps AI tools generate correct, idiomatic Postgres (1.8K stars) | AI tools generate incorrect or non-idiomatic Postgres SQL and schema | supabase, prisma |
 
 ## Observability
 
@@ -340,6 +345,7 @@ Tools for scanning agent-generated code and skills for vulnerabilities.
 | [OpenOSINT](https://github.com/OpenOSINT/OpenOSINT) | MCP server | AI-powered OSINT agent with 16 tools for authorized security research | OSINT research requires querying many sources; agent-driven intelligence gathering | cve-mcp-server, pentest-ai |
 | [agnix](https://github.com/agent-sh/agnix) | tool | Linter, LSP, MCP server, and GitHub Action for AI coding configs — 425 rules across 9+ tool families (Claude Code, Kiro, Cursor, AGENTS.md, MCP) | AI agent config files have no validation; errors (e.g. SKILL.md name casing) silently fail at runtime | reporails/cli, agentlint, SkillSpector (complementary: SkillSpector scans for malice) |
 | [agent-vault](https://github.com/Infisical/agent-vault) | tool | HTTP credential proxy and vault for AI coding agents (1.7K stars) | AI agents need access to secrets but shouldn't have direct credential access | — (unique: credential proxy for agents) |
+| [cc-safety-net](https://github.com/kenryu42/cc-safety-net) | tool | Coding-agent CLI hook that catches destructive git and filesystem commands before they run (1.4K stars) | Agents can run destructive git/filesystem commands; need a pre-execution safety net | agentlint, hol-guard |
 
 ## Reference
 

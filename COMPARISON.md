@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 270 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 276 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -19,9 +19,9 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | git-mcp | MCP server | ✓ | ✓ | |
 | GSD | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | |
-| spec-kit | framework | | ✓ | |
-| OpenSpec | framework | | ✓ | |
-| BMAD-METHOD | framework | | ✓ | |
+| spec-kit | framework | | ✓ | CONDITIONAL |
+| OpenSpec | framework | | ✓ | CONDITIONAL |
+| BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | |
 | planning-with-files | skill | | ✓ | |
@@ -129,6 +129,8 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | design-council | plugin | | ✓ | CONDITIONAL |
 | ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
+| claude-octopus | plugin | ✓ | ✓ | |
+| cc-safety-net | tool | ✓ | ✓ | |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
@@ -255,6 +257,9 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | context-infrastructure | tool | | ✓ | |
 | agentic-stack | tool | | ✓ | |
 | guild | tool | | ✓ | |
+| memsearch | tool | ✓ | ✓ | |
+| pro-workflow | plugin | ✓ | ✓ | |
+| hivemind | tool | ✓ | ✓ | |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
 
 ## MCP Servers (infrastructure)
@@ -284,6 +289,7 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
 | figma-mcp-go | MCP server | ✓ | ✓ | |
+| pg-aiguide | MCP server | ✓ | ✓ | |
 | Pare | MCP server | ✓ | ✓ | |
 
 ## Research & Discovery
@@ -347,16 +353,16 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 9 | 31% |
+| Plan | 29 | 12 | 41% |
 | Implement | 67 | 27 | 40% |
 | Verify | 7 | 5 | 71% |
-| Review | 17 | 12 | 71% |
+| Review | 19 | 12 | 63% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
 | Skills & Plugins | 57 | 20 | 35% |
-| Memory & Context | 17 | 7 | 41% |
-| MCP Servers | 24 | 8 | 33% |
+| Memory & Context | 20 | 7 | 35% |
+| MCP Servers | 25 | 8 | 32% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **270** | **115** | **43%** |
+| **Total** | **276** | **118** | **43%** |
