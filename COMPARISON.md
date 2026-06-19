@@ -322,7 +322,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-system-prompts | reference | | ✓ | |
 | claude-code-tips | reference | | ✓ | CONDITIONAL |
 | claude-howto | reference | | ✓ | |
-| claude-plugins-official | reference | | ✓ | |
+| claude-plugins-official | reference | | ✓ | KEEP |
 | dictionary-of-ai-coding | reference | | ✓ | |
 | Fabric | framework | | ✓ | SKIP |
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 8 | 89% |
-| Skills & Plugins | 56 | 32 | 57% |
+| Skills & Plugins | 56 | 33 | 59% |
 | Memory & Context | 20 | 18 | 90% |
 | MCP Servers | 25 | 21 | 84% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 15 | 50% |
-| **Total** | **275** | **217** | **79%** |
+| **Total** | **275** | **218** | **79%** |
