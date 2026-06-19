@@ -74,7 +74,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | harness | skill | | ✓ | |
 | headroom | tool | ✓ | ✓ | ADOPT |
 | hive | harness | | ✓ | |
-| humanlayer | harness | | ✓ | |
+| humanlayer | harness | | ✓ | SKIP |
 | KARIMO | plugin | | ✓ | |
 | LangGraph | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
@@ -87,7 +87,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opencode-swarm | plugin | | ✓ | |
 | OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | |
-| architect-loop | skill | | ✓ | |
+| architect-loop | skill | | ✓ | CONDITIONAL |
 | adhd | skill | | ✓ | |
 | sandboxd | tool | | ✓ | |
 | qwen-code | platform | | ✓ | |
@@ -99,7 +99,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | superset | tool | | ✓ | |
 | worktrunk | tool | | $ | CONDITIONAL |
 | implement | skill | | ✓ | |
-| resolving-merge-conflicts | skill | | ✓ | |
+| resolving-merge-conflicts | skill | | ✓ | ADOPT |
 | codex-plugin-cc | plugin | | ✓ | |
 | vibecode-pro-max-kit | harness | | ✓ | |
 | re_gent | tool | | ✓ | |
@@ -114,7 +114,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | evalview | MCP server | ✓ | ✓ | |
 | playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
-| diagnosing-bugs | skill | | ✓ | |
+| diagnosing-bugs | skill | | ✓ | CONDITIONAL |
 
 ## Review
 
