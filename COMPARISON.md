@@ -226,7 +226,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ui-ux-pro-max | skill | | ✓ | |
 | web-quality-skills | skill | | ✓ | ADOPT |
 | Waza | skill | | ✓ | |
-| agents (wshobson) | plugin | | ✓ | |
+| agents (wshobson) | plugin | | ✓ | CONDITIONAL |
 | agent-sprite-forge | skill | | ✓ | |
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
@@ -324,7 +324,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-howto | reference | | ✓ | |
 | claude-plugins-official | reference | | ✓ | |
 | dictionary-of-ai-coding | reference | | ✓ | |
-| Fabric | framework | | ✓ | |
+| Fabric | framework | | ✓ | SKIP |
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
 | system-prompts-and-models | reference | | ✓ | |
 | tolaria | tool | | ✓ | |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 56 | 25 | 45% |
+| Skills & Plugins | 56 | 26 | 46% |
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
-| Reference | 30 | 11 | 37% |
-| **Total** | **275** | **201** | **73%** |
+| Reference | 30 | 12 | 40% |
+| **Total** | **275** | **203** | **74%** |
