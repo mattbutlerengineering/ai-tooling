@@ -177,7 +177,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-rules-books | skill | | ✓ | |
 | agent-skills | skill | | ✓ | ADOPT |
 | AI-Research-SKILLs | skill | | ✓ | |
-| alirezarezvani/claude-skills | plugin | | ✓ | |
+| alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL |
 | andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
 | anthropics/skills | reference | | ✓ | CONDITIONAL |
@@ -342,15 +342,15 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 25 | 7 | 28% |
-| Implement | 67 | 17 | 25% |
+| Implement | 67 | 18 | 27% |
 | Verify | 7 | 4 | 57% |
 | Review | 17 | 8 | 47% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 57 | 13 | 23% |
-| Memory & Context | 17 | 5 | 29% |
+| Skills & Plugins | 57 | 15 | 26% |
+| Memory & Context | 17 | 6 | 35% |
 | MCP Servers | 23 | 8 | 35% |
-| Research & Discovery | 6 | 1 | 17% |
+| Research & Discovery | 6 | 2 | 33% |
 | Reference | 29 | 5 | 17% |
-| **Total** | **264** | **81** | **31%** |
+| **Total** | **264** | **86** | **33%** |
