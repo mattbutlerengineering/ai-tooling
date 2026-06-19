@@ -269,7 +269,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | blender-mcp | MCP server | ✓ | ✓ | |
 | cloudflare-mcp | MCP server | ✓ | ✓ | |
 | confluence | MCP server | ✓ | ✓ | |
-| devfleet | MCP server | ✓ | ✓ | |
+| devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | |
 | fastmcp | framework | | ✓ | ADOPT |
@@ -277,7 +277,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
 | jira | MCP server | ✓ | ✓ | |
-| mcp-toolbox | MCP server | ✓ | ✓ | |
+| mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL |
 | prisma | MCP server | ✓ | ✓ | CONDITIONAL |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP |
 | sentry | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -295,7 +295,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| Agent-Reach | tool | | ✓ | |
+| Agent-Reach | tool | | ✓ | CONDITIONAL |
 | aisuite | framework | | ✓ | SKIP |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
 | last30days-skill | skill | | ✓ | ADOPT |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 10 | 40% |
-| Research & Discovery | 6 | 4 | 67% |
+| MCP Servers | 25 | 12 | 48% |
+| Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **186** | **68%** |
+| **Total** | **275** | **189** | **69%** |
