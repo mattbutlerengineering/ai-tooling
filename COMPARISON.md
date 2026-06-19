@@ -255,7 +255,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ArcRift | tool | | ✓ | CONDITIONAL |
 | context-infrastructure | reference | | ✓ | SKIP |
 | agentic-stack | tool | | ✓ | CONDITIONAL |
-| guild | tool | | ✓ | |
+| guild | tool | | ✓ | CONDITIONAL |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
 | pro-workflow | plugin | ✓ | ✓ | SKIP |
 | hivemind | tool | ✓ | ✓ | CONDITIONAL |
@@ -360,8 +360,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 8 | 89% |
 | Skills & Plugins | 56 | 32 | 57% |
-| Memory & Context | 20 | 17 | 85% |
+| Memory & Context | 20 | 18 | 90% |
 | MCP Servers | 25 | 21 | 84% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 15 | 50% |
-| **Total** | **275** | **216** | **79%** |
+| **Total** | **275** | **217** | **79%** |
