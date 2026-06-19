@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 276 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 275 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -17,7 +17,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | graphify | skill | | ✓ | CONDITIONAL |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | |
 | git-mcp | MCP server | ✓ | ✓ | |
-| GSD | framework | | ✓ | KEEP |
+| GSD (Get Shit Done) | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | |
 | spec-kit | framework | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
@@ -72,7 +72,6 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | forkd | tool | | ✓ | CONDITIONAL |
 | gastown | tool | | ✓ | CONDITIONAL |
 | goose | platform | | ✓ | CONDITIONAL |
-| gsd-build | framework | | ✓ | |
 | gstack | harness | | ✓ | CONDITIONAL |
 | happy | platform | | $ | CONDITIONAL |
 | harness | skill | | ✓ | |
@@ -106,7 +105,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | resolving-merge-conflicts | skill | | ✓ | ADOPT |
 | codex-plugin-cc | plugin | | ✓ | |
 | vibecode-pro-max-kit | harness | | ✓ | |
-| re_gent | tool | | ✓ | |
+| re_gent | tool | | ✓ | CONDITIONAL |
 
 ## Verify
 
@@ -213,7 +212,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-slide | tool | | ✓ | |
 | slidev | skill | | ✓ | CONDITIONAL |
 | powerpoint | skill | | ✓ | CONDITIONAL |
-| openskills | tool | | ✓ | |
+| openskills | tool | | ✓ | CONDITIONAL |
 | plugin-dev | plugin | | ✓ | |
 | pm-skills | skill | | ✓ | |
 | ponytail | skill | | ✓ | |
@@ -354,15 +353,15 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 41 | 61% |
+| Implement | 66 | 42 | 64% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 56 | 19 | 34% |
+| Skills & Plugins | 56 | 20 | 36% |
 | Memory & Context | 20 | 10 | 50% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **137** | **50%** |
+| **Total** | **275** | **139** | **51%** |
