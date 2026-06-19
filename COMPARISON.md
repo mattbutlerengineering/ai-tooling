@@ -24,17 +24,17 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | CONDITIONAL |
-| planning-with-files | skill | | ✓ | |
+| planning-with-files | skill | | ✓ | SKIP |
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | |
 | codebase-design | skill | | ✓ | |
-| domain-modeling | skill | | ✓ | |
+| domain-modeling | skill | | ✓ | CONDITIONAL |
 | plannotator | tool | | ✓ | |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
 | trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | SocratiCode | tool | ✓ | ✓ | |
-| gortex | MCP server | ✓ | ✓ | |
+| gortex | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Implement
 
@@ -352,7 +352,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 17 | 59% |
+| Plan | 29 | 20 | 69% |
 | Implement | 66 | 45 | 68% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **148** | **54%** |
+| **Total** | **275** | **151** | **55%** |
