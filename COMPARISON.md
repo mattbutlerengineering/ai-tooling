@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 276 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 275 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -66,15 +66,15 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | DeepSeek-Reasonix | platform | | ✓ | |
 | dify | platform | | ✓ | SKIP |
 | dmux | tool | | ✓ | CONDITIONAL |
-| ECC | harness | | ✓ | |
+| ECC | harness | | ✓ | CONDITIONAL |
 | fast-agent | framework | | ✓ | CONDITIONAL |
 | Flowise | platform | | ✓ | |
-| forkd | tool | | ✓ | |
+| forkd | tool | | ✓ | CONDITIONAL |
 | gastown | tool | | ✓ | CONDITIONAL |
 | goose | platform | | ✓ | CONDITIONAL |
 | gsd-build | framework | | ✓ | |
 | gstack | harness | | ✓ | CONDITIONAL |
-| happy | platform | | $ | |
+| happy | platform | | $ | CONDITIONAL |
 | harness | skill | | ✓ | |
 | headroom | tool | ✓ | ✓ | CONDITIONAL |
 | hive | harness | | ✓ | |
@@ -192,7 +192,6 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | book-to-skill | skill | | ✓ | CONDITIONAL |
 | Claude-Code-Game-Studios | plugin | | ✓ | |
 | claude-seo | skill | | ✓ | |
-| everything-claude-code | plugin | | ✓ | CONDITIONAL |
 | excalidraw-diagram-skill | skill | | ✓ | |
 | formkit | framework | | ✓ | |
 | frontend-slides | skill | | ✓ | |
@@ -354,15 +353,15 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 33 | 49% |
+| Implement | 67 | 36 | 54% |
 | Verify | 7 | 5 | 71% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 57 | 20 | 35% |
+| Skills & Plugins | 56 | 19 | 34% |
 | Memory & Context | 20 | 10 | 50% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **130** | **47%** |
+| **Total** | **275** | **132** | **48%** |
