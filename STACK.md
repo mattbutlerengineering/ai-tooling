@@ -32,6 +32,7 @@ claude install-skill nichochar/agent-browser
 | [feature-dev](https://github.com/anthropics/claude-plugins-official) | 7-phase guided feature development for single features | `claude install-plugin anthropics/claude-plugins-official` | Correctness |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add github -- npx -y @anthropic-ai/mcp-proxy@latest --transport sse https://api.githubcopilot.com/mcp/` | Speed, Correctness |
 | [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `claude mcp add codegraph` | Speed, Cost Efficiency |
+| [markitdown](https://github.com/microsoft/markitdown) | Converts PDF/Office/images/audio/HTML to clean Markdown so agents can actually read binary docs | `pip install 'markitdown[all]'` | Correctness, Cost Efficiency |
 
 ## Implement
 
