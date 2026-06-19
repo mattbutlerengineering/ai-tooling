@@ -49,7 +49,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cherry-studio | platform | | ✓ | SKIP |
 | claurst | harness | | ✓ | |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
-| claude-code-router | tool | | ✓ | |
+| claude-code-router | tool | | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | claude-task-master | tool | | ✓ | CONDITIONAL |
@@ -70,7 +70,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | fast-agent | framework | | ✓ | CONDITIONAL |
 | Flowise | platform | | ✓ | |
 | forkd | tool | | ✓ | |
-| gastown | tool | | ✓ | |
+| gastown | tool | | ✓ | CONDITIONAL |
 | goose | platform | | ✓ | CONDITIONAL |
 | gsd-build | framework | | ✓ | |
 | gstack | harness | | ✓ | CONDITIONAL |
@@ -84,7 +84,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
-| oh-my-openagent | harness | | ✓ | |
+| oh-my-openagent | harness | | ✓ | SKIP |
 | oh-my-pi | platform | | ✓ | |
 | omnigent | framework | | ✓ | |
 | opencode | platform | | ✓ | CONDITIONAL |
@@ -354,7 +354,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 30 | 45% |
+| Implement | 67 | 33 | 49% |
 | Verify | 7 | 5 | 71% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -365,4 +365,4 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **127** | **46%** |
+| **Total** | **276** | **130** | **47%** |
