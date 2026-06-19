@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 280 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -18,6 +18,7 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
+| get-shit-done (TÂCHES) | framework | | ✓ | |
 | claude-modular | framework | | ✓ | SKIP |
 | spec-kit | framework | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
@@ -356,7 +357,7 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 29 | 100% |
+| Plan | 30 | 29 | 97% |
 | Implement | 66 | 63 | 95% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 19 | 100% |
@@ -368,4 +369,4 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 31 | 23 | 74% |
-| **Total** | **279** | **256** | **92%** |
+| **Total** | **280** | **256** | **91%** |
