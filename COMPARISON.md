@@ -28,7 +28,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
-| codebase-design | skill | | ✓ | |
+| codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
 | plannotator | tool | | ✓ | CONDITIONAL |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -101,9 +101,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | superpowers | plugin | | ✓ | ADOPT |
 | superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
-| implement | skill | | ✓ | |
+| implement | skill | | ✓ | CONDITIONAL |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT |
-| codex-plugin-cc | plugin | | ✓ | |
+| codex-plugin-cc | plugin | | ✓ | CONDITIONAL |
 | vibecode-pro-max-kit | harness | | ✓ | |
 | re_gent | tool | | ✓ | CONDITIONAL |
 
@@ -352,8 +352,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 25 | 86% |
-| Implement | 66 | 48 | 73% |
+| Plan | 29 | 26 | 90% |
+| Implement | 66 | 50 | 76% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **159** | **58%** |
+| **Total** | **275** | **162** | **59%** |
