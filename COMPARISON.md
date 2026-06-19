@@ -22,7 +22,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opensrc | tool | | ✓ | |
 | planning-with-files | skill | | ✓ | |
 | reporails/cli | tool | | $ | CONDITIONAL |
-| repomix | tool | | ✓ | |
+| repomix | tool | | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | |
 | codebase-design | skill | | ✓ | |
 | domain-modeling | skill | | ✓ | |
@@ -120,10 +120,10 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| agentlint | tool | ✓ | ✓ | |
+| agentlint | tool | ✓ | ✓ | CONDITIONAL |
 | code-review | plugin | ✓ | ✓ | KEEP |
 | design-council | plugin | | ✓ | CONDITIONAL |
-| ghostsecurity/skills | skill | | ✓ | |
+| ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | |
@@ -305,7 +305,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | |
 | awesome-llm-agents | reference | | ✓ | |
-| awesome-openclaw-skills | reference | | ✓ | |
+| awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
 | ai-engineering-from-scratch | reference | | ✓ | |
 | claude-code | reference | | ✓ | CONDITIONAL |
 | claude-code-best-practice | reference | | ✓ | |
@@ -341,10 +341,10 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 25 | 7 | 28% |
+| Plan | 25 | 9 | 36% |
 | Implement | 67 | 19 | 28% |
 | Verify | 7 | 4 | 57% |
-| Review | 17 | 8 | 47% |
+| Review | 17 | 11 | 65% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
@@ -352,5 +352,5 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 17 | 6 | 35% |
 | MCP Servers | 23 | 8 | 35% |
 | Research & Discovery | 6 | 3 | 50% |
-| Reference | 29 | 7 | 24% |
-| **Total** | **264** | **91** | **34%** |
+| Reference | 29 | 8 | 28% |
+| **Total** | **264** | **97** | **37%** |
