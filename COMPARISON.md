@@ -18,7 +18,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
-| claude-modular | framework | | ✓ | |
+| claude-modular | framework | | ✓ | SKIP |
 | spec-kit | framework | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
@@ -57,7 +57,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skills-manage | tool | | ✓ | SKIP |
 | align-dev | tool | | ✓ | SKIP |
 | cc-switch | tool | | ✓ | SKIP |
-| commit-commands | plugin | | ✓ | |
+| commit-commands | plugin | | ✓ | SKIP |
 | compound-engineering | plugin | | ✓ | CONDITIONAL |
 | context-mode | MCP server | ✓ | ✓ | CONDITIONAL |
 | Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
@@ -352,8 +352,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 28 | 97% |
-| Implement | 66 | 55 | 83% |
+| Plan | 29 | 29 | 100% |
+| Implement | 66 | 56 | 85% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 17 | 89% |
 | Ship | 2 | 2 | 100% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **197** | **72%** |
+| **Total** | **275** | **199** | **72%** |
