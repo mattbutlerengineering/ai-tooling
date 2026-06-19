@@ -36,6 +36,7 @@ claude install-skill nichochar/agent-browser
 
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
+| [agent-skills](https://github.com/addyosmani/agent-skills) | Full lifecycle skills: /spec → /plan → /build → /test → /review → /ship, with autonomous mode | `npx skills add addyosmani/agent-skills -g -y` | Correctness, Speed |
 | [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% output token reduction, no accuracy loss | `claude install-skill JuliusBrussee/caveman` | Cost Efficiency, Speed |
 | [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `claude mcp add headroom` | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
