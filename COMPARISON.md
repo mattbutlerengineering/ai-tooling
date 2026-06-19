@@ -55,7 +55,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-switch | tool | | ✓ | |
 | commit-commands | plugin | | ✓ | |
 | compound-engineering | plugin | | ✓ | CONDITIONAL |
-| context-mode | skill | ✓ | ✓ | CONDITIONAL |
+| context-mode | MCP server | ✓ | ✓ | CONDITIONAL |
 | Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
 | CowAgent | harness | | ✓ | |
 | deer-flow | harness | | ✓ | CONDITIONAL |
@@ -72,14 +72,14 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gstack | harness | | ✓ | |
 | happy | platform | | $ | |
 | harness | skill | | ✓ | |
-| headroom | tool | ✓ | ✓ | ADOPT |
+| headroom | tool | ✓ | ✓ | CONDITIONAL |
 | hive | harness | | ✓ | |
 | humanlayer | harness | | ✓ | SKIP |
 | KARIMO | plugin | | ✓ | |
 | LangGraph | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | |
-| oh-my-claudecode | harness | | ✓ | |
+| oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | |
 | oh-my-pi | platform | | ✓ | |
 | omnigent | framework | | ✓ | |

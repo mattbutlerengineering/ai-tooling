@@ -15,16 +15,16 @@ Evaluation of curated skill sets for AI coding agents. All aim to make agents mo
 
 ### mattpocock/skills
 
-**Stars:** 130,158 | **Last updated:** 2026-06-12 | **License:** MIT
+**Stars:** 136,418 | **Last updated:** 2026-06-18 | **Latest release:** v1.0.1 (2026-06-17) | **License:** MIT
 
-**What it actually does:** A small, composable set of engineering skills built from daily use by a senior TypeScript developer. Key skills: `/grill-me` and `/grill-with-docs` (alignment before coding), `/triage` (issue workflow), `/prototype` (throwaway prototypes), `/implement-issue` (end-to-end issue implementation), `/review` (code review). Includes a domain modeling approach using `CONTEXT.md` to build shared vocabulary between human and agent. Installable via `npx skills@latest add mattpocock/skills`.
+**What it actually does:** A small, composable set of engineering skills built from daily use by a senior TypeScript developer. Reached a tagged **v1** and is now a proper installable Claude Code plugin (`.claude-plugin/plugin.json` registers 17 skills). Key skills: `/grill-me` and `/grill-with-docs` (alignment before coding), `/triage` (issue workflow), `/prototype` (throwaway prototypes), `/implement` (end-to-end implementation flow), `/ask-matt` (router that points you at the right skill). v1 adds shared design skills — `codebase-design` (deep-module vocabulary) and `domain-modeling` — that other skills now build on, plus `resolving-merge-conflicts` and `writing-great-skills`; it removed `caveman` and `zoom-out`, renamed `diagnose` → `diagnosing-bugs`, and split the taxonomy into user-invoked vs model-invoked skills. Domain modeling uses `CONTEXT.md` to build shared vocabulary between human and agent. Installable via `npx skills@latest add mattpocock/skills`.
 
 **Strengths:**
 - Philosophy-driven: "small, easy to adapt, and composable" — explicitly rejects monolithic approaches
 - `/grill-me` and `/grill-with-docs` are the standout skills — solve the #1 agent failure mode (misalignment)
 - `CONTEXT.md` approach creates a shared language, reducing AI verbosity dramatically
 - Domain-driven design influence — the only skills collection that addresses the communication problem
-- Most popular skills repo (130k stars) — massively validated by the community
+- Most popular skills repo (136k stars) — massively validated by the community
 - Each skill is independent — pick what you need, skip the rest
 - Active maintenance with newsletter updates
 - Multi-agent: works with any model, explicitly designed for portability
@@ -91,7 +91,7 @@ Evaluation of curated skill sets for AI coding agents. All aim to make agents mo
 
 **Recommended: mattpocock/skills**
 
-**Why:** Best philosophy (composable, small, hackable), solves the most impactful problem (agent-human alignment via grilling), and introduces domain modeling via `CONTEXT.md` which no other collection offers. 130k stars validates the approach. The deliberate restraint — fewer skills, each one battle-tested — aligns with the insight that fewer tools with better feedback loops beats more tools with no infrastructure.
+**Why:** Best philosophy (composable, small, hackable), solves the most impactful problem (agent-human alignment via grilling), and introduces domain modeling via `CONTEXT.md` which no other collection offers. 136k stars and a tagged v1 (now a one-command plugin) validate the approach. The deliberate restraint — fewer skills, each one battle-tested — aligns with the insight that fewer tools with better feedback loops beats more tools with no infrastructure.
 
 **Runner-up: addyosmani/agent-skills** — choose this if you want lifecycle-structured development (spec → plan → build → test → review → ship) with auto-activating skills. It's more prescriptive than mattpocock but less overwhelming than ECC. Good complement to mattpocock/skills since they solve different problems (lifecycle structure vs. alignment and domain modeling). These two can coexist.
 
