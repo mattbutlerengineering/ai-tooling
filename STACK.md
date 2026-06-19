@@ -40,6 +40,7 @@ claude install-skill nichochar/agent-browser
 | [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `claude mcp add headroom` | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g beads` | Correctness, Speed |
+| [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
 
 ## Verify
 

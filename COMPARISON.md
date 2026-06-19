@@ -36,8 +36,8 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | agency-agents | harness | | ✓ | |
-| agent-orchestrator | tool | ✓ | ✓ | |
-| aidlc-workflows | framework | | ✓ | |
+| agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL |
+| aidlc-workflows | framework | | ✓ | CONDITIONAL |
 | arrow-js | framework | | ✓ | |
 | beads | tool | ✓ | ✓ | KEEP |
 | caveman | skill | | ✓ | ADOPT |
@@ -257,13 +257,13 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | devfleet | MCP server | ✓ | ✓ | |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | |
-| fastmcp | framework | | ✓ | |
+| fastmcp | framework | | ✓ | ADOPT |
 | Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
 | jira | MCP server | ✓ | ✓ | |
 | mcp-toolbox | MCP server | ✓ | ✓ | |
-| prisma | MCP server | ✓ | ✓ | |
+| prisma | MCP server | ✓ | ✓ | CONDITIONAL |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP |
 | sentry | MCP server | ✓ | ✓ | CONDITIONAL |
 | server-filesystem | MCP server | ✓ | ✓ | |
@@ -288,7 +288,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| antigravity-awesome-skills | reference | | ✓ | |
+| antigravity-awesome-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills (libukai) | reference | | ✓ | |
 | awesome-ai-agents | reference | | ✓ | |
@@ -334,7 +334,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 24 | 7 | 29% |
-| Implement | 65 | 14 | 22% |
+| Implement | 65 | 16 | 25% |
 | Verify | 7 | 4 | 57% |
 | Review | 16 | 8 | 50% |
 | Ship | 2 | 2 | 100% |
@@ -342,7 +342,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 8 | 6 | 75% |
 | Skills & Plugins | 56 | 10 | 18% |
 | Memory & Context | 16 | 5 | 31% |
-| MCP Servers | 22 | 5 | 23% |
+| MCP Servers | 22 | 8 | 36% |
 | Research & Discovery | 6 | 1 | 17% |
-| Reference | 29 | 3 | 10% |
-| **Total** | **256** | **70** | **27%** |
+| Reference | 29 | 4 | 14% |
+| **Total** | **256** | **76** | **30%** |
