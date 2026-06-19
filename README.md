@@ -24,10 +24,10 @@ This gives you five skills:
 ## Contents
 
 - [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
-- [CATALOG.md](CATALOG.md) — flat inventory of 256 tools with definitions, problem statements, and overlap markers
+- [CATALOG.md](CATALOG.md) — flat inventory of 275 tools with definitions, problem statements, and overlap markers
 - [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
-- [STACK.md](STACK.md) — the ~25 tools worth installing, distilled from 70 hands-on evaluations
-- [evaluations/](evaluations/) — 63 evidence-based evaluations with verdicts (ADOPT/CONDITIONAL/SKIP)
+- [STACK.md](STACK.md) — the ~25 tools worth installing, distilled from 139 evaluations
+- [evaluations/](evaluations/) — 139 evidence-based evaluations with verdicts (ADOPT/CONDITIONAL/SKIP)
 
 ## Quick Start
 
