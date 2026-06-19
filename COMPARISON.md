@@ -327,7 +327,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Fabric | framework | | ✓ | SKIP |
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
 | system-prompts-and-models | reference | | ✓ | |
-| tolaria | tool | | ✓ | |
+| tolaria | tool | | ✓ | SKIP |
 | docmd | tool | | ✓ | CONDITIONAL |
 | agentskills | reference | | ✓ | |
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
@@ -363,5 +363,5 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 21 | 84% |
 | Research & Discovery | 6 | 5 | 83% |
-| Reference | 30 | 14 | 47% |
-| **Total** | **275** | **215** | **78%** |
+| Reference | 30 | 15 | 50% |
+| **Total** | **275** | **216** | **79%** |
