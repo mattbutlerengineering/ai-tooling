@@ -270,11 +270,11 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cloudflare-mcp | MCP server | ✓ | ✓ | |
 | confluence | MCP server | ✓ | ✓ | |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
-| exa-mcp-server | MCP server | ✓ | ✓/$ | |
+| exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | |
 | fastmcp | framework | | ✓ | ADOPT |
 | Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
-| firecrawl-mcp | MCP server | ✓ | ✓/$ | |
+| firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
 | jira | MCP server | ✓ | ✓ | |
 | mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 12 | 48% |
+| MCP Servers | 25 | 14 | 56% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **189** | **69%** |
+| **Total** | **275** | **191** | **69%** |
