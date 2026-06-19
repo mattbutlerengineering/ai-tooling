@@ -8,7 +8,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | CLI-Anything | tool | | ✓ | |
 | claude-code-templates | tool | | ✓ | |
-| claude-hud | plugin | ✓ | ✓ | |
+| claude-hud | plugin | ✓ | ✓ | CONDITIONAL |
 | ccstatusline | plugin | ✓ | ✓ | |
 | codegraph | tool | ✓ | ✓ | ADOPT |
 | code-review-graph | tool | | ✓ | |
@@ -122,7 +122,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agentlint | tool | ✓ | ✓ | |
 | code-review | plugin | ✓ | ✓ | KEEP |
-| design-council | plugin | | ✓ | |
+| design-council | plugin | | ✓ | CONDITIONAL |
 | ghostsecurity/skills | skill | | ✓ | |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
