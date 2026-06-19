@@ -97,7 +97,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | CONDITIONAL |
 | ruflo | harness | | ✓ | |
-| sandcastle | framework | | ✓ | |
+| sandcastle | framework | | ✓ | CONDITIONAL |
 | superpowers | plugin | | ✓ | ADOPT |
 | superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
@@ -136,13 +136,13 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
 | SkillSpector | tool | | ✓ | KEEP |
 | trailofbits/skills | skill | | ✓ | ADOPT |
-| cve-mcp-server | MCP server | ✓ | ✓ | |
+| cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL |
 | pentest-ai | MCP server | ✓ | ✓ | |
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
 | hol-guard | tool | ✓ | ✓ | CONDITIONAL |
 | OpenOSINT | MCP server | ✓ | ✓ | |
 | agnix | tool | ✓ | ✓ | CONDITIONAL |
-| agent-vault | tool | | ✓ | |
+| agent-vault | tool | | ✓ | CONDITIONAL |
 
 ## Ship
 
@@ -353,9 +353,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 26 | 90% |
-| Implement | 66 | 50 | 76% |
+| Implement | 66 | 51 | 77% |
 | Verify | 8 | 5 | 63% |
-| Review | 19 | 14 | 74% |
+| Review | 19 | 16 | 84% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **162** | **59%** |
+| **Total** | **275** | **165** | **60%** |
