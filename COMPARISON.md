@@ -60,7 +60,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | CowAgent | harness | | ✓ | |
 | deer-flow | harness | | ✓ | CONDITIONAL |
 | DeepSeek-Reasonix | platform | | ✓ | |
-| dify | platform | | ✓ | |
+| dify | platform | | ✓ | SKIP |
 | dmux | tool | | ✓ | |
 | ECC | harness | | ✓ | |
 | fast-agent | framework | | ✓ | |
