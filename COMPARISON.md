@@ -250,7 +250,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| awslabs/mcp | MCP server | ✓ | ✓ | |
+| awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | blender-mcp | MCP server | ✓ | ✓ | |
 | cloudflare-mcp | MCP server | ✓ | ✓ | |
 | confluence | MCP server | ✓ | ✓ | |
