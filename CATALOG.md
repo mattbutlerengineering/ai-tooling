@@ -20,7 +20,7 @@ Tools that help you visualize, navigate, and comprehend codebases before or duri
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) | tool | Turns code into interactive knowledge graphs explorable with questions | Hard to grasp unfamiliar codebases; need to ask questions about structure and relationships | codegraph, graphify |
+| [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) | tool | Turns code into interactive knowledge graphs explorable with questions | Hard to grasp unfamiliar codebases; need to ask questions about structure and relationships | codegraph, graphify, code-context-engine |
 | [codegraph](https://github.com/colbymchenry/codegraph) | tool | Pre-indexed code knowledge graph that auto-syncs on changes | Agents lack structural awareness of the codebase they're working in | Understand-Anything, graphify |
 | [graphify](https://github.com/safishamsi/graphify) | skill | Turns code, SQL, docs, images, or videos into queryable knowledge graphs | Need to convert diverse artifacts (not just code) into navigable structure | Understand-Anything, codegraph |
 | [repomix](https://github.com/yamadashy/repomix) | tool | Packs entire repo into a single AI-friendly file | Need to feed a full codebase to an LLM that doesn't have file access | — (different approach: serialization vs. graph) |

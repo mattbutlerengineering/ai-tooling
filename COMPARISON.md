@@ -15,7 +15,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | context7 | MCP server | ✓ | ✓ | KEEP |
 | feature-dev | plugin | | ✓ | KEEP |
 | graphify | skill | | ✓ | CONDITIONAL |
-| gentleman-book-mcp | MCP server | ✓ | ✓ | |
+| gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | |
@@ -27,10 +27,10 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | planning-with-files | skill | | ✓ | SKIP |
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
-| Understand-Anything | tool | | ✓ | |
+| Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
-| plannotator | tool | | ✓ | |
+| plannotator | tool | | ✓ | CONDITIONAL |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
 | trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | SocratiCode | tool | ✓ | ✓ | |
@@ -352,7 +352,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 20 | 69% |
+| Plan | 29 | 23 | 79% |
 | Implement | 66 | 45 | 68% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **151** | **55%** |
+| **Total** | **275** | **154** | **56%** |
