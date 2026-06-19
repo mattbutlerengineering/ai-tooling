@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 275 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 276 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -56,7 +56,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | capa | tool | | ✓ | |
 | skills-manage | tool | | ✓ | |
 | align-dev | tool | | ✓ | |
-| cc-switch | tool | | ✓ | |
+| cc-switch | tool | | ✓ | SKIP |
 | commit-commands | plugin | | ✓ | |
 | compound-engineering | plugin | | ✓ | CONDITIONAL |
 | context-mode | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -77,12 +77,12 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | happy | platform | | $ | CONDITIONAL |
 | harness | skill | | ✓ | |
 | headroom | tool | ✓ | ✓ | CONDITIONAL |
-| hive | harness | | ✓ | |
+| hive | harness | | ✓ | SKIP |
 | humanlayer | harness | | ✓ | SKIP |
 | KARIMO | plugin | | ✓ | |
 | LangGraph | framework | | ✓ | SKIP |
 | lobehub | platform | | ✓ | SKIP |
-| nanoclaw | platform | | ✓ | |
+| nanoclaw | platform | | ✓ | SKIP |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
 | oh-my-pi | platform | | ✓ | |
@@ -118,6 +118,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | evalview | MCP server | ✓ | ✓ | |
 | playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
+| passmark | tool | ✓ | ✓ | |
 | diagnosing-bugs | skill | | ✓ | CONDITIONAL |
 
 ## Review
@@ -353,8 +354,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 36 | 54% |
-| Verify | 7 | 5 | 71% |
+| Implement | 67 | 39 | 58% |
+| Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
@@ -364,4 +365,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **275** | **132** | **48%** |
+| **Total** | **276** | **135** | **49%** |
