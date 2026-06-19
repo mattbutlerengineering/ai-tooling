@@ -47,7 +47,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | beads | tool | ✓ | ✓ | KEEP |
 | caveman | skill | | ✓ | ADOPT |
 | cherry-studio | platform | | ✓ | SKIP |
-| claurst | harness | | ✓ | |
+| claurst | harness | | ✓ | SKIP |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
@@ -55,7 +55,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-task-master | tool | | ✓ | CONDITIONAL |
 | capa | tool | | ✓ | CONDITIONAL |
 | skills-manage | tool | | ✓ | SKIP |
-| align-dev | tool | | ✓ | |
+| align-dev | tool | | ✓ | SKIP |
 | cc-switch | tool | | ✓ | SKIP |
 | commit-commands | plugin | | ✓ | |
 | compound-engineering | plugin | | ✓ | CONDITIONAL |
@@ -328,7 +328,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
 | system-prompts-and-models | reference | | ✓ | |
 | tolaria | tool | | ✓ | |
-| docmd | tool | | ✓ | |
+| docmd | tool | | ✓ | CONDITIONAL |
 | agentskills | reference | | ✓ | |
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
 | design-extract | MCP server | ✓ | ✓ | |
@@ -353,7 +353,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 66 | 42 | 64% |
+| Implement | 66 | 44 | 67% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -363,5 +363,5 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 20 | 10 | 50% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
-| Reference | 30 | 10 | 33% |
-| **Total** | **275** | **139** | **51%** |
+| Reference | 30 | 11 | 37% |
+| **Total** | **275** | **142** | **52%** |
