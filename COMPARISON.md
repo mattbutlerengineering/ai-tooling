@@ -16,14 +16,14 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | feature-dev | plugin | | ✓ | KEEP |
 | graphify | skill | | ✓ | CONDITIONAL |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | |
-| git-mcp | MCP server | ✓ | ✓ | |
+| git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | |
 | spec-kit | framework | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| opensrc | tool | | ✓ | |
+| opensrc | tool | | ✓ | CONDITIONAL |
 | planning-with-files | skill | | ✓ | |
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
@@ -31,7 +31,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codebase-design | skill | | ✓ | |
 | domain-modeling | skill | | ✓ | |
 | plannotator | tool | | ✓ | |
-| code-context-engine | MCP server | ✓ | ✓ | |
+| code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
 | trace-mcp | MCP server | ✓ | ✓ | |
 | SocratiCode | tool | ✓ | ✓ | |
 | gortex | MCP server | ✓ | ✓ | |
@@ -352,7 +352,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 12 | 41% |
+| Plan | 29 | 15 | 52% |
 | Implement | 66 | 44 | 67% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **142** | **52%** |
+| **Total** | **275** | **145** | **53%** |
