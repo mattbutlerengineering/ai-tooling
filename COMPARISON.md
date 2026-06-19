@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 281 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 293 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -27,6 +27,7 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | planning-with-files | skill | | ✓ | SKIP |
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
+| markitdown | tool | | ✓ | ADOPT |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -82,6 +83,9 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | LangGraph | framework | | ✓ | SKIP |
 | LangChain.js | framework | | ✓ | SKIP |
 | LangGraph.js | framework | | ✓ | SKIP |
+| langchain | framework | | ✓ | SKIP |
+| crewAI | framework | | ✓ | SKIP |
+| vercel-ai | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
@@ -95,7 +99,9 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | architect-loop | skill | | ✓ | CONDITIONAL |
 | adhd | skill | | ✓ | CONDITIONAL |
 | sandboxd | tool | | ✓ | CONDITIONAL |
+| vercel-sandbox | platform | | ✓/$ | CONDITIONAL |
 | qwen-code | platform | | ✓ | CONDITIONAL |
+| gemini-cli | platform | | ✓ | CONDITIONAL |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | CONDITIONAL |
 | ruflo | harness | | ✓ | CONDITIONAL |
@@ -173,6 +179,7 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
+| trigger.dev | platform | | ✓ | SKIP |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
@@ -247,6 +254,7 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agentmemory | tool | | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
+| letta | platform | | ✓ | DEFER |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
@@ -272,6 +280,7 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP |
+| codebase-memory-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | confluence | MCP server | ✓ | ✓ | CONDITIONAL |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -316,6 +325,9 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-agent-skills (libukai) | reference | | ✓ | CONDITIONAL |
 | awesome-ai-agents | reference | | ✓ | SKIP |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
+| awesome-claude-code-subagents | reference | | ✓ | CONDITIONAL |
+| ai-agents-for-beginners | reference | | ✓ | CONDITIONAL |
+| genai-agents | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | CONDITIONAL |
@@ -358,16 +370,16 @@ All 281 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 29 | 100% |
-| Implement | 68 | 68 | 100% |
+| Plan | 30 | 30 | 100% |
+| Implement | 73 | 73 | 100% |
 | Verify | 8 | 8 | 100% |
 | Review | 19 | 19 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 9 | 9 | 100% |
+| Outer Loop | 10 | 10 | 100% |
 | Skills & Plugins | 59 | 59 | 100% |
-| Memory & Context | 20 | 20 | 100% |
-| MCP Servers | 25 | 25 | 100% |
+| Memory & Context | 21 | 21 | 100% |
+| MCP Servers | 26 | 26 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 31 | 31 | 100% |
-| **Total** | **281** | **281** | **100%** |
+| Reference | 34 | 34 | 100% |
+| **Total** | **293** | **293** | **100%** |
