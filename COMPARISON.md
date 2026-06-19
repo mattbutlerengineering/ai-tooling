@@ -213,12 +213,12 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | slidev | skill | | ✓ | CONDITIONAL |
 | powerpoint | skill | | ✓ | CONDITIONAL |
 | openskills | tool | | ✓ | CONDITIONAL |
-| plugin-dev | plugin | | ✓ | |
+| plugin-dev | plugin | | ✓ | CONDITIONAL |
 | pm-skills | skill | | ✓ | |
 | ponytail | skill | | ✓ | |
 | refly | platform | | ✓ | SKIP |
 | scientific-agent-skills | skill | | ✓ | |
-| skill-creator | plugin | | ✓ | |
+| skill-creator | plugin | | ✓ | ADOPT |
 | stop-slop | skill | | ✓ | CONDITIONAL |
 | taste-skill | skill | | ✓ | |
 | tech-leads-club/agent-skills | skill | | ✓ | |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 56 | 23 | 41% |
+| Skills & Plugins | 56 | 25 | 45% |
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **199** | **72%** |
+| **Total** | **275** | **201** | **73%** |
