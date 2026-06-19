@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 256 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 264 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -30,6 +30,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-context-engine | MCP server | ✓ | ✓ | |
 | trace-mcp | MCP server | ✓ | ✓ | |
 | SocratiCode | tool | ✓ | ✓ | |
+| gortex | MCP server | ✓ | ✓ | |
 
 ## Implement
 
@@ -82,12 +83,13 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-openagent | harness | | ✓ | |
 | oh-my-pi | platform | | ✓ | |
 | omnigent | framework | | ✓ | |
-| opencode | platform | | ✓ | |
+| opencode | platform | | ✓ | CONDITIONAL |
 | opencode-swarm | plugin | | ✓ | |
 | OpenHands | platform | | ✓ | |
 | opensquilla | tool | | ✓ | |
 | architect-loop | skill | | ✓ | |
 | adhd | skill | | ✓ | |
+| sandboxd | tool | | ✓ | |
 | qwen-code | platform | | ✓ | |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | |
@@ -100,6 +102,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | resolving-merge-conflicts | skill | | ✓ | |
 | codex-plugin-cc | plugin | | ✓ | |
 | vibecode-pro-max-kit | harness | | ✓ | |
+| re_gent | tool | | ✓ | |
 
 ## Verify
 
@@ -133,6 +136,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | hol-guard | tool | ✓ | ✓ | CONDITIONAL |
 | OpenOSINT | MCP server | ✓ | ✓ | |
 | agnix | tool | ✓ | ✓ | |
+| agent-vault | tool | | ✓ | |
 
 ## Ship
 
@@ -162,6 +166,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
 | scorecard | tool | ✓ | ✓ | |
+| sentrux | tool | ✓ | ✓ | |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
 ## Skills & Plugins (domain-specific)
@@ -170,15 +175,15 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | academic-research-skills | skill | | ✓ | |
 | agent-rules-books | skill | | ✓ | |
-| agent-skills | skill | | ✓ | |
+| agent-skills | skill | | ✓ | ADOPT |
 | AI-Research-SKILLs | skill | | ✓ | |
 | alirezarezvani/claude-skills | plugin | | ✓ | |
 | andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
 | anthropics/skills | reference | | ✓ | |
-| antfu/skills | skill | | ✓ | |
+| antfu/skills | skill | | ✓ | CONDITIONAL |
 | azure-skills | plugin | | ✓ | |
-| book-to-skill | skill | | ✓ | |
+| book-to-skill | skill | | ✓ | CONDITIONAL |
 | Claude-Code-Game-Studios | plugin | | ✓ | |
 | claude-seo | skill | | ✓ | |
 | everything-claude-code | plugin | | ✓ | CONDITIONAL |
@@ -224,6 +229,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | huashu-design | skill | | ✓ | |
 | baoyu-design | skill | | ✓ | |
 | AlphaGBM/skills | skill | | ✓ | |
+| cc-skills-golang | skill | | ✓ | |
 
 ## Memory & Context
 
@@ -244,6 +250,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ArcRift | tool | | ✓ | |
 | context-infrastructure | tool | | ✓ | |
 | agentic-stack | tool | | ✓ | |
+| guild | tool | | ✓ | |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | |
 
 ## MCP Servers (infrastructure)
@@ -272,6 +279,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | token-optimizer-mcp | MCP server | ✓ | ✓ | |
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
+| figma-mcp-go | MCP server | ✓ | ✓ | |
 
 ## Research & Discovery
 
@@ -299,7 +307,7 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-llm-agents | reference | | ✓ | |
 | awesome-openclaw-skills | reference | | ✓ | |
 | ai-engineering-from-scratch | reference | | ✓ | |
-| claude-code | reference | | ✓ | |
+| claude-code | reference | | ✓ | CONDITIONAL |
 | claude-code-best-practice | reference | | ✓ | |
 | claude-code-system-prompts | reference | | ✓ | |
 | claude-code-tips | reference | | ✓ | |
@@ -333,16 +341,16 @@ All 256 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 24 | 7 | 29% |
-| Implement | 65 | 16 | 25% |
+| Plan | 25 | 7 | 28% |
+| Implement | 67 | 17 | 25% |
 | Verify | 7 | 4 | 57% |
-| Review | 16 | 8 | 50% |
+| Review | 17 | 8 | 47% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 8 | 6 | 75% |
-| Skills & Plugins | 56 | 10 | 18% |
-| Memory & Context | 16 | 5 | 31% |
-| MCP Servers | 22 | 8 | 36% |
+| Outer Loop | 9 | 6 | 67% |
+| Skills & Plugins | 57 | 13 | 23% |
+| Memory & Context | 17 | 5 | 29% |
+| MCP Servers | 23 | 8 | 35% |
 | Research & Discovery | 6 | 1 | 17% |
-| Reference | 29 | 4 | 14% |
-| **Total** | **256** | **76** | **30%** |
+| Reference | 29 | 5 | 17% |
+| **Total** | **264** | **81** | **31%** |
