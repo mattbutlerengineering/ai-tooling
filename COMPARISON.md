@@ -208,7 +208,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mattpocock/skills | skill | | ✓ | ADOPT |
 | microsoft/skills | skill | | ✓ | CONDITIONAL |
 | obsidian-skills | skill | | ✓ | |
-| open-design | platform | | ✓ | |
+| open-design | platform | | ✓ | SKIP |
 | open-slide | tool | | ✓ | |
 | slidev | skill | | ✓ | CONDITIONAL |
 | powerpoint | skill | | ✓ | CONDITIONAL |
@@ -223,7 +223,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | taste-skill | skill | | ✓ | CONDITIONAL |
 | tech-leads-club/agent-skills | skill | | ✓ | |
 | typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
-| ui-ux-pro-max | skill | | ✓ | |
+| ui-ux-pro-max | skill | | ✓ | CONDITIONAL |
 | web-quality-skills | skill | | ✓ | ADOPT |
 | Waza | skill | | ✓ | |
 | agents (wshobson) | plugin | | ✓ | CONDITIONAL |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 56 | 29 | 52% |
+| Skills & Plugins | 56 | 31 | 55% |
 | Memory & Context | 20 | 17 | 85% |
 | MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 12 | 40% |
-| **Total** | **275** | **206** | **75%** |
+| **Total** | **275** | **208** | **76%** |
