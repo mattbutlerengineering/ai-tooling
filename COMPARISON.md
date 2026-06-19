@@ -286,7 +286,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | supabase | MCP server | ✓ | ✓ | CONDITIONAL |
 | token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
-| plumb-mcp | MCP server | ✓ | ✓ | |
+| plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 8 | 89% |
 | Skills & Plugins | 56 | 33 | 59% |
 | Memory & Context | 20 | 18 | 90% |
-| MCP Servers | 25 | 21 | 84% |
+| MCP Servers | 25 | 22 | 88% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 15 | 50% |
-| **Total** | **275** | **218** | **79%** |
+| **Total** | **275** | **219** | **80%** |
