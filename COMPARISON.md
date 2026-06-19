@@ -165,7 +165,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
-| scorecard | tool | ✓ | ✓ | |
+| scorecard | tool | ✓ | ✓ | CONDITIONAL |
 | sentrux | tool | ✓ | ✓ | |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -342,15 +342,15 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 25 | 9 | 36% |
-| Implement | 67 | 20 | 30% |
+| Implement | 67 | 22 | 33% |
 | Verify | 7 | 4 | 57% |
 | Review | 17 | 11 | 65% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 9 | 6 | 67% |
+| Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 57 | 18 | 32% |
 | Memory & Context | 17 | 6 | 35% |
 | MCP Servers | 23 | 8 | 35% |
 | Research & Discovery | 6 | 3 | 50% |
 | Reference | 29 | 10 | 34% |
-| **Total** | **264** | **102** | **39%** |
+| **Total** | **264** | **105** | **40%** |
