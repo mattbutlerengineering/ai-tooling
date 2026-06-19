@@ -47,7 +47,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
-| claude-squad | tool | | ✓ | KEEP |
+| claude-squad | tool | | ✓ | CONDITIONAL |
 | claude-task-master | tool | | ✓ | CONDITIONAL |
 | capa | tool | | ✓ | |
 | skills-manage | tool | | ✓ | |
@@ -77,7 +77,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | humanlayer | harness | | ✓ | |
 | KARIMO | plugin | | ✓ | |
 | LangGraph | framework | | ✓ | |
-| lobehub | platform | | ✓ | |
+| lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | |
 | oh-my-claudecode | harness | | ✓ | |
 | oh-my-openagent | harness | | ✓ | |
@@ -308,14 +308,14 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
 | ai-engineering-from-scratch | reference | | ✓ | |
 | claude-code | reference | | ✓ | CONDITIONAL |
-| claude-code-best-practice | reference | | ✓ | |
+| claude-code-best-practice | reference | | ✓ | CONDITIONAL |
 | claude-code-system-prompts | reference | | ✓ | |
 | claude-code-tips | reference | | ✓ | CONDITIONAL |
 | claude-howto | reference | | ✓ | |
 | claude-plugins-official | reference | | ✓ | |
 | dictionary-of-ai-coding | reference | | ✓ | |
 | Fabric | framework | | ✓ | |
-| learn-claude-code | reference | | ✓ | |
+| learn-claude-code | reference | | ✓ | CONDITIONAL |
 | system-prompts-and-models | reference | | ✓ | |
 | tolaria | tool | | ✓ | |
 | docmd | tool | | ✓ | |
