@@ -281,8 +281,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | prisma | MCP server | ✓ | ✓ | CONDITIONAL |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP |
 | sentry | MCP server | ✓ | ✓ | CONDITIONAL |
-| server-filesystem | MCP server | ✓ | ✓ | |
-| server-github | MCP server | ✓ | ✓ | |
+| server-filesystem | MCP server | ✓ | ✓ | SKIP |
+| server-github | MCP server | ✓ | ✓ | SKIP |
 | supabase | MCP server | ✓ | ✓ | CONDITIONAL |
 | token-optimizer-mcp | MCP server | ✓ | ✓ | |
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 14 | 56% |
+| MCP Servers | 25 | 16 | 64% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **191** | **69%** |
+| **Total** | **275** | **193** | **70%** |
