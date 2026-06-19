@@ -11,7 +11,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-hud | plugin | ✓ | ✓ | CONDITIONAL |
 | ccstatusline | plugin | ✓ | ✓ | |
 | codegraph | tool | ✓ | ✓ | ADOPT |
-| code-review-graph | tool | | ✓ | |
+| code-review-graph | tool | | ✓ | CONDITIONAL |
 | context7 | MCP server | ✓ | ✓ | KEEP |
 | feature-dev | plugin | | ✓ | KEEP |
 | graphify | skill | | ✓ | CONDITIONAL |
@@ -32,7 +32,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | domain-modeling | skill | | ✓ | |
 | plannotator | tool | | ✓ | |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
-| trace-mcp | MCP server | ✓ | ✓ | |
+| trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | SocratiCode | tool | ✓ | ✓ | |
 | gortex | MCP server | ✓ | ✓ | |
 
@@ -95,7 +95,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sandboxd | tool | | ✓ | |
 | qwen-code | platform | | ✓ | |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
-| rtk | tool | ✓ | ✓ | |
+| rtk | tool | ✓ | ✓ | CONDITIONAL |
 | ruflo | harness | | ✓ | |
 | sandcastle | framework | | ✓ | |
 | superpowers | plugin | | ✓ | ADOPT |
@@ -352,8 +352,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 15 | 52% |
-| Implement | 66 | 44 | 67% |
+| Plan | 29 | 17 | 59% |
+| Implement | 66 | 45 | 68% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **145** | **53%** |
+| **Total** | **275** | **148** | **54%** |
