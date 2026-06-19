@@ -33,7 +33,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | plannotator | tool | | ✓ | CONDITIONAL |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
 | trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| SocratiCode | tool | ✓ | ✓ | |
+| SocratiCode | tool | ✓ | ✓ | CONDITIONAL |
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Implement
@@ -92,14 +92,14 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opensquilla | tool | | ✓ | |
 | architect-loop | skill | | ✓ | CONDITIONAL |
 | adhd | skill | | ✓ | |
-| sandboxd | tool | | ✓ | |
+| sandboxd | tool | | ✓ | CONDITIONAL |
 | qwen-code | platform | | ✓ | |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | CONDITIONAL |
 | ruflo | harness | | ✓ | |
 | sandcastle | framework | | ✓ | |
 | superpowers | plugin | | ✓ | ADOPT |
-| superset | tool | | ✓ | |
+| superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
 | implement | skill | | ✓ | |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT |
@@ -352,8 +352,8 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 29 | 23 | 79% |
-| Implement | 66 | 45 | 68% |
+| Plan | 29 | 24 | 83% |
+| Implement | 66 | 47 | 71% |
 | Verify | 8 | 5 | 63% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -364,4 +364,4 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **154** | **56%** |
+| **Total** | **275** | **157** | **57%** |
