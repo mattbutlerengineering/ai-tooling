@@ -67,7 +67,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Flowise | platform | | ✓ | |
 | forkd | tool | | ✓ | |
 | gastown | tool | | ✓ | |
-| goose | platform | | ✓ | |
+| goose | platform | | ✓ | CONDITIONAL |
 | gsd-build | framework | | ✓ | |
 | gstack | harness | | ✓ | |
 | happy | platform | | $ | |
@@ -180,7 +180,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | alirezarezvani/claude-skills | plugin | | ✓ | |
 | andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
-| anthropics/skills | reference | | ✓ | |
+| anthropics/skills | reference | | ✓ | CONDITIONAL |
 | antfu/skills | skill | | ✓ | CONDITIONAL |
 | azure-skills | plugin | | ✓ | |
 | book-to-skill | skill | | ✓ | CONDITIONAL |
@@ -238,7 +238,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentmemory | tool | | ✓ | |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
-| cognee | platform | | ✓ | |
+| cognee | platform | | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | |
