@@ -267,7 +267,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | blender-mcp | MCP server | ✓ | ✓ | |
-| cloudflare-mcp | MCP server | ✓ | ✓ | |
+| cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | confluence | MCP server | ✓ | ✓ | CONDITIONAL |
 | devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL |
@@ -361,7 +361,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 9 | 8 | 89% |
 | Skills & Plugins | 56 | 32 | 57% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 20 | 80% |
+| MCP Servers | 25 | 21 | 84% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 14 | 47% |
-| **Total** | **275** | **214** | **78%** |
+| **Total** | **275** | **215** | **78%** |
