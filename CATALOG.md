@@ -187,7 +187,7 @@ Extensions that add domain-specific capabilities to coding agents.
 | [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | skill | Secure, validated skill registry for professional AI coding agents | Need security-validated skills with confidence guarantees | SkillSpector, antigravity-awesome-skills |
 | [formkit](https://github.com/formkit/formkit) | framework | The form framework for coding agents | Need agent-optimized form building and validation | — (domain-specific: forms) |
 | [googleworkspace/cli](https://github.com/googleworkspace/cli) | tool | Google Workspace CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, and Admin with AI agent skills | Need agents to interact with Google Workspace services via CLI | google/skills |
-| [claude-night-market](https://github.com/athola/claude-night-market) | plugin | 23 plugins: TDD hooks, git/PR workflows, spec-driven dev, multi-LLM delegation (186 skills) | Setting up TDD enforcement, code review, and workflow automation requires many separate tools | superpowers, compound-engineering, commit-commands |
+| [claude-night-market](https://github.com/athola/claude-night-market) | plugin | 23 plugins: TDD hooks, git/PR workflows, spec-driven dev, multi-LLM delegation (198 skills) | Setting up TDD enforcement, code review, and workflow automation requires many separate tools | superpowers, compound-engineering, commit-commands, oh-my-claudecode |
 | [SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) | skill | SwiftUI agent skill for Claude Code, Codex, and other AI tools (4.1K stars) | AI agents generate outdated or incorrect SwiftUI code | — (domain-specific: SwiftUI) |
 | [guard-skills](https://github.com/amElnagdy/guard-skills) | skill | Quality gates that catch AI-generated failure modes in code, tests, and docs | AI-generated code has distinct failure patterns not caught by traditional linters | code-review, pr-review-toolkit, trailofbits/skills |
 | [huashu-design](https://github.com/alchaincyf/huashu-design) | skill | HTML-native design skill — hi-fi prototypes, slides, animations, MP4 export, 20 design philosophies (19.2K stars) | Agents generate generic HTML without design quality; need structured design with evaluation dimensions | impeccable, ui-ux-pro-max, open-design |
@@ -247,6 +247,7 @@ Tools for git management, planning, project orchestration, and development proce
 | [agents (wshobson)](https://github.com/wshobson/agents) | plugin | Multi-harness plugin marketplace — 84 plugins, 192 agents, 156 skills across 6 editors | Need a single source of production-ready agents and skills for all AI coding tools | everything-claude-code, alirezarezvani/claude-skills, antigravity-awesome-skills |
 | [agent-browser](https://github.com/vercel-labs/agent-browser) | tool | Browser automation CLI for AI agents — navigate, fill forms, screenshot, scrape, test web apps | Agents can't interact with web UIs for testing, verification, or data extraction | playwright, browser-use |
 | [azure-skills](https://github.com/microsoft/azure-skills) | plugin | Official Azure agent plugin — skills and MCP configs for Azure scenarios (258K installs) | Need AI assistance with Azure deployment, infrastructure, and cloud workflows | microsoft/skills, google/skills |
+| [claude-modular](https://github.com/oxygen-fragment/claude-modular) | framework | Modular Claude Code command framework — 30+ commands, token optimization, hierarchical config, MCP integration (284 stars) | Ad-hoc Claude Code setups lack systematic command organization and reuse | superpowers, claude-night-market, GSD |
 
 ## MCP Servers
 
@@ -268,7 +269,8 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [exa-mcp-server](https://github.com/exa-labs/exa-mcp-server) | MCP server | Web search and research via Exa API | Agent needs to search the web for current information | firecrawl-mcp, Agent-Reach |
 | [firecrawl-mcp](https://github.com/firecrawl/firecrawl-mcp-server) | MCP server | Web scraping and crawling | Agent needs to extract content from web pages | exa-mcp-server |
 | fal-ai-mcp-server | MCP server | Image, video, and audio generation via fal.ai | Agent needs to generate media assets | — |
-| token-optimizer-mcp | MCP server | 95%+ context reduction for tool outputs | Context window fills up too fast | headroom |
+| [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP server | 95%+ context reduction for tool outputs | Context window fills up too fast | headroom |
+| [Pare](https://github.com/Dave-London/Pare) | MCP server | Token-efficient, structured MCP servers for git, test runners, npm, Docker, and more (129 stars) | Generic dev-tool output wastes tokens; agents need structured, compact tool interfaces | git-mcp, token-optimizer-mcp, headroom |
 | [browser-use](https://github.com/browser-use/browser-use) | MCP server | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
 | evalview | MCP server | AI agent regression testing | Can't tell if agent behavior regressed after config changes | langfuse |
 | squish-memory | MCP server | Local-first persistent memory runtime | Need memory that runs locally without external dependencies | OMEGA, claude-mem, server-memory |

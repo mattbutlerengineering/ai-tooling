@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 264 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 267 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -18,6 +18,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | |
 | git-mcp | MCP server | ✓ | ✓ | |
 | GSD | framework | | ✓ | KEEP |
+| claude-modular | framework | | ✓ | |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | |
 | planning-with-files | skill | | ✓ | |
@@ -214,7 +215,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | refly | platform | | ✓ | |
 | scientific-agent-skills | skill | | ✓ | |
 | skill-creator | plugin | | ✓ | |
-| stop-slop | skill | | ✓ | |
+| stop-slop | skill | | ✓ | CONDITIONAL |
 | taste-skill | skill | | ✓ | |
 | tech-leads-club/agent-skills | skill | | ✓ | |
 | typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
@@ -225,7 +226,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-sprite-forge | skill | | ✓ | |
 | SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
 | guard-skills | skill | | ✓ | CONDITIONAL |
-| claude-night-market | plugin | | ✓ | |
+| claude-night-market | plugin | | ✓ | CONDITIONAL |
 | huashu-design | skill | | ✓ | CONDITIONAL |
 | baoyu-design | skill | | ✓ | |
 | AlphaGBM/skills | skill | | ✓ | |
@@ -280,6 +281,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
 | figma-mcp-go | MCP server | ✓ | ✓ | |
+| Pare | MCP server | ✓ | ✓ | |
 
 ## Research & Discovery
 
@@ -325,6 +327,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | buildwithclaude | reference | | ✓ | |
 | karpathy-llm-wiki | skill | | ✓ | |
 | ctx | tool | | ✓ | |
+| system-prompts-leaks | reference | | ✓ | |
 
 ---
 
@@ -341,16 +344,16 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 25 | 9 | 36% |
-| Implement | 67 | 22 | 33% |
-| Verify | 7 | 4 | 57% |
+| Plan | 26 | 9 | 35% |
+| Implement | 67 | 27 | 40% |
+| Verify | 7 | 5 | 71% |
 | Review | 17 | 11 | 65% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 9 | 7 | 78% |
-| Skills & Plugins | 57 | 18 | 32% |
-| Memory & Context | 17 | 6 | 35% |
-| MCP Servers | 23 | 8 | 35% |
-| Research & Discovery | 6 | 3 | 50% |
-| Reference | 29 | 10 | 34% |
-| **Total** | **264** | **105** | **40%** |
+| Outer Loop | 9 | 6 | 67% |
+| Skills & Plugins | 57 | 20 | 35% |
+| Memory & Context | 17 | 7 | 41% |
+| MCP Servers | 24 | 8 | 33% |
+| Research & Discovery | 6 | 4 | 67% |
+| Reference | 30 | 10 | 33% |
+| **Total** | **267** | **114** | **43%** |
