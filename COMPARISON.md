@@ -137,7 +137,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SkillSpector | tool | | ✓ | KEEP |
 | trailofbits/skills | skill | | ✓ | ADOPT |
 | cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL |
-| pentest-ai | MCP server | ✓ | ✓ | |
+| pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL |
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
 | hol-guard | tool | ✓ | ✓ | CONDITIONAL |
 | OpenOSINT | MCP server | ✓ | ✓ | |
@@ -172,7 +172,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
-| sentrux | tool | ✓ | ✓ | |
+| sentrux | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
 ## Skills & Plugins (domain-specific)
@@ -289,7 +289,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | plumb-mcp | MCP server | ✓ | ✓ | |
 | figma-mcp-go | MCP server | ✓ | ✓ | |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
-| Pare | MCP server | ✓ | ✓ | |
+| Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -355,13 +355,13 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 29 | 28 | 97% |
 | Implement | 66 | 55 | 83% |
 | Verify | 8 | 7 | 88% |
-| Review | 19 | 16 | 84% |
+| Review | 19 | 17 | 89% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 9 | 6 | 67% |
+| Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 9 | 36% |
+| MCP Servers | 25 | 10 | 40% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **183** | **67%** |
+| **Total** | **275** | **186** | **68%** |
