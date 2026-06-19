@@ -44,6 +44,7 @@ claude install-skill nichochar/agent-browser
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g beads` | Correctness, Speed |
 | [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | Skills for Real Engineers — TDD, debugging, planning skills from a working dev | `npx skills add mattpocock/skills -g -y` | Correctness, Speed |
+| [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) | First-party skill-authoring meta-skill: draft -> eval (with-skill vs baseline) -> benchmark -> optimize triggering -> package | `claude install-plugin anthropics/claude-plugins-official` | Maintainability |
 
 ## Verify
 
