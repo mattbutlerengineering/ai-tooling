@@ -65,15 +65,15 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deer-flow | harness | | ✓ | CONDITIONAL |
 | DeepSeek-Reasonix | platform | | ✓ | |
 | dify | platform | | ✓ | SKIP |
-| dmux | tool | | ✓ | |
+| dmux | tool | | ✓ | CONDITIONAL |
 | ECC | harness | | ✓ | |
-| fast-agent | framework | | ✓ | |
+| fast-agent | framework | | ✓ | CONDITIONAL |
 | Flowise | platform | | ✓ | |
 | forkd | tool | | ✓ | |
 | gastown | tool | | ✓ | |
 | goose | platform | | ✓ | CONDITIONAL |
 | gsd-build | framework | | ✓ | |
-| gstack | harness | | ✓ | |
+| gstack | harness | | ✓ | CONDITIONAL |
 | happy | platform | | $ | |
 | harness | skill | | ✓ | |
 | headroom | tool | ✓ | ✓ | CONDITIONAL |
@@ -354,7 +354,7 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 29 | 12 | 41% |
-| Implement | 67 | 27 | 40% |
+| Implement | 67 | 30 | 45% |
 | Verify | 7 | 5 | 71% |
 | Review | 19 | 14 | 74% |
 | Ship | 2 | 2 | 100% |
@@ -365,4 +365,4 @@ All 276 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **276** | **124** | **45%** |
+| **Total** | **276** | **127** | **46%** |
