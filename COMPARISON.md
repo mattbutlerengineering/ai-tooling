@@ -112,9 +112,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | agent-browser | tool | | ✓ | ADOPT |
-| browser-use | MCP server | | ✓ | |
+| browser-use | framework | | ✓ | CONDITIONAL |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
-| evalview | MCP server | ✓ | ✓ | |
+| evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
 | passmark | tool | ✓ | ✓ | |
@@ -248,7 +248,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | |
 | server-memory | MCP server | ✓ | ✓ | |
-| SimpleMem | tool | | ✓ | |
+| SimpleMem | tool | | ✓ | CONDITIONAL |
 | squish-memory | MCP server | | ✓ | |
 | longhand | MCP server | | ✓ | |
 | storybloq | plugin | ✓ | ✓ | CONDITIONAL |
@@ -354,14 +354,14 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|---------------|
 | Plan | 29 | 28 | 97% |
 | Implement | 66 | 55 | 83% |
-| Verify | 8 | 5 | 63% |
+| Verify | 8 | 7 | 88% |
 | Review | 19 | 16 | 84% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
 | Skills & Plugins | 56 | 23 | 41% |
-| Memory & Context | 20 | 10 | 50% |
+| Memory & Context | 20 | 11 | 55% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **174** | **63%** |
+| **Total** | **275** | **177** | **64%** |

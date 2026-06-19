@@ -277,8 +277,8 @@ Model Context Protocol servers that connect AI agents to external services and c
 | fal-ai-mcp-server | MCP server | Image, video, and audio generation via fal.ai | Agent needs to generate media assets | — |
 | [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP server | 95%+ context reduction for tool outputs | Context window fills up too fast | headroom |
 | [Pare](https://github.com/Dave-London/Pare) | MCP server | Token-efficient, structured MCP servers for git, test runners, npm, Docker, and more (129 stars) | Generic dev-tool output wastes tokens; agents need structured, compact tool interfaces | git-mcp, token-optimizer-mcp, headroom |
-| [browser-use](https://github.com/browser-use/browser-use) | MCP server | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
-| evalview | MCP server | AI agent regression testing | Can't tell if agent behavior regressed after config changes | langfuse |
+| [browser-use](https://github.com/browser-use/browser-use) | framework | AI browser agent for autonomous web interaction | Need agents to navigate and interact with web pages autonomously | playwright |
+| [evalview](https://github.com/hidai25/eval-view) | MCP server | AI agent regression testing | Can't tell if agent behavior regressed after config changes | langfuse |
 | squish-memory | MCP server | Local-first persistent memory runtime | Need memory that runs locally without external dependencies | OMEGA, claude-mem, server-memory |
 | longhand | MCP server | Session history indexing for cross-session search | Need to find what happened in past agent sessions | OMEGA, claude-mem |
 | devfleet | MCP server | Multi-agent orchestration via MCP | Need to coordinate agents through the MCP protocol rather than CLI | claude-squad, gastown |
