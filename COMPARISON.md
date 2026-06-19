@@ -117,7 +117,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
-| passmark | tool | ✓ | ✓ | |
+| passmark | tool | ✓ | ✓ | CONDITIONAL |
 | diagnosing-bugs | skill | | ✓ | CONDITIONAL |
 
 ## Review
@@ -284,7 +284,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | server-filesystem | MCP server | ✓ | ✓ | SKIP |
 | server-github | MCP server | ✓ | ✓ | SKIP |
 | supabase | MCP server | ✓ | ✓ | CONDITIONAL |
-| token-optimizer-mcp | MCP server | ✓ | ✓ | |
+| token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
 | figma-mcp-go | MCP server | ✓ | ✓ | |
@@ -354,14 +354,14 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|---------------|
 | Plan | 29 | 28 | 97% |
 | Implement | 66 | 55 | 83% |
-| Verify | 8 | 7 | 88% |
+| Verify | 8 | 8 | 100% |
 | Review | 19 | 17 | 89% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 7 | 78% |
 | Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 18 | 72% |
+| MCP Servers | 25 | 19 | 76% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **195** | **71%** |
+| **Total** | **275** | **197** | **72%** |
