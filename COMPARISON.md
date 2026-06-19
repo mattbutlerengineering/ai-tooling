@@ -193,14 +193,14 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Claude-Code-Game-Studios | plugin | | ✓ | |
 | claude-seo | skill | | ✓ | |
 | excalidraw-diagram-skill | skill | | ✓ | |
-| formkit | framework | | ✓ | |
+| formkit | framework | | ✓ | SKIP |
 | frontend-slides | skill | | ✓ | |
 | garden-skills | skill | | ✓ | |
 | gemini-skills | skill | | ✓ | |
 | google/skills | skill | | ✓ | CONDITIONAL |
 | googleworkspace/cli | tool | | ✓ | |
 | guizang-ppt-skill | skill | | ✓ | |
-| html-anything | tool | | ✓ | |
+| html-anything | tool | | ✓ | SKIP |
 | humanizer | skill | | ✓ | |
 | impeccable | skill | | ✓ | |
 | Jeffallan/claude-skills | skill | | ✓ | |
@@ -216,7 +216,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | plugin-dev | plugin | | ✓ | |
 | pm-skills | skill | | ✓ | |
 | ponytail | skill | | ✓ | |
-| refly | platform | | ✓ | |
+| refly | platform | | ✓ | SKIP |
 | scientific-agent-skills | skill | | ✓ | |
 | skill-creator | plugin | | ✓ | |
 | stop-slop | skill | | ✓ | CONDITIONAL |
@@ -359,9 +359,9 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 56 | 20 | 36% |
+| Skills & Plugins | 56 | 23 | 41% |
 | Memory & Context | 20 | 10 | 50% |
 | MCP Servers | 25 | 9 | 36% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 11 | 37% |
-| **Total** | **275** | **171** | **62%** |
+| **Total** | **275** | **174** | **63%** |
