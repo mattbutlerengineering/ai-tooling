@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~20 tools worth installing on every project, distilled from 247 catalog entries and 60 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~25 tools worth installing on every project, distilled from 256 catalog entries and 70 hands-on evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -40,6 +40,7 @@ claude install-skill nichochar/agent-browser
 | [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `claude mcp add headroom` | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g beads` | Correctness, Speed |
+| [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
 
 ## Verify
 
@@ -89,6 +90,6 @@ claude install-skill nichochar/agent-browser
 
 ## What's NOT here
 
-- **247 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **256 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage
