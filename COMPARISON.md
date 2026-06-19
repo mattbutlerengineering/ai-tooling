@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 267 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 270 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -19,6 +19,9 @@ All 267 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | git-mcp | MCP server | ✓ | ✓ | |
 | GSD | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | |
+| spec-kit | framework | | ✓ | |
+| OpenSpec | framework | | ✓ | |
+| BMAD-METHOD | framework | | ✓ | |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | |
 | planning-with-files | skill | | ✓ | |
@@ -344,7 +347,7 @@ All 267 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 26 | 9 | 35% |
+| Plan | 29 | 9 | 31% |
 | Implement | 67 | 27 | 40% |
 | Verify | 7 | 5 | 71% |
 | Review | 17 | 11 | 65% |
@@ -356,4 +359,4 @@ All 267 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 24 | 8 | 33% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **267** | **114** | **43%** |
+| **Total** | **270** | **114** | **42%** |

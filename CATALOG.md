@@ -248,6 +248,9 @@ Tools for git management, planning, project orchestration, and development proce
 | [agent-browser](https://github.com/vercel-labs/agent-browser) | tool | Browser automation CLI for AI agents — navigate, fill forms, screenshot, scrape, test web apps | Agents can't interact with web UIs for testing, verification, or data extraction | playwright, browser-use |
 | [azure-skills](https://github.com/microsoft/azure-skills) | plugin | Official Azure agent plugin — skills and MCP configs for Azure scenarios (258K installs) | Need AI assistance with Azure deployment, infrastructure, and cloud workflows | microsoft/skills, google/skills |
 | [claude-modular](https://github.com/oxygen-fragment/claude-modular) | framework | Modular Claude Code command framework — 30+ commands, token optimization, hierarchical config, MCP integration (284 stars) | Ad-hoc Claude Code setups lack systematic command organization and reuse | superpowers, claude-night-market, GSD |
+| [spec-kit](https://github.com/github/spec-kit) | framework | GitHub's Spec-Driven Development toolkit — Specify→Plan→Tasks→Implement, each with a human checkpoint (114K stars) | "Prompt and pray" yields misaligned code; make the spec the durable artifact and code the build output | OpenSpec, BMAD-METHOD, GSD |
+| [OpenSpec](https://github.com/Fission-AI/OpenSpec) | framework | Spec-driven development for AI coding assistants — lightweight, agent-agnostic specs that act as validation gates (55.6K stars) | Need SDD discipline without heavy four-phase ceremony, portable across agents | spec-kit, BMAD-METHOD |
+| [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | framework | Agentic agile dev framework — specialized agent roles (analyst, PM, architect, dev) drive a spec-to-code pipeline (49.4K stars) | Unstructured AI dev lacks defined roles and phased handoffs | spec-kit, OpenSpec, GSD |
 
 ## MCP Servers
 
