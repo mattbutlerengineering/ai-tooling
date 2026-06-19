@@ -249,7 +249,7 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cognee | platform | | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
-| OMEGA | MCP server | ✓ | ✓/$ | |
+| OMEGA | MCP server | ✓ | ✓/$ | KEEP |
 | server-memory | MCP server | ✓ | ✓ | CONDITIONAL |
 | SimpleMem | tool | | ✓ | CONDITIONAL |
 | squish-memory | MCP server | | ✓ | SKIP |
@@ -311,18 +311,18 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | antigravity-awesome-skills | reference | | ✓ | CONDITIONAL |
 | awesome-agent-skills | reference | | ✓ | CONDITIONAL |
-| awesome-agent-skills (libukai) | reference | | ✓ | |
+| awesome-agent-skills (libukai) | reference | | ✓ | CONDITIONAL |
 | awesome-ai-agents | reference | | ✓ | SKIP |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL |
-| awesome-claude-skills (Composio) | reference | | ✓ | |
+| awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | CONDITIONAL |
 | awesome-llm-agents | reference | | ✓ | CONDITIONAL |
 | awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
-| ai-engineering-from-scratch | reference | | ✓ | |
+| ai-engineering-from-scratch | reference | | ✓ | CONDITIONAL |
 | claude-code | reference | | ✓ | CONDITIONAL |
 | claude-code-best-practice | reference | | ✓ | CONDITIONAL |
-| claude-code-system-prompts | reference | | ✓ | |
+| claude-code-system-prompts | reference | | ✓ | CONDITIONAL |
 | claude-code-tips | reference | | ✓ | CONDITIONAL |
 | claude-howto | reference | | ✓ | CONDITIONAL |
 | Awesome-finance-skills | skill | | ✓ | SKIP |
@@ -330,16 +330,16 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | dictionary-of-ai-coding | reference | | ✓ | ADOPT |
 | Fabric | framework | | ✓ | SKIP |
 | learn-claude-code | reference | | ✓ | CONDITIONAL |
-| system-prompts-and-models | reference | | ✓ | |
+| system-prompts-and-models | reference | | ✓ | CONDITIONAL |
 | tolaria | tool | | ✓ | SKIP |
 | docmd | tool | | ✓ | CONDITIONAL |
-| agentskills | reference | | ✓ | |
+| agentskills | reference | | ✓ | ADOPT |
 | agents-best-practices | skill | | ✓ | CONDITIONAL |
 | design-extract | MCP server | ✓ | ✓ | CONDITIONAL |
 | buildwithclaude | reference | | ✓ | CONDITIONAL |
 | karpathy-llm-wiki | skill | | ✓ | CONDITIONAL |
 | ctx | tool | | ✓ | CONDITIONAL |
-| system-prompts-leaks | reference | | ✓ | |
+| system-prompts-leaks | reference | | ✓ | CONDITIONAL |
 
 ---
 
@@ -364,8 +364,8 @@ All 279 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 9 | 100% |
 | Skills & Plugins | 59 | 59 | 100% |
-| Memory & Context | 20 | 19 | 95% |
+| Memory & Context | 20 | 20 | 100% |
 | MCP Servers | 25 | 25 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
-| Reference | 31 | 24 | 77% |
-| **Total** | **279** | **271** | **97%** |
+| Reference | 31 | 31 | 100% |
+| **Total** | **279** | **279** | **100%** |
