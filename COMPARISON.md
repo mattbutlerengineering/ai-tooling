@@ -132,7 +132,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-octopus | plugin | ✓ | ✓ | CONDITIONAL |
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
-| security-guidance | plugin | | ✓ | |
+| security-guidance | plugin | | ✓ | ADOPT |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
 | SkillSpector | tool | | ✓ | KEEP |
 | trailofbits/skills | skill | | ✓ | ADOPT |
@@ -287,7 +287,7 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opendocswork-mcp | MCP server | ✓ | ✓ | |
 | plumb-mcp | MCP server | ✓ | ✓ | |
-| figma-mcp-go | MCP server | ✓ | ✓ | |
+| figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 
@@ -355,13 +355,13 @@ All 275 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 29 | 29 | 100% |
 | Implement | 66 | 56 | 85% |
 | Verify | 8 | 8 | 100% |
-| Review | 19 | 17 | 89% |
+| Review | 19 | 18 | 95% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 8 | 89% |
 | Skills & Plugins | 56 | 32 | 57% |
 | Memory & Context | 20 | 17 | 85% |
-| MCP Servers | 25 | 19 | 76% |
+| MCP Servers | 25 | 20 | 80% |
 | Research & Discovery | 6 | 5 | 83% |
 | Reference | 30 | 12 | 40% |
-| **Total** | **275** | **210** | **76%** |
+| **Total** | **275** | **212** | **77%** |
