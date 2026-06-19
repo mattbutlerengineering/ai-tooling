@@ -1,65 +1,79 @@
-# Evaluation: HOL Guard
+# Evaluation: hol-guard
 
 **Repo:** [hashgraph-online/hol-guard](https://github.com/hashgraph-online/hol-guard)
-**Stars:** 361 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
-**Dev loop stage:** Review / Ship
+**Stars:** 362 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Dev loop stage:** Implement (runtime tool-call gating) + Ship (CI plugin gate via `plugin-scanner`)
 **Layer:** Infrastructure
 
 ---
 
 ## What it does
 
-AI antivirus for developer agents. HOL Guard intercepts tool actions before files change or network calls fire, deciding in milliseconds whether to allow or block. It ships as two PyPI packages: `hol-guard` (local harness protection) and `plugin-scanner` (CI/maintainer verification). Guard wraps 10+ harnesses (Claude Code, Codex, Copilot CLI, Cursor, Gemini, Grok, Kimi, OpenCode, ZCode, Hermes) via launcher shims that route launches through a detection pipeline before the harness executes.
+"AI antivirus for developer agents — scans plugins, skills, MCP servers before tools run." HOL Guard ships as two PyPI packages from the same repo: `hol-guard` (the local runtime guard) and `plugin-scanner` (a CI/maintainer linter). Despite the package names, the source lives under `src/codex_plugin_scanner/`.
 
-The detection pipeline works in six steps: discover harness config → normalize artifacts into snapshots → diff against stored baselines → evaluate policy → record receipts → launch only if not blocked. Detectors include a Safe Decode sandbox that unwraps base64, hex, gzip, heredoc, Python `-c`, Node `-e`, and PowerShell `-EncodedCommand` without executing payloads. Four security levels (Gentle → Balanced → Strict → Paranoid) control sensitivity. A localhost dashboard (port 6174) shows pending approvals, receipts, and decision history.
+The **runtime guard** is the load-bearing piece. You install it with `pipx install hol-guard` and run `hol-guard init`, which discovers your local AI harness config (Claude Code, Codex, Copilot CLI, Cursor, Gemini, OpenCode, Kimi, Grok, ZCode, Hermes) and installs itself *in front of* every tool action. For Claude Code specifically, Guard "prefers Claude hooks first" — it wires managed `PreToolUse`-style hooks — and falls back to a localhost "approval center" (dashboard at `http://localhost:6174`) when the shell cannot prompt inline. When the agent tries to act, Guard intercepts, runs its detectors, and (per the README) "decides in milliseconds whether to allow or block." Blocked actions are queued for human approval and every decision is written to a local "receipt" log.
 
-Supply-chain scanning intercepts package managers (npm, pip) via shims to block known-malicious dependencies before install. The `supply-chain scan` and `explain` commands provide CVE context similar to `npm audit` but integrated into the agent workflow.
+The detection is **static rule/pattern matching, not LLM-based** — confirmed by the detector modules under `src/codex_plugin_scanner/guard/runtime/`: `secret_sources.py`, `secret_file_requests.py`, `secret_sensitivity.py`, `prompt_injection.py`, `persistence_rules.py`, `data_flow_rules.py`, `composition_rules.py`, plus a dedicated `false_positive_rules.py` and an `advisory_matchers.py` that checks against an optional signed advisory database synced from `advisories.hol.org`. It also bundles Cisco AI Defense's `cisco-ai-skill-scanner` (and, in CI/Docker, the MCP scanner) for static skill/MCP analysis. Sensitivity is tunable across four levels — Gentle, Balanced (default), Strict, Paranoid — controlling whether it blocks only high-confidence secrets/exfil or escalates to low-confidence signals and any unrecognized MCP action.
+
+The **`plugin-scanner`** package is a separate, CI-oriented quality gate: `plugin-scanner verify .` / `scan` produces a 0–100 score across Manifest Validation, Security, Operational Security, Best Practices, Marketplace, Skill Security, and Code Quality, emits SARIF, and runs as a GitHub Action (`fail_on_severity`, `min_score`). That is a publisher/maintainer tool, not the pre-execution guard the catalog entry describes.
 
 ## How we tested it
 
-Architecture review based on repo structure, docs, and README. Did not install locally — evaluation is based on documentation depth, detection architecture analysis, and comparison with existing catalog entries.
+Source-grounded evaluation. I did **not** install or run hol-guard. The method was: read the full README, enumerate the repo file tree, inspect the runtime detector module layout and the `.factory` Claude/Codex SKILL.md, and check release cadence, license, and the user's actual local environment for fit. No scan was executed, so no detection rates, false-positive rates, or timing numbers in this document come from observed runs — the "milliseconds" latency and the protection-level behavior are the project's own claims, labeled as such.
 
-```
-gh api repos/hashgraph-online/hol-guard --jq '.description, .stargazers_count'
-# Read: README.md, docs/guard/architecture.md, docs/guard/remediation.md
-# Checked: src/ structure, release cadence (v2.0.814, released today)
-```
+This revises an earlier (Jun 18) architecture-review eval of the same tool. That version asserted a "Safe Decode sandbox" and a documented "six-step pipeline" from `docs/guard/architecture.md`; I could not verify those specific claims against the current source tree, so per the integrity rule they are not carried forward — this version is grounded only in what the README and the `src/.../guard/runtime/` module layout actually show.
 
-Assessed the detection pipeline by reading `docs/guard/architecture.md` — the six-step snapshot/diff/policy/receipt flow is well-documented with clear separation of concerns. The Safe Decode sandbox for encoded command detection is a genuinely novel approach not found in SkillSpector or agentlint.
+**Correction to the task brief:** the brief stated the user already has hol-guard installed. That is not the case. `command -v hol-guard` returns nothing, `pipx list` has no hol-guard, there is no `~/.hol-guard` / `~/.config/hol-guard` state directory, and `~/.claude/settings.json` hooks reference only GSD and OMEGA — no Guard wiring. The grep hits under `~/.claude/projects/...` were transcripts of *this evaluation session*, not an install. Real-world fit is therefore assessed against the user's existing hook stack rather than observed Guard behavior.
+
+```bash
+gh api repos/hashgraph-online/hol-guard --jq '{stars,license,description,pushed_at}'
+gh api repos/hashgraph-online/hol-guard/readme --jq '.content' | base64 -d
+gh api "repos/hashgraph-online/hol-guard/git/trees/HEAD?recursive=1" --jq '.tree[].path'
+gh api repos/hashgraph-online/hol-guard/contents/LICENSE --jq '.content' | base64 -d | head -5
+gh api repos/hashgraph-online/hol-guard/releases --jq '.[0:3]'
+gh api "repos/hashgraph-online/hol-guard/commits?since=2026-03-20T00:00:00Z&per_page=100" --jq 'length'
+# local-fit checks
+command -v hol-guard; pipx list; ls ~/.hol-guard ~/.config/hol-guard
+python3 -c "import json;print(json.load(open('~/.claude/settings.json'))['hooks'])"  # only GSD + OMEGA
+```
 
 ## What worked
 
-- **Real detection pipeline, not marketing.** The architecture doc reveals a genuine snapshot-diff-policy engine with per-harness adapter modules. This isn't a README wrapper — it's a structured security product.
-- **10+ harness support** with per-harness approval strategies (Claude hooks, Codex thread binding, Copilot hook wiring). Broadest harness coverage of any security tool in the catalog.
-- **Four graduated security levels** let teams start permissive and tighten. Paranoid mode blocks any unrecognized MCP server action — useful for high-security environments.
-- **Supply-chain scanning** via package manager shims is a unique layer: intercepts `npm install` and `pip install` before dependencies land, not after.
-- **Receipt system** creates an auditable trail of every allow/block decision with diff evidence. The approval center provides a local localhost dashboard for reviewing pending decisions.
-- **Very active development** — v2.0.814 released today, 222+ merged PRs. The velocity is high.
+- **Targets the right gap with the right mechanism.** Pre-execution interception of agent tool calls is exactly the supply-chain failure mode the catalog entry names (downloaded skills/plugins/MCP servers executing malicious code). Static detectors deciding in-line, before file writes or network calls, is the correct architecture for a guard — it does not put an LLM judgment call in the hot path.
+- **Real harness breadth and Claude-native wiring.** Documented, per-harness approval strategies for 10+ agents. For Claude Code it uses native hooks first (the right integration point) and only falls back to its localhost approval center when the shell can't prompt — a thoughtful design that respects the harness rather than wrapping it blindly.
+- **Tunable sensitivity with an explicit false-positive layer.** Four protection levels plus a dedicated `false_positive_rules.py` module shows the maintainers treat false positives as a first-class problem — critical for a tool that gates *every* action, where over-blocking is the fastest path to uninstall.
+- **Strong security-engineering signals for an infra/security tool.** OpenSSF Scorecard badge, CodeQL, ClusterFuzzLite fuzzing, SHA-pinned-actions checks, a dedicated `security-gates.yml` workflow, SECURITY.md, and reuse of Cisco AI Defense's open-source scanners. For a tool you grant interception privileges, this provenance matters more than raw star count.
+- **Local-first and privacy-conscious.** Receipts, baselines, and advisory DB are local; advisory sync is pull-only and explicitly does not transmit file paths, harness configs, or workspace identifiers. An optional password/TOTP approval gate guards saved allow-decisions. No cloud dependency for core blocking.
+- **`plugin-scanner` is a genuinely useful, separable CI artifact** with SARIF output and a published GitHub Action — directly relevant for anyone publishing skills/plugins to a marketplace.
 
 ## What didn't work or surprised us
 
-- **No hands-on test.** Evaluation is architecture-review-only. The detection claims are well-documented but unverified in practice.
-- **Python 3.10+ dependency** adds a runtime requirement. Go binary or npm package would be lighter for JS/TS-focused teams.
-- **Wrapper-mode approach means startup friction.** Every harness launch routes through Guard, adding latency. The docs acknowledge this is the core execution strategy.
-- **361 stars is modest** for the scope claimed. The project is young (most development is recent) but adoption is still early.
-- **License shows as "NOASSERTION" on GitHub** despite the file being Apache-2.0. Minor metadata issue.
-- **Unclear how it handles false positives at scale.** The remediation docs describe per-package exceptions but don't address systemic false positive rates.
+- **Very young, single-org, fast-churning.** Created 2026-03-28 (under 3 months old), 362 stars, 7 forks, and ~100 commits in the last ~90 days, with releases at `v2.0.829` *on the eval date* (three releases within ~18 minutes). High velocity is good for fixes but means the runtime gate, the API, and the detector set are all moving targets; pinning a version is advisable.
+- **It claims `PreToolUse` hook slots — direct conflict risk with the user's stack.** The user's `~/.claude/settings.json` already runs OMEGA's `fast_hook.py` on PostToolUse (matcher `Edit|Write|NotebookEdit|Bash|Read`), SessionStart, and Stop, plus GSD hooks. Guard installing "managed" hooks into the same config is exactly the multi-hook collision risk flagged in the agentmemory eval. There is no documented conflict-resolution contract for coexisting third-party hooks.
+- **Performance tax on every tool call.** By design Guard runs detectors before each action. Even at the claimed millisecond budget, that is non-zero latency multiplied across thousands of tool calls per session, and a hook crash/timeout fails *open* on some harnesses (Kimi/Grok are documented to fail open) — meaning the guarantee silently degrades under load exactly when you'd want it most.
+- **Naming/packaging is confusing.** Two packages (`hol-guard`, `plugin-scanner`), a third source name (`codex_plugin_scanner`), an optional Cisco extra with Python-version-dependent availability (no Cisco MCP scanner on 3.14+), and a `[cisco]` extra vs. a repo-controlled `cisco-mcp` uv group. The install matrix is heavier than "pipx install" implies.
+- **Cloud account required for advisory freshness.** The runtime detectors work offline, but `advisories sync` (the up-to-date threat feed) requires a HOL Guard Cloud account. Without it you run on the bundled, aging advisory DB — a soft push toward their hosted service.
+- **GitHub reports the license as `NOASSERTION`** even though the LICENSE file and README are unambiguously Apache-2.0. Cosmetic, but worth noting since it can trip automated license scanners.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Doesn't affect code output — focuses on tool trust |
-| Speed | - | Adds launch interception overhead to every harness start |
-| Maintainability | neutral | Receipts and audit trails help security posture but don't change code |
-| Safety | ++ | Pre-execution blocking, supply-chain scanning, encoded command detection, 4 security levels |
-| Cost Efficiency | neutral | No token impact — operates at the harness layer |
+| Correctness | neutral | Doesn't make the agent's *code* more correct; it gates risky actions, which is orthogonal to code correctness |
+| Speed | - | Adds per-tool-call detector latency to every action; net slowdown, partly mitigated by an approval queue that avoids stop-the-world prompts |
+| Maintainability | neutral | No effect on the codebase under development; receipts add an auditable decision trail |
+| Safety | ++ | Core value: pre-execution interception of secrets exfil, prompt injection, supply-chain hooks, and untrusted MCP actions across 10+ harnesses, with tunable strictness and a false-positive layer |
+| Cost Efficiency | neutral | Free/local for core use; no token cost (static detectors, not LLM); advisory freshness nudges toward a Cloud account |
 
 ## Verdict
 
 **CONDITIONAL**
 
-Use when operating in security-sensitive environments where agent extensions (plugins, skills, MCP servers) come from untrusted sources. HOL Guard fills a genuine gap — SkillSpector scans skill files for malicious patterns statically, agentlint enforces runtime rules, but neither intercepts harness launches or package installs before execution. The four-level security model and receipt system are well-designed for team adoption. Skip for solo developers using only first-party extensions from Anthropic or well-known authors, where the launch overhead isn't justified. Re-evaluate once adoption grows and false positive data is available.
+Adopt when supply-chain risk from untrusted agent extensions is a real concern — installing community skills/plugins/MCP servers, running agents with broad file/network access, or operating in a team/regulated setting that wants an auditable allow/block trail. The mechanism (static, in-line, pre-execution interception with native Claude hooks and tunable sensitivity) is the correct design for the Safety signal it targets, and the security-engineering provenance (OpenSSF Scorecard, CodeQL, fuzzing, Cisco scanners) is unusually strong for a 362-star project.
+
+Hold off for the default solo-dev-on-trusted-extensions case, and specifically in *this* environment: the user's `~/.claude/settings.json` already carries OMEGA + GSD hooks, and Guard claiming managed `PreToolUse` slots introduces real hook-collision risk with no documented coexistence contract. The tool is also under 3 months old and releasing many times per day, so pin a version and re-test the hook wiring before trusting it on the hot path. If you only publish plugins/skills, prefer the lighter `plugin-scanner` CI gate alone and skip the runtime guard.
+
+**vs. overlaps:** SkillSpector and agentlint are *static, on-demand* scanners you point at an artifact — they audit a skill/config before you install it. hol-guard's distinct niche is the **runtime gate**: it sits in the live tool-call path and blocks actions as they happen across many harnesses. Use a static scanner (SkillSpector/agentlint, or hol-guard's own `plugin-scanner`) at install/CI time; reach for hol-guard's runtime guard only when you want continuous, in-session enforcement and can absorb the hook + latency cost.
 
 ## Catalog entry
 

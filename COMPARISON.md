@@ -139,7 +139,7 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Claude-BugHunter | skill | | ✓ | CONDITIONAL |
 | hol-guard | tool | ✓ | ✓ | CONDITIONAL |
 | OpenOSINT | MCP server | ✓ | ✓ | |
-| agnix | tool | ✓ | ✓ | |
+| agnix | tool | ✓ | ✓ | CONDITIONAL |
 | agent-vault | tool | | ✓ | |
 
 ## Ship
@@ -350,7 +350,7 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 29 | 9 | 31% |
 | Implement | 67 | 27 | 40% |
 | Verify | 7 | 5 | 71% |
-| Review | 17 | 11 | 65% |
+| Review | 17 | 12 | 71% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
@@ -359,4 +359,4 @@ All 270 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 24 | 8 | 33% |
 | Research & Discovery | 6 | 4 | 67% |
 | Reference | 30 | 10 | 33% |
-| **Total** | **270** | **114** | **42%** |
+| **Total** | **270** | **115** | **43%** |
