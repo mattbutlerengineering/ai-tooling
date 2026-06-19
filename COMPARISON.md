@@ -192,7 +192,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | frontend-slides | skill | | ✓ | |
 | garden-skills | skill | | ✓ | |
 | gemini-skills | skill | | ✓ | |
-| google/skills | skill | | ✓ | |
+| google/skills | skill | | ✓ | CONDITIONAL |
 | googleworkspace/cli | tool | | ✓ | |
 | guizang-ppt-skill | skill | | ✓ | |
 | html-anything | tool | | ✓ | |
@@ -201,7 +201,7 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Jeffallan/claude-skills | skill | | ✓ | |
 | marketingskills | skill | | ✓ | |
 | mattpocock/skills | skill | | ✓ | ADOPT |
-| microsoft/skills | skill | | ✓ | |
+| microsoft/skills | skill | | ✓ | CONDITIONAL |
 | obsidian-skills | skill | | ✓ | |
 | open-design | platform | | ✓ | |
 | open-slide | tool | | ✓ | |
@@ -342,15 +342,15 @@ All 264 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 25 | 9 | 36% |
-| Implement | 67 | 19 | 28% |
+| Implement | 67 | 20 | 30% |
 | Verify | 7 | 4 | 57% |
 | Review | 17 | 11 | 65% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 9 | 6 | 67% |
-| Skills & Plugins | 57 | 16 | 28% |
+| Skills & Plugins | 57 | 18 | 32% |
 | Memory & Context | 17 | 6 | 35% |
 | MCP Servers | 23 | 8 | 35% |
 | Research & Discovery | 6 | 3 | 50% |
-| Reference | 29 | 8 | 28% |
-| **Total** | **264** | **97** | **37%** |
+| Reference | 29 | 10 | 34% |
+| **Total** | **264** | **102** | **39%** |
