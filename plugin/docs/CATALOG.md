@@ -344,6 +344,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) | MCP server | Figma MCP for free users — no rate limits, full read/write, text to designs (1.1K stars) | Official Figma MCP has paid quotas; free users need an alternative | Figma-Context-MCP, plumb-mcp |
 | [pg-aiguide](https://github.com/timescale/pg-aiguide) | MCP server | MCP server + Claude plugin for Postgres — helps AI tools generate correct, idiomatic Postgres (1.8K stars) | AI tools generate incorrect or non-idiomatic Postgres SQL and schema | supabase, prisma (complementary: supabase/prisma do DB operations, pg-aiguide is a Postgres knowledge layer) |
 | [mcp2cli](https://github.com/knowsuchagency/mcp2cli) | tool | Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a CLI at runtime (zero codegen) so agents call tools on demand instead of loading every tool schema each turn | Wiring MCP servers into an agent injects all tool schemas into context every turn, wasting tokens | context-mode, headroom, opensrc |
+| [mirage](https://github.com/strukto-ai/mirage) | tool | Unified virtual filesystem for agents — mounts ~50 services (S3, Slack, Gmail, Postgres, GitHub…) as one filesystem so an LLM reads/greps/pipes across all of them via bash; "one interface instead of N SDKs and M MCPs" (Apache-2.0) | Each service needs its own SDK/MCP and bloats agent context; want uniform, composable cross-service access with no new vocabulary | mcp2cli, context-mode |
 
 ## Observability
 

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 334 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 335 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -341,6 +341,7 @@ All 334 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
 | mcp2cli | tool | ✓ | ✓ | CONDITIONAL |
+| mirage | tool | | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
@@ -420,7 +421,7 @@ All 334 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 25 | 25 | 100% |
-| MCP Servers | 29 | 29 | 100% |
+| MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **334** | **334** | **100%** |
+| **Total** | **335** | **335** | **100%** |
