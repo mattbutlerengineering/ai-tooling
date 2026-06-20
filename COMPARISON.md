@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 383 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 389 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -63,6 +63,7 @@ All 383 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | CONDITIONAL |
 | CLIProxyAPI | tool | | ✓ | CONDITIONAL |
+| litellm | tool | ✓ | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | orca | platform | ✓ | ✓ | CONDITIONAL |
@@ -121,6 +122,8 @@ All 383 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-pi | platform | | ✓ | SKIP |
 | omnigent | framework | | ✓ | CONDITIONAL |
 | opencode | platform | | ✓ | CONDITIONAL |
+| plandex | platform | ✓ | ✓ | CONDITIONAL |
+| forgecode | harness | | ✓ | CONDITIONAL |
 | opencode-swarm | plugin | | ✓ | CONDITIONAL |
 | OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
@@ -146,6 +149,7 @@ All 383 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codex-plugin-cc | plugin | | ✓ | CONDITIONAL |
 | vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL |
 | re_gent | tool | | ✓ | CONDITIONAL |
+| cli-continues | tool | | ✓ | CONDITIONAL |
 | phantom | platform | ✓ | ✓ | CONDITIONAL |
 | rmux | tool | | ✓ | CONDITIONAL |
 | MiMo-Code | platform | | ✓ | CONDITIONAL |
@@ -239,6 +243,8 @@ All 383 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
 | promptfoo | tool | ✓ | ✓ | CONDITIONAL |
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
+| opik | platform | ✓ | ✓ | CONDITIONAL |
+| ragas | tool | ✓ | ✓ | CONDITIONAL |
 | ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -461,15 +467,15 @@ All 383 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 40 | 40 | 100% |
-| Implement | 104 | 104 | 100% |
+| Implement | 108 | 108 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 26 | 26 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 16 | 16 | 100% |
+| Outer Loop | 18 | 18 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
 | Memory & Context | 36 | 36 | 100% |
 | MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 40 | 40 | 100% |
-| **Total** | **383** | **383** | **100%** |
+| **Total** | **389** | **389** | **100%** |
