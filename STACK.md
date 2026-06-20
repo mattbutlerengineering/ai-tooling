@@ -104,6 +104,6 @@ claude install-skill nichochar/agent-browser
 
 ## What's NOT here
 
-- **363 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **469 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage
