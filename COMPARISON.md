@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 328 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 331 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -133,6 +133,9 @@ All 328 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MiMo-Code | platform | | ✓ | CONDITIONAL |
 | kimi-code | platform | | ✓ | CONDITIONAL |
 | gentle-ai | harness | ✓ | ✓ | CONDITIONAL |
+| smallcode | tool | | ✓ | CONDITIONAL |
+| claudian | plugin | | ✓ | CONDITIONAL |
+| jetbrains-cc-gui | plugin | | ✓ | CONDITIONAL |
 
 ## Verify
 
@@ -406,7 +409,7 @@ All 328 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 35 | 35 | 100% |
-| Implement | 87 | 87 | 100% |
+| Implement | 90 | 90 | 100% |
 | Verify | 9 | 9 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -417,4 +420,4 @@ All 328 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 29 | 29 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **328** | **328** | **100%** |
+| **Total** | **331** | **331** | **100%** |
