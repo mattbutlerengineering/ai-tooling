@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 340 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 342 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -102,6 +102,7 @@ All 340 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vercel-ai | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
+| nanobot | harness | ✓ | ✓ | CONDITIONAL |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
 | oh-my-pi | platform | | ✓ | SKIP |
@@ -213,6 +214,7 @@ All 340 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
 | claude-fleet | tool | | ✓ | CONDITIONAL |
+| agentsview | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
 ## Skills & Plugins (domain-specific)
@@ -418,15 +420,15 @@ All 340 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 36 | 36 | 100% |
-| Implement | 90 | 90 | 100% |
+| Implement | 91 | 91 | 100% |
 | Verify | 10 | 10 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 12 | 12 | 100% |
+| Outer Loop | 13 | 13 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 26 | 26 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 37 | 37 | 100% |
-| **Total** | **340** | **340** | **100%** |
+| **Total** | **342** | **342** | **100%** |
