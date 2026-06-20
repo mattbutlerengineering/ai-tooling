@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 435 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 443 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -141,6 +141,9 @@ All 435 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | haystack | framework | ✓ | ✓ | CONDITIONAL |
 | Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL |
 | baml | framework | ✓ | ✓ | CONDITIONAL |
+| moai-adk | plugin | ✓ | ✓ | CONDITIONAL |
+| TanStack-cli | tool | ✓ | ✓ | CONDITIONAL |
+| mastra | framework | ✓ | ✓ | CONDITIONAL |
 | cua | harness | ✓ | ✓/$ | CONDITIONAL |
 | txtai | framework | ✓ | ✓ | CONDITIONAL |
 | UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
@@ -350,6 +353,8 @@ All 435 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | himself65/finance-skills | skill | | ✓ | CONDITIONAL |
 | web-access | skill | ✓ | ✓ | CONDITIONAL |
 | cc-skills-golang | skill | | ✓ | ADOPT |
+| waza (Microsoft) | tool | ✓ | ✓ | CONDITIONAL |
+| skills-hub | tool | | ✓ | CONDITIONAL |
 
 ## Memory & Context
 
@@ -361,6 +366,7 @@ All 435 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL |
 | LightRAG | tool | ✓ | ✓ | CONDITIONAL |
 | memvid | tool | ✓ | ✓ | CONDITIONAL |
+| kreuzberg | tool | ✓ | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -450,6 +456,8 @@ All 435 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | llm-council | tool | | ✓ | CONDITIONAL |
 | PaperOrchestra | skill | | ✓ | CONDITIONAL |
 | storm | tool | ✓ | ✓ | CONDITIONAL |
+| AutoSci | harness | ✓ | ✓ | CONDITIONAL |
+| notebooklm-py | tool | ✓ | ✓ | CONDITIONAL |
 
 ## Reference
 
@@ -513,15 +521,15 @@ All 435 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 125 | 125 | 100% |
+| Implement | 128 | 128 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 28 | 28 | 100% |
-| Skills & Plugins | 62 | 62 | 100% |
-| Memory & Context | 42 | 42 | 100% |
+| Skills & Plugins | 64 | 64 | 100% |
+| Memory & Context | 43 | 43 | 100% |
 | MCP Servers | 33 | 33 | 100% |
-| Research & Discovery | 10 | 10 | 100% |
+| Research & Discovery | 12 | 12 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **435** | **435** | **100%** |
+| **Total** | **443** | **443** | **100%** |
