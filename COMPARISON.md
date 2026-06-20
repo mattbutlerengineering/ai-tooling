@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 309 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 310 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -80,6 +80,7 @@ All 309 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | kilocode | platform | | ✓ | CONDITIONAL |
 | grok-cli | platform | | ✓ | CONDITIONAL |
 | Kaku | tool | | ✓ | CONDITIONAL |
+| jcode | harness | | ✓ | CONDITIONAL |
 | gstack | harness | | ✓ | CONDITIONAL |
 | happy | platform | | $ | CONDITIONAL |
 | harness | skill | | ✓ | CONDITIONAL |
@@ -387,7 +388,7 @@ All 309 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 33 | 33 | 100% |
-| Implement | 78 | 78 | 100% |
+| Implement | 79 | 79 | 100% |
 | Verify | 8 | 8 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -398,4 +399,4 @@ All 309 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **309** | **309** | **100%** |
+| **Total** | **310** | **310** | **100%** |
