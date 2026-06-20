@@ -29,6 +29,10 @@ This gives you five skills:
 - [STACK.md](STACK.md) — the ~25 tools worth installing, distilled from 470 evaluations
 - [evaluations/](evaluations/) — 470 evidence-based evaluations with verdicts (ADOPT/CONDITIONAL/SKIP)
 
+## Integrity
+
+The catalog is kept honest by `audit-evals.py` (install resolver, fabrication classifier, verdict sync, COMPARISON/CATALOG consistency) and `reconcile-counts.py --check`. These run automatically in CI (`.github/workflows/integrity.yml`) on every push and pull request — a PR that introduces a verdict mismatch, count drift, or fabrication-pattern eval fails its checks. See `CLAUDE.md` for the full detector list and the opt-in detectors.
+
 ## Quick Start
 
 After installing, run `/setup-workflow` in any repo to bootstrap the recommended workflow. It creates a CLAUDE.md with quality-producing rules, checks your global tool installation, and identifies gaps.
