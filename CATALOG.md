@@ -345,6 +345,7 @@ Tools for monitoring, debugging, and understanding AI agent behavior and perform
 | [abtop](https://github.com/graykode/abtop) | tool | Real-time TUI monitor for AI agent sessions — tokens, context %, rate limits, ports | Can't see what multiple agents are doing across projects without checking each one | tokencost, claude-hud |
 | [Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) | harness | Context management via hooks — ledgers, handoffs, and MCP execution without context pollution | Agents lose state across sessions and pollute context with MCP output | headroom, claude-mem |
 | [sentrux](https://github.com/sentrux/sentrux) | tool | Real-time architectural sensor enabling recursive self-improvement of code quality — pure Rust (2.5K stars) | AI agents don't get feedback on the architectural quality of their output | langfuse (complementary: langfuse = LLM behavior, sentrux = code quality feedback) |
+| [claude-fleet](https://github.com/tianyilt/claude-fleet) | tool | Local read-only dashboard for many concurrent Claude Code/Codex windows — triage state machine (working/waiting/stalled/completed/closeable), ~50ms ripgrep transcript search, skill/memory usage analytics | Running 5–7 agent windows, you miss permission prompts and can't tell who's stuck, waiting, or done — or find last week's session | abtop, codeburn, agent-of-empires |
 
 ## Research & Discovery
 

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 316 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 317 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -198,6 +198,7 @@ All 316 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | trigger.dev | platform | | ✓ | SKIP |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
+| claude-fleet | tool | | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
 ## Skills & Plugins (domain-specific)
@@ -399,10 +400,10 @@ All 316 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 11 | 11 | 100% |
+| Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 22 | 22 | 100% |
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 7 | 7 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **316** | **316** | **100%** |
+| **Total** | **317** | **317** | **100%** |
