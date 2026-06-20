@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 312 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 315 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -39,6 +39,7 @@ All 312 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | SocratiCode | tool | ✓ | ✓ | CONDITIONAL |
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL |
+| codebase-to-course | skill | | ✓ | CONDITIONAL |
 
 ## Implement
 
@@ -57,6 +58,8 @@ All 312 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | Nimbalyst | platform | | ✓ | CONDITIONAL |
+| agent-of-empires | tool | | ✓ | CONDITIONAL |
+| AgentsMesh | platform | ✓ | ✓ | CONDITIONAL |
 | claude-task-master | tool | | ✓ | CONDITIONAL |
 | capa | tool | | ✓ | CONDITIONAL |
 | skills-manage | tool | | ✓ | SKIP |
@@ -389,8 +392,8 @@ All 312 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 33 | 33 | 100% |
-| Implement | 80 | 80 | 100% |
+| Plan | 34 | 34 | 100% |
+| Implement | 82 | 82 | 100% |
 | Verify | 9 | 9 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -401,4 +404,4 @@ All 312 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **312** | **312** | **100%** |
+| **Total** | **315** | **315** | **100%** |
