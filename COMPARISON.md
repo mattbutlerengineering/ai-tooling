@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 352 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 354 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -140,6 +140,7 @@ All 352 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | kimi-code | platform | | ✓ | CONDITIONAL |
 | gentle-ai | harness | ✓ | ✓ | CONDITIONAL |
 | smallcode | tool | | ✓ | CONDITIONAL |
+| clawcodex | harness | | ✓ | CONDITIONAL |
 | claudian | plugin | | ✓ | CONDITIONAL |
 | jetbrains-cc-gui | plugin | | ✓ | CONDITIONAL |
 
@@ -312,6 +313,7 @@ All 352 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | squish-memory | MCP server | | ✓ | SKIP |
 | longhand | MCP server | | ✓ | CONDITIONAL |
 | storybloq | plugin | ✓ | ✓ | CONDITIONAL |
+| claude-code-memory-setup | reference | | ✓ | CONDITIONAL |
 | ArcRift | tool | | ✓ | CONDITIONAL |
 | context-infrastructure | reference | | ✓ | SKIP |
 | agentic-stack | tool | | ✓ | CONDITIONAL |
@@ -430,15 +432,15 @@ All 352 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 37 | 37 | 100% |
-| Implement | 94 | 94 | 100% |
+| Implement | 95 | 95 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 14 | 14 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 27 | 27 | 100% |
+| Memory & Context | 28 | 28 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **352** | **352** | **100%** |
+| **Total** | **354** | **354** | **100%** |
