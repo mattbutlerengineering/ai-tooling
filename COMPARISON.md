@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 443 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 451 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -144,6 +144,8 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | moai-adk | plugin | ✓ | ✓ | CONDITIONAL |
 | TanStack-cli | tool | ✓ | ✓ | CONDITIONAL |
 | mastra | framework | ✓ | ✓ | CONDITIONAL |
+| pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL |
+| pi-subagents | plugin | ✓ | ✓ | CONDITIONAL |
 | cua | harness | ✓ | ✓/$ | CONDITIONAL |
 | txtai | framework | ✓ | ✓ | CONDITIONAL |
 | UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
@@ -220,6 +222,7 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vet | tool | ✓ | ✓/$ | CONDITIONAL |
 | openrewrite | framework | ✓ | ✓/$ | CONDITIONAL |
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
+| pentest-ai-agents | skill | | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | ADOPT |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
@@ -278,6 +281,8 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deepeval | framework | ✓ | ✓ | CONDITIONAL |
 | phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL |
+| harbor | framework | ✓ | ✓ | CONDITIONAL |
+| rogue | tool | ✓ | ✓/$ | CONDITIONAL |
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | opik | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
@@ -355,6 +360,7 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-skills-golang | skill | | ✓ | ADOPT |
 | waza (Microsoft) | tool | ✓ | ✓ | CONDITIONAL |
 | skills-hub | tool | | ✓ | CONDITIONAL |
+| context-engineering-kit | plugin | ✓ | ✓ | CONDITIONAL |
 
 ## Memory & Context
 
@@ -367,6 +373,7 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | LightRAG | tool | ✓ | ✓ | CONDITIONAL |
 | memvid | tool | ✓ | ✓ | CONDITIONAL |
 | kreuzberg | tool | ✓ | ✓ | CONDITIONAL |
+| MineContext | platform | ✓ | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -458,6 +465,7 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | storm | tool | ✓ | ✓ | CONDITIONAL |
 | AutoSci | harness | ✓ | ✓ | CONDITIONAL |
 | notebooklm-py | tool | ✓ | ✓ | CONDITIONAL |
+| evo | tool | ✓ | ✓/$ | CONDITIONAL |
 
 ## Reference
 
@@ -521,15 +529,15 @@ All 443 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 128 | 128 | 100% |
+| Implement | 130 | 130 | 100% |
 | Verify | 17 | 17 | 100% |
-| Review | 28 | 28 | 100% |
+| Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 28 | 28 | 100% |
-| Skills & Plugins | 64 | 64 | 100% |
-| Memory & Context | 43 | 43 | 100% |
+| Outer Loop | 30 | 30 | 100% |
+| Skills & Plugins | 65 | 65 | 100% |
+| Memory & Context | 44 | 44 | 100% |
 | MCP Servers | 33 | 33 | 100% |
-| Research & Discovery | 12 | 12 | 100% |
+| Research & Discovery | 13 | 13 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **443** | **443** | **100%** |
+| **Total** | **451** | **451** | **100%** |
