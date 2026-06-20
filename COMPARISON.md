@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 317 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 320 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -127,6 +127,7 @@ All 317 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codex-plugin-cc | plugin | | ✓ | CONDITIONAL |
 | vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL |
 | re_gent | tool | | ✓ | CONDITIONAL |
+| phantom | platform | ✓ | ✓ | CONDITIONAL |
 
 ## Verify
 
@@ -325,6 +326,7 @@ All 317 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
+| mcp2cli | tool | ✓ | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
@@ -333,6 +335,7 @@ All 317 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | Agent-Reach | tool | | ✓ | CONDITIONAL |
 | aisuite | framework | | ✓ | SKIP |
+| webclaw | tool | | ✓ | CONDITIONAL |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
 | ARIS | skill | ✓ | ✓ | CONDITIONAL |
 | last30days-skill | skill | | ✓ | ADOPT |
@@ -395,7 +398,7 @@ All 317 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 34 | 34 | 100% |
-| Implement | 82 | 82 | 100% |
+| Implement | 83 | 83 | 100% |
 | Verify | 9 | 9 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -403,7 +406,7 @@ All 317 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 22 | 22 | 100% |
-| MCP Servers | 28 | 28 | 100% |
-| Research & Discovery | 7 | 7 | 100% |
+| MCP Servers | 29 | 29 | 100% |
+| Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **317** | **317** | **100%** |
+| **Total** | **320** | **320** | **100%** |

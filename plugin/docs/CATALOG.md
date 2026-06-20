@@ -115,6 +115,7 @@ Frameworks that structure, enhance, or optimize how a single coding agent operat
 | [claude-code-harness](https://github.com/Chachamaru127/claude-code-harness) | harness | Autonomous Plan-Work-Review cycle harness for Claude Code (2.7K stars) | Want a structured autonomous dev loop with built-in review gates | superpowers, ralph-claude-code |
 | [vibecode-pro-max-kit](https://github.com/withkynam/vibecode-pro-max-kit) | harness | Spec-driven coding harness with self-improving context memory and 15-agent autopilot | Agent forgets context and produces spaghetti; need spec-driven memory with automated workflows | superpowers, GSD, ralph-claude-code |
 | [KARIMO](https://github.com/opensesh/KARIMO) | plugin | Product design-driven agent orchestration with sub-agents and agent teams | Need phased adoption from PRD execution to automated review and CI-friendly agent teams | superpowers, gstack |
+| [phantom](https://github.com/ghostwright/phantom) | platform | Persistent "AI co-worker with its own computer" on the Claude Agent SDK — own VM, durable memory (Qdrant), self-evolution, self-built MCP tools, multi-channel (Slack/Telegram/Email/web) + email identity, BYO-model | Agents are disposable (every session is day one); want a standing, self-improving agent with its own isolated machine and memory | ruflo, deer-flow, ralph-claude-code, goose |
 
 ## Memory & Context
 
@@ -329,6 +330,7 @@ Model Context Protocol servers that connect AI agents to external services and c
 | [plumb-mcp](https://github.com/tathagat22/plumb-mcp) | MCP server | Local Figma MCP server with no REST rate limits and a verification loop | Figma's official MCP has rate limits and metered tool-call quotas | Figma-Context-MCP |
 | [figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go) | MCP server | Figma MCP for free users — no rate limits, full read/write, text to designs (1.1K stars) | Official Figma MCP has paid quotas; free users need an alternative | Figma-Context-MCP, plumb-mcp |
 | [pg-aiguide](https://github.com/timescale/pg-aiguide) | MCP server | MCP server + Claude plugin for Postgres — helps AI tools generate correct, idiomatic Postgres (1.8K stars) | AI tools generate incorrect or non-idiomatic Postgres SQL and schema | supabase, prisma (complementary: supabase/prisma do DB operations, pg-aiguide is a Postgres knowledge layer) |
+| [mcp2cli](https://github.com/knowsuchagency/mcp2cli) | tool | Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a CLI at runtime (zero codegen) so agents call tools on demand instead of loading every tool schema each turn | Wiring MCP servers into an agent injects all tool schemas into context every turn, wasting tokens | context-mode, headroom, opensrc |
 
 ## Observability
 
@@ -358,6 +360,7 @@ Tools for AI-assisted research, information gathering, and multi-model reasoning
 | [last30days-skill](https://github.com/mvanhorn/last30days-skill) | skill | Research any topic across Reddit, X, YouTube, HN, Polymarket, and the web | Need current sentiment and discussion, not just static docs | Agent-Reach |
 | [Agent-Reach](https://github.com/Panniantong/Agent-Reach) | tool | Give AI agents eyes to see the internet — read and search Twitter, Reddit, YouTube, GitHub, zero API fees | Need agents to access social/web content without paid APIs | last30days-skill, exa-mcp-server |
 | [aisuite](https://github.com/andrewyng/aisuite) | framework | Simple unified interface to multiple generative AI providers | Switching between AI providers requires different SDKs and APIs | — |
+| [webclaw](https://github.com/0xMassi/webclaw) | tool | Local-first Rust web-extraction engine — URL → clean Markdown/JSON/LLM-text via CLI, MCP server, REST API, and SDKs (AGPL-3.0) | Scrapers hand agents blocked shells or boilerplate-laden raw HTML; need clean, LLM-ready content for RAG/agent context | markitdown, Agent-Reach, last30days-skill |
 | [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | skill | Autonomous research loop (plan→draft→cross-model adversarial review→iterate→persist) as portable skills + a Rust CLI, with a persistent Research Wiki and self-evolution | Single-model self-review is gameable and context is lost between runs; want overnight research with a reviewer model and durable memory | autoresearch, llm-council, deer-flow, deep-research |
 | [PaperOrchestra](https://github.com/Ar9av/PaperOrchestra) | skill | Automated AI research paper writer with benchmark + autoraters, zero API keys | Writing research papers with AI requires manual orchestration | AI-Research-SKILLs, academic-research-skills |
 
