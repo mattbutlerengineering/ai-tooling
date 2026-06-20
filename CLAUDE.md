@@ -66,6 +66,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
   - **fabrication classifier** — each eval's "How we tested" must either disclose it was not run or show a verified hands-on run; a section asserting a specific run with no honesty disclaimer is flagged. (`--fabrication`/`--offline`, no network)
   - **verdict sync** — each eval's `## Verdict` must agree with its `COMPARISON.md` row (tolerates dual verdicts and the KEEP/installed status). (`--verdicts`, offline)
   - **link rot** (opt-in `--links`, ~450 requests) — every `github.com/owner/repo` link in `CATALOG.md` must resolve to its canonical name; flags 404s (dead) and silent renames (moved).
+  - **skill evidence** (opt-in `--skills`, report-only) — lists ADOPT-verdict *skill* evals that have a measured eval vs the review-based backlog; a tracked metric, not a gate (see issue #38 and the skill-eval guidance in `TEMPLATE.md`).
 - If the classifier false-flags an honest review, widen the `HONEST`/`VERIFIED` vocab in the script; if it misses a fabrication, that's a real problem to fix in the eval, not the script.
 
 ## Agent skills

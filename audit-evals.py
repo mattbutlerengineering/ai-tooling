@@ -21,6 +21,12 @@ Two detectors, both proven to catch real problems (see git history, 2026-06-20):
      row. Tolerates dual verdicts ("ADOPT for X — CONDITIONAL otherwise") and the
      KEEP (installed/validated) status standing in for ADOPT. Offline.
 
+  E. SKILL EVIDENCE (opt-in, --skills, REPORT-ONLY) — a skill's value is a
+     behaviour change, so an ADOPT verdict on a *skill* should rest on a measured
+     eval (triggering / with-skill-vs-baseline), not a README review. Lists which
+     ADOPT skills are measured vs the review-based backlog. Does NOT affect the
+     exit code — it's a tracked metric, not a gate (the backlog is pre-existing).
+
 Usage:
   python3 audit-evals.py              # A + B + D (D/B offline; A hits registries)
   python3 audit-evals.py --offline    # B + D only (no network)
@@ -28,6 +34,7 @@ Usage:
   python3 audit-evals.py --fabrication # fabrication classifier only
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
+  python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
 
 Exit code is non-zero if any BROKEN install or FABRICATION candidate is found,
 so it can gate CI or a pre-commit hook.
@@ -211,15 +218,42 @@ def audit_verdicts():
         flagged.append((os.path.basename(p)[:-3], ev, cv))
     return flagged
 
+# ---------------------------------------------------------------- E. skill evidence (report-only)
+# A skill's value is a behaviour change, so an ADOPT verdict on a *skill* should
+# rest on a measured eval (triggering and/or with-skill-vs-baseline), not a README
+# review. This is a backlog report, not a gate — it does not affect the exit code.
+MEASURED = re.compile(r"tiktoken|with[- ]skill|baseline|measured a/b|\ba/b\b|trigger rate|"
+                      r"assertion (passed|failed)|measured ~|token.*reduction.*measured|"
+                      r"\*\*hands-on,? measured|run_eval", re.I)
+
+def audit_skill_evidence():
+    measured, backlog = [], []
+    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
+        if os.path.basename(p) == "TEMPLATE.md": continue
+        t = open(p, encoding="utf-8").read()
+        if not re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", t):
+            continue  # not a skill-type entry
+        vm = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", t)
+        if not vm or vm.group(1) != "ADOPT":
+            continue  # only ADOPT skills carry the "needs measured backing" bar
+        name = os.path.basename(p)[:-3]
+        how = how_section(t)
+        # genuinely measured = has measurement evidence AND is not a disclosed not-run
+        # review (which may merely quote the author's "with-skill" numbers).
+        is_measured = bool(MEASURED.search(how)) and not HONEST.search(how)
+        (measured if is_measured else backlog).append(name)
+    return measured, backlog
+
 # ---------------------------------------------------------------- main
 def main():
     args = sys.argv[1:]
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--skills", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
-    do_links = "--links" in sel  # opt-in: ~450 network requests, slow
+    do_links = "--links" in sel   # opt-in: ~450 network requests, slow
+    do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
     if explicit:
         do_inst = "--installs" in sel
@@ -264,6 +298,14 @@ def main():
                 print(f"  {'DEAD' if res=='dead' else 'MOVED'} {slug}" + (f" -> {res[6:]}" if res.startswith('moved:') else ""))
         else:
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
+    if do_skills:
+        measured, backlog = audit_skill_evidence()
+        tot = len(measured) + len(backlog)
+        print(f"== E. skill evidence (report-only) — {len(measured)}/{tot} ADOPT skills have measured backing ==")
+        for n in measured:
+            print(f"  MEASURED {n}")
+        for n in backlog:
+            print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
     sys.exit(rc)
 
 if __name__ == "__main__":
