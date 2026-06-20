@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 326 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 328 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -23,6 +23,7 @@ All 326 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ccpm | skill | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
+| spec_driven_develop | skill | | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | CONDITIONAL |
 | planning-with-files | skill | | ✓ | SKIP |
@@ -131,6 +132,7 @@ All 326 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | rmux | tool | | ✓ | CONDITIONAL |
 | MiMo-Code | platform | | ✓ | CONDITIONAL |
 | kimi-code | platform | | ✓ | CONDITIONAL |
+| gentle-ai | harness | ✓ | ✓ | CONDITIONAL |
 
 ## Verify
 
@@ -403,8 +405,8 @@ All 326 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 34 | 34 | 100% |
-| Implement | 86 | 86 | 100% |
+| Plan | 35 | 35 | 100% |
+| Implement | 87 | 87 | 100% |
 | Verify | 9 | 9 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -415,4 +417,4 @@ All 326 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 29 | 29 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **326** | **326** | **100%** |
+| **Total** | **328** | **328** | **100%** |
