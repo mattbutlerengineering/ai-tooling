@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 336 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 337 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -397,6 +397,7 @@ All 336 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ctx | tool | | ✓ | CONDITIONAL |
 | system-prompts-leaks | reference | | ✓ | CONDITIONAL |
 | how-claude-code-works | reference | | ✓ | CONDITIONAL |
+| claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL |
 
 ---
 
@@ -424,5 +425,5 @@ All 336 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 25 | 25 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
-| Reference | 36 | 36 | 100% |
-| **Total** | **336** | **336** | **100%** |
+| Reference | 37 | 37 | 100% |
+| **Total** | **337** | **337** | **100%** |
