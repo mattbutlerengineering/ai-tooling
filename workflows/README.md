@@ -18,4 +18,8 @@ When a workflow here proves durable, fold it into `WORKFLOW.md` (the canonical d
 
 ## Index
 
-- [2026-06-19 (am)](2026-06-19-am.md) — spec-driven development, plan→execute→verify, PR-review bots, multi-agent orchestration
+| File | Theme |
+|------|-------|
+| [2026-06-19-am.md](2026-06-19-am.md) | Spec-driven development, plan→execute→verify, PR-review bots, multi-agent orchestration |
+| [2026-06-19-pm.md](2026-06-19-pm.md) | From solo sessions to overnight fleets: the patterns developers are actually running in mid-2026 |
+| [2026-06-20-am.md](2026-06-20-am.md) | Context is the new code: teams shipping reliable agents are winning on context management, verification checkpoints, and code health |
