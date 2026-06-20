@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 356 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 360 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -103,6 +103,7 @@ All 356 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | langchain | framework | | ✓ | SKIP |
 | crewAI | framework | | ✓ | SKIP |
 | vercel-ai | framework | | ✓ | CONDITIONAL |
+| antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
 | nanobot | harness | ✓ | ✓ | CONDITIONAL |
@@ -316,12 +317,14 @@ All 356 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | longhand | MCP server | | ✓ | CONDITIONAL |
 | storybloq | plugin | ✓ | ✓ | CONDITIONAL |
 | claude-code-memory-setup | reference | | ✓ | CONDITIONAL |
+| claude-obsidian | plugin | ✓ | ✓ | CONDITIONAL |
 | ArcRift | tool | | ✓ | CONDITIONAL |
 | context-infrastructure | reference | | ✓ | SKIP |
 | agentic-stack | tool | | ✓ | CONDITIONAL |
 | guild | tool | | ✓ | CONDITIONAL |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
 | supermemory | platform | ✓ | ✓ | CONDITIONAL |
+| MemPalace | tool | ✓ | ✓ | CONDITIONAL |
 | pro-workflow | plugin | ✓ | ✓ | SKIP |
 | hivemind | tool | ✓ | ✓ | CONDITIONAL |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -366,6 +369,7 @@ All 356 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | Agent-Reach | tool | | ✓ | CONDITIONAL |
+| AutoResearchClaw | harness | ✓ | ✓ | CONDITIONAL |
 | aisuite | framework | | ✓ | SKIP |
 | webclaw | tool | | ✓ | CONDITIONAL |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
@@ -434,15 +438,15 @@ All 356 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 37 | 37 | 100% |
-| Implement | 97 | 97 | 100% |
+| Implement | 98 | 98 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 14 | 14 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 28 | 28 | 100% |
+| Memory & Context | 30 | 30 | 100% |
 | MCP Servers | 30 | 30 | 100% |
-| Research & Discovery | 8 | 8 | 100% |
+| Research & Discovery | 9 | 9 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **356** | **356** | **100%** |
+| **Total** | **360** | **360** | **100%** |
