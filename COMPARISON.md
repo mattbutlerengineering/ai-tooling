@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 480 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 481 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -476,6 +476,7 @@ All 480 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL |
 | google-workspace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | mcp-context-forge | MCP server | ✓ | ✓ | CONDITIONAL |
+| gh-aw-mcpg | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -566,7 +567,7 @@ All 480 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 36 | 36 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
-| MCP Servers | 35 | 35 | 100% |
+| MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **480** | **480** | **100%** |
+| **Total** | **481** | **481** | **100%** |
