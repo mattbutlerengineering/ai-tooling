@@ -16,3 +16,4 @@ Each file opens with a one-line theme and a `Sources:` line of cited links, then
 | File | Theme |
 |------|-------|
 | [2026-06-19-pm.md](2026-06-19-pm.md) | From solo sessions to overnight fleets: the patterns developers are actually running in mid-2026 |
+| [2026-06-20-am.md](2026-06-20-am.md) | Context is the new code: teams shipping reliable agents are winning on context management, verification checkpoints, and code health |
