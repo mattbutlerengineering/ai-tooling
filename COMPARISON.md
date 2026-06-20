@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 474 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 476 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -31,6 +31,7 @@ All 474 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | planning-with-files | skill | | ✓ | SKIP |
 | reporails/cli | tool | | $ | CONDITIONAL |
 | repomix | tool | | ✓ | CONDITIONAL |
+| repoprompt-ce | tool | | ✓ | CONDITIONAL |
 | markitdown | tool | | ✓ | ADOPT |
 | serena | MCP server | ✓ | ✓ | ADOPT |
 | ts-morph | tool | | ✓ | CONDITIONAL |
@@ -283,6 +284,7 @@ All 474 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
+| agenta | platform | | ✓ | CONDITIONAL |
 | codeburn | tool | | ✓ | ADOPT |
 | trigger.dev | platform | | ✓ | SKIP |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
@@ -551,16 +553,16 @@ All 474 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 44 | 44 | 100% |
+| Plan | 45 | 45 | 100% |
 | Implement | 144 | 144 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 33 | 33 | 100% |
+| Outer Loop | 34 | 34 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **474** | **474** | **100%** |
+| **Total** | **476** | **476** | **100%** |
