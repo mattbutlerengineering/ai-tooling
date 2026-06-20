@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 300 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 308 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -20,6 +20,7 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | GSD (Get Shit Done) | framework | | ✓ | KEEP |
 | claude-modular | framework | | ✓ | SKIP |
 | spec-kit | framework | | ✓ | CONDITIONAL |
+| ccpm | skill | | ✓ | CONDITIONAL |
 | OpenSpec | framework | | ✓ | CONDITIONAL |
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -29,6 +30,7 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | repomix | tool | | ✓ | CONDITIONAL |
 | markitdown | tool | | ✓ | ADOPT |
 | serena | MCP server | ✓ | ✓ | ADOPT |
+| claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -74,6 +76,9 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | forkd | tool | | ✓ | CONDITIONAL |
 | gastown | tool | | ✓ | CONDITIONAL |
 | goose | platform | | ✓ | CONDITIONAL |
+| open-interpreter | harness | | ✓ | CONDITIONAL |
+| kilocode | platform | | ✓ | CONDITIONAL |
+| grok-cli | platform | | ✓ | CONDITIONAL |
 | gstack | harness | | ✓ | CONDITIONAL |
 | happy | platform | | $ | CONDITIONAL |
 | harness | skill | | ✓ | CONDITIONAL |
@@ -103,6 +108,7 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vercel-sandbox | platform | | ✓/$ | CONDITIONAL |
 | qwen-code | platform | | ✓ | CONDITIONAL |
 | gemini-cli | platform | | ✓ | CONDITIONAL |
+| agents-cli | skill | | ✓ | CONDITIONAL |
 | ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
 | rtk | tool | ✓ | ✓ | CONDITIONAL |
 | ruflo | harness | | ✓ | CONDITIONAL |
@@ -181,6 +187,7 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
 | langfuse | platform | | ✓ | CONDITIONAL |
+| codeburn | tool | | ✓ | ADOPT |
 | trigger.dev | platform | | ✓ | SKIP |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL |
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
@@ -258,6 +265,7 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agentmemory | tool | | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
+| lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | CONDITIONAL |
@@ -377,16 +385,16 @@ All 300 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 31 | 31 | 100% |
-| Implement | 73 | 73 | 100% |
+| Plan | 33 | 33 | 100% |
+| Implement | 77 | 77 | 100% |
 | Verify | 8 | 8 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 10 | 10 | 100% |
+| Outer Loop | 11 | 11 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 21 | 21 | 100% |
+| Memory & Context | 22 | 22 | 100% |
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **300** | **300** | **100%** |
+| **Total** | **308** | **308** | **100%** |
