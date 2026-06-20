@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 479 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 480 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -190,6 +190,7 @@ All 479 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codex-plugin-cc | plugin | | ✓ | CONDITIONAL |
 | vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL |
 | re_gent | tool | | ✓ | CONDITIONAL |
+| h5i | tool | ✓ | ✓ | CONDITIONAL |
 | cli-continues | tool | | ✓ | CONDITIONAL |
 | weave | tool | ✓ | ✓ | CONDITIONAL |
 | phantom | platform | ✓ | ✓ | CONDITIONAL |
@@ -557,7 +558,7 @@ All 479 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 45 | 45 | 100% |
-| Implement | 145 | 145 | 100% |
+| Implement | 146 | 146 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -568,4 +569,4 @@ All 479 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **479** | **479** | **100%** |
+| **Total** | **480** | **480** | **100%** |
