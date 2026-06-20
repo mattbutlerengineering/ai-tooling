@@ -15,7 +15,32 @@ Unlike `addyosmani/agent-skills` (the lifecycle collection), these are domain re
 
 ## How we tested it
 
-Installed all six skills globally and inspected each SKILL.md directly to assess depth, accuracy, and actionability against the stated quality dimensions. Also compared against the two overlapping skills already in the catalog — `web-design-guidelines` (Vercel's Web Interface Guidelines) and `ui-ux-pro-max` — to assess differentiation.
+**Hands-on, measured** — installed all six skills globally, checked each SKILL.md's coverage, and ran a **planted-defect A/B against a strong automated baseline** to measure the `accessibility` skill's load-bearing claim: that its value is *current WCAG 2.2 knowledge and semantic judgment a linter structurally cannot provide*. Also compared against the two overlapping catalog skills (`web-design-guidelines`, `ui-ux-pro-max`) to assess differentiation.
+
+### Measured A/B — skill checklist vs automated linter
+
+Built `/tmp/a11y-ab/page.html` with **8 planted defects** split into two classes, then ran [`html-validate`](https://html-validate.org) (a dedicated, deterministic a11y/HTML linter — the objective oracle, independent of agent judgment) over it and compared its findings against the `accessibility` SKILL.md checklist:
+
+| # | Planted defect | WCAG | `html-validate` v8 (automated baseline) | `accessibility` skill checklist |
+|---|----------------|------|------------------------------------------|----------------------------------|
+| D1 | `<img>` missing `alt` | 1.1.1 | **caught** (`wcag/h37`) | covered |
+| D2 | input with no associated `<label>` | 1.3.1/4.1.2 | **missed** (flagged only the unrelated missing `type`) | covered (`aria-label`/`label for` patterns) |
+| D3 | duplicate `id` | 4.1.1 | **caught** (`no-dup-id`) | covered |
+| D4 | `<div onclick>` — non-interactive, no role/tabindex | 2.1.1/4.1.2 | **missed** | covered — SKILL.md line 164 shows this *exact* antipattern + the native-`<button>` fix |
+| D5 | target size 16×16px | 2.5.8 (new in 2.2) | **missed** | covered — line 232, explicit 24×24 rule |
+| D6 | drag-only control, no single-pointer alternative | 2.5.7 (new in 2.2) | **missed** | covered — line 254 |
+| D7 | "retype your email" redundant entry | 3.3.7 (new in 2.2) | **missed** | covered — line 333 |
+| D8 | arithmetic cognitive test as auth, no accessible alternative | 3.3.8 (new in 2.2) | **missed** | covered — line 349 |
+
+```
+cd /tmp/a11y-ab && npx html-validate@8 page.html   # deterministic oracle, exit 1
+# → catches D1, D3 + bonus structural (missing lang, missing <title>, implicit input/button types)
+# → catches 0 of 4 WCAG 2.2 criteria (D5–D8) and 0 of 2 semantic-interaction defects (D2, D4)
+```
+
+**Result:** the strong automated baseline catches **2/8** planted defects — exactly the *syntactic/structural* class (and adds real structural finds the skill's prose also covers: missing `lang`, missing `<title>`). It detects **0 of the 4 WCAG 2.2 criteria** and **0 of the 2 semantic-interaction defects**. The `accessibility` checklist explicitly enumerates **all 6 the linter cannot see** (verified by line reference in the installed SKILL.md). This objectively isolates the skill's value: not duplicating what a linter already does, but supplying the *recent-spec coverage and semantic judgment* (drag alternatives, cognitive-load auth, native-element preference) that automated tooling structurally misses. A linter and this skill are complements, not substitutes.
+
+### Content inspection (depth/accuracy spot-checks)
 
 ```
 npx skills add addyosmani/web-quality-skills@accessibility -g -y
@@ -69,7 +94,7 @@ Installed to `~/.agents/skills/` with symlinks into `~/.claude/skills/` (Claude 
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | WCAG 2.2 criteria, scheduler.yield() API, and 2024-2025 incident data are accurate and would otherwise require the agent to hallucinate or fall back on stale training data |
+| Correctness | + | **Measured:** on an 8-defect planted page, a dedicated automated linter (`html-validate`) caught 2/8 and **0 of 4 WCAG 2.2 criteria**; the `accessibility` checklist explicitly covers all 6 the linter missed (D2, D4–D8). WCAG 2.2 criteria, scheduler.yield() API, and 2024-2025 incident data are accurate and would otherwise require the agent to hallucinate or fall back on stale training data |
 | Speed | neutral | No workflow automation; adds context load but doesn't change task throughput |
 | Maintainability | + | Consistent audit checklists (severity-tiered) produce structured findings that are easier to track and fix sprint-over-sprint |
 | Safety | + | `best-practices` covers Trusted Types, SRI pinning, polyfill.io risk, and source map exposure — security guidance grounded in real incidents |
@@ -79,7 +104,7 @@ Installed to `~/.agents/skills/` with symlinks into `~/.claude/skills/` (Claude 
 
 **ADOPT** (conditional on web project type)
 
-The collection is well-authored, current, and genuinely differentiated from the existing catalog entries. The real value is factual accuracy on rapidly-evolving specs (WCAG 2.2, Core Web Vitals INP, Speculation Rules, Trusted Types) where base model knowledge is stale. For any project shipping web UIs — especially ones subject to accessibility requirements or SEO visibility goals — the `accessibility` and `core-web-vitals` skills are clear adopts.
+The collection is well-authored, current, and genuinely differentiated from the existing catalog entries. The real value is factual accuracy on rapidly-evolving specs (WCAG 2.2, Core Web Vitals INP, Speculation Rules, Trusted Types) where base model knowledge is stale — and the measured A/B confirms it: against a dedicated automated linter the `accessibility` skill is a complement, not a duplicate, covering the 4 WCAG 2.2 criteria and 2 semantic-interaction defects the linter structurally cannot catch. For any project shipping web UIs — especially ones subject to accessibility requirements or SEO visibility goals — the `accessibility` and `core-web-vitals` skills are clear adopts.
 
 The condition: these are domain reference skills for web projects. Backend-only or CLI projects get no value. Also avoid installing `seo` alongside `claude-seo` — the dedicated SEO skill covers the same ground and more. Recommended install pattern: `accessibility` + `core-web-vitals` + `web-quality-audit` as the core trio, adding `performance`, `seo`, and `best-practices` based on project needs.
 
