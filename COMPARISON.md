@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 310 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 311 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -136,6 +136,7 @@ All 310 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
 | passmark | tool | ✓ | ✓ | CONDITIONAL |
 | diagnosing-bugs | skill | | ✓ | CONDITIONAL |
+| mirrord | tool | | ✓/$ | CONDITIONAL |
 
 ## Review
 
@@ -389,7 +390,7 @@ All 310 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|---------------|
 | Plan | 33 | 33 | 100% |
 | Implement | 79 | 79 | 100% |
-| Verify | 8 | 8 | 100% |
+| Verify | 9 | 9 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
@@ -399,4 +400,4 @@ All 310 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **310** | **310** | **100%** |
+| **Total** | **311** | **311** | **100%** |
