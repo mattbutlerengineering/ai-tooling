@@ -15,7 +15,7 @@ claude install-skill JuliusBrussee/caveman
 claude install-skill trailofbits/skills
 
 # 4. Visual verification for UI changes
-claude install-skill nichochar/agent-browser
+npx skills add vercel-labs/agent-browser
 
 # 5. CI integration for async review
 # Add .github/workflows/claude.yml — see evaluations/claude-code-action.md
@@ -52,7 +52,7 @@ claude install-skill nichochar/agent-browser
 
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
-| [agent-browser](https://github.com/nichochar/agent-browser) | Browser automation for visual verification of UI changes | `claude install-skill nichochar/agent-browser` | Correctness |
+| [agent-browser](https://github.com/vercel-labs/agent-browser) | Browser automation for visual verification of UI changes | `npx skills add vercel-labs/agent-browser` | Correctness |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | Mutation testing — tests the quality of your tests | `npm install -D @stryker-mutator/core` | Correctness |
 | [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Six web quality audit skills: accessibility, SEO, perf, Core Web Vitals, best practices | `npx skills add addyosmani/web-quality-skills -g -y` | Correctness, Maintainability |
 | [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and testing via MCP — lets agents drive real browsers | `claude mcp add playwright -- npx @playwright/mcp@latest` | Correctness |

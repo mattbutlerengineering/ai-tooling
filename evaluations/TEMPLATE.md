@@ -15,8 +15,10 @@
 
 {Describe the actual hands-on usage. What project did you run it on? What commands did you execute? What was the input and what came back? This section must contain evidence of real usage, not README paraphrasing.}
 
+> **Honesty rule (checked by `audit-evals.py`):** if you did NOT actually run the tool, say so plainly — open this section with a disclaimer like "**Source-grounded review — not run hands-on**" and explain why (needs an API key, heavy infra, untrusted install, etc.). Never invent a run, specific metrics, or example outputs; a fabricated run is worse than an honest review. Quote any vendor benchmark as the vendor's, not as measured. Verify every install command resolves (npm/PyPI/crates/GitHub) before publishing — a wrong install command is a dead giveaway the tool was never run.
+
 ```
-{Paste the actual command(s) you ran}
+{Paste the actual command(s) you ran — or, for a not-run review, the documented install/usage clearly labeled as such}
 ```
 
 ## What worked
