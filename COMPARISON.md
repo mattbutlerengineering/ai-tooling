@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 354 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 356 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -61,6 +61,7 @@ All 354 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | CLIProxyAPI | tool | | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
+| orca | platform | ✓ | ✓ | CONDITIONAL |
 | Nimbalyst | platform | | ✓ | CONDITIONAL |
 | agent-of-empires | tool | | ✓ | CONDITIONAL |
 | AgentsMesh | platform | ✓ | ✓ | CONDITIONAL |
@@ -108,6 +109,7 @@ All 354 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Hermes Agent | harness | ✓ | ✓ | CONDITIONAL |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
+| lazycodex | harness | ✓ | ✓ | CONDITIONAL |
 | oh-my-pi | platform | | ✓ | SKIP |
 | omnigent | framework | | ✓ | CONDITIONAL |
 | opencode | platform | | ✓ | CONDITIONAL |
@@ -432,7 +434,7 @@ All 354 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 37 | 37 | 100% |
-| Implement | 95 | 95 | 100% |
+| Implement | 97 | 97 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -443,4 +445,4 @@ All 354 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **354** | **354** | **100%** |
+| **Total** | **356** | **356** | **100%** |
