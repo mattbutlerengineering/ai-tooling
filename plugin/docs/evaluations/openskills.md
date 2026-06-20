@@ -17,20 +17,29 @@ Architecturally this is the **lightweight, headless, CLI counterpart** to the ca
 
 ## How we tested it
 
-Method: inspected the repository, full README, and the published npm package metadata; pulled maturity/adoption signals via the GitHub and npm registry APIs; read the supported-source list, the `--universal` priority order, the command/flag surface, and the AGENTS.md XML format to determine the mechanism (file installer + `read`-shim load contract vs. a runtime agent client or MCP server). Compared directly against the two calibration evals already in this catalog (skills-manage = SKIP, capa = CONDITIONAL), both of which are skill/config portability tools. **Did not install or run the CLI** — this is a repo + README + registry review, not hands-on usage. No metrics were invented; all numbers below are quoted from the GitHub/npm APIs.
+**Partially hands-on** (the loader contract was exercised live; the GitHub-install path was deliberately not run — see below), plus the repo/README/registry review for maturity and overlap context.
+
+Ran the actual CLI (`npx openskills`) and exercised the three loader commands that constitute its agent-facing contract:
 
 ```bash
-gh api repos/numman-ali/openskills --jq '{stars,license,description,pushed_at,created_at,open_issues,forks}'
-# 10,446 stars, Apache-2.0 (API shows NOASSERTION; LICENSE file is Apache 2.0, "Copyright 2025 OpenSkills Contributors"),
-# TypeScript, created 2025-10-26, pushed 2026-01-18, 43 open issues, 661 forks
-gh api repos/numman-ali/openskills/readme --jq '.content' | base64 -d        # mechanism, AGENTS.md format, FAQ
-gh api repos/numman-ali/openskills/releases --jq '.[].tag_name'              # v1.0.0 … v1.5.0 (post-1.0, 9 releases)
-gh api repos/numman-ali/openskills/contributors --jq 'length'               # 2 contributors
-npm view openskills version description license time.created time.modified  # v1.5.0, npm published 2025-10-26
-curl -s https://api.npmjs.org/downloads/point/last-month/openskills          # 19,194 downloads (2026-05-20..06-18)
-curl -s https://api.npmjs.org/downloads/point/last-week/openskills           # 4,616 downloads
-grep -niE 'openskills|skills-manage|capa|refly|skill-creator' CATALOG.md     # overlap check
+# list — discovers installed skills and labels their scope
+npx openskills list
+#   -> e.g. "find-skills (project)", "accessibility (global)" — reads .agent/skills/, ~/.agent/skills/, .claude/skills/, ~/.claude/skills/
+
+# read — the progressive-disclosure load shim (authored a local .agent/skills/greet/SKILL.md)
+npx openskills read greet
+#   -> prints "Base directory: .../.agent/skills/greet" + the full SKILL.md body  (verified)
+
+# sync — writes the AGENTS.md load block
+npx openskills sync --yes
+#   -> "Created AGENTS.md ... Added skills section (54 skill(s))"
 ```
+
+`sync` produced the **exact `<skills_system>` / `<available_skills>` XML** the eval describes, with a `<usage>` block instructing the agent to invoke `npx openskills read <name>`, and each `<skill>` tagged `<name>`/`<description>`/`<location>` (my local `greet` showed `<location>project</location>`). The `read` precedence (`.agent/skills/` project-universal → `~/.agent/skills/` global-universal → `.claude/skills/` → `~/.claude/skills/`) is exactly the documented order. So the **load shim is verified end-to-end**, not just read from the README.
+
+**Did NOT run `openskills install <github-source>`** — installing skills from an arbitrary external repo executes untrusted external instructions/content, and the agent sandbox's auto-mode classifier correctly blocked it without explicit user authorization. That is itself a useful finding: the *load* side is plain-file/CLI and safe to exercise, but the *install* side pulls and lands third-party content and should be treated as a trust decision.
+
+Maturity/overlap signals were pulled via the GitHub/npm APIs (10,446 stars, Apache-2.0, created 2025-10-26, last pushed 2026-01-18, 2 contributors, ~19K npm downloads/mo); none were invented.
 
 ## What worked
 
