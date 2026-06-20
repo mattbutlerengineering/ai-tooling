@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 451 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 458 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -146,6 +146,11 @@ All 451 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mastra | framework | ✓ | ✓ | CONDITIONAL |
 | pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL |
 | pi-subagents | plugin | ✓ | ✓ | CONDITIONAL |
+| CopilotKit | framework | ✓ | ✓ | CONDITIONAL |
+| gptme | harness | ✓ | ✓ | CONDITIONAL |
+| zeroshot | harness | ✓ | ✓ | CONDITIONAL |
+| ccs | tool | ✓ | ✓ | CONDITIONAL |
+| beta9 | platform | ✓ | ✓/$ | CONDITIONAL |
 | cua | harness | ✓ | ✓/$ | CONDITIONAL |
 | txtai | framework | ✓ | ✓ | CONDITIONAL |
 | UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
@@ -374,6 +379,7 @@ All 451 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | memvid | tool | ✓ | ✓ | CONDITIONAL |
 | kreuzberg | tool | ✓ | ✓ | CONDITIONAL |
 | MineContext | platform | ✓ | ✓ | CONDITIONAL |
+| obsidian-second-brain | skill | ✓ | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -448,6 +454,7 @@ All 451 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL |
 | DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL |
+| google-workspace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -529,15 +536,15 @@ All 451 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 130 | 130 | 100% |
+| Implement | 135 | 135 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 30 | 30 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
-| Memory & Context | 44 | 44 | 100% |
-| MCP Servers | 33 | 33 | 100% |
+| Memory & Context | 45 | 45 | 100% |
+| MCP Servers | 34 | 34 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **451** | **451** | **100%** |
+| **Total** | **458** | **458** | **100%** |
