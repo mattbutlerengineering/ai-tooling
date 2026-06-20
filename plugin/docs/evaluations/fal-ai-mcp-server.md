@@ -1,6 +1,6 @@
 # Evaluation: fal-ai-mcp-server
 
-**Repo:** [raveenb/fal-mcp-server](https://github.com/raveenb/fal-mcp-server) (surfaced via the org alias `luminarylane/fal-mcp-server`)
+**Repo:** [luminarylane/fal-mcp-server](https://github.com/luminarylane/fal-mcp-server) (formerly `raveenb/fal-mcp-server`, which now redirects here)
 **Stars:** 50 | **Last updated:** 2026-05-04 (pushed; created 2025-08-28) | **License:** MIT
 **Dev loop stage:** Implement (generating media assets — images/video/audio — as build artifacts)
 **Layer:** Tooling (an MCP server wrapping the fal.ai generative-media API)
@@ -68,4 +68,4 @@ This is the right pick for the catalog's `fal-ai-mcp-server` stub precisely beca
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [fal-ai-mcp-server](https://github.com/raveenb/fal-mcp-server) | MCP server | Image, video, and audio generation/editing via fal.ai (600+ models) with built-in pricing, usage, and model-recommendation tools | Agent needs to generate or edit media assets (images, video, music) without leaving the session for a web UI | blender-mcp (complementary: blender = 3D modeling, fal-ai = 2D/video/audio generation) |
+| [fal-ai-mcp-server](https://github.com/luminarylane/fal-mcp-server) | MCP server | Image, video, and audio generation/editing via fal.ai (600+ models) with built-in pricing, usage, and model-recommendation tools | Agent needs to generate or edit media assets (images, video, music) without leaving the session for a web UI | blender-mcp (complementary: blender = 3D modeling, fal-ai = 2D/video/audio generation) |

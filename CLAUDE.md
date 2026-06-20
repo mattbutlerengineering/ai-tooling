@@ -64,6 +64,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `python3 audit-evals.py` runs two detectors and exits non-zero on any problem (gate it in CI/pre-commit):
   - **install resolver** — every install command in `STACK.md`/`CATALOG.md`/`evaluations/` must point at a real artifact (npm/PyPI/crates.io/GitHub). A broken command means the tool was likely never run. (`--installs` only)
   - **fabrication classifier** — each eval's "How we tested" must either disclose it was not run or show a verified hands-on run; a section asserting a specific run with no honesty disclaimer is flagged. (`--fabrication`/`--offline`, no network)
+  - **link rot** (opt-in `--links`, ~450 requests) — every `github.com/owner/repo` link in `CATALOG.md` must resolve to its canonical name; flags 404s (dead) and silent renames (moved).
 - If the classifier false-flags an honest review, widen the `HONEST`/`VERIFIED` vocab in the script; if it misses a fabrication, that's a real problem to fix in the eval, not the script.
 
 ## Agent skills

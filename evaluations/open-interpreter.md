@@ -1,6 +1,6 @@
 # Evaluation: open-interpreter
 
-**Repo:** [openinterpreter/open-interpreter](https://github.com/openinterpreter/open-interpreter)
+**Repo:** [openinterpreter/openinterpreter](https://github.com/openinterpreter/openinterpreter)
 **Stars:** 64,057 | **Last updated:** 2026-06-19 (pushed; created 2023-07-14) | **License:** Apache-2.0
 **Dev loop stage:** Inner-loop **Implement** (and adjacent Verify via its QA skill) — a terminal coding agent that plans, edits, and runs code on your machine.
 **Layer:** Tooling/Infrastructure (a standalone Rust TUI binary with native OS sandboxing; you bring your own model/provider)
@@ -18,12 +18,12 @@ The defining feature of the current product is **harness emulation**: `/harness`
 **Source-grounded inspection — not installed, not run.** No `curl … | sh` install, no `interpreter` session, no `/harness` switch, no code executed on a host. The "best performance out of low-cost models" and "native sandboxing" claims are the authors' README framing; I did not benchmark model quality or audit the sandbox implementation. Every claim below comes from GitHub metadata, the README, and the recursive file tree.
 
 ```bash
-gh api repos/openinterpreter/open-interpreter --jq '{desc,stars:.stargazers_count,forks:.forks_count,pushed:.pushed_at[0:10],created:.created_at[0:10],license:.license.spdx_id,topics}'
+gh api repos/openinterpreter/openinterpreter --jq '{desc,stars:.stargazers_count,forks:.forks_count,pushed:.pushed_at[0:10],created:.created_at[0:10],license:.license.spdx_id,topics}'
 # desc: "A lightweight coding agent for open models like Deepseek, Kimi, and Qwen"; 64,057 stars; 5,551 forks; Apache-2.0
 # topics: coding-agent, deepseek, interpreter, kimi, qwen, rust, tui
-gh api repos/openinterpreter/open-interpreter/readme --jq '.content' | base64 -d | head -120   # Rust rewrite, "fork of OpenAI's Codex"
-gh api "repos/openinterpreter/open-interpreter/git/trees/HEAD?recursive=1" --jq '.tree[].path'  # .codex/ harness, Bazel build
-gh api repos/openinterpreter/open-interpreter/releases --jq 'length'   # 30 (page-1 cap; actively released)
+gh api repos/openinterpreter/openinterpreter/readme --jq '.content' | base64 -d | head -120   # Rust rewrite, "fork of OpenAI's Codex"
+gh api "repos/openinterpreter/openinterpreter/git/trees/HEAD?recursive=1" --jq '.tree[].path'  # .codex/ harness, Bazel build
+gh api repos/openinterpreter/openinterpreter/releases --jq 'length'   # 30 (page-1 cap; actively released)
 ```
 
 ## What worked
@@ -62,4 +62,4 @@ Compared to neighbors: **qwen-code** and **DeepSeek-Reasonix** are model-native 
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [open-interpreter](https://github.com/openinterpreter/open-interpreter) | harness | Rust terminal coding agent (a Codex fork) with "harness emulation" to get the best out of low-cost open models (Deepseek/Kimi/Qwen), native OS sandboxing, ACP/MCP/skills | Want a sandboxed terminal agent tuned to run cheap open models well, not frontier-priced ones | opencode, goose, qwen-code, gemini-cli, DeepSeek-Reasonix, oh-my-pi |
+| [open-interpreter](https://github.com/openinterpreter/openinterpreter) | harness | Rust terminal coding agent (a Codex fork) with "harness emulation" to get the best out of low-cost open models (Deepseek/Kimi/Qwen), native OS sandboxing, ACP/MCP/skills | Want a sandboxed terminal agent tuned to run cheap open models well, not frontier-priced ones | opencode, goose, qwen-code, gemini-cli, DeepSeek-Reasonix, oh-my-pi |

@@ -1,6 +1,6 @@
 # Evaluation: Supabase MCP
 
-**Repo:** [supabase-community/supabase-mcp](https://github.com/supabase-community/supabase-mcp)
+**Repo:** [supabase/mcp](https://github.com/supabase/mcp)
 **Stars:** 2,742 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
@@ -65,4 +65,4 @@ Use when building on Supabase. The server's security model (read-only mode, proj
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [supabase](https://github.com/supabase-community/supabase-mcp) | MCP server | Connects Claude to Supabase for database, functions, storage, and branch management | Eliminates dashboard context-switching for schema design, migrations, edge functions, and debugging | prisma |
+| [supabase](https://github.com/supabase/mcp) | MCP server | Connects Claude to Supabase for database, functions, storage, and branch management | Eliminates dashboard context-switching for schema design, migrations, edge functions, and debugging | prisma |

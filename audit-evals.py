@@ -13,11 +13,16 @@ Two detectors, both proven to catch real problems (see git history, 2026-06-20):
      A section that asserts a specific run (past-tense verbs, invented metrics) with
      NO honesty disclaimer is a fabrication candidate to review.
 
+  C. LINK ROT (opt-in, --links) — every github.com/owner/repo link in CATALOG.md
+     should resolve to its canonical current name. Flags 404s (dead) and silent
+     renames (moved). ~450 network requests, so it is off by default.
+
 Usage:
-  python3 audit-evals.py              # both detectors, network checks on
-  python3 audit-evals.py --offline    # classifier only (no registry/network calls)
+  python3 audit-evals.py              # A + B (B is offline; A hits registries)
+  python3 audit-evals.py --offline    # classifier only (no network)
   python3 audit-evals.py --installs   # install resolver only
   python3 audit-evals.py --fabrication # classifier only
+  python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
 
 Exit code is non-zero if any BROKEN install or FABRICATION candidate is found,
 so it can gate CI or a pre-commit hook.
@@ -135,14 +140,44 @@ def audit_fabrication():
             flagged.append(os.path.basename(p)[:-3])
     return flagged
 
+# ---------------------------------------------------------------- C. link rot
+def check_repo(slug):
+    """Return 'ok', 'dead', or 'moved:<new>' for a github owner/repo slug."""
+    url = f"https://github.com/{slug}"
+    try:
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "ai-tooling-audit"})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            final = r.geturl().replace("https://github.com/", "").rstrip("/")
+            if final.lower() != slug.lower():
+                return f"moved:{final}"
+            return "ok"
+    except urllib.error.HTTPError as e:
+        return "dead" if e.code == 404 else "ok"
+    except Exception:
+        return "ok"  # network hiccup — don't false-flag
+
+def audit_links():
+    import concurrent.futures
+    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    slugs = sorted(set(re.findall(r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)", text)))
+    problems = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
+        for slug, res in zip(slugs, ex.map(check_repo, slugs)):
+            if res != "ok":
+                problems.append((slug, res))
+    return problems, len(slugs)
+
 # ---------------------------------------------------------------- main
 def main():
     args = sys.argv[1:]
-    do_inst = not args or "--installs" in args
-    do_fab  = not args or "--fabrication" in args or "--offline" in args
-    if "--offline" in args: do_inst = False
-    if "--installs" in args: do_fab = False
-    if "--fabrication" in args: do_inst = False
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--offline")]
+    do_inst = (not sel) or "--installs" in sel
+    do_fab  = (not sel) or "--fabrication" in sel or "--offline" in sel
+    do_links = "--links" in sel  # opt-in: ~450 network requests, slow
+    if "--offline" in sel: do_inst = False
+    if "--installs" in sel: do_fab = False
+    if "--fabrication" in sel: do_inst = False
+    if sel == ["--links"]: do_inst = do_fab = False
 
     rc = 0
     if do_inst:
@@ -164,6 +199,15 @@ def main():
                 print(f"    - {b}")
         else:
             print("  OK — every 'How we tested' either discloses not-run or shows a verified run")
+    if do_links:
+        print("== C. link rot (CATALOG.md repo links) ==")
+        problems, total = audit_links()
+        if problems:
+            rc = 1
+            for slug, res in problems:
+                print(f"  {'DEAD' if res=='dead' else 'MOVED'} {slug}" + (f" -> {res[6:]}" if res.startswith('moved:') else ""))
+        else:
+            print(f"  OK — all {total} catalog repo links resolve to their canonical names")
     sys.exit(rc)
 
 if __name__ == "__main__":
