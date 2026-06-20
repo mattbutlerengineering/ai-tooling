@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 486 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 487 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -157,6 +157,7 @@ All 486 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | osaurus | harness | ✓ | ✓ | CONDITIONAL |
 | aichat | harness | ✓ | ✓ | CONDITIONAL |
 | aider | harness | ✓ | ✓ | CONDITIONAL |
+| codex | harness | ✓ | ✓ | CONDITIONAL |
 | continue | harness | ✓ | ✓ | CONDITIONAL |
 | cline | harness | ✓ | ✓ | CONDITIONAL |
 | Roo-Code | harness | ✓ | ✓ | CONDITIONAL |
@@ -564,7 +565,7 @@ All 486 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 45 | 45 | 100% |
-| Implement | 151 | 151 | 100% |
+| Implement | 152 | 152 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -575,4 +576,4 @@ All 486 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **486** | **486** | **100%** |
+| **Total** | **487** | **487** | **100%** |
