@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 472 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 474 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -152,6 +152,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentscope | framework | ✓ | ✓ | CONDITIONAL |
 | open-multi-agent | framework | ✓ | ✓ | CONDITIONAL |
 | eino | framework | ✓ | ✓ | CONDITIONAL |
+| vercel/workflow | framework | ✓ | ✓/$ | CONDITIONAL |
 | osaurus | harness | ✓ | ✓ | CONDITIONAL |
 | aichat | harness | ✓ | ✓ | CONDITIONAL |
 | GenericAgent | harness | ✓ | ✓ | CONDITIONAL |
@@ -501,6 +502,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ai-agents-for-beginners | reference | | ✓ | CONDITIONAL |
 | mcp-for-beginners | reference | | ✓ | ADOPT |
 | genai-agents | reference | | ✓ | CONDITIONAL |
+| agents-towards-production | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | CONDITIONAL |
@@ -550,7 +552,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 44 | 44 | 100% |
-| Implement | 143 | 143 | 100% |
+| Implement | 144 | 144 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -560,5 +562,5 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
-| Reference | 41 | 41 | 100% |
-| **Total** | **472** | **472** | **100%** |
+| Reference | 42 | 42 | 100% |
+| **Total** | **474** | **474** | **100%** |
