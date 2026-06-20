@@ -1,0 +1,41 @@
+name: integrity
+
+# Enforces the catalog integrity apparatus on every push and PR. The detectors
+# already exist (audit-evals.py A/B/D/G + reconcile-counts.py --check); this is the
+# server-side, can't-be-skipped backstop. Complements the local hooks in #39.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      # detector A's install resolver shells out to `gh api` for owner/repo slugs;
+      # GITHUB_TOKEN authenticates it so it isn't rate-limited.
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Fast, deterministic, no network — fails the PR early on the common drift.
+      - name: Offline gates (fabrication / verdict / comparison)
+        run: python3 audit-evals.py --offline
+
+      - name: Classifier + eval-parser selftest
+        run: python3 audit-evals.py --selftest
+
+      - name: Count consistency (reconcile --check)
+        run: python3 reconcile-counts.py --check
+
+      # Network: resolves every install command against npm / PyPI / crates / GitHub.
+      # Node and gh are preinstalled on ubuntu-latest.
+      - name: Install resolver
+        run: python3 audit-evals.py --installs
