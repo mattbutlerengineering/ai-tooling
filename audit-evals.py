@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Five detectors (A-E), each proven to catch real problems (see git history,
+Six detectors (A-F), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -28,6 +28,12 @@ Five detectors (A-E), each proven to catch real problems (see git history,
      ADOPT skills are measured vs the review-based backlog. Does NOT affect the
      exit code — it's a tracked metric, not a gate (the backlog is pre-existing).
 
+  F. DANGLING OVERLAPS (opt-in, --overlaps, REPORT-ONLY) — an "Overlaps with"
+     token naming a tool that isn't itself catalogued is either a deliberate
+     external peer (allowed) or a real gap (a notable tool we forgot). The more
+     rows cite the same uncatalogued token, the likelier it's a gap — this is how
+     aider/continue/agenta were found. Report-only; surfaces candidates.
+
 Usage:
   python3 audit-evals.py              # A + B + D (D/B offline; A hits registries)
   python3 audit-evals.py --offline    # B + D only (no network)
@@ -36,6 +42,7 @@ Usage:
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
+  python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
@@ -322,6 +329,49 @@ def audit_skill_evidence():
         (measured if ev.evidence.is_measured else backlog).append(ev.name)
     return measured, backlog
 
+# ---------------------------------------------------------------- F. dangling overlaps (report-only)
+# Each entry's "Overlaps with" cell names peer tools. A token naming a tool that
+# ISN'T itself catalogued is either a deliberate external/conceptual peer (the
+# format allows this — e.g. "aider-style (ext.)") or a real gap: a notable tool we
+# forgot to add. This is exactly how aider, continue, and agenta were found. The
+# more rows reference the same uncatalogued token, the likelier it is a real gap.
+# Report-only — surfaces candidates for human review; does not affect exit code.
+_OVL_STRIP = lambda s: re.sub(r"\s*\(.*?\)", "", s).strip().lower()
+_OVL_SKIP = ("complementary", "different", "approach", "same repo",
+             "conceptual", "none", "—", "–")
+
+def audit_overlaps():
+    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    names, rows = set(), []
+    for line in text.splitlines():
+        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
+        if m:
+            names.add(m.group(1).lower())
+            names.add(_OVL_STRIP(m.group(1)))  # also the parenthetical-stripped form
+            rows.append(line)
+        else:  # unlinked entries like "| OMEGA | MCP server |"
+            m2 = re.match(r"\|\s*([A-Za-z0-9][\w.-]+)\s*\|\s*"
+                          r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)\s*\|", line)
+            if m2:
+                names.add(m2.group(1).lower())
+    from collections import Counter
+    miss = Counter()
+    for line in rows:
+        cells = line.split("|")
+        if len(cells) < 6:
+            continue
+        for tok in cells[-2].split(","):  # the "Overlaps with" cell
+            t = _OVL_STRIP(tok)
+            tl = tok.lower()
+            if (not t or "ext." in tl or "=" in tok or ";" in tok
+                    or tok.count("(") != tok.count(")")  # mid-parenthetical fragment
+                    or len(t) > 22 or len(t.split()) > 2
+                    or any(x in tl for x in _OVL_SKIP)):
+                continue  # external/conceptual peer or prose fragment, not a gap
+            if t not in names:
+                miss[t] += 1
+    return miss.most_common()
+
 # ---------------------------------------------------------------- selftest
 def selftest():
     """Lock in the evidence-classification precedence. Run: audit-evals.py --selftest"""
@@ -377,13 +427,14 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--skills", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--skills", "--overlaps", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
+    do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
     if explicit:
         do_inst = "--installs" in sel
@@ -436,6 +487,17 @@ def main():
             print(f"  MEASURED {n}")
         for n in backlog:
             print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
+    if do_overlaps:
+        gaps = audit_overlaps()
+        strong = [(t, c) for t, c in gaps if c >= 2]
+        print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer tokens ==")
+        if not gaps:
+            print("  OK — every 'Overlaps with' token resolves to a catalog entry")
+        for t, c in strong:
+            print(f"  GAP?  {t}  ({c} refs — likely a notable tool missing from the catalog)")
+        for t, c in gaps:
+            if c < 2:
+                print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
     sys.exit(rc)
 
 if __name__ == "__main__":

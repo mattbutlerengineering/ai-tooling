@@ -61,12 +61,14 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 
 ## Integrity audit
 
-- `python3 audit-evals.py` runs two detectors and exits non-zero on any problem (gate it in CI/pre-commit):
+- `python3 audit-evals.py` runs the gating detectors (A install, B fabrication, D verdict sync) and exits non-zero on any problem (gate it in CI/pre-commit); opt-in detectors C/E/F and `--selftest` add more checks:
   - **install resolver** — every install command in `STACK.md`/`CATALOG.md`/`evaluations/` must point at a real artifact (npm/PyPI/crates.io/GitHub). A broken command means the tool was likely never run. (`--installs` only)
   - **fabrication classifier** — each eval's "How we tested" must either disclose it was not run or show a verified hands-on run; a section asserting a specific run with no honesty disclaimer is flagged. (`--fabrication`/`--offline`, no network)
   - **verdict sync** — each eval's `## Verdict` must agree with its `COMPARISON.md` row (tolerates dual verdicts and the KEEP/installed status). (`--verdicts`, offline)
   - **link rot** (opt-in `--links`, ~450 requests) — every `github.com/owner/repo` link in `CATALOG.md` must resolve to its canonical name; flags 404s (dead) and silent renames (moved).
   - **skill evidence** (opt-in `--skills`, report-only) — lists ADOPT-verdict *skill* evals that have a measured eval vs the review-based backlog; a tracked metric, not a gate (see issue #38 and the skill-eval guidance in `TEMPLATE.md`).
+  - **dangling overlaps** (opt-in `--overlaps`, report-only) — an "Overlaps with" token naming a tool that isn't itself catalogued is either a deliberate external/conceptual peer (allowed) or a real gap; the more rows cite the same token, the likelier a gap (how `aider`/`continue`/`agenta` were found). Surfaces candidates for human review; not a gate.
+  - **selftest** (`--selftest`, offline) — unit-tests the evidence classifier and the Evaluation parser; exits non-zero on a failing assertion.
 - If the classifier false-flags an honest review, widen the `HONEST`/`VERIFIED` vocab in the script; if it misses a fabrication, that's a real problem to fix in the eval, not the script.
 
 ## Agent skills
