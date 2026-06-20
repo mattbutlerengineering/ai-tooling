@@ -23,15 +23,28 @@ The load-bearing idea is step 2 + the "never invent behaviour / always resolve /
 
 ## How we tested it
 
-The skill is already installed in this environment (it appears in the active skills list as `resolving-merge-conflicts`, alongside the rest of Matt Pocock's engineering skills). Evaluation combined (a) reading the actual `SKILL.md` source pulled from the repo, (b) inspecting the repo's structure and maintenance signals, and (c) reasoning about the procedure against an agent's known default conflict behaviour. Not exercised against a live conflict in a throwaway repo — this is a procedure-review evaluation of a prompt-only skill, so the artifact under test *is* the five steps, which are reproduced in full above.
+**Hands-on, measured** — a with-skill-vs-baseline A/B on a real git merge built to expose the skill's load-bearing claim (step 4: semantic conflicts hide behind *text-clean* merges). Constructed a throwaway repo where two branches change **non-overlapping files**, so git auto-merges with **no conflict markers and a clean `git status`** — yet the result is broken:
 
-```bash
-gh api repos/mattpocock/skills --jq '{stars,license,description,pushed,updated}'
-gh api "repos/mattpocock/skills/git/trees/main?recursive=1" --jq '.tree[].path' | grep -i merge
-gh api "repos/mattpocock/skills/contents/skills/engineering/resolving-merge-conflicts/SKILL.md" --jq '.content' | base64 -d
-# Catalog overlap scan:
-grep -inE "merge|rebase|conflict|git worktree" /Users/mbutler/github/ai-tooling/CATALOG.md
+- `main` branch: renames `discount` → `applyDiscount` in `lib.js`.
+- `feature` branch: adds `checkout.js` (a new file) that calls the old `discount` from `lib.js`.
+- Merge: `lib.js` takes the rename, `checkout.js` comes in untouched → **clean auto-merge, zero conflict markers** — but `checkout()` now calls a function that no longer exists.
+
+An objective test (`node test.js`, checking `total` and `checkout`) stands in for the project's "automated checks" the skill's step 4 mandates.
+
 ```
+git merge main-rename     # "Auto-merging lib.js" — no CONFLICT, clean status
+grep -r '<<<<<<<' .       # NONE
+node test.js              # the step-4 verification gate
+```
+
+**Measured A/B:**
+
+| approach | result |
+|----------|--------|
+| **baseline** — trust the clean merge / clean `git status`, skip verification (the agent default the skill names) | **1/2 tests pass** — `checkout` throws `discount is not a function`; a broken merge ships silently |
+| **with-skill** — step 4 runs the checks (catches the failing test); step 2/3 reconstruct intent (main renamed; feature needs the fn) and resolve preserving **both** (`checkout` → `applyDiscount`) | **2/2 tests pass** |
+
+This objectively confirms the skill's central thesis: a textually clean merge is not a correct merge, and the verification gate is the lever that catches the dangerous semantic case. (Procedure + maturity signals also reviewed via `gh api repos/mattpocock/skills` and the `SKILL.md` source.)
 
 ## What worked
 
@@ -52,7 +65,7 @@ grep -inE "merge|rebase|conflict|git worktree" /Users/mbutler/github/ai-tooling/
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Forces intent reconstruction before resolving and requires typecheck/tests/format to pass, catching semantic conflicts that text-clean merges hide |
+| Correctness | + | Measured: on a clean-auto-merge that was semantically broken, the baseline shipped 1/2 tests passing; the skill's verification gate + intent-preserving fix reached 2/2 |
 | Speed | + | A repeatable 5-step path beats ad-hoc per-conflict reasoning; the human is no longer pulled in to re-resolve a bad agent merge |
 | Maintainability | + | "Preserve both intents, never invent behaviour, note trade-offs" keeps merge commits faithful to original design intent rather than introducing novel hybrid behaviour |
 | Safety | + | Verification gate (step 4) prevents shipping a broken merge; the no-`--abort` rule is a mild safety trade-off (removes a legitimate bail-out) |
