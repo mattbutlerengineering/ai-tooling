@@ -35,6 +35,7 @@ Usage:
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
+  python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any BROKEN install or FABRICATION candidate is found,
 so it can gate CI or a pre-commit hook.
@@ -146,9 +147,7 @@ def audit_fabrication():
         if os.path.basename(p) == "TEMPLATE.md": continue
         sec = how_section(open(p, encoding="utf-8").read())
         if not sec: continue
-        if HONEST.search(sec) or VERIFIED.search(sec):
-            continue  # honest review or genuine hands-on
-        if RUN_CLAIM.search(sec):
+        if Evidence(sec).is_fabrication_candidate:
             flagged.append(os.path.basename(p)[:-3])
     return flagged
 
@@ -225,6 +224,39 @@ def audit_verdicts():
 MEASURED = re.compile(r"tiktoken|with[- ]skill|baseline|measured a/b|\ba/b\b|trigger rate|"
                       r"assertion (passed|failed)|measured ~|token.*reduction.*measured|"
                       r"\*\*hands-on,? measured|run_eval", re.I)
+# A strong, unambiguous measurement marker — strong enough to override a *weak*
+# honest-review word (e.g. "inspected"/"read"/"examined") that would otherwise
+# demote a genuinely measured eval. (Real case: a measured eval that wrote
+# "inspected each SKILL.md" was wrongly held in the backlog because `\binspected\b`
+# lives in HONEST. Sealing precedence here makes that a decision, not an accident.)
+STRONG_MEASURED = re.compile(r"measured a/b|\ba/b\b|trigger rate|assertion (passed|failed)|"
+                             r"\*\*hands-on,? measured|run_eval|tiktoken|measured ~", re.I)
+
+# ---------------------------------------------------------------- evidence seam
+class Evidence:
+    """Evidentiary status of an eval's 'How we tested' section.
+
+    The HONEST / VERIFIED / RUN_CLAIM / MEASURED regexes are consumed only here,
+    so the precedence between them is decided in ONE place instead of being
+    recombined differently inside each detector. The interface is the test
+    surface — see selftest()."""
+    def __init__(self, how):
+        self.honest    = bool(HONEST.search(how))
+        self.verified  = bool(VERIFIED.search(how))
+        self.run_claim = bool(RUN_CLAIM.search(how))
+        self.measured  = bool(MEASURED.search(how))
+        self._strong   = bool(STRONG_MEASURED.search(how))
+
+    @property
+    def is_fabrication_candidate(self):
+        # claims a specific run, with no honesty disclaimer and no genuine-run marker
+        return self.run_claim and not (self.honest or self.verified)
+
+    @property
+    def is_measured(self):
+        # measured evidence present, and either no honest-not-run disclaimer OR a
+        # strong measurement marker that overrides a weak disclaimer word
+        return self.measured and (self._strong or not self.honest)
 
 def audit_skill_evidence():
     measured, backlog = [], []
@@ -237,16 +269,48 @@ def audit_skill_evidence():
         if not vm or vm.group(1) != "ADOPT":
             continue  # only ADOPT skills carry the "needs measured backing" bar
         name = os.path.basename(p)[:-3]
-        how = how_section(t)
         # genuinely measured = has measurement evidence AND is not a disclosed not-run
         # review (which may merely quote the author's "with-skill" numbers).
-        is_measured = bool(MEASURED.search(how)) and not HONEST.search(how)
-        (measured if is_measured else backlog).append(name)
+        (measured if Evidence(how_section(t)).is_measured else backlog).append(name)
     return measured, backlog
+
+# ---------------------------------------------------------------- selftest
+def selftest():
+    """Lock in the evidence-classification precedence. Run: audit-evals.py --selftest"""
+    cases = [
+        # (label, how-section text, expect_fabrication, expect_measured)
+        ("disclosed not-run review",
+         "We did not install this; source review only.", False, False),
+        ("verified hands-on run",
+         "Ran it **live** via pip install; exercised the CLI.", False, False),
+        ("bare run claim, no disclaimer = fabrication candidate",
+         "We ran it on our repo and it generated the report.", True, False),
+        ("measured A/B with no honest word = measured",
+         "**Hands-on, measured** with-skill vs baseline A/B.", False, True),
+        ("STRONG measured marker overrides a weak honest word (the bug we hit)",
+         "**Hands-on, measured** — inspected each SKILL.md, ran a measured A/B.", False, True),
+        ("weak measured token + honest disclaimer = NOT measured",
+         "We did not run it; the author reports a with-skill number.", False, False),
+    ]
+    fails = []
+    for label, how, exp_fab, exp_meas in cases:
+        ev = Evidence(how)
+        if ev.is_fabrication_candidate != exp_fab:
+            fails.append(f"  FAIL [fabrication] {label}: got {ev.is_fabrication_candidate}, want {exp_fab}")
+        if ev.is_measured != exp_meas:
+            fails.append(f"  FAIL [measured] {label}: got {ev.is_measured}, want {exp_meas}")
+    if fails:
+        print("== selftest ==")
+        print("\n".join(fails))
+        return 1
+    print(f"== selftest ==\n  OK — {len(cases)} evidence-classification cases pass")
+    return 0
 
 # ---------------------------------------------------------------- main
 def main():
     args = sys.argv[1:]
+    if "--selftest" in args:
+        sys.exit(selftest())
     sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--skills", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
