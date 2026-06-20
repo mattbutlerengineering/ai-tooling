@@ -17,6 +17,10 @@
 
 > **Honesty rule (checked by `audit-evals.py`):** if you did NOT actually run the tool, say so plainly — open this section with a disclaimer like "**Source-grounded review — not run hands-on**" and explain why (needs an API key, heavy infra, untrusted install, etc.). Never invent a run, specific metrics, or example outputs; a fabricated run is worse than an honest review. Quote any vendor benchmark as the vendor's, not as measured. Verify every install command resolves (npm/PyPI/crates/GitHub) before publishing — a wrong install command is a dead giveaway the tool was never run.
 
+> **If the entry is a _skill_** (not a runnable CLI/MCP), measure it the way Anthropic's `skill-creator` does — a skill's value is a *change in agent behaviour*, so evaluate two dimensions (see [issue #38](https://github.com/mattbutlerengineering/ai-tooling/issues/38)):
+> 1. **Triggering** — does the skill's `description` make it fire on the right prompts and *not* the wrong ones? Note that skills tend to *under*-trigger. (`skill-creator/scripts/run_eval.py` measures this with `claude -p`; or judge a balanced should/shouldn't-trigger prompt set.)
+> 2. **Output quality** — run a **with-skill vs baseline A/B** (same prompt, skill on vs off). For a deterministic skill with a quantitative claim you can apply its `SKILL.md` rules by hand and count tokens with `tiktoken` (cheap, reproducible — see `caveman.md`); for non-deterministic skills, compare outputs qualitatively. Report token/latency deltas and an explicit accuracy check. A not-run skill review must still say so.
+
 ```
 {Paste the actual command(s) you ran — or, for a not-run review, the documented install/usage clearly labeled as such}
 ```
