@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 427 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 435 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -139,6 +139,10 @@ All 427 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Archon | platform | ✓ | ✓ | CONDITIONAL |
 | sim | platform | ✓ | ✓/$ | CONDITIONAL |
 | haystack | framework | ✓ | ✓ | CONDITIONAL |
+| Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL |
+| baml | framework | ✓ | ✓ | CONDITIONAL |
+| cua | harness | ✓ | ✓/$ | CONDITIONAL |
+| txtai | framework | ✓ | ✓ | CONDITIONAL |
 | UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
@@ -188,6 +192,7 @@ All 427 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | scenario | framework | ✓ | ✓ | CONDITIONAL |
 | aimock | tool | ✓ | ✓ | CONDITIONAL |
 | keploy | tool | ✓ | ✓ | CONDITIONAL |
+| midscene | tool | ✓ | ✓ | CONDITIONAL |
 | evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
 | playwright-skill | skill | | ✓ | SKIP |
@@ -264,6 +269,9 @@ All 427 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
 | promptfoo | tool | ✓ | ✓ | CONDITIONAL |
 | garak | tool | ✓ | ✓ | CONDITIONAL |
+| presidio | tool | ✓ | ✓ | CONDITIONAL |
+| NeMo-Guardrails | tool | ✓ | ✓ | CONDITIONAL |
+| superagent | tool | ✓ | ✓ | CONDITIONAL |
 | deepeval | framework | ✓ | ✓ | CONDITIONAL |
 | phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL |
@@ -505,15 +513,15 @@ All 427 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 121 | 121 | 100% |
-| Verify | 16 | 16 | 100% |
+| Implement | 125 | 125 | 100% |
+| Verify | 17 | 17 | 100% |
 | Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 25 | 25 | 100% |
+| Outer Loop | 28 | 28 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
 | Memory & Context | 42 | 42 | 100% |
 | MCP Servers | 33 | 33 | 100% |
 | Research & Discovery | 10 | 10 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **427** | **427** | **100%** |
+| **Total** | **435** | **435** | **100%** |
