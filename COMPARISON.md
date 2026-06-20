@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 370 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 376 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -35,6 +35,7 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | serena | MCP server | ✓ | ✓ | ADOPT |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
 | cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
+| sem | tool | ✓ | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -121,7 +122,6 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
-| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL |
 | adhd | skill | | ✓ | CONDITIONAL |
 | sandboxd | tool | | ✓ | CONDITIONAL |
 | vercel-sandbox | platform | | ✓/$ | CONDITIONAL |
@@ -134,6 +134,7 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sandcastle | framework | | ✓ | CONDITIONAL |
 | superpowers | plugin | | ✓ | ADOPT |
 | letta-code | harness | ✓ | ✓ | CONDITIONAL |
+| strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL |
 | Aegis | skill | | ✓ | CONDITIONAL |
 | superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
@@ -178,7 +179,9 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | design-council | plugin | | ✓ | CONDITIONAL |
 | ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
-| claude-octopus | plugin | ✓ | ✓ | CONDITIONAL |
+| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL |
+| tdd-guard | plugin | ✓ | ✓ | CONDITIONAL |
+| vet | tool | ✓ | ✓/$ | CONDITIONAL |
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | ADOPT |
@@ -230,6 +233,7 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
 | claude-fleet | tool | | ✓ | CONDITIONAL |
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
+| promptfoo | tool | ✓ | ✓ | CONDITIONAL |
 | ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -312,6 +316,7 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MemOS | platform | | ✓ | CONDITIONAL |
 | memind | platform | ✓ | ✓ | CONDITIONAL |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL |
+| claw-compactor | tool | ✓ | ✓ | CONDITIONAL |
 | memory-os | tool | ✓ | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
@@ -431,6 +436,7 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL |
 | Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL |
 | 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL |
+| 12-factor-agents | reference | | ✓ | CONDITIONAL |
 
 ---
 
@@ -448,15 +454,15 @@ All 370 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 39 | 39 | 100% |
-| Implement | 101 | 101 | 100% |
+| Implement | 102 | 102 | 100% |
 | Verify | 12 | 12 | 100% |
-| Review | 23 | 23 | 100% |
+| Review | 25 | 25 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 14 | 14 | 100% |
+| Outer Loop | 15 | 15 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 34 | 34 | 100% |
+| Memory & Context | 35 | 35 | 100% |
 | MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
-| Reference | 39 | 39 | 100% |
-| **Total** | **370** | **370** | **100%** |
+| Reference | 40 | 40 | 100% |
+| **Total** | **376** | **376** | **100%** |
