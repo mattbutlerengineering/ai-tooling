@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 412 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 419 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -133,6 +133,11 @@ All 412 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | forgecode | harness | | ✓ | CONDITIONAL |
 | opencode-swarm | plugin | | ✓ | CONDITIONAL |
 | OpenHands | platform | | ✓ | CONDITIONAL |
+| daytona | platform | ✓ | ✓/$ | CONDITIONAL |
+| agent-sandbox | tool | ✓ | ✓ | CONDITIONAL |
+| tabby | platform | ✓ | ✓ | CONDITIONAL |
+| Archon | platform | ✓ | ✓ | CONDITIONAL |
+| sim | platform | ✓ | ✓/$ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
 | adhd | skill | | ✓ | CONDITIONAL |
@@ -341,6 +346,7 @@ All 412 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentmemory | tool | | ✓ | CONDITIONAL |
 | PageIndex | tool | ✓ | ✓/$ | CONDITIONAL |
 | Acontext | tool | ✓ | ✓ | CONDITIONAL |
+| byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -473,6 +479,7 @@ All 412 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL |
 | 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL |
 | 12-factor-agents | reference | | ✓ | CONDITIONAL |
+| ag-ui | reference | | ✓ | CONDITIONAL |
 
 ---
 
@@ -490,15 +497,15 @@ All 412 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 114 | 114 | 100% |
+| Implement | 119 | 119 | 100% |
 | Verify | 15 | 15 | 100% |
 | Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 24 | 24 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
-| Memory & Context | 39 | 39 | 100% |
+| Memory & Context | 40 | 40 | 100% |
 | MCP Servers | 32 | 32 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
-| Reference | 40 | 40 | 100% |
-| **Total** | **412** | **412** | **100%** |
+| Reference | 41 | 41 | 100% |
+| **Total** | **419** | **419** | **100%** |
