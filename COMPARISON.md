@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 338 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 340 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -56,6 +56,7 @@ All 338 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claurst | harness | | ✓ | SKIP |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | CONDITIONAL |
+| CLIProxyAPI | tool | | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | Nimbalyst | platform | | ✓ | CONDITIONAL |
@@ -306,6 +307,7 @@ All 338 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentic-stack | tool | | ✓ | CONDITIONAL |
 | guild | tool | | ✓ | CONDITIONAL |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
+| supermemory | platform | ✓ | ✓ | CONDITIONAL |
 | pro-workflow | plugin | ✓ | ✓ | SKIP |
 | hivemind | tool | ✓ | ✓ | CONDITIONAL |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
@@ -415,7 +417,7 @@ All 338 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 35 | 35 | 100% |
+| Plan | 36 | 36 | 100% |
 | Implement | 90 | 90 | 100% |
 | Verify | 10 | 10 | 100% |
 | Review | 23 | 23 | 100% |
@@ -423,8 +425,8 @@ All 338 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 25 | 25 | 100% |
+| Memory & Context | 26 | 26 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 37 | 37 | 100% |
-| **Total** | **338** | **338** | **100%** |
+| **Total** | **340** | **340** | **100%** |

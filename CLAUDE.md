@@ -10,7 +10,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 
 ## Structure
 
-- `CATALOG.md` — flat inventory of 338 tools, organized by 13 categories with overlap markers
+- `CATALOG.md` — flat inventory of 340 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
 - `STACK.md` — recommended stack (~20 tools to actually install, with commands)
 - `evaluations/` — hands-on tool evaluations following `TEMPLATE.md`
@@ -29,7 +29,7 @@ Each entry is a row in a markdown table with these columns:
 | Type | tool / skill / plugin / framework / harness / platform / MCP server / reference |
 | One-liner | Plain-language description, ~10-15 words |
 | Problem it solves | The specific pain point, ~1 sentence |
-| Overlaps with | Other catalog entries that address a similar problem |
+| Overlaps with | Other catalog entries that address a similar problem (may also name a notable external tool or installed skill as a conceptual peer) |
 
 ## Categories
 
