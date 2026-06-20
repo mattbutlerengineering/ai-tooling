@@ -15,24 +15,33 @@ Mechanically you load a project (or files), then traverse and mutate the AST —
 
 ## How we tested it
 
-Architecture review against the repo (monorepo for `ts-morph` + `@ts-morph/bootstrap`), the README, and the documented purpose (Compiler API wrapper for static analysis and programmatic code changes). Confirmed it's a mature, widely-depended-on library (it underpins many codegen/codemod tools). Note last push ~2026-04 — steady, not high-churn. Not exercised against a live codebase transform here, so condition-gated.
+**Hands-on**, ts-morph v28.0.0 `npm install`ed and driven via a real script against this repo's `presentations/development-process/deck-stage.js` (an IIFE-wrapped Web Components deck, ~1,900 lines) on 2026-06-20.
 
-```bash
-gh api repos/dsherret/ts-morph --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
-gh api repos/dsherret/ts-morph/readme --jq '.content' | base64 -d
+```js
+import { Project, SyntaxKind } from "ts-morph";
+const p = new Project({ compilerOptions: { allowJs: true } });
+const sf = p.addSourceFileAtPath(".../deck-stage.js");
+sf.getClasses().length                                  // → 0  (!)
+sf.getDescendantsOfKind(SyntaxKind.ClassDeclaration)    // → 1  (the class is inside an IIFE)
+sf.getDescendantsOfKind(SyntaxKind.MethodDeclaration)   // → 48 methods, names+params all readable
+method.findReferences()                                 // resolves refs across the AST
 ```
+
+**Measured results.** It installed clean and parsed real JS via `allowJs`. The instructive surprise: **top-level `getClasses()`/`getFunctions()` returned 0** because the deck wraps everything in an IIFE — the class is nested. Switching to `getDescendantsOfKind(...)` immediately found the class and **all 48 methods** (`connectedCallback`, `attributeChangedCallback`, `_render`, …) with correct names/param counts, and `findReferences()` resolved usages. This also **cross-validated the [skylos](skylos.md) eval**: `reset`/`goTo` showed only **1 AST-visible reference** (their own definition — they're called from HTML, which the TS AST can't see), and `observedAttributes` is a **static getter, not a method** — exactly the framework-callback patterns static tools mishandle.
 
 ## What worked
 
-- **Deterministic, type-aware transforms.** AST-level edits are syntactically safe by construction — the right tool when an LLM's regex/string edits to TS would risk corruption.
-- **Ergonomic over the raw Compiler API.** Dramatically lower friction than `typescript` directly; `@ts-morph/bootstrap` + ts-ast-viewer shorten the learning curve.
-- **Battle-tested foundation.** A long-standing, heavily-used library — a safe base for codegen, codemods, and migrations (conceptually the TS analogue of OpenRewrite's deterministic recipes).
+- **Parses real JS accurately (verified).** With `allowJs`, it correctly extracted all 48 methods of an IIFE-wrapped Web Components class with names, params, and resolvable references — clean install (v28), no config beyond `allowJs`.
+- **Reference resolution is genuinely useful.** `findReferences()` works at the AST level — and honestly reports what it *can* see (1 ref for HTML-called methods), which is the right semantics for safe refactoring.
+- **Deterministic, type-aware transforms.** AST-level edits are syntactically safe by construction — the right tool when an LLM's regex/string edits would risk corruption.
+- **Ergonomic over the raw Compiler API.** Far lower friction than `typescript` directly; `@ts-morph/bootstrap` + ts-ast-viewer shorten the learning curve.
 
 ## What didn't work or surprised us
 
-- **It's a library, not an agent tool.** Value in an AI workflow comes from an agent *writing ts-morph scripts*; it isn't a drop-in skill/MCP. The win is giving agents a deterministic transform layer.
+- **Top-level getters miss nested code (observed gotcha).** `getClasses()`/`getFunctions()` returned 0 on an IIFE-wrapped file — a real trap. You must reach for `getDescendantsOfKind(...)` for anything not declared at module top level (IIFEs, class expressions, `customElements.define(class …)`). An agent writing ts-morph scripts needs to know this or it'll silently "find nothing."
+- **It's a library, not an agent tool.** Value comes from an agent *writing ts-morph scripts*; it isn't a drop-in skill/MCP. The win is giving agents a deterministic transform layer.
 - **TS/JS-only.** Scope is the TypeScript ecosystem; for polyglot migrations you'd reach for OpenRewrite or ast-grep.
-- **Learning curve remains.** Even wrapped, AST manipulation requires understanding node kinds and the Compiler API model.
+- **Learning curve remains.** AST manipulation requires understanding node kinds and the Compiler API model (the getClasses-vs-descendants distinction above is a concrete example).
 
 ## Quality signals affected
 
@@ -46,9 +55,9 @@ gh api repos/dsherret/ts-morph/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**CONDITIONAL** *(verdict confirmed by hands-on testing)*
 
-Adopt as the deterministic transform substrate for TS/JS codemods and refactors — especially to have an agent generate ts-morph scripts instead of string-editing source. For polyglot or recipe-driven migrations, OpenRewrite is the cross-language analogue. Best value when you have repeatable, structural changes across many files rather than one-off edits.
+A reliable deterministic transform substrate for TS/JS codemods — verified parsing real JS and extracting full class/method/reference structure cleanly. Have an agent generate ts-morph scripts instead of string-editing source, but bake in one tested lesson: **use `getDescendantsOfKind` (not top-level `getClasses`/`getFunctions`)** so IIFE-wrapped and expression code isn't silently missed. For polyglot or recipe-driven migrations, OpenRewrite is the cross-language analogue. Best value for repeatable, structural changes across many files rather than one-off edits.
 
 ## Catalog entry
 
