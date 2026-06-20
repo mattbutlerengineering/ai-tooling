@@ -1,0 +1,3 @@
+# Python bytecode (generated when running test_automation.py / the audit scripts)
+__pycache__/
+*.pyc
