@@ -15,7 +15,7 @@ claude install-skill JuliusBrussee/caveman
 claude install-skill trailofbits/skills
 
 # 4. Visual verification for UI changes
-npx skills add vercel-labs/agent-browser
+claude mcp add playwright -- npx @playwright/mcp@latest
 
 # 5. CI integration for async review
 # Add .github/workflows/claude.yml — see evaluations/claude-code-action.md
@@ -33,7 +33,8 @@ npx skills add vercel-labs/agent-browser
 | [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add --transport http github https://api.githubcopilot.com/mcp/` | Speed, Correctness |
 | [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `npm install -g @colbymchenry/codegraph` (then it auto-wires the MCP server into Claude Code) | Speed, Cost Efficiency |
 | [markitdown](https://github.com/microsoft/markitdown) | Converts PDF/Office/images/audio/HTML to clean Markdown so agents can actually read binary docs | `pip install 'markitdown[all]'` | Correctness, Cost Efficiency |
-| [serena](https://github.com/oraios/serena) | IDE-grade semantic code retrieval + atomic symbol-level editing over MCP (LSP, 40+ languages) — complements codegraph's read-only graph with safe refactors | `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server` | Correctness, Speed |
+
+> **Lifecycle frameworks — pick one as primary.** GSD (project/milestone), feature-dev (single feature), and agent-skills (/spec→/ship) overlap. Run one as your default loop and pull the others in only when their scale fits, rather than layering all three.
 
 ## Implement
 
@@ -44,18 +45,14 @@ npx skills add vercel-labs/agent-browser
 | [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `pip install "headroom-ai[all]"` (or `npm install headroom-ai`) | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g @beads/bd` | Correctness, Speed |
-| [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | Skills for Real Engineers — TDD, debugging, planning skills from a working dev | `npx skills add mattpocock/skills -g -y` | Correctness, Speed |
-| [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) | First-party skill-authoring meta-skill: draft -> eval (with-skill vs baseline) -> benchmark -> optimize triggering -> package | `claude install-plugin anthropics/claude-plugins-official` | Maintainability |
 
 ## Verify
 
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
-| [agent-browser](https://github.com/vercel-labs/agent-browser) | Browser automation for visual verification of UI changes | `npx skills add vercel-labs/agent-browser` | Correctness |
+| [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and visual verification via MCP — drives real browsers; text accessibility snapshots are cheaper per-action than screenshots | `claude mcp add playwright -- npx @playwright/mcp@latest` | Correctness |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | Mutation testing — tests the quality of your tests | `npm install -D @stryker-mutator/core` | Correctness |
-| [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Six web quality audit skills: accessibility, SEO, perf, Core Web Vitals, best practices | `npx skills add addyosmani/web-quality-skills -g -y` | Correctness, Maintainability |
-| [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and testing via MCP — lets agents drive real browsers | `claude mcp add playwright -- npx @playwright/mcp@latest` | Correctness |
 
 ## Review
 
@@ -78,8 +75,7 @@ npx skills add vercel-labs/agent-browser
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | Turns session corrections into persistent CLAUDE.md rules | `claude install-plugin BayramAnnakov/claude-reflect` | Speed, Maintainability |
-| [documentation-writer](https://github.com/github/awesome-copilot) | Diátaxis-framework docs: clarify purpose, outline, then generate | `npx skills add github/awesome-copilot@documentation-writer -g -y` | Maintainability |
-| [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | ADR templates and agent-context documentation guidelines | `npx skills add addyosmani/agent-skills@documentation-and-adrs -g -y` | Maintainability |
+| [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | Diátaxis docs + ADR templates and agent-context guidelines (ships in agent-skills, already installed) | `npx skills add addyosmani/agent-skills@documentation-and-adrs -g -y` | Maintainability |
 
 ## Memory
 
@@ -92,7 +88,6 @@ npx skills add vercel-labs/agent-browser
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [abtop](https://github.com/graykode/abtop) | Live token/cost TUI for comparing agent session efficiency | `cargo install abtop` | Cost Efficiency |
-| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | Security scanner for AI agent skills — detects prompt injection | `git clone https://github.com/NVIDIA/skillspector` (no PyPI package) | Safety |
 
 ---
 
@@ -101,6 +96,18 @@ npx skills add vercel-labs/agent-browser
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [last30days](https://github.com/mvanhorn/last30days-skill) | Research any topic across Reddit, X, YouTube, HN, Polymarket — engagement-weighted | `npx skills add mvanhorn/last30days-skill -g -y` | Speed, Correctness |
+
+## Conditional — install when the project calls for it
+
+Valuable but situational, so they're not in the every-project default above (#46 prune):
+
+| Tool | Install when | Install |
+|------|-------------|---------|
+| [serena](https://github.com/oraios/serena) | Heavy refactoring / cross-file renames — LSP symbol-level retrieval + edits. Scope per-project; keep `execute_shell_command` off where the harness already has shell. (codegraph covers read-only navigation in the default.) | `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server` |
+| [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Web/UI projects — accessibility, SEO, perf, Core Web Vitals audits | `npx skills add addyosmani/web-quality-skills -g -y` |
+| [fastmcp](https://github.com/PrefectHQ/fastmcp) | Building your own MCP servers in Python | `pip install fastmcp` |
+| [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) | Authoring/optimizing skills | `claude install-plugin anthropics/claude-plugins-official` |
+| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | Installing third-party skills you want to scan for prompt injection | `git clone https://github.com/NVIDIA/skillspector` (no PyPI package) |
 
 ## What's NOT here
 
