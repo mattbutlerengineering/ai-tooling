@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 333 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 334 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -291,6 +291,7 @@ All 333 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cognee | platform | | ✓ | CONDITIONAL |
 | MemOS | platform | | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
+| OpenViking | platform | | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | KEEP |
@@ -418,8 +419,8 @@ All 333 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 24 | 24 | 100% |
+| Memory & Context | 25 | 25 | 100% |
 | MCP Servers | 29 | 29 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **333** | **333** | **100%** |
+| **Total** | **334** | **334** | **100%** |
