@@ -13,36 +13,32 @@ MCP server that provides a `sequentialthinking` tool for structured chain-of-tho
 
 ## How we tested it
 
-Added the sequential thinking server and used it on three tasks: an architectural decision (choosing between event sourcing and CQRS), a multi-step debugging session (race condition in concurrent writes), and a dependency analysis (evaluating migration risk for a major library upgrade).
+**Mechanism/architecture review — not run hands-on.** The install is the real, published package (`npx @modelcontextprotocol/server-sequential-thinking`, part of the official MCP servers repo), and the tool's behavior is well-documented and simple: an agent calls `sequentialthinking` repeatedly, each call carrying a numbered step (title, content, "next step needed" flag), optionally revising a prior step. The decisive question for this catalog — does it add value on top of a Claude Code model that *already* has native extended thinking? — is answerable from the mechanism, not a benchmark, so no latency or token figures are claimed here as measured.
 
 ```bash
 claude mcp add sequential-thinking -- npx @modelcontextprotocol/server-sequential-thinking
 ```
 
-## What worked
+## What it offers (from the mechanism)
 
-- Forces explicit step-by-step reasoning with visible intermediate states — useful for auditing how a conclusion was reached
-- On the architectural decision task, produced a more thorough pros/cons analysis than a single-shot prompt
-- The iterative nature allows revising earlier steps — the model can go back and correct a premise
-- Minimal setup — single npm package, no config
+- Forces explicit, numbered step-by-step reasoning with visible intermediate state — auditable "how did it get here," externalized as tool calls.
+- The iterative loop lets the model revise an earlier step instead of committing to a first premise.
+- Minimal setup — single npm package, no config.
 
-## What didn't work or surprised us
+## Why it's largely redundant now
 
-- With Claude's native extended thinking (thinking blocks), the value is marginal — extended thinking already provides structured reasoning without an external tool
-- Adds ~500ms overhead per reasoning step — a 10-step chain adds 5 seconds
-- On simple tasks, it's pure overhead — the model calls the tool 3-4 times when a direct answer would suffice
-- The iterative tool calls consume tokens for each step, increasing cost without proportional quality improvement
-- No way to control depth — the model decides how many steps, and it tends to over-reason on straightforward problems
+- **Claude's native extended thinking covers the same need.** Thinking blocks already give structured, revisable, multi-step reasoning *inside* the model — no external server, no round-trip per step, no separate tool-call tokens. Sequential-thinking was most valuable before native chain-of-thought existed.
+- **Each step is a tool round-trip.** Externalizing reasoning into N `sequentialthinking` calls adds per-call latency and token overhead that native thinking doesn't, with no depth control — the model decides how many steps and tends to over-reason simple problems. (Directionally clear from the design; exact overhead not measured here.)
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Marginal improvement over native extended thinking |
-| Speed | - | 500ms overhead per step, 5-10 seconds total on complex problems |
-| Maintainability | neutral | No impact on code |
-| Safety | neutral | Read-only reasoning, no side effects |
-| Cost Efficiency | - | Extra tokens consumed per reasoning step |
+| Correctness | neutral | Overlaps with native extended thinking, which already structures reasoning. |
+| Speed | - | Each reasoning step is an extra tool round-trip vs in-model thinking. |
+| Maintainability | neutral | No impact on code. |
+| Safety | neutral | Read-only reasoning, no side effects. |
+| Cost Efficiency | - | Separate tool-call tokens per step on top of (or instead of) native thinking. |
 
 ## Verdict
 

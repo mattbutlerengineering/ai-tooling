@@ -9,7 +9,7 @@
 
 ## What it does
 
-Real-time guardrails for AI coding agents — 77 rules across 8 packs (universal, quality, python, frontend, react, seo, security, autopilot) that hook into PreToolUse/PostToolUse events to block or warn on dangerous actions. Installs via `pip install agentlint` with one-command setup for 10 agent platforms (Claude Code, Cursor, Codex, Gemini, Kimi, Grok, Continue.dev, OpenAI Agents SDK, MCP hosts, generic). ERROR rules block the agent's action before it executes; WARNING rules inject advice into context; INFO rules appear in the session report.
+Real-time guardrails for AI coding agents — 78 rules across 8 packs (universal, quality, python, frontend, react, seo, security, autopilot) that hook into PreToolUse/PostToolUse events to block or warn on dangerous actions. Installs via `pip install agentlint` with one-command setup for 10 agent platforms (Claude Code, Cursor, Codex, Gemini, Kimi, Grok, Continue.dev, OpenAI Agents SDK, MCP hosts, generic). ERROR rules block the agent's action before it executes; WARNING rules inject advice into context; INFO rules appear in the session report.
 
 The universal pack (24 rules) catches secrets, force-pushes, destructive commands, test weakening, debug artifacts, and dependency hygiene. The quality pack (7 rules) adds commit format, large diff warnings, file creation sprawl, and dead import detection. Stack-specific packs auto-activate based on project files — `pyproject.toml` triggers Python rules, `package.json` triggers frontend/react/seo rules.
 
@@ -17,17 +17,33 @@ The security pack (7 rules, opt-in) blocks Bash file writes, network exfiltratio
 
 ## How we tested it
 
-Source-grounded review: read the full README (all 8 pack rule tables), the recursive repo tree, the Claude Code setup guide (`docs/setup-claude.md`), and the plugin hook manifest (`plugin/hooks/hooks.json`) to confirm how the guardrails actually fire. **Not installed or run hands-on** — no rule was triggered live, so no trigger output or benchmark below is observed; all rule behavior is read from the documented spec, not measured. The decisive catalog question (does it move Safety, and is it differentiated from SkillSpector/hol-guard?) is answerable from the integration mechanism and rule taxonomy.
+Installed it for real (`pip install agentlint`, **v2.5.x, 78 rules** via `agentlint list-rules`) and exercised the core mechanism — `agentlint check`, which evaluates a tool call from stdin and emits a Claude Code hook decision. Fed it dangerous and benign Bash calls and watched what it blocked, both at default config and with the opt-in packs enabled.
 
 ```bash
-gh api repos/mauhpr/agentlint --jq '{stars,license:.license.spdx_id,description,pushed_at}'
-gh api repos/mauhpr/agentlint/contents/README.md --jq '.content' | base64 -d
-gh api "repos/mauhpr/agentlint/git/trees/main?recursive=1" --jq '.tree[].path'
-gh api repos/mauhpr/agentlint/contents/docs/setup-claude.md --jq '.content' | base64 -d
-gh api repos/mauhpr/agentlint/contents/plugin/hooks/hooks.json --jq '.content' | base64 -d
+# default config (agentlint init -> packs: universal, quality)
+echo '{"tool_name":"Bash","tool_input":{"command":"rm -rf /"}}' | agentlint check --event PreToolUse
+# -> {"hookSpecificOutput":{"permissionDecision":"deny","permissionDecisionReason":
+#     "[no-destructive-commands] Catastrophic command detected: rm -rf on root or home directory ..."}}
+
+echo '{"tool_name":"Bash","tool_input":{"command":"ls -la"}}' | agentlint check --event PreToolUse
+# -> (no output) ALLOWED
+
+# DROP DATABASE and `terraform apply` were NOT blocked at default config...
+echo '{"tool_name":"Bash","tool_input":{"command":"psql -c \"DROP DATABASE prod\""}}' | agentlint check --event PreToolUse
+# -> (no output) ALLOWED   <-- destructive-confirmation-gate is in the opt-in autopilot pack
+
+# ...until autopilot + security packs are enabled in agentlint.yml:
+echo '{...DROP DATABASE prod...}'        | agentlint check --event PreToolUse
+# -> deny: "[destructive-confirmation-gate] Catastrophic operation requires explicit confirmation: DROP DATABASE"
+echo '{...terraform apply -auto-approve}'| agentlint check --event PreToolUse
+# -> deny: "[dry-run-required] Infrastructure apply without preview: terraform apply -> Run terraform plan first"
+echo '{...git status...}'                | agentlint check --event PreToolUse
+# -> (no output) ALLOWED
 ```
 
-Confirmed mechanism: the Claude Code integration is a set of native hooks (`agentlint setup claude` writes them into `.claude/settings.json`, or the marketplace plugin ships `plugin/hooks/hooks.json`). A `PreToolUse` hook matching `Bash|Edit|Write` runs `agentlint check` and returns `{"hookSpecificOutput":{"permissionDecision":"deny","permissionDecisionReason":"[no-secrets] …"}}` (exit 0) to **block the action before it executes**; WARNING rules return `additionalContext` advice; `PostToolUse`, `UserPromptSubmit`, `SubagentStart/Stop`, `Notification`, and `Stop` (session report) hooks cover the rest. This is genuine pre-execution prevention, not post-hoc scanning.
+**Verified mechanism (matches the docs exactly):** `agentlint check` returns `{"hookSpecificOutput":{"permissionDecision":"deny","permissionDecisionReason":"[rule-id] …"}}` at exit 0 — genuine pre-execution *prevention*, the native Claude Code deny payload, not post-hoc scanning. The Claude Code integration wires this as a `PreToolUse` hook (`agentlint setup claude` writes `.claude/settings.json`, or the marketplace plugin ships `plugin/hooks/hooks.json`); WARNING rules return `additionalContext` advice instead of denying.
+
+**Key measured finding — the powerful guardrails are opt-in.** `agentlint init` enabled only `universal` + `quality`. Out of the box it caught catastrophic `rm -rf /`, but **DROP DATABASE and `terraform apply -auto-approve` passed untouched** because `destructive-confirmation-gate` and `dry-run-required` live in the **autopilot** pack, which is commented out by default (so is `security`). After uncommenting both packs in `agentlint.yml`, all three fired correctly with actionable bypass guidance, and benign commands (`git status`, `ls`) stayed allowed. Anyone installing agentlint *expecting* production/infra protection won't have it until they opt in.
 
 Key structural observations:
 - **src/agentlint/packs/**: 8 rule packs with dedicated directories (universal, quality, python, frontend, react, seo, security, autopilot)
@@ -62,7 +78,7 @@ Key structural observations:
 | Correctness | + | drift-detector and test-with-changes rules enforce test discipline |
 | Speed | neutral | Hook execution adds ~milliseconds per tool call; no measurable impact |
 | Maintainability | + | commit-message-format, max-file-size, no-dead-imports enforce code hygiene |
-| Safety | ++ | Security pack blocks exfiltration, secret leaks, malicious URLs; autopilot pack prevents cloud disasters |
+| Safety | ++ | Verified: `rm -rf /` denied at default config; DROP DATABASE + `terraform apply` denied once autopilot pack enabled, with benign commands allowed |
 | Cost Efficiency | + | token-budget rule tracks session cost; bash-rate-limiter prevents runaway operations |
 
 ## Verdict
@@ -77,4 +93,4 @@ Use when running agents on projects with cloud infrastructure access (AWS/GCP/Az
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [agentlint](https://github.com/mauhpr/agentlint) | tool | Real-time guardrails for AI agents: 77 rules, 8 packs, inline ignores | Need runtime guardrails that prevent agents from doing dangerous things, not just scan after | SkillSpector, hol-guard |
+| [agentlint](https://github.com/mauhpr/agentlint) | tool | Real-time guardrails for AI agents: 78 rules, 8 packs, inline ignores | Need runtime guardrails that prevent agents from doing dangerous things, not just scan after | SkillSpector, hol-guard |
