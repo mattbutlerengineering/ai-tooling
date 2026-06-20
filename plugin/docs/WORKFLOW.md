@@ -266,7 +266,7 @@ These tools don't fit a single stage — they change *how much human involvement
 |------|----------------|
 | [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](evaluations/ralph-claude-code.md)) |
 | [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | Audit-grade orchestration with tamper-proof logs for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
-| [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/recommended-tools.md#beads)) |
+| [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/beads.md)) |
 | [deer-flow](https://github.com/bytedance/deer-flow) | ByteDance's long-horizon agent runtime: sandboxed execution, sub-agent orchestration, persistent memory (71.5K stars) ([eval](evaluations/deer-flow.md)) |
 | [plannotator](https://github.com/backnotprop/plannotator) | Visual review of agent proposals — for when raw diffs aren't enough ([eval](evaluations/recommended-tools.md#plannotator)) |
 
