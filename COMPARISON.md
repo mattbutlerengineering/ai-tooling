@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 315 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 316 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -333,6 +333,7 @@ All 315 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Agent-Reach | tool | | ✓ | CONDITIONAL |
 | aisuite | framework | | ✓ | SKIP |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL |
+| ARIS | skill | ✓ | ✓ | CONDITIONAL |
 | last30days-skill | skill | | ✓ | ADOPT |
 | llm-council | tool | | ✓ | CONDITIONAL |
 | PaperOrchestra | skill | | ✓ | CONDITIONAL |
@@ -402,6 +403,6 @@ All 315 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 22 | 22 | 100% |
 | MCP Servers | 28 | 28 | 100% |
-| Research & Discovery | 6 | 6 | 100% |
+| Research & Discovery | 7 | 7 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **315** | **315** | **100%** |
+| **Total** | **316** | **316** | **100%** |

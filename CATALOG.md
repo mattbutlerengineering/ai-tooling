@@ -357,6 +357,7 @@ Tools for AI-assisted research, information gathering, and multi-model reasoning
 | [last30days-skill](https://github.com/mvanhorn/last30days-skill) | skill | Research any topic across Reddit, X, YouTube, HN, Polymarket, and the web | Need current sentiment and discussion, not just static docs | Agent-Reach |
 | [Agent-Reach](https://github.com/Panniantong/Agent-Reach) | tool | Give AI agents eyes to see the internet — read and search Twitter, Reddit, YouTube, GitHub, zero API fees | Need agents to access social/web content without paid APIs | last30days-skill, exa-mcp-server |
 | [aisuite](https://github.com/andrewyng/aisuite) | framework | Simple unified interface to multiple generative AI providers | Switching between AI providers requires different SDKs and APIs | — |
+| [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | skill | Autonomous research loop (plan→draft→cross-model adversarial review→iterate→persist) as portable skills + a Rust CLI, with a persistent Research Wiki and self-evolution | Single-model self-review is gameable and context is lost between runs; want overnight research with a reviewer model and durable memory | autoresearch, llm-council, deer-flow, deep-research |
 | [PaperOrchestra](https://github.com/Ar9av/PaperOrchestra) | skill | Automated AI research paper writer with benchmark + autoraters, zero API keys | Writing research papers with AI requires manual orchestration | AI-Research-SKILLs, academic-research-skills |
 
 ## Security & Safety
