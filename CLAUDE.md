@@ -72,6 +72,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
   - **dangling overlaps** (opt-in `--overlaps`, report-only) — an "Overlaps with" token naming a tool that isn't itself catalogued is either a deliberate external/conceptual peer (allowed) or a real gap; the more rows cite the same token, the likelier a gap (how `aider`/`continue`/`agenta` were found). Surfaces candidates for human review; not a gate.
   - **selftest** (`--selftest`, offline) — unit-tests the evidence classifier and the Evaluation parser; exits non-zero on a failing assertion.
 - If the classifier false-flags an honest review, widen the `HONEST`/`VERIFIED` vocab in the script; if it misses a fabrication, that's a real problem to fix in the eval, not the script.
+- `python3 -m unittest test_automation` (or `python3 test_automation.py`) runs the characterization tests for the count/sync automation — `reconcile-counts.py`, detector G (`audit_comparison`), and `sync-plugin-docs.sh`. They pin current behavior against temp fixtures (never the real files) so the shared-parser refactor (#45) has a regression net; exits non-zero on failure (gate it alongside `audit-evals.py`).
 
 ## Agent skills
 
