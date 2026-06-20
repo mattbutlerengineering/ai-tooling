@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 396 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 404 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -67,6 +67,7 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-router | tool | | ✓ | CONDITIONAL |
 | CLIProxyAPI | tool | | ✓ | CONDITIONAL |
 | litellm | tool | ✓ | ✓ | CONDITIONAL |
+| bifrost | tool | ✓ | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | orca | platform | ✓ | ✓ | CONDITIONAL |
@@ -114,6 +115,7 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vercel-ai | framework | | ✓ | CONDITIONAL |
 | antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
 | pydantic-ai | framework | | ✓ | CONDITIONAL |
+| voltagent | framework | ✓ | ✓/$ | CONDITIONAL |
 | microsoft/agent-framework | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
@@ -187,6 +189,8 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | agentlint | tool | ✓ | ✓ | CONDITIONAL |
+| kodus-ai | platform | ✓ | ✓/$ | CONDITIONAL |
+| skylos | tool | ✓ | ✓ | CONDITIONAL |
 | code-review | plugin | ✓ | ✓ | KEEP |
 | design-council | plugin | | ✓ | CONDITIONAL |
 | ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
@@ -251,6 +255,8 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opik | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
 | Helicone | platform | ✓ | ✓/$ | CONDITIONAL |
+| logfire | platform | ✓ | ✓/$ | CONDITIONAL |
+| textgrad | framework | ✓ | ✓ | CONDITIONAL |
 | ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -326,6 +332,8 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | agentmemory | tool | | ✓ | CONDITIONAL |
+| PageIndex | tool | ✓ | ✓/$ | CONDITIONAL |
+| Acontext | tool | ✓ | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -474,15 +482,15 @@ All 396 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 41 | 41 | 100% |
-| Implement | 111 | 111 | 100% |
+| Implement | 113 | 113 | 100% |
 | Verify | 13 | 13 | 100% |
-| Review | 26 | 26 | 100% |
+| Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 19 | 19 | 100% |
+| Outer Loop | 21 | 21 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
-| Memory & Context | 37 | 37 | 100% |
+| Memory & Context | 39 | 39 | 100% |
 | MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 40 | 40 | 100% |
-| **Total** | **396** | **396** | **100%** |
+| **Total** | **404** | **404** | **100%** |
