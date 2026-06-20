@@ -119,6 +119,7 @@ class TestReconcilePureFns(unittest.TestCase):
 class TestReconcileMain(unittest.TestCase):
     def _fixture_repo(self, d, catalog=CATALOG_OK, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n"):
         shutil.copy(os.path.join(ROOT, "reconcile-counts.py"), os.path.join(d, "reconcile-counts.py"))
+        shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))  # reconcile imports it
         _write(d, "CATALOG.md", catalog)
         _write(d, "COMPARISON.md", COMPARISON_OK)
         _write(d, "README.md", readme)

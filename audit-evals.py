@@ -64,6 +64,7 @@ link rot (C, when --links is run) — so it can gate CI or a pre-commit hook. E
 exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
+import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TIMEOUT = 15
@@ -393,8 +394,7 @@ def audit_overlaps():
             names.add(_OVL_STRIP(m.group(1)))  # also the parenthetical-stripped form
             rows.append(line)
         else:  # unlinked entries like "| OMEGA | MCP server |"
-            m2 = re.match(r"\|\s*([A-Za-z0-9][\w.-]+)\s*\|\s*"
-                          r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)\s*\|", line)
+            m2 = re.match(rf"\|\s*([A-Za-z0-9][\w.-]+)\s*\|\s*{catalog_lib.ROW_TYPE}\s*\|", line)
             if m2:
                 names.add(m2.group(1).lower())
     from collections import Counter
@@ -420,36 +420,22 @@ def audit_overlaps():
 # rows, and its Total must equal the CATALOG entry count. Manual count edits drift
 # easily (a single tool addition touches both files), and nothing else cross-checks
 # them — so a CATALOG/COMPARISON disagreement could ship silently. Gating, offline.
-_ROW_TYPE = r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)"
-
 def _catalog_count():
-    n = 0
-    for l in open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8"):
-        if l.startswith("| ") and not l.startswith("| Name") and not l.startswith("|---"):
-            n += 1
-    return n
+    return catalog_lib.catalog_count(open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read())
 
 def audit_comparison():
     text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
-    body, summary, sec, in_summary = {}, {}, None, False
-    for l in text.splitlines():
+    body = catalog_lib.comparison_body_counts(text)  # shared with reconcile-counts.py
+    summary, in_summary = {}, False
+    for l in text.splitlines():       # second pass: the Summary table only
         hm = re.match(r"^##\s+(.*)", l)
         if hm:
-            title = hm.group(1).strip()
-            if title.lower() == "summary":
-                in_summary, sec = True, None
-            else:
-                in_summary = False
-                sec = re.sub(r"\s*\(.*?\)", "", title).strip()  # drop "(infrastructure)" etc.
-                body.setdefault(sec, 0)
+            in_summary = hm.group(1).strip().lower() == "summary"
             continue
         if in_summary:
             sm = re.match(r"\|\s*(.+?)\s*\|\s*(\d+)\s*\|", l)
             if sm and sm.group(1).strip().replace("**", "").lower() not in ("stage", "total"):
                 summary[sm.group(1).strip().replace("**", "")] = int(sm.group(2))
-            continue
-        if sec and re.match(rf"^\|\s*[^|]+\|\s*{_ROW_TYPE}\s*\|", l):
-            body[sec] += 1
     problems = []
     for s, cnt in summary.items():
         if body.get(s, 0) != cnt:

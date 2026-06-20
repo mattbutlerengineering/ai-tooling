@@ -16,36 +16,16 @@ and COMPARISON.md (header + summary rows + Total). Does NOT touch eval-file coun
 or plugin/docs/ (run ./sync-plugin-docs.sh for the latter).
 """
 import os, re, sys
+import catalog_lib
+from catalog_lib import comparison_body_counts
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-ROW_TYPE = r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)"
 
 def read(p):  return open(os.path.join(ROOT, p), encoding="utf-8").read()
 def write(p, s): open(os.path.join(ROOT, p), "w", encoding="utf-8").write(s)
 
 def catalog_count():
-    return sum(1 for l in read("CATALOG.md").splitlines()
-               if l.startswith("| ") and not l.startswith("| Name") and not l.startswith("|---"))
-
-def comparison_body_counts(text):
-    """body rows per '## Section' (parenthetical-stripped), like detector G."""
-    body, sec, in_summary = {}, None, False
-    for l in text.splitlines():
-        hm = re.match(r"^##\s+(.*)", l)
-        if hm:
-            t = hm.group(1).strip()
-            if t.lower() == "summary":
-                in_summary, sec = True, None
-            else:
-                in_summary = False
-                sec = re.sub(r"\s*\(.*?\)", "", t).strip()
-                body.setdefault(sec, 0)
-            continue
-        if in_summary:
-            continue
-        if sec and re.match(rf"^\|\s*[^|]+\|\s*{ROW_TYPE}\s*\|", l):
-            body[sec] += 1
-    return body
+    return catalog_lib.catalog_count(read("CATALOG.md"))
 
 # count strings that quote the catalog total, by file
 TOTAL_PATTERNS = [
