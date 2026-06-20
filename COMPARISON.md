@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 476 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 477 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -298,6 +298,7 @@ All 476 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | superagent | tool | ✓ | ✓ | CONDITIONAL |
 | deepeval | framework | ✓ | ✓ | CONDITIONAL |
 | phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
+| openinference | framework | ✓ | ✓ | CONDITIONAL |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL |
 | harbor | framework | ✓ | ✓ | CONDITIONAL |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | CONDITIONAL |
@@ -559,10 +560,10 @@ All 476 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 34 | 34 | 100% |
+| Outer Loop | 35 | 35 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **476** | **476** | **100%** |
+| **Total** | **477** | **477** | **100%** |
