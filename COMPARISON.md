@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 497 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 498 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -237,6 +237,7 @@ All 497 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | playwright | MCP server | | ✓ | ADOPT |
 | playwright-skill | skill | | ✓ | SKIP |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL |
+| qodo-cover | tool | ✓ | ✓ | CONDITIONAL |
 | passmark | tool | ✓ | ✓ | CONDITIONAL |
 | diagnosing-bugs | skill | | ✓ | CONDITIONAL |
 | mirrord | tool | | ✓/$ | CONDITIONAL |
@@ -576,7 +577,7 @@ All 497 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
 | Implement | 161 | 161 | 100% |
-| Verify | 17 | 17 | 100% |
+| Verify | 18 | 18 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
@@ -586,4 +587,4 @@ All 497 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **497** | **497** | **100%** |
+| **Total** | **498** | **498** | **100%** |
