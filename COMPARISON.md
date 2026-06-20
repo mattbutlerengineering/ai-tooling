@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 311 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 312 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -56,6 +56,7 @@ All 311 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-router | tool | | ✓ | CONDITIONAL |
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
+| Nimbalyst | platform | | ✓ | CONDITIONAL |
 | claude-task-master | tool | | ✓ | CONDITIONAL |
 | capa | tool | | ✓ | CONDITIONAL |
 | skills-manage | tool | | ✓ | SKIP |
@@ -389,7 +390,7 @@ All 311 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 33 | 33 | 100% |
-| Implement | 79 | 79 | 100% |
+| Implement | 80 | 80 | 100% |
 | Verify | 9 | 9 | 100% |
 | Review | 20 | 20 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -400,4 +401,4 @@ All 311 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 28 | 28 | 100% |
 | Research & Discovery | 6 | 6 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **311** | **311** | **100%** |
+| **Total** | **312** | **312** | **100%** |

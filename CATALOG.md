@@ -41,7 +41,8 @@ Tools for running, managing, and coordinating multiple AI agents working in para
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [claude-squad](https://github.com/smtg-ai/claude-squad) | tool | Manages multiple AI terminal agents (Claude Code, Codex, OpenCode, Amp) in parallel | Running one agent at a time is slow; need parallel agent sessions with visibility | gastown, sandcastle, OpenHands |
+| [claude-squad](https://github.com/smtg-ai/claude-squad) | tool | Manages multiple AI terminal agents (Claude Code, Codex, OpenCode, Amp) in parallel | Running one agent at a time is slow; need parallel agent sessions with visibility | gastown, sandcastle, OpenHands, Nimbalyst |
+| [Nimbalyst](https://github.com/Nimbalyst/nimbalyst) | platform | Local visual workspace + parallel-session manager for Codex/Claude Code — WYSIWYG red/green diff approval, kanban, git worktrees, task tracking, mobile app (formerly Crystal) | Running several coding-agent sessions and reviewing their edits is hard in a bare terminal; want a visual command center with human approval gates | claude-squad (lean TUI session manager), kilocode (in-editor agent), opencode |
 | [gastown](https://github.com/gastownhall/gastown) | tool | Multi-agent workspace manager | Need to coordinate multiple agents sharing a workspace without conflicts | claude-squad, sandcastle |
 | [sandcastle](https://github.com/mattpocock/sandcastle) | framework | Orchestrate sandboxed coding agents in TypeScript | Need programmatic control over agent spawning and isolation | claude-squad, gastown, langgraph |
 | [LangGraph](https://github.com/langchain-ai/langgraph) | framework | Build resilient, stateful language model agents with graphs | Need complex agent workflows with branching, cycles, and state management | sandcastle, Flowise |
