@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 332 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 333 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -290,6 +290,7 @@ All 332 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | CONDITIONAL |
 | MemOS | platform | | ✓ | CONDITIONAL |
+| Memori | platform | | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | KEEP |
@@ -417,8 +418,8 @@ All 332 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 12 | 12 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 23 | 23 | 100% |
+| Memory & Context | 24 | 24 | 100% |
 | MCP Servers | 29 | 29 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **332** | **332** | **100%** |
+| **Total** | **333** | **333** | **100%** |
