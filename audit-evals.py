@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Six detectors (A-F), each proven to catch real problems (see git history,
+Seven detectors (A-G), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -34,22 +34,28 @@ Six detectors (A-F), each proven to catch real problems (see git history,
      rows cite the same uncatalogued token, the likelier it's a gap — this is how
      aider/continue/agenta were found. Report-only; surfaces candidates.
 
+  G. COMPARISON CONSISTENCY — COMPARISON.md's per-stage summary must sum to its
+     own body rows, and its Total must equal the CATALOG.md entry count. Catches
+     manual count drift between the two authoritative files (a tool addition edits
+     both). Offline, gating, on by default.
+
 Usage:
-  python3 audit-evals.py              # A + B + D (D/B offline; A hits registries)
-  python3 audit-evals.py --offline    # B + D only (no network)
+  python3 audit-evals.py              # A + B + D + G (D/B/G offline; A hits registries)
+  python3 audit-evals.py --offline    # B + D + G only (no network)
   python3 audit-evals.py --installs   # install resolver only
   python3 audit-evals.py --fabrication # fabrication classifier only
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
+  python3 audit-evals.py --comparison # COMPARISON.md vs CATALOG.md consistency (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
-(A), a FABRICATION candidate (B), a VERDICT mismatch (D), or link rot (C, when
---links is run) — so it can gate CI or a pre-commit hook. E (skill evidence) is
-report-only and never affects the exit code; --selftest exits non-zero on a
-failing assertion, so it can gate on its own.
+(A), a FABRICATION candidate (B), a VERDICT mismatch (D), COMPARISON drift (G), or
+link rot (C, when --links is run) — so it can gate CI or a pre-commit hook. E
+(skill evidence) and F (dangling overlaps) are report-only and never affect the
+exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
 
@@ -372,6 +378,55 @@ def audit_overlaps():
                 miss[t] += 1
     return miss.most_common()
 
+# ---------------------------------------------------------------- G. comparison consistency
+# COMPARISON.md mirrors CATALOG.md: its per-stage summary must sum to its own body
+# rows, and its Total must equal the CATALOG entry count. Manual count edits drift
+# easily (a single tool addition touches both files), and nothing else cross-checks
+# them — so a CATALOG/COMPARISON disagreement could ship silently. Gating, offline.
+_ROW_TYPE = r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)"
+
+def _catalog_count():
+    n = 0
+    for l in open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8"):
+        if l.startswith("| ") and not l.startswith("| Name") and not l.startswith("|---"):
+            n += 1
+    return n
+
+def audit_comparison():
+    text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
+    body, summary, sec, in_summary = {}, {}, None, False
+    for l in text.splitlines():
+        hm = re.match(r"^##\s+(.*)", l)
+        if hm:
+            title = hm.group(1).strip()
+            if title.lower() == "summary":
+                in_summary, sec = True, None
+            else:
+                in_summary = False
+                sec = re.sub(r"\s*\(.*?\)", "", title).strip()  # drop "(infrastructure)" etc.
+                body.setdefault(sec, 0)
+            continue
+        if in_summary:
+            sm = re.match(r"\|\s*(.+?)\s*\|\s*(\d+)\s*\|", l)
+            if sm and sm.group(1).strip().replace("**", "").lower() not in ("stage", "total"):
+                summary[sm.group(1).strip().replace("**", "")] = int(sm.group(2))
+            continue
+        if sec and re.match(rf"^\|\s*[^|]+\|\s*{_ROW_TYPE}\s*\|", l):
+            body[sec] += 1
+    problems = []
+    for s, cnt in summary.items():
+        if body.get(s, 0) != cnt:
+            problems.append(f"section '{s}': summary says {cnt}, body has {body.get(s, 0)}")
+    mtot = re.search(r"\|\s*\*\*Total\*\*\s*\|\s*\*\*(\d+)\*\*", text)
+    total = int(mtot.group(1)) if mtot else None
+    body_total = sum(body.values())
+    if total is not None and total != body_total:
+        problems.append(f"Total says {total}, body rows sum to {body_total}")
+    cat = _catalog_count()
+    if total is not None and total != cat:
+        problems.append(f"COMPARISON Total {total} != CATALOG.md {cat} entries")
+    return problems
+
 # ---------------------------------------------------------------- selftest
 def selftest():
     """Lock in the evidence-classification precedence. Run: audit-evals.py --selftest"""
@@ -427,11 +482,12 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--skills", "--overlaps", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--comparison", "--skills", "--overlaps", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
+    do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
@@ -440,6 +496,7 @@ def main():
         do_inst = "--installs" in sel
         do_fab  = "--fabrication" in sel
         do_verd = "--verdicts" in sel
+        do_comp = "--comparison" in sel
 
     rc = 0
     if do_inst:
@@ -470,6 +527,15 @@ def main():
                 print(f"  MISMATCH {name}: eval={ev}  COMPARISON={cv}")
         else:
             print("  OK — eval verdicts agree with COMPARISON (dual verdicts & KEEP tolerated)")
+    if do_comp:
+        print("== G. comparison consistency (COMPARISON.md vs CATALOG.md) ==")
+        cprob = audit_comparison()
+        if cprob:
+            rc = 1
+            for p in cprob:
+                print(f"  DRIFT {p}")
+        else:
+            print("  OK — COMPARISON summary sums to its body rows and Total matches CATALOG.md")
     if do_links:
         print("== C. link rot (CATALOG.md repo links) ==")
         problems, total = audit_links()
