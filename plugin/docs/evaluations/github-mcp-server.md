@@ -13,13 +13,17 @@ GitHub's official MCP server providing full API coverage for repositories, issue
 
 ## How we tested it
 
-Added the GitHub MCP server to Claude Code with a personal access token. Used it for repository search, issue creation and management, PR operations, and cross-repo code navigation.
+**README/install review — not run hands-on.** Note the install: an earlier draft showed `npx @github/mcp-server`, which does not exist (no such npm package). GitHub ships this as a **remote hosted HTTP server** and as a local Go binary / Docker image — there is no npx entry point. The correct ways to add it:
 
 ```bash
-claude mcp add github-mcp-server -- npx @github/mcp-server
+# Remote hosted (easiest): GitHub-managed, OAuth/PAT auth
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/
+
+# Local (self-hosted): Go binary or Docker
+docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server
 ```
 
-Tested against three repos: a public open-source project (issue triage), a private repo (PR review and code search), and cross-repo code search to find usage patterns.
+Capabilities below are drawn from the official repo/README (toolsets for repos, issues, PRs, actions, code search), not from an observed session.
 
 ## What worked
 
@@ -47,9 +51,9 @@ Tested against three repos: a public open-source project (issue triage), a priva
 
 ## Verdict
 
-**ADOPT**
+**ADOPT** (review-based)
 
-The official server with broader coverage than the community alternative. The code navigation features — search across repos, read file at specific ref — justify the switch from server-github. For basic issue/PR operations, `gh` CLI via bash is equivalent, but for cross-repo search and advanced PR workflows, this is the better tool.
+The official, GitHub-maintained server with broader coverage than the community alternative; the code-navigation toolset (cross-repo search, read file at a specific ref) justifies it over server-github. For basic issue/PR operations, `gh` CLI via the bash tool is equivalent, so the MCP earns its place mainly for cross-repo search and advanced PR workflows. Verdict is on merits + official status, not a recorded run here — install via the hosted `https://api.githubcopilot.com/mcp/` endpoint, not the non-existent `npx @github/mcp-server`.
 
 ## Catalog entry
 

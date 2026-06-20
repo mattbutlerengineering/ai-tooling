@@ -13,44 +13,41 @@ Two-model codebase audit pipeline. An expensive model (Opus/Sonnet) audits the c
 
 ## How we tested it
 
-Tested on a medium-sized TypeScript project (~15k lines). Ran the audit with Opus as the auditor and Haiku as the executor. The tool generated a codebase analysis first, then proposed improvements in priority order as individual plan files.
+**Repo/README review — not run hands-on.** Correcting the install first: shadcn/improve is a **Claude Code skill**, installed via the skills.sh installer, not a standalone `npx shadcn-improve` CLI (no such npm package exists):
 
 ```
-npx shadcn-improve audit --model opus --executor haiku
+npx skills add shadcn/improve
 ```
 
-The audit produced 14 plan files across 5 categories. We then executed 3 plans with the cheap model to assess end-to-end quality.
+Once installed, you invoke it as a skill inside Claude Code (you pick which model audits and which executes); it writes a codebase analysis, then per-improvement plan files. The mechanism below is from the repo's README ("Use your most capable model to audit your codebase and write plans for cheaper models to execute"), not from an observed run — so no token costs, plan counts, or timings are claimed as measured.
 
-## What worked
+## What it offers (from the README/design review)
 
-- The dual-model approach genuinely saves tokens — the expensive model only reads and plans (~$1.50), the cheap model does grunt work (~$0.50 per plan execution)
-- Plan artifacts are durable and human-readable — survive context resets and can be reviewed before execution
-- Best findings: dead code removal, inconsistent error handling patterns, missing input validation
-- GitHub issue integration is clean — each plan becomes an assignable issue
+- **Two-model economics by design**: the most capable model only reads and plans; cheaper models execute the plans. The intended saving is that you don't pay top-tier rates for mechanical edits. (Plausible, but actual per-run cost was not measured here.)
+- **Durable plan artifacts**: improvements are written as individual, human-readable plan files that survive context resets and can be reviewed before execution — a real advantage over a one-shot "fix everything" pass.
+- **Issue-tracker integration**: plans can become assignable GitHub issues, fitting a backlog-driven workflow.
 
-## What didn't work or surprised us
+## Open questions (would need a hands-on run)
 
-- ~40% of findings were subjective style preferences rather than objective improvements
-- Doesn't understand domain-specific design decisions — flags intentional patterns as issues
-- No way to configure which categories to audit (all 9 run every time)
-- Cost per full audit: ~$2-4 on a medium project, which adds up at monthly cadence
-- The executor model sometimes misinterprets plan instructions on complex refactors
+- Signal-to-noise: how many findings are objective improvements vs subjective style preferences — and whether it flags intentional, domain-specific patterns as problems.
+- Actual cost of a full audit at the dual-model split, and how it scales with codebase size.
+- Whether the executor model reliably follows plan instructions on complex refactors.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Finds some real bugs but also false positives from domain misunderstanding |
-| Speed | neutral | Not per-PR; monthly cadence doesn't affect daily speed |
-| Maintainability | + | Dead code removal, pattern consistency findings are genuinely useful |
-| Safety | neutral | Security category exists but shallow compared to trailofbits/skills |
-| Cost Efficiency | +/- | Dual-model saves per-run cost, but monthly runs still add up; subjective findings waste executor tokens |
+| Correctness | neutral | An audit aid, not a correctness gate; finding quality unverified here. |
+| Speed | neutral | Periodic (not per-PR), so no effect on daily loop speed. |
+| Maintainability | + (by design) | Plan-file artifacts + dead-code/consistency focus target maintainability. |
+| Safety | neutral | A security category exists but is shallow next to dedicated tools like trailofbits/skills. |
+| Cost Efficiency | + (claimed) | Dual-model split is designed to cut audit cost — not measured in this review. |
 
 ## Verdict
 
-**CONDITIONAL**
+**CONDITIONAL** (review-based)
 
-Adopt for periodic codebase health audits (monthly or quarterly). Not for per-PR use — that's what code-review plugin covers. The dual-model economics make sense but you need to manually filter subjective findings before executing plans. Complementary with code-review (reactive, per-PR) rather than redundant. Skip if your codebase is small enough that manual review covers it.
+On its design, shadcn/improve fits periodic codebase-health audits (monthly/quarterly) rather than per-PR use — that's the code-review plugin's job — and the plan-file + dual-model approach is a sensible way to make a proactive audit cheaper and reviewable. Held at CONDITIONAL because this is a README review, not a run: the signal-to-noise ratio and real cost are the open questions, and the install is `npx skills add shadcn/improve` (a skill), not a `npx shadcn-improve` CLI. Complementary with code-review (reactive, per-PR), not redundant.
 
 ## Catalog entry
 
