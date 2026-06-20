@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 360 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 363 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -62,6 +62,7 @@ All 360 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-staff-engineer | harness | | ✓ | SKIP |
 | claude-squad | tool | | ✓ | CONDITIONAL |
 | orca | platform | ✓ | ✓ | CONDITIONAL |
+| HolyClaude | platform | ✓ | ✓ | CONDITIONAL |
 | Nimbalyst | platform | | ✓ | CONDITIONAL |
 | agent-of-empires | tool | | ✓ | CONDITIONAL |
 | AgentsMesh | platform | ✓ | ✓ | CONDITIONAL |
@@ -305,6 +306,8 @@ All 360 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
 | cognee | platform | | ✓ | CONDITIONAL |
 | MemOS | platform | | ✓ | CONDITIONAL |
+| memind | platform | ✓ | ✓ | CONDITIONAL |
+| memory-os | tool | ✓ | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
 | RAGFlow | platform | ✓ | ✓ | CONDITIONAL |
@@ -438,15 +441,15 @@ All 360 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 37 | 37 | 100% |
-| Implement | 98 | 98 | 100% |
+| Implement | 99 | 99 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 14 | 14 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 30 | 30 | 100% |
+| Memory & Context | 32 | 32 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **360** | **360** | **100%** |
+| **Total** | **363** | **363** | **100%** |
