@@ -13,13 +13,13 @@ Open-source dev data platform that ingests data from DevOps tools (GitHub, Jira,
 
 ## How we tested it
 
-Deployed DevLake locally via Docker Compose. Connected to a GitHub repo with 6 months of PR and commit history. Generated DORA dashboards via the built-in Grafana integration.
+**README/architecture review — not deployed.** A meaningful run needs a Docker Compose stack plus a GitHub PAT and Grafana, then hours of ingested history — out of scope for a throwaway test here. The documented bring-up is:
 
 ```
-docker compose -f docker-compose.yml up -d
-# config-ui at localhost:4000 — added GitHub connection with PAT
-# Grafana at localhost:3002 — pre-built DORA dashboard
+docker compose -f docker-compose.yml up -d   # config-ui :4000, Grafana :3002 (pre-built DORA dashboards)
 ```
+
+Capabilities (DORA metrics, multi-source ingestion, Grafana dashboards) are from the project docs, not an observed deployment.
 
 ## What worked
 

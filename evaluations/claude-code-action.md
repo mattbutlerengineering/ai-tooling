@@ -13,7 +13,7 @@ GitHub Actions integration that deploys Claude Code into PR and issue workflows.
 
 ## How we tested it
 
-Set up claude-code-action in a GitHub Actions workflow on a test repository. Configured the workflow YAML to trigger on `issue_comment` and `pull_request` events with the `@claude` mention pattern. Set `ANTHROPIC_API_KEY` as a repository secret.
+**Workflow/docs review — not run in CI.** Exercising it requires a GitHub Actions runner plus an `ANTHROPIC_API_KEY` repo secret and live `@claude` mention events — not reproduced here. The documented workflow:
 
 ```yaml
 # .github/workflows/claude.yml
@@ -21,9 +21,6 @@ name: Claude Code
 on:
   issue_comment:
     types: [created]
-  pull_request_review_comment:
-    types: [created]
-
 jobs:
   claude:
     if: contains(github.event.comment.body, '@claude')
@@ -34,7 +31,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
 
-Triggered by commenting `@claude please review this PR` on an open pull request, and `@claude implement this` on an issue with a feature description.
+The `@claude`-mention trigger behavior described below is from the action's docs, not an observed CI run.
 
 ## What worked
 

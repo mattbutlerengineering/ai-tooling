@@ -13,13 +13,15 @@ Skill that turns any folder of code, SQL schemas, docs, papers, images, or video
 
 ## How we tested it
 
-Installed as a skill at `~/.claude/skills/graphify/` and ran `/graphify` on a medium TypeScript project (~15k lines, ~80 files across 3 packages). Used the default mode first, then `--mode deep` for richer extraction.
+**Skill/mechanism review — specific project run not reproduced here.** graphify is installed locally (`~/.claude/skills/graphify/`) and its mechanism (input -> knowledge graph -> clustered communities -> HTML+JSON+audit report) is read from the SKILL.md. The documented invocation surface:
 
 ```
 /graphify ./packages/shared
 /graphify ./packages/api --mode deep
 /graphify . --wiki
 ```
+
+An earlier draft claimed a run on a "~15k-line TypeScript project (~80 files across 3 packages)"; that specific run and its outputs were not reproduced in this evaluation, so no graph counts or timings are claimed as measured.
 
 ## What worked
 

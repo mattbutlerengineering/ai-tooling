@@ -13,45 +13,40 @@ Pre-indexed code knowledge graph that runs as an MCP server and auto-syncs on fi
 
 ## How we tested it
 
-Installed the MCP server and let it index a TypeScript monorepo (~50k lines across 5 packages). Queried for function definitions, cross-package imports, and call chains during a feature implementation session.
+**README/mechanism review — not run hands-on.** Note the install first: an earlier draft showed a bare `claude mcp add codegraph`, which is incomplete. The CLI publishes on npm as **`@colbymchenry/codegraph`**; you install it (`npm install -g @colbymchenry/codegraph`, or `npx @colbymchenry/codegraph`) and it then auto-wires the MCP server into Claude Code/Cursor/Codex. The behavior below is from the repo/README and the author's published benchmark, not an observed indexing run — no latency or indexing-time figures are claimed here as measured.
 
-```
-claude mcp add codegraph
-# Initial indexing: ~2 minutes for 50k lines
-# Subsequent queries: <500ms each
+```bash
+npm install -g @colbymchenry/codegraph    # then it configures the MCP server for your agent
 ```
 
-## What worked
+## What worked (from the design + author's benchmark)
 
-- Auto-sync is the killer feature — the graph stays current as you edit files, with no manual rebuild step
-- Query latency is consistently under 500ms for most operations (function lookup, callers, callees)
-- Benchmarked 16% cost savings and 58% fewer tool calls compared to sessions without it (author's benchmark on 7 real codebases)
-- 100% local — no data leaves your machine, no API keys needed
-- Initial indexing is fast enough to be a non-issue (~2 min for 50k lines)
-- Agents automatically use it when available — no prompt engineering needed
+- **Auto-sync is the headline** — the graph is meant to stay current as you edit, with no manual rebuild step, and agents use it automatically over MCP (no prompt engineering).
+- **100% local** — no external API calls, no keys; nothing leaves the machine (verifiable from the architecture/README).
+- **Author-reported benchmark:** ~16% cost savings and ~58% fewer tool calls vs sessions without it, across 7 codebases. This is the project's own measurement, not reproduced here.
 
 ## What didn't work or surprised us
 
-- The initial index can be slow on very large monorepos (>200k lines reported to take 10+ minutes)
-- Graph queries return raw structural data — the agent still needs to interpret relationships
-- No visualization output (unlike graphify) — purely an agent-facing tool
-- 51K stars but relatively new ecosystem — long-term stability is promising but unproven at multi-year scale
+- **Not independently run.** The compelling claims (sub-500ms queries, ~2-min indexing of a 50k-line repo) are the project's, not observed in this evaluation — treat them as vendor figures pending a hands-on pass.
+- Graph queries return raw structural data — the agent still has to interpret relationships.
+- No visualization output (unlike graphify) — purely an agent-facing tool.
+- Large star count (51K) but a young ecosystem — long-term stability is promising but unproven at multi-year scale.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Agents navigate code with structural awareness instead of grep-and-guess |
-| Speed | + | 58% fewer tool calls means faster task completion |
-| Maintainability | neutral | Helps agents understand structure but doesn't improve code itself |
-| Safety | neutral | No security impact |
-| Cost Efficiency | + | 16% token savings per session from reduced exploration |
+| Correctness | + | Agents navigate code with structural awareness instead of grep-and-guess (by design). |
+| Speed | + (author-reported) | ~58% fewer tool calls per the project's benchmark; not reproduced here. |
+| Maintainability | neutral | Helps agents understand structure but doesn't improve code itself. |
+| Safety | neutral | Local-only; no security impact. |
+| Cost Efficiency | + (author-reported) | ~16% token savings per the project's benchmark; not reproduced here. |
 
 ## Verdict
 
-**ADOPT**
+**ADOPT** (review-based)
 
-The always-on, auto-syncing approach makes codegraph genuinely useful for daily development work. Unlike batch analysis tools (graphify, Understand-Anything), it stays current without manual intervention and integrates invisibly into agent sessions via MCP. The benchmarked cost and tool-call savings are meaningful over many sessions. The only reason not to install it is if you're working on very small projects where structural navigation isn't a bottleneck.
+The always-on, auto-syncing knowledge-graph-over-MCP approach is a sound design for daily development: unlike batch analysis tools (graphify, Understand-Anything) it's meant to stay current without manual rebuilds and integrate invisibly into agent sessions. The 51K-star adoption and the author's cost/tool-call benchmark support an ADOPT lean — but this verdict rests on design + vendor numbers, not an independent run, so confirm the indexing/latency claims on your own repo before relying on them. Install via `npm install -g @colbymchenry/codegraph` (not the bare `claude mcp add codegraph`).
 
 ## Catalog entry
 

@@ -13,15 +13,16 @@ CLI for managing git worktrees, designed specifically for parallel AI agent work
 
 ## How we tested it
 
-Used worktrunk to manage 3 parallel agent sessions, each working on a different feature branch in its own worktree. Tested the create, list, switch, and cleanup lifecycle.
+**README/CLI-surface review — not run.** worktrunk wraps git worktrees to give each parallel agent session its own branch+worktree; a real test means driving multiple concurrent agent sessions, not done here. Documented lifecycle:
 
 ```
 worktrunk new feat/auth         # creates worktree + branch in one step
 worktrunk new feat/api-routes
-worktrunk new feat/tests
-worktrunk list                  # shows all active worktrees with status
+worktrunk list                  # active worktrees with status
 worktrunk clean                 # removes merged/stale worktrees
 ```
+
+The create/list/switch/cleanup flow below is from the documented command surface, not an observed multi-session run.
 
 ## What worked
 

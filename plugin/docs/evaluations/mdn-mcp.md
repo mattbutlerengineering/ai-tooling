@@ -13,13 +13,13 @@ Mozilla's official MCP server that brings MDN Web Docs and browser compatibility
 
 ## How we tested it
 
-Added the MDN MCP server to Claude Code using the hosted endpoint and queried for web platform information.
+**README/endpoint review — not connected/run.** The server is a hosted MCP endpoint; wiring it into this session and issuing live queries was not done here, so the example queries below are documented usage, not observed results.
 
 ```bash
 claude mcp add --transport http mdn https://mcp.mdn.mozilla.net/
 ```
 
-Tested three queries: CSS Grid layout properties and browser support, the Web Notifications API with cross-browser compatibility, and HTML `<dialog>` element spec and support status.
+Typical use is web-platform lookups (CSS properties + browser support, Web APIs, HTML element specs). For a *measured* docs-MCP eval in this catalog, see context7.md, where a live query was actually run.
 
 ## What worked
 

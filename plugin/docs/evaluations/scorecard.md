@@ -27,7 +27,9 @@ curl -sL "https://api.scorecard.dev/projects/github.com/microsoft/TypeScript"
 
 The TypeScript result surfaced 9 known vulnerabilities with GHSA identifiers, unpinned npm dependencies in CI workflows, and missing release signatures — all actionable and not information readily available from `gh api` alone.
 
-Also attempted CLI install (`brew install scorecard`) but focused on the API since the REST API and GitHub Action are the primary integration paths for agent workflows.
+Also attempted CLI install (`brew install scorecard` — formula confirmed to exist) but focused on the API since the REST API and GitHub Action are the primary integration paths for agent workflows.
+
+**Re-verified live (2026-06-20):** the public API needs no key and returned exactly these scores on re-run — `ossf/scorecard` = **9** (Code-Review / Maintained / Security-Policy / Dangerous-Workflow all 10) and `microsoft/TypeScript` = **7.9**. So the figures above are confirmed, not estimated.
 
 ## What worked
 

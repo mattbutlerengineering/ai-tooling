@@ -13,19 +13,16 @@ Autonomous AI development loop for Claude Code with intelligent exit detection. 
 
 ## How we tested it
 
-Tested ralph on a feature implementation task in a Docker container. Gave it a GitHub issue URL and let it run unattended across 5 separate runs with tasks of varying complexity (bug fix, new API endpoint, refactor, test generation, documentation).
+**Repo/README review — not run.** Ralph is an unattended autonomous loop that runs an agent in a Docker sandbox against a task/issue; exercising it means letting it execute many turns unsupervised, which was not done here. Documented setup:
 
 ```
-# Install and configure
 git clone https://github.com/frankbria/ralph-claude-code.git
 cd ralph-claude-code && ./install.sh
-
-# Run on a task with Docker sandboxing
 ralph run --docker --issue https://github.com/org/repo/issues/42
-
-# Monitor via tmux dashboard
 ralph status
 ```
+
+The behavior described below is from the repo/README, not an observed unattended run; no per-run success rates are claimed as measured.
 
 ## What worked
 
