@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 404 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 412 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -33,6 +33,7 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | repomix | tool | | ✓ | CONDITIONAL |
 | markitdown | tool | | ✓ | ADOPT |
 | serena | MCP server | ✓ | ✓ | ADOPT |
+| ts-morph | tool | | ✓ | CONDITIONAL |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
 | cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
 | sem | tool | ✓ | ✓ | CONDITIONAL |
@@ -116,6 +117,7 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
 | pydantic-ai | framework | | ✓ | CONDITIONAL |
 | voltagent | framework | ✓ | ✓/$ | CONDITIONAL |
+| agent-kit | framework | ✓ | ✓ | CONDITIONAL |
 | microsoft/agent-framework | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
@@ -176,6 +178,8 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | page-agent | tool | ✓ | ✓ | CONDITIONAL |
 | CloakBrowser | tool | | ✓ | SKIP |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
+| scenario | framework | ✓ | ✓ | CONDITIONAL |
+| aimock | tool | ✓ | ✓ | CONDITIONAL |
 | evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
 | playwright-skill | skill | | ✓ | SKIP |
@@ -251,6 +255,9 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-fleet | tool | | ✓ | CONDITIONAL |
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
 | promptfoo | tool | ✓ | ✓ | CONDITIONAL |
+| garak | tool | ✓ | ✓ | CONDITIONAL |
+| deepeval | framework | ✓ | ✓ | CONDITIONAL |
+| phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | opik | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
@@ -406,6 +413,7 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mirage | tool | | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 | ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
+| DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -481,16 +489,16 @@ All 404 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 41 | 41 | 100% |
-| Implement | 113 | 113 | 100% |
-| Verify | 13 | 13 | 100% |
+| Plan | 42 | 42 | 100% |
+| Implement | 114 | 114 | 100% |
+| Verify | 15 | 15 | 100% |
 | Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 21 | 21 | 100% |
+| Outer Loop | 24 | 24 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
 | Memory & Context | 39 | 39 | 100% |
-| MCP Servers | 31 | 31 | 100% |
+| MCP Servers | 32 | 32 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 40 | 40 | 100% |
-| **Total** | **404** | **404** | **100%** |
+| **Total** | **412** | **412** | **100%** |
