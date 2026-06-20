@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 494 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 495 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -120,6 +120,7 @@ All 494 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | llama_index | framework | ✓ | ✓ | CONDITIONAL |
 | semantic-kernel | framework | ✓ | ✓ | CONDITIONAL |
 | smolagents | framework | ✓ | ✓ | CONDITIONAL |
+| dspy | framework | ✓ | ✓ | CONDITIONAL |
 | crewAI | framework | | ✓ | SKIP |
 | vercel-ai | framework | | ✓ | CONDITIONAL |
 | antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
@@ -572,7 +573,7 @@ All 494 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 45 | 45 | 100% |
-| Implement | 159 | 159 | 100% |
+| Implement | 160 | 160 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -583,4 +584,4 @@ All 494 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **494** | **494** | **100%** |
+| **Total** | **495** | **495** | **100%** |
