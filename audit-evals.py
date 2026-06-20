@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Seven detectors (A-G), each proven to catch real problems (see git history,
+Eight detectors (A-H), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -39,6 +39,11 @@ Seven detectors (A-G), each proven to catch real problems (see git history,
      manual count drift between the two authoritative files (a tool addition edits
      both). Offline, gating, on by default.
 
+  H. ARCHIVED REPOS (opt-in, --archived, REPORT-ONLY) — a catalogued repo GitHub has
+     flagged `archived` is unmaintained; the entry should carry a ⚠️ archived note or
+     repoint to a successor. Link rot (C) misses this (the link still resolves).
+     Found 4 (incl. gpt-engineer ★55K). Uses authenticated `gh api`; report-only.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G (D/B/G offline; A hits registries)
   python3 audit-evals.py --offline    # B + D + G only (no network)
@@ -47,6 +52,7 @@ Usage:
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --comparison # COMPARISON.md vs CATALOG.md consistency (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
+  python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
@@ -193,6 +199,37 @@ def audit_links():
             if res != "ok":
                 problems.append((slug, res))
     return problems, len(slugs)
+
+# ---------------------------------------------------------------- H. archived repos
+# A catalogued repo that GitHub has flagged `archived` is no longer maintained — the
+# entry shouldn't read as a live recommendation without saying so. Link rot (C) can't
+# catch this: an archived repo's link still resolves. This is how 4 archived entries
+# (incl. gpt-engineer ★55K and a same-named superseded chrome-devtools fork's cousin)
+# were found. Opt-in (uses authenticated `gh api`, so not rate-limited), report-only:
+# keep notable/historical tools but expect the entry to carry a ⚠️ archived note.
+def check_archived(slug):
+    r = subprocess.run(["gh", "api", f"repos/{slug}", "--jq", "[.archived, .pushed_at[0:7]]"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    try:
+        arch, pushed = json.loads(r.stdout)
+        return (bool(arch), pushed)
+    except Exception:
+        return None
+
+def audit_archived():
+    import concurrent.futures
+    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    slugs = sorted(set(re.findall(r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)", text)))
+    archived = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
+        for slug, res in zip(slugs, ex.map(check_archived, slugs)):
+            if res and res[0]:
+                # already disclosed in the entry? (a ⚠️ near the link)
+                flagged = bool(re.search(re.escape(slug) + r".{0,400}?(?:archived|⚠️)", text, re.S | re.I))
+                archived.append((slug, res[1], flagged))
+    return archived, len(slugs)
 
 # ---------------------------------------------------------------- D. verdict sync
 VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP")
@@ -482,13 +519,14 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--comparison", "--skills", "--overlaps", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--skills", "--overlaps", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
     do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
+    do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
@@ -545,6 +583,17 @@ def main():
                 print(f"  {'DEAD' if res=='dead' else 'MOVED'} {slug}" + (f" -> {res[6:]}" if res.startswith('moved:') else ""))
         else:
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
+    if do_archived:
+        print("== H. archived repos (report-only) ==")
+        arch, total = audit_archived()
+        undisclosed = [(s, p) for s, p, flagged in arch if not flagged]
+        for s, p, flagged in arch:
+            tag = "" if flagged else "  <- NOT disclosed in the entry; add a ⚠️ archived note or repoint"
+            print(f"  ARCHIVED {s} (last push {p}){tag}")
+        if not arch:
+            print(f"  OK — none of {total} catalog repos are archived")
+        elif not undisclosed:
+            print(f"  ({len(arch)} archived, all already disclosed with a ⚠️ note)")
     if do_skills:
         measured, backlog = audit_skill_evidence()
         tot = len(measured) + len(backlog)
