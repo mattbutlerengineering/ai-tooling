@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 344 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 347 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -103,6 +103,7 @@ All 344 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
 | nanobot | harness | ✓ | ✓ | CONDITIONAL |
+| Hermes Agent | harness | ✓ | ✓ | CONDITIONAL |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
 | oh-my-pi | platform | | ✓ | SKIP |
@@ -405,6 +406,8 @@ All 344 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | system-prompts-leaks | reference | | ✓ | CONDITIONAL |
 | how-claude-code-works | reference | | ✓ | CONDITIONAL |
 | claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL |
+| Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL |
+| 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL |
 
 ---
 
@@ -422,7 +425,7 @@ All 344 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 36 | 36 | 100% |
-| Implement | 91 | 91 | 100% |
+| Implement | 92 | 92 | 100% |
 | Verify | 11 | 11 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -432,5 +435,5 @@ All 344 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 27 | 27 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
-| Reference | 37 | 37 | 100% |
-| **Total** | **344** | **344** | **100%** |
+| Reference | 39 | 39 | 100% |
+| **Total** | **347** | **347** | **100%** |
