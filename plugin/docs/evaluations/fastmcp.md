@@ -15,12 +15,25 @@ FastMCP 1.0 was incorporated into the official MCP Python SDK in 2024. The stand
 
 ## How we tested it
 
-Architecture review based on the repo source, 40+ examples, 424 test files, and 55+ doc pages. Inspected the echo server, memory server, and CLAUDE.md development guidelines. Did not install or run locally — this is a framework evaluation, not a usage test.
+**Hands-on**, `pip install fastmcp` into a clean venv (v3.4.2) and built a minimal server to verify the decorator API on 2026-06-20.
+
+```python
+from fastmcp import FastMCP
+mcp = FastMCP("demo")
+
+@mcp.tool                          # one decorator on a plain typed function
+def add(a: int, b: int) -> int:
+    "Add two numbers"
+    return a + b
+# introspection:
+await mcp.get_tool("add")
+#  → FunctionTool | name: 'add' | desc: 'Add two numbers' | params: ['a','b']
+```
+
+**Measured results.** Clean install; the "minimal boilerplate" claim is real — a single `@mcp.tool` on a type-hinted function produced a fully-formed `FunctionTool` with the **name auto-derived from the function, the description pulled from the docstring, and the JSON-schema parameters (`a`, `b`) inferred from the type hints** — zero manual schema. Note a v3 API shift worth knowing: introspection is `get_tool(name)` (singular, async), not `get_tools()`. Confirms the core ergonomics that make it the default MCP-server framework.
 
 ```bash
-gh api repos/PrefectHQ/fastmcp --jq '.stargazers_count, .updated_at, .license.spdx_id'
-gh api repos/PrefectHQ/fastmcp/releases/latest --jq '.tag_name, .published_at'
-# Inspected: examples/echo.py, examples/memory.py, CLAUDE.md, docs structure
+gh api repos/PrefectHQ/fastmcp --jq '.stargazers_count, .updated_at, .license.spdx_id'   # provenance
 ```
 
 ## What worked
