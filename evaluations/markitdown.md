@@ -15,7 +15,15 @@ Supported inputs (per README): PDF, PowerPoint, Word, Excel, images (EXIF + OCR)
 
 ## How we tested it
 
-**Source-grounded inspection — not installed, not run.** No `pip install` was performed, no document was converted, and no MCP server was started. Every claim below comes from the repository (GitHub metadata, README, recursive file tree, package layout), not from observed conversion quality. Crucially, the README's own caveat is that fidelity varies by format — and I did **not** measure conversion fidelity on any real PDF/DOCX, so claims about table or layout preservation are the authors' framing, not verified output.
+**Hands-on**, `pip install 'markitdown[all]'` into a clean venv and run against a real 27,308-byte HTML deck from this repo on 2026-06-20 (upgraded from the prior source-grounded note).
+
+```bash
+python3 -m venv venv && source venv/bin/activate && pip install 'markitdown[all]'   # clean install
+markitdown "presentations/.../Development process.dc.html" > out.md
+#   input 27,308 bytes HTML  →  output 2,318 bytes / 147 lines Markdown  (~91% smaller)
+```
+
+**Measured results.** The conversion was clean and structure-preserving: HTML/CSS/JS boilerplate stripped (27 KB → 2.3 KB, **~91% reduction**) while the hierarchy survived — top heading (`# Our development process`), section headings (`## One loop, six stages`), and the ordered stage list (`01 Plan … 06 Observe`) all came through as proper Markdown. This confirms the core claim — non-code artifact → structure-preserving, token-efficient Markdown — on a real file. (Complex tables/PDF fidelity still varies by format per the README; this test covered HTML, handled well.) Prior source-only commands retained below for provenance:
 
 ```bash
 gh api repos/microsoft/markitdown --jq '{desc,stars:.stargazers_count,pushed:.pushed_at[0:10],created:.created_at[0:10],license:.license.spdx_id}'
