@@ -2,7 +2,8 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Two detectors, both proven to catch real problems (see git history, 2026-06-20):
+Five detectors (A-E), each proven to catch real problems (see git history,
+2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
      should point at an artifact that actually exists (npm / PyPI / crates.io / GitHub).
@@ -37,8 +38,11 @@ Usage:
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
-Exit code is non-zero if any BROKEN install or FABRICATION candidate is found,
-so it can gate CI or a pre-commit hook.
+Exit code is non-zero if any gating detector finds a problem — a BROKEN install
+(A), a FABRICATION candidate (B), a VERDICT mismatch (D), or link rot (C, when
+--links is run) — so it can gate CI or a pre-commit hook. E (skill evidence) is
+report-only and never affects the exit code; --selftest exits non-zero on a
+failing assertion, so it can gate on its own.
 """
 import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
 
