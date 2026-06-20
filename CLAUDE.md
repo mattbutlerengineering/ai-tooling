@@ -88,10 +88,12 @@ Single-context layout. See `docs/agents/domain.md`.
 
 ## Adding entries
 
+- Use the `/add-catalog-entry` skill (`.claude/skills/add-catalog-entry/`) — it runs the full 8-file workflow (resolve slug, dedup, insert CATALOG + COMPARISON rows, propagate counts, sync, audit).
 - Fetch repo description: `gh api repos/{owner}/{repo} --jq '.description'`
 - Place in the correct category table
 - Always fill the "Overlaps with" column — check existing entries in the same category
 - If a new category is needed, add a section header with a one-line description
+- **Never hand-edit counts.** Run `python3 reconcile-counts.py` to propagate the catalog total across README/CLAUDE/STACK/plugin and rebuild COMPARISON's summary from its body rows (`--check` for a dry-run / CI gate). Detector G then verifies CATALOG == COMPARISON.
 
 ## Evaluations
 
