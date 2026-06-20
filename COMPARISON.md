@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 477 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 479 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -179,6 +179,7 @@ All 477 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ruflo | harness | | ✓ | CONDITIONAL |
 | sandcastle | framework | | ✓ | CONDITIONAL |
 | superpowers | plugin | | ✓ | ADOPT |
+| eca | harness | ✓ | ✓ | CONDITIONAL |
 | letta-code | harness | ✓ | ✓ | CONDITIONAL |
 | strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL |
 | Aegis | skill | | ✓ | CONDITIONAL |
@@ -280,6 +281,7 @@ All 477 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | ACMM | framework | | ✓ | CONDITIONAL |
 | abtop | tool | | ✓ | CONDITIONAL |
+| dev3000 | tool | | ✓ | CONDITIONAL |
 | Apache DevLake | platform | ✓ | ✓ | DEFER |
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
@@ -555,15 +557,15 @@ All 477 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 45 | 45 | 100% |
-| Implement | 144 | 144 | 100% |
+| Implement | 145 | 145 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 35 | 35 | 100% |
+| Outer Loop | 36 | 36 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 42 | 42 | 100% |
-| **Total** | **477** | **477** | **100%** |
+| **Total** | **479** | **479** | **100%** |
