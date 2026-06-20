@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 363 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 370 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -25,6 +25,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | spec_driven_develop | skill | | ✓ | CONDITIONAL |
 | reversa | framework | ✓ | ✓ | CONDITIONAL |
+| flow-next | plugin | ✓ | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | CONDITIONAL |
 | planning-with-files | skill | | ✓ | SKIP |
@@ -33,6 +34,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | markitdown | tool | | ✓ | ADOPT |
 | serena | MCP server | ✓ | ✓ | ADOPT |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
+| cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -119,6 +121,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenHands | platform | | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
+| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL |
 | adhd | skill | | ✓ | CONDITIONAL |
 | sandboxd | tool | | ✓ | CONDITIONAL |
 | vercel-sandbox | platform | | ✓/$ | CONDITIONAL |
@@ -130,6 +133,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ruflo | harness | | ✓ | CONDITIONAL |
 | sandcastle | framework | | ✓ | CONDITIONAL |
 | superpowers | plugin | | ✓ | ADOPT |
+| letta-code | harness | ✓ | ✓ | CONDITIONAL |
 | Aegis | skill | | ✓ | CONDITIONAL |
 | superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
@@ -307,6 +311,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cognee | platform | | ✓ | CONDITIONAL |
 | MemOS | platform | | ✓ | CONDITIONAL |
 | memind | platform | ✓ | ✓ | CONDITIONAL |
+| ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL |
 | memory-os | tool | ✓ | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
@@ -327,6 +332,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | guild | tool | | ✓ | CONDITIONAL |
 | memsearch | tool | ✓ | ✓ | CONDITIONAL |
 | supermemory | platform | ✓ | ✓ | CONDITIONAL |
+| honcho | platform | ✓ | ✓/$ | CONDITIONAL |
 | MemPalace | tool | ✓ | ✓ | CONDITIONAL |
 | pro-workflow | plugin | ✓ | ✓ | SKIP |
 | hivemind | tool | ✓ | ✓ | CONDITIONAL |
@@ -366,6 +372,7 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mcp2cli | tool | ✓ | ✓ | CONDITIONAL |
 | mirage | tool | | ✓ | CONDITIONAL |
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
+| ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -440,16 +447,16 @@ All 363 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 37 | 37 | 100% |
-| Implement | 99 | 99 | 100% |
+| Plan | 39 | 39 | 100% |
+| Implement | 101 | 101 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 14 | 14 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 32 | 32 | 100% |
-| MCP Servers | 30 | 30 | 100% |
+| Memory & Context | 34 | 34 | 100% |
+| MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **363** | **363** | **100%** |
+| **Total** | **370** | **370** | **100%** |
