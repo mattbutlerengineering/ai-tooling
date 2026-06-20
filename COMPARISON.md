@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 458 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 464 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -34,6 +34,7 @@ All 458 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | markitdown | tool | | ✓ | ADOPT |
 | serena | MCP server | ✓ | ✓ | ADOPT |
 | ts-morph | tool | | ✓ | CONDITIONAL |
+| repowise | tool | ✓ | ✓/$ | CONDITIONAL |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
 | cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
 | sem | tool | ✓ | ✓ | CONDITIONAL |
@@ -147,6 +148,9 @@ All 458 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL |
 | pi-subagents | plugin | ✓ | ✓ | CONDITIONAL |
 | CopilotKit | framework | ✓ | ✓ | CONDITIONAL |
+| agentscope | framework | ✓ | ✓ | CONDITIONAL |
+| open-multi-agent | framework | ✓ | ✓ | CONDITIONAL |
+| GenericAgent | harness | ✓ | ✓ | CONDITIONAL |
 | gptme | harness | ✓ | ✓ | CONDITIONAL |
 | zeroshot | harness | ✓ | ✓ | CONDITIONAL |
 | ccs | tool | ✓ | ✓ | CONDITIONAL |
@@ -290,6 +294,8 @@ All 458 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | rogue | tool | ✓ | ✓/$ | CONDITIONAL |
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | opik | platform | ✓ | ✓ | CONDITIONAL |
+| agent-governance-toolkit | framework | ✓ | ✓ | CONDITIONAL |
+| pezzo | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
 | Helicone | platform | ✓ | ✓/$ | CONDITIONAL |
 | logfire | platform | ✓ | ✓/$ | CONDITIONAL |
@@ -535,16 +541,16 @@ All 458 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 42 | 42 | 100% |
-| Implement | 135 | 135 | 100% |
+| Plan | 43 | 43 | 100% |
+| Implement | 138 | 138 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 30 | 30 | 100% |
+| Outer Loop | 32 | 32 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 34 | 34 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **458** | **458** | **100%** |
+| **Total** | **464** | **464** | **100%** |
