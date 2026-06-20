@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 348 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 352 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -24,6 +24,7 @@ All 348 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenSpec | framework | | ✓ | CONDITIONAL |
 | BMAD-METHOD | framework | | ✓ | CONDITIONAL |
 | spec_driven_develop | skill | | ✓ | CONDITIONAL |
+| reversa | framework | ✓ | ✓ | CONDITIONAL |
 | mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | opensrc | tool | | ✓ | CONDITIONAL |
 | planning-with-files | skill | | ✓ | SKIP |
@@ -48,6 +49,7 @@ All 348 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agency-agents | harness | | ✓ | CONDITIONAL |
 | agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL |
+| agmsg | tool | ✓ | ✓ | CONDITIONAL |
 | aidlc-workflows | framework | | ✓ | CONDITIONAL |
 | arrow-js | framework | | ✓ | CONDITIONAL |
 | beads | tool | ✓ | ✓ | KEEP |
@@ -124,6 +126,7 @@ All 348 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ruflo | harness | | ✓ | CONDITIONAL |
 | sandcastle | framework | | ✓ | CONDITIONAL |
 | superpowers | plugin | | ✓ | ADOPT |
+| Aegis | skill | | ✓ | CONDITIONAL |
 | superset | tool | | ✓ | CONDITIONAL |
 | worktrunk | tool | | $ | CONDITIONAL |
 | implement | skill | | ✓ | CONDITIONAL |
@@ -218,6 +221,7 @@ All 348 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sentrux | tool | ✓ | ✓ | CONDITIONAL |
 | claude-fleet | tool | | ✓ | CONDITIONAL |
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
+| ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
 ## Skills & Plugins (domain-specific)
@@ -425,16 +429,16 @@ All 348 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 36 | 36 | 100% |
-| Implement | 92 | 92 | 100% |
+| Plan | 37 | 37 | 100% |
+| Implement | 94 | 94 | 100% |
 | Verify | 12 | 12 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 13 | 13 | 100% |
+| Outer Loop | 14 | 14 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
 | Memory & Context | 27 | 27 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 39 | 39 | 100% |
-| **Total** | **348** | **348** | **100%** |
+| **Total** | **352** | **352** | **100%** |
