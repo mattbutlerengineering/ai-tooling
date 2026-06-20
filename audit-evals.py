@@ -17,11 +17,16 @@ Two detectors, both proven to catch real problems (see git history, 2026-06-20):
      should resolve to its canonical current name. Flags 404s (dead) and silent
      renames (moved). ~450 network requests, so it is off by default.
 
+  D. VERDICT SYNC — each eval's "## Verdict" should agree with its COMPARISON.md
+     row. Tolerates dual verdicts ("ADOPT for X — CONDITIONAL otherwise") and the
+     KEEP (installed/validated) status standing in for ADOPT. Offline.
+
 Usage:
-  python3 audit-evals.py              # A + B (B is offline; A hits registries)
-  python3 audit-evals.py --offline    # classifier only (no network)
+  python3 audit-evals.py              # A + B + D (D/B offline; A hits registries)
+  python3 audit-evals.py --offline    # B + D only (no network)
   python3 audit-evals.py --installs   # install resolver only
-  python3 audit-evals.py --fabrication # classifier only
+  python3 audit-evals.py --fabrication # fabrication classifier only
+  python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
 
 Exit code is non-zero if any BROKEN install or FABRICATION candidate is found,
@@ -167,17 +172,59 @@ def audit_links():
                 problems.append((slug, res))
     return problems, len(slugs)
 
+# ---------------------------------------------------------------- D. verdict sync
+VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP")
+_norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
+
+def audit_verdicts():
+    """Flag evals whose ## Verdict disagrees with their COMPARISON.md row.
+    Tolerates: KEEP (installed/validated status) vs ADOPT, and dual verdicts
+    ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
+    comp = {}
+    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        if m:
+            comp[_norm(m.group(1))] = m.group(2)
+    compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
+    flagged = []
+    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
+        if os.path.basename(p) == "TEMPLATE.md": continue
+        t = open(p, encoding="utf-8").read()
+        vm = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", t)
+        if not vm: continue
+        ev = vm.group(1)
+        # dual verdicts: collect every verdict word in the Verdict section
+        vsec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", t, re.S)
+        ev_set = {w for w in VERDICTS if re.search(rf"\b{w}\b", vsec.group(0))} if vsec else {ev}
+        cands = {_norm(os.path.basename(p)[:-3])}
+        h = re.search(r"^#\s*Evaluation:\s*(.+)$", t, re.M)
+        if h: cands.add(_norm(h.group(1)))
+        ce = re.search(r"\|\s*\[([^\]]+)\]\(https://github", t)
+        if ce: cands.add(_norm(ce.group(1)))
+        cv = next((comp[c] for c in cands if c in comp), None)
+        if cv is None:
+            continue  # name didn't map — not a verdict-sync problem
+        if cv in ev_set:
+            continue  # matches (incl. dual verdict)
+        if any(frozenset((cv, x)) in compatible for x in ev_set):
+            continue  # KEEP vs ADOPT etc.
+        flagged.append((os.path.basename(p)[:-3], ev, cv))
+    return flagged
+
 # ---------------------------------------------------------------- main
 def main():
     args = sys.argv[1:]
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--offline")]
-    do_inst = (not sel) or "--installs" in sel
-    do_fab  = (not sel) or "--fabrication" in sel or "--offline" in sel
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--verdicts", "--offline")]
+    explicit = [a for a in sel if a != "--offline"]
+    do_inst = (not explicit) or "--installs" in sel
+    do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
+    do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
     do_links = "--links" in sel  # opt-in: ~450 network requests, slow
     if "--offline" in sel: do_inst = False
-    if "--installs" in sel: do_fab = False
-    if "--fabrication" in sel: do_inst = False
-    if sel == ["--links"]: do_inst = do_fab = False
+    if explicit:
+        do_inst = "--installs" in sel
+        do_fab  = "--fabrication" in sel
+        do_verd = "--verdicts" in sel
 
     rc = 0
     if do_inst:
@@ -199,6 +246,15 @@ def main():
                 print(f"    - {b}")
         else:
             print("  OK — every 'How we tested' either discloses not-run or shows a verified run")
+    if do_verd:
+        print("== D. verdict sync (eval ## Verdict vs COMPARISON.md) ==")
+        vflag = audit_verdicts()
+        if vflag:
+            rc = 1
+            for name, ev, cv in vflag:
+                print(f"  MISMATCH {name}: eval={ev}  COMPARISON={cv}")
+        else:
+            print("  OK — eval verdicts agree with COMPARISON (dual verdicts & KEEP tolerated)")
     if do_links:
         print("== C. link rot (CATALOG.md repo links) ==")
         problems, total = audit_links()
