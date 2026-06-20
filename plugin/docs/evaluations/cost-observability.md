@@ -13,46 +13,50 @@ Combined evaluation of three cost observability approaches: tokencost (per-call 
 
 ### What it does
 
-Python library that calculates token costs for 400+ LLMs. Wraps API calls to track input/output tokens and maps them to per-model pricing. Returns per-call cost breakdowns in real time.
+Python library that estimates token counts and dollar costs for 400+ LLMs from a built-in pricing table — *before or after* a call, without needing the provider's usage response. You pass it a prompt/completion string (or a token count) and a model name; it returns the cost.
 
 ### How we tested it
 
-Installed in a Python project making Claude API calls. Wrapped the Anthropic client with tokencost tracking to get per-call cost breakdowns over a multi-step agent workflow.
+Installed it (`pip install tokencost`) and ran the count + cost functions directly on a sample prompt/completion across several models — no live API calls, to test the offline estimation path.
 
+```python
+from tokencost import count_string_tokens, calculate_prompt_cost, calculate_completion_cost
+prompt = "Write a haiku about rate limiting in distributed systems."
+count_string_tokens(prompt, model="gpt-4o")                 # -> 11
+calculate_prompt_cost(prompt, model="gpt-4o")               # -> $0.00002750
+calculate_completion_cost(completion, model="gpt-4o")       # -> $0.00018000
+calculate_prompt_cost(prompt, model="gpt-4o-mini")          # -> $0.00000165
+calculate_prompt_cost(prompt, model="claude-3-5-sonnet-20241022")  # -> raises (see below)
 ```
-pip install tokencost
-# Wrap API calls — each returns cost metadata alongside the response
-from tokencost import calculate_prompt_cost, calculate_completion_cost
-```
+
+Pricing checked out exactly: 11 prompt tokens × $2.50/1M (gpt-4o input) = $0.0000275, matching the returned value; gpt-4o-mini came out ~17× cheaper as expected.
 
 ### What worked
 
-- Accurate per-call cost tracking with up-to-date pricing for Claude models
-- Easy integration — pip install, wrap client, read costs
-- Supports 400+ models across providers for cross-platform cost comparison
-- Good for identifying which steps in a pipeline are expensive
+- **Accurate offline estimation for OpenAI/tiktoken models.** Token counts and costs are computed locally from a bundled pricing table — the gpt-4o numbers matched hand-calculated pricing to the cent, and switching to gpt-4o-mini reflected the cheaper rate. No API key, no network.
+- **Useful for pre-flight budgeting** — you can price a prompt before sending it, not just after, which `abtop`/usage-response approaches can't do.
+- **Broad model coverage** (400+) for cross-provider cost comparison.
 
 ### What didn't work or surprised us
 
-- Python-only — doesn't work with Claude Code CLI directly (CLI doesn't expose token counts to external tools)
-- Requires you to control the API calls; useless for tools that abstract the LLM layer
-- Pricing data can lag behind provider announcements by a few days
+- **Claude costing is NOT offline — and failed without credentials.** `calculate_prompt_cost(..., model="claude-3-5-sonnet-20241022")` raised `Could not resolve authentication method. Expected either api_key or auth_token...`, and the import emitted `Warning: Anthropic token counting API is currently in beta`. For Claude models tokencost calls Anthropic's **remote** token-counting API (needs an API key), so the "just wrap it and read Claude costs" path does **not** work out of the box — a real gap for Claude Code users specifically.
+- **Library, not a CLI hook** — you must control the call site; it can't observe Claude Code CLI sessions (use `abtop` for that).
 
 ### Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | No impact on code quality |
-| Speed | neutral | Negligible overhead per call |
-| Maintainability | neutral | No code changes beyond instrumentation |
-| Safety | neutral | Read-only tracking |
-| Cost Efficiency | + | Identifies expensive calls, enables optimization |
+| Correctness | neutral | No impact on code quality. |
+| Speed | neutral | Local table lookup for OpenAI; a network call for Claude. |
+| Maintainability | neutral | No code changes beyond instrumentation. |
+| Safety | neutral | Read-only; but Claude path sends text to Anthropic's counting API. |
+| Cost Efficiency | + | Prices prompts ahead of time for OpenAI models; enables pre-flight budgeting. |
 
 ### Verdict
 
 **CONDITIONAL**
 
-Adopt if building custom Python agent pipelines where you control API calls directly. Skip for pure Claude Code CLI usage — the CLI doesn't expose hooks for external cost tracking. For CLI users, abtop (below) is the better fit.
+Verified: accurate, fully-offline token/cost estimation for OpenAI-family models (pricing matched to the cent). Adopt for custom Python pipelines where you control the calls and want pre-flight budgeting. Two caveats from the hands-on run: it's a library (not a Claude Code CLI hook — `abtop` covers that), and **Claude token counting requires an Anthropic API key** because it routes to Anthropic's beta counting API rather than a local tokenizer.
 
 ### Catalog entry
 
@@ -75,25 +79,23 @@ CLI that estimates cloud infrastructure costs from Terraform/CDK/Pulumi files be
 
 ### How we tested it
 
-Ran against a Terraform project defining AWS infrastructure (ECS cluster, RDS, S3 buckets). Generated cost estimates and a cost diff against the current state.
+**README/scope review — not run hands-on.** Running it meaningfully needs a Terraform/CDK/Pulumi project plus an Infracost API key and cloud pricing config — out of scope for a throwaway test here, and tangential to AI dev tooling (see verdict). The commands below are the documented usage, not an observed run:
 
 ```
 infracost breakdown --path .
 infracost diff --path . --compare-to infracost-base.json
 ```
 
-### What worked
+### What worked (from the docs/positioning)
 
-- Accurate estimates for standard AWS/GCP/Azure resources
-- PR comment integration shows cost delta clearly
-- Catches surprise bills before `terraform apply`
-- Well-maintained, 12K+ stars, active development
+- Estimates standard AWS/GCP/Azure resource costs from IaC before deploy.
+- PR-comment integration surfaces the cost delta of a change.
+- Catches surprise bills before `terraform apply`; well-maintained (12K+ stars).
 
 ### What didn't work or surprised us
 
-- Not relevant to AI/LLM cost tracking — it estimates infrastructure (compute, storage, network), not token costs
-- Requires Terraform/CDK files — no use in projects without IaC
-- Pricing for some newer resource types lags behind provider releases
+- **Wrong domain for this catalog** — it estimates *infrastructure* (compute, storage, network), not LLM/token costs, which is the cost axis that matters for AI dev work.
+- Requires Terraform/CDK/Pulumi files — no use in projects without IaC.
 
 ### Quality signals affected
 
