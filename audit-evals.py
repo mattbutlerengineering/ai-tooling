@@ -143,12 +143,11 @@ def how_section(text):
 
 def audit_fabrication():
     flagged = []
-    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
-        if os.path.basename(p) == "TEMPLATE.md": continue
-        sec = how_section(open(p, encoding="utf-8").read())
-        if not sec: continue
-        if Evidence(sec).is_fabrication_candidate:
-            flagged.append(os.path.basename(p)[:-3])
+    for ev in load_evals():
+        if not ev.how:
+            continue
+        if ev.evidence.is_fabrication_candidate:
+            flagged.append(ev.name)
     return flagged
 
 # ---------------------------------------------------------------- C. link rot
@@ -193,28 +192,18 @@ def audit_verdicts():
             comp[_norm(m.group(1))] = m.group(2)
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
     flagged = []
-    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
-        if os.path.basename(p) == "TEMPLATE.md": continue
-        t = open(p, encoding="utf-8").read()
-        vm = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", t)
-        if not vm: continue
-        ev = vm.group(1)
-        # dual verdicts: collect every verdict word in the Verdict section
-        vsec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", t, re.S)
-        ev_set = {w for w in VERDICTS if re.search(rf"\b{w}\b", vsec.group(0))} if vsec else {ev}
-        cands = {_norm(os.path.basename(p)[:-3])}
-        h = re.search(r"^#\s*Evaluation:\s*(.+)$", t, re.M)
-        if h: cands.add(_norm(h.group(1)))
-        ce = re.search(r"\|\s*\[([^\]]+)\]\(https://github", t)
-        if ce: cands.add(_norm(ce.group(1)))
-        cv = next((comp[c] for c in cands if c in comp), None)
+    for ev in load_evals():
+        if not ev.verdict:
+            continue
+        ev_set = ev.verdict_set  # every verdict word — handles dual verdicts
+        cv = next((comp[c] for c in ev.name_aliases if c in comp), None)
         if cv is None:
             continue  # name didn't map — not a verdict-sync problem
         if cv in ev_set:
             continue  # matches (incl. dual verdict)
         if any(frozenset((cv, x)) in compatible for x in ev_set):
             continue  # KEEP vs ADOPT etc.
-        flagged.append((os.path.basename(p)[:-3], ev, cv))
+        flagged.append((ev.name, ev.verdict, cv))
     return flagged
 
 # ---------------------------------------------------------------- E. skill evidence (report-only)
@@ -258,20 +247,75 @@ class Evidence:
         # strong measurement marker that overrides a weak disclaimer word
         return self.measured and (self._strong or not self.honest)
 
+# ---------------------------------------------------------------- eval model
+class Evaluation:
+    """One evaluation file, parsed once. The eval-file grammar — How section,
+    Verdict, dual-verdict set, catalog row, name aliases — lives here so detectors
+    consume a value instead of each re-deriving it from raw markdown. Build from a
+    path with from_path(); the (name, text) constructor keeps it unit-testable
+    without the tree (see selftest)."""
+    def __init__(self, name, text):
+        self.name = name
+        self.text = text
+
+    @classmethod
+    def from_path(cls, path):
+        return cls(os.path.basename(path)[:-3], open(path, encoding="utf-8").read())
+
+    @property
+    def how(self):
+        return how_section(self.text)
+
+    @property
+    def evidence(self):
+        return Evidence(self.how)
+
+    @property
+    def is_skill(self):
+        return bool(re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", self.text))
+
+    @property
+    def verdict(self):
+        m = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", self.text)
+        return m.group(1) if m else None
+
+    @property
+    def verdict_set(self):
+        # every verdict word in the Verdict section (handles dual verdicts)
+        if not self.verdict:
+            return set()
+        vsec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", self.text, re.S)
+        if vsec:
+            return {w for w in VERDICTS if re.search(rf"\b{w}\b", vsec.group(0))}
+        return {self.verdict}
+
+    @property
+    def name_aliases(self):
+        # normalized names this eval might be keyed by in COMPARISON.md
+        cands = {_norm(self.name)}
+        h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.M)
+        if h: cands.add(_norm(h.group(1)))
+        ce = re.search(r"\|\s*\[([^\]]+)\]\(https://github", self.text)
+        if ce: cands.add(_norm(ce.group(1)))
+        return cands
+
+def load_evals():
+    """Yield every Evaluation under evaluations/, skipping the template."""
+    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
+        if os.path.basename(p) == "TEMPLATE.md":
+            continue
+        yield Evaluation.from_path(p)
+
 def audit_skill_evidence():
     measured, backlog = [], []
-    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
-        if os.path.basename(p) == "TEMPLATE.md": continue
-        t = open(p, encoding="utf-8").read()
-        if not re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", t):
+    for ev in load_evals():
+        if not ev.is_skill:
             continue  # not a skill-type entry
-        vm = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", t)
-        if not vm or vm.group(1) != "ADOPT":
+        if ev.verdict != "ADOPT":
             continue  # only ADOPT skills carry the "needs measured backing" bar
-        name = os.path.basename(p)[:-3]
         # genuinely measured = has measurement evidence AND is not a disclosed not-run
         # review (which may merely quote the author's "with-skill" numbers).
-        (measured if Evidence(how_section(t)).is_measured else backlog).append(name)
+        (measured if ev.evidence.is_measured else backlog).append(ev.name)
     return measured, backlog
 
 # ---------------------------------------------------------------- selftest
@@ -299,11 +343,29 @@ def selftest():
             fails.append(f"  FAIL [fabrication] {label}: got {ev.is_fabrication_candidate}, want {exp_fab}")
         if ev.is_measured != exp_meas:
             fails.append(f"  FAIL [measured] {label}: got {ev.is_measured}, want {exp_meas}")
+
+    # Evaluation parsing — the eval-file grammar is now a unit-testable surface
+    def expect(cond, msg):
+        if not cond: fails.append(f"  FAIL [eval] {msg}")
+    skill = Evaluation("foo",
+        "# Evaluation: Foo\n\n| [foo](https://github.com/a/foo) | skill | x | y | z |\n\n## Verdict\n\n**ADOPT**\n")
+    expect(skill.is_skill, "skill-type row not detected")
+    expect(skill.verdict == "ADOPT", f"verdict {skill.verdict!r} != ADOPT")
+    expect("foo" in skill.name_aliases, "name alias from heading missing")
+    tool = Evaluation("bar",
+        "| [bar](https://github.com/a/bar) | tool | x | y | z |\n\n## Verdict\n\n**SKIP**\n")
+    expect(not tool.is_skill, "tool-type row misdetected as skill")
+    dual = Evaluation("baz", "## Verdict\n\n**ADOPT** for X — **CONDITIONAL** otherwise\n")
+    expect(dual.verdict_set == {"ADOPT", "CONDITIONAL"}, f"dual verdict_set {dual.verdict_set}")
+    none = Evaluation("qux", "## Overview\n\nNo verdict here.\n")
+    expect(none.verdict is None and none.verdict_set == set(), "missing verdict not handled")
+    n_eval_checks = 6
+
     if fails:
         print("== selftest ==")
         print("\n".join(fails))
         return 1
-    print(f"== selftest ==\n  OK — {len(cases)} evidence-classification cases pass")
+    print(f"== selftest ==\n  OK — {len(cases)} evidence + {n_eval_checks} eval-parsing cases pass")
     return 0
 
 # ---------------------------------------------------------------- main
