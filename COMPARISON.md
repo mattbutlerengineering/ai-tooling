@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 419 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 427 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -138,6 +138,8 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | tabby | platform | ✓ | ✓ | CONDITIONAL |
 | Archon | platform | ✓ | ✓ | CONDITIONAL |
 | sim | platform | ✓ | ✓/$ | CONDITIONAL |
+| haystack | framework | ✓ | ✓ | CONDITIONAL |
+| UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
 | opensquilla | tool | | ✓ | SKIP |
 | architect-loop | skill | | ✓ | CONDITIONAL |
 | adhd | skill | | ✓ | CONDITIONAL |
@@ -185,6 +187,7 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
 | scenario | framework | ✓ | ✓ | CONDITIONAL |
 | aimock | tool | ✓ | ✓ | CONDITIONAL |
+| keploy | tool | ✓ | ✓ | CONDITIONAL |
 | evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
 | playwright-skill | skill | | ✓ | SKIP |
@@ -263,6 +266,7 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | garak | tool | ✓ | ✓ | CONDITIONAL |
 | deepeval | framework | ✓ | ✓ | CONDITIONAL |
 | phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
+| claude-devtools | tool | ✓ | ✓ | CONDITIONAL |
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | opik | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
@@ -347,6 +351,8 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | PageIndex | tool | ✓ | ✓/$ | CONDITIONAL |
 | Acontext | tool | ✓ | ✓ | CONDITIONAL |
 | byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL |
+| LightRAG | tool | ✓ | ✓ | CONDITIONAL |
+| memvid | tool | ✓ | ✓ | CONDITIONAL |
 | claude-mem | plugin | ✓ | ✓ | ADOPT |
 | lean-ctx | tool | | ✓ | CONDITIONAL |
 | letta | platform | | ✓ | DEFER |
@@ -420,6 +426,7 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Pare | MCP server | ✓ | ✓ | CONDITIONAL |
 | ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
 | DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL |
+| DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL |
 
 ## Research & Discovery
 
@@ -434,6 +441,7 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | last30days-skill | skill | | ✓ | ADOPT |
 | llm-council | tool | | ✓ | CONDITIONAL |
 | PaperOrchestra | skill | | ✓ | CONDITIONAL |
+| storm | tool | ✓ | ✓ | CONDITIONAL |
 
 ## Reference
 
@@ -497,15 +505,15 @@ All 419 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 42 | 42 | 100% |
-| Implement | 119 | 119 | 100% |
-| Verify | 15 | 15 | 100% |
+| Implement | 121 | 121 | 100% |
+| Verify | 16 | 16 | 100% |
 | Review | 28 | 28 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 24 | 24 | 100% |
+| Outer Loop | 25 | 25 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
-| Memory & Context | 40 | 40 | 100% |
-| MCP Servers | 32 | 32 | 100% |
-| Research & Discovery | 9 | 9 | 100% |
+| Memory & Context | 42 | 42 | 100% |
+| MCP Servers | 33 | 33 | 100% |
+| Research & Discovery | 10 | 10 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **419** | **419** | **100%** |
+| **Total** | **427** | **427** | **100%** |
