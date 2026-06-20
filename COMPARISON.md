@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 389 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 396 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -46,6 +46,7 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SocratiCode | tool | ✓ | ✓ | CONDITIONAL |
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL |
 | codebase-to-course | skill | | ✓ | CONDITIONAL |
+| sourcebot | platform | ✓ | ✓ | CONDITIONAL |
 
 ## Implement
 
@@ -59,6 +60,8 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | beads | tool | ✓ | ✓ | KEEP |
 | caveman | skill | | ✓ | ADOPT |
 | cherry-studio | platform | | ✓ | SKIP |
+| eigent | platform | ✓ | ✓ | CONDITIONAL |
+| herdr | tool | | ✓ | CONDITIONAL |
 | claurst | harness | | ✓ | SKIP |
 | claude-code-harness | harness | | ✓ | CONDITIONAL |
 | claude-code-router | tool | | ✓ | CONDITIONAL |
@@ -150,6 +153,7 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL |
 | re_gent | tool | | ✓ | CONDITIONAL |
 | cli-continues | tool | | ✓ | CONDITIONAL |
+| weave | tool | ✓ | ✓ | CONDITIONAL |
 | phantom | platform | ✓ | ✓ | CONDITIONAL |
 | rmux | tool | | ✓ | CONDITIONAL |
 | MiMo-Code | platform | | ✓ | CONDITIONAL |
@@ -166,6 +170,7 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agent-browser | tool | | ✓ | ADOPT |
 | browser-use | framework | | ✓ | CONDITIONAL |
+| nanobrowser | tool | | ✓ | CONDITIONAL |
 | page-agent | tool | ✓ | ✓ | CONDITIONAL |
 | CloakBrowser | tool | | ✓ | SKIP |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
@@ -245,6 +250,7 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | opik | platform | ✓ | ✓ | CONDITIONAL |
 | ragas | tool | ✓ | ✓ | CONDITIONAL |
+| Helicone | platform | ✓ | ✓/$ | CONDITIONAL |
 | ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -330,6 +336,7 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL |
 | evolver | tool | ✓ | ✓ | CONDITIONAL |
+| memU | platform | ✓ | ✓ | CONDITIONAL |
 | memory-os | tool | ✓ | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
@@ -466,16 +473,16 @@ All 389 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 40 | 40 | 100% |
-| Implement | 108 | 108 | 100% |
-| Verify | 12 | 12 | 100% |
+| Plan | 41 | 41 | 100% |
+| Implement | 111 | 111 | 100% |
+| Verify | 13 | 13 | 100% |
 | Review | 26 | 26 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 18 | 18 | 100% |
+| Outer Loop | 19 | 19 | 100% |
 | Skills & Plugins | 62 | 62 | 100% |
-| Memory & Context | 36 | 36 | 100% |
+| Memory & Context | 37 | 37 | 100% |
 | MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 40 | 40 | 100% |
-| **Total** | **389** | **389** | **100%** |
+| **Total** | **396** | **396** | **100%** |
