@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 320 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 323 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -167,6 +167,9 @@ All 320 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenOSINT | MCP server | ✓ | ✓ | SKIP |
 | agnix | tool | ✓ | ✓ | CONDITIONAL |
 | agent-vault | tool | | ✓ | CONDITIONAL |
+| brooks-lint | skill | | ✓ | CONDITIONAL |
+| openreview | tool | ✓ | ✓ | CONDITIONAL |
+| code-on-incus | tool | ✓ | ✓ | CONDITIONAL |
 
 ## Ship
 
@@ -400,7 +403,7 @@ All 320 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 34 | 34 | 100% |
 | Implement | 83 | 83 | 100% |
 | Verify | 9 | 9 | 100% |
-| Review | 20 | 20 | 100% |
+| Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 12 | 12 | 100% |
@@ -409,4 +412,4 @@ All 320 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 29 | 29 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 35 | 35 | 100% |
-| **Total** | **320** | **320** | **100%** |
+| **Total** | **323** | **323** | **100%** |
