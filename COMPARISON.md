@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 376 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 383 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -36,6 +36,7 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
 | cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
 | sem | tool | ✓ | ✓ | CONDITIONAL |
+| semble | tool | ✓ | ✓ | CONDITIONAL |
 | Understand-Anything | tool | | ✓ | CONDITIONAL |
 | codebase-design | skill | | ✓ | CONDITIONAL |
 | domain-modeling | skill | | ✓ | CONDITIONAL |
@@ -108,6 +109,8 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | crewAI | framework | | ✓ | SKIP |
 | vercel-ai | framework | | ✓ | CONDITIONAL |
 | antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
+| pydantic-ai | framework | | ✓ | CONDITIONAL |
+| microsoft/agent-framework | framework | | ✓ | CONDITIONAL |
 | lobehub | platform | | ✓ | SKIP |
 | nanoclaw | platform | | ✓ | SKIP |
 | nanobot | harness | ✓ | ✓ | CONDITIONAL |
@@ -182,6 +185,7 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL |
 | tdd-guard | plugin | ✓ | ✓ | CONDITIONAL |
 | vet | tool | ✓ | ✓/$ | CONDITIONAL |
+| openrewrite | framework | ✓ | ✓/$ | CONDITIONAL |
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
 | pr-review-toolkit | plugin | | ✓ | KEEP |
 | security-guidance | plugin | | ✓ | ADOPT |
@@ -234,6 +238,7 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-fleet | tool | | ✓ | CONDITIONAL |
 | agentsview | tool | ✓ | ✓ | CONDITIONAL |
 | promptfoo | tool | ✓ | ✓ | CONDITIONAL |
+| giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
 | ping-island | tool | ✓ | ✓ | CONDITIONAL |
 | tokencost | tool | | ✓ | CONDITIONAL |
 
@@ -301,6 +306,7 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | baoyu-design | skill | | ✓ | CONDITIONAL |
 | AlphaGBM/skills | skill | | ✓ | CONDITIONAL |
 | himself65/finance-skills | skill | | ✓ | CONDITIONAL |
+| web-access | skill | ✓ | ✓ | CONDITIONAL |
 | cc-skills-golang | skill | | ✓ | ADOPT |
 
 ## Memory & Context
@@ -317,6 +323,7 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | memind | platform | ✓ | ✓ | CONDITIONAL |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL |
+| evolver | tool | ✓ | ✓ | CONDITIONAL |
 | memory-os | tool | ✓ | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
@@ -453,16 +460,16 @@ All 376 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 39 | 39 | 100% |
-| Implement | 102 | 102 | 100% |
+| Plan | 40 | 40 | 100% |
+| Implement | 104 | 104 | 100% |
 | Verify | 12 | 12 | 100% |
-| Review | 25 | 25 | 100% |
+| Review | 26 | 26 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 15 | 15 | 100% |
-| Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 35 | 35 | 100% |
+| Outer Loop | 16 | 16 | 100% |
+| Skills & Plugins | 62 | 62 | 100% |
+| Memory & Context | 36 | 36 | 100% |
 | MCP Servers | 31 | 31 | 100% |
 | Research & Discovery | 9 | 9 | 100% |
 | Reference | 40 | 40 | 100% |
-| **Total** | **376** | **376** | **100%** |
+| **Total** | **383** | **383** | **100%** |
