@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 471 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 472 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -159,6 +159,7 @@ All 471 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | zeroshot | harness | ✓ | ✓ | CONDITIONAL |
 | ccs | tool | ✓ | ✓ | CONDITIONAL |
 | mito | tool | ✓ | ✓/$ | CONDITIONAL |
+| freestyle | tool | | ✓ | CONDITIONAL |
 | beta9 | platform | ✓ | ✓/$ | CONDITIONAL |
 | cua | harness | ✓ | ✓/$ | CONDITIONAL |
 | txtai | framework | ✓ | ✓ | CONDITIONAL |
@@ -549,7 +550,7 @@ All 471 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 44 | 44 | 100% |
-| Implement | 142 | 142 | 100% |
+| Implement | 143 | 143 | 100% |
 | Verify | 17 | 17 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -560,4 +561,4 @@ All 471 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 35 | 35 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 41 | 41 | 100% |
-| **Total** | **471** | **471** | **100%** |
+| **Total** | **472** | **472** | **100%** |
