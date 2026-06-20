@@ -63,4 +63,4 @@ Compared to neighbors: **autoresearch** (Karpathy) runs automated experiments bu
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | skill | Autonomous research loop (plan→draft→cross-model adversarial review→iterate→persist) as portable skills + a Rust CLI, with a persistent Research Wiki and self-evolution | Single-model self-review is gameable and context is lost between runs; want overnight research with a reviewer model and durable memory | autoresearch, llm-council, deer-flow, deep-research |
+| [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | skill | Autonomous research loop (plan→draft→cross-model adversarial review→iterate→persist) as portable skills + a Rust CLI, with a persistent Research Wiki and self-evolution | Single-model self-review is gameable and context is lost between runs; want overnight research with a reviewer model and durable memory | autoresearch, llm-council, deer-flow, PaperOrchestra |
