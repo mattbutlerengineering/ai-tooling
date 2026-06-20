@@ -132,11 +132,11 @@ Terminal UI (htop-style) that monitors Claude Code and Codex CLI sessions in rea
 
 ### How we tested it
 
-Launched abtop alongside multiple Claude Code sessions working on different tasks. Monitored token consumption and context window fill rates across sessions.
+**Repo/README review — not run hands-on** (it's an interactive TUI, not a scriptable one-shot). Note the install: abtop is a **Rust** tool — `cargo install abtop` (crates.io v0.4.8), or the `abtop-installer.sh` release script. It is **not** an npm package; an earlier draft of this eval said `npx abtop`, which 404s.
 
 ```
-# Install and run — zero config
-npx abtop
+cargo install abtop      # Rust/crates.io — NOT `npx abtop` (no such npm package)
+abtop                    # launches the TUI; discovers active sessions
 ```
 
 ### What worked
@@ -149,9 +149,9 @@ npx abtop
 
 ### What didn't work or surprised us
 
-- Relatively new tool (2.9K stars) — some rough edges in session discovery
-- Only monitors Claude Code and Codex — doesn't cover other agent frameworks
-- No historical data or export — it's purely live, no after-the-fact analysis
+- **Install was misdocumented** — listed as `npx abtop` (an npm package that doesn't exist); it's actually a Rust/cargo tool. A sign the original entry wasn't run.
+- Only monitors Claude Code and Codex (per README) — doesn't cover other agent frameworks.
+- No historical data or export — it's purely live, no after-the-fact analysis.
 
 ### Quality signals affected
 
@@ -165,9 +165,9 @@ npx abtop
 
 ### Verdict
 
-**ADOPT**
+**CONDITIONAL** (review-based)
 
-Lightweight, zero-config, directly shows where tokens go in Claude Code sessions. Essential for understanding session economics and catching runaway token usage before context exhaustion. The htop mental model makes it instantly familiar.
+On its design, abtop is a lightweight htop-style monitor that shows where tokens go in live Claude Code/Codex sessions — a sensible fit for catching runaway usage before context exhaustion. Held at CONDITIONAL rather than ADOPT because this is a README review, not a run, and the original install command was wrong (it's `cargo install abtop`, a Rust tool, not `npx abtop`). Confirm the live session-discovery behavior before treating it as a default.
 
 ### Catalog entry
 

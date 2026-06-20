@@ -31,7 +31,7 @@ claude install-skill nichochar/agent-browser
 | [GSD](https://github.com/obra/superpowers) | Structured project planning with milestone/phase management | `claude install-plugin obra/superpowers` | Correctness, Speed |
 | [feature-dev](https://github.com/anthropics/claude-plugins-official) | 7-phase guided feature development for single features | `claude install-plugin anthropics/claude-plugins-official` | Correctness |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add github -- npx -y @anthropic-ai/mcp-proxy@latest --transport sse https://api.githubcopilot.com/mcp/` | Speed, Correctness |
-| [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `claude mcp add codegraph` | Speed, Cost Efficiency |
+| [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `npm install -g @colbymchenry/codegraph` (then it auto-wires the MCP server into Claude Code) | Speed, Cost Efficiency |
 | [markitdown](https://github.com/microsoft/markitdown) | Converts PDF/Office/images/audio/HTML to clean Markdown so agents can actually read binary docs | `pip install 'markitdown[all]'` | Correctness, Cost Efficiency |
 | [serena](https://github.com/oraios/serena) | IDE-grade semantic code retrieval + atomic symbol-level editing over MCP (LSP, 40+ languages) — complements codegraph's read-only graph with safe refactors | `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server` | Correctness, Speed |
 
@@ -41,7 +41,7 @@ claude install-skill nichochar/agent-browser
 |------|-------------|---------|--------|
 | [agent-skills](https://github.com/addyosmani/agent-skills) | Full lifecycle skills: /spec → /plan → /build → /test → /review → /ship, with autonomous mode | `npx skills add addyosmani/agent-skills -g -y` | Correctness, Speed |
 | [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% output token reduction, no accuracy loss | `claude install-skill JuliusBrussee/caveman` | Cost Efficiency, Speed |
-| [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `claude mcp add headroom` | Cost Efficiency |
+| [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `pip install "headroom-ai[all]"` (or `npm install headroom-ai`) | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g @beads/bd` | Correctness, Speed |
 | [fastmcp](https://github.com/PrefectHQ/fastmcp) | Build MCP servers in Python with minimal boilerplate — decorator API, auth, middleware | `pip install fastmcp` | Speed |
@@ -91,8 +91,8 @@ claude install-skill nichochar/agent-browser
 
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
-| [abtop](https://github.com/abi/abtop) | Live token/cost TUI for comparing agent session efficiency | `pip install abtop` | Cost Efficiency |
-| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | Security scanner for AI agent skills — detects prompt injection | `pip install skillspector` | Safety |
+| [abtop](https://github.com/graykode/abtop) | Live token/cost TUI for comparing agent session efficiency | `cargo install abtop` | Cost Efficiency |
+| [SkillSpector](https://github.com/NVIDIA/SkillSpector) | Security scanner for AI agent skills — detects prompt injection | `git clone https://github.com/NVIDIA/skillspector` (no PyPI package) | Safety |
 
 ---
 

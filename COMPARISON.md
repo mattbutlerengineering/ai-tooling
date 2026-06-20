@@ -277,7 +277,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | ACMM | framework | | ✓ | CONDITIONAL |
-| abtop | tool | | ✓ | ADOPT |
+| abtop | tool | | ✓ | CONDITIONAL |
 | Apache DevLake | platform | ✓ | ✓ | DEFER |
 | Composio | plugin | | ✓/$ | CONDITIONAL |
 | Infracost | tool | ✓ | ✓/$ | SKIP |
