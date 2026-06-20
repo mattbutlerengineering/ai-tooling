@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 342 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 344 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -145,6 +145,7 @@ All 342 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|-----------|
 | agent-browser | tool | | ✓ | ADOPT |
 | browser-use | framework | | ✓ | CONDITIONAL |
+| page-agent | tool | ✓ | ✓ | CONDITIONAL |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
 | evalview | MCP server | ✓ | ✓ | CONDITIONAL |
 | playwright | MCP server | | ✓ | ADOPT |
@@ -296,6 +297,7 @@ All 342 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MemOS | platform | | ✓ | CONDITIONAL |
 | Memori | platform | | ✓ | CONDITIONAL |
 | OpenViking | platform | | ✓ | CONDITIONAL |
+| RAGFlow | platform | ✓ | ✓ | CONDITIONAL |
 | engram | tool | | ✓ | CONDITIONAL |
 | mem0 | MCP server | | ✓ | CONDITIONAL |
 | OMEGA | MCP server | ✓ | ✓/$ | KEEP |
@@ -421,14 +423,14 @@ All 342 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|---------------|
 | Plan | 36 | 36 | 100% |
 | Implement | 91 | 91 | 100% |
-| Verify | 10 | 10 | 100% |
+| Verify | 11 | 11 | 100% |
 | Review | 23 | 23 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 13 | 13 | 100% |
 | Skills & Plugins | 61 | 61 | 100% |
-| Memory & Context | 26 | 26 | 100% |
+| Memory & Context | 27 | 27 | 100% |
 | MCP Servers | 30 | 30 | 100% |
 | Research & Discovery | 8 | 8 | 100% |
 | Reference | 37 | 37 | 100% |
-| **Total** | **342** | **342** | **100%** |
+| **Total** | **344** | **344** | **100%** |
