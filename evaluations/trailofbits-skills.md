@@ -13,50 +13,42 @@ Claude Code plugin marketplace from Trail of Bits with 10+ security skills cover
 
 ## How we tested it
 
-Installed the skills via marketplace and ran a security audit on a Node.js Express API project with authentication, database access, and third-party integrations.
+**Marketplace/inventory review — full audit not run.** Inspected the actual plugin set via the GitHub API (`repos/trailofbits/skills/contents/plugins`) and read the skill structure, rather than recording a live audit of a target codebase (a meaningful audit run is interactive and codebase-specific, not a scriptable one-shot). The repo ships as a Claude Code plugin marketplace:
 
 ```
 /plugin marketplace add trailofbits/skills
 ```
 
-The methodology guided the audit through structured phases:
+The inventory is **~39 plugins**, broader than "10+ security skills." Security/audit methodology skills include `building-secure-contracts` (smart contracts), `c-review` (C/C++), `agentic-actions-auditor` (GitHub Actions), `differential-review`, `burpsuite-project-parser`, `dimensional-analysis` (formula/unit bugs), `constant-time-analysis`, `variant-analysis`, `static-analysis`, `semgrep-rule-creator`, `yara-authoring`, `supply-chain-risk-auditor`, `insecure-defaults`, and `property-based-testing` / `mutation-testing`. Notably, several plugins are **not** security-specific (`modern-python`, `gh-cli`, `git-cleanup`, `devcontainer-setup`, `let-fate-decide`, `culture-index`) — so the "security skills" framing oversells a general-purpose toolbox.
 
-1. **Threat modeling** — identified attack surface (auth endpoints, file upload, CORS config, session handling)
-2. **Category-by-category review** — injection, authentication, cryptography, access control, input validation
-3. **Evidence-based findings** — each finding required reproduction steps, not just "this looks risky"
+## What worked (from the inventory review)
 
-Ran the audit against ~2,000 lines of API code across 12 route files.
-
-## What worked
-
-- Much more structured than prompting "find security issues" — the methodology walks through categories systematically, ensuring nothing is skipped
-- Found real, actionable issues: missing rate limiting on auth endpoints, overly broad CORS (`*` in production config), JWT stored in localStorage instead of httpOnly cookies
-- Fewer false positives than generic security scans because the methodology requires concrete evidence before flagging an issue
-- The differential-review skill is excellent for pre-merge security gates — focuses on what changed, not re-auditing the entire codebase
-- Integrates well with the code-review plugin workflow as a security-specific follow-up pass
+- **The methodology framing is the real differentiator.** Skills like `differential-review` (review only what changed) and `audit-context-building` encode *how to audit systematically* — a structured pass over categories — rather than a generic "find security bugs" prompt that returns a wall of maybe-issues.
+- **`differential-review` is a strong fit for a pre-merge security gate** in the Review stage — it scopes to the diff instead of re-auditing the whole tree.
+- **Backed by Trail of Bits**, a respected audit firm, so the encoded approach plausibly reflects real-world practice (reputation, not a claim we verified by running an audit here).
 
 ## What didn't work or surprised us
 
-- The smart contract skills are irrelevant for typical web development — adds weight to the plugin without value unless you're in that domain
-- Some skills assume familiarity with Trail of Bits tooling (Slither, Echidna) that most developers won't have installed
-- The CC-BY-SA-4.0 license means derivatives must use the same license — not a problem for usage but notable for modification
-- No automated severity scoring — findings are structured but prioritization is manual
+- **The "security skills" label undersells/over-frames the set** — it's ~39 plugins, many general-purpose (Python tooling, git hygiene). Treat it as a grab-bag marketplace, not a focused security suite.
+- **Smart-contract and binary skills (`building-secure-contracts`, `dwarf-expert`, `constant-time-analysis`) are dead weight for typical web development** unless you're in those domains.
+- **Several skills assume Trail of Bits / specialist tooling** (Semgrep, YARA, property-based/mutation testing harnesses) that most teams won't have installed.
+- **CC-BY-SA-4.0** means derivatives must use the same license — fine for usage, notable for modification.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Doesn't affect correctness of business logic |
-| Speed | neutral | Adds review time but prevents rework from security incidents |
-| Maintainability | neutral | No impact on code structure |
-| Safety | + | Found 3 real vulnerabilities in a single audit pass with evidence |
-| Cost Efficiency | + | Structured methodology means fewer wasted passes and less noise than generic prompting |
+| Correctness | neutral | Targets security review, not business-logic correctness. |
+| Speed | neutral | Adds review time; `differential-review` limits scope to the diff. |
+| Maintainability | neutral | No impact on code structure. |
+| Safety | + (by design) | Encodes structured, evidence-first audit methodology — not yet confirmed by a run here. |
+| Cost Efficiency | + (claimed) | Structured methodology should mean fewer noisy passes than generic prompting. |
 
 ## Verdict
 
-**ADOPT**
+**CONDITIONAL** (review-based)
 
-The structured methodology is the differentiator. Generic "find security bugs" prompts produce noise — a wall of maybe-issues with no evidence. Trail of Bits's skills produce actionable findings because the methodology requires evidence before flagging. The firm's reputation backing the audit approach gives confidence that the methodology reflects real-world audit practice. Use as a pre-merge security gate in the Review stage.
+The structured methodology is the genuine differentiator versus generic "find security bugs" prompting, and `differential-review` is a sensible pre-merge security gate. Held at CONDITIONAL rather than ADOPT for two reasons: this evaluation is an inventory review, not a recorded audit run; and the package is a broad ~39-plugin marketplace where only a subset is security methodology — install selectively rather than wholesale. Best paired with the first-party `security-guidance` plugin (in-loop diff review) and used as a deliberate Review-stage pass.
 
 **Comparison with ghostsecurity/skills:** Trail of Bits is methodology-focused (how to audit systematically), ghostsecurity is tool-focused (what to scan for in specific frameworks). They're complementary, not redundant — use Trail of Bits for the audit structure and ghostsecurity for framework-specific checklists.
 

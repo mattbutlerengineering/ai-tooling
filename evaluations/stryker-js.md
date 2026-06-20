@@ -13,46 +13,55 @@ Mutation testing framework for JavaScript and TypeScript. Introduces small chang
 
 ## How we tested it
 
-Tested on a TypeScript project with ~200 unit tests and ~50 source files. The project had 92% line coverage going in.
+Built a minimal project (`@stryker-mutator/core` + `@stryker-mutator/jest-runner`, Jest) with one deliberately **under-tested** function, to see whether Stryker catches gaps that line coverage misses. The function has four branches; the test suite only asserts two of them:
+
+```js
+// src/classify.js
+function classify(n) {
+  if (n < 0)   return 'negative';
+  if (n === 0) return 'zero';
+  if (n > 100) return 'large';
+  return 'small';
+}
+// test/classify.test.js — only covers 'negative' and 'small'
+test('negative', () => expect(classify(-5)).toBe('negative'));
+test('small',    () => expect(classify(50)).toBe('small'));
+```
 
 ```
-npx stryker init
-# Wizard auto-detected Vitest, generated stryker.config.mjs
-npx stryker run
+npm i -D jest @stryker-mutator/core @stryker-mutator/jest-runner
+npx jest          # 2 passed, 2 total — green
+npx stryker run   # testRunner: jest, coverageAnalysis: perTest
 ```
 
-The init wizard took under a minute — it detected the test framework and generated config automatically. The full mutation run took ~4 minutes (compared to ~1 minute for the normal test suite).
+The Jest suite passed green (2/2). Stryker then mutated the source and re-ran the tests per mutant. Final score: **64.71% mutation score — 11 killed, 4 survived, 2 no-coverage** out of 17 mutants.
 
 ## What worked
 
-- Setup friction is minimal — `npx stryker init` auto-detects Jest/Vitest/Mocha and generates working config in ~5 minutes
-- Found 12 surviving mutants in a project with 92% line coverage, proving coverage alone doesn't guarantee test quality
-- Most valuable finding type: arithmetic boundary mutations (off-by-one errors where `<` should be `<=`) that tests only exercised the happy path
-- HTML report is clear — shows exactly which mutations survived with source context
-- Incremental mode (`--incremental`) caches results so only changed files are re-tested on subsequent runs
+- **Caught exactly the gaps coverage hides.** The `if (n < 0)` boundary was mutated to `n <= 0` and **survived** — an off-by-one the green suite never tested. The `n === 0` and `n > 100` branches were mutated to `if (false)` and to `return ""`; those **survived or had no coverage**, proving the tests never actually verify the `zero` and `large` logic despite a passing run.
+- **Output points straight at the weak test.** For each surviving mutant Stryker prints the exact line, the original-vs-mutated diff, and which tests ran — e.g. the `n > 100` mutant shows only `small` ran, so nothing exercised the large case.
+- **Setup was genuinely low-friction** — install two packages, a 5-line `stryker.config.json` naming the `jest` runner, and `npx stryker run` worked first try.
 
 ## What didn't work or surprised us
 
-- Runtime is 3-5x the normal test suite — each mutant spawns a test run, so ~50 files × ~10 mutations each = hundreds of mini-runs
-- ~15% of surviving mutants were semantically equivalent (mutation didn't change observable behavior), creating noise
-- No built-in way to suppress equivalent mutants permanently — you mark them in comments, but they reappear if config changes
-- CI integration works but the time cost makes it impractical as a per-commit gate
+- **Mutation score is not coverage and reads lower.** A suite that *feels* covered scored 64.71%; the two `[NoCoverage]` mutants (string-literal mutations in untested branches) drag the number down separately from the four `[Survived]` ones. You have to read both buckets to know whether the gap is "no test reaches this" vs "a test reaches it but doesn't assert enough."
+- **Cost is structural, not incidental.** Stryker runs the test suite (or a coverage-filtered subset) once *per mutant* — here 17 mutants on one tiny file. On a real codebase that is hundreds-to-thousands of suite executions, which is why it belongs in a periodic job, not a per-commit gate. (This tiny run finished in seconds; the penalty only bites at scale.)
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Found 12 real test gaps in a project with 92% coverage |
-| Speed | - | 3-5x test suite runtime; not viable per-commit |
-| Maintainability | neutral | No effect on source code structure |
-| Safety | neutral | Doesn't address security concerns |
-| Cost Efficiency | - | Significant CI minutes if run frequently |
+| Correctness | + | Surfaced 4 surviving + 2 no-coverage mutants (incl. a `<`→`<=` boundary) in a suite that passed green. |
+| Speed | - | One test run per mutant; structural N× cost that makes it impractical per-commit at scale. |
+| Maintainability | neutral | No effect on source code structure. |
+| Safety | neutral | Doesn't address security concerns. |
+| Cost Efficiency | - | Significant CI minutes if run frequently; best as a periodic audit. |
 
 ## Verdict
 
 **CONDITIONAL**
 
-Adopt for periodic test quality audits — a weekly CI job or pre-release gate. Skip as a per-commit check; the 3-5x runtime penalty isn't worth it for incremental changes. Particularly valuable after AI-generated tests to verify they actually test meaningful behavior rather than just achieving coverage numbers. The ~15% equivalent-mutant noise is manageable with the incremental mode that caches previous results.
+Verified hands-on: on a green-passing Jest suite, Stryker correctly exposed untested branches and an off-by-one boundary that line coverage rated as fine (64.71% mutation score, 4 survived + 2 no-coverage of 17). Adopt for periodic test-quality audits — a weekly CI job or pre-release gate — and especially right after AI-generated tests, which often hit coverage targets without asserting behavior. Skip it as a per-commit check: the per-mutant re-run cost is structural and doesn't scale to incremental changes.
 
 ## Catalog entry
 

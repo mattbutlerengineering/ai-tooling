@@ -203,7 +203,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
-| agent-browser | tool | | ✓ | ADOPT |
+| agent-browser | tool | | ✓ | CONDITIONAL |
 | browser-use | framework | | ✓ | CONDITIONAL |
 | nanobrowser | tool | | ✓ | CONDITIONAL |
 | page-agent | tool | ✓ | ✓ | CONDITIONAL |
@@ -242,7 +242,7 @@ All 472 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | security-guidance | plugin | | ✓ | ADOPT |
 | shadcn/improve | tool | | ✓ | CONDITIONAL |
 | SkillSpector | tool | | ✓ | KEEP |
-| trailofbits/skills | skill | | ✓ | ADOPT |
+| trailofbits/skills | skill | | ✓ | CONDITIONAL |
 | cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL |
 | ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
 | pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL |

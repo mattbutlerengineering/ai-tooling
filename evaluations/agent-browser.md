@@ -13,61 +13,50 @@ Browser automation CLI designed for AI agents. Wraps Playwright into a higher-le
 
 ## How we tested it
 
-Used agent-browser to verify UI changes on a local dev server after implementing a form feature. The workflow: start dev server, invoke agent-browser to navigate to the page, fill out a multi-field form, submit it, and take a screenshot to confirm the success state rendered correctly.
+**Capability/README review — not run hands-on.** This is a documentation-and-design review of the skill's surface (its description, the actions it exposes, and how it positions itself versus Playwright MCP), not a recorded live run. Exercising it meaningfully needs a running dev server (or an Electron target) and an interactive browser session rather than a scriptable one-shot, so no timing, reliability, or per-action numbers are claimed here as measured.
 
-```
-# Typical invocation flow (via skill):
-# 1. Navigate to localhost:3000/signup
-# 2. Fill form fields (name, email, password)
-# 3. Click submit button
-# 4. Take screenshot of result page
-# 5. Verify "Welcome" heading appears
-```
+For a *measured* browser-automation eval in this catalog, see [playwright-mcp.md](playwright-mcp.md), where a live navigate + accessibility snapshot was actually captured.
 
-Also tested an error state by submitting invalid data and verifying the error message rendered. Tested responsive layout by resizing the browser viewport to mobile width and confirming the layout adapted.
+## What it offers (from the surface review)
 
-## What worked
+- Intent-based commands ("fill the email field with …", "click the submit button") so the agent describes goals instead of authoring CSS/aria selectors — the headline ergonomic difference from raw Playwright MCP.
+- Screenshot capture for visual confirmation of UI state, useful for catching layout/visual regressions that unit and integration tests don't.
+- Multiple delivery modes: Claude Code skill, standalone CLI, and Vercel Sandbox microVMs.
+- Electron desktop-app support (VS Code, Slack, Discord, Figma), which extends it beyond web pages to desktop workflows.
 
-- Reliable element targeting on structured pages with clear labels and roles
-- Screenshots provide immediate visual proof that code changes produce the expected UI
-- Intent-based commands ("fill the email field with test@example.com") work without knowing CSS selectors
-- Good for exploratory testing and dogfooding — discovers UX issues that unit tests miss
-- Electron app support opens up testing VS Code extensions and desktop workflows
+## Open questions (would need a hands-on run to answer)
 
-## What didn't work or surprised us
-
-- ~3-5 second overhead per action compared to raw Playwright MCP calls — adds up for long sequences
-- Struggles with dynamically-generated content where elements lack stable identifiers (e.g., canvas-based UIs)
-- Error messages on action failure are sometimes vague ("element not found" without suggesting alternatives)
-- Cannot easily script conditional flows ("if modal appears, dismiss it") — better suited for linear sequences
+- Per-action overhead versus raw Playwright MCP calls — the intent-resolution step plausibly adds latency, but this was not measured.
+- Behavior on dynamically-generated content where elements lack stable identifiers (e.g. canvas-based UIs).
+- Quality of failure messages and whether conditional flows ("if a modal appears, dismiss it") are expressible.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Catches visual regressions and layout bugs that pass unit/integration tests |
-| Speed | neutral | Adds ~3-5s per action; saves time vs manual browser checking but slower than Playwright MCP |
-| Maintainability | neutral | No test code to maintain — intent descriptions are self-documenting |
-| Safety | neutral | Runs in sandboxed browser context |
-| Cost Efficiency | neutral | Minimal token cost per action; visual verification avoids costly debug loops |
+| Correctness | + (claimed) | Visual/intent-based verification targets UI bugs that pass unit/integration tests — not yet confirmed by a run here. |
+| Speed | neutral | Saves manual browser checking; per-action overhead vs Playwright MCP unmeasured. |
+| Maintainability | neutral | No test code to maintain — intent descriptions are self-documenting. |
+| Safety | neutral | Runs in a sandboxed browser context. |
+| Cost Efficiency | neutral | Screenshots carry image-token cost; Playwright MCP's text snapshot is cheaper for reading state. |
 
 ## Comparison with Playwright MCP
 
 | Dimension | agent-browser | Playwright MCP |
 |-----------|---------------|----------------|
-| Interface | Intent-based (natural language) | Selector-based (CSS/aria) |
+| Interface | Intent-based (natural language) | Snapshot-ref / selector-based |
 | Best for | Exploratory testing, dogfooding, ad-hoc verification | Scripted assertions, regression suites |
-| Speed | ~3-5s/action overhead | Near-instant actions |
-| Reliability | Good on well-structured pages | Precise but brittle to selector changes |
-| Learning curve | Zero — describe what you want | Moderate — need to understand selectors |
+| State readout | Screenshots (image payload) | YAML accessibility snapshot (no image) — verified |
+| Reliability | Claimed good on structured pages (unverified here) | Precise but brittle to selector changes |
+| Learning curve | Zero — describe what you want | Moderate — operate on refs/selectors |
 
 They're complementary: agent-browser for exploratory verification during development, Playwright MCP for scripted checks in CI.
 
 ## Verdict
 
-**ADOPT**
+**CONDITIONAL** (review-based; promote to ADOPT after a hands-on run)
 
-Essential for verifying UI changes that tests alone can't catch. The visual feedback loop closes a gap between "tests pass" and "feature works." The intent-based interface means zero setup cost per verification — just describe what to check. Use Playwright MCP for scripted regression tests; use agent-browser for live verification during development.
+On its design, agent-browser targets a real gap — intent-based UI verification that closes the distance between "tests pass" and "feature works," with no per-check selector authoring. That's a strong fit for exploratory verification during development, with Playwright MCP (measured in this catalog) as the precise scripted-checks counterpart. Held at CONDITIONAL rather than ADOPT only because this evaluation is a surface review, not a recorded live run; the open questions above (per-action overhead, dynamic content, conditional flows) should be confirmed before treating it as a default.
 
 ## Catalog entry
 

@@ -55,7 +55,7 @@ claude install-skill nichochar/agent-browser
 | [agent-browser](https://github.com/nichochar/agent-browser) | Browser automation for visual verification of UI changes | `claude install-skill nichochar/agent-browser` | Correctness |
 | [stryker-js](https://github.com/stryker-mutator/stryker-js) | Mutation testing — tests the quality of your tests | `npm install -D @stryker-mutator/core` | Correctness |
 | [web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Six web quality audit skills: accessibility, SEO, perf, Core Web Vitals, best practices | `npx skills add addyosmani/web-quality-skills -g -y` | Correctness, Maintainability |
-| [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and testing via MCP — lets agents drive real browsers | `claude mcp add playwright -- npx @anthropic-ai/mcp-proxy@latest --transport sse https://cdn.jsdelivr.net/npm/@anthropic-ai/mcp-playwright@latest/dist/sse.js` | Correctness |
+| [playwright](https://github.com/microsoft/playwright-mcp) | Browser automation and testing via MCP — lets agents drive real browsers | `claude mcp add playwright -- npx @playwright/mcp@latest` | Correctness |
 
 ## Review
 
