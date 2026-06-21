@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500&display=swap" />
+<style>
+  :root {
+    --sans: "DM Sans", system-ui, sans-serif;
+    --display: "Bricolage Grotesque", "DM Sans", sans-serif;
+    --mono: "DM Mono", ui-monospace, monospace;
+
+    --ink: #1a1918;
+    --ink-2: #6b6660;
+    --ink-3: #8a857e;
+    --gold: #b0841e;
+    --bg: #f8f6f3;
+    --bg-elev: #fdfcfa;
+    --bg-rec: #edeae5;
+    --line: #d8d4cd;
+    --line-strong: #b8b4ad;
+
+    --t-display: 108px;
+    --t-title: 62px;
+    --t-lead: 38px;
+    --t-body: 30px;
+    --t-small: 26px;
+    --t-kicker: 24px;
+    --t-num: 118px;
+    --t-cardnum: 36px;
+
+    --pad-x: 120px;
+    --pad-y: 92px;
+  }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Title" data-speaker-notes="Frame the deck: this is how a change moves from idea to production on our team, and how what we ship feeds back into what we plan next. Keep it to one minute." style="padding:var(--pad-y) var(--pad-x); display:flex; flex-direction:column; justify-content:space-between; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold);">Engineering playbook</div>
+    <div style="display:flex; flex-direction:column; gap:32px; max-width:1500px;">
+      <h1 style="font-family:var(--display); font-weight:300; font-size:var(--t-display); line-height:1.02; letter-spacing:-0.02em; margin:0;">Our development process</h1>
+      <div style="width:96px; height:4px; background:var(--gold);"></div>
+      <p style="font-size:var(--t-lead); font-weight:400; line-height:1.32; color:var(--ink-2); margin:0; max-width:1120px;">How a change travels from idea to production — and what we learn on the way back.</p>
+    </div>
+    <div style="display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:28px;">
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">01</span><span style="font-size:var(--t-small); color:var(--ink-2);">Plan</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">02</span><span style="font-size:var(--t-small); color:var(--ink-2);">Build</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">03</span><span style="font-size:var(--t-small); color:var(--ink-2);">Review</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">04</span><span style="font-size:var(--t-small); color:var(--ink-2);">Integrate</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">05</span><span style="font-size:var(--t-small); color:var(--ink-2);">Ship</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;"><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold);">06</span><span style="font-size:var(--t-small); color:var(--ink-2);">Observe</span></div>
+    </div>
+  </section>
+
+  <section data-label="Overview" data-speaker-notes="The whole process is one loop. Every change — a fix, a feature, a refactor — travels the same six stages. The point of the loop is that it closes: observing production is what tells us what to plan next." style="padding:var(--pad-y) var(--pad-x); display:flex; flex-direction:column; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="display:flex; flex-direction:column; gap:18px; margin-bottom:56px;">
+      <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold);">The loop</div>
+      <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0;">One loop, six stages</h2>
+      <p style="font-size:var(--t-lead); line-height:1.32; color:var(--ink-2); margin:0; max-width:1300px;">Every change travels the same path. The loop closes when what we ship teaches us what to build next.</p>
+    </div>
+    <div style="flex:1; display:grid; grid-template-columns:repeat(6, 1fr); gap:20px;">
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">01</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Plan</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">Scope the smallest useful change.</span>
+      </div>
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">02</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Build</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">Write it in small, tested increments.</span>
+      </div>
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">03</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Review</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">A second reader before merge.</span>
+      </div>
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">04</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Integrate</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">Merge to main behind green CI.</span>
+      </div>
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">05</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Ship</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">Release on demand, in small batches.</span>
+      </div>
+      <div style="background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 2px rgb(26 25 24 / 0.06), 0 4px 12px rgb(26 25 24 / 0.08); padding:32px 26px; display:flex; flex-direction:column; gap:18px; outline:2px solid var(--gold); outline-offset:-2px;">
+        <span style="font-family:var(--mono); font-size:var(--t-cardnum); color:var(--gold);">06</span>
+        <span style="font-size:var(--t-body); font-weight:500;">Observe</span>
+        <span style="font-size:var(--t-small); color:var(--ink-2); line-height:1.4; margin-top:auto;">Watch production; feed it back to 01.</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Plan" data-speaker-notes="Work starts as a written problem, not a ticket to code. We agree on the problem and the acceptance criteria before anyone opens an editor, and we slice work so it ships in days, not weeks. The definition of ready is the gate." style="padding:var(--pad-y) var(--pad-x); display:flex; gap:88px; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="flex:1.25; display:flex; flex-direction:column;">
+      <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;">Stage 01</div>
+      <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0 0 28px;">Plan and scope</h2>
+      <p style="font-size:var(--t-lead); line-height:1.32; color:var(--ink); margin:0 0 52px; max-width:760px;">Work starts as a written problem, not a ticket to code.</p>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Define the problem and the smallest change that solves it.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Agree on acceptance criteria before any code is written.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Break work into increments that ship in days, not weeks.</span></div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; align-items:center;">
+      <div style="width:100%; background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 2px 4px rgb(26 25 24 / 0.06), 0 8px 24px rgb(26 25 24 / 0.1); padding:44px 44px 40px;">
+        <div style="font-family:var(--mono); font-size:var(--t-small); letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:28px;">Definition of ready</div>
+        <div style="display:flex; flex-direction:column; gap:26px;">
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Problem stated in writing</span></div>
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Acceptance criteria agreed</span></div>
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Scope sliced to days</span></div>
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Owner assigned</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Build" data-speaker-notes="Small commits, green tests, trunk always shippable. Branches are short-lived, diffs stay reviewable, and the test ships with the change rather than after it. Leave the code clearer than you found it." style="padding:var(--pad-y) var(--pad-x); display:flex; gap:88px; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="flex:1.25; display:flex; flex-direction:column;">
+      <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;">Stage 02</div>
+      <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0 0 28px;">Build</h2>
+      <p style="font-size:var(--t-lead); line-height:1.32; color:var(--ink); margin:0 0 52px; max-width:760px;">Small commits, green tests, trunk always shippable.</p>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Keep branches short-lived and diffs small enough to review.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Write the test with the change, not after it.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Leave the code clearer than you found it.</span></div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; align-items:center;">
+      <div style="width:100%; background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 2px 4px rgb(26 25 24 / 0.06), 0 8px 24px rgb(26 25 24 / 0.1); overflow:hidden;">
+        <div style="display:flex; align-items:center; gap:14px; background:var(--bg-rec); border-bottom:1px solid var(--line); padding:20px 32px;">
+          <div style="width:12px; height:12px; border-radius:9999px; background:var(--line-strong);"></div>
+          <span style="font-family:var(--mono); font-size:var(--t-small); color:var(--ink-3); letter-spacing:0.04em;">feat/quote-export</span>
+        </div>
+        <div style="padding:36px 32px; font-family:var(--mono); font-size:var(--t-small); line-height:2; color:var(--ink-2);">
+          <div><span style="color:var(--ink-3);">$</span> git status</div>
+          <div style="color:var(--ink);">3 files changed&nbsp;&nbsp;<span style="color:var(--gold);">+84</span>&nbsp;<span style="color:#b84a3c;">&minus;12</span></div>
+          <div style="height:14px;"></div>
+          <div><span style="color:var(--ink-3);">$</span> npm test</div>
+          <div style="display:flex; align-items:center; gap:12px; color:var(--ink);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5e6a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span>12 passed, 0 failed</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Review & integrate" data-speaker-notes="Nothing reaches main without a second reader and a green build. Humans review for correctness, clarity, and blast radius; the machine handles format, lint, and tests. Merge small and often so conflicts stay cheap." style="padding:var(--pad-y) var(--pad-x); display:flex; gap:88px; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="flex:1.25; display:flex; flex-direction:column;">
+      <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;">Stages 03&ndash;04</div>
+      <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0 0 28px;">Review and integrate</h2>
+      <p style="font-size:var(--t-lead); line-height:1.32; color:var(--ink); margin:0 0 52px; max-width:760px;">Nothing reaches main without a second reader and a green build.</p>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Review for correctness, clarity, and blast radius.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Automate the rest — format, lint, and tests run in CI.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Merge small and often; resolve conflicts while they're cheap.</span></div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; align-items:center;">
+      <div style="width:100%; background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 2px 4px rgb(26 25 24 / 0.06), 0 8px 24px rgb(26 25 24 / 0.1); padding:44px 44px 40px;">
+        <div style="font-family:var(--mono); font-size:var(--t-small); letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:28px;">Pipeline &middot; main</div>
+        <div style="display:flex; flex-direction:column; gap:26px;">
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5e6a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Format</span><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--ink-3); margin-left:auto;">passed</span></div>
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5e6a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Lint</span><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--ink-3); margin-left:auto;">passed</span></div>
+          <div style="display:flex; gap:18px; align-items:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5e6a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink);">Test</span><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--ink-3); margin-left:auto;">passed</span></div>
+          <div style="display:flex; gap:18px; align-items:center; padding-top:26px; border-top:1px solid var(--line);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M20 6 9 17l-5-5"/></svg><span style="font-size:var(--t-body); color:var(--ink); font-weight:500;">Merge</span><span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold); margin-left:auto;">ready</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Ship & observe" data-speaker-notes="Releasing is routine, reversible, and watched. We deploy in small batches and can roll back faster than we roll forward; risky changes hide behind flags. We watch the signals that matter and feed what we learn straight back into planning — that's what closes the loop." style="padding:var(--pad-y) var(--pad-x); display:flex; gap:88px; background:var(--bg); font-family:var(--sans); color:var(--ink);">
+    <div style="flex:1.25; display:flex; flex-direction:column;">
+      <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;">Stages 05&ndash;06</div>
+      <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0 0 28px;">Ship and observe</h2>
+      <p style="font-size:var(--t-lead); line-height:1.32; color:var(--ink); margin:0 0 52px; max-width:760px;">Releasing is routine, reversible, and watched.</p>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Deploy in small batches; roll back faster than you roll forward.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Guard risky changes behind feature flags.</span></div>
+        <div style="display:flex; gap:24px; align-items:flex-start;"><div style="width:32px; height:3px; background:var(--gold); margin-top:18px; flex:none;"></div><span style="font-size:var(--t-body); line-height:1.45; color:var(--ink-2);">Watch the signals that matter, then feed them back to planning.</span></div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; align-items:center;">
+      <div style="width:100%; background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; box-shadow:0 2px 4px rgb(26 25 24 / 0.06), 0 8px 24px rgb(26 25 24 / 0.1); padding:44px 44px 40px;">
+        <div style="font-family:var(--mono); font-size:var(--t-small); letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:28px;">What we watch</div>
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div style="display:flex; flex-direction:column; gap:4px;"><span style="font-size:var(--t-body); color:var(--ink); font-weight:500;">Errors</span><span style="font-size:var(--t-small); color:var(--ink-2);">New failures, by rate and by release.</span></div>
+          <div style="display:flex; flex-direction:column; gap:4px;"><span style="font-size:var(--t-body); color:var(--ink); font-weight:500;">Latency</span><span style="font-size:var(--t-small); color:var(--ink-2);">The slow tail, not just the average.</span></div>
+          <div style="display:flex; flex-direction:column; gap:4px;"><span style="font-size:var(--t-body); color:var(--ink); font-weight:500;">Saturation</span><span style="font-size:var(--t-small); color:var(--ink-2);">Headroom before the next limit.</span></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:32px; padding-top:28px; border-top:1px solid var(--line);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b0841e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span style="font-family:var(--mono); font-size:var(--t-small); color:var(--gold); letter-spacing:0.04em;">feeds back to 01 plan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Principles" data-speaker-notes="Close on the four principles that hold the loop together. The loop only works if it closes — observe, then plan. Land here and open the floor." style="padding:var(--pad-y) var(--pad-x); display:flex; flex-direction:column; justify-content:center; font-family:var(--sans); color:rgb(253 252 250 / 0.92); background:radial-gradient(circle at 22% 18%, rgb(212 162 58 / 0.12), transparent 42%), radial-gradient(circle at 82% 84%, rgb(212 162 58 / 0.09), transparent 46%), #1e1c1a;">
+    <div style="font-family:var(--mono); font-size:var(--t-kicker); letter-spacing:0.24em; text-transform:uppercase; color:#d4a23a; margin-bottom:20px;">What holds it together</div>
+    <h2 style="font-family:var(--display); font-weight:300; font-size:var(--t-title); line-height:1.05; letter-spacing:-0.02em; margin:0 0 64px; color:rgb(253 252 250 / 0.95);">Principles</h2>
+    <div style="display:flex; flex-direction:column;">
+      <div style="display:flex; gap:40px; align-items:baseline; padding:30px 0; border-top:1px solid rgb(255 255 255 / 0.1);"><span style="font-family:var(--mono); font-size:var(--t-body); color:#d4a23a; flex:none; width:60px;">01</span><span style="font-size:var(--t-lead); line-height:1.3; color:rgb(253 252 250 / 0.92);">Small and reversible beats big and perfect.</span></div>
+      <div style="display:flex; gap:40px; align-items:baseline; padding:30px 0; border-top:1px solid rgb(255 255 255 / 0.1);"><span style="font-family:var(--mono); font-size:var(--t-body); color:#d4a23a; flex:none; width:60px;">02</span><span style="font-size:var(--t-lead); line-height:1.3; color:rgb(253 252 250 / 0.92);">Main is always shippable.</span></div>
+      <div style="display:flex; gap:40px; align-items:baseline; padding:30px 0; border-top:1px solid rgb(255 255 255 / 0.1);"><span style="font-family:var(--mono); font-size:var(--t-body); color:#d4a23a; flex:none; width:60px;">03</span><span style="font-size:var(--t-lead); line-height:1.3; color:rgb(253 252 250 / 0.92);">Automate what a machine can check; reserve people for judgment.</span></div>
+      <div style="display:flex; gap:40px; align-items:baseline; padding:30px 0; border-top:1px solid rgb(255 255 255 / 0.1); border-bottom:1px solid rgb(255 255 255 / 0.1);"><span style="font-family:var(--mono); font-size:var(--t-body); color:#d4a23a; flex:none; width:60px;">04</span><span style="font-size:var(--t-lead); line-height:1.3; color:rgb(253 252 250 / 0.92);">The loop only works if it closes — observe, then plan.</span></div>
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>
