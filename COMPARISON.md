@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 498 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 505 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -134,6 +134,10 @@ All 498 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | nanoclaw | platform | | ✓ | SKIP |
 | nanobot | harness | ✓ | ✓ | CONDITIONAL |
 | Hermes Agent | harness | ✓ | ✓ | CONDITIONAL |
+| flue | framework | | ✓ | CONDITIONAL |
+| moltworker | tool | | ✓ | CONDITIONAL |
+| hermes-webui | platform | | ✓ | CONDITIONAL |
+| agentgpt | platform | | ✓ | CONDITIONAL |
 | oh-my-claudecode | harness | | ✓ | CONDITIONAL |
 | oh-my-openagent | harness | | ✓ | SKIP |
 | lazycodex | harness | ✓ | ✓ | CONDITIONAL |
@@ -224,6 +228,7 @@ All 498 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated |
 |------|------|------|------|-----------|
 | agent-browser | tool | | ✓ | CONDITIONAL |
+| opencli | tool | | ✓ | CONDITIONAL |
 | browser-use | framework | | ✓ | CONDITIONAL |
 | nanobrowser | tool | | ✓ | CONDITIONAL |
 | page-agent | tool | ✓ | ✓ | CONDITIONAL |
@@ -531,6 +536,8 @@ All 498 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
 | awesome-codex-skills | reference | | ✓ | CONDITIONAL |
 | awesome-llm-agents | reference | | ✓ | CONDITIONAL |
+| awesome-hermes-agent | reference | | ✓ | CONDITIONAL |
+| awesome-ai-tools-for-ui | reference | | ✓ | CONDITIONAL |
 | awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
 | ai-engineering-from-scratch | reference | | ✓ | CONDITIONAL |
 | claude-code | reference | | ✓ | CONDITIONAL |
@@ -576,8 +583,8 @@ All 498 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 161 | 161 | 100% |
-| Verify | 18 | 18 | 100% |
+| Implement | 165 | 165 | 100% |
+| Verify | 19 | 19 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
@@ -586,5 +593,5 @@ All 498 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
-| Reference | 42 | 42 | 100% |
-| **Total** | **498** | **498** | **100%** |
+| Reference | 44 | 44 | 100% |
+| **Total** | **505** | **505** | **100%** |
