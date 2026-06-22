@@ -68,7 +68,7 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [context7](https://github.com/upstash/context7) — live docs during coding ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 | | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/caveman.md)) | Cost Efficiency |
 | | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/context-mode.md)) | Cost Efficiency |
-| | [headroom](https://github.com/chopratejas/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/headroom.md)) | Cost Efficiency |
+| | [headroom](https://github.com/headroomlabs-ai/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/headroom.md)) | Cost Efficiency |
 | | [typescript-mcp-server-generator](https://github.com/github/awesome-copilot) — skill-driven MCP server scaffolding: generates working TypeScript MCP project from a description ([eval](evaluations/typescript-mcp-server-generator.md)) | Speed |
 | | [fastmcp](https://github.com/PrefectHQ/fastmcp) — build MCP servers in Python: decorator API, auth, middleware, incorporated into official MCP SDK ([eval](evaluations/fastmcp.md)) | Speed |
 | **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
@@ -241,7 +241,7 @@ Cost efficiency isn't a stage — it's a property of every stage. These tools re
 |------|----------------|----------------|
 | [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](evaluations/caveman.md)) |
 | [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](evaluations/context-mode.md)) |
-| [headroom](https://github.com/chopratejas/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/headroom.md)) |
+| [headroom](https://github.com/headroomlabs-ai/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/headroom.md)) |
 
 ---
 

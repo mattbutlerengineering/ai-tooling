@@ -1,6 +1,6 @@
 # Evaluation: headroom
 
-**Repo:** [chopratejas/headroom](https://github.com/chopratejas/headroom)
+**Repo:** [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
 **Stars:** 37,301 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Dev loop stage:** Implement / Verify (intervenes on every tool call and model turn; spans the whole inner loop)
 **Layer:** Infrastructure
@@ -71,4 +71,4 @@ Adopt when you run AI coding agents heavily across long sessions or large repos,
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [headroom](https://github.com/chopratejas/headroom) | tool | Compresses tool outputs, logs, and files before they reach the LLM (60-95% fewer tokens) | Context window fills up too fast with verbose tool output | token-optimizer-mcp, context-mode, caveman, rtk |
+| [headroom](https://github.com/headroomlabs-ai/headroom) | tool | Compresses tool outputs, logs, and files before they reach the LLM (60-95% fewer tokens) | Context window fills up too fast with verbose tool output | token-optimizer-mcp, context-mode, caveman, rtk |

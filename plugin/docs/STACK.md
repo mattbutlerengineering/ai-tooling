@@ -42,7 +42,7 @@ claude mcp add playwright -- npx @playwright/mcp@latest
 |------|-------------|---------|--------|
 | [agent-skills](https://github.com/addyosmani/agent-skills) | Full lifecycle skills: /spec → /plan → /build → /test → /review → /ship, with autonomous mode | `npx skills add addyosmani/agent-skills -g -y` | Correctness, Speed |
 | [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% output token reduction, no accuracy loss | `claude install-skill JuliusBrussee/caveman` | Cost Efficiency, Speed |
-| [headroom](https://github.com/chopratejas/headroom) | Compresses tool output before it reaches context window | `pip install "headroom-ai[all]"` (or `npm install headroom-ai`) | Cost Efficiency |
+| [headroom](https://github.com/headroomlabs-ai/headroom) | Compresses tool output before it reaches context window | `pip install "headroom-ai[all]"` (or `npm install headroom-ai`) | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g @beads/bd` | Correctness, Speed |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | Skills for Real Engineers — TDD, debugging, planning skills from a working dev | `npx skills add mattpocock/skills -g -y` | Correctness, Speed |

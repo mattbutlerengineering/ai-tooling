@@ -120,7 +120,7 @@ Tools in the recommended workflow that have no direct competitor to compare agai
 ---
 
 ## headroom
-**Repo:** [chopratejas/headroom](https://github.com/chopratejas/headroom)
+**Repo:** [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
 **Stars:** 28,897 | **Last updated:** 2026-06-15 | **License:** Apache-2.0
 **Dev loop stage:** All stages (infrastructure)
 **Quality signals:** Cost Efficiency
