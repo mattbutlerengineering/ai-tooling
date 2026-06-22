@@ -25,3 +25,4 @@ When a workflow here proves durable, fold it into `WORKFLOW.md` (the canonical d
 | [2026-06-20-am.md](2026-06-20-am.md) | Context is the new code: teams shipping reliable agents are winning on context management, verification checkpoints, and code health |
 | [2026-06-20-pm.md](2026-06-20-pm.md) | Structure over model: standardizing AI configuration files, test coverage, and orchestration is the primary productivity variable in mid-2026 |
 | [2026-06-21-am.md](2026-06-21-am.md) | Reliable by design: self-correcting loops, tool specialization, model cost discipline, long-running harness architecture, and human accountability convert agentic speed into production-safe delivery |
+| [2026-06-21-pm.md](2026-06-21-pm.md) | Structured intent over raw prompts: spec files, verifier agents, parallel worktrees, context engineering, and PR governance are hardening agentic output into team-scale production practice |
