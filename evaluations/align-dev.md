@@ -1,6 +1,6 @@
 # Evaluation: align-dev
 
-**Repo:** [razr001/align-dev](https://github.com/razr001/align-dev)
+**Repo:** [xknight254-hub/align-dev](https://github.com/xknight254-hub/align-dev)
 **Stars:** 372 | **Last updated:** 2026-06-05 | **License:** MIT
 **Dev loop stage:** Plan (one-time scaffolding of a repo's agent-facing standards; touches Reflect when you revise conventions)
 **Layer:** Process (it produces the team's convention contract; it is not infrastructure the agent runs against)
@@ -69,4 +69,4 @@ Versus neighbors: **reporails/cli** *validates* whether existing agent instructi
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [align-dev](https://github.com/razr001/align-dev) | tool | Web wizard that generates a frontend coding-standards doc and SKILL.md from menu selections so agents across teams write consistently | Multiple agents across a team generate inconsistent frontend code; need a shared standards/SKILL.md contract | reporails/cli (complementary: align-dev = generate, reporails = validate), agnix, capa |
+| [align-dev](https://github.com/xknight254-hub/align-dev) | tool | Web wizard that generates a frontend coding-standards doc and SKILL.md from menu selections so agents across teams write consistently | Multiple agents across a team generate inconsistent frontend code; need a shared standards/SKILL.md contract | reporails/cli (complementary: align-dev = generate, reporails = validate), agnix, capa |
