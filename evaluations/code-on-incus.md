@@ -19,17 +19,34 @@ It also supports running **multiple agents isolated from each other** in paralle
 
 ## How we tested it
 
-**Source-grounded inspection — not installed, not run.** No Incus host set up, no agent containerized. Claims come from the repository (GitHub metadata, README, 10 tagged releases, linked wiki) — the project's own documentation, not observed isolation/defense behavior.
+**Source-grounded review — not run hands-on.** A hands-on run was attempted this session and could not be completed: the substrate (Incus/LXD) is not installed and could not be installed in this environment. The claims below come from the repository (GitHub metadata, README, 10 tagged releases, linked wiki) — the project's own documentation, not observed isolation/defense behavior. Per the repo's honesty standard, nothing here asserts a run that did not happen.
+
+**The install attempt (what was actually run, and what blocked it).** The probe results below *are* measured — they are real output from this macOS host, and they establish why the agent-isolation behavior could not be exercised:
 
 ```bash
-gh api repos/mensfeld/code-on-incus --jq '{stars,pushed_at,license:.license.spdx_id}'
-gh api repos/mensfeld/code-on-incus/readme --jq '.content' | base64 -d   # isolation model, active defense, Incus rationale
-gh api repos/mensfeld/code-on-incus/releases --jq 'length'              # 10
+$ uname -sm
+Darwin arm64                       # macOS on Apple Silicon — no native Linux kernel
+
+$ which incus lxc lxd limactl docker colima multipass
+incus not found                    # the substrate coi orchestrates — ABSENT
+lxc not found
+lxd not found
+limactl not found                  # no Lima VM to host a Linux Incus daemon
+/usr/local/bin/docker              # only Docker present (and coi is explicitly NOT Docker-based)
+colima not found
+multipass not found
 ```
+
+Three independent blockers, each sufficient on its own:
+1. **No Incus/LXD on the host.** `coi` is a thin orchestrator over Incus system containers; with no `incus` binary and no daemon, there is nothing for it to drive. This is the load-bearing prerequisite, and it is absent.
+2. **Wrong kernel for the primitive.** Incus/LXD system containers are a **Linux** technology (they share the host's Linux kernel). On macOS arm64 they require a Linux VM underneath (e.g. via Lima/`limactl`) — and no such VM runtime is installed here either. The README's "macOS support" is precisely this VM-backed path; standing it up is a multi-step infra task, not a `pip install`.
+3. **No network egress in this sandbox.** Outbound fetches (`gh api`, `WebFetch`, `brew info incus`, `docker info`) were denied by the environment's permission policy, so neither Incus nor `coi` could be downloaded/installed, and the live README install commands could not be re-fetched and verified against a real install here.
+
+Because the active-defense layer (detect reverse shell / credential-scan / exfil, then auto-kill) is the entire reason this tool is interesting for STACK promotion, and that behavior can only be observed by launching a real agent inside a real Incus container under attack, **the distinguishing claim remains unverified.** A trustworthy hands-on validation needs a Linux host (or a Linux VM on macOS) with Incus initialized — infrastructure this environment does not provide.
 
 ## What worked
 
-- **Active defense is genuinely differentiated.** Detecting reverse shells / credential scanning / exfiltration and auto-killing the container is *response*, not just *isolation* — a meaningfully stronger safety posture than vercel-sandbox/sandboxd, and directly relevant given how much autonomy people grant agents.
+- **Active defense is genuinely differentiated (on paper).** Detecting reverse shells / credential scanning / exfiltration and auto-killing the container is *response*, not just *isolation* — a meaningfully stronger safety posture than vercel-sandbox/sandboxd, and directly relevant given how much autonomy people grant agents. (Documented, not yet observed here.)
 - **Default-deny on credentials.** Keeping SSH keys / env / git tokens off the agent machine unless explicitly mounted is exactly the right secrets posture, and the inverse of riskier designs (cf. phantom mounting the Docker socket).
 - **Full system container is the right primitive for "let the agent act like it's on a server."** systemd + Docker + package managers + persistence + correct file ownership removes the friction that makes single-process sandboxes leaky or annoying.
 - **Parallel isolation + persistence + snapshots** make it practical for real multi-agent workflows, not just demos.
@@ -37,8 +54,9 @@ gh api repos/mensfeld/code-on-incus/releases --jq 'length'              # 10
 
 ## What didn't work or surprised us
 
-- **Incus/LXD is a real prerequisite.** This is a Linux-container substrate; adopting it means running Incus (macOS support exists but adds a layer). Heavier setup than "pip install," and not a fit if you can't run Incus.
-- **Smaller/younger** (554★) than the headline sandboxes; the active-defense detections are heuristic and unverified here — false negatives (missed novel exfil) and false positives (killing a legitimate long task) are both plausible and untested.
+- **The substrate is a hard, host-level prerequisite — and it stopped this evaluation cold.** The measured probe above confirms it: no `incus`/`lxc`/`lxd`, and on macOS arm64 you must first run a Linux VM before Incus can exist at all. This is real infrastructure, far heavier than "install a CLI," and it is the single biggest barrier to an every-project STACK slot.
+- **The headline safety claim is unverified here.** The active-defense detections are heuristic; false negatives (missed novel exfil) and false positives (killing a legitimate long-running task) are both plausible and were **not** testable in this environment. Treat the auto-kill as an unproven safety net until exercised on a Linux host.
+- **Smaller/younger** (554★) than the headline sandboxes — less battle-testing behind the active-defense heuristics.
 - **Language signal is mixed.** GitHub reports the repo language as Python while the project ships release binaries and centers on Incus orchestration — verify the toolchain before building from source.
 - **Scope is isolation, not code quality.** It makes running agents safer; it doesn't review or improve what they produce.
 
@@ -47,16 +65,18 @@ gh api repos/mensfeld/code-on-incus/releases --jq 'length'              # 10
 | Signal | Impact | Evidence |
 |--------|--------|----------|
 | Correctness | neutral | Doesn't change agent output; provides a clean, reproducible machine to work in. |
-| Speed | + / neutral | Persistent environments + snapshots avoid re-setup each run; Incus overhead is modest vs. full VMs. |
+| Speed | + / neutral | Persistent environments + snapshots avoid re-setup each run; Incus overhead is modest vs. full VMs (claimed, not measured here). |
 | Maintainability | neutral | Affects your run environment, not your codebase. |
-| Safety | + + | Per-agent full isolation, host credentials withheld by default, **and active detection+auto-kill** of reverse shells/exfil/credential scanning — the strongest defensive posture in this group. |
+| Safety | + + (claimed) | Per-agent full isolation, host credentials withheld by default, **and active detection+auto-kill** of reverse shells/exfil/credential scanning — the strongest defensive posture in this group on paper. **Not verified hands-on:** the substrate (Incus/LXD) was absent and could not be installed here, so the detect-and-respond behavior was never exercised. |
 | Cost Efficiency | + | Free/MIT; self-hosted on your own machines; system containers are lighter than per-agent VMs. |
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you run coding agents (especially several in parallel, or with high autonomy) on Linux and want strong, defense-in-depth isolation: full per-agent machines, host credentials withheld by default, and **automated detection-and-response** to suspicious agent behavior. The active-defense layer is a real step beyond passive sandboxing and the secrets posture is exactly right. Gated by the Incus/LXD requirement and its relative youth — the heuristic detections are unverified, so treat auto-kill as a safety net, not a guarantee. If you can't run Incus, vercel-sandbox (cloud) or sandboxd are the alternatives; if you specifically want *response*, this is the one.
+**CONDITIONAL (and DEFER for STACK promotion).** Adopt *conditionally* if you run coding agents (especially several in parallel, or with high autonomy) **on Linux** and want strong, defense-in-depth isolation: full per-agent machines, host credentials withheld by default, and automated detection-and-response to suspicious agent behavior. The design is the most defensible in this group and the secrets posture is exactly right.
 
-Compared to neighbors: **sandboxd**/**vercel-sandbox** isolate agent execution (the latter cloud-hosted) but focus on containment, not detection; **agentlint** adds rule-based runtime guardrails at the action level. code-on-incus is the **full-machine isolation + active intrusion-response** option — the only one here that watches the sandbox and kills it on attack.
+For an **every-project STACK slot, it does not qualify** — and this evaluation's failed install attempt is the concrete reason. STACK membership requires a tool that moves a quality signal *in real testing* and installs cleanly enough to run on every project. `coi`'s value (Safety via active defense) is precisely the part this evaluation could **not** verify, because its load-bearing prerequisite — an Incus/LXD daemon — is absent on the host and unavailable on macOS arm64 without first standing up a Linux VM (also absent). A tool that needs a Linux host or a VM-backed Incus install before it can do anything is by definition not an every-project install; it's a deliberate, Linux-fleet, high-autonomy choice. **Keep it catalogued as the full-machine-isolation + active-response option; re-evaluate for a STACK slot only after a real hands-on run on a Linux host (or VM-backed Incus on macOS) confirms the detect-and-kill behavior fires correctly and without crippling false positives.**
+
+Compared to neighbors: **sandboxd**/**vercel-sandbox** isolate agent execution (the latter cloud-hosted, so no local substrate to install) but focus on containment, not detection; **agentlint** adds rule-based runtime guardrails at the action level. code-on-incus is the **full-machine isolation + active intrusion-response** option — the only one here that watches the sandbox and kills it on attack — but also the heaviest to stand up, which is exactly why it stays CONDITIONAL rather than ADOPT.
 
 ## Catalog entry
 

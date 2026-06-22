@@ -15,12 +15,21 @@ The six production decay risks: **Cognitive Overload** (mental effort to underst
 
 ## How we tested it
 
-**Source-grounded inspection — not installed, not run.** No skill installed, no codebase reviewed. Claims come from the repository (GitHub metadata, README's book/decay-risk tables, example output, 28 releases) — the project's own documentation, not observed review quality.
+**Source-grounded review — hands-on run attempted and blocked, not run.** This evaluation set out to do exactly what issue #37 asked: a measured, hands-on run before any STACK promotion. That run could **not** be completed in this environment, and per the repo's honesty rule no run, metrics, or example outputs are invented below. What follows is an honest record of the blocked attempt plus the source-grounded findings.
+
+**What was attempted (every path denied by the sandbox):**
+
+- `git clone --depth 1 https://github.com/hyhmrright/brooks-lint …` — to obtain the skill bundle for local invocation. **Denied** — no network egress in this sandbox.
+- `gh api repos/hyhmrright/brooks-lint …` and a `WebFetch` of the repo README — to confirm the exact install/invocation path verbatim. **Denied** — network egress blocked.
+- Local discovery (`~/.claude/skills`, `~/.claude/plugins`, `npm ls -g`) to see whether the skill was already installed. **Denied** — reads under `~/.claude` are blocked here. The ai-tooling repo's own `skills/` and `plugin/skills/` trees were readable and do **not** vendor brooks-lint, so there was no offline copy to exercise.
+
+**Why this stays source-grounded, and what a measured eval would require.** brooks-lint is a *skill bundle*, so the only meaningful measured eval is a **with-skill vs baseline A/B** on a real code sample: load the skill, point it at a planted design-decay artifact (e.g. a file with deliberate knowledge duplication plus a leaky domain abstraction), and check which of its six production / six test decay risks it actually flags, the false-positive rate, and whether the book-cited remedies are real. None of that was possible without network access to fetch the bundle. Unlike a linter target, design decay has no external oracle (there is no `html-validate` for "domain model distortion") — the A/B itself *is* the oracle, and it requires the artifact under the skill. So this eval cannot move from source-grounded to measured in this environment, and the verdict below is held at exactly the confidence the prior source-grounded review earned — no higher. The decay-risk taxonomy, citations, severity labels, and false-positive guards are all the project's own documentation, not observed review quality.
 
 ```bash
-gh api repos/hyhmrright/brooks-lint --jq '{stars,pushed_at,license:.license.spdx_id}'
-gh api repos/hyhmrright/brooks-lint/readme --jq '.content' | base64 -d   # twelve books, six decay risks, example
-gh api repos/hyhmrright/brooks-lint/releases --jq 'length'              # 28
+# Attempted (network-denied in this sandbox) — documented, not executed successfully:
+git clone --depth 1 https://github.com/hyhmrright/brooks-lint   # denied: no network egress
+gh api repos/hyhmrright/brooks-lint --jq '.stargazers_count'    # denied: no network egress
+# Readable offline: ai-tooling skills/ and plugin/skills/ — brooks-lint is NOT vendored, so no local copy to run.
 ```
 
 ## What worked
@@ -33,6 +42,7 @@ gh api repos/hyhmrright/brooks-lint/releases --jq 'length'              # 28
 
 ## What didn't work or surprised us
 
+- **No measured evidence yet — the gap issue #37 flagged is still open.** The hands-on A/B was blocked by the sandbox (network egress denied), so every "what it flags / how often it over-flags" claim remains the vendor's, unverified. A STACK slot requires moving a quality signal *in real testing*; that test has not been run.
 - **Opinionated by construction.** Grounding in twelve specific books *is* a worldview; teams that disagree with (say) Clean Architecture's dependency rules or DDD will see findings they reject. It's a feature, but not neutral — calibrate expectations.
 - **Quality is unverified and model-dependent.** "Consistent every time" is the claim; actual accuracy/consistency depends on the driving model and isn't independently measured here. A self-published benchmark exists but wasn't reproduced.
 - **Design-decay findings are inherently judgment calls.** "Accidental complexity" and "domain model distortion" are subtler and more contestable than a null-deref; expect more debate (and more false positives) than with mechanical checks — hence the guards matter.
@@ -42,17 +52,19 @@ gh api repos/hyhmrright/brooks-lint/releases --jq 'length'              # 28
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + / neutral | Surfaces design decay (coupling, duplication, domain distortion) that causes future bugs; not a bug/security scanner itself. |
+| Correctness | + / neutral (unverified) | *Claims* to surface design decay (coupling, duplication, domain distortion) that causes future bugs; not a bug/security scanner, and flagging quality was not measured here. |
 | Speed | neutral | Adds a review pass; value is long-term maintainability, not turnaround. |
-| Maintainability | + + | Directly targets the decay dimensions that erode maintainability, with citations + remedies — its core purpose. |
+| Maintainability | + + (claimed, not measured) | Directly *targets* the decay dimensions that erode maintainability, with citations + remedies — its core purpose; signal movement was not demonstrated hands-on. |
 | Safety | neutral | Not a security tool. |
 | Cost Efficiency | neutral | Free/MIT; spends review tokens per pass. |
 
 ## Verdict
 
-**CONDITIONAL** — adopt as a **maintainability/design-decay reviewer** that complements (not replaces) bug- and security-focused review. The citation-grounded, decay-risk framing is a real and underserved angle, the test-suite coverage is a bonus, and the false-positive guards suggest maturity. Best for teams that broadly share its canon and want traceable, teachable feedback on coupling/complexity/domain fidelity. Hold off if you want mechanical, low-debate checks or disagree with its source books — the design-decay findings are judgment calls and quality is model-dependent and unverified. Run it alongside code-review/pr-review-toolkit (bugs) and stryker-js (test strength).
+**CONDITIONAL** — adopt as a **maintainability/design-decay reviewer** that complements (not replaces) bug- and security-focused review, with the explicit caveat that its review *quality* remains **unverified**: the hands-on A/B (issue #37) was attempted here and **blocked by the sandbox's lack of network egress**, so no measured signal movement backs this. The citation-grounded, decay-risk framing is a real and underserved angle, the test-suite coverage is a bonus, and the false-positive guards suggest maturity. Best for teams that broadly share its canon and want traceable, teachable feedback on coupling/complexity/domain fidelity. Hold off if you want mechanical, low-debate checks or disagree with its source books — the design-decay findings are judgment calls and quality is model-dependent and unmeasured. Run it alongside code-review/pr-review-toolkit (bugs) and stryker-js (test strength).
 
-Compared to neighbors: **code-review**/**pr-review-toolkit** catch bugs/silent failures/types; **shadcn/improve** audits for a plan; **SkillSpector** scans for security. brooks-lint is the **design-decay / maintainability** reviewer of the set — the only one explicitly grounding findings in the classic engineering literature.
+**STACK recommendation: does NOT earn an every-project STACK slot — not yet.** A STACK slot is reserved for tools that *move a quality signal in real testing*; brooks-lint has no such measured evidence (the run was blocked, not failed). It stays catalogued at CONDITIONAL. Re-evaluate for STACK only after a real with-skill-vs-baseline A/B on a planted design-decay artifact, in a network-capable environment, shows it (a) flags genuine decay risks, (b) at an acceptable false-positive rate, with (c) actionable book-cited remedies. Until that A/B exists, this is a promising design-decay reviewer to keep on the bench, not a default install.
+
+Compared to neighbors: **code-review**/**pr-review-toolkit** catch bugs/silent failures/types; **shadcn/improve** audits for a plan; **SkillSpector** scans for security; **vet**/**skylos**/**kodus-ai** verify correctness/CVEs/PRs. brooks-lint is the **design-decay / maintainability** reviewer of the set — the only one explicitly grounding findings in the classic engineering literature.
 
 ## Catalog entry
 
