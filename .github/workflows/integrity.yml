@@ -35,6 +35,11 @@ jobs:
       - name: Count consistency (reconcile --check)
         run: python3 reconcile-counts.py --check
 
+      # plugin/docs/ is a synced copy of the root docs; this fails the PR if a doc
+      # change was committed without re-running ./sync-plugin-docs.sh.
+      - name: Plugin docs in sync (sync-plugin-docs.sh --check)
+        run: ./sync-plugin-docs.sh --check
+
       # Network: resolves every install command against npm / PyPI / crates / GitHub.
       # Node and gh are preinstalled on ubuntu-latest.
       - name: Install resolver
