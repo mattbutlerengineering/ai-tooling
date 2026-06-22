@@ -210,8 +210,8 @@ class TestSyncPluginDocs(unittest.TestCase):
         _write(d, "plugin/skills/myskill/SKILL.md",
                "See ${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md for the catalog.\n")
 
-    def _run(self, d):
-        return subprocess.run(["bash", "sync-plugin-docs.sh"], cwd=d, capture_output=True, text=True)
+    def _run(self, d, *args):
+        return subprocess.run(["bash", "sync-plugin-docs.sh", *args], cwd=d, capture_output=True, text=True)
 
     def test_happy_path_roundtrips_and_passes_guard(self):
         with tempfile.TemporaryDirectory() as d:
@@ -243,6 +243,26 @@ class TestSyncPluginDocs(unittest.TestCase):
             r = self._run(d)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
             self.assertFalse(os.path.exists(os.path.join(d, "plugin/docs/evaluations/stale.md")))
+
+    def test_check_passes_when_in_sync_and_mutates_nothing(self):
+        # After an apply, --check must exit 0 and leave plugin/docs/ byte-for-byte unchanged.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            cat = os.path.join(d, "plugin/docs/CATALOG.md")
+            before = open(cat, encoding="utf-8").read()
+            r = self._run(d, "--check")
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+            self.assertEqual(open(cat, encoding="utf-8").read(), before, "check mutated plugin/docs")
+
+    def test_check_fails_on_drift(self):
+        # A stale plugin/docs copy (root doc changed but not re-synced) must fail --check.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            _write(d, "CATALOG.md", CATALOG_OK + "\n| [new](https://github.com/a/new) | tool | x | y | z |\n")
+            r = self._run(d, "--check")
+            self.assertEqual(r.returncode, 1, msg="drift not detected: " + r.stdout + r.stderr)
 
 
 if __name__ == "__main__":
