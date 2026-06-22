@@ -1,0 +1,71 @@
+name: link-archive-sweep
+
+# Report-only scheduled sweep for catalog drift that the gating integrity workflow
+# can't catch on a normal push/PR: silent repo renames / 404s (detector C, --links)
+# and repos GitHub has archived since they were catalogued (detector H, --archived).
+# Both are slow (~450 network requests each), so they run weekly rather than per-PR.
+# This workflow NEVER fails the build and is not a required check — on findings it
+# opens (or refreshes) a single tracking issue; on a clean run it does nothing.
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays 09:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    env:
+      # detectors C/H shell out to `gh api`; GITHUB_TOKEN authenticates so they
+      # aren't rate-limited across ~450 repo lookups.
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Capture output and exit code without failing the job: detector C is gating
+      # (non-zero on link rot), but this sweep is deliberately report-only.
+      - name: Run link-rot + archived sweep
+        id: sweep
+        run: |
+          python3 audit-evals.py --links --archived > sweep.txt 2>&1 || true
+          echo "----- sweep output -----"
+          cat sweep.txt
+          # Actionable findings: a dead/moved link, or an archived repo not yet
+          # disclosed in its entry. An already-disclosed ARCHIVED line is not actionable.
+          if grep -qE '^  (DEAD|MOVED) |NOT disclosed' sweep.txt; then
+            echo "findings=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "findings=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or refresh tracking issue
+        if: steps.sweep.outputs.findings == 'true'
+        env:
+          TITLE: "Catalog link-rot / archived sweep: drift found"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "The scheduled sweep (\`audit-evals.py --links --archived\`) found catalog drift."
+            echo "Triage: fix the dead/moved link or add a ⚠️ archived note (or repoint) per CLAUDE.md."
+            echo
+            echo "Sweep run: $RUN_URL"
+            echo
+            echo '```'
+            cat sweep.txt
+            echo '```'
+          } > issue-body.md
+          existing=$(gh issue list --state open --label needs-triage \
+            --json number,title --jq '.[] | select(.title==env.TITLE) | .number' | head -n1)
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file issue-body.md
+            gh issue comment "$existing" --body "Sweep re-ran and drift is still present — body refreshed ($RUN_URL)."
+          else
+            gh issue create --title "$TITLE" --label needs-triage --body-file issue-body.md
+          fi
