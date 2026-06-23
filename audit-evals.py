@@ -296,7 +296,11 @@ def audit_archived():
     return archived, len(slugs)
 
 # ---------------------------------------------------------------- D. verdict sync
-VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP")
+# discovery-log (ADR 0001 / #69): a COMPARISON status for catalogued tools that were
+# never exercised (Evidence REVIEW/SOURCE-ONLY) — leads, not verdicts. They are
+# excluded from verdict-sync (D) and verdict-evidence (K): an eval's tentative
+# CONDITIONAL read is the lead's notes, not a promoted verdict to enforce.
+VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP", "discovery-log")
 _norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 
 def audit_verdicts():
@@ -305,7 +309,7 @@ def audit_verdicts():
     ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
     comp = {}
     for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
         if m:
             comp[_norm(m.group(1))] = m.group(2)
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
@@ -317,6 +321,8 @@ def audit_verdicts():
         cv = next((comp[c] for c in ev.name_aliases if c in comp), None)
         if cv is None:
             continue  # name didn't map — not a verdict-sync problem
+        if cv == "discovery-log":
+            continue  # lead, not a verdict — the eval's tentative read isn't synced
         if cv in ev_set:
             continue  # matches (incl. dual verdict)
         if any(frozenset((cv, x)) in compatible for x in ev_set):
@@ -341,7 +347,7 @@ def _drift_key(name):
 def _comparison_verdict_map():
     comp = {}
     for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
         if m:
             comp[_drift_key(m.group(1))] = m.group(2)
     return comp
@@ -652,7 +658,7 @@ def audit_clusters():
     # verdict per name from COMPARISON
     verd = {}
     for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
         if m:
             verd[_OVL_STRIP(m.group(1))] = m.group(2)
     # union-find over overlap edges (only between catalogued names)
@@ -677,8 +683,8 @@ def audit_clusters():
             continue
         verds = {verd.get(m) for m in members}
         has_pick = "ADOPT" in verds or "KEEP" in verds
-        has_cond = "CONDITIONAL" in verds
-        if has_cond and not has_pick:
+        awaiting = "CONDITIONAL" in verds or "discovery-log" in verds
+        if awaiting and not has_pick:
             flagged.append(sorted(members))
     return sorted(flagged, key=lambda c: (-len(c), c[0].lower()))
 

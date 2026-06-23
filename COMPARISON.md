@@ -2,292 +2,299 @@
 
 All 510 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
+**Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
+
+- **ADOPT** / **KEEP** — recommended (KEEP = already installed & validated); run-backed or disclaimered.
+- **CONDITIONAL** — a real conditional verdict on a tool we actually exercised (`Evidence` MEASURED/RUN), or one carrying a genuine `adopt-if:` condition.
+- **SKIP** / **DEFER** — evaluated and not recommended (now), incl. license-disqualified tools.
+- **discovery-log** — a catalogued *lead*, not a verdict: surfaced in triage but never exercised (`Evidence` REVIEW/SOURCE-ONLY). The eval's tentative read is notes, not a recommendation. Excluded from verdict-sync (D) and verdict-evidence (K). Promote to a real verdict by exercising the tool.
+
 ## Plan
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| CLI-Anything | tool | | ✓ | CONDITIONAL | REVIEW |
+| CLI-Anything | tool | | ✓ | discovery-log | REVIEW |
 | claude-code-templates | tool | | ✓ | SKIP | REVIEW |
-| claude-hud | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ccstatusline | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-hud | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| ccstatusline | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
-| code-review-graph | tool | | ✓ | CONDITIONAL | REVIEW |
+| code-review-graph | tool | | ✓ | discovery-log | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
 | feature-dev | plugin | | ✓ | KEEP | MEASURED |
-| graphify | skill | | ✓ | CONDITIONAL | REVIEW |
+| graphify | skill | | ✓ | discovery-log | REVIEW |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| git-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
-| spec-kit | framework | | ✓ | CONDITIONAL | REVIEW |
-| ccpm | skill | | ✓ | CONDITIONAL | REVIEW |
-| OpenSpec | framework | | ✓ | CONDITIONAL | REVIEW |
-| BMAD-METHOD | framework | | ✓ | CONDITIONAL | REVIEW |
-| spec_driven_develop | skill | | ✓ | CONDITIONAL | REVIEW |
-| reversa | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| flow-next | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| opensrc | tool | | ✓ | CONDITIONAL | REVIEW |
+| spec-kit | framework | | ✓ | discovery-log | REVIEW |
+| ccpm | skill | | ✓ | discovery-log | REVIEW |
+| OpenSpec | framework | | ✓ | discovery-log | REVIEW |
+| BMAD-METHOD | framework | | ✓ | discovery-log | REVIEW |
+| spec_driven_develop | skill | | ✓ | discovery-log | REVIEW |
+| reversa | framework | ✓ | ✓ | discovery-log | REVIEW |
+| flow-next | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| mdn/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| opensrc | tool | | ✓ | discovery-log | REVIEW |
 | planning-with-files | skill | | ✓ | SKIP | REVIEW |
-| reporails/cli | tool | | $ | CONDITIONAL | SOURCE-ONLY |
+| reporails/cli | tool | | $ | discovery-log | SOURCE-ONLY |
 | repomix | tool | | ✓ | CONDITIONAL | RUN |
 | gitingest | tool | | ✓ | CONDITIONAL | MEASURED |
-| repoprompt-ce | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| repoprompt-ce | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | markitdown | tool | | ✓ | ADOPT | MEASURED |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
-| repowise | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-context | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| cocoindex-code | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| sem | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| semble | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Understand-Anything | tool | | ✓ | CONDITIONAL | REVIEW |
-| codebase-design | skill | | ✓ | CONDITIONAL | REVIEW |
-| domain-modeling | skill | | ✓ | CONDITIONAL | REVIEW |
-| plannotator | tool | | ✓ | CONDITIONAL | REVIEW |
-| code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| SocratiCode | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| repowise | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-context | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| cocoindex-code | tool | ✓ | ✓ | discovery-log | REVIEW |
+| sem | tool | ✓ | ✓ | discovery-log | REVIEW |
+| semble | tool | ✓ | ✓ | discovery-log | REVIEW |
+| Understand-Anything | tool | | ✓ | discovery-log | REVIEW |
+| codebase-design | skill | | ✓ | discovery-log | REVIEW |
+| domain-modeling | skill | | ✓ | discovery-log | REVIEW |
+| plannotator | tool | | ✓ | discovery-log | REVIEW |
+| code-context-engine | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| SocratiCode | tool | ✓ | ✓ | discovery-log | REVIEW |
+| gortex | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | codebase-to-course | skill | | ✓ | SKIP | REVIEW |
-| sourcebot | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
 
 ## Implement
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agency-agents | harness | | ✓ | CONDITIONAL | REVIEW |
-| agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| agmsg | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| aidlc-workflows | framework | | ✓ | CONDITIONAL | REVIEW |
-| arrow-js | framework | | ✓ | CONDITIONAL | REVIEW |
+| agency-agents | harness | | ✓ | discovery-log | REVIEW |
+| agent-orchestrator | tool | ✓ | ✓ | discovery-log | REVIEW |
+| agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
+| aidlc-workflows | framework | | ✓ | discovery-log | REVIEW |
+| arrow-js | framework | | ✓ | discovery-log | REVIEW |
 | beads | tool | ✓ | ✓ | KEEP | MEASURED |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
-| eigent | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| herdr | tool | | ✓ | CONDITIONAL | REVIEW |
+| eigent | platform | ✓ | ✓ | discovery-log | REVIEW |
+| herdr | tool | | ✓ | discovery-log | REVIEW |
 | claurst | harness | | ✓ | SKIP | REVIEW |
-| claude-code-harness | harness | | ✓ | CONDITIONAL | REVIEW |
-| claude-code-router | tool | | ✓ | CONDITIONAL | REVIEW |
-| CLIProxyAPI | tool | | ✓ | CONDITIONAL | REVIEW |
-| litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| bifrost | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-code-harness | harness | | ✓ | discovery-log | REVIEW |
+| claude-code-router | tool | | ✓ | discovery-log | REVIEW |
+| CLIProxyAPI | tool | | ✓ | discovery-log | REVIEW |
+| litellm | tool | ✓ | ✓ | discovery-log | REVIEW |
+| bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
-| orca | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| HolyClaude | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Nimbalyst | platform | | ✓ | CONDITIONAL | REVIEW |
-| agent-of-empires | tool | | ✓ | CONDITIONAL | REVIEW |
+| orca | platform | ✓ | ✓ | discovery-log | REVIEW |
+| HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
+| Nimbalyst | platform | | ✓ | discovery-log | REVIEW |
+| agent-of-empires | tool | | ✓ | discovery-log | REVIEW |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
-| claude-task-master | tool | | ✓ | CONDITIONAL | REVIEW |
-| capa | tool | | ✓ | CONDITIONAL | REVIEW |
+| claude-task-master | tool | | ✓ | discovery-log | REVIEW |
+| capa | tool | | ✓ | discovery-log | REVIEW |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
 | align-dev | tool | | ✓ | SKIP | REVIEW |
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
 | commit-commands | plugin | | ✓ | SKIP | REVIEW |
-| compound-engineering | plugin | | ✓ | CONDITIONAL | REVIEW |
-| context-mode | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| compound-engineering | plugin | | ✓ | discovery-log | REVIEW |
+| context-mode | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| Continuous-Claude-v3 | harness | ✓ | ✓ | discovery-log | REVIEW |
 | CowAgent | harness | | ✓ | SKIP | REVIEW |
-| deer-flow | harness | | ✓ | CONDITIONAL | REVIEW |
-| DeepSeek-Reasonix | platform | | ✓ | CONDITIONAL | REVIEW |
+| deer-flow | harness | | ✓ | discovery-log | REVIEW |
+| DeepSeek-Reasonix | platform | | ✓ | discovery-log | REVIEW |
 | dify | platform | | ✓ | SKIP | REVIEW |
-| dmux | tool | | ✓ | CONDITIONAL | REVIEW |
-| ECC | harness | | ✓ | CONDITIONAL | REVIEW |
-| fast-agent | framework | | ✓ | CONDITIONAL | REVIEW |
+| dmux | tool | | ✓ | discovery-log | REVIEW |
+| ECC | harness | | ✓ | discovery-log | REVIEW |
+| fast-agent | framework | | ✓ | discovery-log | REVIEW |
 | Flowise | platform | | ✓ | SKIP | REVIEW |
-| langflow | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| forkd | tool | | ✓ | CONDITIONAL | REVIEW |
-| gastown | tool | | ✓ | CONDITIONAL | REVIEW |
-| goose | platform | | ✓ | CONDITIONAL | REVIEW |
-| open-interpreter | harness | | ✓ | CONDITIONAL | REVIEW |
-| kilocode | platform | | ✓ | CONDITIONAL | REVIEW |
-| grok-cli | platform | | ✓ | CONDITIONAL | REVIEW |
-| Kaku | tool | | ✓ | CONDITIONAL | REVIEW |
-| jcode | harness | | ✓ | CONDITIONAL | REVIEW |
-| gstack | harness | | ✓ | CONDITIONAL | REVIEW |
-| happy | platform | | $ | CONDITIONAL | REVIEW |
-| harness | skill | | ✓ | CONDITIONAL | REVIEW |
+| langflow | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| forkd | tool | | ✓ | discovery-log | REVIEW |
+| gastown | tool | | ✓ | discovery-log | REVIEW |
+| goose | platform | | ✓ | discovery-log | REVIEW |
+| open-interpreter | harness | | ✓ | discovery-log | REVIEW |
+| kilocode | platform | | ✓ | discovery-log | REVIEW |
+| grok-cli | platform | | ✓ | discovery-log | REVIEW |
+| Kaku | tool | | ✓ | discovery-log | REVIEW |
+| jcode | harness | | ✓ | discovery-log | REVIEW |
+| gstack | harness | | ✓ | discovery-log | REVIEW |
+| happy | platform | | $ | discovery-log | REVIEW |
+| harness | skill | | ✓ | discovery-log | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
-| claude-context-optimizer | plugin | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| claude-context-optimizer | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
 | humanlayer | harness | | ✓ | SKIP | REVIEW |
-| KARIMO | plugin | | ✓ | CONDITIONAL | REVIEW |
+| KARIMO | plugin | | ✓ | discovery-log | REVIEW |
 | LangGraph | framework | | ✓ | SKIP | REVIEW |
 | LangChain.js | framework | | ✓ | SKIP | REVIEW |
 | LangGraph.js | framework | | ✓ | SKIP | REVIEW |
 | langchain | framework | | ✓ | SKIP | REVIEW |
-| autogen | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| MetaGPT | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| llama_index | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| semantic-kernel | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| smolagents | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| dspy | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| autogen | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| MetaGPT | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| llama_index | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| semantic-kernel | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| smolagents | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| dspy | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | crewAI | framework | | ✓ | SKIP | REVIEW |
-| vercel-ai | framework | | ✓ | CONDITIONAL | REVIEW |
-| antigravity-sdk-python | framework | | ✓ | CONDITIONAL | REVIEW |
-| pydantic-ai | framework | | ✓ | CONDITIONAL | REVIEW |
-| voltagent | framework | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| agent-kit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| microsoft/agent-framework | framework | | ✓ | CONDITIONAL | REVIEW |
+| vercel-ai | framework | | ✓ | discovery-log | REVIEW |
+| antigravity-sdk-python | framework | | ✓ | discovery-log | REVIEW |
+| pydantic-ai | framework | | ✓ | discovery-log | REVIEW |
+| voltagent | framework | ✓ | ✓/$ | discovery-log | REVIEW |
+| agent-kit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| microsoft/agent-framework | framework | | ✓ | discovery-log | REVIEW |
 | lobehub | platform | | ✓ | SKIP | REVIEW |
 | nanoclaw | platform | | ✓ | SKIP | REVIEW |
-| nanobot | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Hermes Agent | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| flue | framework | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| moltworker | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| hermes-webui | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| agentgpt | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| oh-my-claudecode | harness | | ✓ | CONDITIONAL | REVIEW |
+| nanobot | harness | ✓ | ✓ | discovery-log | REVIEW |
+| Hermes Agent | harness | ✓ | ✓ | discovery-log | REVIEW |
+| flue | framework | | ✓ | discovery-log | SOURCE-ONLY |
+| moltworker | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| hermes-webui | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| agentgpt | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| oh-my-claudecode | harness | | ✓ | discovery-log | REVIEW |
 | oh-my-openagent | harness | | ✓ | SKIP | REVIEW |
-| lazycodex | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| lazycodex | harness | ✓ | ✓ | discovery-log | REVIEW |
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
-| omnigent | framework | | ✓ | CONDITIONAL | REVIEW |
-| opencode | platform | | ✓ | CONDITIONAL | REVIEW |
-| plandex | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| forgecode | harness | | ✓ | CONDITIONAL | REVIEW |
-| opencode-swarm | plugin | | ✓ | CONDITIONAL | REVIEW |
-| OpenHands | platform | | ✓ | CONDITIONAL | REVIEW |
-| daytona | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| agent-sandbox | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| tabby | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Archon | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| sim | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| haystack | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| baml | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| moai-adk | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| TanStack-cli | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mastra | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pi-subagents | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| CopilotKit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| agentscope | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| open-multi-agent | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| eino | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| vercel/workflow | framework | ✓ | ✓/$ | CONDITIONAL | SOURCE-ONLY |
-| osaurus | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| aichat | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| aider | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| codex | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| gpt-engineer | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| SWE-agent | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| continue | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| cline | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| Roo-Code | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| void | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| GenericAgent | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| gptme | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| zeroshot | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ccs | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mito | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| freestyle | tool | | ✓ | CONDITIONAL | REVIEW |
-| beta9 | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| cua | harness | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| txtai | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| omnigent | framework | | ✓ | discovery-log | REVIEW |
+| opencode | platform | | ✓ | discovery-log | REVIEW |
+| plandex | platform | ✓ | ✓ | discovery-log | REVIEW |
+| forgecode | harness | | ✓ | discovery-log | REVIEW |
+| opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
+| OpenHands | platform | | ✓ | discovery-log | REVIEW |
+| daytona | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| agent-sandbox | tool | ✓ | ✓ | discovery-log | REVIEW |
+| tabby | platform | ✓ | ✓ | discovery-log | REVIEW |
+| Archon | platform | ✓ | ✓ | discovery-log | REVIEW |
+| sim | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| haystack | framework | ✓ | ✓ | discovery-log | REVIEW |
+| Portkey-gateway | tool | ✓ | ✓ | discovery-log | REVIEW |
+| baml | framework | ✓ | ✓ | discovery-log | REVIEW |
+| moai-adk | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| TanStack-cli | tool | ✓ | ✓ | discovery-log | REVIEW |
+| mastra | framework | ✓ | ✓ | discovery-log | REVIEW |
+| pydantic-deepagents | framework | ✓ | ✓ | discovery-log | REVIEW |
+| pi-subagents | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| CopilotKit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| agentscope | framework | ✓ | ✓ | discovery-log | REVIEW |
+| open-multi-agent | framework | ✓ | ✓ | discovery-log | REVIEW |
+| eino | framework | ✓ | ✓ | discovery-log | REVIEW |
+| vercel/workflow | framework | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
+| osaurus | harness | ✓ | ✓ | discovery-log | REVIEW |
+| aichat | harness | ✓ | ✓ | discovery-log | REVIEW |
+| aider | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| gpt-engineer | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| SWE-agent | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| continue | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cline | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Roo-Code | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| void | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| GenericAgent | harness | ✓ | ✓ | discovery-log | REVIEW |
+| gptme | harness | ✓ | ✓ | discovery-log | REVIEW |
+| zeroshot | harness | ✓ | ✓ | discovery-log | REVIEW |
+| ccs | tool | ✓ | ✓ | discovery-log | REVIEW |
+| mito | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| freestyle | tool | | ✓ | discovery-log | REVIEW |
+| beta9 | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| cua | harness | ✓ | ✓/$ | discovery-log | REVIEW |
+| txtai | framework | ✓ | ✓ | discovery-log | REVIEW |
+| UI-TARS-desktop | harness | ✓ | ✓ | discovery-log | REVIEW |
 | opensquilla | tool | | ✓ | SKIP | REVIEW |
-| architect-loop | skill | | ✓ | CONDITIONAL | REVIEW |
-| adhd | skill | | ✓ | CONDITIONAL | REVIEW |
-| sandboxd | tool | | ✓ | CONDITIONAL | REVIEW |
-| vercel-sandbox | platform | | ✓/$ | CONDITIONAL | REVIEW |
-| qwen-code | platform | | ✓ | CONDITIONAL | REVIEW |
-| gemini-cli | platform | | ✓ | CONDITIONAL | REVIEW |
-| agents-cli | skill | | ✓ | CONDITIONAL | REVIEW |
-| ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ruflo | harness | | ✓ | CONDITIONAL | REVIEW |
-| sandcastle | framework | | ✓ | CONDITIONAL | REVIEW |
+| architect-loop | skill | | ✓ | discovery-log | REVIEW |
+| adhd | skill | | ✓ | discovery-log | REVIEW |
+| sandboxd | tool | | ✓ | discovery-log | REVIEW |
+| vercel-sandbox | platform | | ✓/$ | discovery-log | REVIEW |
+| qwen-code | platform | | ✓ | discovery-log | REVIEW |
+| gemini-cli | platform | | ✓ | discovery-log | REVIEW |
+| agents-cli | skill | | ✓ | discovery-log | REVIEW |
+| ralph-claude-code | harness | ✓ | ✓ | discovery-log | REVIEW |
+| rtk | tool | ✓ | ✓ | discovery-log | REVIEW |
+| ruflo | harness | | ✓ | discovery-log | REVIEW |
+| sandcastle | framework | | ✓ | discovery-log | REVIEW |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
-| orchestkit | plugin | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| eca | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| letta-code | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Aegis | skill | | ✓ | CONDITIONAL | REVIEW |
-| superset | tool | | ✓ | CONDITIONAL | REVIEW |
-| worktrunk | tool | | $ | CONDITIONAL | REVIEW |
-| implement | skill | | ✓ | CONDITIONAL | REVIEW |
+| orchestkit | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
+| strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
+| Aegis | skill | | ✓ | discovery-log | REVIEW |
+| superset | tool | | ✓ | discovery-log | REVIEW |
+| worktrunk | tool | | $ | discovery-log | REVIEW |
+| implement | skill | | ✓ | discovery-log | REVIEW |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
-| codex-plugin-cc | plugin | | ✓ | CONDITIONAL | REVIEW |
-| vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL | REVIEW |
-| re_gent | tool | | ✓ | CONDITIONAL | REVIEW |
-| h5i | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| cli-continues | tool | | ✓ | CONDITIONAL | REVIEW |
-| weave | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| phantom | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| rmux | tool | | ✓ | CONDITIONAL | REVIEW |
-| MiMo-Code | platform | | ✓ | CONDITIONAL | REVIEW |
-| kimi-code | platform | | ✓ | CONDITIONAL | REVIEW |
-| gentle-ai | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| smallcode | tool | | ✓ | CONDITIONAL | REVIEW |
-| clawcodex | harness | | ✓ | CONDITIONAL | REVIEW |
-| claudian | plugin | | ✓ | CONDITIONAL | REVIEW |
-| jetbrains-cc-gui | plugin | | ✓ | CONDITIONAL | REVIEW |
+| codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
+| vibecode-pro-max-kit | harness | | ✓ | discovery-log | REVIEW |
+| re_gent | tool | | ✓ | discovery-log | REVIEW |
+| h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cli-continues | tool | | ✓ | discovery-log | REVIEW |
+| weave | tool | ✓ | ✓ | discovery-log | REVIEW |
+| phantom | platform | ✓ | ✓ | discovery-log | REVIEW |
+| rmux | tool | | ✓ | discovery-log | REVIEW |
+| MiMo-Code | platform | | ✓ | discovery-log | REVIEW |
+| kimi-code | platform | | ✓ | discovery-log | REVIEW |
+| gentle-ai | harness | ✓ | ✓ | discovery-log | REVIEW |
+| smallcode | tool | | ✓ | discovery-log | REVIEW |
+| clawcodex | harness | | ✓ | discovery-log | REVIEW |
+| claudian | plugin | | ✓ | discovery-log | REVIEW |
+| jetbrains-cc-gui | plugin | | ✓ | discovery-log | REVIEW |
 
 ## Verify
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agent-browser | tool | | ✓ | CONDITIONAL | REVIEW |
-| opencli | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| browser-use | framework | | ✓ | CONDITIONAL | REVIEW |
-| nanobrowser | tool | | ✓ | CONDITIONAL | REVIEW |
-| page-agent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agent-browser | tool | | ✓ | discovery-log | REVIEW |
+| opencli | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| browser-use | framework | | ✓ | discovery-log | REVIEW |
+| nanobrowser | tool | | ✓ | discovery-log | REVIEW |
+| page-agent | tool | ✓ | ✓ | discovery-log | REVIEW |
 | CloakBrowser | tool | | ✓ | SKIP | REVIEW |
-| chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL | REVIEW |
-| scenario | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| aimock | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| keploy | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| midscene | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| evalview | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| chrome-devtools-mcp | MCP server | | ✓ | discovery-log | REVIEW |
+| scenario | framework | ✓ | ✓ | discovery-log | REVIEW |
+| aimock | tool | ✓ | ✓ | discovery-log | REVIEW |
+| keploy | tool | ✓ | ✓ | discovery-log | REVIEW |
+| midscene | tool | ✓ | ✓ | discovery-log | REVIEW |
+| evalview | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
 | playwright-skill | skill | | ✓ | SKIP | REVIEW |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL | RUN |
-| qodo-cover | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| passmark | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| diagnosing-bugs | skill | | ✓ | CONDITIONAL | REVIEW |
-| mirrord | tool | | ✓/$ | CONDITIONAL | REVIEW |
+| qodo-cover | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| passmark | tool | ✓ | ✓ | discovery-log | REVIEW |
+| diagnosing-bugs | skill | | ✓ | discovery-log | REVIEW |
+| mirrord | tool | | ✓/$ | discovery-log | REVIEW |
 
 ## Review
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agentlint | tool | ✓ | ✓ | CONDITIONAL | RUN |
-| kodus-ai | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| kodus-ai | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
 | code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
-| design-council | plugin | | ✓ | CONDITIONAL | REVIEW |
-| ghostsecurity/skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| PR-Agent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| tdd-guard | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| vet | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| openrewrite | framework | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| cc-safety-net | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pentest-ai-agents | skill | | ✓ | CONDITIONAL | REVIEW |
+| design-council | plugin | | ✓ | discovery-log | REVIEW |
+| ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
+| PR-Agent | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
+| tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
+| cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
+| pentest-ai-agents | skill | | ✓ | discovery-log | REVIEW |
 | pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
-| shadcn/improve | tool | | ✓ | CONDITIONAL | REVIEW |
+| shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
-| trailofbits/skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Claude-BugHunter | skill | | ✓ | CONDITIONAL | REVIEW |
-| hol-guard | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| trailofbits/skills | skill | | ✓ | discovery-log | REVIEW |
+| cve-mcp-server | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| ida-pro-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| pentest-ai | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| Claude-BugHunter | skill | | ✓ | discovery-log | REVIEW |
+| hol-guard | tool | ✓ | ✓ | discovery-log | REVIEW |
 | OpenOSINT | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| agnix | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| agent-vault | tool | | ✓ | CONDITIONAL | REVIEW |
+| agnix | tool | ✓ | ✓ | discovery-log | REVIEW |
+| agent-vault | tool | | ✓ | discovery-log | REVIEW |
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
-| code-on-incus | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
 
 ## Ship
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| bernstein | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| bernstein | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
 
 ## Reflect
@@ -297,280 +304,280 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-reflect | plugin | | ✓ | KEEP | MEASURED |
 | documentation-writer | skill | | ✓ | ADOPT | MEASURED |
 | documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
-| documentation (anthropics) | skill | | ✓ | CONDITIONAL | REVIEW |
+| documentation (anthropics) | skill | | ✓ | discovery-log | REVIEW |
 | oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 
 ## Outer Loop
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| ACMM | framework | | ✓ | CONDITIONAL | REVIEW |
+| ACMM | framework | | ✓ | discovery-log | REVIEW |
 | abtop | tool | | ✓ | CONDITIONAL | MEASURED |
-| dev3000 | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
-| Composio | plugin | | ✓/$ | CONDITIONAL | SOURCE-ONLY |
+| Composio | plugin | | ✓/$ | discovery-log | SOURCE-ONLY |
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
-| langfuse | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
-| claude-monitor | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| vibe-log-cli | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| agenta | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| claude-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| vibe-log-cli | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agenta | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | codeburn | tool | | ✓ | ADOPT | MEASURED |
 | trigger.dev | platform | | ✓ | SKIP | REVIEW |
-| scorecard | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| sentrux | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-fleet | tool | | ✓ | CONDITIONAL | REVIEW |
-| agentsview | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| promptfoo | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| garak | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| presidio | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| NeMo-Guardrails | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| superagent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| deepeval | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| phoenix | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| openinference | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| harbor | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| rogue | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| giskard-oss | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| opik | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| agent-governance-toolkit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pezzo | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ragas | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Helicone | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| logfire | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| textgrad | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ping-island | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| scorecard | tool | ✓ | ✓ | discovery-log | REVIEW |
+| sentrux | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-fleet | tool | | ✓ | discovery-log | REVIEW |
+| agentsview | tool | ✓ | ✓ | discovery-log | REVIEW |
+| promptfoo | tool | ✓ | ✓ | discovery-log | REVIEW |
+| garak | tool | ✓ | ✓ | discovery-log | REVIEW |
+| presidio | tool | ✓ | ✓ | discovery-log | REVIEW |
+| NeMo-Guardrails | tool | ✓ | ✓ | discovery-log | REVIEW |
+| superagent | tool | ✓ | ✓ | discovery-log | REVIEW |
+| deepeval | framework | ✓ | ✓ | discovery-log | REVIEW |
+| phoenix | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-devtools | tool | ✓ | ✓ | discovery-log | REVIEW |
+| harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
+| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | discovery-log | REVIEW |
+| rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
+| opik | platform | ✓ | ✓ | discovery-log | REVIEW |
+| agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| pezzo | platform | ✓ | ✓ | discovery-log | REVIEW |
+| ragas | tool | ✓ | ✓ | discovery-log | REVIEW |
+| Helicone | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| logfire | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| textgrad | framework | ✓ | ✓ | discovery-log | REVIEW |
+| ping-island | tool | ✓ | ✓ | discovery-log | REVIEW |
 | tokencost | tool | | ✓ | CONDITIONAL | RUN |
 
 ## Skills & Plugins (domain-specific)
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| academic-research-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| agent-rules-books | skill | | ✓ | CONDITIONAL | REVIEW |
-| vercel-labs/agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| academic-research-skills | skill | | ✓ | discovery-log | REVIEW |
+| agent-rules-books | skill | | ✓ | discovery-log | REVIEW |
+| vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
-| AI-Research-SKILLs | skill | | ✓ | CONDITIONAL | REVIEW |
-| alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL | REVIEW |
-| andrej-karpathy-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| anthropics/skills | reference | | ✓ | CONDITIONAL | REVIEW |
-| antfu/skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| azure-skills | plugin | | ✓ | CONDITIONAL | REVIEW |
-| book-to-skill | skill | | ✓ | CONDITIONAL | REVIEW |
-| Claude-Code-Game-Studios | plugin | | ✓ | CONDITIONAL | REVIEW |
-| claude-seo | skill | | ✓ | CONDITIONAL | REVIEW |
-| excalidraw-diagram-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
+| alirezarezvani/claude-skills | plugin | | ✓ | discovery-log | REVIEW |
+| andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
+| Anthropic-Cybersecurity-Skills | skill | | ✓ | discovery-log | REVIEW |
+| anthropics/skills | reference | | ✓ | discovery-log | REVIEW |
+| antfu/skills | skill | | ✓ | discovery-log | REVIEW |
+| azure-skills | plugin | | ✓ | discovery-log | REVIEW |
+| book-to-skill | skill | | ✓ | discovery-log | REVIEW |
+| Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
+| claude-seo | skill | | ✓ | discovery-log | REVIEW |
+| excalidraw-diagram-skill | skill | | ✓ | discovery-log | REVIEW |
 | formkit | framework | | ✓ | SKIP | REVIEW |
-| frontend-slides | skill | | ✓ | CONDITIONAL | REVIEW |
-| garden-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| gemini-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| google/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| frontend-slides | skill | | ✓ | discovery-log | REVIEW |
+| garden-skills | skill | | ✓ | discovery-log | REVIEW |
+| gemini-skills | skill | | ✓ | discovery-log | REVIEW |
+| google/skills | skill | | ✓ | discovery-log | REVIEW |
 | googleworkspace/cli | tool | | ✓ | SKIP | REVIEW |
-| guizang-ppt-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| guizang-ppt-skill | skill | | ✓ | discovery-log | REVIEW |
 | html-anything | tool | | ✓ | SKIP | REVIEW |
-| humanizer | skill | | ✓ | CONDITIONAL | REVIEW |
-| impeccable | skill | | ✓ | CONDITIONAL | REVIEW |
-| Jeffallan/claude-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| marketingskills | skill | | ✓ | CONDITIONAL | REVIEW |
+| humanizer | skill | | ✓ | discovery-log | REVIEW |
+| impeccable | skill | | ✓ | discovery-log | REVIEW |
+| Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
+| marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
-| microsoft/skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| obsidian-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| microsoft/skills | skill | | ✓ | discovery-log | REVIEW |
+| obsidian-skills | skill | | ✓ | discovery-log | REVIEW |
 | open-design | platform | | ✓ | SKIP | REVIEW |
-| open-slide | tool | | ✓ | CONDITIONAL | REVIEW |
-| slidev | skill | | ✓ | CONDITIONAL | REVIEW |
-| powerpoint | skill | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| openskills | tool | | ✓ | CONDITIONAL | REVIEW |
-| vercel-labs/skills | tool | | ✓ | CONDITIONAL | REVIEW |
-| plugin-dev | plugin | | ✓ | CONDITIONAL | REVIEW |
-| pm-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| ponytail | skill | | ✓ | CONDITIONAL | REVIEW |
+| open-slide | tool | | ✓ | discovery-log | REVIEW |
+| slidev | skill | | ✓ | discovery-log | REVIEW |
+| powerpoint | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| openskills | tool | | ✓ | discovery-log | REVIEW |
+| vercel-labs/skills | tool | | ✓ | discovery-log | REVIEW |
+| plugin-dev | plugin | | ✓ | discovery-log | REVIEW |
+| pm-skills | skill | | ✓ | discovery-log | REVIEW |
+| ponytail | skill | | ✓ | discovery-log | REVIEW |
 | refly | platform | | ✓ | SKIP | REVIEW |
-| scientific-agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
-| Skill_Seekers | tool | | ✓ | CONDITIONAL | REVIEW |
+| Skill_Seekers | tool | | ✓ | discovery-log | REVIEW |
 | SkillOpt | framework | | ✓ | DEFER | REVIEW |
-| stop-slop | skill | | ✓ | CONDITIONAL | REVIEW |
-| taste-skill | skill | | ✓ | CONDITIONAL | REVIEW |
-| tech-leads-club/agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL | REVIEW |
-| ui-ux-pro-max | skill | | ✓ | CONDITIONAL | REVIEW |
+| stop-slop | skill | | ✓ | discovery-log | REVIEW |
+| taste-skill | skill | | ✓ | discovery-log | REVIEW |
+| tech-leads-club/agent-skills | skill | | ✓ | discovery-log | REVIEW |
+| typescript-mcp-server-generator | skill | | ✓ | discovery-log | REVIEW |
+| ui-ux-pro-max | skill | | ✓ | discovery-log | REVIEW |
 | web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
-| Waza | skill | | ✓ | CONDITIONAL | REVIEW |
-| agents (wshobson) | plugin | | ✓ | CONDITIONAL | REVIEW |
+| Waza | skill | | ✓ | discovery-log | REVIEW |
+| agents (wshobson) | plugin | | ✓ | discovery-log | REVIEW |
 | agent-sprite-forge | skill | | ✓ | SKIP | REVIEW |
-| SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL | REVIEW |
-| guard-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| claude-night-market | plugin | | ✓ | CONDITIONAL | REVIEW |
-| huashu-design | skill | | ✓ | CONDITIONAL | REVIEW |
-| baoyu-design | skill | | ✓ | CONDITIONAL | REVIEW |
-| AlphaGBM/skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| himself65/finance-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| web-access | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| SwiftUI-Agent-Skill | skill | | ✓ | discovery-log | REVIEW |
+| guard-skills | skill | | ✓ | discovery-log | REVIEW |
+| claude-night-market | plugin | | ✓ | discovery-log | REVIEW |
+| huashu-design | skill | | ✓ | discovery-log | REVIEW |
+| baoyu-design | skill | | ✓ | discovery-log | REVIEW |
+| AlphaGBM/skills | skill | | ✓ | discovery-log | REVIEW |
+| himself65/finance-skills | skill | | ✓ | discovery-log | REVIEW |
+| web-access | skill | ✓ | ✓ | discovery-log | REVIEW |
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
-| waza (Microsoft) | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| skills-hub | tool | | ✓ | CONDITIONAL | REVIEW |
-| context-engineering-kit | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
+| skills-hub | tool | | ✓ | discovery-log | REVIEW |
+| context-engineering-kit | plugin | ✓ | ✓ | discovery-log | REVIEW |
 
 ## Memory & Context
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agentmemory | tool | | ✓ | CONDITIONAL | REVIEW |
-| PageIndex | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| Acontext | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| LightRAG | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| memvid | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| kreuzberg | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| MineContext | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| obsidian-second-brain | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agentmemory | tool | | ✓ | discovery-log | REVIEW |
+| PageIndex | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| Acontext | tool | ✓ | ✓ | discovery-log | REVIEW |
+| byterover-cli | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| LightRAG | tool | ✓ | ✓ | discovery-log | REVIEW |
+| memvid | tool | ✓ | ✓ | discovery-log | REVIEW |
+| kreuzberg | tool | ✓ | ✓ | discovery-log | REVIEW |
+| MineContext | platform | ✓ | ✓ | discovery-log | REVIEW |
+| obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
-| lean-ctx | tool | | ✓ | CONDITIONAL | REVIEW |
+| lean-ctx | tool | | ✓ | discovery-log | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
-| claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| cognee | platform | | ✓ | CONDITIONAL | REVIEW |
-| MemOS | platform | | ✓ | CONDITIONAL | REVIEW |
-| memind | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| evolver | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| memU | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| memory-os | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Memori | platform | | ✓ | CONDITIONAL | REVIEW |
+| claude-subconscious | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| cognee | platform | | ✓ | discovery-log | REVIEW |
+| MemOS | platform | | ✓ | discovery-log | REVIEW |
+| memind | platform | ✓ | ✓ | discovery-log | REVIEW |
+| ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
+| claw-compactor | tool | ✓ | ✓ | discovery-log | REVIEW |
+| evolver | tool | ✓ | ✓ | discovery-log | REVIEW |
+| memU | platform | ✓ | ✓ | discovery-log | REVIEW |
+| memory-os | tool | ✓ | ✓ | discovery-log | REVIEW |
+| Memori | platform | | ✓ | discovery-log | REVIEW |
 | OpenViking | platform | | ✓ | SKIP | REVIEW |
-| RAGFlow | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| engram | tool | | ✓ | CONDITIONAL | REVIEW |
-| mem0 | MCP server | | ✓ | CONDITIONAL | REVIEW |
+| RAGFlow | platform | ✓ | ✓ | discovery-log | REVIEW |
+| engram | tool | | ✓ | discovery-log | REVIEW |
+| mem0 | MCP server | | ✓ | discovery-log | REVIEW |
 | OMEGA | MCP server | ✓ | ✓/$ | KEEP | REVIEW |
-| server-memory | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| SimpleMem | tool | | ✓ | CONDITIONAL | REVIEW |
+| server-memory | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| SimpleMem | tool | | ✓ | discovery-log | REVIEW |
 | squish-memory | MCP server | | ✓ | SKIP | REVIEW |
-| longhand | MCP server | | ✓ | CONDITIONAL | REVIEW |
-| storybloq | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-code-memory-setup | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-obsidian | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ArcRift | tool | | ✓ | CONDITIONAL | REVIEW |
+| longhand | MCP server | | ✓ | discovery-log | REVIEW |
+| storybloq | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| claude-code-memory-setup | reference | | ✓ | discovery-log | REVIEW |
+| claude-obsidian | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| ArcRift | tool | | ✓ | discovery-log | REVIEW |
 | context-infrastructure | reference | | ✓ | SKIP | REVIEW |
-| agentic-stack | tool | | ✓ | CONDITIONAL | REVIEW |
-| guild | tool | | ✓ | CONDITIONAL | REVIEW |
-| memsearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| supermemory | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
-| honcho | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| MemPalace | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agentic-stack | tool | | ✓ | discovery-log | REVIEW |
+| guild | tool | | ✓ | discovery-log | REVIEW |
+| memsearch | tool | ✓ | ✓ | discovery-log | REVIEW |
+| supermemory | platform | ✓ | ✓ | discovery-log | REVIEW |
+| honcho | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| MemPalace | tool | ✓ | ✓ | discovery-log | REVIEW |
 | pro-workflow | plugin | ✓ | ✓ | SKIP | REVIEW |
-| hivemind | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| AgentRecall-MCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| hivemind | tool | ✓ | ✓ | discovery-log | REVIEW |
+| AgentRecall-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 
 ## MCP Servers (infrastructure)
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| awslabs/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| codebase-memory-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| fastapi_mcp | framework | | ✓ | CONDITIONAL | REVIEW |
-| mcp-use | framework | | ✓ | CONDITIONAL | REVIEW |
-| cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| confluence | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| devfleet | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| fastapi_mcp | framework | | ✓ | discovery-log | REVIEW |
+| mcp-use | framework | | ✓ | discovery-log | REVIEW |
+| cloudflare-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| confluence | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| devfleet | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
+| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | fastmcp | framework | | ✓ | ADOPT | RUN |
-| Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| Figma-Context-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| firecrawl-mcp | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT | MEASURED |
-| jira | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| prisma | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| jira | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| mcp-toolbox | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| prisma | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| sentry | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| sentry | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| supabase | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| supabase | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| token-optimizer-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mcp2cli | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mirage | tool | | ✓ | CONDITIONAL | REVIEW |
-| Pare | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| google-workspace-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| mcp-context-forge | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| gh-aw-mcpg | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| figma-mcp-go | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| pg-aiguide | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| mcp2cli | tool | ✓ | ✓ | discovery-log | REVIEW |
+| mirage | tool | | ✓ | discovery-log | REVIEW |
+| Pare | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| ref-tools-mcp | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
+| DesktopCommanderMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| DebugMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| google-workspace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| mcp-context-forge | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| gh-aw-mcpg | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Research & Discovery
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| Agent-Reach | tool | | ✓ | CONDITIONAL | REVIEW |
-| AutoResearchClaw | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Agent-Reach | tool | | ✓ | discovery-log | REVIEW |
+| AutoResearchClaw | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aisuite | framework | | ✓ | SKIP | REVIEW |
 | webclaw | tool | | ✓ | SKIP | REVIEW |
-| autoresearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| ARIS | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| autoresearch | tool | ✓ | ✓ | discovery-log | REVIEW |
+| ARIS | skill | ✓ | ✓ | discovery-log | REVIEW |
 | last30days-skill | skill | | ✓ | ADOPT | MEASURED |
-| llm-council | tool | | ✓ | CONDITIONAL | REVIEW |
-| PaperOrchestra | skill | | ✓ | CONDITIONAL | REVIEW |
-| storm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| AutoSci | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
-| notebooklm-py | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| evo | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| llm-council | tool | | ✓ | discovery-log | REVIEW |
+| PaperOrchestra | skill | | ✓ | discovery-log | REVIEW |
+| storm | tool | ✓ | ✓ | discovery-log | REVIEW |
+| AutoSci | harness | ✓ | ✓ | discovery-log | REVIEW |
+| notebooklm-py | tool | ✓ | ✓ | discovery-log | REVIEW |
+| evo | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 
 ## Reference
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| antigravity-awesome-skills | reference | | ✓ | CONDITIONAL | REVIEW |
-| awesome-agent-skills | reference | | ✓ | CONDITIONAL | REVIEW |
-| awesome-agent-skills (libukai) | reference | | ✓ | CONDITIONAL | REVIEW |
+| antigravity-awesome-skills | reference | | ✓ | discovery-log | REVIEW |
+| awesome-agent-skills | reference | | ✓ | discovery-log | REVIEW |
+| awesome-agent-skills (libukai) | reference | | ✓ | discovery-log | REVIEW |
 | awesome-ai-agents | reference | | ✓ | SKIP | REVIEW |
-| awesome-claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
-| awesome-claude-code-subagents | reference | | ✓ | CONDITIONAL | REVIEW |
-| ai-agents-for-beginners | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-claude-code | reference | | ✓ | discovery-log | REVIEW |
+| awesome-claude-code-subagents | reference | | ✓ | discovery-log | REVIEW |
+| ai-agents-for-beginners | reference | | ✓ | discovery-log | REVIEW |
 | mcp-for-beginners | reference | | ✓ | ADOPT | REVIEW |
-| genai-agents | reference | | ✓ | CONDITIONAL | REVIEW |
-| agents-towards-production | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL | REVIEW |
+| genai-agents | reference | | ✓ | discovery-log | REVIEW |
+| agents-towards-production | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-claude-skills (Composio) | reference | | ✓ | discovery-log | REVIEW |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP | REVIEW |
-| awesome-codex-skills | reference | | ✓ | CONDITIONAL | REVIEW |
-| awesome-llm-agents | reference | | ✓ | CONDITIONAL | REVIEW |
-| awesome-hermes-agent | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| awesome-ai-tools-for-ui | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| awesome-openclaw-skills | reference | | ✓ | CONDITIONAL | REVIEW |
-| ai-engineering-from-scratch | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-code-best-practice | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-code-system-prompts | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-code-tips | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-howto | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-codex-skills | reference | | ✓ | discovery-log | REVIEW |
+| awesome-llm-agents | reference | | ✓ | discovery-log | REVIEW |
+| awesome-hermes-agent | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-ai-tools-for-ui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-openclaw-skills | reference | | ✓ | discovery-log | REVIEW |
+| ai-engineering-from-scratch | reference | | ✓ | discovery-log | REVIEW |
+| claude-code | reference | | ✓ | discovery-log | REVIEW |
+| claude-code-best-practice | reference | | ✓ | discovery-log | REVIEW |
+| claude-code-system-prompts | reference | | ✓ | discovery-log | REVIEW |
+| claude-code-tips | reference | | ✓ | discovery-log | REVIEW |
+| claude-howto | reference | | ✓ | discovery-log | REVIEW |
 | Awesome-finance-skills | skill | | ✓ | SKIP | REVIEW |
 | claude-plugins-official | reference | | ✓ | KEEP | REVIEW |
 | dictionary-of-ai-coding | reference | | ✓ | ADOPT | REVIEW |
 | Fabric | framework | | ✓ | SKIP | REVIEW |
-| learn-claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
-| system-prompts-and-models | reference | | ✓ | CONDITIONAL | REVIEW |
+| learn-claude-code | reference | | ✓ | discovery-log | REVIEW |
+| system-prompts-and-models | reference | | ✓ | discovery-log | REVIEW |
 | tolaria | tool | | ✓ | SKIP | REVIEW |
-| docmd | tool | | ✓ | CONDITIONAL | REVIEW |
+| docmd | tool | | ✓ | discovery-log | REVIEW |
 | agentskills | reference | | ✓ | ADOPT | REVIEW |
-| agents-best-practices | skill | | ✓ | CONDITIONAL | REVIEW |
-| design-extract | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| buildwithclaude | reference | | ✓ | CONDITIONAL | REVIEW |
-| karpathy-llm-wiki | skill | | ✓ | CONDITIONAL | REVIEW |
-| ctx | tool | | ✓ | CONDITIONAL | REVIEW |
-| system-prompts-leaks | reference | | ✓ | CONDITIONAL | REVIEW |
-| how-claude-code-works | reference | | ✓ | CONDITIONAL | REVIEW |
-| claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL | REVIEW |
-| Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL | REVIEW |
-| 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL | REVIEW |
-| 12-factor-agents | reference | | ✓ | CONDITIONAL | REVIEW |
-| ag-ui | reference | | ✓ | CONDITIONAL | REVIEW |
+| agents-best-practices | skill | | ✓ | discovery-log | REVIEW |
+| design-extract | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| buildwithclaude | reference | | ✓ | discovery-log | REVIEW |
+| karpathy-llm-wiki | skill | | ✓ | discovery-log | REVIEW |
+| ctx | tool | | ✓ | discovery-log | REVIEW |
+| system-prompts-leaks | reference | | ✓ | discovery-log | REVIEW |
+| how-claude-code-works | reference | | ✓ | discovery-log | REVIEW |
+| claude-code-ultimate-guide | reference | | ✓ | discovery-log | REVIEW |
+| Prompt-Engineering-Guide | reference | | ✓ | discovery-log | REVIEW |
+| 500-AI-Agents-Projects | reference | | ✓ | discovery-log | REVIEW |
+| 12-factor-agents | reference | | ✓ | discovery-log | REVIEW |
+| ag-ui | reference | | ✓ | discovery-log | REVIEW |
 
 ---
 
