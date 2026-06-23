@@ -35,6 +35,7 @@ mkdir -p "$DEST_DOCS/evaluations" "$DEST_DOCS/discovery"
 cp "$REPO_ROOT/CATALOG.md" "$DEST_DOCS/CATALOG.md"
 cp "$REPO_ROOT/WORKFLOW.md" "$DEST_DOCS/WORKFLOW.md"
 cp "$REPO_ROOT/STACK.md" "$DEST_DOCS/STACK.md"
+cp "$REPO_ROOT/STACK-LEDGER.md" "$DEST_DOCS/STACK-LEDGER.md"
 rsync -a --delete "$REPO_ROOT/evaluations/" "$DEST_DOCS/evaluations/"
 rsync -a --delete "$REPO_ROOT/discovery/" "$DEST_DOCS/discovery/"
 

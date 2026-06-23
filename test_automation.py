@@ -205,6 +205,7 @@ class TestSyncPluginDocs(unittest.TestCase):
         _write(d, "CATALOG.md", CATALOG_OK)
         _write(d, "WORKFLOW.md", "# Workflow\n")
         _write(d, "STACK.md", "# Stack\n")
+        _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
         _write(d, "evaluations/foo.md", "# eval foo\n")
         _write(d, "discovery/bar.md", "# discovery bar\n")
         _write(d, "plugin/skills/myskill/SKILL.md",
