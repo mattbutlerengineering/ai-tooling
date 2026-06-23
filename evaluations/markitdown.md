@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/markitdown](https://github.com/microsoft/markitdown)
 **Stars:** 156,022 | **Last updated:** 2026-05-26 (pushed; created 2024-11-13) | **License:** MIT
+**Last verified:** 2026-06-22
 **Dev loop stage:** Plan / Code Understanding — a pre-ingestion utility. It sits *upstream* of the agent loop: it turns PDFs, Office docs, images, audio, and HTML into Markdown so an LLM (or a retrieval index) can read them. It does not touch your source code; it conditions the *other* artifacts (specs, design docs, RFCs, transcripts) you want the agent to reason over.
 **Layer:** Tooling (a Python library + `markitdown` CLI + an optional MCP server in `packages/markitdown-mcp`; runs locally with the privileges of the calling process)
 

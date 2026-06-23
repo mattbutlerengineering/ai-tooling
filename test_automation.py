@@ -13,7 +13,7 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
-import os, importlib.util, shutil, subprocess, tempfile, unittest
+import os, datetime, importlib.util, shutil, subprocess, tempfile, unittest
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -437,6 +437,51 @@ class TestEvidenceBackfill(unittest.TestCase):
                 self.assertEqual(audit.audit_comparison(), [])  # G still clean with the new column
             finally:
                 audit.ROOT = orig
+
+
+# ----------------------------------------------------------------- detector L (staleness, #65)
+class TestDetectorL(unittest.TestCase):
+    TODAY = datetime.date(2026, 6, 22)
+
+    def _eval(self, typ, date=None):
+        head = f"**Last verified:** {date}\n\n" if date else ""
+        return head + f"| [x](https://github.com/a/x) | {typ} | one | two | none |\n"
+
+    def _run(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_staleness(today=self.TODAY)
+            finally:
+                audit.ROOT = orig
+
+    def _ago(self, days):
+        return (self.TODAY - datetime.timedelta(days=days)).isoformat()
+
+    def test_category_aware_thresholds(self):
+        stale, undated = self._run({
+            "harness_stale.md": self._eval("harness", self._ago(130)),    # 130 > 120 -> stale
+            "harness_fresh.md": self._eval("harness", self._ago(100)),    # 100 < 120 -> ok
+            "ref_old_but_ok.md": self._eval("reference", self._ago(130)), # 130 < 365 -> ok
+            "tool_stale.md": self._eval("tool", self._ago(200)),          # 200 > 180 -> stale
+            "undated.md": self._eval("tool"),                             # no date -> undated
+        })
+        self.assertEqual({s[0] for s in stale}, {"harness_stale", "tool_stale"})
+        self.assertEqual(undated, 1)
+
+    def test_unknown_type_uses_default_threshold(self):
+        # weirdtype not in STALENESS_DAYS -> DEFAULT_STALENESS_DAYS (180); 200 > 180 -> stale
+        stale, undated = self._run({"x.md": self._eval("weirdtype", self._ago(200))})
+        self.assertEqual(len(stale), 1)
+        self.assertEqual(undated, 0)
+
+    def test_threshold_boundary_not_stale(self):
+        # exactly at the threshold (age == threshold) is NOT past it
+        stale, _ = self._run({"t.md": self._eval("tool", self._ago(180))})  # 180 == 180
+        self.assertEqual(stale, [])
 
 
 # ----------------------------------------------------------------- tier-stack (#72)
