@@ -476,7 +476,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | fastmcp | framework | | ✓ | ADOPT | RUN |
 | Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
-| github-mcp-server | MCP server | ✓ | ✓ | ADOPT | REVIEW |
+| github-mcp-server | MCP server | ✓ | ✓ | ADOPT | MEASURED |
 | jira | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | prisma | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
