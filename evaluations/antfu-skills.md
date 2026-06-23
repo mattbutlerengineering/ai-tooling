@@ -19,6 +19,8 @@ The generation pipeline is documented in AGENTS.md and designed to be forkable â
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read every SKILL.md and sampled reference files across all three tiers. Assessed the generation mechanism (AGENTS.md, meta.ts, git submodules), progressive disclosure architecture, and content quality against the core `antfu` skill and the generated `vue` and `nuxt` skills.
 
 ```bash

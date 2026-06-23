@@ -15,6 +15,8 @@ It also maintains a `CHANGELOG.md` tracking prompt changes across 214 Claude Cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: GitHub-API source inspection only. I did **not** clone the repo, run the extraction script, or diff against a live Claude Code install. Findings come from repo metadata, the full README (the 515-prompt matrix, per-prompt token counts, the extraction-from-compiled-source claim, the v2.1.182 freshness note), and cross-reference against the catalog neighbors.
 
 ```bash

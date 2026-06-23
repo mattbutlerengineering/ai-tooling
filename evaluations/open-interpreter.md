@@ -15,6 +15,8 @@ The defining feature of the current product is **harness emulation**: `/harness`
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `curl … | sh` install, no `interpreter` session, no `/harness` switch, no code executed on a host. The "best performance out of low-cost models" and "native sandboxing" claims are the authors' README framing; I did not benchmark model quality or audit the sandbox implementation. Every claim below comes from GitHub metadata, the README, and the recursive file tree.
 
 ```bash

@@ -13,6 +13,8 @@ A curated awesome-list of Claude Skills, organized by Official (Anthropic) and C
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the full README, counted entries, checked commit history and contributor count, assessed organization quality, and compared coverage against our catalog and competing awesome lists.
 
 ```bash

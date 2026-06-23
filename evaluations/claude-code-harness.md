@@ -17,6 +17,8 @@ Also supports cross-harness operation: Codex CLI, OpenCode, and Cursor get bound
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repo structure (1,176+ files), skill content (40 skills across planning, execution, review, session management, and domain-specific workflows), hooks configuration, Go engine source, and documentation. Compared against superpowers (ADOPT) and ralph-claude-code (CONDITIONAL) which occupy the same catalog slot.
 
 ```

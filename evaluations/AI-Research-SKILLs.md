@@ -17,6 +17,8 @@ Distribution is the most polished in this cluster: `npx @orchestra-research/ai-r
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed, no `npx` installer executed, no autoresearch loop started, and no model was trained, served, or benchmarked. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, sampled `autoresearch` and `vllm` `SKILL.md` frontmatters), not from observed behavior. The "98 skills," "autonomous," "research-grade quality," and "battle-tested" language is the authors' README framing; the only thing I verified is the file count and structure.
 
 ```bash

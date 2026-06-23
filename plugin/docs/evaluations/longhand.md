@@ -15,6 +15,8 @@ The mechanism: `longhand setup` backfills existing history into a SQLite store (
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture / source-code review — **not a hands-on install.** Inspected the repo metadata, the full README, `CHANGELOG.md`, `SECURITY.md`, the plugin manifest (`.claude-plugin/plugin.json`, v0.11.1), the hooks layer (`hooks/hooks.json`), and the key source modules: `longhand/mcp_server.py` (output caps), `longhand/redaction.py` (secret masking), and the documented `storage/` (SQLite + ChromaDB), `analysis/`, and `recall/` packages. Verified specific load-bearing claims directly in source rather than trusting the README.
 
 I deliberately **did not run `pip install longhand`**: it is an obscure 10-star, single-author package whose `setup` command writes hooks into the live `~/.claude/settings.json` and ingests the real `~/.claude/projects/` history into `~/.longhand/`. Installing it would risk hook collisions with the user's existing live setup (claude-mem, OMEGA, superpowers, claude-reflect) and execute unvetted code against real session data — the same security posture taken in `memsearch.md`. The auto-mode classifier independently blocked the install for the same reason, which I respected rather than working around. Honest method statement: claims below are grounded in source inspection and the project's own published benchmarks, not in metrics I produced.

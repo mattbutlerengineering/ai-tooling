@@ -15,6 +15,8 @@ Per the README, install is one step (`pi install npm:pi-subagents`), with option
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented features (async delegation, truncation, artifacts, session sharing; one-command install). Confirmed it's a Pi-specific extension for fanning out focused child agents. Note: **no license is specified** on the repo — a real adoption caveat. Not run live, so condition-gated.
 
 ```bash

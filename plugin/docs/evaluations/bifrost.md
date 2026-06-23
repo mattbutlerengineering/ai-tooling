@@ -15,6 +15,8 @@ Mechanically you run it as a service — `npx -y @maximhq/bifrost` or `docker ru
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and quick-start. Confirmed the OpenAI-compatible single-endpoint model, the zero-config local start (npx/Docker), the failover/load-balancing/semantic-caching feature set, the MCP gateway, and the Go-core performance positioning. The "50× LiteLLM / <100µs at 5k RPS" figures are vendor benchmarks — not independently reproduced here. Not load-tested live (requires provider keys and a benchmark harness), so verdict is condition-gated.
 
 ```bash

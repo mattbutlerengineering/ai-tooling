@@ -20,6 +20,8 @@ Standout features beyond authoring: an in-browser inspector (click an element, a
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not run `npx @open-slide/cli init`. We fetched repo metadata, read the full README, and walked the monorepo tree to confirm the package layout and the agent-skill claims.
 
 ```

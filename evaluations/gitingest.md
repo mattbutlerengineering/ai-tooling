@@ -17,6 +17,8 @@ applies a default ignore list so junk and secrets don't end up in the digest.
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 **Hands-on, measured.** Installed it (`pip install gitingest`) and ran `ingest('sample')`
 against a purpose-built sample repo whose contents are fully known, so every part of
 the output is objectively checkable — including whether it leaks a secret.

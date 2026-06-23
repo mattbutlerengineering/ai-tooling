@@ -15,6 +15,8 @@ The skills are explicitly designed as **cross-referencing units** — `golang-er
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed, no Go project was generated or reviewed under the skills, and the published eval numbers were *not* reproduced by me. Every claim below comes from the repository: GitHub metadata, README, full recursive file tree, the `EVALUATIONS.md` results table, and the full text of `skills/golang-error-handling/SKILL.md` as a representative sample. The with-skill/without-skill uplift figures cited are **the author's reported eval results**, read from `EVALUATIONS.md` — I did not regenerate them.
 
 ```bash

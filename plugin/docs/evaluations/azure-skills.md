@@ -15,6 +15,8 @@ The skill set spans the operational arc: build/deploy/evolve (`azure-prepare`, `
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was installed, no MCP server was started, no `az login` performed, and no skill activated. There is no Azure subscription in this environment, so the "200+ tools / 40+ services" and "258K installs" figures are the authors' README/marketplace claims, not anything observed. Every statement below comes from repository metadata, README, the recursive file tree, and `plugin.json`.
 
 ```bash

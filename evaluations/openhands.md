@@ -15,6 +15,8 @@ Originally "OpenDevin" (a Devin clone), it has evolved into an agent orchestrati
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on README, repo structure, AGENTS.md, release history, and the split-repo transition. Not hands-on tested — the platform is a full replacement for Claude Code, not a complement, so installing it would mean running a parallel agent environment.
 
 ```

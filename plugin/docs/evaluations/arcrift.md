@@ -15,6 +15,8 @@ Mechanically, capture runs two parallel tracks. The **vector track** chunks text
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via the GitHub API — disambiguated the (unlinked) catalog name, confirmed repo identity, read the full README, inspected the recursive file tree (`backend/src/mcp/tools/*`, `extension/`, services), the release list, and the contributor list. **Not installed or run hands-on.** The hands-on cost here is unusually high: ArcRift requires a running Ollama daemon (pulling `nomic-embed-text` + `llama3.1:8b` models), a persistent local backend process on port 3001, and a manually side-loaded browser extension — and standing up a second memory layer with its own MCP server + store risks colliding with the user's live claude-mem (ADOPT) + OMEGA setup. Same rationale applied to the prior memory-category evals (agentrecall-mcp, memsearch, agentmemory). Calibrated against `evaluations/agentrecall-mcp.md` (CONDITIONAL), `evaluations/memsearch.md` (CONDITIONAL), and claude-mem (ADOPT — the user's choice).
 
 ```bash

@@ -13,6 +13,8 @@ Ref MCP is an MCP server that gives a coding agent **token-efficient access to d
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No MCP server connected, no searches issued, token-savings claims not measured.
 
 ```bash

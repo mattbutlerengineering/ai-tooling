@@ -15,6 +15,8 @@ For developers the session layer is the core: run **multiple agent sessions in p
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No desktop app installed, no session run. Claims come from the repository (GitHub metadata, README, release count) for both the successor (Nimbalyst/nimbalyst) and the deprecated original (stravu/crystal), not observed behavior. The feature list is the project's own README.
 
 ```bash

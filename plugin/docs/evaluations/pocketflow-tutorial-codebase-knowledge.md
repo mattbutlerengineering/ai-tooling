@@ -15,6 +15,8 @@ Mechanically it's a tutorial project of Pocket Flow (a ~100-line LLM framework):
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented pipeline (crawl repo → build knowledge base → identify core abstractions + interactions → generate beginner tutorial with visualizations). Confirmed it's a Pocket-Flow-based agent for codebase onboarding. Not run on a live repo, so condition-gated.
 
 ```bash

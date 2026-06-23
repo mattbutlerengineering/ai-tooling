@@ -17,6 +17,8 @@ Architecturally this is the **lightweight, headless, CLI counterpart** to the ca
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Partially hands-on** (the loader contract was exercised live; the GitHub-install path was deliberately not run — see below), plus the repo/README/registry review for maturity and overlap context.
 
 Ran the actual CLI (`npx openskills`) and exercised the three loader commands that constitute its agent-facing contract:

@@ -17,6 +17,8 @@ Distribution: a single `curl | bash` installer drops a compiled `plannotator` bi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo + README + plugin-config inspection. **Did not install or run the binary.** Method: pulled repo metadata via the GitHub API; read the full root `README.md`, the Claude Code plugin README (`apps/hook/README.md`), and the actual Claude Code hook configuration (`apps/hook/hooks/hooks.json`); enumerated the repo tree to confirm the plugin manifest, the compiled-binary server (`apps/hook/server/`), and the presence of tests; and checked release cadence/tags for maturity. I read the exact `ExitPlanMode` → `PermissionRequest` hook wiring rather than paraphrasing the marketing claim, which is what lets me describe the blocking-review mechanism with confidence. I did not exercise a live plan-review round-trip in a throwaway repo, so claims about UI ergonomics and round-trip latency are from documentation, not observation.
 
 ```bash

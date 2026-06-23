@@ -15,6 +15,8 @@ Core capabilities per the README: **Tracing** (OpenTelemetry-based instrumentati
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the capability list, and the integration matrix. Confirmed the OTel/OpenInference tracing foundation, the eval + datasets + experiments loop, the playground/prompt-management features, the built-in PXI debugging agent, and the local/notebook/Docker/cloud deployment story. Verified the license is Elastic License 2.0 (source-available, not OSI-open). Not run on a live app, so condition-gated.
 
 ```bash

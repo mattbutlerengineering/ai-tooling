@@ -15,6 +15,8 @@ The mechanism that distinguishes it from a permission deny rule is **semantic co
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review — **not installed or run hands-on**. No command was actually blocked live, so no block output, timing, or false-positive rate below is observed; all behavior is read from the documented spec plus the TypeScript source, not measured. I confirmed the decisive catalog question (does it move Safety, and is its net-new value meaningful over Claude Code's built-in permission classifier and over agentlint / hol-guard?) from the integration mechanism and the rule logic in source, which is sufficient to settle the verdict.
 
 ```bash

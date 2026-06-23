@@ -26,6 +26,8 @@ Authored by Matt Pocock (well-known TypeScript educator, Total TypeScript). The 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Skill-mechanism review: read the full `SKILL.md` and the bundled `hitl-loop.template.sh`, then did a side-by-side comparison against the user's already-installed competitor, superpowers' `systematic-debugging` (read from `~/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/systematic-debugging/SKILL.md`, including its supporting `root-cause-tracing.md`/`defense-in-depth.md`/`condition-based-waiting.md` references). Not run end-to-end on a live bug — this is a process skill whose value is in its method, and the decisive question for the catalog is redundancy versus systematic-debugging, which is a documentary comparison.
 
 Notably, this exact skill is already present in the running session's skill list **twice** — as `diagnosing-bugs` and as a near-identical local `diagnose` ("Reproduce → minimise → hypothesise → instrument → fix → regression-test") — because the user has `mattpocock/skills` cloned at `~/github/skills`. So the practical question is not "install this?" but "does it earn shelf space alongside systematic-debugging, which the user already runs as a plugin?"

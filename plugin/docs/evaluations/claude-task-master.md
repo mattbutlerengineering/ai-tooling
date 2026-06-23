@@ -15,6 +15,8 @@ The AI work is provider-agnostic: it needs at least one model key (Anthropic, Op
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection via the GitHub API — **I did not install the MCP server, run `task-master init`, or execute a parse-PRD/autopilot loop.** Installing would mutate editor MCP config (`claude mcp add`), require provider API keys, and write a `.taskmaster/` tree, so it was out of scope for a read-only eval. Evidence comes from repo metadata, the full README, the Claude Code plugin manifests, the command/agent file manifest, the task-structure docs, the autopilot command tree + design doc, and the commit/release history.
 
 ```bash

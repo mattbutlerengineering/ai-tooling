@@ -15,6 +15,8 @@ The curated content is deliberately small ("少而精" — few but fine). It cov
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not install or run anything. We pulled metadata and the full README via the GitHub API and read the curated sections directly.
 
 ```

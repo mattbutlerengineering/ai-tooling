@@ -13,6 +13,8 @@ GitHub's official MCP server providing full API coverage for repositories, issue
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **README/install review — not run hands-on.** Note the install: an earlier draft showed `npx @github/mcp-server`, which does not exist (no such npm package). GitHub ships this as a **remote hosted HTTP server** and as a local Go binary / Docker image — there is no npx entry point. The correct ways to add it:
 
 ```bash

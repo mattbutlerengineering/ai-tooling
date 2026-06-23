@@ -15,6 +15,8 @@ Operationally it's "own-it" and portable: run it on a $5 VPS, a GPU cluster, or 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No installer executed, no agent launched, no learning loop observed. Capabilities (and especially the "self-improving" claims) come from the repository README and metadata, not behavior. The star/fork counts are reported verbatim from the GitHub API and are unusually high; treat them as unverified popularity signals, not a quality guarantee.
 
 ```bash

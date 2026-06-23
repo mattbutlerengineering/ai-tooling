@@ -15,6 +15,8 @@ The framing is sharp: forward SDD tools (spec-kit, OpenSpec) assume you *write t
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No legacy project processed, no spec generated. Claims (including the "executable/traceable operational contracts") come from the README and the linked paper abstract, not observed output.
 
 ```bash

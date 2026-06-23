@@ -15,6 +15,8 @@ The library has three layers: (1) Chat Completions API for multi-provider LLM ca
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on repo structure, README, provider implementations, and agent/toolkit APIs. Did not hands-on install or run — aisuite is an application-building library, not a Claude Code extension.
 
 ```bash

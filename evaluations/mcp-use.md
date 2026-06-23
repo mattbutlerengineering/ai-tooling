@@ -15,6 +15,8 @@ The headline differentiator versus plain server frameworks is **MCP Apps / widge
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `pip install`ed or `npx`ed; no server was started, no Inspector opened, no `deploy` invoked. The MCP Apps "write once, run everywhere" claim and the widget cross-client rendering were **not** verified against a live Claude/ChatGPT client — they are README claims. All findings come from repo metadata, README, and the file tree.
 
 ```bash

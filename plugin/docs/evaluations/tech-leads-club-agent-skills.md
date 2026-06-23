@@ -15,6 +15,8 @@ The pitch is *security and validation*, not breadth. The README leads with "13.4
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The CLI was not invoked, no skill installed, the MCP server not started, and none of the security controls (Snyk scan, lockfile/hash integrity, path/symlink guards, audit log) were exercised or independently verified. Every claim comes from the repository (GitHub metadata, README, recursive file tree, sampled `SKILL.md`). The "13.4% of skills are vulnerable" figure and all "hardened / verified / safe" language are the project's own README claims, not anything I measured; the security posture is described, not validated here.
 
 ```bash

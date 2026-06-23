@@ -15,6 +15,8 @@ Mechanically, you define your development process as a **YAML workflow** in `.ar
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the example workflow (plan → implement-in-a-loop-until-tests-pass → approval → PR). Confirmed the YAML-workflow model in `.archon/workflows/`, the per-run git-worktree isolation, the deterministic-node/AI-node composition, the validation gates, and the multi-surface execution (CLI/Web/Slack/Telegram/GitHub). Not run on a live repo, so condition-gated.
 
 ```bash

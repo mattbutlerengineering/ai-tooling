@@ -15,6 +15,8 @@ The mechanism is install-and-activate, not orchestration. `scripts/install.sh` c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No persona was installed, no `install.sh`/`convert.sh` was executed, and no agent was activated in any tool. Every claim below comes from the repository (GitHub metadata, README, full recursive file tree, `divisions.json`, commit/contributor counts), not from observed agent behavior. The "battle-tested / proven deliverables / success metrics" language is the authors' README framing, not anything I measured.
 
 ```bash

@@ -13,6 +13,8 @@ A broad, regularly-updated archive of extracted/leaked system prompts spanning n
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: GitHub-API source inspection only. I did **not** clone, run, or otherwise reproduce any leak. Findings come from repo metadata, the full README (the vendor matrix, the "Recently Updated" table, the CC0 license, the WaPo citation), and cross-reference against the catalog neighbors.
 
 ```bash

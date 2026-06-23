@@ -24,6 +24,8 @@ Requirements: the relevant agent CLI installed (Claude Code CLI for the Claude p
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No plugin installed, no vault session. Claims come from the repository (GitHub metadata, README feature list, requirements, 30 releases) — the project's own documentation, not observed behavior.
 
 ```bash

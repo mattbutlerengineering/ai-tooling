@@ -13,6 +13,8 @@ Skill for creating and manipulating PowerPoint `.pptx` files via MCP server with
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed globally via npx, read SKILL.md in full, and examined the bundled automation script.
 
 ```

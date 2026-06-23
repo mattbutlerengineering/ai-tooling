@@ -15,6 +15,8 @@ The editorial angle is its differentiator. The intro frames AI-coding jargon as 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we read the source files, not the rendered site. Pulled metadata, README, file tree, the full term list, one complete entry (`Harness.md`), and the build scripts via the GitHub API.
 
 ```

@@ -15,6 +15,8 @@ Each skill is a SKILL.md with practitioner-level SDK patterns — authentication
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review: examined repo structure, marketplace.json plugin configuration, 3 representative SKILL.md files (cloud-solution-architect, azure-cosmos-db-py, mcp-builder), the test harness, and CI workflows.
 
 ```

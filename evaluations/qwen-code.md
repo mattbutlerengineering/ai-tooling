@@ -19,6 +19,8 @@ The README is explicit that it is chasing Claude Code feature parity ("If you kn
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, README, recursive file tree, license, release history, and maturity signals via the GitHub API and npm registry API. Did NOT install or run it.** This is a deliberate non-install evaluation, consistent with the `claurst` and `oh-my-openagent` evaluations. Qwen Code is an *alternative harness* — the primary install (`curl ... | bash`, `npm i -g @qwen-code/qwen-code`, or `brew install qwen-code`) gives you a separate coding agent that replaces the front-end of this catalog's standardized Claude Code dev loop rather than extending it. Running it interactively would not exercise the harness (Claude Code) this catalog standardizes on, and it wants its own provider/API-key config via `/auth`. So the verdict rests on the repo, the documented mechanics, the multi-protocol/ACP interop story, the license, and the maturity signals below. No metrics are invented; star/fork/release/contributor counts are from live API calls and npm download numbers are from the npm registry API.
 
 ```bash

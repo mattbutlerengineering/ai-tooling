@@ -15,6 +15,8 @@ Per the README, the design principles are: **simple to use** (no dependencies; a
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the design principles (token-efficient, command-oriented sub-agent skills, quality-focused plugins, CI integration). Confirmed the multi-tool compatibility and the deliberate token-minimization approach (sub-agent-backed commands over context-filling info skills). Not installed/run live, so condition-gated.
 
 ```bash

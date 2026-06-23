@@ -15,6 +15,8 @@ The collection also includes `aws-knowledge-mcp` — a fully-managed remote MCP 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the monorepo structure, README quality, security model, and Claude Code integration documentation. Examined three representative servers in depth: `aws-api-mcp-server` (general AWS CLI bridge), `aws-documentation-mcp-server` (docs lookup), and `aws-serverless-mcp-server` (Lambda/SAM lifecycle).
 
 ```bash

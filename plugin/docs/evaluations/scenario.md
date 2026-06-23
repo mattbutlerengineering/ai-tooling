@@ -15,6 +15,8 @@ Mechanically you describe a scenario in natural language (a `description` that g
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the example (a weather/boat-trip scenario asserting a `get_current_weather` tool call). Confirmed the simulated-user model, the one-method (`call()`) agent integration, the multi-turn assertion/judging API (`ScenarioState`, `has_tool_call`), the eval-framework-agnostic stance, and the Python/TS/Go availability. Not run against a live agent, so condition-gated.
 
 ```bash

@@ -13,6 +13,8 @@ TDD Guard is **automated Test-Driven Development enforcement for Claude Code.** 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No hook wired in, no TDD violation triggered, blocking behavior not observed.
 
 ```bash

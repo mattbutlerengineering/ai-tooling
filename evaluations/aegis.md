@@ -21,6 +21,8 @@ The pitch is that agents tend to start coding before goal/owner/architecture bou
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No method-pack installed, no workflow exercised. Behavior comes from the README (largely Chinese) and metadata, not observed runs.
 
 ```bash

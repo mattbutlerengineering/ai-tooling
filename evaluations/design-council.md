@@ -15,6 +15,8 @@ Two modes: **Debate** for single design decisions (verdict tags, cross-talk, arb
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repo structure, SKILL.md, protocol.md (322 lines), 16 role briefs, review-mode variant, implementation-handoff reference, and opening-prompt template. Not hands-on tested due to the multi-agent orchestration requirements (TeamCreate, parallel Agent spawning with team_name).
 
 ```

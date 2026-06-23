@@ -15,6 +15,8 @@ The mechanism: it is a `uv` workspace (Python 3.11+), **not** a `pip install` li
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo/README/structure review via the GitHub API: metadata, full README, recursive file tree, the `.claude/` directory, `CLAUDE.md`/`AGENTS.md`, release/tag history, contributor count, and the open-issue stream. **Did not install or run it.** Running it meaningfully requires cloning the repo, running `quickstart.sh` to build the `uv` workspace and two venvs, configuring an LLM provider and credential store, and then driving an interactive browser dashboard to author and execute agent graphs — a stateful, long-running platform setup, not a scriptable one-shot. No throughput, "self-healing," or "evolves the graph" claims are verified here; those are the project's.
 
 ```bash

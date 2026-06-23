@@ -17,6 +17,8 @@ Supports two modes: `whisper` (default, messages only) and `full` (memory blocks
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review and README analysis. Not installed locally (requires Letta API key and cloud account). Examined hooks.json, package.json (v2.1.1, depends on `@letta-ai/letta-code-sdk` and `tsx`), and repo structure.
 
 ```bash

@@ -15,6 +15,8 @@ The architecture is clean: a `goosed` server process exposes a REST API that any
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the Rust crate structure (458 .rs files across 10 crates), CUSTOM_DISTROS.md, AGENTS.md, provider system, MCP integration, and recipe system. Compared against Claude Code (proprietary, model-locked) and opencode (CONDITIONAL, TypeScript/Effect, 176K stars) on developer surface, extensibility, and ecosystem maturity.
 
 ```bash

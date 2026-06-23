@@ -15,6 +15,8 @@ On top of the modules sit several navigation layers: `LEARNING-ROADMAP.md` (a be
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not run the curriculum or its quiz commands. Fetched metadata, README, file tree, the feature catalog, and per-module file counts via the GitHub API.
 
 ```

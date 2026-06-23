@@ -15,6 +15,8 @@ Mechanically it offers three build modes over one workspace: **Chat** (describe 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the three build modes (chat/visual/code). Confirmed the 1,000+ integrations + multi-LLM support, the built-in knowledge base (RAG) and Tables database, and the cloud vs. `npx simstudio` self-host paths. Not built a live workflow, so condition-gated.
 
 ```bash

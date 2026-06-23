@@ -15,6 +15,8 @@ Per the README you can: evaluate arbitrary agents (Claude Code, OpenHands, Codex
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the Harbor Cookbook reference. Confirmed the agent-level evaluation model (benchmark whole agents like Claude Code/OpenHands/Codex), the parallel-environment execution via sandbox providers, the build-your-own-benchmark capability, and the RL-rollout generation. The Terminal-Bench lineage lends credibility. Not run on a live eval, so condition-gated.
 
 ```bash

@@ -15,6 +15,8 @@ Mechanically it is a TypeScript pnpm monorepo (`packages/core`, `packages/mcp`, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No MCP server was added, no codebase was indexed, no Milvus cluster or embedding key was provisioned, and no search was issued. There is no Zilliz Cloud signup, no OpenAI key, and no measured token/recall numbers here. Every claim comes from the repository (GitHub metadata, README, recursive file tree, package layout, commit/release counts) and the authors' own framing. The "94%-style" cost and "millions of lines" claims are README marketing, not anything I benchmarked.
 
 ```bash

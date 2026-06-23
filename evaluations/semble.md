@@ -13,6 +13,8 @@ Semble is **a code search library built for agents** that "returns the exact cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No index built, no queries issued, the 98%/200× claims not reproduced.
 
 ```bash

@@ -15,6 +15,8 @@ FastMCP 1.0 was incorporated into the official MCP Python SDK in 2024. The stand
 
 ## How we tested it
 
+**Evidence:** RUN
+
 **Hands-on**, `pip install fastmcp` into a clean venv (v3.4.2) and built a minimal server to verify the decorator API on 2026-06-20.
 
 ```python

@@ -17,6 +17,8 @@ The skill itself is small: `SKILL.md` plus `references/design-system.md` (CSS to
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The skill was not copied into `~/.claude/skills/` and no course was generated. Claims come from the repository (GitHub metadata, README design philosophy and structure description) — the project's own documentation, not observed output quality.
 
 ```bash

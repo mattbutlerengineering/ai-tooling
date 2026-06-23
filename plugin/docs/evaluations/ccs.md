@@ -15,6 +15,8 @@ Mechanically it manages named profiles (each pinning a provider, model, and runt
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented capability (named multi-provider profiles, per-session switching, visual dashboard, support for Claude/Codex/GLM/local/Anthropic-compatible APIs). Confirmed the "switch without config thrash" positioning. Not installed/run live, so condition-gated.
 
 ```bash

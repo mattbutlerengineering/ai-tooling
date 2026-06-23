@@ -15,6 +15,8 @@ The mechanism: a Claude Code plugin installs four hooks (`SessionStart`, `UserPr
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review — inspected the GitHub repo, README, the Claude Code plugin manifest (`plugins/claude-code/.claude-plugin/plugin.json`), the hook configuration (`plugins/claude-code/hooks/hooks.json`), the skills directory (`memory-config`, `memory-recall`, `memory-to-skill`), the documented CLI/Python API, and the Milvus/embedding configuration surface. **Did not install or run hands-on** — the user already runs claude-mem (ADOPT) + OMEGA for memory, and installing a competing hook-based memory layer risks hook conflicts in the live setup. Compared against the existing `agentmemory.md` (CONDITIONAL) eval and claude-mem (ADOPT, the user's choice).
 
 ```bash

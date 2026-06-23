@@ -22,6 +22,8 @@ Distribution is mature: a `.claude-plugin/marketplace.json`, install via `npx pl
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run, no agent invoked.** No plugin was `npx plugins add`-ed, no skill was activated, yfinance/opencli were not called, and no Funda/Adanos/Hyperliquid endpoint was hit. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, skill/plugin/commit/release counts), not from observed output. Data accuracy, freshness, and any trading utility are unverified; the WARNING banner ("not financial advice") is the authors'.
 
 ```bash

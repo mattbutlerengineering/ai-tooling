@@ -15,6 +15,8 @@ The core value props are infrastructure for *applications you build*: durable ex
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on the repo's README, AGENTS.md / CLAUDE.md, monorepo library layout, and the `examples/` directory. Did not hands-on install or run a graph — LangGraph is an application-building framework, not a Claude Code extension, so the relevant question is structural: does it have any surface area in the dev loop, the same lens applied to aisuite.
 
 ```bash

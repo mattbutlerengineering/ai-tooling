@@ -15,6 +15,8 @@ The plugin is genuinely cross-editor: it ships plugin manifests for Claude Code,
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review-based evaluation. Read the repo README, plugin README, CONCEPTS.md glossary, and deep-dove into two representative skill documentation files (ce-brainstorm and ce-code-review) to assess methodology depth, agent design, and quality of implementation.
 
 ```

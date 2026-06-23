@@ -21,6 +21,8 @@ The defining trait: most skills are **build-backed** — generated/validated fro
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `npx skills`, none was activated in any agent, and no Vercel project was audited. Every claim comes from the repository (GitHub metadata, README, recursive file tree, `SKILL.md` paths, and the `packages/` build/test directories), not from observed skill behavior. The rule counts ("40+", "100+", "80+") and "from Vercel Engineering" framing are the README's own; I confirmed the *structure* (9 skills, build packages, test suites) but did not measure rule efficacy.
 
 ```bash

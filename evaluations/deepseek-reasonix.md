@@ -15,6 +15,8 @@ The pitch is narrow and concrete: a harness **tuned around DeepSeek's prefix cac
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary was installed, no `reasonix.toml` was written, no `reasonix run` was executed against a repo, and no DeepSeek API key was used. Every claim below comes from the repository (GitHub metadata, README, recursive file tree, CHANGELOG, commit/release/contributor counts) — not from observed agent behavior. The "low token cost / cache-stable" framing is the authors' design claim; we did not measure tokens, latency, or edit quality. The oosmetrics "Top 2 in Agents by velocity" badges in the README are third-party velocity rankings, not correctness benchmarks.
 
 ```bash

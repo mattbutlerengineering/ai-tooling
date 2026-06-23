@@ -15,6 +15,8 @@ Unlike `addyosmani/agent-skills` (the lifecycle collection), these are domain re
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 **Hands-on, measured** — installed all six skills globally, checked each SKILL.md's coverage, and ran a **planted-defect A/B against a strong automated baseline** to measure the `accessibility` skill's load-bearing claim: that its value is *current WCAG 2.2 knowledge and semantic judgment a linter structurally cannot provide*. Also compared against the two overlapping catalog skills (`web-design-guidelines`, `ui-ux-pro-max`) to assess differentiation.
 
 ### Measured A/B — skill checklist vs automated linter

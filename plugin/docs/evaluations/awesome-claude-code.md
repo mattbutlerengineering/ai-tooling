@@ -15,6 +15,8 @@ The editorial voice is distinctive — each entry gets a hand-written review par
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Fetched the CSV and README via GitHub API, counted entries by category, checked commit history for freshness, compared entry overlap with our catalog, and assessed editorial quality of descriptions.
 
 ```

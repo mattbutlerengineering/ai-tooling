@@ -22,6 +22,8 @@ It ships **TypeScript and Python SDKs** (`@memorilabs/memori`, `pip install memo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No SDK wired in, no memory store exercised. Claims (including benchmark positioning) come from the repository (GitHub metadata, README, license file, 30 releases) — the project's own documentation, not observed behavior. The license was verified by reading the LICENSE file directly.
 
 ```bash

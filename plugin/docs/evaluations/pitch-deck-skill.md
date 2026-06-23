@@ -13,6 +13,8 @@ Claude Code skill that runs a 5-step workflow for generating investor pitch deck
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed via npm, read SKILL.md (254 lines) and `create_pitch_deck.py` (298 lines) in full, then walked through the workflow mentally with a concrete prompt: "Create a seed deck for an AI dev tools company."
 
 ```

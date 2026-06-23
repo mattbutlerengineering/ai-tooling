@@ -13,6 +13,8 @@ MCP server that gives AI coding agents structured access to Figma design data fo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Reviewed the source architecture and tool implementations on GitHub. The server is not installed locally (`figma@claude-plugins-official` is disabled in settings.json), but the codebase was inspected in detail:
 
 ```

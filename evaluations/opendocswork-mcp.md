@@ -15,6 +15,8 @@ The mechanism: a single Rust binary that speaks MCP over stdio (or other transpo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `cargo install`, no binary executed, no document read/written, no PDF form filled. All claims below come from the repository (GitHub metadata, README, file tree, `Cargo.toml` presence, commit/release counts). The performance benchmark table (e.g. "~46× faster PPTX read", "<50ms cold start") is **the author's self-reported benchmark from the README — not measured by me**, and the comparison baselines (openpyxl, FastMCP) are unverified.
 
 ```bash

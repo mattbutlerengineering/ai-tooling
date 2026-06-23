@@ -17,6 +17,8 @@ Key differentiators vs simpler memory tools: ticket/issue lifecycle management w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the full repo (403 files, 298 TypeScript files, v1.4.4), the 504-line SKILL.md orchestrator, the README, and the self-published session priming comparison document.
 
 ```bash

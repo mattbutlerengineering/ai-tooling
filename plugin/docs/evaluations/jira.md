@@ -23,6 +23,8 @@ I am confident in recommending `sooperset/mcp-atlassian` as the catalog link: hi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not connected to a live Jira instance.** Connecting would require real Atlassian credentials and a tenant, which were not used. Evidence comes from GitHub repo metadata, the full README, and the published tool surface for both candidate repos. No issues were read or written, so no throughput/latency metrics are claimed below. The calibration reference was `evaluations/pg-aiguide.md` (another domain-integration MCP scored CONDITIONAL).
 
 ```bash

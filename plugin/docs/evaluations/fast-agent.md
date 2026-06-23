@@ -15,6 +15,8 @@ The mechanism has two faces. (1) **As a coding agent**: a prompt_toolkit TUI wit
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo via the API: README (711 lines), repo tree, `AGENTS.md`, `examples/` directory (a2a, acp, function-tools, harness-api, tool-runner-hooks, workflows, workflows-md, etc.), `docs/`, and release history. Did NOT install or run it — this is an architecture/surface-area review to decide catalog placement, applying the same lens used for the aisuite and LangGraph SKIP evaluations. No metrics below are measured; all claims are sourced from the repo.
 
 ```bash

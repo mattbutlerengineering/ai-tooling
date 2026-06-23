@@ -15,6 +15,8 @@ The defining mechanic: every new source **updates existing pages** instead of ju
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature list (self-rewriting/reconciling vault, 45 commands, scheduled agents, live research, write-time validator, codebase documentation). Confirmed the "update-not-append + auto-reconcile" mechanic that distinguishes it from append-only note systems, and the cross-CLI compatibility. Not installed/run live, so condition-gated.
 
 ```bash

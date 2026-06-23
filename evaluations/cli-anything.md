@@ -19,6 +19,8 @@ The decisive fact for this catalog is *what the ~80 shipped CLIs are*: GIMP, Ble
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository via the GitHub API and read the full README; did not install the plugin or run `/cli-anything` against a target. This is an architecture/scope review of a Claude Code plugin whose surface area (which software it makes agent-native) is the load-bearing question for this catalog, and that surface is fully visible from the repo tree and registry.
 
 ```bash

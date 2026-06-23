@@ -17,6 +17,8 @@ Beyond orchestration it ships real safety machinery: **scope enforcement** (decl
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `bunx install` was executed, no OpenCode session was launched, and no gated pipeline was observed. Every claim is from the repository (GitHub metadata, README, recursive file tree, `package.json`), not from measured agent behavior. The "6000+ tests" badge and "closes the trust gap" framing are the authors' claims, not anything verified here.
 
 ```bash

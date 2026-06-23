@@ -15,6 +15,8 @@ Recent releases ("Workbench Release" v0.2.1) added Thought/response timelines, l
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No package installed, no agent launched, no channel connected. Capabilities come from the repository README, release notes, and metadata, not observed behavior.
 
 ```bash

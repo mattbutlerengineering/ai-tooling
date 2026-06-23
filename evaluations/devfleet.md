@@ -25,6 +25,8 @@ The mechanism: you create a project (pointed at a git repo) and missions. Dispat
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repo metadata, full README, recursive file tree, contributor count, commit-page count, and last-commit date via the GitHub API; cross-checked the `devfleet` candidates from `gh search repos devfleet` to identify the right repo; and grepped CATALOG.md for the overlap entries. **Did not install or run it.** Running it meaningfully requires Python 3.11+, Node 18+, the Claude CLI with a configured Anthropic API key, and at least one target git repo, then standing up a long-running FastAPI service plus background watcher/scheduler — a stateful, multi-process deployment rather than a scriptable one-shot command, and it would consume live Anthropic API tokens. This is a repo/README/structure review and a repo-identification exercise, not hands-on usage. No timing, throughput, cost, or "98% context savings" numbers are claimed here; the context-savings figure is `context-mode`'s claim, surfaced in the README.
 
 ```bash

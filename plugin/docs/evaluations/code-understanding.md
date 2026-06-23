@@ -1,5 +1,7 @@
 # Code Understanding Tools
 
+**Evidence:** SOURCE-ONLY
+
 Evaluation date: 2026-06-15
 
 ## Evaluation Criteria

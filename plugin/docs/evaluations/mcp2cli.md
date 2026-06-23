@@ -24,6 +24,8 @@ It ships an installable **skill** (`npx skills add knowsuchagency/mcp2cli`) that
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No CLI invoked, no MCP/OpenAPI endpoint connected. Claims come from the repository (GitHub metadata, README usage examples) — the project's own documentation, not measured token savings.
 
 ```bash

@@ -15,6 +15,8 @@ Per the README: sub-second container builds (custom container runtime), parallel
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature list (fast image builds, fan-out concurrency, scale-to-zero, webhooks/jobs, sandboxes). Confirmed the serverless-AI-runtime identity and the sandbox capability relevant to agent code execution. Note: this is primarily AI-app serving infrastructure; it's catalogued for the sandbox/agent-execution angle. Not deployed live, so condition-gated.
 
 ```bash

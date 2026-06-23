@@ -15,6 +15,8 @@ The mechanism is a strict two-phase loop in `skills/adhd/SKILL.md`: **Phase 1 Di
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** I did not run `npx skills add`, did not invoke `/adhd`, and did not execute the `bench/run-evals.ts` harness. Every claim comes from the repository (GitHub metadata, README, recursive file tree, `skills/adhd/SKILL.md`, `src/frames.ts`, `bench/problems.json`, `EVALS.md`, `.github/workflows/ci.yml`, commit/release counts) — not from observed ideation. **The headline eval numbers below are the author's self-reported, single-run figures, not anything I reproduced.**
 
 ```bash

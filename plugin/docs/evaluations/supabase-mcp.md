@@ -13,6 +13,8 @@ MCP server that connects Claude (and other AI assistants) directly to Supabase p
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 README-based evaluation. The server is HTTP-hosted by Supabase (`https://mcp.supabase.com/mcp`) and requires an active Supabase project with OAuth login. No local Supabase project was available to configure and invoke tools hands-on. Evaluation is based on the comprehensive tool surface documented in the README, architecture decisions (HTTP+OAuth vs stdio+token), security model, and comparison with the Prisma MCP server.
 
 ```

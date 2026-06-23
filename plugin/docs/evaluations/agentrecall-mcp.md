@@ -15,6 +15,8 @@ Mechanically, memory is **local markdown only** under `~/.agent-recall/projects/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via the GitHub API — confirmed repo identity, read the main README, `SKILL.md` frontmatter, the recursive file tree, the release list, contributor list, and the shipped benchmark scorecard (`benchmark/replay-results.json`). **Not installed or run hands-on.** Rationale matches the prior memory-category evals (agentmemory, SimpleMem, memsearch): the user already runs claude-mem (ADOPT) + OMEGA, and standing up a competing memory layer with its own session hooks and `~/.agent-recall/` store risks conflicting with the live setup. Calibrated against `evaluations/agentmemory.md` (CONDITIONAL), `evaluations/simplemem.md` (CONDITIONAL), and claude-mem (ADOPT — the user's choice).
 
 ```bash

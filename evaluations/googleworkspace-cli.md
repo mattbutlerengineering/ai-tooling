@@ -15,6 +15,8 @@ The AI-agent angle is the reason it is in scope for this catalog: the repo ships
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary was downloaded, no `gws auth setup` was performed, no OAuth flow exercised, no skill installed, and no Workspace API called. Every claim comes from the GitHub repo (metadata, README, `AGENTS.md`, file tree), not from observed behavior. The "40+/100+ skills" and "structured JSON" claims are the authors' README framing plus the visible repo layout, not anything I measured at runtime.
 
 ```bash

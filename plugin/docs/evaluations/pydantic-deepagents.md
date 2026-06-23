@@ -15,6 +15,8 @@ Per the README it provides: tool-calling, sandboxed execution, multi-agent teams
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented capabilities (forking into N branches + AI-judge merge, tool-calling, sandboxed execution, multi-agent teams, skills, checkpoints, unlimited context; terminal or function-call use). Confirmed the Pydantic AI foundation and the type-safe/any-model/self-hosted properties. Not built a live agent, so condition-gated.
 
 ```bash

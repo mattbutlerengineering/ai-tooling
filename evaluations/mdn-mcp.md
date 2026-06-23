@@ -13,6 +13,8 @@ Mozilla's official MCP server that brings MDN Web Docs and browser compatibility
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **README/endpoint review — not connected/run.** The server is a hosted MCP endpoint; wiring it into this session and issuing live queries was not done here, so the example queries below are documented usage, not observed results.
 
 ```bash

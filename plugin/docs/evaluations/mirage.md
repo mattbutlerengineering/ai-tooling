@@ -32,6 +32,8 @@ Requirements: Python ≥3.11 / Node ≥20, macOS or Linux (FUSE-based mounts).
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No workspace mounted, no backend connected. Claims come from the repository (GitHub metadata, README examples, backend list, 2 releases) — the project's own documentation, not observed behavior.
 
 ```bash

@@ -15,6 +15,8 @@ The notable on-ramp is **MiMo Auto** — a free-for-a-limited-time anonymous cha
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No CLI installed, no session. Claims come from the repository (GitHub metadata, README, install/config section) — the project's own documentation, not observed coding quality.
 
 ```bash

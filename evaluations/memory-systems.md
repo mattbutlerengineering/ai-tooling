@@ -1,5 +1,7 @@
 # Memory Systems
 
+**Evidence:** SOURCE-ONLY
+
 Evaluation of persistent memory tools for AI coding agents. All aim to solve the same core problem: agents are stateless and forget everything between sessions.
 
 ## Evaluation Criteria

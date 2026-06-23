@@ -15,6 +15,8 @@ This is a heavyweight, widely adopted end-user platform: 53.7K stars, ~24.5K for
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Flowise was not installed, no `flowise start` was executed, no Docker stack was brought up, and no flow was built on the canvas or in Flowise Cloud. Every claim comes from the repository (GitHub metadata, README, top-level tree, `packages/` listing, release/contributor counts, license API) — not from hands-on use of the builder. We did not evaluate the UX of the canvas, runtime performance, or generated-app quality; the "build visually" experience is the project's framing.
 
 ```bash

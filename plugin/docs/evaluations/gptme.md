@@ -15,6 +15,8 @@ Mechanically it's a terminal coding agent with a small, transparent tool set (sh
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the stated capabilities (terminal agent with shell/file/web/code tools, any model, local-first, extensible into persistent autonomous agents). Confirmed the lightweight, hackable, self-hosted positioning. Not run live, so condition-gated.
 
 ```bash

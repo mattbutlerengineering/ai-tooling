@@ -19,6 +19,8 @@ Consumption is primarily **human-facing**: `/understand-dashboard` opens an inte
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the GitHub repo, full README, plugin manifest, recursive file tree, releases, and test layout. Not installed or run hands-on.** No `/understand` pipeline was executed against a real codebase, so no graph-quality, token-cost, or dashboard-UX numbers below are reproduced figures — token-usage and incremental-update claims are the author's. Honesty note per the catalog integrity rule: this is an architecture/maturity review calibrated against `evaluations/codegraph.md` (ADOPT) and `evaluations/code-context-engine.md` (CONDITIONAL).
 
 What was actually inspected:

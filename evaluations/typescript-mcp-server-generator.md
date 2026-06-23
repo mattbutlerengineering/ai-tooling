@@ -15,6 +15,8 @@ The mechanism is a system prompt that tells the agent what to build, not a code 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed the skill globally and read the full SKILL.md to assess content quality, specificity, and coverage.
 
 ```bash

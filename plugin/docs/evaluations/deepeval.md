@@ -15,6 +15,8 @@ Mechanically you write eval tests much like pytest cases: define test cases (inp
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the pytest-analogy design, and the metrics catalog. Confirmed the test-case/metric model, the breadth of metrics (G-Eval, faithfulness, hallucination, task completion), the "metrics run locally / any-LLM-as-judge" property, and the CI + framework integrations. The optional Confident AI hosting is a separate paid layer. Not run on a live test suite, so condition-gated.
 
 ```bash

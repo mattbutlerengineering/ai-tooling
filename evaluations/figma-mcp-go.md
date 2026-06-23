@@ -17,6 +17,8 @@ The surface is large: **73 tools** spanning create (frames, rectangles, ellipses
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I examined the GitHub repo metadata, the full README, the recursive file tree, the release/tag history, and recent commit messages. I did **not** install the npm package, import the Figma plugin, connect an agent, or invoke any of the 73 tools. No designs were read or generated, so there are no measured latencies, success rates, or output-fidelity numbers below — only what the repo and code structure attest. The 73-tool count, the "no API/no rate limit" architecture, the REST-quota table, and the default `127.0.0.1:1994` bind are taken from the README and confirmed against the file tree (e.g. `internal/bridge.go`, `internal/leader.go`/`follower.go`/`election.go`, the `plugin/` Svelte UI, and the per-domain `internal/tools_*.go` handlers).
 
 ```bash

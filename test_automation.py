@@ -28,6 +28,7 @@ def _load(mod_name, filename):
 
 reconcile = _load("reconcile_counts", "reconcile-counts.py")
 audit = _load("audit_evals", "audit-evals.py")
+backfill = _load("backfill_evidence", "backfill-evidence.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -294,8 +295,8 @@ class TestEvidenceField(unittest.TestCase):
                 audit.ROOT = orig
 
     def test_audit_counts_and_lists_missing(self):
-        counts, missing = self._run_audit({
-            "a.md": "**Evidence:** MEASURED\n",
+        counts, missing, strong = self._run_audit({
+            "a.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT**\n",
             "b.md": "**Evidence:** REVIEW\n",
             "c.md": "no field here\n",
             "TEMPLATE.md": "**Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}\n",  # skipped by load_evals
@@ -303,6 +304,48 @@ class TestEvidenceField(unittest.TestCase):
         self.assertEqual(counts["MEASURED"], 1)
         self.assertEqual(counts["REVIEW"], 1)
         self.assertEqual(missing, ["c"])  # TEMPLATE.md excluded, c has no field
+        # only the ADOPT-verdict eval counts toward the strong (ADOPT/KEEP) tally
+        self.assertEqual(strong["MEASURED"], 1)
+        self.assertEqual(strong["REVIEW"], 0)
+
+
+# ----------------------------------------------------------------- backfill-evidence (#67)
+class TestEvidenceBackfill(unittest.TestCase):
+    def test_derive_levels(self):
+        self.assertEqual(audit.Evidence("**Hands-on, measured** A/B, token deltas").level, "MEASURED")
+        self.assertEqual(audit.Evidence("Source-grounded review — not run hands-on.").level, "REVIEW")
+        self.assertEqual(audit.Evidence("We ran it on our repo and exercised the CLI.").level, "RUN")
+        self.assertEqual(audit.Evidence("").level, "SOURCE-ONLY")
+
+    def test_field_inserted_as_own_paragraph_and_idempotent(self):
+        t = "# Evaluation: X\n\n## How we tested it\n\nWe did not run it; source review.\n"
+        out = backfill.backfill_eval_text(t)
+        self.assertIn("## How we tested it\n\n**Evidence:** REVIEW\n\n", out)
+        self.assertEqual(backfill.backfill_eval_text(out), out)  # never double-inserts
+
+    def test_field_never_overwrites_existing(self):
+        t = "## How we tested it\n\n**Evidence:** MEASURED\n\nran it live with metrics.\n"
+        self.assertEqual(backfill.backfill_eval_text(t), t)
+
+    def test_comparison_column_keeps_detector_g_clean_and_idempotent(self):
+        # The real transform appends an Evidence column; empty alias map -> SOURCE-ONLY cells.
+        cmp6 = backfill.rebuild_comparison(COMPARISON_OK, {})
+        self.assertIn("| Evaluated | Evidence |", cmp6)
+        self.assertIn("| ADOPT | SOURCE-ONLY |", cmp6)
+        # Summary table untouched (no Evidence column bleeds into per-stage aggregates)
+        self.assertIn("| Stage | Tools | Evaluated | Adoption rate |", cmp6)
+        # body counts unchanged -> detector G / reconcile see the same rows
+        self.assertEqual(reconcile.comparison_body_counts(cmp6), {"Plan": 2, "Ship": 1})
+        self.assertEqual(backfill.rebuild_comparison(cmp6, {}), cmp6)  # idempotent
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", CATALOG_OK)
+            _write(d, "COMPARISON.md", cmp6)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                self.assertEqual(audit.audit_comparison(), [])  # G still clean with the new column
+            finally:
+                audit.ROOT = orig
 
 
 if __name__ == "__main__":

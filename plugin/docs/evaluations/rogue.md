@@ -15,6 +15,8 @@ Per the README: **Automatic Evaluation** tests your agent against **business pol
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the two-mode model (policy/expected-behavior evaluation + adversarial red-team). Confirmed the scenario-definition + compliance-verification flow and the red-team positioning. License resolves to NOASSERTION via the API — confirm exact terms before commercial reliance. Last push ~2026-05. Not run against a live agent, so condition-gated.
 
 ```bash

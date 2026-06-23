@@ -17,6 +17,8 @@ For Claude Code, integration is `npm install -g @ooples/token-optimizer-mcp`, wh
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Architecture-review evaluation — not exercised in a live Claude Code session.** This MCP server requires a global npm install whose postinstall auto-modifies the host's AI-tool configs and installs hooks; running it for honest savings numbers needs a multi-session window on a real workload, which was out of scope here. So every reduction figure below is the **project's own published claim**, not measured by us — including the 95% headline, which the project ties specifically to cache hits. Method: inspected GitHub metadata, the full README (feature list, per-tool reduction claims, How-It-Works, hooks system), the repo tree (57 test files incl. integration/benchmark suites, a PowerShell hooks dispatcher, SQLite cache engine), release history (v5.0.1, active versioning), and contributor list. Calibrated against the two peer token-reduction evals (headroom = CONDITIONAL, rtk = CONDITIONAL).
 
 ```bash

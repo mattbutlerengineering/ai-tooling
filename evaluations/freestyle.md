@@ -15,6 +15,8 @@ Per the README: it's free, open-source, and local-first — run a local model so
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README (hotkey dictation, local-first/BYO-key, multi-provider STT, transcription cleanup, custom dictionary, contextual correction). Confirmed it's a general system-wide dictation app (pastes at cursor) rather than a Claude-Code-specific integration, despite the "voice for coding agents" positioning. Catalogued for the prompt-entry use case — it fills a modality gap (no voice/dictation tooling otherwise in the catalog). Not run live, so condition-gated.
 
 ```bash

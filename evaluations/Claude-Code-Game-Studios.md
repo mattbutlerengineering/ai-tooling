@@ -15,6 +15,8 @@ The 49 agents are organized into a **three-tier hierarchy**: Tier-1 Directors on
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `.claude/` directory was copied into a project, no agent activated, no slash command or hook executed, and no game engine was present. The "coordinated AI team" and quality-gate behavior are the README's design claims; the hooks are real shell scripts but were not executed. Every statement comes from repository metadata, README, and the full recursive file tree.
 
 ```bash

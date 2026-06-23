@@ -13,6 +13,8 @@ Nanobrowser is **an open-source AI web-automation tool that runs in your browser
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No extension installed, no web task automated.
 
 ```bash

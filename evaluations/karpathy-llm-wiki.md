@@ -21,6 +21,8 @@ The explicit contrast it draws is "LLM Wiki vs RAG": RAG retrieves raw chunks at
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The skill was not installed via `add-skill`, no wiki was ingested, no query or lint was executed, so every claim below is from the repository (GitHub metadata, README, full file tree, templates, maturity counts), not from observed tool output. No metrics below are invented; the "94 articles / 99 sources" figures are the author's self-reported numbers from the README, not anything I measured.
 
 ```bash

@@ -15,6 +15,8 @@ Its headline reach is breadth: **15 supported agents** — Claude Code, OpenCode
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No install performed, no agent configured. Claims come from the repository (GitHub metadata, README agent table + delegation triggers, 30 releases) and the archived predecessor's migration notes — the project's own documentation, not observed behavior.
 
 ```bash

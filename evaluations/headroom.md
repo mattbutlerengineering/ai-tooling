@@ -22,6 +22,8 @@ For Claude Code specifically, integration is `headroom wrap claude` (with `--mem
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 Architecture-review evaluation against the README, `llms.txt`, the published benchmark table, the repo tree (Rust core under `crates/`, provider slices under `headroom/providers/`, devcontainers, CI + codecov badges, Claude Code plugin manifest), and the project's own "Compared to" matrix. Cross-checked against the four overlapping catalog entries (token-optimizer-mcp, context-mode, caveman, rtk) and the existing calibration evals (agentmemory = CONDITIONAL, resolving-merge-conflicts = ADOPT). Not exercised in a live Claude Code session — this is an infrastructure layer requiring a real provider key and a multi-day usage window to produce honest savings numbers, so the responsible verdict is condition-gated rather than a blanket ADOPT. (This replaces a prior evaluation file whose "hands-on" section described A/B measurements that were not actually run and whose star count was stale.)
 
 ```bash

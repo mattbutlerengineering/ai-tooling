@@ -17,6 +17,8 @@ No API keys required by default: Claude Code runs on the Claude plan, Codex CLI 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, `DESIGN.md`, the two `SKILL.md` files, `dispatch.md`, `install.sh`, and `tests/validate_skills.py`, plus repo metadata. Not hands-on installed/run — executing a full loop requires an active ChatGPT/Codex CLI subscription (≥ 0.133) alongside Claude Code, and would consume a meaningful fraction of a weekly Codex quota per run. Verdict is based on inspecting the actual skill mechanics, the verified-live dispatch commands, and the cited design rationale.
 
 ```bash

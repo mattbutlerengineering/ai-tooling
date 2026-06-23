@@ -19,6 +19,8 @@ The mechanism is pure context injection. The `gemini-api-dev` `SKILL.md` opens w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `skills.sh`/`ctx7`, no Gemini code was generated, and the docs MCP was not connected. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, the `gemini-api-dev` `SKILL.md` body), not from observed agent behavior. The README's "**87% with Gemini 3 Flash / 96% with Gemini 3.1 Pro**" code-correctness numbers are Google's own published eval (linked to a developers.googleblog.com post), **not** anything we measured or verified.
 
 ```bash

@@ -23,6 +23,8 @@ It is **not** an MCP server and has no hosted endpoint. Claude Code integration 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I examined the GitHub repo metadata, the root README, the CLI README (`packages/opensrc/README.md`), `AGENTS.md`, `CHANGELOG.md`, and the docs MDX pages for commands, how-it-works, and authentication. I read the CLI source tree layout (`packages/opensrc/cli/src/` — `commands/{fetch,path,list,remove,clean}.rs`, `core/{cache,fetcher,git,version}.rs`, `core/registries/{npm,pypi,crates,repo}.rs`) to confirm the registries, lockfile parsers, and resolution flow described in the docs are actually implemented, not aspirational. I did not install the binary, run `opensrc path`, or measure cache or clone timings — no performance numbers below are invented.
 
 ```bash

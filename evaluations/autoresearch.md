@@ -15,6 +15,8 @@ The mechanism is remarkably simple: 3 core files (`prepare.py` read-only constan
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repo structure, `program.md` agent instructions, and `train.py` training code. Did not run hands-on (requires NVIDIA GPU). Assessed the methodology, instruction quality, and applicability to the ai-tooling catalog's scope.
 
 ```bash

@@ -15,6 +15,8 @@ When invoked, the MCP tools let you pull Sentry issue details, stack traces, eve
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed the plugin via the Claude Code marketplace (sentry@claude-plugins-official). Verified the MCP tools are registered in this session — `mcp__sentry__authenticate` and `mcp__plugin_sentry_sentry__authenticate` both appear in the deferred tool list. Examined the plugin structure:
 
 ```

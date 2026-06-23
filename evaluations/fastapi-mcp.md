@@ -15,6 +15,8 @@ Deployment is flexible: mount the MCP server onto the same app, or run it as a s
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `uv add fastapi-mcp`, no FastAPI app instrumented, no MCP server mounted, no agent connected to a generated `/mcp` endpoint. Every claim is from the repository (GitHub metadata, README, recursive file tree, `examples/` and `docs/` listings), not from observed behavior. The "zero/minimal configuration," "preserves schemas," and "auth built in" claims are README framing, unverified here. No latency, schema-fidelity, or auth-correctness numbers were measured.
 
 ```bash

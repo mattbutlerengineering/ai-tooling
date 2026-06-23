@@ -15,6 +15,8 @@ The mechanism is deliberately thin-by-design: seven skills (`paper-orchestra` or
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `npx skills add`, no pipeline was executed, no paper was generated, and the deterministic helper scripts were not run. Every claim below comes from the repository (GitHub metadata, README, recursive file tree, the bundled `examples/agentic-security-report/`), not from observed output. The win-margin figures are the upstream paper's self-reported benchmark results, restated in the README — not measured here.
 
 ```bash

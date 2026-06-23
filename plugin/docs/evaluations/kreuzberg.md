@@ -15,6 +15,8 @@ Per the README: it handles **96 file formats** (PDF, Office, images, HTML, XML, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the feature matrix (96 formats, 306-language code intelligence via tree-sitter, OCR backends, transcription, schema extraction, library/CLI/REST/MCP deployment). Confirmed the Rust-core/GPU-free positioning and the multi-format + code-aware extraction. License resolves to NOASSERTION via the API — confirm exact terms before commercial use. Not run on live documents, so condition-gated.
 
 ```bash

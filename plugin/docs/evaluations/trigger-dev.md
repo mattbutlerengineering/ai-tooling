@@ -17,6 +17,8 @@ Critically, this is infrastructure for **the AI application you build and operat
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No SDK installed, no task deployed, no cloud/self-host instance stood up. Every claim is from the repository surface (GitHub metadata, README, recursive file tree, `.changeset/` entries, release count), not from observed runtime behavior. Throughput/durability/"no timeouts" claims are the authors' README framing, not measured here.
 
 ```bash

@@ -15,6 +15,8 @@ The platform ships as a Python library (`pip install cognee`), CLI (`cognee-cli`
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-level review of the main repo, MCP server, Claude Code plugin, and published benchmarks. Did not install or run locally due to infrastructure requirements.
 
 ```bash

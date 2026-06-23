@@ -23,6 +23,8 @@ Notable operational features baked into the server (not just the API): automatic
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, no MCP client connected, no Firecrawl API call issued.** Evidence was gathered from the GitHub repo: metadata via `gh api` (stars, license, push date, creation date, open issues, tags) and a full read of the README, including the "Available Tools" section, the Configuration/Environment-Variables section, and the Claude Desktop / VS Code / Cursor setup blocks. I confirmed the tool inventory (scrape, batch_scrape, map, search, crawl, extract, agent and their status/feedback companions), the API-key requirement for the cloud default, the documented self-host path (`FIRECRAWL_API_URL`), the credit-monitoring and retry env vars, and the released version tags (`v3.2.1` latest). **No web page was scraped, no credits were spent, no setup was verified hands-on, and the "deep research agent" capability is a vendor claim cited from the README, not reproduced.** Pricing tiers were not fetched live and are not quoted; the only cost facts asserted here are the credit-cost relationships stated in the README itself (e.g., search = 2 credits). No metrics below are invented.
 
 ```bash

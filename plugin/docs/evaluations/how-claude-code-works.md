@@ -15,6 +15,8 @@ The content is concrete and architecture-first (with Mermaid diagrams): a `Query
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — read, not benchmarked.** A reference resource isn't "run"; assessment is of coverage, accuracy framing, and structure from the repo (GitHub metadata, README architecture diagram + design-decision sections, the online docs TOC). Claims about Claude Code internals are the authors' analysis of the source, not independently re-verified against the source here.
 
 ```bash

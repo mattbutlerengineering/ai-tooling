@@ -15,6 +15,8 @@ Per the README, it's inspired by Karpathy's autoresearch (an LLM autonomously ru
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the described loop (discover metrics → instrument benchmark → tree-search experiments with parallel subagents → keep/revert by score). Confirmed the autoresearch lineage (Karpathy) and the structural additions (tree search, parallelism) over a pure hill-climb. Note an upgrade path toward a hosted "evo platform." Not run on a live codebase, so condition-gated.
 
 ```bash

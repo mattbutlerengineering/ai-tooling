@@ -17,6 +17,8 @@ The second half is **transformers** — small adapters that reshape requests/res
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture/surface-area review. Inspected the GitHub repo via the API: the full README, the repo tree, `config.example.json` structure, `custom-router.example.js`, the `docs/` site tree (CLI command + config reference), and version metadata. Confirmed the published npm version (`@musistudio/claude-code-router` = **2.0.0**) and latest git tag (**v2.0.0**). **Did NOT install or run it** — no live Claude Code session was routed through CCR, so no latency, no cost-savings percentages, and no model-quality comparisons are reported below. Any such number would be fabricated. This evaluation decides catalog placement from documented capability and maturity, the same lens applied to the headroom and fast-agent calibration evals.
 
 ```bash

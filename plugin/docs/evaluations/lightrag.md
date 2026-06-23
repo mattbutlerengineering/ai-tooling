@@ -15,6 +15,8 @@ Per the changelog, it now includes: **multimodal content parsing** (MinerU/Docli
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README/changelog and the documented dual-level graph-retrieval design. Confirmed the knowledge-graph + vector hybrid, the multimodal parsing (post RAG-Anything merge), the role-specific LLM config, the chunking strategies, and the pluggable storage backends. The EMNLP/benchmark claims are the project's own. Not run on a live corpus, so condition-gated.
 
 ```bash

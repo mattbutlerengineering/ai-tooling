@@ -19,6 +19,8 @@ RAGFlow is a **leading open-source Retrieval-Augmented Generation engine** that 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No server deployed, no corpus ingested, no query run. The "quality in, quality out" / grounded-citation / DeepDoc claims come from the repository README, update log, and metadata, not observed behavior.
 
 ```bash

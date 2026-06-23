@@ -1,5 +1,7 @@
 # Agent Harnesses
 
+**Evidence:** SOURCE-ONLY
+
 Comparative evaluation of agent harness frameworks — tools that structure how a coding agent operates.
 
 ## Evaluation Criteria

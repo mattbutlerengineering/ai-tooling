@@ -15,6 +15,8 @@ Mechanically it bridges MCP-compatible assistants (Codex, GitHub Copilot, Copilo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the 2.0 feature notes. Confirmed the MCP-server-over-VS-Code-debug-adapter design, the breakpoint/step/inspect/evaluate capabilities, the multi-assistant compatibility, the `/really-debug` companion skill, and the VS Code Testing API integration for test-level debugging. Did not run a live debug session, so condition-gated.
 
 ```bash

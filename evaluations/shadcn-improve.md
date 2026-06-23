@@ -13,6 +13,8 @@ Two-model codebase audit pipeline. An expensive model (Opus/Sonnet) audits the c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Repo/README review — not run hands-on.** Correcting the install first: shadcn/improve is a **Claude Code skill**, installed via the skills.sh installer, not a standalone `npx shadcn-improve` CLI (no such npm package exists):
 
 ```

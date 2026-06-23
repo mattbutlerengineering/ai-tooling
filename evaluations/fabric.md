@@ -15,6 +15,8 @@ Mechanically, Fabric is a single Go binary (`fabric`) plus a library of 255 Mark
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo and source inspection via the GitHub API — README, release notes, and the `data/patterns/` listing. Did not install the binary, configure a model backend, or run a pattern. Fabric is a standalone general-purpose AI CLI with its own provider config and model keys; it is not a Claude Code plugin/skill/MCP server, so there is nothing to install *into* the dev loop to evaluate, and a hands-on run would only exercise it as a separate AI app. Findings rest on metadata, the README, and the actual pattern inventory.
 
 ```bash

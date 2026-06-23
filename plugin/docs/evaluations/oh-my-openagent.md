@@ -19,6 +19,8 @@ The "token-efficient" claim is grounded in concrete mechanisms, not just a sloga
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, README, license, and source tree via the GitHub API. Did NOT install or run it.** This is a deliberate non-install evaluation. OmO is an *alternative harness*, not a Claude Code add-on: the Ultimate edition requires Bun + OpenCode and mutates `~/.config/opencode/`; the Light edition mutates `~/.codex/config.toml` and writes component CLIs into `~/.local/bin`. Both want multiple paid model subscriptions (the README's own "works well" baseline is ChatGPT $20 + Kimi $19 + GLM $10). Installing it would replace the front-end of this catalog's Claude Code dev loop rather than extend it, and would not run against the harness (Claude Code) this catalog standardizes on. So the verdict rests on the repo, license, maturity signals, and documented mechanics. No metrics below are invented; star/commit/download counts are from live API calls, and any benchmark figures are quoted as the project's own self-reported claims.
 
 ```bash

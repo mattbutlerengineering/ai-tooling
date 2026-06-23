@@ -17,6 +17,8 @@ For Claude Code, integration is a **PreToolUse hook** installed via `rtk init -g
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation. Method: inspected the GitHub repo metadata, the full README (token-savings table, "How It Works", the per-command reference, the auto-rewrite hook section, config, and the "Supported AI Tools" matrix), the org/contributor data, and the overlapping catalog entries (headroom = CONDITIONAL, caveman = ADOPT) for calibration. **Not installed and not exercised in a live Claude Code session** — no commands were run through it, so all savings figures below are the project's own published estimates, not measured here. The 60-90% headline is rtk's claim; their own table carries the footnote "Estimates based on medium-sized TypeScript/Rust projects. Actual savings vary by project size."
 
 ```bash

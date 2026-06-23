@@ -13,6 +13,8 @@ CloakBrowser is a **stealth Chromium build whose fingerprints are modified at th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection only — deliberately not installed or run.** Assessment is based on the repository README and metadata. The tool's anti-detection mechanics are described here only at the level needed to evaluate fit and risk; this evaluation does not reproduce or endorse evasion techniques.
 
 ```bash

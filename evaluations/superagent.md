@@ -15,6 +15,8 @@ Per the README, the core component is **Guard**: at runtime it detects and block
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the feature set (Guard runtime blocking, PII/secret redaction, repo threat scanning, red-team scenarios). Confirmed the SDK integration model (TypeScript/Python wrapping agent I/O and tool calls) and the dual runtime-defense + red-teaming positioning. Last push ~2026-04. Not integrated into a live agent, so condition-gated.
 
 ```bash

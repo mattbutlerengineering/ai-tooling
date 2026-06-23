@@ -15,6 +15,8 @@ Per the README the components are: **Cua** (build your own computer-use agent), 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the component breakdown (Cua / Drivers / Bench / Lume). Confirmed the background, focus-preserving driver model, the CLI + MCP server interface across multiple coding agents, the cross-OS support (with Linux as pre-release), and the benchmarking/VM pieces. Did not run a live driver session, so condition-gated.
 
 ```bash

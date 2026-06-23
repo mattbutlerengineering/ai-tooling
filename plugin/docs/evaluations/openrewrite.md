@@ -13,6 +13,8 @@ OpenRewrite (by Moderne) is **an open-source automated refactoring ecosystem for
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No recipe executed, no LST built.
 
 ```bash

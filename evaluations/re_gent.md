@@ -15,6 +15,8 @@ The mechanism: `rgt init` creates a `.regent/` directory (deliberately modeled o
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo metadata, full README, file tree, release history, and contributor count. Did not install or run `rgt` in this environment. This is a repo/README/source-structure review, not hands-on usage — no timing, dedup ratio, or correctness numbers are claimed (the "sub-10ms" figure is the project's own).
 
 ```bash

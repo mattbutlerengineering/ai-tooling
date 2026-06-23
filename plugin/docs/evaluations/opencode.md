@@ -13,6 +13,8 @@ A full open-source AI coding agent — terminal TUI, desktop app, and SDK — th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the source tree, plugin SDK, provider system, config format, and recent commit history. Compared the developer surface (agents, tools, skills, commands, plugins) against Claude Code's equivalent systems.
 
 ```bash

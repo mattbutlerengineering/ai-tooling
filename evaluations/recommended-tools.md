@@ -1,5 +1,7 @@
 # Recommended Tools — Individual Evaluations
 
+**Evidence:** SOURCE-ONLY
+
 Tools in the recommended workflow that have no direct competitor to compare against. Each justifies its slot by demonstrating it solves a real problem that nothing else in the stack addresses.
 
 ---

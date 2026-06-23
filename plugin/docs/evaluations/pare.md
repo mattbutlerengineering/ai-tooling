@@ -17,6 +17,8 @@ Servers are independent npm packages (`@paretools/git`, `@paretools/docker`, etc
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation. Method: inspected the GitHub repo metadata (`gh api`), the full README (problem statement, the 8-row token-savings table, the `git status` worked example, the 28-server/240-tool catalog, Quick Setup, the tool-selection env vars, troubleshooting), `SECURITY_MODEL.md`, the reproducible benchmark methodology (`benchmarks/v2/methodology-reproducible.md`), the repo tree, contributor list, and release/tag history. Calibrated against the existing token-efficiency peer evals `evaluations/rtk.md` (CONDITIONAL) and `evaluations/headroom.md` (CONDITIONAL), and the overlapping catalog rows (git-mcp, token-optimizer-mcp, headroom, context-mode). **Not installed and not exercised in a live Claude Code session** — no MCP servers were configured and no tools were called, so every token figure below is the project's own published estimate (cl100k_base `length/4` heuristic, median of N runs over 117 read-only scenarios), not measured here.
 
 ```bash

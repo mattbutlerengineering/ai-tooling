@@ -15,6 +15,8 @@ Mechanically, AgentScope models multi-agent systems as message-passing between a
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the framework's stated emphasis (message-based multi-agent orchestration with see/understand/trust observability; arXiv-backed). Confirmed the transparency-first positioning that distinguishes it from opaque agent frameworks. Not built a live multi-agent app, so condition-gated.
 
 ```bash

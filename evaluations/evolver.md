@@ -13,6 +13,8 @@ Evolver is **a GEP-powered self-evolution engine for AI agents** that "turns ad 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No evolution loop run, the CritPt/benchmark claims not reproduced.
 
 ```bash

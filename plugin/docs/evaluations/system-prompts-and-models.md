@@ -15,6 +15,8 @@ The learning value is comparative: by reading many products' prompts side by sid
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the GitHub repo metadata, README, and file tree only via `gh api`. Did NOT clone the repo or read individual prompt files in full. No hands-on usage is reported — all observations are repo/README-sourced and noted as such.
 
 ```bash

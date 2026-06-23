@@ -13,6 +13,8 @@ The Google Antigravity SDK is a **Python library for building AI agents powered 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agent built, no runtime exercised. Behavior comes from the README and packaging notes, not observed usage. The dependence on a compiled runtime binary is taken from the README's own note.
 
 ```bash

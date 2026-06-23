@@ -13,6 +13,8 @@ A comprehensive, continuously-updated reference repository covering every Claude
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the full README (30.5KB), sampled the `best-practice/claude-subagents.md` file for quality, and analyzed the repo structure (600 files across best-practice/, implementation/, reports/, tips/, orchestration-workflow/, changelog/).
 
 ```

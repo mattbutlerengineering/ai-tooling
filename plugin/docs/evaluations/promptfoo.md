@@ -13,6 +13,8 @@ Promptfoo is **a CLI and library for evaluating and red-teaming LLM apps** — "
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No eval suite authored, no red-team scan executed.
 
 ```bash

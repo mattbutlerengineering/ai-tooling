@@ -13,6 +13,8 @@ Pre-indexed code knowledge graph that runs as an MCP server and auto-syncs on fi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **README/mechanism review — not run hands-on.** Note the install first: an earlier draft showed a bare `claude mcp add codegraph`, which is incomplete. The CLI publishes on npm as **`@colbymchenry/codegraph`**; you install it (`npm install -g @colbymchenry/codegraph`, or `npx @colbymchenry/codegraph`) and it then auto-wires the MCP server into Claude Code/Cursor/Codex. The behavior below is from the repo/README and the author's published benchmark, not an observed indexing run — no latency or indexing-time figures are claimed here as measured.
 
 ```bash

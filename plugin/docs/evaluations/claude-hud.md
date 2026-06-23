@@ -15,6 +15,8 @@ The architecture is a stdin-to-stdout pipe: Claude Code sends JSON payloads with
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review and README analysis. Not hands-on installed because the user has a custom GSD statusline (`~/.claude/hooks/gsd-statusline.js`) already occupying the `statusLine` slot. Evaluated the implementation by reading source structure and configuration surface.
 
 ```

@@ -15,6 +15,8 @@ Per the README it provides four layers: a **Tools Gateway** (MCP, plus REST/gRPC
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the four-gateway model (Tools/Agent/API gateways + plugins + OTel observability). Confirmed the federate-and-govern positioning (one endpoint over many MCP/A2A/REST sources), the protocol translation (REST/gRPC→MCP), and the K8s/Redis federation. IBM-maintained, Apache-2.0. Not deployed live, so condition-gated.
 
 ```bash

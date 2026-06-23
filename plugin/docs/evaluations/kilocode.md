@@ -15,6 +15,8 @@ So the product is really two things: (1) an **open-source agentic editor extensi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No extension installed in VS Code/JetBrains, no `kilo` CLI session, no model routed through `kilo.ai`, no PR review or cloud agent exercised. The "500+ models," "zero markup," and "most popular open source coding agent" claims are the vendor's README marketing, not measured. Pricing/markup in particular depends on the hosted platform, which I did not audit. Everything below comes from GitHub metadata, the README, and the recursive file tree.
 
 ```bash

@@ -13,6 +13,8 @@ Sourcebot is **a self-hosted tool that helps you understand your codebase** — 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No instance deployed, no repos indexed.
 
 ```bash

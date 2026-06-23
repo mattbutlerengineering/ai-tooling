@@ -13,6 +13,8 @@ Autonomous AI development loop for Claude Code with intelligent exit detection. 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Repo/README review — not run.** Ralph is an unattended autonomous loop that runs an agent in a Docker sandbox against a task/issue; exercising it means letting it execute many turns unsupervised, which was not done here. Documented setup:
 
 ```

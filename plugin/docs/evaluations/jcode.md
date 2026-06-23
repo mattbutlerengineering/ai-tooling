@@ -15,6 +15,8 @@ The mechanism is a single fast native binary installed via a curl script or Home
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary was installed, no session was run, no model connected. Claims come from the repository (GitHub metadata, README, file tree, commit/release counts), not observed behavior. The RAM/boot comparison tables are the author's self-reported benchmarks (sampled "a few metrics"), not measured here.
 
 ```bash

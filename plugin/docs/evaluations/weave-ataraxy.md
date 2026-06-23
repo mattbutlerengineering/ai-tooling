@@ -13,6 +13,8 @@ weave is **an entity-level git merge driver** that "resolves merge conflicts tha
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No merge driver configured, no conflict resolved.
 
 ```bash

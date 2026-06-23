@@ -13,6 +13,8 @@ ClawCodex is a **production-oriented Python rebuild of Claude Code** — "ported
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No clone built, no agentic session run, no DeepSeek cache cost measured. The "230× cheaper," "full rebuild," and "230K LoC" figures are the project's own marketing claims, reported here and explicitly unverified.
 
 ```bash

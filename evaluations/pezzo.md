@@ -15,6 +15,8 @@ Mechanically it centralizes the prompt lifecycle — author, version, and deploy
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature framing (observability/monitoring, troubleshooting, prompt management/versioning, instant delivery, cost/latency savings). Confirmed the prompt-management + LLMOps positioning. Last push ~2026-03 (somewhat less active than peers). The "up to 90%" cost/latency figure is a vendor claim. Not run live, so condition-gated.
 
 ```bash

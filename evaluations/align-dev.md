@@ -15,6 +15,8 @@ The mechanism is a **configurator, not an analyzer**. You walk seven steps (core
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the repository, the English README, the GitHub API maturity signals, the repo file tree, and the source that defines the mechanism (`types/wizard.ts` option vocabulary, the `lib/*-generator.ts` renderers, the `lib/wizard-store.ts` state store, the `app/` Next.js routes). This established that it is a hosted/self-hosted web wizard that templates standards from menu choices rather than a CLI or a codebase analyzer. **Did not run the wizard or generate artifacts** — this is a source + README + maturity review, not hands-on usage. No metrics were invented; the only quantitative claims below (star/contributor counts, dates) come directly from the API.
 
 ```bash

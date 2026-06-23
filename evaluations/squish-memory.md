@@ -15,6 +15,8 @@ The mechanism: `squish install --all` auto-detects installed agents and wires ho
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo + package identification and source/README review — **not a hands-on install.** The entry arrived UNLINKED and `gh search repos squish-memory` returns only a false positive (an 8-year-old's Squishmallow memory card game, 0 stars). I traced the real project through the **npm registry**: `squish-memory` v1.6.0 (description "Local-first memory runtime for Claude Code, Codex, ChatGPT, and AI agents") declares `repository: git+https://github.com/michielhdoteth/squish` and `homepage: https://squishplugin.dev`. I then verified that GitHub repo's metadata, releases, README, plugin manifest, hooks, and source tree directly via the `gh` API rather than trusting the README.
 
 I deliberately **did not run `npm install -g squish-memory && squish install --all`**: it is a 4-star, single-author package whose installer writes lifecycle hooks into the live agent configs of every detected agent (`--all`) and shells out via `scripts/session-*.sh`. Installing it would risk hook collisions with the user's existing live memory stack (claude-mem, OMEGA, superpowers, claude-reflect) and execute unvetted code against real session data — the same posture taken in `longhand.md` and `memsearch.md`. Honest method statement: every claim below is grounded in npm metadata, GitHub API source inspection, and the project's own published numbers — no metrics were produced by me.

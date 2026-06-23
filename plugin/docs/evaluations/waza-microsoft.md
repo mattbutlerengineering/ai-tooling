@@ -17,6 +17,8 @@ Mechanically it installs as a standalone Go binary (curl|bash, checksum-verified
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented workflow (scaffold eval suites → run benchmarks → compare across models). Confirmed the standalone Go-binary install, the cross-model comparison model, and the "measure/improve skill quality" positioning. Verified the name collision with tw93/Waza (different project, same name). Not run against a live skill suite, so condition-gated.
 
 ```bash

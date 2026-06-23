@@ -15,6 +15,8 @@ Mechanically it drives NotebookLM's **undocumented Google APIs**: create/manage 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the stated surface (Python API + CLI + agent skill over NotebookLM's internal APIs). Confirmed the programmatic-access value proposition and, importantly, the maintainer's explicit warnings about unofficial/undocumented Google APIs that may break. Not run live (and live use carries the documented breakage/ToS risk), so condition-gated.
 
 ```bash

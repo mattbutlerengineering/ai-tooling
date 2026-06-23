@@ -15,6 +15,8 @@ The skill leans hard on anti-"AI slop" aesthetics: the `SKILL.md` explicitly war
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not install or run the skill. We pulled metadata, README, and the `SKILL.md` header via the GitHub API, and read it against the existing slide-tooling evaluations in this repo (slidev, powerpoint, pitch-deck-skill).
 
 ```

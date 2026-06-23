@@ -15,6 +15,8 @@ The list also exists as a [filterable web UI](https://e2b.dev/ai-agents) and shi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not install or run anything. We pulled metadata, README, last-commit recency, and entry counts via the GitHub API.
 
 ```

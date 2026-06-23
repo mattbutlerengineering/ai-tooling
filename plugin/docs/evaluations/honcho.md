@@ -13,6 +13,8 @@ Honcho is **memory infrastructure for stateful agents that understand changing p
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No server deployed, no peers/sessions created, the claimed "Pareto frontier of agent memory" evals not reproduced.
 
 ```bash

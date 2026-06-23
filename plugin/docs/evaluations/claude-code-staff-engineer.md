@@ -15,6 +15,8 @@ The implementation is 14 skills, 1 agent, 3 commands, and 1 hook. The skill file
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Examined the full repo structure and diffed skill files against the installed superpowers plugin (v6.0.0, obra/superpowers from claude-plugins-official).
 
 ```bash

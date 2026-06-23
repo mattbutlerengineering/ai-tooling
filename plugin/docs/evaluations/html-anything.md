@@ -17,6 +17,8 @@ Key framing: the coding agent here is an **LLM execution backend for producing d
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I examined repo metadata, the full English README, the recursive file tree, and read the actual source to determine the tool's nature: the CLI entrypoint and help text (`cli/src/index.ts`), the CLI agent-invocation/binary-resolution logic (`cli/src/agents-invoke.ts`), the web app's streaming convert route including the minimal-diff edit prompt (`next/src/app/api/convert/route.ts`), and a representative skill template (`next/src/lib/templates/skills/doc-kami-parchment/SKILL.md`). I did **not** run `pnpm dev`, did not start the app, did not invoke any agent through it, and did not generate or export any HTML — so no latency, output-quality, or export-fidelity metrics are claimed below. All findings are read from source and README, not benchmarked.
 
 ```bash

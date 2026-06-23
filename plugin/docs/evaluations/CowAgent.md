@@ -17,6 +17,8 @@ So this is a personal/assistant agent you run 24/7 across chat surfaces, with fi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No installer was executed, no service was deployed, no channel was connected, and no self-evolution cycle was observed. Every claim below comes from the repository (GitHub metadata, README, full recursive file tree, commit/release/contributor counts), not from observed runtime behavior. The capability table (memory tiers, channel matrix, model matrix) is the author's README description, not anything I measured. The docs at `docs.cowagent.ai` were not fetched.
 
 ```bash

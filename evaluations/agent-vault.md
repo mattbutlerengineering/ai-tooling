@@ -22,6 +22,8 @@ The intended deployment is the load-bearing security assumption: Agent Vault mus
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the GitHub repo, full README, repo file tree, and selected Go source; did not install or run the proxy.** No live credential interception, latency, or egress-filter behavior was exercised; all behavior below is read from the README and source, not measured. The decisive catalog questions — what the mechanism actually is, whether Claude Code is a first-class target, and the maturity/credibility of the project — are answerable from source and metadata, which is sufficient to settle the verdict. The "no hands-on install" caveat means I cannot report setup time, false-positive egress rules, or proxy overhead from observation.
 
 ```bash

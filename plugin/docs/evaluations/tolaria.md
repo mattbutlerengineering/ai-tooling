@@ -17,6 +17,8 @@ The AI-tooling connection is real but secondary and indirect. The project's "AI-
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository and its README via the GitHub API, read the principles/installation/architecture sections and the AI-integration claims, and pulled maturity signals (stars, license, release cadence, contributor count, language breakdown). **Did not install or run the desktop app.** Tolaria's value is a long-lived personal/company markdown vault edited daily over thousands of notes; a one-off launch on an empty vault would not exercise anything meaningful, and the AI angle (vault-as-context, AGENTS file, bundled MCP server) is a thin convenience layer over plain files that an agent already reads directly from disk. The verdict rests on source/README inspection and maturity signals, not a hands-on run. Note: the catalog's supplied one-liner overstates the Claude Code specificity — corrected against the actual README.
 
 ```bash

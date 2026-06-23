@@ -19,6 +19,8 @@ One nuance distinguishing it from html-anything: open-design **also ships its ow
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I examined the GitHub API metadata, the recursive file tree, and the existing CATALOG.md entry. I did **not** download/build the desktop app, did not launch the daemon, did not connect the MCP server, did not invoke any agent through it, and did not generate or export any artifact — so no latency, output-quality, MCP-tool, or export-fidelity metrics are claimed below. I cross-read the already-merged calibration evaluations for `impeccable` (CONDITIONAL) and the same-org `html-anything` (SKIP). The "259+ skills / 142+ design systems / 17+ CLIs" figures are the repo's own description copy, confirmed against the tree's `SKILL.md`/`mcp` paths but not individually audited. All findings are read from source and metadata, not benchmarked.
 
 ```bash

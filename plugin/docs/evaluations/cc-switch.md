@@ -17,6 +17,8 @@ Critically, it is a *config manager*, not a GUI client/IDE: you do not chat with
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository and its English README, pulled maturity metrics via the GitHub API, and read the feature list / "Why CC Switch?" section to determine the mechanism (config-file rewriting vs. a runtime GUI client). **Did not install or run the desktop app.** Doing so requires downloading a native Tauri binary for the host OS, and the app's whole value is in rewriting *real* CLI config files (`~/.claude/settings.json`, Codex/Gemini configs) and pointing them at provider endpoints — exercising that meaningfully would mean wiring up live API keys for third-party relay services in this environment, which is out of scope and against secret-handling rules. The verdict rests on source/README inspection and maturity signals, not a hands-on run.
 
 ```bash

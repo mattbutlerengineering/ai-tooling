@@ -4,568 +4,568 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 ## Plan
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| CLI-Anything | tool | | ✓ | CONDITIONAL |
-| claude-code-templates | tool | | ✓ | SKIP |
-| claude-hud | plugin | ✓ | ✓ | CONDITIONAL |
-| ccstatusline | plugin | ✓ | ✓ | CONDITIONAL |
-| codegraph | tool | ✓ | ✓ | ADOPT |
-| code-review-graph | tool | | ✓ | CONDITIONAL |
-| context7 | MCP server | ✓ | ✓ | KEEP |
-| feature-dev | plugin | | ✓ | KEEP |
-| graphify | skill | | ✓ | CONDITIONAL |
-| gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP |
-| git-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| GSD (Get Shit Done) | framework | | ✓ | KEEP |
-| claude-modular | framework | | ✓ | SKIP |
-| spec-kit | framework | | ✓ | CONDITIONAL |
-| ccpm | skill | | ✓ | CONDITIONAL |
-| OpenSpec | framework | | ✓ | CONDITIONAL |
-| BMAD-METHOD | framework | | ✓ | CONDITIONAL |
-| spec_driven_develop | skill | | ✓ | CONDITIONAL |
-| reversa | framework | ✓ | ✓ | CONDITIONAL |
-| flow-next | plugin | ✓ | ✓ | CONDITIONAL |
-| mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| opensrc | tool | | ✓ | CONDITIONAL |
-| planning-with-files | skill | | ✓ | SKIP |
-| reporails/cli | tool | | $ | CONDITIONAL |
-| repomix | tool | | ✓ | CONDITIONAL |
-| gitingest | tool | | ✓ | CONDITIONAL |
-| repoprompt-ce | tool | | ✓ | CONDITIONAL |
-| markitdown | tool | | ✓ | ADOPT |
-| serena | MCP server | ✓ | ✓ | ADOPT |
-| ts-morph | tool | | ✓ | CONDITIONAL |
-| repowise | tool | ✓ | ✓/$ | CONDITIONAL |
-| PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | CONDITIONAL |
-| claude-context | MCP server | ✓ | ✓ | CONDITIONAL |
-| cocoindex-code | tool | ✓ | ✓ | CONDITIONAL |
-| sem | tool | ✓ | ✓ | CONDITIONAL |
-| semble | tool | ✓ | ✓ | CONDITIONAL |
-| Understand-Anything | tool | | ✓ | CONDITIONAL |
-| codebase-design | skill | | ✓ | CONDITIONAL |
-| domain-modeling | skill | | ✓ | CONDITIONAL |
-| plannotator | tool | | ✓ | CONDITIONAL |
-| code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL |
-| trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| SocratiCode | tool | ✓ | ✓ | CONDITIONAL |
-| gortex | MCP server | ✓ | ✓ | CONDITIONAL |
-| codebase-to-course | skill | | ✓ | CONDITIONAL |
-| sourcebot | platform | ✓ | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| CLI-Anything | tool | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-templates | tool | | ✓ | SKIP | REVIEW |
+| claude-hud | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ccstatusline | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| codegraph | tool | ✓ | ✓ | ADOPT | REVIEW |
+| code-review-graph | tool | | ✓ | CONDITIONAL | REVIEW |
+| context7 | MCP server | ✓ | ✓ | KEEP | RUN |
+| feature-dev | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| graphify | skill | | ✓ | CONDITIONAL | REVIEW |
+| gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| git-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| GSD (Get Shit Done) | framework | | ✓ | KEEP | REVIEW |
+| claude-modular | framework | | ✓ | SKIP | REVIEW |
+| spec-kit | framework | | ✓ | CONDITIONAL | REVIEW |
+| ccpm | skill | | ✓ | CONDITIONAL | REVIEW |
+| OpenSpec | framework | | ✓ | CONDITIONAL | REVIEW |
+| BMAD-METHOD | framework | | ✓ | CONDITIONAL | REVIEW |
+| spec_driven_develop | skill | | ✓ | CONDITIONAL | REVIEW |
+| reversa | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| flow-next | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mdn/mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| opensrc | tool | | ✓ | CONDITIONAL | REVIEW |
+| planning-with-files | skill | | ✓ | SKIP | REVIEW |
+| reporails/cli | tool | | $ | CONDITIONAL | SOURCE-ONLY |
+| repomix | tool | | ✓ | CONDITIONAL | RUN |
+| gitingest | tool | | ✓ | CONDITIONAL | MEASURED |
+| repoprompt-ce | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| markitdown | tool | | ✓ | ADOPT | REVIEW |
+| serena | MCP server | ✓ | ✓ | ADOPT | REVIEW |
+| ts-morph | tool | | ✓ | CONDITIONAL | RUN |
+| repowise | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-context | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| cocoindex-code | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| sem | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| semble | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Understand-Anything | tool | | ✓ | CONDITIONAL | REVIEW |
+| codebase-design | skill | | ✓ | CONDITIONAL | REVIEW |
+| domain-modeling | skill | | ✓ | CONDITIONAL | REVIEW |
+| plannotator | tool | | ✓ | CONDITIONAL | REVIEW |
+| code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| SocratiCode | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| codebase-to-course | skill | | ✓ | CONDITIONAL | REVIEW |
+| sourcebot | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## Implement
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| agency-agents | harness | | ✓ | CONDITIONAL |
-| agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL |
-| agmsg | tool | ✓ | ✓ | CONDITIONAL |
-| aidlc-workflows | framework | | ✓ | CONDITIONAL |
-| arrow-js | framework | | ✓ | CONDITIONAL |
-| beads | tool | ✓ | ✓ | KEEP |
-| caveman | skill | | ✓ | ADOPT |
-| cherry-studio | platform | | ✓ | SKIP |
-| eigent | platform | ✓ | ✓ | CONDITIONAL |
-| herdr | tool | | ✓ | CONDITIONAL |
-| claurst | harness | | ✓ | SKIP |
-| claude-code-harness | harness | | ✓ | CONDITIONAL |
-| claude-code-router | tool | | ✓ | CONDITIONAL |
-| CLIProxyAPI | tool | | ✓ | CONDITIONAL |
-| litellm | tool | ✓ | ✓ | CONDITIONAL |
-| bifrost | tool | ✓ | ✓ | CONDITIONAL |
-| claude-code-staff-engineer | harness | | ✓ | SKIP |
-| claude-squad | tool | | ✓ | CONDITIONAL |
-| orca | platform | ✓ | ✓ | CONDITIONAL |
-| HolyClaude | platform | ✓ | ✓ | CONDITIONAL |
-| Nimbalyst | platform | | ✓ | CONDITIONAL |
-| agent-of-empires | tool | | ✓ | CONDITIONAL |
-| AgentsMesh | platform | ✓ | ✓ | CONDITIONAL |
-| claude-task-master | tool | | ✓ | CONDITIONAL |
-| capa | tool | | ✓ | CONDITIONAL |
-| skills-manage | tool | | ✓ | SKIP |
-| align-dev | tool | | ✓ | SKIP |
-| cc-switch | tool | | ✓ | SKIP |
-| commit-commands | plugin | | ✓ | SKIP |
-| compound-engineering | plugin | | ✓ | CONDITIONAL |
-| context-mode | MCP server | ✓ | ✓ | CONDITIONAL |
-| Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL |
-| CowAgent | harness | | ✓ | SKIP |
-| deer-flow | harness | | ✓ | CONDITIONAL |
-| DeepSeek-Reasonix | platform | | ✓ | CONDITIONAL |
-| dify | platform | | ✓ | SKIP |
-| dmux | tool | | ✓ | CONDITIONAL |
-| ECC | harness | | ✓ | CONDITIONAL |
-| fast-agent | framework | | ✓ | CONDITIONAL |
-| Flowise | platform | | ✓ | SKIP |
-| langflow | platform | | ✓ | CONDITIONAL |
-| forkd | tool | | ✓ | CONDITIONAL |
-| gastown | tool | | ✓ | CONDITIONAL |
-| goose | platform | | ✓ | CONDITIONAL |
-| open-interpreter | harness | | ✓ | CONDITIONAL |
-| kilocode | platform | | ✓ | CONDITIONAL |
-| grok-cli | platform | | ✓ | CONDITIONAL |
-| Kaku | tool | | ✓ | CONDITIONAL |
-| jcode | harness | | ✓ | CONDITIONAL |
-| gstack | harness | | ✓ | CONDITIONAL |
-| happy | platform | | $ | CONDITIONAL |
-| harness | skill | | ✓ | CONDITIONAL |
-| headroom | tool | ✓ | ✓ | CONDITIONAL |
-| hive | harness | | ✓ | SKIP |
-| humanlayer | harness | | ✓ | SKIP |
-| KARIMO | plugin | | ✓ | CONDITIONAL |
-| LangGraph | framework | | ✓ | SKIP |
-| LangChain.js | framework | | ✓ | SKIP |
-| LangGraph.js | framework | | ✓ | SKIP |
-| langchain | framework | | ✓ | SKIP |
-| autogen | framework | ✓ | ✓ | CONDITIONAL |
-| MetaGPT | framework | ✓ | ✓ | CONDITIONAL |
-| llama_index | framework | ✓ | ✓ | CONDITIONAL |
-| semantic-kernel | framework | ✓ | ✓ | CONDITIONAL |
-| smolagents | framework | ✓ | ✓ | CONDITIONAL |
-| dspy | framework | ✓ | ✓ | CONDITIONAL |
-| crewAI | framework | | ✓ | SKIP |
-| vercel-ai | framework | | ✓ | CONDITIONAL |
-| antigravity-sdk-python | framework | | ✓ | CONDITIONAL |
-| pydantic-ai | framework | | ✓ | CONDITIONAL |
-| voltagent | framework | ✓ | ✓/$ | CONDITIONAL |
-| agent-kit | framework | ✓ | ✓ | CONDITIONAL |
-| microsoft/agent-framework | framework | | ✓ | CONDITIONAL |
-| lobehub | platform | | ✓ | SKIP |
-| nanoclaw | platform | | ✓ | SKIP |
-| nanobot | harness | ✓ | ✓ | CONDITIONAL |
-| Hermes Agent | harness | ✓ | ✓ | CONDITIONAL |
-| flue | framework | | ✓ | CONDITIONAL |
-| moltworker | tool | | ✓ | CONDITIONAL |
-| hermes-webui | platform | | ✓ | CONDITIONAL |
-| agentgpt | platform | | ✓ | CONDITIONAL |
-| oh-my-claudecode | harness | | ✓ | CONDITIONAL |
-| oh-my-openagent | harness | | ✓ | SKIP |
-| lazycodex | harness | ✓ | ✓ | CONDITIONAL |
-| oh-my-pi | platform | | ✓ | SKIP |
-| omnigent | framework | | ✓ | CONDITIONAL |
-| opencode | platform | | ✓ | CONDITIONAL |
-| plandex | platform | ✓ | ✓ | CONDITIONAL |
-| forgecode | harness | | ✓ | CONDITIONAL |
-| opencode-swarm | plugin | | ✓ | CONDITIONAL |
-| OpenHands | platform | | ✓ | CONDITIONAL |
-| daytona | platform | ✓ | ✓/$ | CONDITIONAL |
-| agent-sandbox | tool | ✓ | ✓ | CONDITIONAL |
-| tabby | platform | ✓ | ✓ | CONDITIONAL |
-| Archon | platform | ✓ | ✓ | CONDITIONAL |
-| sim | platform | ✓ | ✓/$ | CONDITIONAL |
-| haystack | framework | ✓ | ✓ | CONDITIONAL |
-| Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL |
-| baml | framework | ✓ | ✓ | CONDITIONAL |
-| moai-adk | plugin | ✓ | ✓ | CONDITIONAL |
-| TanStack-cli | tool | ✓ | ✓ | CONDITIONAL |
-| mastra | framework | ✓ | ✓ | CONDITIONAL |
-| pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL |
-| pi-subagents | plugin | ✓ | ✓ | CONDITIONAL |
-| CopilotKit | framework | ✓ | ✓ | CONDITIONAL |
-| agentscope | framework | ✓ | ✓ | CONDITIONAL |
-| open-multi-agent | framework | ✓ | ✓ | CONDITIONAL |
-| eino | framework | ✓ | ✓ | CONDITIONAL |
-| vercel/workflow | framework | ✓ | ✓/$ | CONDITIONAL |
-| osaurus | harness | ✓ | ✓ | CONDITIONAL |
-| aichat | harness | ✓ | ✓ | CONDITIONAL |
-| aider | harness | ✓ | ✓ | CONDITIONAL |
-| codex | harness | ✓ | ✓ | CONDITIONAL |
-| gpt-engineer | harness | ✓ | ✓ | CONDITIONAL |
-| SWE-agent | harness | ✓ | ✓ | CONDITIONAL |
-| continue | harness | ✓ | ✓ | CONDITIONAL |
-| cline | harness | ✓ | ✓ | CONDITIONAL |
-| Roo-Code | harness | ✓ | ✓ | CONDITIONAL |
-| void | harness | ✓ | ✓ | CONDITIONAL |
-| GenericAgent | harness | ✓ | ✓ | CONDITIONAL |
-| gptme | harness | ✓ | ✓ | CONDITIONAL |
-| zeroshot | harness | ✓ | ✓ | CONDITIONAL |
-| ccs | tool | ✓ | ✓ | CONDITIONAL |
-| mito | tool | ✓ | ✓/$ | CONDITIONAL |
-| freestyle | tool | | ✓ | CONDITIONAL |
-| beta9 | platform | ✓ | ✓/$ | CONDITIONAL |
-| cua | harness | ✓ | ✓/$ | CONDITIONAL |
-| txtai | framework | ✓ | ✓ | CONDITIONAL |
-| UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL |
-| opensquilla | tool | | ✓ | SKIP |
-| architect-loop | skill | | ✓ | CONDITIONAL |
-| adhd | skill | | ✓ | CONDITIONAL |
-| sandboxd | tool | | ✓ | CONDITIONAL |
-| vercel-sandbox | platform | | ✓/$ | CONDITIONAL |
-| qwen-code | platform | | ✓ | CONDITIONAL |
-| gemini-cli | platform | | ✓ | CONDITIONAL |
-| agents-cli | skill | | ✓ | CONDITIONAL |
-| ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL |
-| rtk | tool | ✓ | ✓ | CONDITIONAL |
-| ruflo | harness | | ✓ | CONDITIONAL |
-| sandcastle | framework | | ✓ | CONDITIONAL |
-| superpowers | plugin | | ✓ | ADOPT |
-| eca | harness | ✓ | ✓ | CONDITIONAL |
-| letta-code | harness | ✓ | ✓ | CONDITIONAL |
-| strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL |
-| Aegis | skill | | ✓ | CONDITIONAL |
-| superset | tool | | ✓ | CONDITIONAL |
-| worktrunk | tool | | $ | CONDITIONAL |
-| implement | skill | | ✓ | CONDITIONAL |
-| resolving-merge-conflicts | skill | | ✓ | ADOPT |
-| codex-plugin-cc | plugin | | ✓ | CONDITIONAL |
-| vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL |
-| re_gent | tool | | ✓ | CONDITIONAL |
-| h5i | tool | ✓ | ✓ | CONDITIONAL |
-| cli-continues | tool | | ✓ | CONDITIONAL |
-| weave | tool | ✓ | ✓ | CONDITIONAL |
-| phantom | platform | ✓ | ✓ | CONDITIONAL |
-| rmux | tool | | ✓ | CONDITIONAL |
-| MiMo-Code | platform | | ✓ | CONDITIONAL |
-| kimi-code | platform | | ✓ | CONDITIONAL |
-| gentle-ai | harness | ✓ | ✓ | CONDITIONAL |
-| smallcode | tool | | ✓ | CONDITIONAL |
-| clawcodex | harness | | ✓ | CONDITIONAL |
-| claudian | plugin | | ✓ | CONDITIONAL |
-| jetbrains-cc-gui | plugin | | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| agency-agents | harness | | ✓ | CONDITIONAL | REVIEW |
+| agent-orchestrator | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agmsg | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| aidlc-workflows | framework | | ✓ | CONDITIONAL | REVIEW |
+| arrow-js | framework | | ✓ | CONDITIONAL | REVIEW |
+| beads | tool | ✓ | ✓ | KEEP | MEASURED |
+| caveman | skill | | ✓ | ADOPT | MEASURED |
+| cherry-studio | platform | | ✓ | SKIP | REVIEW |
+| eigent | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| herdr | tool | | ✓ | CONDITIONAL | REVIEW |
+| claurst | harness | | ✓ | SKIP | REVIEW |
+| claude-code-harness | harness | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-router | tool | | ✓ | CONDITIONAL | REVIEW |
+| CLIProxyAPI | tool | | ✓ | CONDITIONAL | REVIEW |
+| litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| bifrost | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
+| claude-squad | tool | | ✓ | CONDITIONAL | REVIEW |
+| orca | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| HolyClaude | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Nimbalyst | platform | | ✓ | CONDITIONAL | REVIEW |
+| agent-of-empires | tool | | ✓ | CONDITIONAL | REVIEW |
+| AgentsMesh | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-task-master | tool | | ✓ | CONDITIONAL | REVIEW |
+| capa | tool | | ✓ | CONDITIONAL | REVIEW |
+| skills-manage | tool | | ✓ | SKIP | REVIEW |
+| align-dev | tool | | ✓ | SKIP | REVIEW |
+| cc-switch | tool | | ✓ | SKIP | REVIEW |
+| commit-commands | plugin | | ✓ | SKIP | REVIEW |
+| compound-engineering | plugin | | ✓ | CONDITIONAL | REVIEW |
+| context-mode | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Continuous-Claude-v3 | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| CowAgent | harness | | ✓ | SKIP | REVIEW |
+| deer-flow | harness | | ✓ | CONDITIONAL | REVIEW |
+| DeepSeek-Reasonix | platform | | ✓ | CONDITIONAL | REVIEW |
+| dify | platform | | ✓ | SKIP | REVIEW |
+| dmux | tool | | ✓ | CONDITIONAL | REVIEW |
+| ECC | harness | | ✓ | CONDITIONAL | REVIEW |
+| fast-agent | framework | | ✓ | CONDITIONAL | REVIEW |
+| Flowise | platform | | ✓ | SKIP | REVIEW |
+| langflow | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| forkd | tool | | ✓ | CONDITIONAL | REVIEW |
+| gastown | tool | | ✓ | CONDITIONAL | REVIEW |
+| goose | platform | | ✓ | CONDITIONAL | REVIEW |
+| open-interpreter | harness | | ✓ | CONDITIONAL | REVIEW |
+| kilocode | platform | | ✓ | CONDITIONAL | REVIEW |
+| grok-cli | platform | | ✓ | CONDITIONAL | REVIEW |
+| Kaku | tool | | ✓ | CONDITIONAL | REVIEW |
+| jcode | harness | | ✓ | CONDITIONAL | REVIEW |
+| gstack | harness | | ✓ | CONDITIONAL | REVIEW |
+| happy | platform | | $ | CONDITIONAL | REVIEW |
+| harness | skill | | ✓ | CONDITIONAL | REVIEW |
+| headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
+| hive | harness | | ✓ | SKIP | REVIEW |
+| humanlayer | harness | | ✓ | SKIP | REVIEW |
+| KARIMO | plugin | | ✓ | CONDITIONAL | REVIEW |
+| LangGraph | framework | | ✓ | SKIP | REVIEW |
+| LangChain.js | framework | | ✓ | SKIP | REVIEW |
+| LangGraph.js | framework | | ✓ | SKIP | REVIEW |
+| langchain | framework | | ✓ | SKIP | REVIEW |
+| autogen | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| MetaGPT | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| llama_index | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| semantic-kernel | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| smolagents | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| dspy | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| crewAI | framework | | ✓ | SKIP | REVIEW |
+| vercel-ai | framework | | ✓ | CONDITIONAL | REVIEW |
+| antigravity-sdk-python | framework | | ✓ | CONDITIONAL | REVIEW |
+| pydantic-ai | framework | | ✓ | CONDITIONAL | REVIEW |
+| voltagent | framework | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| agent-kit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| microsoft/agent-framework | framework | | ✓ | CONDITIONAL | REVIEW |
+| lobehub | platform | | ✓ | SKIP | REVIEW |
+| nanoclaw | platform | | ✓ | SKIP | REVIEW |
+| nanobot | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Hermes Agent | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| flue | framework | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| moltworker | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| hermes-webui | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| agentgpt | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| oh-my-claudecode | harness | | ✓ | CONDITIONAL | REVIEW |
+| oh-my-openagent | harness | | ✓ | SKIP | REVIEW |
+| lazycodex | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| oh-my-pi | platform | | ✓ | SKIP | REVIEW |
+| omnigent | framework | | ✓ | CONDITIONAL | REVIEW |
+| opencode | platform | | ✓ | CONDITIONAL | REVIEW |
+| plandex | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| forgecode | harness | | ✓ | CONDITIONAL | REVIEW |
+| opencode-swarm | plugin | | ✓ | CONDITIONAL | REVIEW |
+| OpenHands | platform | | ✓ | CONDITIONAL | REVIEW |
+| daytona | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| agent-sandbox | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| tabby | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Archon | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| sim | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| haystack | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| baml | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| moai-adk | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| TanStack-cli | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mastra | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pydantic-deepagents | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pi-subagents | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| CopilotKit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agentscope | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| open-multi-agent | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| eino | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| vercel/workflow | framework | ✓ | ✓/$ | CONDITIONAL | SOURCE-ONLY |
+| osaurus | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| aichat | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| aider | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| codex | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| gpt-engineer | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| SWE-agent | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| continue | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| cline | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| Roo-Code | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| void | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| GenericAgent | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| gptme | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| zeroshot | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ccs | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mito | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| freestyle | tool | | ✓ | CONDITIONAL | REVIEW |
+| beta9 | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| cua | harness | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| txtai | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| UI-TARS-desktop | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| opensquilla | tool | | ✓ | SKIP | REVIEW |
+| architect-loop | skill | | ✓ | CONDITIONAL | REVIEW |
+| adhd | skill | | ✓ | CONDITIONAL | REVIEW |
+| sandboxd | tool | | ✓ | CONDITIONAL | REVIEW |
+| vercel-sandbox | platform | | ✓/$ | CONDITIONAL | REVIEW |
+| qwen-code | platform | | ✓ | CONDITIONAL | REVIEW |
+| gemini-cli | platform | | ✓ | CONDITIONAL | REVIEW |
+| agents-cli | skill | | ✓ | CONDITIONAL | REVIEW |
+| ralph-claude-code | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ruflo | harness | | ✓ | CONDITIONAL | REVIEW |
+| sandcastle | framework | | ✓ | CONDITIONAL | REVIEW |
+| superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
+| eca | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| letta-code | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Aegis | skill | | ✓ | CONDITIONAL | REVIEW |
+| superset | tool | | ✓ | CONDITIONAL | REVIEW |
+| worktrunk | tool | | $ | CONDITIONAL | REVIEW |
+| implement | skill | | ✓ | CONDITIONAL | REVIEW |
+| resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
+| codex-plugin-cc | plugin | | ✓ | CONDITIONAL | REVIEW |
+| vibecode-pro-max-kit | harness | | ✓ | CONDITIONAL | REVIEW |
+| re_gent | tool | | ✓ | CONDITIONAL | REVIEW |
+| h5i | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| cli-continues | tool | | ✓ | CONDITIONAL | REVIEW |
+| weave | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| phantom | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| rmux | tool | | ✓ | CONDITIONAL | REVIEW |
+| MiMo-Code | platform | | ✓ | CONDITIONAL | REVIEW |
+| kimi-code | platform | | ✓ | CONDITIONAL | REVIEW |
+| gentle-ai | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| smallcode | tool | | ✓ | CONDITIONAL | REVIEW |
+| clawcodex | harness | | ✓ | CONDITIONAL | REVIEW |
+| claudian | plugin | | ✓ | CONDITIONAL | REVIEW |
+| jetbrains-cc-gui | plugin | | ✓ | CONDITIONAL | REVIEW |
 
 ## Verify
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| agent-browser | tool | | ✓ | CONDITIONAL |
-| opencli | tool | | ✓ | CONDITIONAL |
-| browser-use | framework | | ✓ | CONDITIONAL |
-| nanobrowser | tool | | ✓ | CONDITIONAL |
-| page-agent | tool | ✓ | ✓ | CONDITIONAL |
-| CloakBrowser | tool | | ✓ | SKIP |
-| chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL |
-| scenario | framework | ✓ | ✓ | CONDITIONAL |
-| aimock | tool | ✓ | ✓ | CONDITIONAL |
-| keploy | tool | ✓ | ✓ | CONDITIONAL |
-| midscene | tool | ✓ | ✓ | CONDITIONAL |
-| evalview | MCP server | ✓ | ✓ | CONDITIONAL |
-| playwright | MCP server | | ✓ | ADOPT |
-| playwright-skill | skill | | ✓ | SKIP |
-| stryker-js | tool | ✓ | ✓ | CONDITIONAL |
-| qodo-cover | tool | ✓ | ✓ | CONDITIONAL |
-| passmark | tool | ✓ | ✓ | CONDITIONAL |
-| diagnosing-bugs | skill | | ✓ | CONDITIONAL |
-| mirrord | tool | | ✓/$ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| agent-browser | tool | | ✓ | CONDITIONAL | REVIEW |
+| opencli | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| browser-use | framework | | ✓ | CONDITIONAL | REVIEW |
+| nanobrowser | tool | | ✓ | CONDITIONAL | REVIEW |
+| page-agent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| CloakBrowser | tool | | ✓ | SKIP | REVIEW |
+| chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL | REVIEW |
+| scenario | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| aimock | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| keploy | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| midscene | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| evalview | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| playwright | MCP server | | ✓ | ADOPT | RUN |
+| playwright-skill | skill | | ✓ | SKIP | REVIEW |
+| stryker-js | tool | ✓ | ✓ | CONDITIONAL | RUN |
+| qodo-cover | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| passmark | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| diagnosing-bugs | skill | | ✓ | CONDITIONAL | REVIEW |
+| mirrord | tool | | ✓/$ | CONDITIONAL | REVIEW |
 
 ## Review
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| agentlint | tool | ✓ | ✓ | CONDITIONAL |
-| kodus-ai | platform | ✓ | ✓/$ | CONDITIONAL |
-| skylos | tool | ✓ | ✓ | CONDITIONAL |
-| code-review | plugin | ✓ | ✓ | KEEP |
-| design-council | plugin | | ✓ | CONDITIONAL |
-| ghostsecurity/skills | skill | | ✓ | CONDITIONAL |
-| PR-Agent | tool | ✓ | ✓ | CONDITIONAL |
-| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL |
-| tdd-guard | plugin | ✓ | ✓ | CONDITIONAL |
-| vet | tool | ✓ | ✓/$ | CONDITIONAL |
-| openrewrite | framework | ✓ | ✓/$ | CONDITIONAL |
-| cc-safety-net | tool | ✓ | ✓ | CONDITIONAL |
-| pentest-ai-agents | skill | | ✓ | CONDITIONAL |
-| pr-review-toolkit | plugin | | ✓ | KEEP |
-| security-guidance | plugin | | ✓ | ADOPT |
-| shadcn/improve | tool | | ✓ | CONDITIONAL |
-| SkillSpector | tool | | ✓ | CONDITIONAL |
-| trailofbits/skills | skill | | ✓ | CONDITIONAL |
-| cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL |
-| ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL |
-| Claude-BugHunter | skill | | ✓ | CONDITIONAL |
-| hol-guard | tool | ✓ | ✓ | CONDITIONAL |
-| OpenOSINT | MCP server | ✓ | ✓ | SKIP |
-| agnix | tool | ✓ | ✓ | CONDITIONAL |
-| agent-vault | tool | | ✓ | CONDITIONAL |
-| brooks-lint | skill | | ✓ | CONDITIONAL |
-| openreview | tool | ✓ | ✓ | CONDITIONAL |
-| code-on-incus | tool | ✓ | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| agentlint | tool | ✓ | ✓ | CONDITIONAL | RUN |
+| kodus-ai | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
+| code-review | plugin | ✓ | ✓ | KEEP | SOURCE-ONLY |
+| design-council | plugin | | ✓ | CONDITIONAL | REVIEW |
+| ghostsecurity/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| PR-Agent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-octopus | plugin | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| tdd-guard | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| vet | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| openrewrite | framework | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| cc-safety-net | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pentest-ai-agents | skill | | ✓ | CONDITIONAL | REVIEW |
+| pr-review-toolkit | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| security-guidance | plugin | | ✓ | ADOPT | REVIEW |
+| shadcn/improve | tool | | ✓ | CONDITIONAL | REVIEW |
+| SkillSpector | tool | | ✓ | CONDITIONAL | REVIEW |
+| trailofbits/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pentest-ai | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Claude-BugHunter | skill | | ✓ | CONDITIONAL | REVIEW |
+| hol-guard | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| OpenOSINT | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| agnix | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agent-vault | tool | | ✓ | CONDITIONAL | REVIEW |
+| brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
+| openreview | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| code-on-incus | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## Ship
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| bernstein | harness | ✓ | ✓ | CONDITIONAL |
-| claude-code-action | tool | ✓ | ✓ | ADOPT |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| bernstein | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| claude-code-action | tool | ✓ | ✓ | ADOPT | REVIEW |
 
 ## Reflect
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| claude-reflect | plugin | | ✓ | KEEP |
-| documentation-writer | skill | | ✓ | ADOPT |
-| documentation-and-adrs | skill | | ✓ | ADOPT |
-| documentation (anthropics) | skill | | ✓ | CONDITIONAL |
-| oo-component-documentation | skill | | ✓ | SKIP |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| claude-reflect | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| documentation-writer | skill | | ✓ | ADOPT | REVIEW |
+| documentation-and-adrs | skill | | ✓ | ADOPT | REVIEW |
+| documentation (anthropics) | skill | | ✓ | CONDITIONAL | REVIEW |
+| oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 
 ## Outer Loop
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| ACMM | framework | | ✓ | CONDITIONAL |
-| abtop | tool | | ✓ | CONDITIONAL |
-| dev3000 | tool | | ✓ | CONDITIONAL |
-| Apache DevLake | platform | ✓ | ✓ | DEFER |
-| Composio | plugin | | ✓/$ | CONDITIONAL |
-| Infracost | tool | ✓ | ✓/$ | SKIP |
-| langfuse | platform | | ✓ | CONDITIONAL |
-| agenta | platform | | ✓ | CONDITIONAL |
-| codeburn | tool | | ✓ | ADOPT |
-| trigger.dev | platform | | ✓ | SKIP |
-| scorecard | tool | ✓ | ✓ | CONDITIONAL |
-| sentrux | tool | ✓ | ✓ | CONDITIONAL |
-| claude-fleet | tool | | ✓ | CONDITIONAL |
-| agentsview | tool | ✓ | ✓ | CONDITIONAL |
-| promptfoo | tool | ✓ | ✓ | CONDITIONAL |
-| garak | tool | ✓ | ✓ | CONDITIONAL |
-| presidio | tool | ✓ | ✓ | CONDITIONAL |
-| NeMo-Guardrails | tool | ✓ | ✓ | CONDITIONAL |
-| superagent | tool | ✓ | ✓ | CONDITIONAL |
-| deepeval | framework | ✓ | ✓ | CONDITIONAL |
-| phoenix | platform | ✓ | ✓/$ | CONDITIONAL |
-| openinference | framework | ✓ | ✓ | CONDITIONAL |
-| claude-devtools | tool | ✓ | ✓ | CONDITIONAL |
-| harbor | framework | ✓ | ✓ | CONDITIONAL |
-| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | CONDITIONAL |
-| rogue | tool | ✓ | ✓/$ | CONDITIONAL |
-| giskard-oss | tool | ✓ | ✓ | CONDITIONAL |
-| opik | platform | ✓ | ✓ | CONDITIONAL |
-| agent-governance-toolkit | framework | ✓ | ✓ | CONDITIONAL |
-| pezzo | platform | ✓ | ✓ | CONDITIONAL |
-| ragas | tool | ✓ | ✓ | CONDITIONAL |
-| Helicone | platform | ✓ | ✓/$ | CONDITIONAL |
-| logfire | platform | ✓ | ✓/$ | CONDITIONAL |
-| textgrad | framework | ✓ | ✓ | CONDITIONAL |
-| ping-island | tool | ✓ | ✓ | CONDITIONAL |
-| tokencost | tool | | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| ACMM | framework | | ✓ | CONDITIONAL | REVIEW |
+| abtop | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| dev3000 | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
+| Composio | plugin | | ✓/$ | CONDITIONAL | SOURCE-ONLY |
+| Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
+| langfuse | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| agenta | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| codeburn | tool | | ✓ | ADOPT | REVIEW |
+| trigger.dev | platform | | ✓ | SKIP | REVIEW |
+| scorecard | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| sentrux | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-fleet | tool | | ✓ | CONDITIONAL | REVIEW |
+| agentsview | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| promptfoo | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| garak | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| presidio | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| NeMo-Guardrails | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| superagent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| deepeval | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| phoenix | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| openinference | framework | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| harbor | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| rogue | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| giskard-oss | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| opik | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| agent-governance-toolkit | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pezzo | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ragas | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Helicone | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| logfire | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| textgrad | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ping-island | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| tokencost | tool | | ✓ | CONDITIONAL | RUN |
 
 ## Skills & Plugins (domain-specific)
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| academic-research-skills | skill | | ✓ | CONDITIONAL |
-| agent-rules-books | skill | | ✓ | CONDITIONAL |
-| vercel-labs/agent-skills | skill | | ✓ | CONDITIONAL |
-| agent-skills | skill | | ✓ | ADOPT |
-| AI-Research-SKILLs | skill | | ✓ | CONDITIONAL |
-| alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL |
-| andrej-karpathy-skills | skill | | ✓ | CONDITIONAL |
-| Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL |
-| anthropics/skills | reference | | ✓ | CONDITIONAL |
-| antfu/skills | skill | | ✓ | CONDITIONAL |
-| azure-skills | plugin | | ✓ | CONDITIONAL |
-| book-to-skill | skill | | ✓ | CONDITIONAL |
-| Claude-Code-Game-Studios | plugin | | ✓ | CONDITIONAL |
-| claude-seo | skill | | ✓ | CONDITIONAL |
-| excalidraw-diagram-skill | skill | | ✓ | CONDITIONAL |
-| formkit | framework | | ✓ | SKIP |
-| frontend-slides | skill | | ✓ | CONDITIONAL |
-| garden-skills | skill | | ✓ | CONDITIONAL |
-| gemini-skills | skill | | ✓ | CONDITIONAL |
-| google/skills | skill | | ✓ | CONDITIONAL |
-| googleworkspace/cli | tool | | ✓ | SKIP |
-| guizang-ppt-skill | skill | | ✓ | CONDITIONAL |
-| html-anything | tool | | ✓ | SKIP |
-| humanizer | skill | | ✓ | CONDITIONAL |
-| impeccable | skill | | ✓ | CONDITIONAL |
-| Jeffallan/claude-skills | skill | | ✓ | CONDITIONAL |
-| marketingskills | skill | | ✓ | CONDITIONAL |
-| mattpocock/skills | skill | | ✓ | ADOPT |
-| microsoft/skills | skill | | ✓ | CONDITIONAL |
-| obsidian-skills | skill | | ✓ | CONDITIONAL |
-| open-design | platform | | ✓ | SKIP |
-| open-slide | tool | | ✓ | CONDITIONAL |
-| slidev | skill | | ✓ | CONDITIONAL |
-| powerpoint | skill | | ✓ | CONDITIONAL |
-| openskills | tool | | ✓ | CONDITIONAL |
-| vercel-labs/skills | tool | | ✓ | CONDITIONAL |
-| plugin-dev | plugin | | ✓ | CONDITIONAL |
-| pm-skills | skill | | ✓ | CONDITIONAL |
-| ponytail | skill | | ✓ | CONDITIONAL |
-| refly | platform | | ✓ | SKIP |
-| scientific-agent-skills | skill | | ✓ | CONDITIONAL |
-| skill-creator | plugin | | ✓ | ADOPT |
-| Skill_Seekers | tool | | ✓ | CONDITIONAL |
-| SkillOpt | framework | | ✓ | DEFER |
-| stop-slop | skill | | ✓ | CONDITIONAL |
-| taste-skill | skill | | ✓ | CONDITIONAL |
-| tech-leads-club/agent-skills | skill | | ✓ | CONDITIONAL |
-| typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL |
-| ui-ux-pro-max | skill | | ✓ | CONDITIONAL |
-| web-quality-skills | skill | | ✓ | ADOPT |
-| Waza | skill | | ✓ | CONDITIONAL |
-| agents (wshobson) | plugin | | ✓ | CONDITIONAL |
-| agent-sprite-forge | skill | | ✓ | SKIP |
-| SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL |
-| guard-skills | skill | | ✓ | CONDITIONAL |
-| claude-night-market | plugin | | ✓ | CONDITIONAL |
-| huashu-design | skill | | ✓ | CONDITIONAL |
-| baoyu-design | skill | | ✓ | CONDITIONAL |
-| AlphaGBM/skills | skill | | ✓ | CONDITIONAL |
-| himself65/finance-skills | skill | | ✓ | CONDITIONAL |
-| web-access | skill | ✓ | ✓ | CONDITIONAL |
-| cc-skills-golang | skill | | ✓ | ADOPT |
-| waza (Microsoft) | tool | ✓ | ✓ | CONDITIONAL |
-| skills-hub | tool | | ✓ | CONDITIONAL |
-| context-engineering-kit | plugin | ✓ | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| academic-research-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| agent-rules-books | skill | | ✓ | CONDITIONAL | REVIEW |
+| vercel-labs/agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| agent-skills | skill | | ✓ | ADOPT | REVIEW |
+| AI-Research-SKILLs | skill | | ✓ | CONDITIONAL | REVIEW |
+| alirezarezvani/claude-skills | plugin | | ✓ | CONDITIONAL | REVIEW |
+| andrej-karpathy-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| Anthropic-Cybersecurity-Skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| anthropics/skills | reference | | ✓ | CONDITIONAL | REVIEW |
+| antfu/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| azure-skills | plugin | | ✓ | CONDITIONAL | REVIEW |
+| book-to-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| Claude-Code-Game-Studios | plugin | | ✓ | CONDITIONAL | REVIEW |
+| claude-seo | skill | | ✓ | CONDITIONAL | REVIEW |
+| excalidraw-diagram-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| formkit | framework | | ✓ | SKIP | REVIEW |
+| frontend-slides | skill | | ✓ | CONDITIONAL | REVIEW |
+| garden-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| gemini-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| google/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| googleworkspace/cli | tool | | ✓ | SKIP | REVIEW |
+| guizang-ppt-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| html-anything | tool | | ✓ | SKIP | REVIEW |
+| humanizer | skill | | ✓ | CONDITIONAL | REVIEW |
+| impeccable | skill | | ✓ | CONDITIONAL | REVIEW |
+| Jeffallan/claude-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| marketingskills | skill | | ✓ | CONDITIONAL | REVIEW |
+| mattpocock/skills | skill | | ✓ | ADOPT | SOURCE-ONLY |
+| microsoft/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| obsidian-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| open-design | platform | | ✓ | SKIP | REVIEW |
+| open-slide | tool | | ✓ | CONDITIONAL | REVIEW |
+| slidev | skill | | ✓ | CONDITIONAL | REVIEW |
+| powerpoint | skill | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| openskills | tool | | ✓ | CONDITIONAL | REVIEW |
+| vercel-labs/skills | tool | | ✓ | CONDITIONAL | REVIEW |
+| plugin-dev | plugin | | ✓ | CONDITIONAL | REVIEW |
+| pm-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| ponytail | skill | | ✓ | CONDITIONAL | REVIEW |
+| refly | platform | | ✓ | SKIP | REVIEW |
+| scientific-agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| skill-creator | plugin | | ✓ | ADOPT | REVIEW |
+| Skill_Seekers | tool | | ✓ | CONDITIONAL | REVIEW |
+| SkillOpt | framework | | ✓ | DEFER | REVIEW |
+| stop-slop | skill | | ✓ | CONDITIONAL | REVIEW |
+| taste-skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| tech-leads-club/agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| typescript-mcp-server-generator | skill | | ✓ | CONDITIONAL | REVIEW |
+| ui-ux-pro-max | skill | | ✓ | CONDITIONAL | REVIEW |
+| web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
+| Waza | skill | | ✓ | CONDITIONAL | REVIEW |
+| agents (wshobson) | plugin | | ✓ | CONDITIONAL | REVIEW |
+| agent-sprite-forge | skill | | ✓ | SKIP | REVIEW |
+| SwiftUI-Agent-Skill | skill | | ✓ | CONDITIONAL | REVIEW |
+| guard-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| claude-night-market | plugin | | ✓ | CONDITIONAL | REVIEW |
+| huashu-design | skill | | ✓ | CONDITIONAL | REVIEW |
+| baoyu-design | skill | | ✓ | CONDITIONAL | REVIEW |
+| AlphaGBM/skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| himself65/finance-skills | skill | | ✓ | CONDITIONAL | REVIEW |
+| web-access | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
+| waza (Microsoft) | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| skills-hub | tool | | ✓ | CONDITIONAL | REVIEW |
+| context-engineering-kit | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## Memory & Context
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| agentmemory | tool | | ✓ | CONDITIONAL |
-| PageIndex | tool | ✓ | ✓/$ | CONDITIONAL |
-| Acontext | tool | ✓ | ✓ | CONDITIONAL |
-| byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL |
-| LightRAG | tool | ✓ | ✓ | CONDITIONAL |
-| memvid | tool | ✓ | ✓ | CONDITIONAL |
-| kreuzberg | tool | ✓ | ✓ | CONDITIONAL |
-| MineContext | platform | ✓ | ✓ | CONDITIONAL |
-| obsidian-second-brain | skill | ✓ | ✓ | CONDITIONAL |
-| claude-mem | plugin | ✓ | ✓ | ADOPT |
-| lean-ctx | tool | | ✓ | CONDITIONAL |
-| letta | platform | | ✓ | DEFER |
-| claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL |
-| cognee | platform | | ✓ | CONDITIONAL |
-| MemOS | platform | | ✓ | CONDITIONAL |
-| memind | platform | ✓ | ✓ | CONDITIONAL |
-| ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL |
-| claw-compactor | tool | ✓ | ✓ | CONDITIONAL |
-| evolver | tool | ✓ | ✓ | CONDITIONAL |
-| memU | platform | ✓ | ✓ | CONDITIONAL |
-| memory-os | tool | ✓ | ✓ | CONDITIONAL |
-| Memori | platform | | ✓ | CONDITIONAL |
-| OpenViking | platform | | ✓ | CONDITIONAL |
-| RAGFlow | platform | ✓ | ✓ | CONDITIONAL |
-| engram | tool | | ✓ | CONDITIONAL |
-| mem0 | MCP server | | ✓ | CONDITIONAL |
-| OMEGA | MCP server | ✓ | ✓/$ | KEEP |
-| server-memory | MCP server | ✓ | ✓ | CONDITIONAL |
-| SimpleMem | tool | | ✓ | CONDITIONAL |
-| squish-memory | MCP server | | ✓ | SKIP |
-| longhand | MCP server | | ✓ | CONDITIONAL |
-| storybloq | plugin | ✓ | ✓ | CONDITIONAL |
-| claude-code-memory-setup | reference | | ✓ | CONDITIONAL |
-| claude-obsidian | plugin | ✓ | ✓ | CONDITIONAL |
-| ArcRift | tool | | ✓ | CONDITIONAL |
-| context-infrastructure | reference | | ✓ | SKIP |
-| agentic-stack | tool | | ✓ | CONDITIONAL |
-| guild | tool | | ✓ | CONDITIONAL |
-| memsearch | tool | ✓ | ✓ | CONDITIONAL |
-| supermemory | platform | ✓ | ✓ | CONDITIONAL |
-| honcho | platform | ✓ | ✓/$ | CONDITIONAL |
-| MemPalace | tool | ✓ | ✓ | CONDITIONAL |
-| pro-workflow | plugin | ✓ | ✓ | SKIP |
-| hivemind | tool | ✓ | ✓ | CONDITIONAL |
-| AgentRecall-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| agentmemory | tool | | ✓ | CONDITIONAL | REVIEW |
+| PageIndex | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| Acontext | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| byterover-cli | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| LightRAG | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| memvid | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| kreuzberg | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| MineContext | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| obsidian-second-brain | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-mem | plugin | ✓ | ✓ | ADOPT | SOURCE-ONLY |
+| lean-ctx | tool | | ✓ | CONDITIONAL | REVIEW |
+| letta | platform | | ✓ | DEFER | REVIEW |
+| claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| cognee | platform | | ✓ | CONDITIONAL | REVIEW |
+| MemOS | platform | | ✓ | CONDITIONAL | REVIEW |
+| memind | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ACE (agentic-context-engine) | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| evolver | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| memU | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| memory-os | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| Memori | platform | | ✓ | CONDITIONAL | REVIEW |
+| OpenViking | platform | | ✓ | CONDITIONAL | REVIEW |
+| RAGFlow | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| engram | tool | | ✓ | CONDITIONAL | REVIEW |
+| mem0 | MCP server | | ✓ | CONDITIONAL | REVIEW |
+| OMEGA | MCP server | ✓ | ✓/$ | KEEP | REVIEW |
+| server-memory | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| SimpleMem | tool | | ✓ | CONDITIONAL | REVIEW |
+| squish-memory | MCP server | | ✓ | SKIP | REVIEW |
+| longhand | MCP server | | ✓ | CONDITIONAL | REVIEW |
+| storybloq | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-code-memory-setup | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-obsidian | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ArcRift | tool | | ✓ | CONDITIONAL | REVIEW |
+| context-infrastructure | reference | | ✓ | SKIP | REVIEW |
+| agentic-stack | tool | | ✓ | CONDITIONAL | REVIEW |
+| guild | tool | | ✓ | CONDITIONAL | REVIEW |
+| memsearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| supermemory | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| honcho | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| MemPalace | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pro-workflow | plugin | ✓ | ✓ | SKIP | REVIEW |
+| hivemind | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| AgentRecall-MCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## MCP Servers (infrastructure)
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| blender-mcp | MCP server | ✓ | ✓ | SKIP |
-| codebase-memory-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| fastapi_mcp | framework | | ✓ | CONDITIONAL |
-| mcp-use | framework | | ✓ | CONDITIONAL |
-| cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| confluence | MCP server | ✓ | ✓ | CONDITIONAL |
-| devfleet | MCP server | ✓ | ✓ | CONDITIONAL |
-| exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL |
-| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL |
-| fastmcp | framework | | ✓ | ADOPT |
-| Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL |
-| firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
-| github-mcp-server | MCP server | ✓ | ✓ | ADOPT |
-| jira | MCP server | ✓ | ✓ | CONDITIONAL |
-| mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL |
-| prisma | MCP server | ✓ | ✓ | CONDITIONAL |
-| sequential-thinking | MCP server | ✓ | ✓ | SKIP |
-| sentry | MCP server | ✓ | ✓ | CONDITIONAL |
-| server-filesystem | MCP server | ✓ | ✓ | SKIP |
-| server-github | MCP server | ✓ | ✓ | SKIP |
-| supabase | MCP server | ✓ | ✓ | CONDITIONAL |
-| token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| opendocswork-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL |
-| pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL |
-| mcp2cli | tool | ✓ | ✓ | CONDITIONAL |
-| mirage | tool | | ✓ | CONDITIONAL |
-| Pare | MCP server | ✓ | ✓ | CONDITIONAL |
-| ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL |
-| DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL |
-| DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL |
-| google-workspace-mcp | MCP server | ✓ | ✓ | CONDITIONAL |
-| mcp-context-forge | MCP server | ✓ | ✓ | CONDITIONAL |
-| gh-aw-mcpg | MCP server | ✓ | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| awslabs/mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| codebase-memory-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| fastapi_mcp | framework | | ✓ | CONDITIONAL | REVIEW |
+| mcp-use | framework | | ✓ | CONDITIONAL | REVIEW |
+| cloudflare-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| confluence | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| devfleet | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| exa-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| fastmcp | framework | | ✓ | ADOPT | RUN |
+| Figma-Context-MCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| firecrawl-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| github-mcp-server | MCP server | ✓ | ✓ | ADOPT | REVIEW |
+| jira | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mcp-toolbox | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| prisma | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| sentry | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| supabase | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| opendocswork-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mcp2cli | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mirage | tool | | ✓ | CONDITIONAL | REVIEW |
+| Pare | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ref-tools-mcp | MCP server | ✓ | ✓/$ | CONDITIONAL | REVIEW |
+| DesktopCommanderMCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| DebugMCP | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| google-workspace-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| mcp-context-forge | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| gh-aw-mcpg | MCP server | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
 
 ## Research & Discovery
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| Agent-Reach | tool | | ✓ | CONDITIONAL |
-| AutoResearchClaw | harness | ✓ | ✓ | CONDITIONAL |
-| aisuite | framework | | ✓ | SKIP |
-| webclaw | tool | | ✓ | CONDITIONAL |
-| autoresearch | tool | ✓ | ✓ | CONDITIONAL |
-| ARIS | skill | ✓ | ✓ | CONDITIONAL |
-| last30days-skill | skill | | ✓ | ADOPT |
-| llm-council | tool | | ✓ | CONDITIONAL |
-| PaperOrchestra | skill | | ✓ | CONDITIONAL |
-| storm | tool | ✓ | ✓ | CONDITIONAL |
-| AutoSci | harness | ✓ | ✓ | CONDITIONAL |
-| notebooklm-py | tool | ✓ | ✓ | CONDITIONAL |
-| evo | tool | ✓ | ✓/$ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| Agent-Reach | tool | | ✓ | CONDITIONAL | REVIEW |
+| AutoResearchClaw | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| aisuite | framework | | ✓ | SKIP | REVIEW |
+| webclaw | tool | | ✓ | CONDITIONAL | REVIEW |
+| autoresearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| ARIS | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
+| last30days-skill | skill | | ✓ | ADOPT | REVIEW |
+| llm-council | tool | | ✓ | CONDITIONAL | REVIEW |
+| PaperOrchestra | skill | | ✓ | CONDITIONAL | REVIEW |
+| storm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| AutoSci | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
+| notebooklm-py | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| evo | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
 
 ## Reference
 
-| Tool | Type | Auto | Free | Evaluated |
-|------|------|------|------|-----------|
-| antigravity-awesome-skills | reference | | ✓ | CONDITIONAL |
-| awesome-agent-skills | reference | | ✓ | CONDITIONAL |
-| awesome-agent-skills (libukai) | reference | | ✓ | CONDITIONAL |
-| awesome-ai-agents | reference | | ✓ | SKIP |
-| awesome-claude-code | reference | | ✓ | CONDITIONAL |
-| awesome-claude-code-subagents | reference | | ✓ | CONDITIONAL |
-| ai-agents-for-beginners | reference | | ✓ | CONDITIONAL |
-| mcp-for-beginners | reference | | ✓ | ADOPT |
-| genai-agents | reference | | ✓ | CONDITIONAL |
-| agents-towards-production | reference | | ✓ | CONDITIONAL |
-| awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL |
-| awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |
-| awesome-codex-skills | reference | | ✓ | CONDITIONAL |
-| awesome-llm-agents | reference | | ✓ | CONDITIONAL |
-| awesome-hermes-agent | reference | | ✓ | CONDITIONAL |
-| awesome-ai-tools-for-ui | reference | | ✓ | CONDITIONAL |
-| awesome-openclaw-skills | reference | | ✓ | CONDITIONAL |
-| ai-engineering-from-scratch | reference | | ✓ | CONDITIONAL |
-| claude-code | reference | | ✓ | CONDITIONAL |
-| claude-code-best-practice | reference | | ✓ | CONDITIONAL |
-| claude-code-system-prompts | reference | | ✓ | CONDITIONAL |
-| claude-code-tips | reference | | ✓ | CONDITIONAL |
-| claude-howto | reference | | ✓ | CONDITIONAL |
-| Awesome-finance-skills | skill | | ✓ | SKIP |
-| claude-plugins-official | reference | | ✓ | KEEP |
-| dictionary-of-ai-coding | reference | | ✓ | ADOPT |
-| Fabric | framework | | ✓ | SKIP |
-| learn-claude-code | reference | | ✓ | CONDITIONAL |
-| system-prompts-and-models | reference | | ✓ | CONDITIONAL |
-| tolaria | tool | | ✓ | SKIP |
-| docmd | tool | | ✓ | CONDITIONAL |
-| agentskills | reference | | ✓ | ADOPT |
-| agents-best-practices | skill | | ✓ | CONDITIONAL |
-| design-extract | MCP server | ✓ | ✓ | CONDITIONAL |
-| buildwithclaude | reference | | ✓ | CONDITIONAL |
-| karpathy-llm-wiki | skill | | ✓ | CONDITIONAL |
-| ctx | tool | | ✓ | CONDITIONAL |
-| system-prompts-leaks | reference | | ✓ | CONDITIONAL |
-| how-claude-code-works | reference | | ✓ | CONDITIONAL |
-| claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL |
-| Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL |
-| 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL |
-| 12-factor-agents | reference | | ✓ | CONDITIONAL |
-| ag-ui | reference | | ✓ | CONDITIONAL |
+| Tool | Type | Auto | Free | Evaluated | Evidence |
+|------|------|------|------|------|------|
+| antigravity-awesome-skills | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-agent-skills | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-agent-skills (libukai) | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-ai-agents | reference | | ✓ | SKIP | REVIEW |
+| awesome-claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-claude-code-subagents | reference | | ✓ | CONDITIONAL | REVIEW |
+| ai-agents-for-beginners | reference | | ✓ | CONDITIONAL | REVIEW |
+| mcp-for-beginners | reference | | ✓ | ADOPT | REVIEW |
+| genai-agents | reference | | ✓ | CONDITIONAL | REVIEW |
+| agents-towards-production | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| awesome-claude-skills (Composio) | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-claude-skills (travisvn) | reference | | ✓ | SKIP | REVIEW |
+| awesome-codex-skills | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-llm-agents | reference | | ✓ | CONDITIONAL | REVIEW |
+| awesome-hermes-agent | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| awesome-ai-tools-for-ui | reference | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| awesome-openclaw-skills | reference | | ✓ | CONDITIONAL | REVIEW |
+| ai-engineering-from-scratch | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-best-practice | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-system-prompts | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-tips | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-howto | reference | | ✓ | CONDITIONAL | REVIEW |
+| Awesome-finance-skills | skill | | ✓ | SKIP | REVIEW |
+| claude-plugins-official | reference | | ✓ | KEEP | REVIEW |
+| dictionary-of-ai-coding | reference | | ✓ | ADOPT | REVIEW |
+| Fabric | framework | | ✓ | SKIP | REVIEW |
+| learn-claude-code | reference | | ✓ | CONDITIONAL | REVIEW |
+| system-prompts-and-models | reference | | ✓ | CONDITIONAL | REVIEW |
+| tolaria | tool | | ✓ | SKIP | REVIEW |
+| docmd | tool | | ✓ | CONDITIONAL | REVIEW |
+| agentskills | reference | | ✓ | ADOPT | REVIEW |
+| agents-best-practices | skill | | ✓ | CONDITIONAL | REVIEW |
+| design-extract | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| buildwithclaude | reference | | ✓ | CONDITIONAL | REVIEW |
+| karpathy-llm-wiki | skill | | ✓ | CONDITIONAL | REVIEW |
+| ctx | tool | | ✓ | CONDITIONAL | REVIEW |
+| system-prompts-leaks | reference | | ✓ | CONDITIONAL | REVIEW |
+| how-claude-code-works | reference | | ✓ | CONDITIONAL | REVIEW |
+| claude-code-ultimate-guide | reference | | ✓ | CONDITIONAL | REVIEW |
+| Prompt-Engineering-Guide | reference | | ✓ | CONDITIONAL | REVIEW |
+| 500-AI-Agents-Projects | reference | | ✓ | CONDITIONAL | REVIEW |
+| 12-factor-agents | reference | | ✓ | CONDITIONAL | REVIEW |
+| ag-ui | reference | | ✓ | CONDITIONAL | REVIEW |
 
 ---
 

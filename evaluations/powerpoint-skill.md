@@ -13,6 +13,8 @@ HTML-authored slides converted to pixel-accurate PPTX via playwright rendering. 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed the skill and read through the full toolchain. Ran a mental walkthrough of creating a 10-slide board deck to map the actual workflow and surface friction points.
 
 ```

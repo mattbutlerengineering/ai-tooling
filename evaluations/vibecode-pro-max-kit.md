@@ -17,6 +17,8 @@ So: a spec-driven, autopilot, self-healing Claude Code/Codex harness aimed expli
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `install.sh` was piped to a shell, no `vc-setup` scan ran, no `/goal` autopilot loop executed, and no PVL/EVL self-healing cycle was observed. Every claim below comes from the repository (GitHub metadata, README, full recursive file tree showing the agents/hooks/tests, release tags, single-contributor history), not from observed behavior. The "36 validators," "10 cycles," "kills context rot," and "ships features not spaghetti" figures are the author's README marketing, not anything I measured.
 
 ```bash

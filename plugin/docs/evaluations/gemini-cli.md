@@ -15,6 +15,8 @@ The repo is a serious monorepo, not a thin wrapper. The `packages/` tree splits 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `npm install -g @google/gemini-cli`, no `npx`, no agent session, no model call. Every claim comes from GitHub metadata, the README, the recursive file tree, the `packages/` listing, and release/commit counts — not from observed coding output. The "1M context," "free tier limits," and model-quality claims are Google's README framing and product copy, not anything I measured against a task.
 
 ```bash

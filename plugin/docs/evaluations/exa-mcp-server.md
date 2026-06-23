@@ -24,6 +24,8 @@ The supported path in the README is the **hosted endpoint** `https://mcp.exa.ai/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run against a live MCP client, and no Exa API key was created or used.** Evidence was gathered from the GitHub repo only: metadata via `gh api`, the full README, the recursive file tree, the `src/tools/` listing (which is where the tool surface is enumerated), and the release/tag history. **No MCP connection was made, no `mcp.exa.ai` query was issued, and no search result, latency, or cost figure is reproduced here — none are invented.** The Exa API is a paid third-party service; pricing/quality claims below are stated as vendor/structural facts, not measured.
 
 ```bash

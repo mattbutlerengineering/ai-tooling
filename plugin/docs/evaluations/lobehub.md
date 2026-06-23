@@ -15,6 +15,8 @@ The v2 architecture (current) adds an Operator mode where agents are treated as 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repository, README, feature documentation, release history, and ecosystem. Not installed locally — LobeHub is a full-stack web application (Next.js + PostgreSQL) that replaces rather than augments Claude Code.
 
 ```

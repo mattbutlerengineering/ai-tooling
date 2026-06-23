@@ -15,6 +15,8 @@ It doubles as an installable artifact. There's a Claude Code plugin marketplace 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not install the agents. Counted entries per category, read a representative agent file for editorial quality, and checked freshness via the latest commit date.
 
 ```

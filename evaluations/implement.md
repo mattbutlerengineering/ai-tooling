@@ -25,6 +25,8 @@ The load-bearing decisions are: (a) **seams, not blanket TDD** — "at pre-agree
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Skill-mechanism review: read the full `implement/SKILL.md` source pulled from the repo, then read the two skills it composes (`tdd/SKILL.md` and `in-progress/review/SKILL.md`) to understand what the orchestrator actually delegates to and whether the family is self-contained. I did **not** install the plugin or run `/implement` end-to-end on a live PRD — this is a process/orchestration skill whose entire substance is the six instructions above, which are reproduced in full, and the decisive catalog question is composition + redundancy against the user's already-installed GSD and superpowers, which is a documentary comparison. I also confirmed `disable-model-invocation: true` in the frontmatter (it is an explicit slash command, not an auto-triggering skill) and checked the existing catalog entry (CATALOG.md line 142) and its stated overlaps.
 
 ```bash

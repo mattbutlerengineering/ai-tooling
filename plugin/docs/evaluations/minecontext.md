@@ -15,6 +15,8 @@ Mechanically it's a desktop application (Mac/Windows downloads) that ingests you
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the stated model (continuous context capture + proactive resurfacing, desktop app, "Context-Engineering + ChatGPT Pulse"). Confirmed the ambient/proactive positioning and the desktop-app delivery. Documentation depth in the README is moderate (heavy on links/community). Not installed/run live, so condition-gated.
 
 ```bash

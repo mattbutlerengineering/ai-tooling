@@ -13,6 +13,8 @@ playwright-skill is a **Claude Code skill for browser automation with Playwright
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill installed, no automation executed. Claims come from the repository (GitHub metadata, description) and comparison against the catalog's existing browser-automation coverage.
 
 ```bash

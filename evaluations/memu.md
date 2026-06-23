@@ -13,6 +13,8 @@ memU is **a "memory file system" for AI agents** — "File System as Memory, Mem
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No memory ingested, no retrieval exercised.
 
 ```bash

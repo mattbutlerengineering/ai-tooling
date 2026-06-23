@@ -15,6 +15,8 @@ The repo also ships EXAMPLES.md with concrete before/after code samples for each
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the CLAUDE.md, SKILL.md, and EXAMPLES.md from the repo via GitHub API. Cross-referenced against the user's own `~/.claude/rules/common/implementation-discipline.md`, which is explicitly documented as "Adapted from the karpathy-skills behavioral framework" — confirming that this skill has already been adopted, internalized, and refined with project-specific amendments (e.g., reconciled error handling guidance, explicit refactoring-is-a-separate-mode rule).
 
 ```bash

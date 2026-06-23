@@ -15,6 +15,8 @@ Mechanically you run `brv` in any project directory to start an interactive REPL
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented model (context tree + git-like versioning, REPL/TUI, 20 providers, 24 tools, web dashboard, approve/reject review). Confirmed the Cipher lineage and the cloud-sync/sharing story. License resolves to NOASSERTION via the API — it's source-available with a cloud component; pin terms before depending on it commercially. Not run on a live project, so condition-gated.
 
 ```bash

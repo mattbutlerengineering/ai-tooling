@@ -15,6 +15,8 @@ Per the README and the accompanying paper (arXiv:2310.10501), rails can: keep th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the documented rail types, and the arXiv paper reference. Confirmed the declarative "rails between user and model" architecture, the categories of control (topic/jailbreak/dialog-path/format/structured-extraction), and the runtime interception model. License resolves to NOASSERTION via the API but is Apache-2.0 per the project. Not wired into a live app, so condition-gated.
 
 ```bash

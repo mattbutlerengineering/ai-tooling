@@ -19,6 +19,8 @@ Architecturally it runs as a long-living Unix-socket daemon: one process serves 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo via the GitHub API — repo metadata, the full README, the BENCHMARK.md surface, release/tag history, contributor count, and the top-level repo tree. Not installed, not built, no MCP session driven.** Per the catalog integrity rule this is an architecture/maturity review calibrated against the existing codegraph (ADOPT) and code-review-graph (CONDITIONAL) evaluations. Every performance number below is the **project's own published benchmark on a single operator's machine** (the README and BENCHMARK.md both say so explicitly), not a figure reproduced here.
 
 What was actually inspected:

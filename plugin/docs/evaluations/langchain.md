@@ -17,6 +17,8 @@ The decisive fact for this catalog: nothing here operates on *your* repository's
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `uv add langchain`, no chain or agent built, no integration exercised. Every claim comes from GitHub metadata, the README, and the top-level file tree — not from observed behavior. The "battle-tested / production-ready" language is the authors' README framing, not anything measured here.
 
 ```bash

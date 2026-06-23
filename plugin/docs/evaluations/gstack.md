@@ -15,6 +15,8 @@ Mechanically it installs as a Claude Code **skills pack**, not a marketplace plu
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo, README, SKILL.md, CI-workflow, and changelog inspection via the GitHub API — **not a hands-on installed run**. The install mutates `~/.claude/skills/` with ~53 symlinked skills, writes a `~/.gstack/` state tree, adds a per-session auto-update preamble and proactive-suggestion hooks, edits CLAUDE.md, and (for the browser/QA path) builds a bundled Chromium with a 22MB ML classifier — far too invasive to drop into this session just to evaluate, and it would collide with the user's existing OMEGA + superpowers + skills setup. Findings rest on the manifest of skill directories, two full SKILL.md files (`plan-ceo-review`, `review`), the E2E eval CI workflow, the version/changelog cadence, commit/PR history, and the docs/designs ADR set.
 
 ```bash

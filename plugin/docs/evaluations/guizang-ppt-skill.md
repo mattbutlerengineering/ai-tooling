@@ -15,6 +15,8 @@ Mechanically it is a skill bundle: `SKILL.md` is the workflow, `assets/template.
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `npx skills add` was executed, no deck was generated, no GPT-Image call made, and `validate-swiss-deck.mjs` was not run. Claims come from the repo (metadata, both READMEs, `SKILL.md`, file tree), not from a rendered deck. The "踩过的每一个坑都写进了 checklist.md" (every pitfall captured) and visual-quality claims are the author's framing plus the visible template/reference structure, not output I evaluated. The repo is primarily Chinese (`README.md` zh, `README.en.md` en).
 
 ```bash

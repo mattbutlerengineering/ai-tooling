@@ -15,6 +15,8 @@ The mechanism is a local layer (injected into the process) plus an agent pod in 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No cluster, no kubeconfig, no process intercepted. Claims come from the repository (GitHub metadata, README, release count) and the project's documentation framing, not observed behavior. The adopter list (monday.com, SurveyMonkey, Cadence, …) is the project's self-reported `ADOPTERS.md`, not independently verified.
 
 ```bash

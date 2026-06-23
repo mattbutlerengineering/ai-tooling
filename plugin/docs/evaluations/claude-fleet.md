@@ -20,6 +20,8 @@ Resume/Fork open a real terminal (macOS `open -a`; Linux gnome-terminal/kitty/we
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No dashboard launched, no sessions observed. Claims come from the repository (GitHub metadata, README feature tables, screenshots described) — the project's own documentation, not observed behavior.
 
 ```bash

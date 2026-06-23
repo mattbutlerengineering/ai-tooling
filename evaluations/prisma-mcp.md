@@ -23,6 +23,8 @@ The local server runs within the Prisma CLI itself (v7.8.0+) — no separate MCP
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-level evaluation. Loaded all tool schemas via ToolSearch and examined each tool's parameters, descriptions, and behavior contracts. Inspected the plugin manifest at `~/.claude/plugins/cache/claude-plugins-official/prisma/`, which revealed the two-server architecture (Prisma-Local via `npx prisma mcp`, Prisma-Remote via `https://mcp.prisma.io/mcp`). No active Prisma project was available for hands-on migration testing.
 
 ```bash

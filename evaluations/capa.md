@@ -17,6 +17,8 @@ Two architecturally interesting features beyond config fan-out: (1) capa registe
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the repo, README, maintainer docs (install-pipeline + per-provider matrix), the Claude Code provider doc, and the `capabilities.yaml` schema reference; pulled release/contributor/maintenance signals via the GitHub API. **Did not install or run capa** — this is a repo + schema + architecture review, not hands-on usage. The vendor's cost-savings figure is reported as-is and flagged as unverified. No metrics were invented.
 
 ```bash

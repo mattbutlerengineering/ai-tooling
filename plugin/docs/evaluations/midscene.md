@@ -15,6 +15,8 @@ Mechanically, instead of brittle CSS/XPath selectors, Midscene uses a vision mod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and showcase list (web/iOS/Android natural-language automation, Midscene Skills for OpenClaw). Confirmed the vision-driven, selector-free model and the cross-platform (web + mobile) coverage. Did not run a live automation, so condition-gated.
 
 ```bash

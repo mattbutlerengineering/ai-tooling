@@ -13,6 +13,8 @@ Ping Island is a **macOS Dynamic Island / notch-style command center for AI codi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No app installed, no agents monitored. Behavior comes from the README and metadata, not observed usage. macOS-only (native app), which also bounds where it's useful.
 
 ```bash

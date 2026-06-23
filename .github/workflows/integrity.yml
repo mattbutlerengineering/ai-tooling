@@ -35,6 +35,12 @@ jobs:
       - name: Count consistency (reconcile --check)
         run: python3 reconcile-counts.py --check
 
+      # Every eval must declare an Evidence field and COMPARISON's Evidence column
+      # must match the evals; fails the PR if an eval was added without re-running
+      # ./backfill-evidence.py.
+      - name: Evidence field + column in sync (backfill-evidence.py --check)
+        run: python3 backfill-evidence.py --check
+
       # plugin/docs/ is a synced copy of the root docs; this fails the PR if a doc
       # change was committed without re-running ./sync-plugin-docs.sh.
       - name: Plugin docs in sync (sync-plugin-docs.sh --check)

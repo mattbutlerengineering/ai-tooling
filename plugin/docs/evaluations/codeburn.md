@@ -17,6 +17,8 @@ As inspected, the repo is a real engineered product: ~81 files under `src/` (Com
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** `npx codeburn` was never executed, no dashboard was opened, no `optimize`/`compare`/`yield` was run, and no session files were parsed. Every claim comes from the repository (GitHub metadata, README, recursive file tree, `docs/architecture.md`, release/commit counts) — not from observed output. I did not verify the parsers against real session files or check the LiteLLM price accuracy.
 
 ```bash

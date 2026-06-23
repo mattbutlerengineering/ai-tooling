@@ -13,6 +13,8 @@ CLI for managing git worktrees, designed specifically for parallel AI agent work
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **README/CLI-surface review — not run.** worktrunk wraps git worktrees to give each parallel agent session its own branch+worktree; a real test means driving multiple concurrent agent sessions, not done here. Documented lifecycle:
 
 ```

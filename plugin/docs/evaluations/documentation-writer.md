@@ -13,6 +13,8 @@ A Diátaxis-framework documentation expert that structures all documentation out
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Mentally applied to two real documentation tasks in this repo: (1) writing a how-to guide for adding catalog entries to CATALOG.md, and (2) writing an explanation of why the repo uses inner/outer loop vocabulary instead of ACMM levels. Also compared it against what the CLAUDE.md already captures and what would fall through the cracks without it.
 
 ```

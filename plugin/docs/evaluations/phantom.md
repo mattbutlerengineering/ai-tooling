@@ -17,6 +17,8 @@ It's not a chatbot — it runs on **Slack, Telegram, Email, Webhook, and a web c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not deployed.** No container run, no Phantom provisioned. Claims (including the "production Phantom built a 28.7M-row ClickHouse analytics stack unprompted" anecdotes) come from the repository's own README/marketing — they are **not independently verified**.
 
 ```bash

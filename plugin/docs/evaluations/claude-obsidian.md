@@ -20,6 +20,8 @@ It's MIT; there's also a "Pro" community mirror offering earliest access to in-d
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No vault built, no skills run, no retrieval measured. Behavior comes from the README/release notes and metadata, not observed usage.
 
 ```bash

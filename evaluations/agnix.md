@@ -23,6 +23,8 @@ Auto-fix is tiered by confidence: `--fix-safe` (HIGH only), `--fix` (HIGH+MEDIUM
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection — **not installed or run.** Examined the GitHub repo metadata, the full README, the recursive file tree, the release/tag history, the contributor graph, and parsed `knowledge-base/rules.json` directly to confirm the rule count (425), schema, and severity model. Verdict and signal claims below are grounded in the actual artifact (rule data, crate layout, CI workflows), not paraphrased marketing. Diagnostic output samples shown are the README's own examples, labeled as such — no lint results were fabricated.
 
 ```bash

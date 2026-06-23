@@ -15,6 +15,8 @@ Each skill follows the agentskills.io SKILL.md standard: frontmatter with trigge
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via GitHub API. Enumerated top-level directories, counted skill files, and read 4 representative SKILL.md files for quality assessment across different domains:
 
 ```bash

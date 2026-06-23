@@ -15,6 +15,8 @@ The mechanism is: tmux supplies the multiplexed terminal surface (a pane per tas
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repo metadata, README, npm package manifest, and release history; did not install or run it (running it meaningfully requires tmux, Node 18+, and at least one agent CLI driving live worktrees, which is an interactive TUI session rather than a scriptable command). This is a repo/manifest/README review, not hands-on usage. No timing or throughput numbers are claimed.
 
 ```bash

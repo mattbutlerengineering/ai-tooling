@@ -15,6 +15,8 @@ The distinguishing feature is **tiered token budgets**. Every book ships in thre
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: repository and documentation inspection via the GitHub API. I did **not** install the rule sets or run an agent task against them. Findings below come from the repo metadata, the full README (release matrix, validation experiment, copyright note), and cross-reference against the catalog's calibration evals (andrej-karpathy-skills, domain-modeling). No metrics here are mine — the validation numbers are the author's own self-reported experiment, flagged as such.
 
 ```bash

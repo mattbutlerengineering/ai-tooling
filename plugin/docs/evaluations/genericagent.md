@@ -15,6 +15,8 @@ Mechanically, instead of shipping a large fixed toolset, GenericAgent starts fro
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README (3K-line seed, 9 atomic tools, ~100-line loop, skill-tree self-evolution, ~6× token-efficiency claim). Confirmed the minimal-core + self-evolving design. Note the README carries unusual commercial-partner/authorized-source notices ("GitHub + gaagent.ai only; DintalClaw is the sole authorized commercial partner") — worth awareness, though the OSS repo itself is MIT. The 6× efficiency figure is the project's own claim. Not run live, so condition-gated.
 
 ```bash

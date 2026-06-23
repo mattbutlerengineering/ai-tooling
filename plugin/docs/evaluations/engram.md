@@ -15,6 +15,8 @@ Ships as a proper Claude Code plugin with hooks for session lifecycle (start, st
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on repo structure, README, ARCHITECTURE.md, hooks config, MCP tool surface, and plugin layout. Did not install and run (Go build dependency), so this is an architecture-level assessment, not a hands-on test.
 
 ```bash

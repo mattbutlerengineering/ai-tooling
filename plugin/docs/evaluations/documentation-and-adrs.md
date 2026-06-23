@@ -13,6 +13,8 @@ A documentation philosophy skill that codifies *when* and *what* to document: in
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Applied against this repo's actual documentation situation. The repo has CLAUDE.md (agent context), WORKFLOW.md (architecture rationale), CATALOG.md (structured inventory), and `evaluations/` (decision records by a different name). Tested how well the skill maps to real work:
 
 1. Would an ADR have helped when the repo switched from ACMM levels to inner/outer loop vocabulary? Yes — ADR-001 "Use inner/outer loop vocabulary instead of ACMM maturity levels" would have documented the decision, context, and alternatives considered. Currently that context lives in observation 14310 in OMEGA, not in the repo.

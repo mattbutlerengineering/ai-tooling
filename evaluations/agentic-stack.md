@@ -15,6 +15,8 @@ The mechanism: `agentic-stack <harness>` (or `./install.sh <harness>`) drops a `
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via the GitHub API — read the full README, the v0.1→v0.18 release/changelog history, the documented `.agent/` repo layout, the supported-harness + hook-support matrix, the seed-skill list, and the actual Claude Code adapter `settings.json` to verify how hooks are wired. **Did not install or run hands-on.** Rationale matches every prior memory-category eval (claude-mem ADOPT, memsearch / agentmemory / SimpleMem all CONDITIONAL): the user already runs claude-mem + OMEGA as the live memory stack, and agentic-stack installs its own `.claude/settings.json` PostToolUse + Stop hooks and a `CLAUDE.md` — dropping that into the working setup risks hook/instruction collisions with the existing claude-mem, superpowers, claude-reflect, and OMEGA wiring. The repo was also UNLINKED in the catalog; the first step was to verify identity.
 
 ```bash

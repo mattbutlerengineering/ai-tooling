@@ -23,6 +23,8 @@ The pitch is unified cross-agent history + analytics + spend in one place, witho
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary installed, no sessions synced, no dashboard opened. Behavior and the "20+ agents" / cost-tracking claims come from the repository README and metadata, not observed usage.
 
 ```bash

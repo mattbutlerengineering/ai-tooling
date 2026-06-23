@@ -15,6 +15,8 @@ The defining contrast (per the README): graph-first frameworks make you enumerat
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the goal→DAG model (coordinator decomposes a goal into a task DAG at runtime, parallelizes independents, synthesizes). Confirmed the goal-first vs. graph-first distinction and the Node.js-backend integration. Not built a live orchestration, so condition-gated.
 
 ```bash

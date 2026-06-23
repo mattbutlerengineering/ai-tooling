@@ -22,6 +22,8 @@ Mechanically it is a **Claude Code plugin marketplace** — a git repo with a `.
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection via the GitHub API — not installed, no plugins installed from it in this session.** I fetched repo metadata (`gh api repos/anthropics/claude-plugins-official`), read the full marketplace `README.md`, enumerated the plugin trees, and counted the internal/external split. I did **not** run `/plugin install` or exercise any member plugin in this session. The individual member plugins (`security-guidance`, `skill-creator`) were assessed in their own evaluations (the latter against the locally-installed artifact); this entry relies on those and on the marketplace repo's own files. No detection rates, install success rates, or other metrics are invented.
 
 ```bash

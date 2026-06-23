@@ -15,6 +15,8 @@ The pitch is bringing a quality-obsessed, structured harness (memory → plan �
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No install performed, no Codex session run. Behavior comes from the README and the known OmO lineage, not observed usage. "OmO quality bar" / "token burner" framing is the project's own.
 
 ```bash

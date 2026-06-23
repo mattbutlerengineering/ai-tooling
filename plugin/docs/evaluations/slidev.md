@@ -13,6 +13,8 @@ Markdown-first presentation framework for developers. Write slides in `.md` file
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Installed via the skills.sh global flag, read the full SKILL.md, and mentally executed a concrete task: "make a 15-slide tech talk on the AI tooling workflow."
 
 ```

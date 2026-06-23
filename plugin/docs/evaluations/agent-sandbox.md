@@ -15,6 +15,8 @@ Mechanically, it exposes a RESTful API and an **MCP server** to manage the sandb
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the stated design (E2B-compatible API/SDKs, MCP-managed lifecycle, K8s + container isolation, multi-session/multi-tenant per-agent/per-user isolation). Confirmed the E2B-protocol compatibility claim and the RESTful-API + MCP-server management surface. Note: the README ships a default UI admin token in plaintext — fine for a demo, but a deployment hardening item. Not deployed live (needs a Kubernetes cluster), so condition-gated.
 
 ```bash

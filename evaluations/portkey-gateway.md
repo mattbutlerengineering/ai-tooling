@@ -15,6 +15,8 @@ Per the README, it's lightweight and fast: <1ms latency overhead and a ~122kb fo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the feature set (1,600+ model routing, retries/fallbacks, load balancing, caching, 50+ guardrails). Confirmed the OpenAI-compatible single-API model, the lightweight/fast positioning, and the guardrails integration that sets it apart from pure gateways. The latency/footprint/throughput numbers are vendor-published. Not load-tested live, so condition-gated.
 
 ```bash

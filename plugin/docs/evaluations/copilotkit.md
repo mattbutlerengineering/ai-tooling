@@ -15,6 +15,8 @@ Mechanically, where MCP standardizes agent↔tools and A2A agent↔agent, Copilo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented capabilities (generative UI, shared state, HITL workflows across React/Angular/Vue/React Native; AG-UI protocol authorship). Confirmed the agent↔UI positioning as the frontend complement to MCP/A2A. Not built a live app, so condition-gated.
 
 ```bash

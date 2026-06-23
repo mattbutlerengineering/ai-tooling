@@ -17,6 +17,8 @@ A second, newer official server lives in the companion repo **[`cloudflare/mcp`]
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I verified repository identity and read the primary artifacts via the GitHub API and README. I did not connect a Cloudflare account, add any server to an MCP client, or invoke a tool. Therefore no latency, tool-call-success, or token-cost-in-practice metrics appear below — none are invented (the token figures cited are Cloudflare's own published comparison table from the `cloudflare/mcp` README, not my measurements).
 
 The catalog name "cloudflare-mcp" is ambiguous — `gh search repos cloudflare mcp` returns several candidates including an unofficial `mattzcarey/cloudflare-mcp` (129 stars). The catalog already links to the official **`cloudflare/mcp-server-cloudflare`**, which the search and metadata confirm is the established Cloudflare-org hub (3,878 stars, Apache-2.0, actively pushed). The link is correct and live; this is not the broken/unlinked case it was flagged as. The newer `cloudflare/mcp` (Code Mode) is a genuinely distinct companion, not a rename.

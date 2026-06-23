@@ -15,6 +15,8 @@ Mechanically the API mirrors PyTorch — if you know PyTorch you know ~80% of Te
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the PyTorch-analogous API, the litellm engine integration, and the Nature publication reference. Confirmed the backward-engine/optimizer loop, the multi-provider support via litellm, and the breadth of optimizable artifacts (prompts/solutions/code/molecules). Note the repo's last push is mid-2025 — stable research code rather than an actively iterated product. Not run on a live optimization task, so condition-gated.
 
 ```bash

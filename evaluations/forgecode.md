@@ -13,6 +13,8 @@ Forge (forgecode) is **an AI-enabled terminal pair programmer that is model-agno
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No pairing session run.
 
 ```bash

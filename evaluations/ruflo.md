@@ -15,6 +15,8 @@ The mechanism stack: (1) **Swarm coordination** — queen-led hierarchical/mesh/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the GitHub repo, full README, STATUS.md, the metaharness plugin README + ADR-150, and verified that the cited evidence artifacts actually exist, via the GitHub API and npm stats. Did NOT install or run it.** This is a deliberate non-install architecture/surface-area review, same lens as omnigent (CONDITIONAL) and oh-my-openagent (SKIP). ruvnet ships many high-claim repos, so the explicit goal here was *substance verification*: do the benchmark/audit docs the README links actually exist, and is the Claude Code integration real and installable? Installing the full Path B (MCP server + hooks daemon + WASM kernels + AgentDB + 323 tools writing to `CLAUDE.md`/`.claude-flow/`) is out of scope for a placement call and would heavily mutate the harness. No metrics below are measured by us; star/download/release counts are live API calls, and all performance/accuracy figures (HNSW speedups, "89% routing accuracy", SOTA-vs-LangGraph matrix) are the **project's own self-reported claims** — though, unusually for this author, the cited backing artifacts do exist (see below).
 
 ```bash

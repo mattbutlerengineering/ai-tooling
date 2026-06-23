@@ -13,6 +13,8 @@
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded reading — it is a document, not software.** Read the README and factor index; did not build the companion `create-12-factor-agent` scaffold.
 
 ```bash

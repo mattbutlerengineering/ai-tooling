@@ -15,6 +15,8 @@ The mechanism: `guild` compiles to one Go binary that *is* an MCP server with em
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo + README + GitHub API metadata review. Read the full README (install paths, the three-act session flow, the three write surfaces, the hybrid-search design, the platform matrix) and the repo metadata via `gh api`. **Did not install or run it.** Method is honest: no hands-on session, no timing, no recall benchmarks were produced. Rationale matches every prior Memory & Context eval in this catalog (claude-mem ADOPT; agentic-stack, memsearch, agentmemory, SimpleMem all CONDITIONAL): the user already runs claude-mem + OMEGA as the live memory stack, so the relevant question is fit/displacement, answerable from architecture without installing a competing MCP memory server into the working setup.
 
 ```bash

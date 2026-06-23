@@ -15,6 +15,8 @@ The mechanism: for the curated half, plugins follow a fixed file format (agent/c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the GitHub repo metadata and README only. Did NOT add the marketplace, install any plugin, or visit/exercise the web platform. No hands-on metrics are reported below — all counts are README/repo-sourced and noted as such.
 
 ```bash

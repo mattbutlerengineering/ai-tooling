@@ -15,6 +15,8 @@ Per the README it's **five intelligence layers** and **nine MCP tools** covering
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented layers/tools (health scores, auto-docs, git analytics, dead-code, ownership, ADRs; nine MCP tools; 15 languages; multi-repo). Confirmed the MCP delivery and the AI-context + team-signals dual purpose. License resolves to NOASSERTION via the API — pin terms before commercial reliance. Not run on a live repo, so condition-gated.
 
 ```bash

@@ -19,6 +19,8 @@ Orca is an **ADE (Agent Development Environment) for working with a fleet of par
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No desktop/mobile app installed, no agents launched. Features come from the README, docs links, and app-store listings, not observed usage.
 
 ```bash

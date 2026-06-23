@@ -15,6 +15,8 @@ The catalog entry `server-github` refers to the original `@modelcontextprotocol/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the upstream repositories via `gh api` (GitHub REST API). I did **not** install or run the server — this is a repo/deprecation-status investigation, not a hands-on runtime evaluation. All findings below are read directly from the live API responses, not paraphrased from memory.
 
 ```

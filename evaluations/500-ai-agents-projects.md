@@ -13,6 +13,8 @@
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not a hands-on tool.** This is a curated list, not software. Assessment is based on the repository description, structure, and metadata; no linked projects were cloned or run.
 
 ```bash

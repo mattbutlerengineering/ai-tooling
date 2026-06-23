@@ -21,6 +21,8 @@ Mechanically it is prompt scaffolding plus a handful of deterministic bash valid
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source review of the plugin **as checked out on this machine**. It is present at `~/.claude/plugins/repos/claude-plugins-official/plugins/plugin-dev/` (git remote → `anthropics/claude-plugins-official.git`), and its skills/agents are **active in this very session** — the environment's available-skills and available-agent-types lists include `plugin-dev:create-plugin`, `plugin-dev:plugin-structure`, `plugin-dev:skill-development`, etc., and the agents `plugin-dev:agent-creator`, `plugin-dev:plugin-validator`, `plugin-dev:skill-reviewer`. So this is the real shipped artifact, not a README paraphrase. I read the README, the `plugin-validator` agent, the create-plugin command size, and the skill inventory directly. I did **not** run `/plugin-dev:create-plugin` to scaffold a throwaway plugin in this session, nor execute the validator agent against a target — behavioral claims rest on reading the (transparent, short) component definitions.
 
 ```bash

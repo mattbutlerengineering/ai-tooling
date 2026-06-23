@@ -17,6 +17,8 @@ Beyond isolation, Gas Town adds an autonomous operations layer most peers lack: 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repo metadata, full README, repository tree, release/tag history, contributor count, open-issue stream, and the `.claude/` (skills + commands) and `plugins/` directories via the GitHub API. **Did not install or run it.** Running it meaningfully requires Go 1.25+, Dolt, beads, tmux, sqlite3, and at least one agent CLI, then provisioning a multi-agent town — an interactive, stateful, long-running setup rather than a scriptable one-shot command. This is a repo/README/structure review, not hands-on usage. No timing, throughput, or "scales to 20–30 agents" numbers are claimed here; those are the project's.
 
 ```bash

@@ -21,6 +21,8 @@ Files are created lazily — no `CONTEXT.md` until the first term resolves, no `
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Skill-mechanism review. Method: read the full `SKILL.md` and both bundled reference files (`CONTEXT-FORMAT.md`, `ADR-FORMAT.md`) pulled from the repo via the GitHub API; read the peer skill `codebase-design/SKILL.md` from the same repo; and mapped the surrounding mattpocock skill ecosystem (`grill-with-docs`, `improve-codebase-architecture`) and the catalog's overlap target (`documentation-and-adrs`). I did **not** run it end-to-end against a live design session on a throwaway repo — the artifact under test is a prompt-only process skill, so the thing being evaluated *is* the procedure and the two artifact formats, all of which are reproduced above. Note: this skill is already present in the running session's skill list as `domain-modeling` with the exact frontmatter shown, because the user has `mattpocock/skills` cloned locally — so the practical question is "does it earn shelf space," not "should I install it."
 
 ```bash

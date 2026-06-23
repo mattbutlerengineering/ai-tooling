@@ -21,6 +21,8 @@ So it is a retrieval layer over one specific opinionated book, not a general kno
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not built, not run.** No binary was compiled, no `BOOK_PATH` cloned, no MCP query executed, so every claim below is from the repo, not from observed tool output. Examined: GitHub metadata for both the server and the book repos, the full README, the recursive file tree, commit/release/contributor counts, and the licensing of the underlying book repository.
 
 ```bash

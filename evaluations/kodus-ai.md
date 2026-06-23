@@ -21,6 +21,8 @@ It's a monorepo (NestJS-style `apps/api`, `apps/webhooks`, `apps/worker`, Next.j
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the monorepo structure, the deployment options (Cloud, Docker, Railway), and the open-core tier split. Confirmed the model-agnostic/no-markup billing model, plain-language custom rules, the multi-platform PR integration, CLI/CI support, and the telemetry/privacy posture. License is unresolved at the API level (NOASSERTION) — it's open-core with paid Teams/Enterprise tiers; treat the OSS scope as "self-hostable core, gated advanced features." Not run on a live PR, so condition-gated.
 
 ```bash

@@ -22,6 +22,8 @@ Architecture is a **control-plane / data-plane split**: orchestration over gRPC+
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No backend/runner deployed, no pods spawned. Claims come from the repository (GitHub metadata, README architecture tables, core-concepts list) — the project's own documentation, not observed behavior.
 
 ```bash

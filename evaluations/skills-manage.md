@@ -17,6 +17,8 @@ Critically, it is a *skill-installation manager*, not an agent client or a skill
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository and its English README, pulled maturity metrics via the GitHub API, read the supported-platforms table, privacy/security section, tech stack, and project structure to determine the mechanism (central library + per-platform symlink installs vs. a runtime agent client), and checked release/contributor counts. **Did not install or run the desktop app.** The only prebuilt package is an *unsigned, un-notarized* Apple Silicon macOS `.dmg`/`.app.zip` (every other platform must be built from source via `pnpm tauri dev` + Rust + Tauri toolchain), and the app's whole value is in mutating *real* skill directories across many CLIs (`~/.claude/skills/`, `~/.cursor/skills/`, …) and importing skills from GitHub using a stored PAT — exercising that meaningfully would mean installing a native binary that Gatekeeper flags as "damaged" (requiring `xattr -dr com.apple.quarantine`) and wiring live credentials, which is out of scope. The verdict rests on source/README inspection and maturity signals, not a hands-on run.
 
 ```bash

@@ -15,6 +15,8 @@ The list is unusually well-written at the top: the "What Are Claude Skills?" sec
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — no install or execution. We pulled metadata, recent commit dates, the full README, and the repo's top-level directory listing via the GitHub API, then counted entries and read the explanatory sections.
 
 ```

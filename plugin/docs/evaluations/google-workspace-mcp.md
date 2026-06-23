@@ -15,6 +15,8 @@ Mechanically it exposes Workspace operations as MCP tools, with fine-grained edi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented coverage (10 Workspace apps, fine-grained editing, OAuth 2.1 multi-user, stateless mode, CLI/Code Mode). Confirmed the breadth-and-auth positioning that distinguishes it from minimal Gmail/Calendar MCPs. Not connected to a live Workspace (which requires OAuth setup), so condition-gated.
 
 ```bash

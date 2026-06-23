@@ -300,11 +300,25 @@ class Evidence:
     recombined differently inside each detector. The interface is the test
     surface — see selftest()."""
     def __init__(self, how):
+        self._how      = how
         self.honest    = bool(HONEST.search(how))
         self.verified  = bool(VERIFIED.search(how))
         self.run_claim = bool(RUN_CLAIM.search(how))
         self.measured  = bool(MEASURED.search(how))
         self._strong   = bool(STRONG_MEASURED.search(how))
+
+    @property
+    def level(self):
+        """Derive the 4-value evidence strength (issue #67) from the same honesty /
+        measurement signals detector B trusts, so the backfill is reproducible and
+        grounded in the eval's own text rather than hand-guessed. Precedence: a
+        not-run disclaimer (REVIEW) outranks run-ish verbs; an empty How section
+        means nothing was tested here (SOURCE-ONLY)."""
+        if self.is_measured:                 return "MEASURED"
+        if self.honest:                      return "REVIEW"
+        if self.run_claim or self.verified:  return "RUN"
+        if not self._how.strip():            return "SOURCE-ONLY"
+        return "REVIEW"
 
     @property
     def is_fabrication_candidate(self):
@@ -348,6 +362,12 @@ class Evaluation:
         return m.group(1) if m else None
 
     @property
+    def derived_evidence(self):
+        """Evidence level inferred from this eval's own signals (issue #67 backfill).
+        backfill-evidence.py writes this into the declared field; afterwards the two agree."""
+        return self.evidence.level
+
+    @property
     def is_skill(self):
         return bool(re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", self.text))
 
@@ -384,19 +404,23 @@ def load_evals():
         yield Evaluation.from_path(p)
 
 def audit_evidence_field():
-    """Issue #62, REPORT-ONLY: tally the declared **Evidence:** field across evals.
-    Returns (counts: level->int, missing: list of eval names with no field). Records
-    how hard we looked, separate from the verdict. Backfill + a COMPARISON column
-    land in #67; this slice only parses and reports (no gate)."""
+    """REPORT-ONLY: tally the declared **Evidence:** field across evals (issue #62),
+    catalog-wide and within the ADOPT/KEEP set (issue #67 — "what % of ADOPT is
+    MEASURED"). Returns (counts, missing, strong) where counts/strong are level->int
+    over all evals / over ADOPT+KEEP evals, and missing lists evals with no field.
+    Records how hard we looked, separate from the verdict; gating weak backing is #71."""
     counts = {lvl: 0 for lvl in EVIDENCE_LEVELS}
+    strong = {lvl: 0 for lvl in EVIDENCE_LEVELS}  # restricted to ADOPT/KEEP-verdict evals
     missing = []
     for ev in load_evals():
         lvl = ev.evidence_level
         if lvl:
             counts[lvl] += 1
+            if ev.verdict in ("ADOPT", "KEEP"):  # primary verdict, not every word mentioned
+                strong[lvl] += 1
         else:
             missing.append(ev.name)
-    return counts, missing
+    return counts, missing, strong
 
 def audit_skill_evidence():
     measured, backlog = [], []
@@ -513,6 +537,18 @@ def selftest():
         if ev.is_measured != exp_meas:
             fails.append(f"  FAIL [measured] {label}: got {ev.is_measured}, want {exp_meas}")
 
+    # Evidence.level derivation (issue #67 backfill)
+    level_cases = [
+        ("**Hands-on, measured** A/B with token deltas.", "MEASURED"),
+        ("Source-grounded review — not run hands-on; read the docs.", "REVIEW"),
+        ("We ran it on our repo and exercised the CLI flow.", "RUN"),
+        ("", "SOURCE-ONLY"),
+    ]
+    for how, want in level_cases:
+        got = Evidence(how).level
+        if got != want:
+            fails.append(f"  FAIL [level] {how[:32]!r}: got {got}, want {want}")
+
     # Evaluation parsing — the eval-file grammar is now a unit-testable surface
     def expect(cond, msg):
         if not cond: fails.append(f"  FAIL [eval] {msg}")
@@ -540,7 +576,7 @@ def selftest():
         print("== selftest ==")
         print("\n".join(fails))
         return 1
-    print(f"== selftest ==\n  OK — {len(cases)} evidence + {n_eval_checks} eval-parsing cases pass")
+    print(f"== selftest ==\n  OK — {len(cases)} evidence + {len(level_cases)} level + {n_eval_checks} eval-parsing cases pass")
     return 0
 
 # ---------------------------------------------------------------- main
@@ -633,12 +669,20 @@ def main():
         for n in backlog:
             print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
     if do_evidence:
-        counts, missing = audit_evidence_field()
+        counts, missing, strong = audit_evidence_field()
         have = sum(counts.values()); tot = have + len(missing)
+        strong_tot = sum(strong.values())
         print(f"== I. evidence-strength field (report-only) — {have}/{tot} evals declare Evidence ==")
         for lvl in EVIDENCE_LEVELS:
             print(f"  {lvl:<12} {counts[lvl]}")
-        print(f"  {'(none)':<12} {len(missing)}  (no declared Evidence field yet; backfill is #67)")
+        if missing:
+            print(f"  {'(none)':<12} {len(missing)}  (eval declares no Evidence field — run ./backfill-evidence.py)")
+        if strong_tot:
+            backed = strong['MEASURED'] + strong['RUN']
+            pct = round(100 * strong['MEASURED'] / strong_tot)
+            print(f"  ADOPT/KEEP set ({strong_tot}): {strong['MEASURED']} MEASURED ({pct}%), "
+                  f"{strong['RUN']} RUN, {strong['REVIEW']} REVIEW, {strong['SOURCE-ONLY']} SOURCE-ONLY "
+                  f"→ {backed}/{strong_tot} run-backed (the rest are review-only — #68 graduates them, #71 gates)")
     if do_overlaps:
         gaps = audit_overlaps()
         strong = [(t, c) for t, c in gaps if c >= 2]

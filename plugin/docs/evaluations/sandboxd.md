@@ -15,6 +15,8 @@ The mechanism is deliberately small. One Go binary (the control plane) shells ou
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo via the API on 2026-06-19: full README, `AGENTS.md` (the self-contained operating runbook), repo tree, release history, and topic tags. Did NOT install or run sandboxd — it requires a **Linux host with Docker Engine + the Compose plugin** and a control plane that mounts the host Docker socket (root-equivalent), none of which is appropriate to stand up on the macOS evaluation machine. This is an architecture/surface-area review for catalog placement, using the same lens applied to forkd (CONDITIONAL) and aisuite (SKIP). No metrics below are measured by us; any figure is the project's own claim.
 
 ```bash

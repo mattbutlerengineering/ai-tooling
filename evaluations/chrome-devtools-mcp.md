@@ -15,6 +15,8 @@ Available as a Claude Desktop Extension (.dxt) for one-click install, or via `cl
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repo structure, README, and tool catalog. Not hands-on tested (no Chrome DevTools debugging session available in this environment).
 
 ```bash

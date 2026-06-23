@@ -15,6 +15,8 @@ Mechanically: `pip install skylos` then `skylos .` (default scan focuses on dead
 
 ## How we tested it
 
+**Evidence:** RUN
+
 **Hands-on**, skylos v4.25.0 `pip install`ed into a clean venv and run against this repo's only real code — the `presentations/` JS (a Web Components deck) — on 2026-06-20. Exercised the default dead-code scan, the `-a` aggregate scan (security/secrets/quality/deps), and the `verify --range` agent-handoff gate.
 
 ```bash

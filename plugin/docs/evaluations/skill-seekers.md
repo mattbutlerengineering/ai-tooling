@@ -15,6 +15,8 @@ It positions itself as "the data layer for AI systems," i.e. the preprocessing s
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `pip install`ed; no `create`/`package`/`scan` was executed; no generated SKILL.md was inspected for quality on a real doc set. Every claim below comes from GitHub metadata, the README, the file tree, and release listing — not from observed pipeline output. The "99% faster," "500+ line," "battle-tested," and "3,700+ tests passing" figures are the author's README/badge framing, not anything I measured or ran.
 
 ```bash

@@ -17,6 +17,8 @@ OpenSpec positions explicitly against GitHub's Spec Kit ("thorough but heavyweig
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection, not hands-on installation. Reviewed the live repo via the GitHub API: README, `docs/concepts.md`, `docs/commands.md`, `docs/supported-tools.md`, `docs/cli.md`, the repo tree, a real example change (`add-global-install-scope`) including its `spec.md` delta format and `tasks.md` checklist, release history, and contributor count. Did not run `npm install -g @fission-ai/openspec` or `openspec init`, so no command outputs below are observed runs — they are quoted from the project's own docs.
 
 ```bash

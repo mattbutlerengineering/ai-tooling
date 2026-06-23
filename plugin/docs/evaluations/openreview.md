@@ -20,6 +20,8 @@ The notable part is *how* it reviews: each run spins up an isolated **Vercel San
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not deployed.** No Vercel deploy, no GitHub App connected, no PR reviewed. Claims come from the repository (GitHub metadata, README feature list, sequence diagram) — the project's own documentation, not observed review behavior.
 
 ```bash

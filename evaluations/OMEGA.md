@@ -15,6 +15,8 @@ The mechanism is a persistent store (semantic search + a knowledge graph of link
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Incumbent assessment — not source-inspectable, no hands-on benchmark in this evaluation.** OMEGA has **no public repository**, so the source-grounded GitHub inspection used for every other catalog entry is impossible here — there is no README, file tree, license, commit history, or star count to examine. This evaluation is therefore an honest *incumbent* assessment based on (a) the catalog description, (b) the documented tool/protocol surface, and (c) the fact that it is the operator's installed, mandated memory system in active daily use. No independent benchmark of recall quality, latency, or correctness was run, and none of OMEGA's self-reported capabilities (semantic search quality, graph reasoning) were verified against a baseline.
 
 ```
