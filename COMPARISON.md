@@ -310,7 +310,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL | SOURCE-ONLY |
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| ccusage | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| ccusage | tool | | ✓ | ADOPT | MEASURED |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
 | vibe-log-cli | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | agenta | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
