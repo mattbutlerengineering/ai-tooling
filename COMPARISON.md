@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 509 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 510 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -200,6 +200,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ruflo | harness | | ✓ | CONDITIONAL | REVIEW |
 | sandcastle | framework | | ✓ | CONDITIONAL | REVIEW |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
+| orchestkit | plugin | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
 | eca | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
 | letta-code | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
 | strands-agents (harness-sdk) | framework | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -587,7 +588,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 166 | 166 | 100% |
+| Implement | 167 | 167 | 100% |
 | Verify | 19 | 19 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -598,4 +599,4 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 44 | 44 | 100% |
-| **Total** | **509** | **509** | **100%** |
+| **Total** | **510** | **510** | **100%** |
