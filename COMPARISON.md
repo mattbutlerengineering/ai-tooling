@@ -265,7 +265,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | pentest-ai-agents | skill | | ✓ | CONDITIONAL | REVIEW |
 | pr-review-toolkit | plugin | | ✓ | KEEP | SOURCE-ONLY |
-| security-guidance | plugin | | ✓ | ADOPT | REVIEW |
+| security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | CONDITIONAL | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | REVIEW |
 | trailofbits/skills | skill | | ✓ | CONDITIONAL | REVIEW |
