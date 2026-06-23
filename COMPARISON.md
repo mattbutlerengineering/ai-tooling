@@ -294,7 +294,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | claude-reflect | plugin | | ✓ | KEEP | SOURCE-ONLY |
 | documentation-writer | skill | | ✓ | ADOPT | REVIEW |
-| documentation-and-adrs | skill | | ✓ | ADOPT | REVIEW |
+| documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
 | documentation (anthropics) | skill | | ✓ | CONDITIONAL | REVIEW |
 | oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 
