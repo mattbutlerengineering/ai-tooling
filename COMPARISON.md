@@ -34,7 +34,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gitingest | tool | | ✓ | CONDITIONAL | MEASURED |
 | repoprompt-ce | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | markitdown | tool | | ✓ | ADOPT | MEASURED |
-| serena | MCP server | ✓ | ✓ | ADOPT | REVIEW |
+| serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
 | repowise | tool | ✓ | ✓/$ | CONDITIONAL | REVIEW |
 | PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
