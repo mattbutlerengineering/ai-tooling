@@ -74,7 +74,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | bifrost | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
-| claude-squad | tool | | ✓ | CONDITIONAL | REVIEW |
+| claude-squad | tool | | ✓ | CONDITIONAL | RUN |
 | orca | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | HolyClaude | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | Nimbalyst | platform | | ✓ | CONDITIONAL | REVIEW |
