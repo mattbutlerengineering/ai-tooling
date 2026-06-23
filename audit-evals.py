@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Ten detectors (A-J), each proven to catch real problems (see git history,
+Eleven detectors (A-K), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -50,6 +50,12 @@ Ten detectors (A-J), each proven to catch real problems (see git history,
      match COMPARISON, and nothing marked in-STACK is missing from STACK.md. Kills the
      hand-maintained drift prior audits kept finding. Offline, gating, on by default.
 
+  K. VERDICT EVIDENCE GATE — a strong verdict can't rest on a README skim. An ADOPT/
+     KEEP eval must be run-backed (Evidence MEASURED or RUN) or carry an explicit honesty
+     disclaimer (the documented escape hatch); a REVIEW/SOURCE-ONLY ADOPT/KEEP with no
+     disclaimer fails. Generalizes the skills-only report-only detector E into a catalog-
+     wide gate (#71). Offline, gating, on by default.
+
   I. EVIDENCE-STRENGTH FIELD (opt-in, --evidence, REPORT-ONLY) — tallies each eval's
      declared **Evidence:** field (MEASURED / RUN / REVIEW / SOURCE-ONLY): how hard we
      looked, recorded as data and separate from the verdict (what we concluded). The
@@ -64,6 +70,7 @@ Usage:
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --comparison # COMPARISON.md vs CATALOG.md consistency (offline)
   python3 audit-evals.py --drift      # STACK.md vs verdicts + exclusion ledger (offline)
+  python3 audit-evals.py --verdict-evidence  # ADOPT/KEEP must be run-backed or disclaimered (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -73,10 +80,10 @@ Usage:
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
 (A), a FABRICATION candidate (B), a VERDICT mismatch (D), COMPARISON drift (G),
-STACK-derivation drift (J), or link rot (C, when --links is run) — so it can gate
-CI or a pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence
-field) are report-only and never affect the exit code; --selftest exits non-zero on
-a failing assertion, so it can gate alone.
+STACK-derivation drift (J), a WEAK-backed ADOPT/KEEP verdict (K), or link rot (C,
+when --links is run) — so it can gate CI or a pre-commit hook. E (skill evidence),
+F (dangling overlaps), and I (evidence field) are report-only and never affect the
+exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
 import catalog_lib
@@ -332,6 +339,24 @@ def audit_stack_drift():
         if v in ("ADOPT", "KEEP") and k not in ledger_keys:
             problems.append(f"{v} tool '{k}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
     return problems
+
+# ---------------------------------------------------------------- K. verdict evidence gate
+def audit_verdict_evidence():
+    """Detector K (#71): a strong verdict can't rest on a README skim. An ADOPT/KEEP
+    eval must be run-backed (Evidence MEASURED or RUN) OR carry an explicit honesty
+    disclaimer in its 'How we tested' section (Evidence.honest — the documented escape
+    hatch). A REVIEW/SOURCE-ONLY ADOPT/KEEP with no disclaimer is flagged. Generalizes
+    the skills-only report-only detector E into a catalog-wide gate. Offline, gating."""
+    flagged = []
+    for ev in load_evals():
+        if ev.verdict not in ("ADOPT", "KEEP"):
+            continue
+        if ev.evidence_level in ("MEASURED", "RUN"):
+            continue  # run-backed
+        if ev.evidence.honest:
+            continue  # explicit not-run disclaimer present (escape hatch)
+        flagged.append((ev.name, ev.verdict, ev.evidence_level))
+    return flagged
 
 # ---------------------------------------------------------------- E. skill evidence (report-only)
 # A skill's value is a behaviour change, so an ADOPT verdict on a *skill* should
@@ -649,13 +674,14 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--skills", "--overlaps", "--evidence", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--evidence", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
     do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
     do_drift = (not explicit) or "--drift" in sel or "--offline" in sel  # offline gate (#70)
+    do_vev = (not explicit) or "--verdict-evidence" in sel or "--offline" in sel  # offline gate (#71)
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
@@ -668,6 +694,7 @@ def main():
         do_verd = "--verdicts" in sel
         do_comp = "--comparison" in sel
         do_drift = "--drift" in sel
+        do_vev = "--verdict-evidence" in sel
 
     rc = 0
     if do_inst:
@@ -716,6 +743,16 @@ def main():
                 print(f"  DRIFT {p}")
         else:
             print("  OK — every ADOPT/KEEP tool is in STACK or the ledger; STACK & ledger agree with verdicts")
+    if do_vev:
+        print("== K. verdict evidence (ADOPT/KEEP must be run-backed or disclaimered) ==")
+        vev = audit_verdict_evidence()
+        if vev:
+            rc = 1
+            for name, verd, lvl in vev:
+                print(f"  WEAK {name}: {verd} backed only by {lvl} and no honesty disclaimer "
+                      f"(graduate the eval to MEASURED/RUN, or add a not-run disclaimer)")
+        else:
+            print("  OK — every ADOPT/KEEP eval is run-backed (MEASURED/RUN) or carries a disclaimer")
     if do_links:
         print("== C. link rot (CATALOG.md repo links) ==")
         problems, total = audit_links()
