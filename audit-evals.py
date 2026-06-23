@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Eight detectors (A-H), each proven to catch real problems (see git history,
+Nine detectors (A-I), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -44,6 +44,12 @@ Eight detectors (A-H), each proven to catch real problems (see git history,
      repoint to a successor. Link rot (C) misses this (the link still resolves).
      Found 4 (incl. gpt-engineer ★55K). Uses authenticated `gh api`; report-only.
 
+  I. EVIDENCE-STRENGTH FIELD (opt-in, --evidence, REPORT-ONLY) — tallies each eval's
+     declared **Evidence:** field (MEASURED / RUN / REVIEW / SOURCE-ONLY): how hard we
+     looked, recorded as data and separate from the verdict (what we concluded). The
+     tracer-bullet slice (issue #62) only parses and reports; backfill + a COMPARISON
+     column (#67) and gating on weak backing (#71) build on it. Offline.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G (D/B/G offline; A hits registries)
   python3 audit-evals.py --offline    # B + D + G only (no network)
@@ -55,6 +61,7 @@ Usage:
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
+  python3 audit-evals.py --evidence   # declared Evidence-field distribution (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
@@ -276,6 +283,14 @@ MEASURED = re.compile(r"tiktoken|with[- ]skill|baseline|measured a/b|\ba/b\b|tri
 STRONG_MEASURED = re.compile(r"measured a/b|\ba/b\b|trigger rate|assertion (passed|failed)|"
                              r"\*\*hands-on,? measured|run_eval|tiktoken|measured ~", re.I)
 
+# ------------------------------------------------------- declared evidence field
+# Issue #62: the *declared* evidence-strength field — how hard we looked, recorded
+# explicitly as data rather than inferred from prose. Distinct from the Evidence
+# class below, which *infers* fabrication/measurement signals from the How section.
+EVIDENCE_LEVELS = ("MEASURED", "RUN", "REVIEW", "SOURCE-ONLY")
+EVIDENCE_FIELD = re.compile(
+    r"\*\*Evidence:\*\*\s*`?(" + "|".join(EVIDENCE_LEVELS) + r")\b")
+
 # ---------------------------------------------------------------- evidence seam
 class Evidence:
     """Evidentiary status of an eval's 'How we tested' section.
@@ -326,6 +341,13 @@ class Evaluation:
         return Evidence(self.how)
 
     @property
+    def evidence_level(self):
+        """The declared **Evidence:** field value (issue #62), or None if absent.
+        One of EVIDENCE_LEVELS — records how hard we looked, separate from the verdict."""
+        m = EVIDENCE_FIELD.search(self.text)
+        return m.group(1) if m else None
+
+    @property
     def is_skill(self):
         return bool(re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", self.text))
 
@@ -360,6 +382,21 @@ def load_evals():
         if os.path.basename(p) == "TEMPLATE.md":
             continue
         yield Evaluation.from_path(p)
+
+def audit_evidence_field():
+    """Issue #62, REPORT-ONLY: tally the declared **Evidence:** field across evals.
+    Returns (counts: level->int, missing: list of eval names with no field). Records
+    how hard we looked, separate from the verdict. Backfill + a COMPARISON column
+    land in #67; this slice only parses and reports (no gate)."""
+    counts = {lvl: 0 for lvl in EVIDENCE_LEVELS}
+    missing = []
+    for ev in load_evals():
+        lvl = ev.evidence_level
+        if lvl:
+            counts[lvl] += 1
+        else:
+            missing.append(ev.name)
+    return counts, missing
 
 def audit_skill_evidence():
     measured, backlog = [], []
@@ -491,7 +528,13 @@ def selftest():
     expect(dual.verdict_set == {"ADOPT", "CONDITIONAL"}, f"dual verdict_set {dual.verdict_set}")
     none = Evaluation("qux", "## Overview\n\nNo verdict here.\n")
     expect(none.verdict is None and none.verdict_set == set(), "missing verdict not handled")
-    n_eval_checks = 6
+    # declared Evidence field (issue #62)
+    eviz = Evaluation("ev", "## How we tested it\n\n**Evidence:** MEASURED\n\nran it live.\n")
+    expect(eviz.evidence_level == "MEASURED", f"evidence_level {eviz.evidence_level!r} != MEASURED")
+    src = Evaluation("sv", "**Evidence:** SOURCE-ONLY\n")
+    expect(src.evidence_level == "SOURCE-ONLY", f"hyphenated level {src.evidence_level!r} != SOURCE-ONLY")
+    expect(none.evidence_level is None, "absent Evidence field not None")
+    n_eval_checks = 9
 
     if fails:
         print("== selftest ==")
@@ -505,7 +548,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--skills", "--overlaps", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--skills", "--overlaps", "--evidence", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -515,6 +558,7 @@ def main():
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
+    do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
     if explicit:
         do_inst = "--installs" in sel
@@ -588,6 +632,13 @@ def main():
             print(f"  MEASURED {n}")
         for n in backlog:
             print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
+    if do_evidence:
+        counts, missing = audit_evidence_field()
+        have = sum(counts.values()); tot = have + len(missing)
+        print(f"== I. evidence-strength field (report-only) — {have}/{tot} evals declare Evidence ==")
+        for lvl in EVIDENCE_LEVELS:
+            print(f"  {lvl:<12} {counts[lvl]}")
+        print(f"  {'(none)':<12} {len(missing)}  (no declared Evidence field yet; backfill is #67)")
     if do_overlaps:
         gaps = audit_overlaps()
         strong = [(t, c) for t, c in gaps if c >= 2]

@@ -265,5 +265,44 @@ class TestSyncPluginDocs(unittest.TestCase):
             self.assertEqual(r.returncode, 1, msg="drift not detected: " + r.stdout + r.stderr)
 
 
+# ----------------------------------------------------------------- detector I (evidence field, #62)
+class TestEvidenceField(unittest.TestCase):
+    def test_evidence_level_parses_each_value(self):
+        for lvl in ("MEASURED", "RUN", "REVIEW", "SOURCE-ONLY"):
+            ev = audit.Evaluation("x", f"## How we tested it\n\n**Evidence:** {lvl}\n\nbody\n")
+            self.assertEqual(ev.evidence_level, lvl)
+
+    def test_evidence_level_absent_is_none(self):
+        ev = audit.Evaluation("x", "## How we tested it\n\nran it but never declared a field\n")
+        self.assertIsNone(ev.evidence_level)
+
+    def test_evidence_level_ignores_prose_mentions(self):
+        # The word "Evidence" in prose must not be parsed as the declared field.
+        ev = audit.Evaluation("x", "We have strong evidence it works; Evidence: maybe.\n")
+        self.assertIsNone(ev.evidence_level)
+
+    def _run_audit(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_evidence_field()
+            finally:
+                audit.ROOT = orig
+
+    def test_audit_counts_and_lists_missing(self):
+        counts, missing = self._run_audit({
+            "a.md": "**Evidence:** MEASURED\n",
+            "b.md": "**Evidence:** REVIEW\n",
+            "c.md": "no field here\n",
+            "TEMPLATE.md": "**Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}\n",  # skipped by load_evals
+        })
+        self.assertEqual(counts["MEASURED"], 1)
+        self.assertEqual(counts["REVIEW"], 1)
+        self.assertEqual(missing, ["c"])  # TEMPLATE.md excluded, c has no field
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
