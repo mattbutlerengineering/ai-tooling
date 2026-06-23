@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 505 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 509 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 ## Plan
 
@@ -110,6 +110,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | happy | platform | | $ | CONDITIONAL | REVIEW |
 | harness | skill | | ✓ | CONDITIONAL | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
+| claude-context-optimizer | plugin | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
 | humanlayer | harness | | ✓ | SKIP | REVIEW |
 | KARIMO | plugin | | ✓ | CONDITIONAL | REVIEW |
@@ -309,6 +310,9 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Composio | plugin | | ✓/$ | CONDITIONAL | SOURCE-ONLY |
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| ccusage | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| claude-monitor | tool | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
+| vibe-log-cli | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | agenta | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | codeburn | tool | | ✓ | ADOPT | MEASURED |
 | trigger.dev | platform | | ✓ | SKIP | REVIEW |
@@ -583,15 +587,15 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 165 | 165 | 100% |
+| Implement | 166 | 166 | 100% |
 | Verify | 19 | 19 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 36 | 36 | 100% |
+| Outer Loop | 39 | 39 | 100% |
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 13 | 13 | 100% |
 | Reference | 44 | 44 | 100% |
-| **Total** | **505** | **505** | **100%** |
+| **Total** | **509** | **509** | **100%** |
