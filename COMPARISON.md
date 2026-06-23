@@ -267,7 +267,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pr-review-toolkit | plugin | | ✓ | KEEP | SOURCE-ONLY |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | CONDITIONAL | REVIEW |
-| SkillSpector | tool | | ✓ | CONDITIONAL | REVIEW |
+| SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
 | trailofbits/skills | skill | | ✓ | CONDITIONAL | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
