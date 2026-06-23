@@ -360,6 +360,46 @@ class TestDetectorJ(unittest.TestCase):
         self.assertEqual(self._run(stack, ledger, comp), [])  # matched via repo basename
 
 
+# ----------------------------------------------------------------- detector K (verdict evidence, #71)
+class TestDetectorK(unittest.TestCase):
+    def _run(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_verdict_evidence()
+            finally:
+                audit.ROOT = orig
+
+    def test_measured_adopt_passes(self):
+        self.assertEqual(self._run({"a.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT**\n"}), [])
+
+    def test_review_with_disclaimer_passes(self):
+        t = "## How we tested it\n\nSource-grounded review — not run hands-on.\n\n**Evidence:** REVIEW\n\n## Verdict\n\n**ADOPT**\n"
+        self.assertEqual(self._run({"b.md": t}), [])
+
+    def test_source_only_adopt_without_disclaimer_fails(self):
+        flagged = self._run({"c.md": "**Evidence:** SOURCE-ONLY\n\n## Verdict\n\n**ADOPT**\n"})
+        self.assertEqual(flagged, [("c", "ADOPT", "SOURCE-ONLY")])
+
+    def test_review_without_disclaimer_fails(self):
+        # A hand-set REVIEW with no actual not-run disclaimer is exactly what the gate catches.
+        flagged = self._run({"d.md": "**Evidence:** REVIEW\n\n## Verdict\n\n**ADOPT**\n"})
+        self.assertEqual(flagged, [("d", "ADOPT", "REVIEW")])
+
+    def test_keep_treated_like_adopt(self):
+        flagged = self._run({"k.md": "**Evidence:** SOURCE-ONLY\n\n## Verdict\n\n**KEEP**\n"})
+        self.assertEqual(flagged, [("k", "KEEP", "SOURCE-ONLY")])
+
+    def test_skip_and_conditional_ignored(self):
+        self.assertEqual(self._run({
+            "e.md": "**Evidence:** SOURCE-ONLY\n\n## Verdict\n\n**SKIP**\n",
+            "f.md": "**Evidence:** SOURCE-ONLY\n\n## Verdict\n\n**CONDITIONAL**\n",
+        }), [])
+
+
 # ----------------------------------------------------------------- backfill-evidence (#67)
 class TestEvidenceBackfill(unittest.TestCase):
     def test_derive_levels(self):
