@@ -588,5 +588,57 @@ class TestTierStack(unittest.TestCase):
         self.assertEqual(cm.exception.code, 2)
 
 
+# ----------------------------------------------------------------- make check entrypoint (#114)
+class TestIntegrityMakefile(unittest.TestCase):
+    """Pins the `make check` entrypoint: every gate CI enforces must live in the
+    check target, and integrity.yml must delegate to `make check` — so the local
+    and CI gate sets provably can't drift (#114)."""
+
+    # The full gate set CI's integrity.yml enforces, in --check/verify mode.
+    GATES = (
+        "audit-evals.py --offline",
+        "audit-evals.py --selftest",
+        "reconcile-counts.py --check",
+        "backfill-evidence.py --check",
+        "tier-stack.py --check",
+        "sync-plugin-docs.sh --check",
+        "audit-evals.py --installs",
+    )
+
+    def _check_target_body(self):
+        with open(os.path.join(ROOT, "Makefile"), encoding="utf-8") as f:
+            lines = f.read().splitlines()
+        body, capturing = [], False
+        for l in lines:
+            if l.startswith("check:"):
+                capturing = True
+                continue
+            if capturing:
+                if l.startswith("\t"):
+                    body.append(l.strip())
+                else:
+                    break  # recipe ends at the first non-tab line
+        return body
+
+    def test_check_target_runs_every_gate(self):
+        body = "\n".join(self._check_target_body())
+        self.assertTrue(body, "Makefile has no `check:` target body")
+        for gate in self.GATES:
+            self.assertIn(gate, body, msg=f"`make check` is missing gate: {gate}")
+
+    def test_ci_delegates_to_make_check(self):
+        with open(os.path.join(ROOT, ".github/workflows/integrity.yml"), encoding="utf-8") as f:
+            yml = f.read()
+        self.assertIn("make check", yml,
+                      "integrity.yml must call `make check` so CI and the Makefile can't drift")
+
+    def test_fix_then_check(self):
+        # `fix` must end by re-running check, so a clean `make fix` means a green tree.
+        with open(os.path.join(ROOT, "Makefile"), encoding="utf-8") as f:
+            mk = f.read()
+        self.assertRegex(mk, r"fix:[\s\S]*\$\(MAKE\)\s+check",
+                         "`make fix` must re-run `make check` after applying fixers")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
