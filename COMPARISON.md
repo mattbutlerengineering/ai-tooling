@@ -384,7 +384,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ponytail | skill | | ✓ | CONDITIONAL | REVIEW |
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | CONDITIONAL | REVIEW |
-| skill-creator | plugin | | ✓ | ADOPT | REVIEW |
+| skill-creator | plugin | | ✓ | ADOPT | MEASURED |
 | Skill_Seekers | tool | | ✓ | CONDITIONAL | REVIEW |
 | SkillOpt | framework | | ✓ | DEFER | REVIEW |
 | stop-slop | skill | | ✓ | CONDITIONAL | REVIEW |
