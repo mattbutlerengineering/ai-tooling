@@ -34,6 +34,7 @@ section) · `no` (excluded — a reason is required). Exclusion reasons are grou
 | claude-reflect | KEEP | Reflect | yes | |
 | documentation-and-adrs | ADOPT | Reflect | yes | |
 | documentation-writer | ADOPT | Reflect | no | Overlaps documentation-and-adrs (installed, the chosen Diátaxis/ADR pick); redundant standalone writer |
+| ccusage | ADOPT | Outer Loop | yes | |
 | codeburn | ADOPT | Outer Loop | no | Retrospective cross-tool cost analysis; abtop (live TUI) is the default outer-loop pick — pull in for multi-tool bills |
 | agent-skills | ADOPT | Skills & Plugins | yes | |
 | mattpocock/skills | ADOPT | Skills & Plugins | yes | |
