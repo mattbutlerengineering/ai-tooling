@@ -50,7 +50,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | trace-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | SocratiCode | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| codebase-to-course | skill | | ✓ | CONDITIONAL | REVIEW |
+| codebase-to-course | skill | | ✓ | SKIP | REVIEW |
 | sourcebot | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## Implement
@@ -79,7 +79,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | HolyClaude | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | Nimbalyst | platform | | ✓ | CONDITIONAL | REVIEW |
 | agent-of-empires | tool | | ✓ | CONDITIONAL | REVIEW |
-| AgentsMesh | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
+| AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
 | claude-task-master | tool | | ✓ | CONDITIONAL | REVIEW |
 | capa | tool | | ✓ | CONDITIONAL | REVIEW |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
@@ -279,7 +279,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agnix | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | agent-vault | tool | | ✓ | CONDITIONAL | REVIEW |
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
-| openreview | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | code-on-incus | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 
 ## Ship
@@ -439,7 +439,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | memU | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | memory-os | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | Memori | platform | | ✓ | CONDITIONAL | REVIEW |
-| OpenViking | platform | | ✓ | CONDITIONAL | REVIEW |
+| OpenViking | platform | | ✓ | SKIP | REVIEW |
 | RAGFlow | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | engram | tool | | ✓ | CONDITIONAL | REVIEW |
 | mem0 | MCP server | | ✓ | CONDITIONAL | REVIEW |
@@ -490,7 +490,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | supabase | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| opendocswork-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
+| opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | figma-mcp-go | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | pg-aiguide | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -511,7 +511,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Agent-Reach | tool | | ✓ | CONDITIONAL | REVIEW |
 | AutoResearchClaw | harness | ✓ | ✓ | CONDITIONAL | REVIEW |
 | aisuite | framework | | ✓ | SKIP | REVIEW |
-| webclaw | tool | | ✓ | CONDITIONAL | REVIEW |
+| webclaw | tool | | ✓ | SKIP | REVIEW |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ARIS | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
 | last30days-skill | skill | | ✓ | ADOPT | MEASURED |
