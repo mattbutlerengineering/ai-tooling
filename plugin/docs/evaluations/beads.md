@@ -17,6 +17,8 @@ The CLI is installed once system-wide (`@beads/bd` on npm, or a curl install scr
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 Installed the real CLI (`npm install -g @beads/bd`, v1.0.5) and ran it hands-on in a throwaway git repo, exercising the dependency-aware ready queue — the core claim — plus the memory feature. Created three tasks with a linear dependency chain (Build API depends on Design schema; Write tests depends on Build API) and verified that `bd ready` correctly excludes transitively blocked work, then that closing a blocker promotes exactly the next task.
 
 ```

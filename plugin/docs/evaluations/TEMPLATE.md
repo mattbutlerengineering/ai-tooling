@@ -13,6 +13,16 @@
 
 ## How we tested it
 
+**Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}
+
+> **Choosing a value** — the `Evidence` field records *how hard we looked*, separate from the verdict (*what we concluded*). Pick the strongest one that is honestly true:
+> - `MEASURED` — ran it hands-on **and** captured metrics (token deltas, latency, A/B accuracy, counts).
+> - `RUN` — executed it hands-on, but no formal metrics (smoke test, exercised the CLI/flow).
+> - `REVIEW` — read the docs/source carefully, did **not** run it (needs an API key, heavy infra, untrusted install).
+> - `SOURCE-ONLY` — catalog-inferred from repo metadata (stars/README/license); not opened in depth.
+>
+> This must agree with the honesty disclosure below: a `REVIEW` or `SOURCE-ONLY` value requires the "not run hands-on" disclaimer. `audit-evals.py --evidence` reports the distribution (report-only for now).
+
 {Describe the actual hands-on usage. What project did you run it on? What commands did you execute? What was the input and what came back? This section must contain evidence of real usage, not README paraphrasing.}
 
 > **Honesty rule (checked by `audit-evals.py`):** if you did NOT actually run the tool, say so plainly — open this section with a disclaimer like "**Source-grounded review — not run hands-on**" and explain why (needs an API key, heavy infra, untrusted install, etc.). Never invent a run, specific metrics, or example outputs; a fabricated run is worse than an honest review. Quote any vendor benchmark as the vendor's, not as measured. Verify every install command resolves (npm/PyPI/crates/GitHub) before publishing — a wrong install command is a dead giveaway the tool was never run.
