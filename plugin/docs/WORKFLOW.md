@@ -235,13 +235,37 @@ What worked across the whole epic? What didn't? Retrospect operates at a higher 
 
 ## Cross-Cutting: Cost Efficiency
 
-Cost efficiency isn't a stage — it's a property of every stage. These tools reduce token waste across the entire workflow:
+Cost efficiency isn't a stage — it's a property of every stage. A cluster of tools all claim to "save tokens," and the catalog's flat overlap markers make them look interchangeable. They aren't. Map them onto one agent turn — **read inputs → think → write a response → build a solution** — and each attacks a different point. Picking by layer matters: stacking two tools in the same layer is redundant; one from each layer composes.
 
-| Tool | What it reduces | Where it helps |
-|------|----------------|----------------|
-| [caveman](https://github.com/JuliusBrussee/caveman) | Agent output tokens (~75% reduction) | Every stage — less verbose responses ([eval](evaluations/caveman.md)) |
-| [context-mode](https://github.com/mksglu/context-mode) | Tool input tokens (~98% reduction) | Every stage — MCP-layer sandboxing ([eval](evaluations/context-mode.md)) |
-| [headroom](https://github.com/headroomlabs-ai/headroom) | Tool output tokens (60-95% reduction) | Long sessions — compresses verbose tool output ([eval](evaluations/headroom.md)) |
+**Layer 1 — model *input*** (compress/structure tool output *before* it enters the context window):
+
+| Tool | Mechanism & reduction |
+|------|----------------------|
+| [context-mode](https://github.com/mksglu/context-mode) | MCP-layer sandbox of tool output (~98%) ([eval](evaluations/context-mode.md)) |
+| [headroom](https://github.com/headroomlabs-ai/headroom) | Compresses tool output/logs/file reads, reversible via local cache (60–95%) ([eval](evaluations/headroom.md)) |
+| [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP that reduces tool outputs (95%+) ([eval](evaluations/token-optimizer-mcp.md)) |
+| [rtk](https://github.com/rtk-ai/rtk) | CLI proxy trimming verbose dev-command output (60–90%) ([eval](evaluations/rtk.md)) |
+| [claw-compactor](https://github.com/open-compress/claw-compactor) | Deterministic AST/JSON/log compression, **no LLM inference cost**, reversible (15–82%) ([eval](evaluations/claw-compactor.md)) |
+| [lean-ctx](https://github.com/yvgude/lean-ctx) | Local Rust binary, 10 read modes, ~13-tok re-reads, signed savings ledger ([eval](evaluations/lean-ctx.md)) |
+| [Pare](https://github.com/Dave-London/Pare) | *Structures* (vs. compresses) git/test/npm/Docker tool interfaces to be compact ([eval](evaluations/pare.md)) |
+| [claude-context-optimizer](https://github.com/egorfedorov/claude-context-optimizer) | Diagnostic — flags which high-token files are wasted and prescribes fixes (no live compression) |
+
+**Layer 2 — agent *prose output*** (trim what the model writes back):
+
+| Tool | Mechanism & reduction |
+|------|----------------------|
+| [caveman](https://github.com/JuliusBrussee/caveman) | Drops filler/articles/pleasantries from responses (~65–75%) ([eval](evaluations/caveman.md)) |
+
+**Layer 3 — what gets *built*** (code restraint — a *different axis*: this isn't a token tool, the savings are a side effect of writing less code):
+
+| Tool | Mechanism |
+|------|-----------|
+| [ponytail](https://github.com/DietrichGebert/ponytail) | "Lazy senior dev" pre-write decision ladder (YAGNI → stdlib → native → dep → one-liner) with explicit safety carve-outs; benchmarked ([eval](evaluations/ponytail.md)) |
+| [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | CLAUDE.md guidelines derived from known LLM coding pitfalls ([eval](evaluations/andrej-karpathy-skills.md)) |
+
+**Layer 4 — avoid the read entirely** — semantic code search returns the few relevant snippets instead of loading whole files, cutting Layer-1 input at the source. These live under [Code Understanding](CATALOG.md) (`semble`, `serena`, `claude-context`, `cocoindex-code`, `gortex`, `code-context-engine`).
+
+> **Why the distinction bites:** Layers 1–2 are *token-efficiency* plays — same work, smaller bill. Layer 3 is a *code-quality* play whose token savings are incidental. `ponytail`'s own benchmark uses `caveman` as the baseline and beats it on every code metric, precisely because `caveman` only changes how work is *described* while `ponytail` changes what gets *built*. Your global `implementation-discipline.md` already encodes much of Layer 3 by default.
 
 ---
 
