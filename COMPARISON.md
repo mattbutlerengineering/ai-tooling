@@ -13,7 +13,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
 | code-review-graph | tool | | ✓ | CONDITIONAL | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
-| feature-dev | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| feature-dev | plugin | | ✓ | KEEP | MEASURED |
 | graphify | skill | | ✓ | CONDITIONAL | REVIEW |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -255,7 +255,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentlint | tool | ✓ | ✓ | CONDITIONAL | RUN |
 | kodus-ai | platform | ✓ | ✓/$ | CONDITIONAL | REVIEW |
 | skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
-| code-review | plugin | ✓ | ✓ | KEEP | SOURCE-ONLY |
+| code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
 | design-council | plugin | | ✓ | CONDITIONAL | REVIEW |
 | ghostsecurity/skills | skill | | ✓ | CONDITIONAL | REVIEW |
 | PR-Agent | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -265,7 +265,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | openrewrite | framework | ✓ | ✓/$ | CONDITIONAL | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | pentest-ai-agents | skill | | ✓ | CONDITIONAL | REVIEW |
-| pr-review-toolkit | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | CONDITIONAL | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
@@ -293,7 +293,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| claude-reflect | plugin | | ✓ | KEEP | SOURCE-ONLY |
+| claude-reflect | plugin | | ✓ | KEEP | MEASURED |
 | documentation-writer | skill | | ✓ | ADOPT | MEASURED |
 | documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
 | documentation (anthropics) | skill | | ✓ | CONDITIONAL | REVIEW |
@@ -426,7 +426,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | kreuzberg | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | MineContext | platform | ✓ | ✓ | CONDITIONAL | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
-| claude-mem | plugin | ✓ | ✓ | ADOPT | SOURCE-ONLY |
+| claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
 | lean-ctx | tool | | ✓ | CONDITIONAL | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
 | claude-subconscious | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
