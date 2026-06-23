@@ -17,7 +17,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | graphify | skill | | ✓ | CONDITIONAL | REVIEW |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| GSD (Get Shit Done) | framework | | ✓ | KEEP | REVIEW |
+| GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | CONDITIONAL | REVIEW |
 | ccpm | skill | | ✓ | CONDITIONAL | REVIEW |
