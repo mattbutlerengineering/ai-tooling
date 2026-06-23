@@ -310,7 +310,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | agenta | platform | | ✓ | CONDITIONAL | SOURCE-ONLY |
-| codeburn | tool | | ✓ | ADOPT | REVIEW |
+| codeburn | tool | | ✓ | ADOPT | MEASURED |
 | trigger.dev | platform | | ✓ | SKIP | REVIEW |
 | scorecard | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | sentrux | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
