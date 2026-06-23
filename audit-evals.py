@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Eleven detectors (A-K), each proven to catch real problems (see git history,
+Twelve detectors (A-L), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -56,6 +56,11 @@ Eleven detectors (A-K), each proven to catch real problems (see git history,
      disclaimer fails. Generalizes the skills-only report-only detector E into a catalog-
      wide gate (#71). Offline, gating, on by default.
 
+  L. STALENESS SWEEP (opt-in, --staleness, REPORT-ONLY) — a point-in-time eval rots:
+     a fast-moving harness can be wrong months after it was written. Flags evals whose
+     **Last verified:** date is older than its category threshold (STALENESS_DAYS, keyed
+     by Type — harnesses/MCP servers age faster than references). Report-only (#65).
+
   I. EVIDENCE-STRENGTH FIELD (opt-in, --evidence, REPORT-ONLY) — tallies each eval's
      declared **Evidence:** field (MEASURED / RUN / REVIEW / SOURCE-ONLY): how hard we
      looked, recorded as data and separate from the verdict (what we concluded). The
@@ -76,6 +81,7 @@ Usage:
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
   python3 audit-evals.py --evidence   # declared Evidence-field distribution (offline)
+  python3 audit-evals.py --staleness  # flag evals past their last-verified threshold (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
@@ -85,11 +91,20 @@ when --links is run) — so it can gate CI or a pre-commit hook. E (skill eviden
 F (dangling overlaps), and I (evidence field) are report-only and never affect the
 exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
 """
-import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
+import os, re, sys, json, glob, subprocess, datetime, urllib.request, urllib.error
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TIMEOUT = 15
+
+# Staleness thresholds in days, by eval Type (#65). Fast-moving categories rot sooner
+# than stable references — configured in ONE place. Tune here, not per detector call.
+STALENESS_DAYS = {
+    "harness": 120, "MCP server": 120, "framework": 120, "platform": 120,  # fast-moving
+    "tool": 180, "skill": 180, "plugin": 180,                              # moderate
+    "reference": 365,                                                       # stable
+}
+DEFAULT_STALENESS_DAYS = 180
 
 # ---------------------------------------------------------------- helpers
 def http_ok(url):
@@ -222,6 +237,26 @@ def audit_links():
             if res != "ok":
                 problems.append((slug, res))
     return problems, len(slugs)
+
+# ---------------------------------------------------------------- L. staleness sweep
+def audit_staleness(today=None):
+    """Detector L (#65, REPORT-ONLY): flag evals whose **Last verified:** date is older
+    than its category threshold (STALENESS_DAYS, keyed by Type) — fast-moving harnesses/
+    MCP servers rot sooner than stable references. `today` is injectable for tests.
+    Returns (stale, undated) where stale is a list of (name, type, date, age_days,
+    threshold) and undated is the count of evals carrying no last-verified date."""
+    today = today or datetime.date.today()
+    stale, undated = [], 0
+    for ev in load_evals():
+        d = ev.last_verified
+        if d is None:
+            undated += 1
+            continue
+        threshold = STALENESS_DAYS.get(ev.type, DEFAULT_STALENESS_DAYS)
+        age = (today - d).days
+        if age > threshold:
+            stale.append((ev.name, ev.type, d.isoformat(), age, threshold))
+    return stale, undated
 
 # ---------------------------------------------------------------- H. archived repos
 # A catalogued repo that GitHub has flagged `archived` is no longer maintained — the
@@ -462,6 +497,23 @@ class Evaluation:
         return bool(re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", self.text))
 
     @property
+    def type(self):
+        """The Type cell from the eval's catalog row (tool/skill/MCP server/…), or None."""
+        m = re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*([^|]+?)\s*\|", self.text)
+        return m.group(1).strip() if m else None
+
+    @property
+    def last_verified(self):
+        """The declared **Last verified:** date (issue #65) as a date, or None if absent/bad."""
+        m = re.search(r"\*\*Last verified:\*\*\s*(\d{4}-\d{2}-\d{2})", self.text)
+        if not m:
+            return None
+        try:
+            return datetime.date.fromisoformat(m.group(1))
+        except ValueError:
+            return None
+
+    @property
     def verdict(self):
         m = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", self.text)
         return m.group(1) if m else None
@@ -674,7 +726,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--evidence", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -687,6 +739,7 @@ def main():
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
     do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
+    do_staleness = "--staleness" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
     if explicit:
         do_inst = "--installs" in sel
@@ -796,6 +849,15 @@ def main():
             print(f"  ADOPT/KEEP set ({strong_tot}): {strong['MEASURED']} MEASURED ({pct}%), "
                   f"{strong['RUN']} RUN, {strong['REVIEW']} REVIEW, {strong['SOURCE-ONLY']} SOURCE-ONLY "
                   f"→ {backed}/{strong_tot} run-backed (the rest are review-only — #68 graduates them, #71 gates)")
+    if do_staleness:
+        stale, undated = audit_staleness()
+        print(f"== L. staleness sweep (report-only) — {len(stale)} stale eval(s), {undated} undated ==")
+        for name, typ, d, age, thr in sorted(stale, key=lambda r: -r[3]):
+            print(f"  STALE {name} ({typ}) last verified {d} — {age}d old > {thr}d threshold")
+        if not stale:
+            print("  OK — no dated eval is past its category staleness threshold")
+        if undated:
+            print(f"  ({undated} evals carry no **Last verified:** date yet — add one when you re-check them)")
     if do_overlaps:
         gaps = audit_overlaps()
         strong = [(t, c) for t, c in gaps if c >= 2]

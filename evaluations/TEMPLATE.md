@@ -2,6 +2,7 @@
 
 **Repo:** [{owner}/{repo}](https://github.com/{owner}/{repo})
 **Stars:** {count} | **Last updated:** {date} | **License:** {license}
+**Last verified:** {YYYY-MM-DD}  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
 **Dev loop stage:** {Plan | Implement | Verify | Review | Ship | Reflect}
 **Layer:** {Process | Tooling | Infrastructure}
 
