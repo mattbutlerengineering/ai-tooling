@@ -510,7 +510,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | webclaw | tool | | ✓ | CONDITIONAL | REVIEW |
 | autoresearch | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ARIS | skill | ✓ | ✓ | CONDITIONAL | REVIEW |
-| last30days-skill | skill | | ✓ | ADOPT | REVIEW |
+| last30days-skill | skill | | ✓ | ADOPT | MEASURED |
 | llm-council | tool | | ✓ | CONDITIONAL | REVIEW |
 | PaperOrchestra | skill | | ✓ | CONDITIONAL | REVIEW |
 | storm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
