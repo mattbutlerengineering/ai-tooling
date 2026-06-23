@@ -10,7 +10,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-templates | tool | | ✓ | SKIP | REVIEW |
 | claude-hud | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ccstatusline | plugin | ✓ | ✓ | CONDITIONAL | REVIEW |
-| codegraph | tool | ✓ | ✓ | ADOPT | REVIEW |
+| codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
 | code-review-graph | tool | | ✓ | CONDITIONAL | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
 | feature-dev | plugin | | ✓ | KEEP | SOURCE-ONLY |
