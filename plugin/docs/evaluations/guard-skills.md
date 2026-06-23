@@ -15,6 +15,8 @@ The skills work reactively — invoke after the agent produces work, before comm
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read all five SKILL.md files and their reference directories via the GitHub API. Assessed depth, source quality, actionability, and overlap with existing catalog tools. Could not install via `npx skills add` (permission denied in sandbox), so evaluation is architecture-review-based.
 
 ```

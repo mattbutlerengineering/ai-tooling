@@ -21,6 +21,8 @@ It is **purely defensive** — it reviews/flags, it never scans infrastructure o
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I verified the canonical repo via `gh search`, then read the plugin's `README.md`, `.claude-plugin/plugin.json` (version 2.0.6), `hooks/hooks.json` (all four hook events + the git-command `if`-matchers), the `LICENSE` (Apache-2.0), and inspected `hooks/patterns.py` for the regex/RuleId structure. The hook wiring, layer behavior, env-var configuration, model defaults, privacy/data-flow statements, and the ~25-pattern / 25+-vulnerability-class claims are all read directly from the repo's own files. **No plugin was installed, no edits were made to trigger the hooks, and no LLM review was invoked**, so I have not independently measured detection precision/recall or false-positive rates — those would require live use. No metrics below are invented; the "few percentage points more" recall and "2× cost" figures are the README's own claims, cited as such.
 
 ```bash

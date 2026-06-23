@@ -15,6 +15,8 @@ The core architecture is simple: tmux for session isolation, git worktrees for c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via GitHub API. Examined the repo structure (Go monorepo: `app/`, `session/`, `daemon/`, `ui/`, `keys/`, `config/`), README, configuration format, release cadence, and issue tracker. Not installed locally — requires tmux which is available but was not tested hands-on.
 
 ```bash

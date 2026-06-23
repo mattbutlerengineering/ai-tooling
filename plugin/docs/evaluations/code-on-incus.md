@@ -19,6 +19,8 @@ It also supports running **multiple agents isolated from each other** in paralle
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded review — not run hands-on.** A hands-on run was attempted this session and could not be completed: the substrate (Incus/LXD) is not installed and could not be installed in this environment. The claims below come from the repository (GitHub metadata, README, 10 tagged releases, linked wiki) — the project's own documentation, not observed isolation/defense behavior. Per the repo's honesty standard, nothing here asserts a run that did not happen.
 
 **The install attempt (what was actually run, and what blocked it).** The probe results below *are* measured — they are real output from this macOS host, and they establish why the agent-isolation behavior could not be exercised:

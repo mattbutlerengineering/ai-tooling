@@ -17,6 +17,8 @@ MCP server integration is community-maintained: `coleam00/mcp-mem0` (678 stars) 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation based on:
 1. Existing detailed comparison at `evaluations/mem0-vs-claude-mem.md` covering head-to-head benchmarks, feature matrices, and use-case mapping
 2. Inspection of the official Claude Code plugin (marketplace.json v0.2.10) and 6 bundled skills (`mem0-cli`, `mem0-integrate`, `mem0-oss-to-platform`, `mem0-test-integration`, `mem0-vercel-ai-sdk`, `mem0`)

@@ -32,6 +32,8 @@ Surfaces:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** sentrux is a GUI-first desktop binary (wgpu/eframe) distributed via Homebrew/curl/release artifacts; this evaluation did not install it or execute a scan, so no scores, treemaps, or gate results are reported as observed. Claims below are grounded in the actual repository artifacts, not paraphrased marketing. I examined repo metadata, the full English README, the recursive file tree (121 `.rs` files, 24 test files), the release history (29 releases v0.3.0→v0.5.7 over ~7 days in March 2026), the contributor list, the quality-signal design doc, the MCP handler source, the license/tier source, and the Pro-architecture doc.
 
 ```bash

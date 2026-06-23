@@ -15,6 +15,8 @@ Notably, the README carries a prominent **security caution**: MemPalace's only o
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No package installed, no memory stored or retrieved, benchmark not reproduced. The R@5 figure and star/fork counts are reported verbatim and unverified. Per its own warning, only the official GitHub/PyPI sources should ever be used.
 
 ```bash

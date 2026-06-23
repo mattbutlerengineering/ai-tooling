@@ -13,6 +13,8 @@ Pydantic AI is **a Python agent framework "to bring that FastAPI feeling to GenA
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agent built, no providers wired.
 
 ```bash

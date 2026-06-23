@@ -15,6 +15,8 @@ The six production decay risks: **Cognitive Overload** (mental effort to underst
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 **Source-grounded review — hands-on run attempted and blocked, not run.** This evaluation set out to do exactly what issue #37 asked: a measured, hands-on run before any STACK promotion. That run could **not** be completed in this environment, and per the repo's honesty rule no run, metrics, or example outputs are invented below. What follows is an honest record of the blocked attempt plus the source-grounded findings.
 
 **What was attempted (every path denied by the sandbox):**

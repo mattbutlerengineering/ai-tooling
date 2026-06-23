@@ -23,6 +23,8 @@ It ships TS + Python SDKs, a hosted dashboard/console, and a documented self-hos
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No SDK wired in, no memory store exercised, no benchmark reproduced. Claims (including the #1 benchmark positioning and the ~50ms profile latency) come from the repository's own README and metadata, not observed behavior.
 
 ```bash

@@ -17,6 +17,8 @@ The project advertises 81 framework integrations across ~80 languages and ~170 t
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — installed and cloned locally, but NOT run against a live MCP client and NOT benchmarked on a real project.** I shallow-cloned the repo to `/tmp/trace-mcp-eval`, pulled metadata via `gh api`, read the full README, the benchmark estimator source (`src/analytics/benchmark.ts`), the security model (`SECURITY.md`), the Claude Code routing block (`AGENTS.md`), and the PreToolUse guard hook (`hooks/trace-mcp-guard.sh`). I did **not** run `npx trace-mcp benchmark .`, did not wire it into Claude Code, and did not reproduce any token or time figure. Every number below is cited as the **project's own claim**, not a measurement I made.
 
 ```bash

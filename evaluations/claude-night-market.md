@@ -15,6 +15,8 @@ Mechanically, you add the marketplace (`/plugin marketplace add athola/claude-ni
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo/source review, not a hands-on installed run. Installing even a subset mutates `~/.claude` with PreToolUse/SessionStart hooks across multiple plugins (the TDD gate would block Write/Edit in this very session), and the marketplace spans 198 skills with their own vocabulary — too invasive to install just to evaluate. Findings rest on the repo metadata, README, marketplace manifest, per-plugin `plugin.json` dependency declarations, the `imbue` hook wiring, CI workflows, test/ADR counts, and the CONSTITUTION/STEWARDSHIP governance docs.
 
 ```bash

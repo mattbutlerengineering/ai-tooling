@@ -21,6 +21,8 @@ Notably, it explicitly does **not** enforce prose style — the README cites ben
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, `BENCHMARK.md` (21 published scenarios with fixtures from real tool outputs), the repo file tree, and the plugin/skill manifests. Not hands-on installed — the user already runs a context stack (claude-mem + OMEGA), and the prior version of this evaluation claimed a hands-on run with a non-existent `npx context-mode init` command, so this revision is grounded in verifiable repo evidence instead. Cross-referenced the savings claims against the methodology in BENCHMARK.md and differentiated against catalog peers headroom (ADOPT), caveman (ADOPT), and token-optimizer-mcp.
 
 ```bash

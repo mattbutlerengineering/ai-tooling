@@ -21,6 +21,8 @@ It's explicit about the sweet spot: **8B–35B**. It warns that ≤4B models "st
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No model loaded, no session. Claims (including the "87% benchmark with a 4B-active model" tagline) come from the repository (GitHub metadata, README comparison table, 24 releases) — the project's own documentation, not reproduced benchmarks.
 
 ```bash

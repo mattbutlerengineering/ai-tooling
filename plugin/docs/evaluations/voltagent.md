@@ -15,6 +15,8 @@ Mechanically, you scaffold with `npm create voltagent-app@latest`, then declare 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the quick-start code sample (`src/index.ts` registering an agent + workflow), and the documented module list. Verified provider-swap is config-level (via the Vercel AI SDK provider packages), that tools are Zod-typed with lifecycle hooks, and that the framework is genuinely decoupled from the proprietary VoltOps console (you can run agents without it). Not exercised in a live build — this is a framework requiring a project, provider keys, and a multi-feature integration to evaluate honestly, so the verdict is condition-gated rather than ADOPT.
 
 ```bash

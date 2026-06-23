@@ -15,6 +15,8 @@ Two pieces make the "for coding agents" claim more than a tagline. **`@arrow-js/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `npm install`-ed, no app was scaffolded, no sandbox executed, and the `@arrow-js/skill` installer was not invoked. Claims come from the README, the recursive file tree, the per-package `README.md`/`package.json` (e.g. `@arrow-js/sandbox`, `@arrow-js/skill`, `@arrow-js/core`), and `AGENTS.md` — not from observed runtime, bundle-size, or benchmark numbers. The "tiny / blazing-fast / type-safe" language is the authors' framing and the `bench/` harness their own; no independent measurement was taken here.
 
 ```bash

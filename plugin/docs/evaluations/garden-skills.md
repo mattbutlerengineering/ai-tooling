@@ -21,6 +21,8 @@ The packaging is the other half of the story: a `.claude-plugin/marketplace.json
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was installed via the CLI or marketplace, no skill was activated, and no presentation/article/image/diagram was generated. Every claim comes from the repository (GitHub metadata, README, full file tree, per-skill README excerpts), not from observed behavior. Quality language ("beautiful," "production-grade," theme/recipe counts) is the author's README framing and the manifest's stated content, not anything I measured.
 
 ```bash

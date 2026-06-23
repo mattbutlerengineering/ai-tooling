@@ -13,6 +13,8 @@ ACE adds a **persistent learning loop** to agents: "AI agents don't learn from e
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agent trained, no Skillbook built, the benchmark numbers not reproduced.
 
 ```bash

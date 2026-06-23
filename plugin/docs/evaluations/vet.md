@@ -13,6 +13,8 @@ Vet (by [Imbue](https://imbue.com)) is **a standalone verification tool for code
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No changes verified, no agent session exported.
 
 ```bash

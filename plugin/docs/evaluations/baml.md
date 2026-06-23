@@ -15,6 +15,8 @@ Mechanically, you write LLM functions in `.baml` files — `function ChatAgent(m
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the function-as-prompt model. Confirmed the typed-function abstraction (`f(args) -> Type`), the multi-language codegen, the type-safe parsing/streaming/retries, and the structured-output approach to tool-calling on any model. Not built a live `.baml` project, so condition-gated.
 
 ```bash

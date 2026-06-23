@@ -15,6 +15,8 @@ It is explicitly framed around *your* dev loop, not around building an AI produc
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the GitHub repo, full README, file tree, harness adapter modules, and the Polly orchestrator config + skills via the GitHub API and PyPI stats. Did NOT install or run it.** This is a deliberate non-install architecture/surface-area review to decide catalog placement, applying the same lens used for sandcastle (CONDITIONAL) and oh-my-openagent (SKIP). Installing would mean adding a Python server runtime, Node 22, tmux, and (on Linux) bubblewrap, plus standing up the web UI — out of scope for a placement call. No metrics below are measured by us; star/download/contributor counts are live API calls, and any performance claims would be the project's own (the README makes none of substance).
 
 ```bash

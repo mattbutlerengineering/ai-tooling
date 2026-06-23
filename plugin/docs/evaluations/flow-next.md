@@ -13,6 +13,8 @@ Flow-Next is a **spec-driven AI workflow plugin** for Claude Code, OpenAI Codex,
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No plugin installed, no spec authored, no worker/review cycle executed.
 
 ```bash

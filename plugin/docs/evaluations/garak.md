@@ -15,6 +15,8 @@ Mechanically, garak runs a battery of **probes** against a target model and uses
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented probe/detector model and target list. Confirmed the nmap-style probe→detector design, the breadth of attack classes, and the multi-backend target support (HF/OpenAI/Bedrock/Replicate/litellm/REST/gguf). Not run against a live model — a real scan needs a target endpoint/keys and meaningful runtime — so verdict is condition-gated.
 
 ```bash

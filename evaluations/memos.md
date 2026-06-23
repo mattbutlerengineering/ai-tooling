@@ -15,6 +15,8 @@ It's offered as a **cloud service or self-hosted**, with concrete integrations: 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No memory store deployed, no agent wired in. Claims — including all benchmark numbers — come from the repository (GitHub metadata, README, linked docs) and are the project's own; **not independently reproduced here**.
 
 ```bash

@@ -23,6 +23,8 @@ The load-bearing idea is step 2 + the "never invent behaviour / always resolve /
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 **Hands-on, measured** — a with-skill-vs-baseline A/B on a real git merge built to expose the skill's load-bearing claim (step 4: semantic conflicts hide behind *text-clean* merges). Constructed a throwaway repo where two branches change **non-overlapping files**, so git auto-merges with **no conflict markers and a clean `git status`** — yet the result is broken:
 
 - `main` branch: renames `discount` → `applyDiscount` in `lib.js`.

@@ -13,6 +13,8 @@ Microsoft Agent Framework (MAF) is **an open, multi-language framework for build
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agent/workflow built, no provider configured.
 
 ```bash

@@ -15,6 +15,8 @@ Roughly 69 link entries are organized into five categories — Development & Cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Reference-list evaluation, modeled on `evaluations/awesome-claude-code.md`. We fetched metadata, read the README, counted entries, and checked freshness via the latest commit date. We did not install Codex or run any skill.
 
 ```

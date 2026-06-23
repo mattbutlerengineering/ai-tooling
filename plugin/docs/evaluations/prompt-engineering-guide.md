@@ -13,6 +13,8 @@ The Prompt Engineering Guide is **dair-ai's canonical, long-running reference** 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not a hands-on tool.** This is a knowledge base, not software to run. Assessment is based on the repository description, scope, and metadata, plus its well-known status as a reference; no notebooks were executed.
 
 ```bash

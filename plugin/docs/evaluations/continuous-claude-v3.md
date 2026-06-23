@@ -21,6 +21,8 @@ Three distinctive subsystems:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on repo structure (1,176 files), README, hooks configuration, and key skill files (tldr-code, create_handoff, skill-activation). No hands-on installation — the setup requires Docker, PostgreSQL, Python 3.12+, and a 12-step wizard, making it unsuitable for quick evaluation.
 
 ```bash

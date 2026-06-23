@@ -15,6 +15,8 @@ The `install` command auto-detects 11 coding agents (Claude Code, Codex CLI, Gem
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did **not** install or run the binary (it writes to agent config files and pre-tool hooks; out of scope for a read-only eval). All claims below are from the README, badges, and repo metadata, not independent measurement.
 
 ```

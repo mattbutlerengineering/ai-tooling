@@ -17,6 +17,8 @@ Relevant to this catalog: OpenSquilla can run as a **stdio MCP server bridge** (
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, README, license, docs tree, and key feature docs via the GitHub API. Did NOT install or run it.** This is a deliberate non-install evaluation, for the same reason as the oh-my-openagent SKIP: OpenSquilla is a *replacement* front-end, not a Claude Code enhancement. Installing it means standing up a separate Python agent platform with its own gateway, Web UI, model router (bundled ONNX/LightGBM/Git-LFS model assets), and provider keys — it would not run inside, or extend, the Claude Code dev loop this catalog standardizes on. The verdict therefore rests on the repo, license, documented mechanics, and maturity signals. No metrics are invented; star/fork/release/contributor counts are from live API calls, and the cost/score figures in the README leaderboard are quoted as the project's own claims.
 
 ```bash

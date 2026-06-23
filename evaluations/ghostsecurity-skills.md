@@ -15,6 +15,8 @@ The scan-code skill alone covers 103 vulnerability vectors across 4 project type
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of all 7 SKILL.md files and supporting prompts/criteria. Read the full scan-code pipeline (planner → nominator → analyzer → verifier), the backend.yaml criteria for injection/authz vectors, the validate SKILL.md for live DAST flow, and the scan-deps orchestrator for SCA pipeline.
 
 ```

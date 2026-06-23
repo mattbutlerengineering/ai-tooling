@@ -15,6 +15,8 @@ The mechanism is straightforward: `council.py` orchestrates async parallel queri
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the full codebase (6 backend Python files, React frontend). Read `council.py` (the core 280-line orchestration), `config.py` (model configuration), `openrouter.py` (API client). Did not run the app (requires OpenRouter API key with credits).
 
 ```

@@ -17,6 +17,8 @@ At query time it exposes a set of `codebase_*` MCP tools. The core is `codebase_
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the GitHub repo, full README, release history, and repo tree. Did NOT install or run it hands-on.** No Docker stack was started, no `codebase_index` was executed, and no MCP session was driven. The 61%/84%/37x figures below are the author's published benchmark (VS Code 2.45M-line repo, live with Claude Opus 4.6), not numbers we reproduced. Per the catalog integrity rule, this is an architecture/maturity review calibrated against the existing codegraph (ADOPT) and code-context-engine (CONDITIONAL) evaluations.
 
 What was actually inspected:

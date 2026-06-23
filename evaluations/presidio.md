@@ -15,6 +15,8 @@ Mechanically it's a pluggable pipeline: **analyzers** detect PII using a mix of 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the analyzer/anonymizer pipeline model. Confirmed the multi-modal coverage (text/image/structured), the pluggable recognizer architecture (NLP + pattern + context), and the customization story. Presidio is a mature, widely-used Microsoft OSS project. Not wired into a live pipeline, so condition-gated.
 
 ```bash

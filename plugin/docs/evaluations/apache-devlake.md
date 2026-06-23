@@ -13,6 +13,8 @@ Open-source dev data platform that ingests data from DevOps tools (GitHub, Jira,
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **README/architecture review — not deployed.** A meaningful run needs a Docker Compose stack plus a GitHub PAT and Grafana, then hours of ingested history — out of scope for a throwaway test here. The documented bring-up is:
 
 ```

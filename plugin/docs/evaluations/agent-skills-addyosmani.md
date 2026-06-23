@@ -20,6 +20,8 @@ Standout skills beyond the standard lifecycle:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the full SKILL.md content for 4 representative skills (spec-driven-development, incremental-implementation, doubt-driven-development, context-engineering) via the GitHub API. Examined the plugin.json, hooks.json, session-start hook, commands directory, agents directory, and references directory. Cross-referenced with the existing evaluation in evaluations/skills-collections.md which covers the collection at a higher level.
 
 ```bash

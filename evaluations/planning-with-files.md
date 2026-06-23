@@ -19,6 +19,8 @@ The mechanism is not just a prompt. The SKILL.md frontmatter registers **lifecyc
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Inspected the repo, README, the canonical English `skills/planning-with-files/SKILL.md`, the file tree, and release history via the GitHub API. I did not install it, did not run the hooks, and did not execute a planning loop. No metrics in this document are mine — the 96.7% pass-rate figure below is the author's self-reported benchmark, quoted as such.** The decisive question for the catalog is not "does file-based planning work" (it plainly does — it is the same principle the user's incumbent GSD is built on) but "is a *standalone* planning-files skill additive for a user who already runs GSD and superpowers?" That is a redundancy comparison, answerable from the skill's mechanism plus the user's installed footprint.
 
 ```bash

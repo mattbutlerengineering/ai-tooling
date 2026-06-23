@@ -13,6 +13,8 @@ The official Claude Code repository serves as the canonical reference for the to
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Queried the GitHub API to assess the repo as a reference resource — issue quality, label taxonomy, release cadence, and response patterns.
 
 ```bash

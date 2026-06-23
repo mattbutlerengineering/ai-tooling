@@ -15,6 +15,8 @@ Mechanically, each command is a markdown file with a custom XML schema — `<ins
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo, README, file-tree, command-file, and config inspection via the GitHub API — **not a hands-on installed run, and not needed to reach the verdict.** The metadata alone (created and last-pushed within ~2.5 hours on the same day, single contributor, ~4 commits, no releases) plus reading the actual command files and config schema was decisive. There was no value in copying a stale template `.claude/` into a project just to confirm what the source already shows.
 
 ```bash

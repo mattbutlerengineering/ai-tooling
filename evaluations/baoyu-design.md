@@ -15,6 +15,8 @@ The architecture is a methodology core plus a fan of specialized prompts and sca
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed, no `npx` installer was executed, no design was generated, and none of the `agents/` Node/TS code (gen-pptx, figma decode, design-system compiler) was run. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, `SKILL.md` frontmatter + orchestration body, the built-in-skills / starter-components / agents listings), not from observed output. We did **not** verify the README's central claim that it reproduces "the vast majority" of `claude.ai/design`, nor the implied quality of generated artifacts — the side-by-side screenshots are the author's, not ours.
 
 ```bash

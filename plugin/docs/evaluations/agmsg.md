@@ -20,6 +20,8 @@ The demo: two `monitor`-mode Claude Code instances play tic-tac-toe against each
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agents wired together, no messages exchanged. Behavior comes from the README and metadata, not observed runs.
 
 ```bash

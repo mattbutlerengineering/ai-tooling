@@ -15,6 +15,8 @@ Mechanically it runs a **planner**, an **implementer**, and independent **valida
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented loop (planner → implementer → independent validators in isolated environments → verify/reject with reproducible failures). Confirmed the correctness-first framing, the independent-validation design, the multi-provider support, and the multi-platform issue backends. Not run on a live issue, so condition-gated.
 
 ```bash

@@ -19,6 +19,8 @@ Originally "Gen AI Toolbox for Databases" (`genai-toolbox`), it predates MCP and
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I verified the repository identity and read the primary artifacts via the GitHub API. I did not stand up the binary, connect a database, or invoke any tool, so no latency, query-result, or success-rate metrics appear below — none are invented.
 
 Repo verification was the first task: the catalog name "mcp-toolbox" is ambiguous (several unrelated `*mcp-toolbox*` repos exist). `gh search repos mcp-toolbox` returned **`googleapis/mcp-toolbox`** (15.7K stars, "MCP Toolbox for Databases is an open source MCP server for databases") as the unambiguous top hit, and the catalog already links to exactly that URL. Google's `genai-toolbox` is the *same project* under its former name (confirmed by the rename banner in the README), so there is no candidate confusion: it is one repo.

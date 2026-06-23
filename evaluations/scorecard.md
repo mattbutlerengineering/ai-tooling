@@ -13,6 +13,8 @@ Automated security health assessment for open source projects. Runs 19 checks (B
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Queried the REST API for two projects to assess output quality:
 
 ```bash

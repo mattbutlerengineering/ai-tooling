@@ -15,6 +15,8 @@ The filtering is substantive — 7,215 entries excluded for spam (4,065), duplic
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the README structure, category organization, filtering methodology, and community engagement via GitHub API. Compared entry counts, curation depth, and update frequency against the other skill catalogs in the ai-tooling catalog.
 
 ```

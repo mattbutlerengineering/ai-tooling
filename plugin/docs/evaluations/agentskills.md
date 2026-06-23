@@ -15,6 +15,8 @@ The repo backs **agentskills.io**: the spec lives in `docs/specification.mdx`, w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the GitHub repo metadata, README, and file tree only via `gh api`. Did NOT clone the repo, run the `skills-ref` implementation, or browse agentskills.io. No hands-on usage is reported — observations are repo/README-sourced and noted as such.
 
 ```bash

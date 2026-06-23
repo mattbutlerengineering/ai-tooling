@@ -15,6 +15,8 @@ Beyond the table stakes, it leans hard into Grok-specific and autonomy features:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `install.sh` was executed, no Grok API key was supplied, and no agent loop, sub-agent, scheduler, or Telegram bridge was exercised. There is no xAI API key in this environment, so every capability and pricing claim below is the authors' README/source framing, not measured behavior. The "lower-cost" and "fast" descriptions are theirs.
 
 ```bash

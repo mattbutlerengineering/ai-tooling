@@ -15,6 +15,8 @@ This is a research release from Microsoft (arXiv 2605.23904, project page, demo 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `pip install`ed; no training run, rollout, or evaluation was executed; no benchmark was reproduced. Every claim about accuracy lifts, token counts, and 52-cell dominance is the authors' README/paper framing, which I did **not** verify — I only confirmed the code, configs, benchmark envs, and example skill checkpoints exist. I did read one shipped artifact (`ckpt/searchqa/gpt5.5_skill.md`) to confirm the output shape: a short markdown file of learned answer-normalization rules, consistent with the "compact skill" claim.
 
 ```bash

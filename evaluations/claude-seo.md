@@ -15,6 +15,8 @@ The mechanism is prompt-and-reference driven, not a closed-source SaaS. Each ski
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The plugin was not installed, no site was audited, and no report was generated, so every claim below is from the repository (GitHub metadata, README, `plugin.json`, full file tree, agent/skill inventory), not from observed audit output. The "326 tests passing" badge, the three-month Google Search Console growth screenshot, and the "site-level audits in minutes" claim are the author's self-reported figures from the README — not measured here. **Identity note:** the task brief flagged that the CATALOG link "may be wrong" (pointing at `addyosmani/web-quality-skills`). That is not what the catalog shows — line 180 already links `AgriciDaniel/claude-seo`, and `gh search repos claude-seo` confirms this is the canonical, by-far-largest "claude-seo" repo (9.3K stars vs. single-digit-K alternatives). The addyosmani link belongs to a *different* entry (`web-quality-skills`, line 162). The catalog is correct; I evaluated `AgriciDaniel/claude-seo`.
 
 ```bash

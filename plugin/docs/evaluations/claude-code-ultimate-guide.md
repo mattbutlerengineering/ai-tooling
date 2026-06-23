@@ -22,6 +22,8 @@ It explicitly positions itself on an "educational depth vs. ready-to-use" map ag
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — read, not benchmarked.** A learning resource isn't "run"; assessment is of coverage, structure, and positioning from the repo (GitHub metadata, README role-matrix, "what you'll learn," and the self-positioning comparison). The content's correctness/currency was not exhaustively audited.
 
 ```bash

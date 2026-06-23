@@ -17,6 +17,8 @@ Explicitly scoped to external attack surface only — internal AD attacks, C2 fr
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation: read the full README, examined the repo structure (71 skill directories, 14 command files, plugin.json manifest, eval harness), and read 4 representative SKILL.md files in full (hunt-xss, hunt-idor, bb-methodology, triage-validation) to assess depth, accuracy, and practical quality.
 
 ```bash

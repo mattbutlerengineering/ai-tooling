@@ -15,6 +15,8 @@ Structurally it is a **bundle of 7 Claude Code skills** under `.claude/skills/`:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review over the GitHub API. I did **not** install the skill, run the CLI, invoke the Design System Generator, or generate any UI; I produced no before/after output. I confirmed the canonical repo (disambiguated from ~20 forks/translations/demos via `gh search repos`), pulled repo metadata, walked the full file tree, read the plugin manifest, read the README head (Design System Generator section + pipeline diagram), and read the core `ui-ux-pro-max/SKILL.md` (when-to-apply gates + the full priority rule taxonomy and Quick Reference rules). Counts (67 styles, 161 palettes, 57 pairings, 99 UX rules) are the repo's own claims as stated in `plugin.json`, `skill.json`-adjacent metadata, and `SKILL.md`; I did not independently audit each dataset row or measure ranking quality. Calibrated against `evaluations/impeccable.md` (CONDITIONAL) and `evaluations/taste-skill.md` (CONDITIONAL), the two other frontend-design-cluster evals.
 
 ```bash

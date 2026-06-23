@@ -13,6 +13,8 @@ Strands Agents is **a model-driven SDK for building and running AI agents** — 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agent built with the SDK, no provider configured.
 
 ```bash

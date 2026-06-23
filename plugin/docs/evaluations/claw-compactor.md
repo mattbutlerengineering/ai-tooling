@@ -13,6 +13,8 @@ Claw Compactor (by OpenClaw) is an **LLM token-compression engine** built around
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No workspace compressed, compression ratios not reproduced, reversibility not verified.
 
 ```bash

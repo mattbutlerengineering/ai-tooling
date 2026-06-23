@@ -15,6 +15,8 @@ In effect it turns a CLI subscription (or several, load-balanced across accounts
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No proxy started, no OAuth login performed, no model called through it. Behavior is taken from the repository README and metadata, not observed.
 
 ```bash

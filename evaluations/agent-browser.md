@@ -13,6 +13,8 @@ Browser automation CLI designed for AI agents. Wraps Playwright into a higher-le
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Capability/README review — not run hands-on.** This is a documentation-and-design review of the skill's surface (its description, the actions it exposes, and how it positions itself versus Playwright MCP), not a recorded live run. Exercising it meaningfully needs a running dev server (or an Electron target) and an interactive browser session rather than a scriptable one-shot, so no timing, reliability, or per-action numbers are claimed here as measured.
 
 For a *measured* browser-automation eval in this catalog, see [playwright-mcp.md](playwright-mcp.md), where a live navigate + accessibility snapshot was actually captured.

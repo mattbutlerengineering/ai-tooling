@@ -19,6 +19,8 @@ The **`plugin-scanner`** package is a separate, CI-oriented quality gate: `plugi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded evaluation. I did **not** install or run hol-guard. The method was: read the full README, enumerate the repo file tree, inspect the runtime detector module layout and the `.factory` Claude/Codex SKILL.md, and check release cadence, license, and the user's actual local environment for fit. No scan was executed, so no detection rates, false-positive rates, or timing numbers in this document come from observed runs — the "milliseconds" latency and the protection-level behavior are the project's own claims, labeled as such.
 
 This revises an earlier (Jun 18) architecture-review eval of the same tool. That version asserted a "Safe Decode sandbox" and a documented "six-step pipeline" from `docs/guard/architecture.md`; I could not verify those specific claims against the current source tree, so per the integrity rule they are not carried forward — this version is grounded only in what the README and the `src/.../guard/runtime/` module layout actually show.

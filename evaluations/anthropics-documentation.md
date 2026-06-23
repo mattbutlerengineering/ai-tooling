@@ -13,6 +13,8 @@ A minimal, principles-first documentation skill from Anthropic's official knowle
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Applied to three documentation tasks relevant to this repo:
 
 1. **README update** — the skill's README template covers the right sections (what it is, quick start, commands, architecture overview). Applied to this repo's README.md structure, it aligns well. No gaps.

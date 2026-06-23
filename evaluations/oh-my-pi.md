@@ -29,6 +29,8 @@ Note the same naming/relationship trap as the rest of the harness cluster: omp *
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, README, full recursive file tree, license, and maturity signals via the GitHub API and the npm registry API. Did NOT install or run it.** This is a deliberate non-install evaluation. omp is an *alternative harness* — installing it (`curl -fsSL https://omp.sh/install | sh`, Homebrew, or `bun install -g @oh-my-pi/pi-coding-agent`) gives you a separate coding agent that *replaces* the front-end of this catalog's standardized Claude Code dev loop rather than extending it. Running it would not exercise the harness (Claude Code) this catalog standardizes on, and it wants its own provider/API-key config across 40+ providers. So the verdict rests on the repo, the documented mechanics, the license, and the maturity signals below. No metrics are invented; star/fork/release/contributor/commit counts are from live API calls, the npm download number is from the npm registry API, and every benchmark figure (Grok edit-success, token deltas, MiniMax pass rate) is quoted explicitly as the *project's own self-reported* claim.
 
 ```bash

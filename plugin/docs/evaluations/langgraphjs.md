@@ -17,6 +17,8 @@ The value proposition is reliability for *long-running, stateful* agent apps: re
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `npm install`ed, no graph was compiled or executed, no checkpointer or interrupt was exercised. Every claim below comes from the repository (GitHub metadata, README, monorepo file tree, `libs/` package listing, release/contributor/issue counts), not from observed runtime behavior. The "durable / production-ready / trusted by LinkedIn/Uber/Klarna/GitLab" language is the authors' README framing, not anything we measured.
 
 ```bash

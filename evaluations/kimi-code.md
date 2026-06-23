@@ -15,6 +15,8 @@ Distribution is broad and polished: an official install script (no Node.js requi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No CLI installed, no session. Claims come from the repository (GitHub metadata, README, 24 releases, hosted docs links) — the project's own documentation, not observed coding quality.
 
 ```bash

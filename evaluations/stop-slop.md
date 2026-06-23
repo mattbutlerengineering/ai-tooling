@@ -21,6 +21,8 @@ The scoring rubric (Directness, Rhythm, Trust, Authenticity, Density, each 1–1
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review. I did not install the skill or run it on a live draft. I read the complete repository over the GitHub API — every file: `SKILL.md`, all three reference files (`phrases.md`, `structures.md`, `examples.md`), `README.md`, and `CHANGELOG.md` — and reasoned about the method against the catalog framework and the two overlap entries already in `CATALOG.md` (taste-skill, humanizer). The before/after pairs quoted in "What it does" are the author's own examples shipped in `examples.md`, not outputs I generated. I ran no rewrites of my own; any judgement about output quality below is reasoning about the rules, not a measured result.
 
 ```bash

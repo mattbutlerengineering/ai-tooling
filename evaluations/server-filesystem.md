@@ -15,6 +15,8 @@ Mechanism: the server is started with one or more allowed directories, either as
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method (stated honestly): **inspected, not installed/run.** Investigated via `gh api` against `modelcontextprotocol/servers` — pulled repo metadata and read the full `src/filesystem/README.md` to enumerate the tool surface, the directory-access-control model (command-line args vs. Roots protocol), and the tool annotations. No server process was started and no MCP client was wired to it; the catalog framework decision below does not depend on runtime metrics, only on the capability surface and the overlap analysis against Claude Code's native tools.
 
 ```

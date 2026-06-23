@@ -17,6 +17,8 @@ Its product philosophy is unusual: trunk ships only the registry + infra. Channe
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo via the API on 2026-06-19: repo metadata, the full README, the top-level file tree, and the release history. Did NOT install or run nanoclaw. Installing it means a full system service: it installs Node/pnpm/Docker if missing, registers an Anthropic credential with OneCLI, builds an agent container image, and pairs a live messaging channel (Telegram/Discord/WhatsApp bot tokens or a local CLI). That is a standing background daemon plus third-party chat-app credentials — out of scope for a desk-side catalog review, and not meaningfully exercisable without wiring real messaging accounts. This is an architecture/surface-area review for catalog placement, using the same lens as the forkd (CONDITIONAL, agent-runtime infra) and aisuite (SKIP, app-building library) calibration evals. No metrics below are measured by us.
 
 ```bash

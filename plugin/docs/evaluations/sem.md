@@ -13,6 +13,8 @@ sem is **semantic version control built on top of Git**: instead of lines change
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No repo diffed, no MCP server connected.
 
 ```bash

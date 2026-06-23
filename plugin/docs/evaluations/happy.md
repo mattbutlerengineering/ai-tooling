@@ -17,6 +17,8 @@ The security model is the standout. The server is **zero-knowledge**: clients ge
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository, root README, the `happy-cli`, `happy-server`, and `happy-agent` package READMEs, `docs/encryption.md`, and `docs/voice-architecture.md`; reviewed the monorepo file tree and pulled maturity metrics via the GitHub and npm APIs. **Did not install the CLI, pair a device, or run a remote session** — doing so requires installing a global npm package that wraps the agent, registering a device against the relay (or self-hosting the server), and an iOS/Android/web client outside this environment; and the differentiated voice path requires a paid ElevenLabs account. Verdict rests on source/doc inspection and maturity signals, not a hands-on run.
 
 ```bash

@@ -15,6 +15,8 @@ The core value proposition is a single desktop app that consolidates all AI inte
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on repository structure (284MB, TypeScript, Electron-based), README feature documentation, release history (v1.9.11, weekly releases), and ecosystem positioning. The repo includes CLAUDE.md and AGENTS.md, indicating the project itself uses AI-assisted development.
 
 ```

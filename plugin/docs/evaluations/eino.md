@@ -15,6 +15,8 @@ Per the README it provides: **Components** — reusable building blocks like `Ch
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the component + ADK model (ChatModel/Tool/Retriever/ChatTemplate; agent tool use, multi-agent coordination, context management, interrupt/resume HITL). Confirmed the Go-idiomatic positioning and the LangChain/Google-ADK lineage. Not built a live Go app, so condition-gated.
 
 ```bash

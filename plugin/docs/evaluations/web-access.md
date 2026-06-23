@@ -13,6 +13,8 @@ web-access is **an Agent Skill that gives SKILL.md-compatible agents (Claude Cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill installed, no browser driven; README is primarily Chinese (read via translation).
 
 ```bash

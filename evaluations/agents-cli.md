@@ -15,6 +15,8 @@ Two install paths: `uvx google-agents-cli setup` installs the CLI plus skills in
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `uvx`/`npx` install was performed, no skill was added to any assistant, no GCP project was authenticated, and no agent was scaffolded, evaluated, or deployed. This environment has no Google Cloud credentials, so the eval, deploy, infra, and publish flows are entirely unexercised. Every claim is from GitHub metadata, the README, the file tree, and the docs index — not observed behavior.
 
 ```bash

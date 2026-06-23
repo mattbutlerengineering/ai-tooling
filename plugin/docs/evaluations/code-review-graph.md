@@ -19,6 +19,8 @@ Beyond review it includes a large surplus of analysis features: Leiden community
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, full README, release history, and repo tree via the GitHub API. Not installed or run hands-on.** No `code-review-graph build` was executed and no MCP session was driven. Every metric below (82x median / 528x max token reduction, 0.71 impact F1, build/latency numbers) is the **author's published benchmark**, not a number we reproduced. Per the catalog integrity rule, this is an architecture/maturity review calibrated against the existing codegraph (ADOPT) and code-context-engine (CONDITIONAL) evaluations.
 
 What was actually inspected:

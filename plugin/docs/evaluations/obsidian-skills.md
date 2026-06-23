@@ -21,6 +21,8 @@ The mechanism is install-and-trigger, not orchestration. The repo is itself a Cl
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed, no plugin added, and neither the Obsidian CLI nor Defuddle CLI was executed. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, two sampled `SKILL.md` frontmatters), not from observed agent behavior. The "saves tokens" framing for `defuddle` is the author's README claim, not a number I measured.
 
 ```bash

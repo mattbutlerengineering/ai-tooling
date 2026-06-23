@@ -15,6 +15,8 @@ Mechanically, AG-UI defines a standard stream of events that an agent backend em
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the protocol's stated purpose (event-based standard for agent↔frontend interaction), the `create-ag-ui-app` scaffold, and the framework-integration/Dojo resources. Placed it in Reference as a protocol standard (peer to MCP/A2A) rather than a runnable tool. Not implemented in a live app, so condition-gated.
 
 ```bash

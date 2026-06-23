@@ -15,6 +15,8 @@ Mechanism (from `server.py`): a `FastMCP` server with `@mcp.tool()`-decorated fu
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Blender was not launched, the addon was not loaded, no socket was opened, and no `execute_blender_code` was issued. We did **not** install or execute it — appropriate given the tool's host reach. Claims come from the repo: metadata, README, file tree, and `src/blender_mcp/server.py` (tool decorators, socket setup, telemetry wrappers). No rendering quality, latency, or success-rate was measured.
 
 ```bash

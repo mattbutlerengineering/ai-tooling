@@ -17,6 +17,8 @@ The security pack (7 rules, opt-in) blocks Bash file writes, network exfiltratio
 
 ## How we tested it
 
+**Evidence:** RUN
+
 Installed it for real (`pip install agentlint`, **v2.5.x, 78 rules** via `agentlint list-rules`) and exercised the core mechanism — `agentlint check`, which evaluates a tool call from stdin and emits a Claude Code hook decision. Fed it dangerous and benign Bash calls and watched what it blocked, both at default config and with the opt-in packs enabled.
 
 ```bash

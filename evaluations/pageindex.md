@@ -15,6 +15,8 @@ Mechanically it's two steps: (1) generate a tree-structure index (a ToC-like hie
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the documented two-step retrieval pipeline, the deployment options, and the FinanceBench claim. Confirmed the no-vector/no-chunk design, the tree-search retrieval mechanism, the traceability story (page/section grounding), and the self-host vs. cloud split. The 98.7% benchmark is the project's own published result (vs. a separate Mafin2.5 repo) — not independently reproduced. Not run on a live corpus, so condition-gated.
 
 ```bash

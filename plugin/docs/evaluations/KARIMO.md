@@ -17,6 +17,8 @@ Distribution is the modern Claude Code path: `/plugin marketplace add opensesh/K
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No plugin was installed, no `/karimo:*` command was executed, and no wave orchestration was observed. Every claim is from the repository (GitHub metadata, README, recursive file tree, `plugin.json`), not from measured behavior. The capability deltas ("+ branch identity verification," "+ semantic loop detection," etc.) are the authors' README claims, not verified here; the demo GIF and hosted overview site were not opened.
 
 ```bash

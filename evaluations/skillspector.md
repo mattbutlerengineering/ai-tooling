@@ -18,6 +18,8 @@ excessive agency, supply chain, etc.) with severity codes.
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded review — not run hands-on.** SkillSpector requires **Python 3.12+**
 (this machine has 3.11.4, so `make install` / the `skillspector` CLI won't run cleanly)
 and its full pipeline needs an **LLM API key** (OpenAI-compatible or NVIDIA NIM, per

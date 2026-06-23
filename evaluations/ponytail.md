@@ -26,6 +26,8 @@ The discipline is "lazy, not negligent": the rule explicitly carves out input va
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The skill was not installed, no agent session was run under it, and the benchmark was not reproduced, so every number below is the author's self-reported figure from the README, not anything I measured. The benchmark methodology is unusually well-documented for this category and worth reading directly: `benchmarks/results/2026-06-18-agentic.md`.
 
 ```bash

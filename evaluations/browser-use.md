@@ -23,6 +23,8 @@ There is a heavily-promoted hosted **Cloud** offering (stealth browsers, proxy r
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method, stated honestly: **inspected the GitHub repo metadata, the full README, and the documented CLI/skill/library surfaces. Did not install or run the agent against a live site.** No hands-on metrics below are invented — where I lack first-hand numbers I say so and reason from the architecture and from our two calibration evals (agent-browser ADOPT, Playwright MCP ADOPT), which were tested hands-on on local dev servers.
 
 ```bash

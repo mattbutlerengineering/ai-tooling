@@ -26,6 +26,8 @@ The core thesis is John Ousterhout's *A Philosophy of Software Design* idea — 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Skill-mechanism review. Method: read the full `SKILL.md` and both bundled reference files (`DEEPENING.md`, `DESIGN-IT-TWICE.md`) pulled from the repo via the GitHub API; read the sibling skill `domain-modeling/SKILL.md` and the two calibration evaluations from the same repo (`domain-modeling.md` CONDITIONAL, `resolving-merge-conflicts.md` ADOPT); and mapped the surrounding mattpocock ecosystem (`improve-codebase-architecture`, `domain-modeling`, `prototype`, `grill-with-docs`) plus the catalog's stated overlap. I did **not** run it end-to-end against a live design/refactor session on a throwaway repo — the artifact under test is a prompt-only process skill, so the thing being evaluated *is* the vocabulary, the heuristics, and the two procedures, all of which are reproduced above. Note: this skill is already present in the running session's skill list as `codebase-design` with the exact frontmatter shown, because the user has `mattpocock/skills` cloned locally — so the practical question is "does it earn shelf space," not "should I install it."
 
 ```bash

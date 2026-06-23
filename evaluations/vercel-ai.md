@@ -17,6 +17,8 @@ Like LangChain, the primary purpose is building the LLM *application* you ship �
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `npm install ai`, no agent built, no `npx skills add vercel/ai` executed, no provider called. Claims come from GitHub metadata, the README, and the file tree — not observed behavior. License is flagged NOASSERTION because the GitHub API couldn't derive one SPDX for the changeset-managed monorepo; package manifests are Apache-2.0 (not independently re-verified here).
 
 ```bash

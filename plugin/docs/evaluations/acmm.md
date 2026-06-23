@@ -15,6 +15,8 @@ ACMM is a conceptual framework, not software. Per the arXiv abstract, it observe
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 This is a reference/conceptual framework (an arXiv paper), not an installable tool, so there is no command to run. "Testing" here means reading the source and comparing its thesis against this repo's own maturity framing in WORKFLOW.md.
 
 - Fetched the arXiv abstract page (`https://arxiv.org/abs/2604.09388`) and confirmed: author Andy Anderson, v1 Apr 10 2026 / v2 Apr 27 2026, 6 levels, defining dimension = feedback-loop topology, testing identified as the most critical investment.

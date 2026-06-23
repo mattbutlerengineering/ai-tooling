@@ -25,6 +25,8 @@ Atlassian also ships an **official** remote MCP server ([atlassian/atlassian-mcp
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not connected to a live Confluence instance.** This evaluation is honest about its method: no MCP server was run, no Confluence pages were read or written, and no tool-call latencies or success rates were measured. Connecting would require a real Atlassian instance and an API token, neither of which was used. Findings come from repo metadata, the canonical-repo selection search, and the project README (tool list, auth model, deployment compatibility matrix). No metrics below are invented.
 
 ```bash

@@ -19,6 +19,8 @@ The mechanism is a bundle of ~13 portable Agent Skills (SKILL.md files) installa
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review. I did not install the skills or generate any UI with them. Working over the GitHub API I pulled repo metadata, the full file tree, and read the README, `skills/llms.txt` (the maintainer's own one-line summary of every skill), `skills/output-skill/SKILL.md` in full, the plugin manifest, and the CHANGELOG. The two largest SKILL.md files (the 87 KB v2 `taste-skill` and the 40 KB imagegen skills) I characterized from the maintainer's `llms.txt` descriptions and README skill table rather than reading in full, given their size. The Floria example images in the repo are the maintainer's own outputs, not anything I produced. No dials were tuned, no code generated; every judgement below is reasoning about the skill design and surface, not a measured result. Calibrated against the sibling `evaluations/stop-slop.md` (CONDITIONAL).
 
 ```bash

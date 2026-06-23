@@ -15,6 +15,8 @@ It targets a broad surface: RAG systems, semantic search, question answering, mu
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented pipeline/component model. Confirmed the modular-pipeline architecture with explicit retrieval/routing/memory/generation control, the breadth (RAG, search, QA, multimodal, agents), the Python/pip install path, and the OSS vs. Enterprise split. Not built a live pipeline, so condition-gated.
 
 ```bash

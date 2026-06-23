@@ -15,6 +15,8 @@ Mechanically, the differentiator is that it uses **eBPF to capture traffic at th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented record/replay model. Confirmed the eBPF network-layer capture (no SDK/code changes), the language-agnostic positioning, the auto-generated tests + data-mocks, and the infra-virtualization breadth (DBs, queues, external APIs) beyond HTTP. The "faster than unit tests / 90% coverage" framing is marketing; the mechanism (record real flows → replay as tests) is sound. Not run against a live app, so condition-gated.
 
 ```bash

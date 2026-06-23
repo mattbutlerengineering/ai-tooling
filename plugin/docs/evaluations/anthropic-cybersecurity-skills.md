@@ -17,6 +17,8 @@ Ships as a Claude Code plugin (`.claude-plugin/plugin.json`) and installs with `
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation: read the README, examined repo structure, checked the index.json, and read 2 complete SKILL.md files plus their companion `references/` and `scripts/` directories.
 
 ```bash

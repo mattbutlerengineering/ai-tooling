@@ -13,6 +13,8 @@ Skill that turns any folder of code, SQL schemas, docs, papers, images, or video
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Skill/mechanism review — specific project run not reproduced here.** graphify is installed locally (`~/.claude/skills/graphify/`) and its mechanism (input -> knowledge graph -> clustered communities -> HTML+JSON+audit report) is read from the SKILL.md. The documented invocation surface:
 
 ```

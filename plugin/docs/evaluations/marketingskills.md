@@ -15,6 +15,8 @@ The mechanism is install-and-trigger, not orchestration. Skills are installed vi
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `npx skills`, no marketplace was added, and no marketing task was executed in any tool. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, one sampled `SKILL.md`), not from observed agent behavior. The "proven frameworks / best practices" language is the author's README framing, not anything measured here.
 
 ```bash

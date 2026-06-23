@@ -15,6 +15,8 @@ The SKILL.md is 1,718 lines and acts as a strict behavioral contract with 8 "LAW
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the installed skill at `~/.claude/skills/last30days/SKILL.md` (v3.3.2), examined all 57 Python library modules under `scripts/lib/`, reviewed the README, and assessed the architecture against Agent-Reach (34K stars), the closest catalog competitor.
 
 ```bash

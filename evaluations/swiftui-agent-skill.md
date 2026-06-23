@@ -17,6 +17,8 @@ Part of a larger ecosystem: companion skills exist for SwiftData (349 stars), Sw
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the SKILL.md and all 9 reference files directly from GitHub to assess depth, accuracy, and actionability. Could not install via `npx skills add` due to permission restrictions, so this is an architecture-review evaluation.
 
 ```bash

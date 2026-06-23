@@ -15,6 +15,8 @@ The README is an 462-line essay on "harness engineering" — a conceptual framew
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review-based. Read the README, inspected the 12-stage progression, read `s01_agent_loop.py` (core loop), `s_full.py` (combined harness), and the task-system documentation. Verified repo structure: 557 files, 43 Python, 105 markdown, 3 languages.
 
 ```bash

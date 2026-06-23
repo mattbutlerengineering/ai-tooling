@@ -15,6 +15,8 @@ The mechanism: every agent interaction (prompt, tool call, response) is captured
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review — inspected the GitHub repo, full README, `docs/SKILLIFY.md`, repo tree, and topics via the `gh` API. Did NOT install or run the tool (it requires a Deeplake account, browser sign-in, and stores all session data in Activeloop's cloud by default — outside the bounds of a doc-review evaluation). Compared the mechanism against catalog peers it overlaps with (openskills, claude-mem) and against calibration evals agentmemory (CONDITIONAL) and aisuite (SKIP).
 
 ```bash

@@ -13,6 +13,8 @@ Opik is **open-source AI observability, evaluation, and optimization** — "buil
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No traces logged, no evals run.
 
 ```bash

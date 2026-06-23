@@ -15,6 +15,8 @@ Supported inputs (per README): PDF, PowerPoint, Word, Excel, images (EXIF + OCR)
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Hands-on**, `pip install 'markitdown[all]'` into a clean venv and run against a real 27,308-byte HTML deck from this repo on 2026-06-20 (upgraded from the prior source-grounded note).
 
 ```bash

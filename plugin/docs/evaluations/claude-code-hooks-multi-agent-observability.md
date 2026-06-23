@@ -15,6 +15,8 @@ The architecture (per the README) is a clean reference pipeline: **Claude agents
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented pipeline (hooks → Bun+SQLite → WebSocket → Vue). Confirmed the hook-event-capture model and the multi-agent/swarm tracing focus. Note: **no license is specified** and the last push is ~2026-02 — it reads as a reference/demo system (from a well-known Claude Code educator) more than a maintained product. Not run live, so condition-gated.
 
 ```bash

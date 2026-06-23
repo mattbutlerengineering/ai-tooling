@@ -13,6 +13,8 @@ MCP server built on Playwright that gives AI agents direct browser control — n
 
 ## How we tested it
 
+**Evidence:** RUN
+
 Ran the Playwright MCP server live from inside an agent session (installed as a Claude Code plugin; the standalone install is `claude mcp add playwright -- npx @playwright/mcp@latest`). Navigated to a real page and captured the accessibility snapshot — the tool the eval claims is the differentiator — to see exactly what the agent gets back.
 
 ```

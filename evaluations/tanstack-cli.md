@@ -15,6 +15,8 @@ The relevant angle for this catalog is that integration: rather than an agent sc
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature list (TanStack Start/Router scaffolding, `--router-only` SPA mode, MCP server, Agent Skills installation). Confirmed the official-CLI status and the agent-facing MCP + skills integration. Not run live, so condition-gated. Relevance here is the framework-maintained MCP/skills pattern, not general TanStack usage.
 
 ```bash

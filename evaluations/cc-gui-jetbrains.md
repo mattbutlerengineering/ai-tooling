@@ -20,6 +20,8 @@ The maintainer notes a security posture: a `/security-review` audit before each 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No plugin installed in a JetBrains IDE, no session. Claims come from the repository (GitHub metadata, README feature list, Marketplace link, 30 releases) — the project's own documentation, not observed behavior.
 
 ```bash

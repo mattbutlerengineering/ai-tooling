@@ -15,6 +15,8 @@ Key properties per the README: **self-contained** (no external DBMS or cloud ser
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and release notes. Confirmed the self-hosted/on-prem Copilot-alternative positioning, the self-contained (no-DBMS/cloud) deployment, the OpenAPI integration surface, consumer-GPU support, and the repo/doc/GitLab-MR context indexing. Last push ~2026-03 (steadier cadence than some peers). License resolves to NOASSERTION via the API — it is open-source/self-hostable, but pin the exact license terms before commercial redistribution. Not deployed against a live model/IDE, so condition-gated.
 
 ```bash

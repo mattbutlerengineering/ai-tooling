@@ -22,6 +22,8 @@ You `npm i @inngest/agent-kit inngest`, define agents/tools (or pull tools from 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and core-concepts docs. Confirmed the agents/networks/state/routers model, the code-based↔LLM-based routing spectrum, MCP tooling support, the built-in tracing, and the Inngest Dev Server (local) + engine (cloud durability) pairing. Noted the v0.9.0 requirement to install `inngest` separately. Last push ~2026-04 — steadier cadence than some rivals. Not run on a live network build, so condition-gated.
 
 ```bash

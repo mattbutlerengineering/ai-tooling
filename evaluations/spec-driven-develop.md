@@ -17,6 +17,8 @@ It ships **two complementary skills**:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skills installed, no workflow executed. Claims come from the repository (GitHub metadata, README "What It Does" / S.U.P.E.R / platform sections) — the project's own documentation, not observed behavior.
 
 ```bash

@@ -15,6 +15,8 @@ On that foundation, txtai layers: vector search with SQL, object storage, topic 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the feature summary (embeddings database core; pipelines; workflows; agents; Web + MCP APIs; multi-language bindings). Confirmed the embeddings-database foundation (sparse+dense + graph + relational) and the layered pipeline/workflow/agent model. A mature, long-standing project. Not built a live workflow, so condition-gated.
 
 ```bash

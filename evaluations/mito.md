@@ -19,6 +19,8 @@ The core value for the dev loop is the in-notebook AI (chat + error debugging gr
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the three-component model (Mito AI copilot; spreadsheet→Python codegen; Streamlit/Dash embedding). Confirmed the in-notebook AI-assistant positioning and the auto-codegen mechanic. License resolves to NOASSERTION via the API — it's open-core with a Mito Pro tier; confirm what the OSS install includes. Not run in a live notebook, so condition-gated.
 
 ```bash

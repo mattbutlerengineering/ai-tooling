@@ -15,6 +15,8 @@ Mechanically, Logfire is an opinionated wrapper around OpenTelemetry. You `pip i
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented SDK surface. Confirmed the OTel foundation (traces/metrics/logs), the manual-tracing and auto-instrumentation paths, the Pydantic-model analytics integration, and the SQL query model. Verified the open/closed split (SDK + docs open, server closed). Not run against a live app — honest observability numbers require a real workload and a multi-day window, so this is condition-gated.
 
 ```bash

@@ -15,6 +15,8 @@ Mechanically you load a project (or files), then traverse and mutate the AST —
 
 ## How we tested it
 
+**Evidence:** RUN
+
 **Hands-on**, ts-morph v28.0.0 `npm install`ed and driven via a real script against this repo's `presentations/development-process/deck-stage.js` (an IIFE-wrapped Web Components deck, ~1,900 lines) on 2026-06-20.
 
 ```js

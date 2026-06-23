@@ -15,6 +15,8 @@ Depth is the standout trait. Module 3 (Getting Started) alone has 15 sub-guides 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — not installed or run (code samples require language toolchains and, for advanced labs, Azure/PostgreSQL). Inspected via GitHub API:
 
 ```

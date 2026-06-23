@@ -1,5 +1,7 @@
 # mattpocock/skills vs agent-skills: Detailed Comparison
 
+**Evidence:** SOURCE-ONLY
+
 > **Re-reviewed 2026-06-19 against v1.0.1** (released 2026-06-17). Matt Pocock's skills hit a tagged v1 and are now an installable plugin — `.claude-plugin/plugin.json` registers 17 skills — installed via `npx skills@latest add mattpocock/skills` rather than copied out of a `.claude` directory. 136K stars (was 130K). Key churn since the prior review: `caveman` and `zoom-out` **removed**; `diagnose` **renamed** to `diagnosing-bugs`; `write-a-skill` **replaced** by `writing-great-skills`; new `ask-matt` (router), `codebase-design`, `domain-modeling`, `grilling` (model-invoked), and `resolving-merge-conflicts` skills added. v1 also renames the taxonomy from Commands/Skills to **user-invoked / model-invoked** (a user-invoked skill orchestrates and may call model-invoked skills, but never another user-invoked one). Verdict unchanged — **use both** — and the case for adopting mattpocock is stronger now that it's a one-command plugin.
 
 ## mattpocock/skills (~25 active skills)

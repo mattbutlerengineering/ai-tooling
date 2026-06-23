@@ -13,6 +13,8 @@ Plandex is **an open-source terminal AI coding agent "designed for large project
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No project built, no plan executed.
 
 ```bash

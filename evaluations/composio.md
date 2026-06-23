@@ -1,5 +1,7 @@
 # Composio
 
+**Evidence:** SOURCE-ONLY
+
 ## What it does
 
 Composio is an SDK and tooling platform that connects AI agents to 500+ external apps (Gmail, Slack, GitHub, Notion, Linear, Figma, Jira, etc.) through a unified interface. It handles OAuth authentication, tool discovery, and action execution across services. Their MCP product "Rube" exposes this as an MCP server that works with Claude Code, Cursor, VS Code, and other MCP-compatible clients.

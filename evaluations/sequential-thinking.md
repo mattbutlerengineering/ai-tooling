@@ -13,6 +13,8 @@ MCP server that provides a `sequentialthinking` tool for structured chain-of-tho
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Mechanism/architecture review — not run hands-on.** The install is the real, published package (`npx @modelcontextprotocol/server-sequential-thinking`, part of the official MCP servers repo), and the tool's behavior is well-documented and simple: an agent calls `sequentialthinking` repeatedly, each call carrying a numbered step (title, content, "next step needed" flag), optionally revising a prior step. The decisive question for this catalog — does it add value on top of a Claude Code model that *already* has native extended thinking? — is answerable from the mechanism, not a benchmark, so no latency or token figures are claimed here as measured.
 
 ```bash

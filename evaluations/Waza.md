@@ -15,6 +15,8 @@ The mechanism is the now-standard Agent Skills pattern: each skill is a folder w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `npx skills add` or the plugin marketplace, no slash command was invoked, and no helper script was executed. Every claim comes from the repository (GitHub metadata, README, recursive file tree, the skills/rules layout), not from observed behavior. The CI badges (tests passing) and release count are repo facts; the *quality* of each skill in use was not measured.
 
 ```bash

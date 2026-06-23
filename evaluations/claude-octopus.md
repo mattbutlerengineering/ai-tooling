@@ -17,6 +17,8 @@ The consensus is not theater-by-prompt. `council.md` mandates that the command s
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-and-docs review against the GitHub repo — **not** a hands-on installed run, and no models were actually dispatched. Installing octo mutates `~/.claude` (49 commands, 32 agents, 54 skills, a broad set of lifecycle hooks) and the differentiated multi-model path requires multiple external provider CLIs and their paid subscriptions/API keys to exercise honestly; running it just to evaluate would be both invasive and costly. No consensus results, provider outputs, or benchmark numbers below are invented — the verdict rests on the manifest, the command runner contract, the documented gate mechanics, and the maturity signals. I read the README, `.claude-plugin/plugin.json`, `.claude/commands/council.md`, and the file tree, and queried repo metadata.
 
 ```bash

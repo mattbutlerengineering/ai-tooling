@@ -15,6 +15,8 @@ Mechanically it ships as a Rust crate (`crates.io`), npm binary wrapper (`lean-c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary was installed (no curl-install, brew, cargo, or npm), no agent was onboarded, no shell hook was activated, no file was read through a mode, and no `gain`/savings ledger was generated. The 60–90% reduction, "~13 tokens on re-read," "77 MCP tools," and per-command compression figures are the **authors' README/benchmark claims, not measurements I made**. Everything below is from the repository (GitHub metadata, README, recursive file tree, commit/release counts) and the project's framing.
 
 ```bash

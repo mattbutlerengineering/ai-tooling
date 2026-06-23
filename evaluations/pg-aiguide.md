@@ -21,6 +21,8 @@ Three delivery surfaces from one repo: `npx skills add timescale/pg-aiguide` (wo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** Examined the GitHub repo metadata, the full README, the recursive file tree, release/tag history, recent commit messages, and read the actual artifacts: the `postgres` router `SKILL.md`, the `design-postgres-tables` reference, `API.md` (the MCP tool contract), and `.claude-plugin/marketplace.json`. The "see the difference" benchmark in the README (4× constraints, 55% more indexes) is **the vendor's own demo video, not reproduced here** — it is cited as a vendor claim, not verified output. No schemas were generated and no `search_docs` queries were run, so no metrics below are invented.
 
 ```bash

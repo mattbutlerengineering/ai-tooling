@@ -15,6 +15,8 @@ Per the README, highlights include: **model routing** (40+ providers through one
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the feature highlights (model routing, agents, graph workflows with `.then()`/`.branch()`/`.parallel()`, HITL suspend/resume, RAG, memory, evals). Confirmed the TypeScript-first, production-oriented positioning and the framework integrations (React/Next/Node/standalone). License resolves to NOASSERTION via the API — confirm exact terms before commercial reliance. Not built a live app, so condition-gated.
 
 ```bash

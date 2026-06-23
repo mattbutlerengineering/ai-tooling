@@ -15,6 +15,8 @@ System: Amazon Linux 2023 base, code runs as a `vercel-sandbox` user with `/verc
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No sandbox was created, no command executed, no preview URL opened. I did not provision a Vercel account, pull an OIDC token, or run the `ai-example`. Every claim comes from the repository (metadata, README, file tree, package layout), not from observed isolation behavior. In particular I did **not** verify the strength of the Firecracker isolation, latency to first command, or billing — those are Vercel-side properties I can only relay from the README, not measure. This is a **hosted, paid, vendor-locked** service; that materially shapes the verdict and is the single most load-bearing fact a reader needs.
 
 ```bash

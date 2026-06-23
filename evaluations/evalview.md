@@ -17,6 +17,8 @@ The **MCP server** — the form this catalog entry references — is one of seve
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Not hands-on tested. This is an **architecture / source-review** evaluation based on the repository README (46.7 KB, read in full), repository metadata via the GitHub API, the PyPI/npm package listing, and the repo's own positioning docs. No `pip install evalview`, no `evalview mcp serve`, and no agent regression run were performed — stating this honestly per the integrity rule; the verdict is calibrated against that limitation.
 
 Repo identification was the first task because the catalog entry was unlinked and carried no URL. The catalog hint ("agent-regression-testing MCP server, overlaps langfuse") matched, and the repo was positively verified:

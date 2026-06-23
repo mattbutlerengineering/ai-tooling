@@ -15,6 +15,8 @@ Each skill is a self-contained directory with a SKILL.md and supporting scripts/
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repo structure, skill content, and marketplace manifest. Read 5 skills in full (mcp-builder, frontend-design, webapp-testing, skill-creator, claude-api) and checked commit frequency.
 
 ```bash

@@ -15,6 +15,8 @@ It supports a wide spread of agents — Claude Code, OpenCode, Mistral Vibe, Cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary installed, no session created. Claims come from the repository (GitHub metadata, README feature list, topics) — the project's own documentation, not observed behavior.
 
 ```bash

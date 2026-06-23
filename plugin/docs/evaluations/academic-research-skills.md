@@ -15,6 +15,8 @@ The mechanism is an orchestrated multi-agent pipeline run *by the host model* ag
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** The plugin was not installed via the marketplace command, no pipeline stage was executed, no paper was written or reviewed. Every claim below is from the repository surface (GitHub metadata, README, full file tree, release history, license file), not from observed tool output. The showcase metrics quoted below ("caught 15 fabricated refs," "found 21/68 issues missed by 3 rounds") are the author's self-reported showcase artifacts in `examples/showcase/`, not anything we measured or independently verified.
 
 ```bash

@@ -17,6 +17,8 @@ Notably, CrewAI *does* ship a Claude Code plugin (`/plugin install crewai-skills
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `pip install crewai`, no crew defined, no flow executed, no AMP/Control Plane account. Every claim is from the repository surface (GitHub metadata, README, recursive file tree, release count), not from observed agent behavior. The "lightning-fast," "lean," and "100K certified developers" claims are the authors' README framing, not anything measured here.
 
 ```bash

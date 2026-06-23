@@ -13,6 +13,8 @@ MCP-based persistent memory engine for AI coding agents with hybrid retrieval (B
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against README, published benchmarks, repo structure, and competitor comparison table. Compared claims against the existing memory-systems evaluation (`evaluations/memory-systems.md`) and catalog peers: claude-mem (ADOPT), engram (CONDITIONAL), mem0 (CONDITIONAL), cognee (CONDITIONAL).
 
 ```

@@ -13,6 +13,8 @@ A curated collection of 43 practical Claude Code tips organized from basics to a
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Read the full README (43 tips across ~3,000 lines of content) and assessed each tip against the catalog's existing knowledge base. Checked the repo structure: `.claude-plugin/` with marketplace.json and plugin.json, `scripts/` with the status line bar, `skills/` directory, and `content/` with supplementary articles. Compared against the four other Claude Code reference entries in the catalog (claude-howto, claude-code-best-practice, learn-claude-code, claude-code-system-prompts).
 
 ```

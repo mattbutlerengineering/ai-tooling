@@ -19,6 +19,8 @@ Note the naming/relationship trap: it *consumes* Claude Code's config convention
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, README, full recursive file tree, license, docs index, and maturity signals via the GitHub API and npm registry API. Did NOT install or run it.** This is a deliberate non-install evaluation. claurst is an *alternative harness* — installing it (`curl ... | bash` dropping a binary into `~/.claurst/bin`, or `npm i -g claurst` which postinstall-downloads a platform binary) gives you a separate coding agent that replaces the front-end of this catalog's standardized Claude Code dev loop rather than extending it. Running it would not exercise the harness (Claude Code) this catalog standardizes on, and it wants its own provider/API-key config. So the verdict rests on the repo, the clean-room provenance, the documented mechanics, the license, and the maturity signals below. No metrics are invented; star/fork/release/contributor/commit counts are from live API calls and npm download numbers are from the npm registry API.
 
 ```bash

@@ -20,6 +20,8 @@ The four core tools:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 This is a docs-only repo with no deployable code, so hands-on testing was done through architecture review, documentation analysis, community health checks, and direct comparison against the three tools already in the catalog's Code Review & Quality section: the `code-review` plugin, `pr-review-toolkit` plugin, and `shadcn/improve`.
 
 Architecture review:

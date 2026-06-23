@@ -15,6 +15,8 @@ The "for coding agents" claim rests on two real but narrow things: (1) the compa
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture and surface-area review via the GitHub API — repo metadata, README, root `CLAUDE.md`, package list, the `packages/cli/src/skill.ts` installer, and the shipped skill asset `packages/cli/assets/skills/formkit/SKILL.md`. I did **not** install FormKit into a Vue/React project or run `npx formkit skill` against a live agent. This is the same lens applied to the aisuite (SKIP) and fast-agent (CONDITIONAL) calibration evals: decide catalog placement by whether the tool has dev-loop surface area, not by re-confirming it works as a form library (it demonstrably does, with 4.7K stars and enterprise users). No metrics below are measured.
 
 ```bash

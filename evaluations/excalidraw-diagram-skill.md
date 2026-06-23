@@ -15,6 +15,8 @@ The mechanism is drop-in-and-go: clone into `.claude/skills/`, and the agent rea
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was cloned into `.claude/skills/`, `uv sync` / `playwright install` was not executed, and no diagram was generated or rendered. Every claim comes from the repository (GitHub metadata, README, full file tree, `SKILL.md`), not from observed output. Claims about diagram *quality* ("beautiful," "argue visually") and the render loop's effectiveness are the author's framing and the code's stated intent, not anything I measured.
 
 ```bash

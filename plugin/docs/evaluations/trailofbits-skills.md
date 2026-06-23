@@ -13,6 +13,8 @@ Claude Code plugin marketplace from Trail of Bits with 10+ security skills cover
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Marketplace/inventory review — full audit not run.** Inspected the actual plugin set via the GitHub API (`repos/trailofbits/skills/contents/plugins`) and read the skill structure, rather than recording a live audit of a target codebase (a meaningful audit run is interactive and codebase-specific, not a scriptable one-shot). The repo ships as a Claude Code plugin marketplace:
 
 ```

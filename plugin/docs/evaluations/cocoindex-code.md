@@ -13,6 +13,8 @@ cocoindex-code (`ccc`) is a **zero-config, AST-based semantic code search tool**
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No index built, no searches performed, the 70% token-savings claim not measured.
 
 ```bash

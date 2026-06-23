@@ -13,6 +13,8 @@ continues **hands off your AI coding session from one tool to another** — "you
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No session handed off.
 
 ```bash

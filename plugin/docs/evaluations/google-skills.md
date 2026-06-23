@@ -15,6 +15,8 @@ The skills act as authoritative grounding documents — they tell the agent the 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the repository structure and content quality across 4 representative skills (firebase-basics, gemini-api, alloydb-basics, google-cloud-waf-security). Read SKILL.md files and reference directories to assess depth, accuracy, and structural consistency.
 
 ```

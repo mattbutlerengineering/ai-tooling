@@ -21,6 +21,8 @@ The mechanism, as documented in `AGENTS.md` (the root router the agent reads eve
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Architecture review via the GitHub API — did NOT install or run hands-on.** This matches every prior Memory & Context eval (claude-mem ADOPT; agentic-stack, memsearch, agentmemory, SimpleMem all CONDITIONAL): the user already runs claude-mem + OMEGA as the live memory stack, and this repo's whole premise is that it only delivers value once you spend months accumulating your *own* data — there is nothing to "try" in a single session that would produce honest evidence. The repo was UNLINKED in the catalog, so step one was verifying identity.
 
 ```bash

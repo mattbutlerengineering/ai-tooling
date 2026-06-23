@@ -1,5 +1,7 @@
 # mem0 vs claude-mem
 
+**Evidence:** SOURCE-ONLY
+
 ## mem0
 **Repo:** [mem0ai/mem0](https://github.com/mem0ai/mem0)
 **Stars:** 58,645 | **Forks:** 6,739 | **Open issues:** 361 | **Last updated:** 2026-06-15 | **License:** Apache-2.0 | **Created:** 2023-06-20 | **Backed by:** Y Combinator S24

@@ -20,6 +20,8 @@ It's available four ways from one open-source engine: a **CLI**, an **MCP server
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No binary installed, no page scraped. Claims come from the repository (GitHub metadata, README usage/install/format examples, 30 tagged releases) — the project's own documentation, not observed extraction quality.
 
 ```bash

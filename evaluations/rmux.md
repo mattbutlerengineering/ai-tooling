@@ -15,6 +15,8 @@ Use it three ways: from the **CLI** (tmux-like), from **Rust/Python** (typed aut
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No build, no session, no SDK call. Claims come from the repository (GitHub metadata, README, badges, demo descriptions, 10 releases) — the project's own documentation, not observed behavior.
 
 ```bash

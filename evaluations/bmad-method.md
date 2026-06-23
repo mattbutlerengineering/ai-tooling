@@ -17,6 +17,8 @@ The framework is modular: the core (BMM) ships with the 4-phase lifecycle; offic
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection, not a hands-on install. Reviewed: the GitHub API metadata, the README, `.claude-plugin/marketplace.json`, the recursive file tree, the actual `SKILL.md` contents for the dev agent (`bmad-agent-dev` / "Amelia") and the `bmad-dev-story` workflow, the `workflow-map.md` reference (the 4-phase document pipeline), the installer's `platform-codes.yaml` (supported IDEs), `AGENTS.md`, and the `LICENSE`. Did not run `npx bmad-method install` — it mutates the host tool's skills directory, requires Node 20.12+/Python 3.10+/uv, and is interactive; the published skill source is sufficient to assess substance and quality-signal impact.
 
 ```bash

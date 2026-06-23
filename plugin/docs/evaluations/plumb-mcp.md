@@ -19,6 +19,8 @@ It exposes **15 MCP tools**: `plumb_status`, `plumb_outline`, `plumb_node`, `plu
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I confirmed the repo via `gh search repos plumb-mcp` (the catalog entry was unlinked) and examined the GitHub repo metadata, the full README, the tag history, and the recursive file tree. I did **not** install the npm package, sideload the Figma plugin, pair a session, run the verify/fit CLIs, or invoke any of the 15 MCP tools. No designs were read, no code was generated or diffed — so there are no measured token-reduction figures, verify accuracy, fit-convergence rates, or output-fidelity numbers below. The 15-tool surface, the PDS/token-dedup claims, the ΔE2000 verification mechanism, the plugin-bridge architecture, the `ws://127.0.0.1:31337` bind, and the dual plugin/REST data paths are taken from the README and the `docs/tools/*.md` tree, not from execution.
 
 ```bash

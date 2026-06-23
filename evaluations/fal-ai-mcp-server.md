@@ -19,6 +19,8 @@ The mechanism: a Python MCP server (FastMCP-style) that wraps `fal_client`, expo
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No server started, no `FAL_KEY` configured, no image/video/audio generated, no cost incurred. All claims below come from the repository (GitHub metadata, README, file tree, release/commit/contributor counts), not from observed runtime output. The "600+ models", "18 tools", and performance descriptions ("native async", "non-blocking") are the README's claims, paraphrased — not measured by me. No latency or quality metrics are invented.
 
 ```bash

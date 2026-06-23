@@ -15,6 +15,8 @@ The mechanism is a real Claude Code plugin marketplace (`.claude-plugin/marketpl
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No plugin was installed, no marketplace was added, and no command was executed. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, two sampled `SKILL.md` files), not from observed behavior. The "proven frameworks / better decisions" language and the named-thinker pedigree are the author's README framing, not anything measured here.
 
 ```bash

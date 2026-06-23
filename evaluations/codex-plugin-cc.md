@@ -23,6 +23,8 @@ The integration is genuinely thin, which is the key architectural fact: the plug
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repo, README, plugin manifest, hooks, and the `/codex:review` command file via the GitHub API — **did not install or run it**. No Codex jobs were dispatched and no review output was produced; exercising the differentiated path requires a logged-in local Codex CLI (ChatGPT subscription or OpenAI API key) and would consume Codex usage limits. The verdict rests on the manifest, the command/hook contracts, the wrapper architecture, the maintenance signals, and OpenAI-official authorship — none of the findings below are invented metrics.
 
 ```bash

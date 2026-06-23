@@ -18,6 +18,8 @@ For agent integration there are three channels, with very different maturity:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via the GitHub API — read the main README, `MCP/README.md`, `cross/README.md` (the Claude-Mem comparison), `SKILL/README.md`, and `SKILL/simplemem-skill/SKILL.md`, plus the recursive file tree, release list, and repo metadata. **Did not install or run hands-on.** Rationale matches the prior memory-category evals (memsearch, agentmemory): the user already runs claude-mem (ADOPT) + OMEGA, and SimpleMem requires standing up an OpenAI-compatible API key plus either a Docker MCP service or a Python-CLI skill — installing a competing memory layer risks conflicting with the live setup. Compared against `evaluations/memsearch.md` (CONDITIONAL), `evaluations/agentmemory.md` (CONDITIONAL), and claude-mem (ADOPT, the user's choice).
 
 ```bash

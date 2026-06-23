@@ -15,6 +15,8 @@ The semantic power comes from two interchangeable backends: (1) **language serve
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `uv tool install serena-agent`, no `serena init`, no MCP connection to a client, no symbol query or refactor executed. Every claim is from the repository (GitHub metadata, README, recursive file tree, `src/serena/tools/` listing), not from observed behavior. The "single most impactful addition to my toolkit" quotes are the authors' own evaluation framing (agents prompted to rate Serena), not anything I measured. The "40+ languages / 8-12 steps collapse into one call / faster-more-reliable" figures are README claims, unverified here.
 
 ```bash

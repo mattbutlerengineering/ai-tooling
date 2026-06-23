@@ -15,6 +15,8 @@ The platform targets teams building AI applications for end users — chatbots, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review based on repository structure, README, release history, and feature documentation. Did not deploy locally — the evaluation focuses on whether the tool fits the dev loop for coding agent workflows.
 
 ```

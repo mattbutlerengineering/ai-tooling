@@ -15,6 +15,8 @@ The design substance lives in `references/agent-design-patterns.md`: it picks am
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No marketplace was added, no plugin installed, no "build a harness" prompt issued, and no generated team was executed. Every claim comes from the repository (GitHub metadata, the three READMEs, the recursive file tree, `SKILL.md`, `references/agent-design-patterns.md`, `docs/quickstart.md`, `docs/experimental-dependency.md`, commit/contributor counts) — not from observed generation or agent behavior. The 6-pattern / 6-phase framing and the "factory" language are the author's, not measurements I made.
 
 ```bash

@@ -15,6 +15,8 @@ Mechanism: a single TypeScript file (`index.ts`) on `@modelcontextprotocol/sdk` 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No server was started, no graph was written, and no MCP client was connected. Every claim comes from the repository: the `src/memory` subtree, its README, `index.ts`, and `package.json` — not from observed runtime behavior. We did not measure recall quality, latency, or token cost; those are reasoned from the code, not benchmarked.
 
 ```bash

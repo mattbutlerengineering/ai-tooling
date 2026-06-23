@@ -15,6 +15,8 @@ Per the README it ships **24 AI agents + 52 skills** with **TDD/DDD quality gate
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented composition (24 agents, 52 skills, TDD/DDD gates, Go CLI, multi-language). Confirmed the SPEC-First + test-first positioning and the packaged-kit delivery model. Did not run the kit on a live project, so condition-gated. (Note: a large bundled agent/skill set is something to audit before adopting wholesale.)
 
 ```bash

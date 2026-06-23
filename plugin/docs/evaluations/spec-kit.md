@@ -25,6 +25,8 @@ Important nuance on "executable specs": despite the marketing framing, the specs
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection, not hands-on installation. I read the repo metadata, the full README and `docs/concepts/sdd.md`, the integrations reference, the core command templates (`templates/commands/specify.md`, `plan.md`, `tasks.md`, `implement.md`, `analyze.md`), the `spec-template.md`, and the CLI/integration source tree (`src/specify_cli/integrations/claude/`). I did not run `specify init` or execute a full Specify→Plan→Tasks→Implement loop against a real project, so I have no first-hand output on generated-code quality or merge rates. The mechanics described above are read directly from the command templates and scripts, which are the load-bearing artifacts.
 
 ```bash

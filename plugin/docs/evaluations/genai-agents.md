@@ -15,6 +15,8 @@ The editorial voice is enthusiastic and marketing-forward — the README leads w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — not installed or run (notebooks need API keys and a Python env). Inspected via GitHub API:
 
 ```

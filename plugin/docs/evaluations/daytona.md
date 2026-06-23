@@ -15,6 +15,8 @@ Mechanically, sandboxes spin up in under 90ms from code to execution, run Python
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the sandbox model (isolation, <90ms cold start, snapshots), and the SDK/API/CLI surface. Confirmed the OCI/Docker foundation, the per-sandbox isolation guarantees, and the stateful-snapshot persistence story. Did not provision live sandboxes (needs an account/self-host deploy and a real agent workload), so verdict is condition-gated.
 
 ```bash

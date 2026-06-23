@@ -23,6 +23,8 @@ The mechanism for #1 is straightforward file scaffolding: the CLI fetches a comp
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: **Inspected the GitHub repo and README, the npm package metadata, and the project's stated architecture. Did NOT install or run the CLI.** No hands-on metrics were produced; claims below are drawn from documentation plus comparison to already-evaluated peers (claude-hud, abtop).
 
 ```

@@ -15,6 +15,8 @@ The mechanism is a 10-step pipeline: validate inputs → detect book type (techn
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the SKILL.md (634 lines), Python extraction package (`book_to_skill/` with 7 format-specific parsers), test suite, benchmarking tools, and README. Did not run a full conversion (no test PDF on hand), but assessed the extraction pipeline code, quality rules, output format, and discovery-tax benchmarks.
 
 ```bash

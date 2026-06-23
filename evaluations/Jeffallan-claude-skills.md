@@ -15,6 +15,8 @@ The mechanism is Anthropic-style progressive disclosure done properly: each skil
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed, no `/plugin` command executed, no skill activated in a session, and the Atlassian-MCP workflow commands were not exercised. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, a sampled `SKILL.md`), not observed behavior. "Context-aware activation" and the multi-skill workflow chains are the author's README framing, not measured outcomes.
 
 ```bash

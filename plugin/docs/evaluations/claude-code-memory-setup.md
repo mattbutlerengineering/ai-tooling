@@ -19,6 +19,8 @@ It claims **71.5× fewer tokens per session** plus permanent cross-session memor
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not built, not run.** No vault set up, no pipeline run, no token savings measured. The "71.5×" figure and "permanent memory" claims are the author's, reported here and unverified. Note that **Graphify**, a core component, is itself already cataloged.
 
 ```bash

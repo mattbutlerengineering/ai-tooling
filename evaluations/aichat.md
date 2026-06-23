@@ -15,6 +15,8 @@ Mechanically it's a single, scriptable CLI you install via cargo/brew/pacman. Th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature list (Shell Assistant, CMD/REPL, RAG, tools/agents; multi-provider; cargo/brew/pacman install). Confirmed the all-in-one, cross-provider, single-binary positioning. Last push ~2026-02 (mature, stable; somewhat less frequent updates). Not run live, so condition-gated.
 
 ```bash

@@ -20,6 +20,8 @@ Additional surface: video assertions (records the run, evaluates via Gemini File
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Did not install or run. This evaluation is based on inspection of the GitHub repository metadata (`gh api repos/bug0inc/passmark`), the full README, the repository file tree, and the license. No hands-on execution was performed — running it requires Anthropic + Google API keys (and Redis for the caching/healing path), and the verdict does not depend on metrics that would require a live run.
 
 ```

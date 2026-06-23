@@ -15,6 +15,8 @@ The pedagogical hook is a six-beat lesson loop: MOTTO → PROBLEM → CONCEPT �
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No lesson was completed, no code was executed, no skill was installed, and the placement quiz was not taken. Every claim below is from the repository (GitHub metadata, README, top-level file tree) — including the lesson counts and reader stats, which are the author's self-reported figures, not anything I measured or verified.
 
 ```bash

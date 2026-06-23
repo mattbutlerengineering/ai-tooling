@@ -15,6 +15,8 @@ Mechanically it is not a Claude Code plugin. It installs via `npx @opengsd/gsd-c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection plus inspection of the user's already-installed copy — I did not run a fresh install or execute a Discuss→Ship loop for this eval.** I queried GitHub metadata for both the old (`gsd-build/get-shit-done`) and new (`open-gsd/gsd-core`) repos, read the gsd-build README (now a redirect notice) and the gsd-core README, mapped the gsd-core tree (commands, agents, bin, src), and — critically for the redundancy question — inspected the user's local GSD footprint: `~/.claude/gsd-file-manifest.json` (version, file hashes), `~/.claude/get-shit-done/VERSION`, the `~/.claude/commands/gsd/` command set, the `gsd-*` hooks wired in `~/.claude/settings.json`, and the superpowers plugin directory to test whether GSD lives inside it.
 
 ```bash

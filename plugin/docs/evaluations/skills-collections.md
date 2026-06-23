@@ -1,5 +1,7 @@
 # Skills Collections
 
+**Evidence:** SOURCE-ONLY
+
 Evaluation of curated skill sets for AI coding agents. All aim to make agents more effective by providing structured workflows, quality gates, and engineering best practices.
 
 ## Evaluation Criteria

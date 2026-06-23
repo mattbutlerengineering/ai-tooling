@@ -20,6 +20,8 @@ The primary use cases are product-embedded:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No package integrated, no LLM wired, no page driven. Behavior comes from the repository README/docs and metadata (it ships a live demo and an HN discussion), not observed usage.
 
 ```bash

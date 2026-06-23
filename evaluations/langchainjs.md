@@ -17,6 +17,8 @@ This is squarely an **application-building** framework. You use it to construct 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Nothing was `npm install`ed, no chain or agent was constructed, no provider was wired up. Every claim below comes from the repository (GitHub metadata, README, monorepo file tree, `libs/` and `providers/` package listing, release/contributor/issue counts), not from observed runtime behavior. The "battle-tested / production-ready" language is the authors' README framing, not anything we measured.
 
 ```bash

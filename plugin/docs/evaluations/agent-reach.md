@@ -23,6 +23,8 @@ The install/update UX is a single natural-language line you paste to the agent (
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I did not `pip install agent-reach`, run `agent-reach doctor`, or fetch any platform content, so there are no usage metrics below and none are invented. I read the repo metadata, the full (Chinese) README, the recursive file tree, the release history, and the actual artifacts: the English skill manifest (`SKILL_en.md`), the `dev.md` reference, the MCP server source (`integrations/mcp_server.py`), and the Exa search channel (`channels/exa_search.py`). I cross-checked overlap against the existing `exa-mcp-server`, `firecrawl-mcp`, and `last30days-skill` catalog rows.
 
 ```bash

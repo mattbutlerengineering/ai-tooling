@@ -15,6 +15,8 @@ Its AI-specific layer is a built-in assistant (`Cmd+Shift+A`): **error recovery*
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** Kaku is a macOS-only desktop app (DMG / `brew install tw93/tap/kakuku`); it was not installed and no AI panel or command was exercised. Claims below come from the repository (GitHub metadata, README, file tree, commit/release counts), not observed behavior. The performance table (40% smaller binary, ~100ms shell bootstrap) is the author's self-reported methodology, not measured here.
 
 ```bash

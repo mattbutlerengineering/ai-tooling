@@ -18,6 +18,8 @@ The defining capability is vision-driven control: the agent perceives a real GUI
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the two-project structure (Agent TARS CLI/Web UI + MCP integration; UI-TARS Desktop native GUI agent with computer/browser operators powered by the UI-TARS model). Confirmed the multimodal/vision-driven control model and the local+remote operator support. Did not run the desktop app or drive a live GUI, so condition-gated.
 
 ```bash

@@ -15,6 +15,8 @@ The standout feature is MVP Builder Mode: when a user says "build an agent for X
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation: read the full SKILL.md, all 17 reference files via GitHub API, and assessed structure, depth, correctness, and progressive disclosure design. Did not install locally (blocked by auto-mode permissions) so no hands-on invocation testing.
 
 ```bash

@@ -15,6 +15,8 @@ The emphasis is ownership and privacy: rather than a cloud-hosted agent platform
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README (Mac-native Swift harness; local agents + persistent memory + tools + cryptographic identity; offline; autonomous execution). Confirmed the own-your-AI, fully-local/offline positioning and the Swift/macOS-native implementation. Not run live on a Mac, so condition-gated.
 
 ```bash

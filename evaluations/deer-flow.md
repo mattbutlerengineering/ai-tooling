@@ -15,6 +15,8 @@ The Claude Code integration is a skill (`claude-to-deerflow`) that lets you send
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture-review evaluation based on README, repo structure, configuration examples, and the Claude Code integration skill. Did not run the full Docker deployment (requires Python 3.12+, Node.js 22+, Docker, and an LLM API key).
 
 ```bash

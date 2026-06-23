@@ -13,6 +13,8 @@ Claude Code skill that cuts output tokens (measured ~49–59% on prose; see belo
 
 ## How we tested it
 
+**Evidence:** MEASURED
+
 **Hands-on, measured A/B** (the repo's first measured *skill* eval — pilots the methodology in issue #38). Skills can't be run like a CLI, so we measured the skill's core quantitative claim directly: read caveman's actual compression rules from its `SKILL.md` (drop articles/filler/pleasantries/hedging, fragments, short synonyms, abbreviate common terms, arrows for causality; *code/paths/errors unchanged*), then ran a with-skill-vs-baseline comparison on **4 representative technical explanations** in natural assistant register (React re-render, an auth bug, a status+next-steps update, a DB-pool ops issue). Baseline = normal prose; with-skill = the same content compressed per the documented rules. Token counts via `tiktoken` (gpt-4o), measured at two compression intensities to bracket the real range:
 
 ```

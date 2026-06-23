@@ -22,6 +22,8 @@ Note the build-step caveat: the SQLite components require `npm install && npm ru
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review only. **Did not install or run hands-on** — the user already runs claude-mem (ADOPT) + OMEGA as their hook-based memory layer, and installing a third hook-heavy memory plugin into the live setup risks exactly the hook-slot contention this evaluation is meant to assess. Method: inspected the GitHub repo metadata, full README, the recursive file tree, the plugin manifest, `hooks/hooks.json`, and the actual source of the memory-critical hook scripts (`learn-capture.js`, `session-start.js`). Cross-checked the user's live hook configuration in `~/.claude/settings.json` to map real collision risk. Calibrated against the sibling evals `agentmemory.md` (CONDITIONAL — same author, rohitg00) and `memsearch.md` (CONDITIONAL), both judged against claude-mem (ADOPT, the user's choice).
 
 ```bash

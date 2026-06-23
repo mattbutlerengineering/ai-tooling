@@ -18,6 +18,8 @@ The repo README states plainly: *"the code here is pretty much all deprecated - 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via the GitHub API and repo docs — not a hands-on install. CodeLayer is a macOS desktop app distributed by Homebrew cask (`brew install --cask --no-quarantine humanlayer/humanlayer/codelayer`); it is an alternative harness to the Claude Code CLI this catalog targets, so installing it would not extend the existing dev loop, it would replace the front-end of it. Establishing what the tool actually is (vs. the stale one-liner) was the core of the investigation.
 
 ```bash

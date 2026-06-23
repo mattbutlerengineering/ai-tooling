@@ -15,6 +15,8 @@ The mechanism: Superset does not replace or re-implement the coding agent. It la
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository metadata, the full root README, the repo file tree, license, topics, contributor count, and release history via the GitHub API. **Did not install or run it.** Running it meaningfully requires downloading a macOS Electron desktop binary (no Windows/Linux builds; "Windows/Linux untested"), and the dev path requires Bun, Docker, jq, Caddy, and a local Postgres + Electric stack — an interactive GUI desktop session, not a scriptable command. This is a repo/README/manifest review, not hands-on usage. No timing, throughput, or "10x" numbers are claimed here; the "Code 10x Faster" and "Run 10+ agents" figures are the project's marketing, not observed.
 
 ```bash

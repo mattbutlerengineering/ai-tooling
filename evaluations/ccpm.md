@@ -17,6 +17,8 @@ As inspected the skill is small and clean: `skill/ccpm/SKILL.md` (a phase router
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was symlinked into a harness, no PRD/epic was created, no GitHub Issues were synced, and no parallel agents were launched. Every claim below comes from the repository (GitHub metadata, README, `SKILL.md`, recursive file tree, CHANGELOG, commit/release counts) — not from observed agent behavior. The "Proven Results" numbers below are the authors' README framing, not anything measured here.
 
 ```bash

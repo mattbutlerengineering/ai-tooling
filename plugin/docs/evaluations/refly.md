@@ -17,6 +17,8 @@ So the honest description is: Refly is a Dify-class workflow/app-orchestration p
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: repository + full README (English) + LICENSE review, plus maturity/adoption signals pulled from the GitHub API (stars, forks, contributors, release tags, created/pushed dates, open issues). Read the four documented use cases (API integration, Lark/Feishu webhook, **Skills for Claude Code**, Build Clawdbot), the self-deploy / `localhost:5700` quick-start, the comparison tables Refly itself draws against n8n/Dify/LangChain, and the CLI export contract (`@powerformer/refly-cli`, `refly skill install/publish`). Calibrated against the two SKIP app-platform evals already in this catalog (**dify**, **aisuite**) and the **openskills** CONDITIONAL eval (the actual SKILL.md portability peer). **Did not deploy Refly via Docker or run the CLI** — this is a repo + README + registry review, not hands-on usage. No metrics were invented; all numbers are quoted from the GitHub API or the README.
 
 ```bash

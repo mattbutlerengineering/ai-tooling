@@ -23,6 +23,8 @@ Two features distinguish it from the sibling prose skills. First, a **voice-cali
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review. I did not install the skill or run it on a live draft. I read the repository over the GitHub API: the repo metadata, the full file tree (`AGENTS.md`, `LICENSE`, `README.md`, `SKILL.md`), the complete `SKILL.md` frontmatter and the opening pattern catalog, and the full heading map of all 33 patterns plus the detection-guidance and process sections. I then reasoned about the method against the catalog framework and compared it directly to the existing `stop-slop` evaluation (the prose-quality sibling) and the `taste-skill` catalog entry. The before/after pairs quoted above are the author's own examples shipped in `SKILL.md`, not outputs I generated. I ran no rewrites of my own; any judgement about output quality below is reasoning about the rules, not a measured result.
 
 ```bash

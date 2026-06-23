@@ -19,6 +19,8 @@ Mechanically these are just markdown command files. The `commit` and `commit-pus
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source review of the plugin **as installed on this machine** — it is already present under `~/.claude/plugins/` (both the marketplace checkout and the cache), so this is the real shipped artifact, not a README paraphrase. I read the three command `.md` files and the plugin README/`plugin.json` directly, and confirmed the marketplace source and repo identity via the marketplace manifest and git remote. I did **not** execute `/commit`, `/commit-push-pr`, or `/clean_gone` against a working tree in this session (running them would mutate git state / open a PR), so behavioral claims rest on reading the command definitions, which are short and fully transparent.
 
 ```bash

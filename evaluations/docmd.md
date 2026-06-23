@@ -28,6 +28,8 @@ The key clarification for this catalog: **the MCP server lets an agent query *th
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** Examined repo metadata, the full README, the recursive file tree, release history (0.5.2 → 0.8.6, ~30 releases Mar–Jun 2026), and read the actual source: the entire MCP command (`packages/core/src/commands/mcp.ts` — tool list, `search_docs` handler, resources), the `llms` plugin (`packages/plugins/llms/src/index.ts`), and the `docmd-skills` repo metadata. No site was generated, no `docmd mcp` server was started, and no MCP queries were issued, so no performance/output metrics are claimed below — the search-quality finding is read from the source, not benchmarked.
 
 ```bash

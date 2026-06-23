@@ -15,6 +15,8 @@ The mechanism is the standard Claude Code `statusLine` stdin-to-stdout contract:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the repository metadata, full README (416 lines including the complete changelog through v2.2.22), and npm registry stats. Did NOT install or run hands-on — the user already runs a custom GSD statusline (`~/.claude/hooks/gsd-statusline.js`) in the sole `statusLine` slot, and Claude Code supports only one statusline command, so installing ccstatusline would displace it. This is an architecture-and-evidence review, consistent with the calibration `claude-hud.md` evaluation (which is in the same statusline category and also not hands-on installed).
 
 ```

@@ -17,6 +17,8 @@ So it is genuinely *both* a real Claude Code plugin (skills/agents/hooks/MCP via
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture/source review against the repo, not a hands-on installed run. A full OMC install mutates `~/.claude` (skills, agents, hooks, settings, an experimental teams flag, MCP bridge server, statusline), and the most differentiated modes (`omc team` tmux workers) require tmux plus optional Codex/Gemini/Grok CLIs and their paid plans — too invasive to install into this session's environment just to evaluate. Verdict rests on inspecting the plugin manifest, MCP bridge config, agent definitions, the documented mode mechanics, the committed benchmark scaffold, and the maturity signals below.
 
 ```bash

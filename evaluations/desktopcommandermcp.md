@@ -15,6 +15,8 @@ Mechanically it exposes MCP tools for: executing terminal commands, including ma
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented tool surface (terminal exec incl. long-running processes, filesystem search, diff editing). Confirmed the standalone MCP-server install path and the "use host subscription, not API tokens" cost model. Did not connect it to a live client and execute commands — granting an agent shell + filesystem write is a real safety decision and is environment-specific — so verdict is condition-gated.
 
 ```bash

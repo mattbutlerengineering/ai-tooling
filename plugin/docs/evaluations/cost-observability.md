@@ -1,5 +1,7 @@
 # Evaluation: Cost Observability Tools
 
+**Evidence:** RUN
+
 Combined evaluation of three cost observability approaches: tokencost (per-call tracking), Infracost (infrastructure estimates), and abtop (live session monitoring).
 
 ---

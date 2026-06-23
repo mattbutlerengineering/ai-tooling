@@ -15,6 +15,8 @@ The pitch is operational simplicity plus accuracy: drop in a serverless, single-
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and its single-file/no-database design and benchmark highlights (LoCoMo accuracy, multi-hop, temporal). Confirmed the "replace RAG pipeline with a portable single-file memory" positioning and the versioned/serverless properties. The benchmark numbers are the project's own and not independently reproduced. Not run against a live agent, so condition-gated.
 
 ```bash

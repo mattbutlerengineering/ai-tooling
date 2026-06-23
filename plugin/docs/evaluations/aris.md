@@ -19,6 +19,8 @@ It ships 13+ named workflows, MCP tool dispatch on both Anthropic and OpenAI-fam
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skills copied, no CLI built, no research run executed. Claims come from the repository (GitHub metadata, README, detailed per-release changelog, topics) and its linked technical report — the project's own documentation, not observed research quality.
 
 ```bash

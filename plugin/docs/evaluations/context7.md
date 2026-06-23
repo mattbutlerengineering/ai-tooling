@@ -13,6 +13,8 @@ Catalog one-liner: "Live documentation lookup — current APIs, not stale traini
 
 ## How we tested it
 
+**Evidence:** RUN
+
 Ran it **live** from inside an agent session against a concrete coding question — "how to apply rate limiting to a specific Express route" — to see both the resolution ranking and the doc payload.
 
 ```

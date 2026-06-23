@@ -15,6 +15,8 @@ The mechanism: after `ctx-init --hooks`, ctx attaches to Claude Code's `PostTool
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Method: inspected the GitHub repo metadata and README only. Did NOT install the PyPI package, build the graph, run `ctx-init`, or execute any recommendations. No hands-on metrics are reported below — claims are sourced from the README and repo description, which are noted as such.
 
 ```bash

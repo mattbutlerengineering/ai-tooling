@@ -13,6 +13,8 @@ Mutation testing framework for JavaScript and TypeScript. Introduces small chang
 
 ## How we tested it
 
+**Evidence:** RUN
+
 Built a minimal project (`@stryker-mutator/core` + `@stryker-mutator/jest-runner`, Jest) with one deliberately **under-tested** function, to see whether Stryker catches gaps that line coverage misses. The function has four branches; the test suite only asserts two of them:
 
 ```js

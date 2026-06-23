@@ -15,6 +15,8 @@ The tool surface is large and split by capability. **Read/query:** `decompile`, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No IDA Pro license was used, no binary was analyzed, no MCP server started, and the debugger extension was never enabled. "Vibe reversing" effectiveness on real malware is the author's demo claim (linked video + `mcp-reversing-dataset`), **not** something measured here. All findings come from repo metadata, README, the file tree, and the shipped capability/profile files.
 
 ```bash

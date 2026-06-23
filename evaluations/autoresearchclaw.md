@@ -18,6 +18,8 @@ AutoResearchClaw is a **fully autonomous, self-evolving research pipeline — "c
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No pipeline run, no paper generated, no benchmark reproduced. Capabilities and metrics (e.g. "+18.3% robustness") come from the README, release notes, and paper, not observed runs.
 
 ```bash

@@ -15,6 +15,8 @@ Mechanically the store loop is: session messages → task complete/failed (by ag
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README, the store/recall flow diagrams, and the design philosophy. Confirmed the distillation→skill-agent→update pipeline, the `SKILL.md`-defined schema, the tool-use recall model (`get_skill`/`get_skill_file`), and the plain-file/no-embedding/ZIP-export properties. Not run against a live agent loop (requires wiring task-outcome signals and an LLM for distillation), so condition-gated.
 
 ```bash

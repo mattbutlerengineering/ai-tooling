@@ -13,6 +13,8 @@ GitHub Actions integration that deploys Claude Code into PR and issue workflows.
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Workflow/docs review — not run in CI.** Exercising it requires a GitHub Actions runner plus an `ANTHROPIC_API_KEY` repo secret and live `@claude` mention events — not reproduced here. The documented workflow:
 
 ```yaml

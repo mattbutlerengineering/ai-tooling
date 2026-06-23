@@ -15,6 +15,8 @@ The repo claims "hand-picked, not AI-slop generated" and enforces this via a qua
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Fetched the README via GitHub API and counted entries, sections, and link targets. Checked commit history for freshness and contributor activity. Compared organizational quality and coverage with awesome-claude-code (CONDITIONAL), antigravity-awesome-skills, and awesome-openclaw-skills from the catalog.
 
 ```bash

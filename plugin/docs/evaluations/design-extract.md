@@ -19,6 +19,8 @@ For agents specifically, it exposes three on-ramps: (1) a **Claude Code plugin**
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed or run.** I examined the GitHub repo metadata (API), the full README, the release/tag history, recent commit messages, and the existing CATALOG entries for its overlaps. I did **not** install the npm package, the Claude Code plugin, the skill, or the MCP server; I did not run `designlang` against any URL or invoke any MCP tool. Consequently there are no measured extraction latencies, token-fidelity numbers, WCAG-accuracy figures, or output-quality judgments below — only what the repo and its documentation attest. The 17+-file output list, the DTCG/multi-platform/WCAG claims, the three agent on-ramps, the disk-backed MCP design, and the version cadence are taken from the README and confirmed against repo metadata.
 
 ```bash

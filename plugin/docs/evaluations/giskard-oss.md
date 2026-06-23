@@ -13,6 +13,8 @@ Giskard is **an open-source Python library for testing and evaluating agentic sy
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No scenarios authored, no scan executed.
 
 ```bash

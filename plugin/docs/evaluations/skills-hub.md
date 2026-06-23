@@ -15,6 +15,8 @@ Mechanically it provides: an **Explore** page to browse curated featured skills 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and feature list (Explore/Tags/global+project sync, symlink-preferred propagation, multi-tool detection). Confirmed the Tauri desktop model and the "one library, sync to every tool's skills dir" mechanism. Not installed/run live, so condition-gated.
 
 ```bash

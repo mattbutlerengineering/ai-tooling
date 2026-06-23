@@ -13,6 +13,8 @@ Helicone is **an AI Gateway & LLM Observability platform for AI engineers.** Two
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No requests logged, no gateway configured.
 
 ```bash

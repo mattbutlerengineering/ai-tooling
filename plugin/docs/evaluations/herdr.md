@@ -13,6 +13,8 @@ herdr is **"an agent multiplexer that lives in your terminal."** It gives you **
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No agents multiplexed.
 
 ```bash

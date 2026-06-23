@@ -22,6 +22,8 @@ It publishes benchmark results across User Memory, Agent Memory, and Knowledge-B
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No deployment, no agent wired in. Claims (including all benchmark results) come from the repository (GitHub metadata, README overview/solution sections, 30 releases) — the project's own documentation, not observed behavior.
 
 ```bash

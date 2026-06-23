@@ -15,6 +15,8 @@ Mechanically, plugins are granular single-purpose installable units. For Claude 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Repo, README, source-tree, and CI-workflow inspection via the GitHub API — **not a hands-on installed run**. Installing even one plugin mutates `~/.claude` and adds the marketplace; the full marketplace spans 156 skills + 192 agents with broad domain vocabulary, and would overlap the user's existing OMEGA + superpowers + skills setup — too invasive to install just to evaluate. Findings rest on the repo metadata, README, the recursive source tree (counts verified programmatically), the documented model-tier and multi-harness adapter design, the CI-workflow set, the `plugin-eval` framework presence, and the contributor/commit history.
 
 ```bash

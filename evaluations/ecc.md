@@ -28,6 +28,8 @@ Mechanically it installs as a Claude Code plugin (`/plugin marketplace add … &
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: inspected the repo, full README (1,850 lines), `hooks/hooks.json`, the HEAD tree, license, npm download stats, and contributor/commit history via the GitHub API and npm registry. Did NOT install or run it.** This is a deliberate non-install evaluation. ECC's plugin install auto-loads a ~10-entry PreToolUse hook runtime plus SessionStart/PreCompact/Stop hooks into the live Claude Code session, mutates `~/.claude` (skills, agents, commands, hooks, a SQLite state store, `~/.local/share/ecc-homunculus`), and the rules step copies files into `~/.claude/rules/ecc/`. That is far too invasive to drop into this session merely to evaluate, and it would collide head-on with the user's running OMEGA coordination hooks, claude-mem observation hooks, GSD, and superpowers skills (see conflict analysis below). All counts below are from live API/registry calls; no metrics are invented, and any benchmark-style figures (test counts, "%" claims) are quoted as the project's own self-reported numbers, not reproduced here.
 
 ```bash

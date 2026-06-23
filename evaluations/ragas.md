@@ -13,6 +13,8 @@ Ragas is **an open-source toolkit to "supercharge your LLM application evaluatio
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No metrics computed, no test set generated.
 
 ```bash

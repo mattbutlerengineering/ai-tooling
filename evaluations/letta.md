@@ -15,6 +15,8 @@ Two surfaces: (1) the **Letta API/SDK** — `pip install letta-client` / `npm in
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `pip install`, no server stood up, no agent created, no memory block edited or retrieved. Every claim comes from GitHub metadata, the README (Hello-World examples), the recursive file tree, the `letta/` core listing, and release counts — plus prior knowledge of the published MemGPT paper. The "self-improving," "learns over time," and "advanced memory" claims are Letta's README/product framing and the paper's thesis, not memory quality I measured against a task.
 
 ```bash

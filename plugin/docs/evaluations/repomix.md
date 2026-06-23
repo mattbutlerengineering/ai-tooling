@@ -13,6 +13,8 @@ Packs an entire repository (or selected directories/files) into a single XML, Ma
 
 ## How we tested it
 
+**Evidence:** RUN
+
 **Hands-on**, repomix v1.15.0 installed and run against this very repository (the ai-tooling catalog itself — ~1,000 files of mostly Markdown plus a JS presentation dir) on 2026-06-20. Measured full-pack token counts, the `--compress` reduction on both prose and code, the Secretlint security scan, and remote packing.
 
 ```bash

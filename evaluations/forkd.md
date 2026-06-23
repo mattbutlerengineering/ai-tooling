@@ -15,6 +15,8 @@ The mechanism has two headline operations. (1) **fork** — fan out N children f
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo via the API on 2026-06-19: README (full), repo tree, release history, the recipes directory, and crucially the `sdk/mcp/` MCP-server README and tool table. Did NOT install or run forkd — it requires a Linux host with KVM, an unprivileged-userfaultfd sysctl, and a custom-built Firecracker fork, none of which is available on the macOS evaluation machine. This is an architecture/surface-area review to decide catalog placement, using the same lens applied to the aisuite (SKIP) and fast-agent (CONDITIONAL) calibration evals. No metrics below are measured by us; every timing/benchmark figure is reported as the project's own claim.
 
 ```bash

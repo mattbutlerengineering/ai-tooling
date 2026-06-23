@@ -13,6 +13,8 @@ LiteLLM is **an open-source AI Gateway: "call any LLM in OpenAI format."** Two s
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No proxy deployed, no providers routed.
 
 ```bash

@@ -15,6 +15,8 @@ Mechanically (per the paper, arXiv:2605.31468), the full system comprises **SciM
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the paper abstract (arXiv:2605.31468), noting the explicit `main` (stable/lean) vs `paper` (full system, research snapshot) branch split. Confirmed the SciMem/SciFlow/SciDAG/SciEvolve architecture and the compounding-memory thesis. The README is candid that the `paper` branch is "a research snapshot, not a finished product" with capabilities still being implemented. Not run live, so condition-gated.
 
 ```bash

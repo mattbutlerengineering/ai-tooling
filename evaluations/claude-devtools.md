@@ -15,6 +15,8 @@ Mechanically it parses local Claude Code logs (no external instrumentation or pr
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the stated feature set (read local Claude Code logs → visual inspection of tool calls, token usage, subagents, context window). Confirmed it operates on existing on-disk transcripts with no external service or code changes. Did not run the UI against a live log directory, so condition-gated.
 
 ```bash

@@ -15,6 +15,8 @@ Editorially it is a polished, opinionated teaching artifact: lesson READMEs are 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — not installed or run (the code samples require an Azure AI Foundry account). Inspected via GitHub API:
 
 ```

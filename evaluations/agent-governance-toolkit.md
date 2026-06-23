@@ -15,6 +15,8 @@ Mechanically it provides specifications and components (PyPI package) to put gov
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the four governance pillars (policy enforcement, zero-trust identity, execution sandboxing, reliability engineering) plus the OWASP Agentic Top 10 mapping. Confirmed the production-governance framing and the PyPI delivery. Not integrated into a live agent, so condition-gated.
 
 ```bash

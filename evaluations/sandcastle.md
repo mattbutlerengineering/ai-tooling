@@ -15,6 +15,8 @@ sandcastle (npm: `@ai-hero/sandcastle`) is a TypeScript library + CLI for orches
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Inspected the GitHub repo via the API and read the full README (1,400 lines): the `run()`/`createSandbox()`/`createWorktree()` APIs, all option/result tables, the agent-provider matrix, branch strategies, session capture/resume/fork semantics, structured output, hooks, templates, and the custom-provider contract. Reviewed repo metadata (release cadence, languages, ADR-driven `docs/`). Did NOT install or run it — this is an architecture/surface-area review to decide catalog placement, applying the same lens used for the aisuite (SKIP) and fast-agent (CONDITIONAL) evaluations. No metrics below are measured; all claims are sourced from the repo.
 
 ```bash

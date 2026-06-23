@@ -15,6 +15,8 @@ The actual mechanism: OpenOSINT is an LLM agent loop over a fixed set of 18 reco
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `pip install openosint`, no REPL, no MCP server started, no tool executed against any target. Every claim below comes from the repository (GitHub metadata, README, full file tree, commit/release counts), not from observed runtime behaviour. The performance/behaviour descriptions ("structurally impossible to hallucinate", async parallelism) are the author's README claims, paraphrased and qualified — not measurements I made.
 
 ```bash

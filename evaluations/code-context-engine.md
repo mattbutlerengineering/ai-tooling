@@ -17,6 +17,8 @@ Beyond search, CCE bundles two extra capabilities most pure-search MCPs don't: (
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Method: repo + README + benchmark-doc inspection. Not installed or run hands-on.** No `cce init` was executed and no MCP session was driven; the 94%/89%/0.90-recall figures below are the author's published benchmarks, not numbers we reproduced. Honesty note per the catalog integrity rule: this is an architecture/maturity review calibrated against the existing codegraph (ADOPT) and agentmemory (CONDITIONAL) evaluations.
 
 What was actually inspected:

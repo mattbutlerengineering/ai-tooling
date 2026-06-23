@@ -13,6 +13,8 @@ Memory OS is a **7-layer memory operating system for [Hermes Agent](https://gith
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No stack set up, no Hermes session run, no recall measured. Behavior comes from the README and metadata, not observed usage.
 
 ```bash

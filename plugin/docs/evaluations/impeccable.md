@@ -23,6 +23,8 @@ Installs across many harnesses (`npx impeccable install`): Claude Code, Cursor, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded review over the GitHub API. I did NOT install the skill or run any `/impeccable` command on a live project, and I generated no before/after UI. I read the repository metadata, the full `README.md`, the complete `SKILL.md`, the file tree, the plugin manifest, and verified the detector rule count by counting rule IDs in the antipatterns registry. Any judgement about output quality below is reasoning about the rules and structure, not a measured rendering result. The "44 deterministic rules" figure is the repo's own claim, which I confirmed against the source; I did not independently audit each rule's correctness.
 
 ```bash

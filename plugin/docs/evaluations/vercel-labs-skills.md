@@ -15,6 +15,8 @@ The command surface is broad for an installer: `add` (install from GitHub shorth
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No `npx skills` command was executed; nothing was installed, symlinked, or piped to an agent. Every claim comes from the repository (GitHub metadata, README, `package.json`, recursive file tree, and `src/telemetry.ts`), not from observed CLI behavior. The "72 agents" and command behaviors are the README's and source's own descriptions, not anything I exercised.
 
 ```bash

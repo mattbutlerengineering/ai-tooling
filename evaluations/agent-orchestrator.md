@@ -15,6 +15,8 @@ Agent-agnostic (Claude Code, Codex, Aider, Cursor, OpenCode, KimiCode, Grok), ru
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review via GitHub API — examined the monorepo structure (`packages/core`, 25 plugin implementations, `packages/web`), CLAUDE.md, ARCHITECTURE.md, and key source files (`lifecycle-status-decisions.ts`, `feedback-tools.ts`, `code-review-manager.ts`). Did not install and run locally.
 
 ```bash

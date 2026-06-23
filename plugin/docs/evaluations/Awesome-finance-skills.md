@@ -15,6 +15,8 @@ The included skills: `alphaear-news` (real-time financial news/trends from 10+ s
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — we did not install or run any skill (and would not connect it to live market data sources without scrutiny). We pulled metadata, README, last-commit recency, the file tree, the `skills/` listing, and one representative `SKILL.md` via the GitHub API.
 
 ```

@@ -22,6 +22,8 @@ Distinctive features:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of the full rule file set. Read the core-workflow.md (539 lines), depth-levels.md, overconfidence-prevention.md, and the extension system structure. Assessed the Claude Code setup path (copies core-workflow.md to CLAUDE.md, rule details to `.aidlc-rule-details/`). Compared the three-phase model against GSD (superpowers), which uses a Discover → Architect → Decompose → [inner loop per task] → Integrate → Retrospect outer loop with Plan → Implement → Verify → Review → Ship inner loop.
 
 ```bash

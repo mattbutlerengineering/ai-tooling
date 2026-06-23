@@ -15,6 +15,8 @@ Mechanically, STORM's distinctive move is **multi-perspective question asking**:
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the documented pipeline (multi-perspective question asking → retrieval → outline → cited article; Co-STORM for human-in-the-loop). Confirmed the `knowledge-storm` package, multi-LLM/retriever support (incl. VectorRM grounding and litellm), and the honest "pre-writing, not publication-ready" framing. Last push ~2025-09 (mature, stable research codebase). Not run on a live topic, so condition-gated.
 
 ```bash

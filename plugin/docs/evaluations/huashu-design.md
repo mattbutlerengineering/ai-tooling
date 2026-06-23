@@ -17,6 +17,8 @@ The skill ships with 15 Python/Node scripts for video rendering, PPTX export, PD
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review of SKILL.md (631 lines), all 20 reference files, 15 scripts, and 50+ assets. Assessed the design-styles library methodology (100 real-world case studies → 40 categorized styles with reproducibility ratings). Compared the anti-AI-slop system against catalog competitors.
 
 ```bash

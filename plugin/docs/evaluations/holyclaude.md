@@ -13,6 +13,8 @@ HolyClaude is a **one-command, containerized AI coding workstation**: Claude Cod
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No container brought up, no agent driven. Capabilities come from the README and metadata, not observed usage.
 
 ```bash

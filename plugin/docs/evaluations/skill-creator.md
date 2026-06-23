@@ -24,6 +24,8 @@ It also carries explicit environment branches for Claude Code, Claude.ai (no sub
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source review of the plugin **as installed on this machine**, plus one real script execution. The plugin is present locally under both `~/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/` and the cache, so this is the shipped artifact, not a README paraphrase. I read the full `SKILL.md`, `plugin.json`, the agent definitions, and the script docstrings, and confirmed repo identity via `gh api`. I then **actually ran** the bundled validator against a real skill directory to confirm the Python tooling executes (not just that it exists).
 
 I did **not** drive the full draft→test→benchmark→optimize loop end-to-end (that requires an interactive multi-turn session with subagents spawning paired runs and a human reviewing the HTML viewer), so claims about the eval/optimize loop rest on reading the scripts and SKILL.md, which are transparent. The packaging and triggering-optimization scripts were not executed.

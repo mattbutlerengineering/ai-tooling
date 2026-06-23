@@ -15,6 +15,8 @@ Mechanically you construct a mock (`new LLMock({ port: 0 })`), program canned re
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Architecture review against the README and the quick-start code. Confirmed the single-server/single-port design, the breadth of mocked AI surfaces (LLM/embeddings/media/MCP/A2A/AG-UI/vector DB/search/rerank/moderation), the base-URL-redirect integration pattern, and the construction-order caveat. Verified the package rename history (`llmock` → `aimock`). Not wired into a live test suite, so condition-gated.
 
 ```bash

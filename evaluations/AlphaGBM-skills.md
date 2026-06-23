@@ -17,6 +17,8 @@ The business model is visible in the repo: free tier is **2 stock + 1 options an
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run, no API key obtained.** No skill was cloned into `.claude/skills/`, the CLI was not `pip install`-ed, and no AlphaGBM endpoint was called. Every claim comes from the repository (GitHub metadata, README, full recursive file tree, skill/commit counts), not from observed analysis output. The README's "10K users, 3mo live trading, real-time / battle-tested" copy is vendor marketing — I did not verify data freshness, accuracy, or any trading outcome, and the catalog should treat those numbers as unverified.
 
 ```bash

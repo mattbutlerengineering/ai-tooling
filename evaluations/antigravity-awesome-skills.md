@@ -15,6 +15,8 @@ The distinguishing feature versus other awesome lists is that this is *installab
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Checked repo metadata, read the full README (529 lines), examined the repo structure (14 top-level directories, 2,237 skill directories, 1,595 SKILL.md files), and spot-checked skill quality across different sources.
 
 ```bash

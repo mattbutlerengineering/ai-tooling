@@ -15,6 +15,8 @@ The mechanism is **curated capability documentation, not new code**. As the READ
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed via `npx skills add` or `gh skill install`, no scientific workflow was executed, no database queried. Every claim is from the repository surface (metadata, README, file tree, release history, license), not observed output. The "160,000+ scientists worldwide" and "#1 Agent Skills library for science" claims in the description are the vendor's marketing, not anything we verified; treat as self-reported.
 
 ```bash

@@ -13,6 +13,8 @@ Memind is a **self-evolving cognitive memory and context engine for AI agents, w
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No service deployed, no memory ingested, benchmarks not reproduced. The SOTA claims are the project's own, reported here and unverified.
 
 ```bash

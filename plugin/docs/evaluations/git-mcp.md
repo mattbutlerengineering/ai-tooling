@@ -25,6 +25,8 @@ It also has **repo-specific handlers** in the source (`ReactRouterRepoHandler`, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed and not run against a live MCP client.** Evidence was gathered from the GitHub repo: metadata via `gh api`, the full README, the recursive file tree, and the actual tool implementation source (`src/api/tools/commonTools.ts`, the `repoHandlers/` directory). I confirmed the four tool names, the dynamic per-repo naming scheme (`enforceToolNameLengthLimit("fetch_", repo, "_documentation")`), the documentation-resolution priority (`llms.txt` → root/index → `README.md`), the `robots.txt`-check path (`fetchFileWithRobotsTxtCheck`), and the presence of library-specific handlers. **No MCP connection was made, no `gitmcp.io` query was issued, and the README's three.js side-by-side demo is the vendor's own video — cited as a vendor claim, not reproduced here.** No metrics below are invented.
 
 ```bash

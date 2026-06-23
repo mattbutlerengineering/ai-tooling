@@ -15,6 +15,8 @@ Scope is narrow and explicit: frameworks and agent-development tools, not agent 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 Source-grounded inspection only — no install or run. We pulled metadata, README, last-commit recency, and entry counts via the GitHub API.
 
 ```

@@ -13,6 +13,8 @@ Eigent is **an open-source "Cowork" desktop application** that lets you "build, 
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No workforce built, no workflow automated.
 
 ```bash

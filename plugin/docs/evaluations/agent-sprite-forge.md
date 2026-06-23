@@ -15,6 +15,8 @@ As inspected, it ships **two skills**: `generate2dsprite` (characters, NPCs, cre
 
 ## How we tested it
 
+**Evidence:** REVIEW
+
 **Source-grounded inspection — not installed, not run.** No skill was installed into Codex, no `image_gen` call was made, and no sprite/map was generated. There is no sandbox here to run an OpenAI image pipeline, and doing so would incur generation cost. Every claim below comes from the repository (GitHub metadata, README, full recursive file tree, the two `SKILL.md` frontmatters, `requirements.txt`), not from observed output. The showcase prototypes and "engine-ready" framing are the author's README claims, not anything I produced or measured.
 
 ```bash
