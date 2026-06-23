@@ -67,6 +67,12 @@ Twelve detectors (A-L), each proven to catch real problems (see git history,
      tracer-bullet slice (issue #62) only parses and reports; backfill + a COMPARISON
      column (#67) and gating on weak backing (#71) build on it. Offline.
 
+  M. CLUSTERS WITHOUT A PICK (opt-in, --clusters, REPORT-ONLY) — ADR 0001 / #69: a
+     catalog should name ONE best-in-class ADOPT pick per overlap cluster, not hedge
+     CONDITIONAL on all of them. Flags overlap clusters (connected via "Overlaps with")
+     where no member is ADOPT/KEEP yet at least one is CONDITIONAL — the clusters still
+     awaiting a pick. Makes the #69 migration findable; migrates nothing.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G (D/B/G offline; A hits registries)
   python3 audit-evals.py --offline    # B + D + G only (no network)
@@ -618,6 +624,64 @@ def audit_overlaps():
                 miss[t] += 1
     return miss.most_common()
 
+# ---------------------------------------------------------------- M. clusters without a pick (report-only)
+# ADR 0001 / #69: when several catalogued tools solve the same problem (an overlap
+# cluster), the catalog should name ONE best-in-class ADOPT pick rather than hedge
+# CONDITIONAL on all of them. This report surfaces overlap clusters (connected via
+# the "Overlaps with" graph) where NO member is ADOPT/KEEP yet at least one is
+# CONDITIONAL — i.e. clusters still awaiting a pick. Report-only; it makes the #69
+# migration findable, it does not migrate anything.
+def audit_clusters():
+    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    # name -> set(overlap peers), restricted to catalogued names
+    cat_names, edges = set(), {}
+    for line in text.splitlines():
+        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
+        if not m:
+            continue
+        nm = _OVL_STRIP(m.group(1))
+        cat_names.add(nm)
+        cells = line.split("|")
+        peers = []
+        if len(cells) >= 6:
+            for tok in cells[-2].split(","):
+                t = _OVL_STRIP(tok)
+                if t and "ext." not in tok.lower() and len(t.split()) <= 2:
+                    peers.append(t)
+        edges[nm] = peers
+    # verdict per name from COMPARISON
+    verd = {}
+    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        if m:
+            verd[_OVL_STRIP(m.group(1))] = m.group(2)
+    # union-find over overlap edges (only between catalogued names)
+    parent = {n: n for n in cat_names}
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]; x = parent[x]
+        return x
+    def union(a, b):
+        if a in parent and b in parent:
+            parent[find(a)] = find(b)
+    for nm, peers in edges.items():
+        for p in peers:
+            union(nm, p)
+    from collections import defaultdict
+    clusters = defaultdict(set)
+    for n in cat_names:
+        clusters[find(n)].add(n)
+    flagged = []
+    for members in clusters.values():
+        if len(members) < 2:
+            continue
+        verds = {verd.get(m) for m in members}
+        has_pick = "ADOPT" in verds or "KEEP" in verds
+        has_cond = "CONDITIONAL" in verds
+        if has_cond and not has_pick:
+            flagged.append(sorted(members))
+    return sorted(flagged, key=lambda c: (-len(c), c[0].lower()))
+
 # ---------------------------------------------------------------- G. comparison consistency
 # COMPARISON.md mirrors CATALOG.md: its per-stage summary must sum to its own body
 # rows, and its Total must equal the CATALOG entry count. Manual count edits drift
@@ -726,7 +790,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--clusters", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -738,6 +802,7 @@ def main():
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
+    do_clusters = "--clusters" in sel  # opt-in report (does not affect exit code)
     do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
     do_staleness = "--staleness" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
@@ -869,6 +934,13 @@ def main():
         for t, c in gaps:
             if c < 2:
                 print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
+    if do_clusters:
+        cl = audit_clusters()
+        print(f"== M. clusters without a pick (report-only, #69) — {len(cl)} overlap cluster(s) all-CONDITIONAL, no ADOPT/KEEP pick ==")
+        if not cl:
+            print("  OK — every overlap cluster with a CONDITIONAL member also has an ADOPT/KEEP pick")
+        for members in cl:
+            print(f"  PICK?  {' / '.join(members)}")
     sys.exit(rc)
 
 if __name__ == "__main__":
