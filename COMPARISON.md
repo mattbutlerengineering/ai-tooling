@@ -304,7 +304,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | ACMM | framework | | ✓ | CONDITIONAL | REVIEW |
-| abtop | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
+| abtop | tool | | ✓ | CONDITIONAL | MEASURED |
 | dev3000 | tool | | ✓ | CONDITIONAL | SOURCE-ONLY |
 | Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
 | Composio | plugin | | ✓/$ | CONDITIONAL | SOURCE-ONLY |
@@ -374,7 +374,7 @@ All 509 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | impeccable | skill | | ✓ | CONDITIONAL | REVIEW |
 | Jeffallan/claude-skills | skill | | ✓ | CONDITIONAL | REVIEW |
 | marketingskills | skill | | ✓ | CONDITIONAL | REVIEW |
-| mattpocock/skills | skill | | ✓ | ADOPT | SOURCE-ONLY |
+| mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
 | microsoft/skills | skill | | ✓ | CONDITIONAL | REVIEW |
 | obsidian-skills | skill | | ✓ | CONDITIONAL | REVIEW |
 | open-design | platform | | ✓ | SKIP | REVIEW |
