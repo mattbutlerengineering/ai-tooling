@@ -29,6 +29,7 @@ def _load(mod_name, filename):
 reconcile = _load("reconcile_counts", "reconcile-counts.py")
 audit = _load("audit_evals", "audit-evals.py")
 backfill = _load("backfill_evidence", "backfill-evidence.py")
+tier = _load("tier_stack", "tier-stack.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -396,6 +397,41 @@ class TestEvidenceBackfill(unittest.TestCase):
                 self.assertEqual(audit.audit_comparison(), [])  # G still clean with the new column
             finally:
                 audit.ROOT = orig
+
+
+# ----------------------------------------------------------------- tier-stack (#72)
+class TestTierStack(unittest.TestCase):
+    STACK = ("# Stack\n\n<!-- TIERS:START -->\n<!-- TIERS:END -->\n\n## Plan\n"
+             "| [foo](https://github.com/x/foo) | d | `c` | s |\n"
+             "| [bar](https://github.com/x/bar) | d | `c` | s |\n"
+             "| [baz](https://github.com/x/baz) | d | `c` | s |\n")
+
+    def _with_amap(self, amap, fn):
+        orig = tier.bf._build_alias_map
+        try:
+            tier.bf._build_alias_map = lambda: amap
+            return fn()
+        finally:
+            tier.bf._build_alias_map = orig
+
+    def test_tiering_split_derived_from_evidence(self):
+        amap = {"foo": "MEASURED", "bar": "REVIEW"}  # baz has no eval -> SOURCE-ONLY
+        t1, t2 = self._with_amap(amap, lambda: tier.stack_tiers(self.STACK))
+        self.assertEqual(t1, [("foo", "MEASURED")])           # MEASURED/RUN -> Tier 1
+        self.assertEqual(t2, [("bar", "REVIEW"), ("baz", "SOURCE-ONLY")])  # rest -> Tier 2
+
+    def test_apply_replaces_between_markers_and_is_idempotent(self):
+        amap = {"foo": "RUN", "bar": "REVIEW"}
+        out = self._with_amap(amap, lambda: tier.apply(self.STACK))
+        self.assertIn("**Tier 1 — measured (1)", out)
+        self.assertIn("foo (RUN)", out)
+        self.assertIn("baz (SOURCE-ONLY)", out)
+        self.assertEqual(self._with_amap(amap, lambda: tier.apply(out)), out)  # idempotent
+
+    def test_missing_markers_exits_2(self):
+        with self.assertRaises(SystemExit) as cm:
+            tier.apply("# Stack with no markers\n")
+        self.assertEqual(cm.exception.code, 2)
 
 
 if __name__ == "__main__":

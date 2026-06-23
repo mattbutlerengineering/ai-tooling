@@ -41,6 +41,11 @@ jobs:
       - name: Evidence field + column in sync (backfill-evidence.py --check)
         run: python3 backfill-evidence.py --check
 
+      # STACK.md's evidence tiers are derived from the Evidence data; fails the PR if
+      # the tier block is stale (a tool's Evidence changed without re-running tier-stack).
+      - name: STACK evidence tiers in sync (tier-stack.py --check)
+        run: python3 tier-stack.py --check
+
       # plugin/docs/ is a synced copy of the root docs; this fails the PR if a doc
       # change was committed without re-running ./sync-plugin-docs.sh.
       - name: Plugin docs in sync (sync-plugin-docs.sh --check)
