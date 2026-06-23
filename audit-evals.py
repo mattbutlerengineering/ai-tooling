@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Nine detectors (A-I), each proven to catch real problems (see git history,
+Ten detectors (A-J), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -44,6 +44,12 @@ Nine detectors (A-I), each proven to catch real problems (see git history,
      repoint to a successor. Link rot (C) misses this (the link still resolves).
      Found 4 (incl. gpt-engineer ★55K). Uses authenticated `gh api`; report-only.
 
+  J. STACK-DERIVATION DRIFT — STACK.md must be derivable from the verdict data
+     (COMPARISON.md) plus the exclusion ledger (STACK-LEDGER.md, #64): every ADOPT/
+     KEEP tool is either in STACK or has a logged exclusion reason, ledger verdicts
+     match COMPARISON, and nothing marked in-STACK is missing from STACK.md. Kills the
+     hand-maintained drift prior audits kept finding. Offline, gating, on by default.
+
   I. EVIDENCE-STRENGTH FIELD (opt-in, --evidence, REPORT-ONLY) — tallies each eval's
      declared **Evidence:** field (MEASURED / RUN / REVIEW / SOURCE-ONLY): how hard we
      looked, recorded as data and separate from the verdict (what we concluded). The
@@ -57,6 +63,7 @@ Usage:
   python3 audit-evals.py --fabrication # fabrication classifier only
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --comparison # COMPARISON.md vs CATALOG.md consistency (offline)
+  python3 audit-evals.py --drift      # STACK.md vs verdicts + exclusion ledger (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -65,10 +72,11 @@ Usage:
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
-(A), a FABRICATION candidate (B), a VERDICT mismatch (D), COMPARISON drift (G), or
-link rot (C, when --links is run) — so it can gate CI or a pre-commit hook. E
-(skill evidence) and F (dangling overlaps) are report-only and never affect the
-exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
+(A), a FABRICATION candidate (B), a VERDICT mismatch (D), COMPARISON drift (G),
+STACK-derivation drift (J), or link rot (C, when --links is run) — so it can gate
+CI or a pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence
+field) are report-only and never affect the exit code; --selftest exits non-zero on
+a failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, subprocess, urllib.request, urllib.error
 import catalog_lib
@@ -267,6 +275,63 @@ def audit_verdicts():
             continue  # KEEP vs ADOPT etc.
         flagged.append((ev.name, ev.verdict, cv))
     return flagged
+
+# ---------------------------------------------------------------- J. stack-derivation drift
+# STACK.md must be *derivable* from the verdict data (COMPARISON.md) plus the
+# exclusion ledger (STACK-LEDGER.md, #64): every ADOPT/KEEP tool is either in STACK
+# or has a logged exclusion reason, and nothing in STACK contradicts its verdict.
+# This kills the hand-maintained drift prior audits kept finding (abtop/codeburn,
+# serena, documentation-writer). Gating, on by default. Consumes the #64 ledger.
+_LEDGER_ROW = re.compile(
+    r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.M)
+
+def _drift_key(name):
+    """Normalize a tool name for cross-file matching: drop a parenthetical, then
+    strip to alphanumerics. 'GSD (Get Shit Done)' and 'gsd' collapse to the same key."""
+    return _norm(re.sub(r"\s*\(.*?\)", "", name))
+
+def _comparison_verdict_map():
+    comp = {}
+    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
+        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)\s*\|", line)
+        if m:
+            comp[_drift_key(m.group(1))] = m.group(2)
+    return comp
+
+def _stack_member_keys():
+    """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
+    so an entry installed under another name (GSD ← obra/superpowers) still matches."""
+    txt = open(os.path.join(ROOT, "STACK.md"), encoding="utf-8").read()
+    keys = set()
+    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", txt):
+        keys.add(_drift_key(text))
+        keys.add(_norm(url.rstrip("/").split("/")[-1]))
+    return keys
+
+def audit_stack_drift():
+    """Detector J: cross-check STACK.md against COMPARISON.md verdicts + the ledger.
+    Flags: an ADOPT/KEEP tool absent from both STACK and the ledger; a ledger row whose
+    verdict disagrees with COMPARISON; an excluded row with no reason; a ledger row
+    marked in-STACK that isn't actually in STACK.md."""
+    problems = []
+    comp = _comparison_verdict_map()
+    stack = _stack_member_keys()
+    ledger_text = open(os.path.join(ROOT, "STACK-LEDGER.md"), encoding="utf-8").read()
+    ledger_keys = {}
+    for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ledger_text):
+        k = _drift_key(name)
+        ledger_keys[k] = True
+        if in_stack == "no" and not reason.strip():
+            problems.append(f"ledger '{name}' is excluded (no) but records no reason")
+        cv = comp.get(k)
+        if cv and cv != verdict and frozenset((cv, verdict)) != frozenset(("KEEP", "ADOPT")):
+            problems.append(f"ledger '{name}' verdict {verdict} != COMPARISON {cv}")
+        if in_stack in ("yes", "conditional") and k not in stack:
+            problems.append(f"ledger '{name}' marked '{in_stack}' but not found in STACK.md")
+    for k, v in comp.items():
+        if v in ("ADOPT", "KEEP") and k not in ledger_keys:
+            problems.append(f"{v} tool '{k}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
+    return problems
 
 # ---------------------------------------------------------------- E. skill evidence (report-only)
 # A skill's value is a behaviour change, so an ADOPT verdict on a *skill* should
@@ -584,12 +649,13 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--skills", "--overlaps", "--evidence", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--skills", "--overlaps", "--evidence", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
     do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
     do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
+    do_drift = (not explicit) or "--drift" in sel or "--offline" in sel  # offline gate (#70)
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
@@ -601,6 +667,7 @@ def main():
         do_fab  = "--fabrication" in sel
         do_verd = "--verdicts" in sel
         do_comp = "--comparison" in sel
+        do_drift = "--drift" in sel
 
     rc = 0
     if do_inst:
@@ -640,6 +707,15 @@ def main():
                 print(f"  DRIFT {p}")
         else:
             print("  OK — COMPARISON summary sums to its body rows and Total matches CATALOG.md")
+    if do_drift:
+        print("== J. stack-derivation drift (STACK.md vs verdicts + ledger) ==")
+        dprob = audit_stack_drift()
+        if dprob:
+            rc = 1
+            for p in dprob:
+                print(f"  DRIFT {p}")
+        else:
+            print("  OK — every ADOPT/KEEP tool is in STACK or the ledger; STACK & ledger agree with verdicts")
     if do_links:
         print("== C. link rot (CATALOG.md repo links) ==")
         problems, total = audit_links()

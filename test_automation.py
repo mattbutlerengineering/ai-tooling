@@ -309,6 +309,56 @@ class TestEvidenceField(unittest.TestCase):
         self.assertEqual(strong["REVIEW"], 0)
 
 
+# ----------------------------------------------------------------- detector J (stack drift, #70)
+class TestDetectorJ(unittest.TestCase):
+    STACK = "## Plan\n| [foo](https://github.com/x/foo) | desc | `cmd` | sig |\n"
+    COMP = ("## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|---|---|---|---|---|---|\n"
+            "| foo | tool | | ✓ | ADOPT | RUN |\n"
+            "| bar | tool | | ✓ | ADOPT | REVIEW |\n")
+    LEDGER_OK = "| foo | ADOPT | Plan | yes | |\n| bar | ADOPT | Plan | no | overlaps foo |\n"
+
+    def _run(self, stack, ledger, comp):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "STACK.md", stack)
+            _write(d, "STACK-LEDGER.md", ledger)
+            _write(d, "COMPARISON.md", comp)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_stack_drift()
+            finally:
+                audit.ROOT = orig
+
+    def test_consistent_passes(self):
+        self.assertEqual(self._run(self.STACK, self.LEDGER_OK, self.COMP), [])
+
+    def test_adopt_missing_from_ledger_flagged(self):
+        probs = self._run(self.STACK, "| foo | ADOPT | Plan | yes | |\n", self.COMP)
+        self.assertTrue(any("bar" in p and "neither in STACK nor" in p for p in probs), probs)
+
+    def test_excluded_row_without_reason_flagged(self):
+        probs = self._run(self.STACK, "| foo | ADOPT | Plan | yes | |\n| bar | ADOPT | Plan | no | |\n", self.COMP)
+        self.assertTrue(any("excluded (no) but records no reason" in p for p in probs), probs)
+
+    def test_in_stack_row_absent_from_stack_flagged(self):
+        probs = self._run("## Plan\n", self.LEDGER_OK, self.COMP)
+        self.assertTrue(any("marked 'yes' but not found in STACK.md" in p for p in probs), probs)
+
+    def test_verdict_mismatch_flagged(self):
+        comp2 = self.COMP.replace("| bar | tool | | ✓ | ADOPT |", "| bar | tool | | ✓ | SKIP |")
+        probs = self._run(self.STACK, self.LEDGER_OK, comp2)
+        self.assertTrue(any("verdict ADOPT != COMPARISON SKIP" in p for p in probs), probs)
+
+    def test_install_source_alias_matches(self):
+        # A tool in STACK under a different link text but its repo basename (GSD <- superpowers)
+        stack = "## Implement\n| [GSD](https://github.com/obra/superpowers) | desc | `cmd` | sig |\n"
+        ledger = "| superpowers | ADOPT | Implement | yes | |\n"
+        comp = ("## Implement\n| Tool | Type | Auto | Free | Evaluated |\n|---|---|---|---|---|\n"
+                "| superpowers | skill | | ✓ | ADOPT |\n")
+        self.assertEqual(self._run(stack, ledger, comp), [])  # matched via repo basename
+
+
 # ----------------------------------------------------------------- backfill-evidence (#67)
 class TestEvidenceBackfill(unittest.TestCase):
     def test_derive_levels(self):
