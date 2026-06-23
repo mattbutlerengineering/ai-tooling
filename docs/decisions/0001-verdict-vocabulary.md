@@ -1,8 +1,16 @@
 # ADR 0001 — Verdict vocabulary: collapse the CONDITIONAL bucket
 
-- **Status:** Accepted (2026-06-22)
+- **Status:** Accepted (2026-06-22) · **Implemented** in #69 (2026-06-22)
 - **Issue:** #63 (decision) · implemented by #69
 - **Deciders:** repo owner
+
+> **Implementation note (#69):** the bucket collapse is done. 404 unexercised
+> CONDITIONAL rows (`Evidence` REVIEW/SOURCE-ONLY) were demoted to **discovery-log**;
+> only the 12 exercised (MEASURED/RUN) CONDITIONALs remain. `audit-evals.py`
+> recognizes `discovery-log` and excludes it from verdict-sync (D) / verdict-evidence
+> (K); detector **M (`--clusters`)** surfaces overlap clusters still awaiting an ADOPT
+> pick. Remaining/optional follow-ups: per-cluster best-in-class ADOPT picks (point 2)
+> and `adopt-if:` condition strings on the 12 surviving CONDITIONALs (point 1).
 
 ## Context
 

@@ -400,6 +400,36 @@ class TestDetectorK(unittest.TestCase):
         }), [])
 
 
+# ----------------------------------------------------------------- detector D (verdict sync) + discovery-log (#69)
+class TestDetectorD(unittest.TestCase):
+    def _run(self, comparison, evals):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "COMPARISON.md", comparison)
+            for name, text in evals.items():
+                _write(d, os.path.join("evaluations", name), text)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_verdicts()
+            finally:
+                audit.ROOT = orig
+
+    HEADER = "## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+
+    def test_discovery_log_row_not_synced(self):
+        # A discovery-log COMPARISON row is a lead, not a verdict: an eval still reading
+        # CONDITIONAL must NOT be flagged as a mismatch.
+        comp = self.HEADER + "| foo | tool | | ✓ | discovery-log | REVIEW |\n"
+        evals = {"foo.md": "**Evidence:** REVIEW\n\n## Verdict\n\n**CONDITIONAL**\n"}
+        self.assertEqual(self._run(comp, evals), [])
+
+    def test_real_mismatch_still_flagged(self):
+        comp = self.HEADER + "| bar | tool | | ✓ | ADOPT | MEASURED |\n"
+        evals = {"bar.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**SKIP**\n"}
+        flagged = self._run(comp, evals)
+        self.assertTrue(any(f[0] == "bar" for f in flagged), flagged)
+
+
 # ----------------------------------------------------------------- backfill-evidence (#67)
 class TestEvidenceBackfill(unittest.TestCase):
     def test_derive_levels(self):
