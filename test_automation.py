@@ -26,6 +26,7 @@ def _load(mod_name, filename):
     return mod
 
 
+catalog_lib = _load("catalog_lib", "catalog_lib.py")
 reconcile = _load("reconcile_counts", "reconcile-counts.py")
 audit = _load("audit_evals", "audit-evals.py")
 backfill = _load("backfill_evidence", "backfill-evidence.py")
@@ -115,6 +116,44 @@ class TestReconcilePureFns(unittest.TestCase):
         fixed = reconcile.fix_comparison(broken, 3)
         self.assertIn("| **Total** | **3** | **3** | **100%** |", fixed)
         self.assertNotIn("**99**", fixed)
+
+
+# ----------------------------------------------------------------- catalog_lib: github_repos
+class TestCatalogLibGithubRepos(unittest.TestCase):
+    """Pins catalog_lib.github_repos() — the shared github.com/owner/repo slug
+    extractor that audit-evals' link-rot and archived detectors route through
+    (#113). Returns sorted, de-duplicated slugs."""
+
+    def test_extracts_from_markdown_link(self):
+        self.assertEqual(catalog_lib.github_repos("| [a](https://github.com/x/a) |"), ["x/a"])
+
+    def test_strips_dot_git_suffix(self):
+        self.assertEqual(catalog_lib.github_repos("see https://github.com/foo/bar.git for more"), ["foo/bar"])
+
+    def test_stops_at_delimiters(self):
+        # closing paren, whitespace, quote, hash, slash, and end-of-string all bound the slug
+        for text in ('(https://github.com/foo/bar)', 'https://github.com/foo/bar ',
+                     '"https://github.com/foo/bar"', 'https://github.com/foo/bar#readme',
+                     'https://github.com/foo/bar/tree/main', 'https://github.com/foo/bar'):
+            self.assertEqual(catalog_lib.github_repos(text), ["foo/bar"], msg=text)
+
+    def test_dedupes_and_sorts(self):
+        text = "https://github.com/z/z https://github.com/a/a https://github.com/z/z"
+        self.assertEqual(catalog_lib.github_repos(text), ["a/a", "z/z"])
+
+    def test_no_match_returns_empty(self):
+        self.assertEqual(catalog_lib.github_repos("no links here"), [])
+
+    def test_matches_legacy_inline_regex(self):
+        # Equivalence to the regex the two detectors used before extraction.
+        # This copy is the frozen baseline (the extraction's oracle), NOT a second
+        # source of truth — if _GITHUB_SLUG legitimately changes, update it here too.
+        import re
+        legacy = lambda t: sorted(set(re.findall(
+            r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)", t)))
+        with open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8") as f:
+            sample = f.read()
+        self.assertEqual(catalog_lib.github_repos(sample), legacy(sample))
 
 
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)

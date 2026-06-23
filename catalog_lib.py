@@ -15,6 +15,16 @@ import re
 ROW_TYPE = r"(?:MCP server|tool|skill|plugin|framework|harness|platform|reference)"
 _BODY_ROW = re.compile(rf"^\|\s*[^|]+\|\s*{ROW_TYPE}\s*\|")
 
+# A github.com/owner/repo slug: owner/repo, an optional .git suffix dropped, bounded
+# by a closing paren, whitespace, quote, '#', '/', or end-of-string. Shared by the
+# link-rot and archived-repo detectors so the extraction can't drift between them.
+_GITHUB_SLUG = re.compile(r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)")
+
+
+def github_repos(text):
+    """Sorted, de-duplicated owner/repo slugs of every github.com link in `text`."""
+    return sorted(set(_GITHUB_SLUG.findall(text)))
+
 
 def catalog_count(catalog_text):
     """Number of entry rows in CATALOG.md — table rows minus header/separator."""

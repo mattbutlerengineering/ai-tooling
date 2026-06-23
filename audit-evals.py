@@ -236,7 +236,7 @@ def check_repo(slug):
 def audit_links():
     import concurrent.futures
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
-    slugs = sorted(set(re.findall(r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)", text)))
+    slugs = catalog_lib.github_repos(text)
     problems = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
         for slug, res in zip(slugs, ex.map(check_repo, slugs)):
@@ -285,7 +285,7 @@ def check_archived(slug):
 def audit_archived():
     import concurrent.futures
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
-    slugs = sorted(set(re.findall(r"github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?(?=[)\s\"'#/]|$)", text)))
+    slugs = catalog_lib.github_repos(text)
     archived = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
         for slug, res in zip(slugs, ex.map(check_archived, slugs)):
