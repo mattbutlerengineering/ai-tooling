@@ -286,7 +286,7 @@ All 505 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | bernstein | harness | ✓ | ✓ | CONDITIONAL | SOURCE-ONLY |
-| claude-code-action | tool | ✓ | ✓ | ADOPT | REVIEW |
+| claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
 
 ## Reflect
 
