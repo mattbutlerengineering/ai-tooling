@@ -23,14 +23,14 @@ adoption + evidence bars strictly, and names a clear pick.
 ## TL;DR — strict recommendation
 
 **Primary pick: `systematic-debugging`** (from `obra/superpowers`, **MIT**, catalogued).
-It is the most complete and the most *root-cause-specific* of the three, and the only
-one whose provenance and license are verified.
+It is the most complete and the most *root-cause-specific* of the three. Both it and the
+runner-up are MIT and catalogued, so the choice is decided on **methodology, not provenance**.
 
 | | Skill | Use it for | Adoptable? |
 |---|---|---|---|
 | **1 (primary)** | **systematic-debugging** | The default for root-causing — especially **multi-component/distributed bugs** and stopping **fix-thrashing** | ✅ MIT, catalogued via `obra/superpowers` (★-backed, maintained) |
-| **2 (leaner alt)** | **diagnosing-bugs** | Single-process, **agent-runnable** bugs where a fast red/green loop is the whole game | ⚠️ MIT-style *assumed* — local skill, **provenance/license unconfirmed**; not catalogued |
-| **collapse** | **diagnose** | — | ❌ Older (2026-05-18), strictly weaker predecessor of `diagnosing-bugs` → **deprecate/merge** |
+| **2 (leaner alt)** | **diagnosing-bugs** | Single-process, **agent-runnable** bugs where a fast red/green loop is the whole game | ✅ MIT — `mattpocock/skills` (★143K); catalogued (COMPARISON: discovery-log / REVIEW, eval file exists) |
+| **collapse** | **diagnose** | — | ❌ Older (2026-05-18), uncatalogued local copy; upstream `mattpocock/skills` now ships `diagnosing-bugs` instead → **deprecate/merge** |
 
 **But take one thing from the runner-up:** graft `diagnosing-bugs`' **3–5 ranked
 falsifiable hypotheses** and its **"red-capable loop before any hypothesis" gate**
@@ -78,14 +78,17 @@ discipline — is the strongest root-causing process available here.
     that hands off to `improve-codebase-architecture`.
 - **Weaknesses:** No supporting-technique library (only the HITL helper); **less explicit**
   on multi-component boundary tracing — the exact thing systematic-debugging excels at.
-- **Provenance/license:** local skill under `~/.claude/skills/`; **not catalogued**, license
-  **unconfirmed**. Strictly, it can't be ADOPTED into the stack until provenance is established.
+- **Provenance/license:** **`mattpocock/skills`** (`https://github.com/mattpocock/skills`),
+  **MIT**, ★143K, pushed 2026-06-18. **Catalogued** — `CATALOG.md` row + `COMPARISON.md`
+  (discovery-log / REVIEW) + `evaluations/diagnosing-bugs.md`. License-clean and adoptable;
+  the choice vs systematic-debugging is purely methodological. **Verified.**
 
 ### diagnose — older predecessor → collapse
 - ~95% identical to `diagnosing-bugs` but **older** (2026-05-18 vs 2026-06-18) and **weaker**:
   it lacks the "tight loop that goes red" completion checklist and the Phase-2 **minimise**
-  step. Same "synthesis vs dedup" situation as opencode/oh-my-pi in the GLM spike —
-  **deprecate `diagnose`, keep `diagnosing-bugs`.**
+  step. It is an **uncatalogued local copy**; upstream `mattpocock/skills` now ships
+  `diagnosing-bugs` in its place. Same "synthesis vs dedup" situation as opencode/oh-my-pi in
+  the GLM spike — **deprecate `diagnose`, keep `diagnosing-bugs`.**
 
 ---
 
@@ -96,8 +99,9 @@ discipline — is the strongest root-causing process available here.
 2. **Completeness.** It's the only candidate with a supporting-technique library and
    pressure-tested hardening — not just a single SKILL.md.
 3. **Verifiable & adoptable.** Confirmed **MIT** and maintained in a **catalogued** plugin.
-   `diagnosing-bugs`/`diagnose` have unconfirmed provenance — a hard strike under the
-   repo's license-adoption bar.
+   `diagnosing-bugs` is *also* MIT + catalogued (`mattpocock/skills`), so provenance is a
+   wash between the top two — the decision rests on completeness and root-cause specificity,
+   not licensing. Only `diagnose` (uncatalogued local copy) is excluded on provenance.
 4. **Coverage of the worst case.** Multi-component bugs (CI → build → sign; API → svc → DB)
    are where agents thrash hardest; only systematic-debugging gives an explicit
    boundary-evidence procedure for them.
@@ -117,7 +121,9 @@ as the base, patched with those two mechanics.**
 ## Evidence & limitations
 
 - **REVIEW, not measured.** Conclusions are from reading the skills, not from a scored run.
-- **`diagnosing-bugs`/`diagnose` license unconfirmed** (local, uncatalogued) — confirm before any stack adoption.
+- **Provenance now resolved** (post-spike follow-up): `diagnosing-bugs` is MIT and catalogued
+  (`mattpocock/skills`); only `diagnose` remains an uncatalogued local copy. The earlier
+  "license unconfirmed" caveat no longer applies to the runner-up.
 - One mid-spike correction worth recording: the supporting library
   (`root-cause-tracing.md` et al.) belongs to **systematic-debugging**, *not* diagnosing-bugs
   (an initial mis-read, verified by `ls` per directory). The recommendation rests on the
@@ -133,7 +139,8 @@ as the base, patched with those two mechanics.**
 2. **Graft** diagnosing-bugs' loop-first gate + 3–5 ranked hypotheses into systematic-debugging
    (or maintain a thin local overlay).
 3. **Deprecate `diagnose`**; keep `diagnosing-bugs` as the leaner variant.
-4. **Confirm `diagnosing-bugs` provenance/license**; if MIT-clean and useful, catalog it.
+4. ~~Confirm `diagnosing-bugs` provenance/license~~ — **done**: MIT (`mattpocock/skills`),
+   already catalogued (`evaluations/diagnosing-bugs.md`).
 
 ## Sources (read in full this session)
 
