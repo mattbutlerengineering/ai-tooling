@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~25 tools worth installing on every project, distilled from 510 catalog entries and 471 evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~25 tools worth installing on every project, distilled from 517 catalog entries and 471 evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -104,7 +104,7 @@ agent-skills (REVIEW), trailofbits/skills (REVIEW)
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [abtop](https://github.com/graykode/abtop) | Live token/cost TUI for comparing agent session efficiency | `curl --proto '=https' --tlsv1.2 -LsSf https://github.com/graykode/abtop/releases/latest/download/abtop-installer.sh \| sh` | Cost Efficiency |
-| [ccusage](https://github.com/ryoppippi/ccusage) | Parses local coding-agent session logs into daily/monthly/session/model token & cost reports | `npx ccusage@latest` | Cost Efficiency |
+| [ccusage](https://github.com/ccusage/ccusage) | Parses local coding-agent session logs into daily/monthly/session/model token & cost reports | `npx ccusage@latest` | Cost Efficiency |
 
 ---
 
