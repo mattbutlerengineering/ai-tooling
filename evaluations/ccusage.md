@@ -1,6 +1,6 @@
 # Evaluation: ccusage
 
-**Repo:** [ryoppippi/ccusage](https://github.com/ryoppippi/ccusage)
+**Repo:** [ccusage/ccusage](https://github.com/ccusage/ccusage)
 **Stars:** 16484 | **Last updated:** 2026-06-23 | **License:** MIT (npm metadata; GitHub reports `NOASSERTION` from an unparsed `LICENSE` file)
 **Last verified:** 2026-06-22
 **Dev loop stage:** Reflect
@@ -81,4 +81,4 @@ ccusage is the category-defining cost-reporting tool for coding agents and it ra
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [ccusage](https://github.com/ryoppippi/ccusage) | tool | CLI parses local coding-agent session logs into daily/monthly/session/model token & cost reports | Can't see how many tokens or dollars your Claude Code (and other CLI) sessions cost without parsing JSONL by hand | langfuse, Helicone, ccstatusline, claude-hud |
+| [ccusage](https://github.com/ccusage/ccusage) | tool | CLI parses local coding-agent session logs into daily/monthly/session/model token & cost reports | Can't see how many tokens or dollars your Claude Code (and other CLI) sessions cost without parsing JSONL by hand | langfuse, Helicone, ccstatusline, claude-hud |

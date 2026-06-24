@@ -1,6 +1,6 @@
 # Evaluation: Cost-Audit + Compress recipe (ccusage + headroom)
 
-**Repo:** [ryoppippi/ccusage](https://github.com/ryoppippi/ccusage) + [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
+**Repo:** [ccusage/ccusage](https://github.com/ccusage/ccusage) + [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
 **Stars:** ccusage 16,484 · headroom 37,301 | **Last updated:** ccusage 2026-06-23 · headroom 2026-06-19 | **License:** ccusage MIT · headroom Apache-2.0
 **Last verified:** 2026-06-22  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
 **Dev loop stage:** Reflect (audit where the budget went) + Implement/Verify (trim tool output before it costs tokens)
@@ -124,4 +124,4 @@ headroom init --global                                 # durable agent integrati
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [cost-audit-compress-recipe](https://github.com/ryoppippi/ccusage) | reference | Recipe pairing ccusage (cost audit) with headroom (deterministic local output compression) to prove and capture net token savings | Seeing where the token budget goes is useless without a way to cut it before you spend — and an LLM-summarizer compressor muddies the net; this pairs auditing with a no-inference trim | ccusage, headroom, cost-observability, caveman, token-optimizer-mcp |
+| [cost-audit-compress-recipe](https://github.com/ccusage/ccusage) | reference | Recipe pairing ccusage (cost audit) with headroom (deterministic local output compression) to prove and capture net token savings | Seeing where the token budget goes is useless without a way to cut it before you spend — and an LLM-summarizer compressor muddies the net; this pairs auditing with a no-inference trim | ccusage, headroom, cost-observability, caveman, token-optimizer-mcp |

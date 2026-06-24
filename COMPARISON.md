@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 510 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 517 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -100,6 +100,8 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deer-flow | harness | | ✓ | discovery-log | REVIEW |
 | DeepSeek-Reasonix | platform | | ✓ | discovery-log | REVIEW |
 | dify | platform | | ✓ | SKIP | REVIEW |
+| activepieces | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| onyx | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | dmux | tool | | ✓ | discovery-log | REVIEW |
 | ECC | harness | | ✓ | discovery-log | REVIEW |
 | fast-agent | framework | | ✓ | discovery-log | REVIEW |
@@ -529,6 +531,9 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AutoSci | harness | ✓ | ✓ | discovery-log | REVIEW |
 | notebooklm-py | tool | ✓ | ✓ | discovery-log | REVIEW |
 | evo | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| awesome-llm-apps | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| Awesome-LLMOps (InftyAI) | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -578,6 +583,8 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | 500-AI-Agents-Projects | reference | | ✓ | discovery-log | REVIEW |
 | 12-factor-agents | reference | | ✓ | discovery-log | REVIEW |
 | ag-ui | reference | | ✓ | discovery-log | REVIEW |
+| openui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-generative-ai-guide | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ---
 
@@ -595,7 +602,7 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 167 | 167 | 100% |
+| Implement | 169 | 169 | 100% |
 | Verify | 19 | 19 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -604,6 +611,6 @@ All 510 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Skills & Plugins | 65 | 65 | 100% |
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 36 | 36 | 100% |
-| Research & Discovery | 13 | 13 | 100% |
-| Reference | 44 | 44 | 100% |
-| **Total** | **510** | **510** | **100%** |
+| Research & Discovery | 16 | 16 | 100% |
+| Reference | 46 | 46 | 100% |
+| **Total** | **517** | **517** | **100%** |
