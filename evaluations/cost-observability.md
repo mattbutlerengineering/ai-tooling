@@ -13,6 +13,8 @@ Combined evaluation of three cost observability approaches: tokencost (per-call 
 **Dev loop stage:** Outer loop (Observe)
 **Layer:** Infrastructure
 
+> **Backing eval for the `tokencost` row in COMPARISON.md.** That row (CONDITIONAL / RUN) has no standalone `evaluations/tokencost.md` — its evidence lives in this section (Evidence `RUN`, alias `tokencost`). The missing file is intentional, not an orphan; do not create a separate `tokencost.md` (two aliases would compete for one COMPARISON row).
+
 ### What it does
 
 Python library that estimates token counts and dollar costs for 400+ LLMs from a built-in pricing table — *before or after* a call, without needing the provider's usage response. You pass it a prompt/completion string (or a token count) and a model name; it returns the cost.
