@@ -269,6 +269,30 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 
 ---
 
+## Cross-Cutting: Token tooling — four jobs, four picks
+
+"Monitor token usage" and "optimize token usage" aren't one job — they're **four distinct jobs**, and the [Cost Efficiency](#cross-cutting-cost-efficiency) section above (reduction) and the [Observability](#observability) section below (measurement) each cover some of them without ever connecting the two. Map "which tool do I use?" onto what you actually want to do, pick the one tool for that job, and stop — stacking two tools in the same job is redundant; one per job composes.
+
+| Job | Pick | What you get | Install | Eval |
+|-----|------|--------------|---------|------|
+| **Monitor — live** | abtop (CONDITIONAL · MEASURED, in STACK) | htop-style TUI showing per-session tokens, cost, context %, and rate limits in real time | `curl --proto '=https' --tlsv1.2 -LsSf https://github.com/graykode/abtop/releases/latest/download/abtop-installer.sh \| sh` | [abtop.md](evaluations/abtop.md) |
+| **Monitor — historical** | ccusage (ADOPT · MEASURED, in STACK) | Daily/monthly/session/model token & cost reports parsed from local session logs | `npx ccusage@latest` | [ccusage.md](evaluations/ccusage.md) |
+| **Attribute spend / find waste** | codeburn (ADOPT · MEASURED) | Breaks spend down by task/model/tool/project across ~30 tools and emits ranked waste fixes; logged-excluded from STACK — pull in for multi-tool bills (needs Node ≥ 22.13). Secondary: tokencost (CONDITIONAL · RUN) for per-call cost estimation in Python pipelines you control. | `npx codeburn@latest` · `pip install tokencost` | [codeburn.md](evaluations/codeburn.md) · [cost-observability.md](evaluations/cost-observability.md#tokencost) |
+| **Reduce / optimize** | caveman (ADOPT · MEASURED, in STACK) | Compresses agent *prose output* (~49–59% measured) with no accuracy loss. For *tool-output* compression, use the [Layer-1 table](#cross-cutting-cost-efficiency) (headroom is the in-STACK pick). | `claude install-skill JuliusBrussee/caveman` | [caveman.md](evaluations/caveman.md) |
+
+**I want to…**
+
+- **…watch a running session burn tokens right now** → abtop (live TUI).
+- **…see what last week or month actually cost** → ccusage (historical reports).
+- **…find *where* the money went, or what spend never shipped** → codeburn (cross-tool attribution + waste fixes).
+- **…price a prompt before I send it**, in a Python pipeline I control → tokencost.
+- **…make the model write fewer tokens back** → caveman (prose-output compression).
+- **…shrink tool output before it reaches the context window** → the [Layer-1 compression family](#cross-cutting-cost-efficiency) (headroom in STACK; context-mode, token-optimizer-mcp, claw-compactor, lean-ctx as alternatives).
+
+**Evidence honesty.** abtop, ccusage, codeburn, and caveman were all run **hands-on (MEASURED)** — install them with confidence. tokencost was **smoke-tested (RUN)** on its offline OpenAI path (Claude costing routes to Anthropic's API and needs a key). The Layer-1 tool-output compressors other than headroom (context-mode, token-optimizer-mcp, claw-compactor, lean-ctx) are **REVIEW-only** — evaluated from docs/source, not run; try them at your own risk. This mirrors STACK.md's [Tier 1 / Tier 2](STACK.md#evidence-tiers) split.
+
+---
+
 ## Cross-Cutting: Security & Supply Chain
 
 Safety runs through every stage, but supply chain security is its own concern — especially as the skill ecosystem grows:

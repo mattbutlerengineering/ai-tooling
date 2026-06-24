@@ -118,6 +118,8 @@ agent-skills (REVIEW), trailofbits/skills (REVIEW)
 
 Valuable but situational, so they're not in the every-project default above (#46 prune):
 
+> For choosing among the token monitoring & optimization tools (abtop, ccusage, codeburn, caveman, tokencost), see WORKFLOW.md's [Token tooling: four jobs, four picks](WORKFLOW.md#cross-cutting-token-tooling--four-jobs-four-picks) guide.
+
 | Tool | Install when | Install |
 |------|-------------|---------|
 | [serena](https://github.com/oraios/serena) | Heavy refactoring / cross-file renames — LSP symbol-level retrieval + edits. Scope per-project; keep `execute_shell_command` off where the harness already has shell. (codegraph covers read-only navigation in the default.) | `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server` |
