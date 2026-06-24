@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 517 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 523 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -172,6 +172,10 @@ All 517 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pydantic-deepagents | framework | ✓ | ✓ | discovery-log | REVIEW |
 | pi-subagents | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | CopilotKit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| tambo | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| assistant-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| hashbrown | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| OpenGenerativeUI | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentscope | framework | ✓ | ✓ | discovery-log | REVIEW |
 | open-multi-agent | framework | ✓ | ✓ | discovery-log | REVIEW |
 | eino | framework | ✓ | ✓ | discovery-log | REVIEW |
@@ -584,6 +588,8 @@ All 517 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | 12-factor-agents | reference | | ✓ | discovery-log | REVIEW |
 | ag-ui | reference | | ✓ | discovery-log | REVIEW |
 | openui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| a2ui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| MCP Apps (ext-apps) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-generative-ai-guide | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ---
@@ -602,7 +608,7 @@ All 517 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 169 | 169 | 100% |
+| Implement | 173 | 173 | 100% |
 | Verify | 19 | 19 | 100% |
 | Review | 29 | 29 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -612,5 +618,5 @@ All 517 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 45 | 45 | 100% |
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 16 | 16 | 100% |
-| Reference | 46 | 46 | 100% |
-| **Total** | **517** | **517** | **100%** |
+| Reference | 48 | 48 | 100% |
+| **Total** | **523** | **523** | **100%** |
