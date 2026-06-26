@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 523 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 534 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -237,6 +237,7 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | clawcodex | harness | | ✓ | discovery-log | REVIEW |
 | claudian | plugin | | ✓ | discovery-log | REVIEW |
 | jetbrains-cc-gui | plugin | | ✓ | discovery-log | REVIEW |
+| babysitter | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Verify
 
@@ -261,6 +262,7 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | passmark | tool | ✓ | ✓ | discovery-log | REVIEW |
 | diagnosing-bugs | skill | | ✓ | discovery-log | REVIEW |
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
+| browser-act/skills | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Review
 
@@ -295,6 +297,7 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
+| ctf-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Ship
 
@@ -426,6 +429,11 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
 | context-engineering-kit | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-skill-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| wondelai/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-design-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Memory & Context
 
@@ -476,6 +484,8 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pro-workflow | plugin | ✓ | ✓ | SKIP | REVIEW |
 | hivemind | tool | ✓ | ✓ | discovery-log | REVIEW |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| getspecstory | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -538,6 +548,7 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-llm-apps | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Awesome-LLMOps (InftyAI) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -608,15 +619,15 @@ All 523 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 173 | 173 | 100% |
-| Verify | 19 | 19 | 100% |
-| Review | 29 | 29 | 100% |
+| Implement | 174 | 174 | 100% |
+| Verify | 20 | 20 | 100% |
+| Review | 30 | 30 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 39 | 39 | 100% |
-| Skills & Plugins | 65 | 65 | 100% |
-| Memory & Context | 45 | 45 | 100% |
+| Skills & Plugins | 70 | 70 | 100% |
+| Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 36 | 36 | 100% |
-| Research & Discovery | 16 | 16 | 100% |
+| Research & Discovery | 17 | 17 | 100% |
 | Reference | 48 | 48 | 100% |
-| **Total** | **523** | **523** | **100%** |
+| **Total** | **534** | **534** | **100%** |
