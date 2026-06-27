@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 543 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 546 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -400,6 +400,9 @@ All 543 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
+| pm-claude-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-infrastructure-showcase | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | microsoft/skills | skill | | ✓ | discovery-log | REVIEW |
 | obsidian-skills | skill | | ✓ | discovery-log | REVIEW |
 | open-design | platform | | ✓ | SKIP | REVIEW |
@@ -634,9 +637,9 @@ All 543 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 39 | 39 | 100% |
-| Skills & Plugins | 70 | 70 | 100% |
+| Skills & Plugins | 73 | 73 | 100% |
 | Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 47 | 47 | 100% |
-| **Total** | **543** | **543** | **100%** |
+| **Total** | **546** | **546** | **100%** |
