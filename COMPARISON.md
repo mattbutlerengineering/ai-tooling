@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 546 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 549 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -356,6 +356,7 @@ All 546 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-devtools | tool | ✓ | ✓ | discovery-log | REVIEW |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -578,7 +579,9 @@ All 546 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | genai-agents | reference | | ✓ | discovery-log | REVIEW |
 | agents-towards-production | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-claude-skills (Composio) | reference | | ✓ | discovery-log | REVIEW |
+| awesome-claude-skills (behisecc) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP | REVIEW |
+| claude-cookbooks | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-codex-skills | reference | | ✓ | discovery-log | REVIEW |
 | awesome-llm-agents | reference | | ✓ | discovery-log | REVIEW |
 | awesome-hermes-agent | reference | | ✓ | discovery-log | SOURCE-ONLY |
@@ -636,10 +639,10 @@ All 546 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 30 | 30 | 100% |
 | Ship | 2 | 2 | 100% |
 | Reflect | 5 | 5 | 100% |
-| Outer Loop | 39 | 39 | 100% |
+| Outer Loop | 40 | 40 | 100% |
 | Skills & Plugins | 73 | 73 | 100% |
 | Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
-| Reference | 47 | 47 | 100% |
-| **Total** | **546** | **546** | **100%** |
+| Reference | 49 | 49 | 100% |
+| **Total** | **549** | **549** | **100%** |

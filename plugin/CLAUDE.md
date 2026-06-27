@@ -13,7 +13,7 @@ AI workflow toolkit organized around inner/outer dev loop stages and five qualit
 ## Reference Documents
 
 The plugin includes reference documents under `docs/`:
-- `CATALOG.md` — flat inventory of 546 tools across 13 categories with overlap markers
+- `CATALOG.md` — flat inventory of 549 tools across 13 categories with overlap markers
 - `WORKFLOW.md` — inner/outer dev loop stages, tools per stage, quality signals, adoption guide
 - `evaluations/` — 469 evidence-based evaluation and comparison files
 
