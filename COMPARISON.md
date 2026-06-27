@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 536 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 535 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -589,7 +589,6 @@ All 536 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | docmd | tool | | ✓ | discovery-log | REVIEW |
 | agentskills | reference | | ✓ | ADOPT | REVIEW |
 | agents-best-practices | skill | | ✓ | discovery-log | REVIEW |
-| design-extract | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | buildwithclaude | reference | | ✓ | discovery-log | REVIEW |
 | karpathy-llm-wiki | skill | | ✓ | discovery-log | REVIEW |
 | ctx | tool | | ✓ | discovery-log | REVIEW |
@@ -631,5 +630,5 @@ All 536 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
-| Reference | 48 | 48 | 100% |
-| **Total** | **536** | **536** | **100%** |
+| Reference | 47 | 47 | 100% |
+| **Total** | **535** | **535** | **100%** |
