@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 540 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 543 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -27,6 +27,9 @@ All 540 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | discovery-log | REVIEW |
+| claude-code-spec-workflow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-my-workflow | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | ccpm | skill | | ✓ | discovery-log | REVIEW |
 | OpenSpec | framework | | ✓ | discovery-log | REVIEW |
 | BMAD-METHOD | framework | | ✓ | discovery-log | REVIEW |
@@ -624,7 +627,7 @@ All 540 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 46 | 46 | 100% |
+| Plan | 49 | 49 | 100% |
 | Implement | 179 | 179 | 100% |
 | Verify | 20 | 20 | 100% |
 | Review | 30 | 30 | 100% |
@@ -636,4 +639,4 @@ All 540 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 47 | 47 | 100% |
-| **Total** | **540** | **540** | **100%** |
+| **Total** | **543** | **543** | **100%** |
