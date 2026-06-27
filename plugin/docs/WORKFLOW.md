@@ -291,6 +291,8 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 
 **Evidence honesty.** abtop, ccusage, codeburn, and caveman were all run **hands-on (MEASURED)** — install them with confidence. tokencost was **smoke-tested (RUN)** on its offline OpenAI path (Claude costing routes to Anthropic's API and needs a key). The Layer-1 tool-output compressors other than headroom (context-mode, token-optimizer-mcp, claw-compactor, lean-ctx) are **REVIEW-only** — evaluated from docs/source, not run; try them at your own risk. This mirrors STACK.md's [Tier 1 / Tier 2](STACK.md#evidence-tiers) split.
 
+**Verifying the claims.** Almost every Optimize-cluster entry above advertises a headline % (60–95% fewer tokens, 96% reduction, 50× token reduction) the catalog has *not* reproduced — the loudest claims on the softest evidence. `python3 audit-evals.py --savings-claims` lists every such unverified savings claim across the whole catalog (an in-row `self-reported` disclaimer is bucketed apart as the honest path), turning the backlog into a number to shrink. The [token-savings verification protocol](evaluations/token-savings-protocol.md) is the standard A/B method to reproduce one claim on a fixed corpus and graduate its eval **REVIEW → MEASURED**, promoting the tool toward [STACK Tier 1](STACK.md#evidence-tiers). `caveman` is the worked exemplar — its eval reports a *measured* 49–59% against the vendor's looser headline, which is exactly why it sits in STACK and the REVIEW-only compressors don't.
+
 ---
 
 ## Cross-Cutting: Security & Supply Chain

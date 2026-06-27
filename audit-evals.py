@@ -688,6 +688,60 @@ def audit_clusters():
             flagged.append(sorted(members))
     return sorted(flagged, key=lambda c: (-len(c), c[0].lower()))
 
+# ---------------------------------------------------------------- N. token-savings claims (report-only)
+# Nearly every Optimize-cluster entry advertises a self-reported "% token savings"
+# headline (60-95% fewer tokens, 96% reduction, 50x token reduction, ~98% fewer
+# tokens) yet almost none are hands-on MEASURED in this repo — the loudest claims in
+# the catalog rest on the weakest evidence. This report flags every CATALOG row whose
+# one-liner makes a numeric token-savings claim but whose eval is not run-backed
+# (Evidence MEASURED/RUN), so the unverified backlog is a number to watch shrink
+# (mirrors --skills; gating is a later #71-style decision). An in-row "self-reported"/
+# "unverified" disclaimer is the honest path — like detector B's HONEST vocab — and is
+# bucketed apart from the silent claims. Report-only; does not affect exit code.
+_SAVINGS_NUM = re.compile(r"~?\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?\s*%\+?|~?\d+(?:\.\d+)?\s*(?:×|x\b)")
+_SAVINGS_NEAR = re.compile(r"token|context|prompt|saving|reduc|fewer|less|waste|compress|consumption|lower|smaller|\bcut", re.I)
+_SAVINGS_CTX = re.compile(r"token|context|prompt", re.I)
+_SAVINGS_DISCLAIMER = re.compile(r"self-?reported|unverified", re.I)
+
+def _has_savings_claim(one_liner):
+    """A numeric token-savings headline: a percentage or N× figure sitting next to
+    reduction/token vocabulary, in a one-liner that is itself about tokens/context.
+    Scopes to the Optimize cluster without computing cluster membership, and avoids
+    false positives like '94% of languages' or '2M-token context' (figure, no verb)."""
+    if not _SAVINGS_CTX.search(one_liner):
+        return False
+    for m in _SAVINGS_NUM.finditer(one_liner):
+        lo, hi = max(0, m.start() - 28), m.end() + 28
+        if _SAVINGS_NEAR.search(one_liner[lo:hi]):
+            return True
+    return False
+
+def audit_savings_claims():
+    """Return (name, evidence_level, disclosed) for every CATALOG row making a numeric
+    token-savings claim that is NOT run-backed. Verified rows (MEASURED/RUN) drop out;
+    rows with no eval surface as '(no eval)'. Sorted by name. Report-only."""
+    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    levels = {}  # normalized catalog name -> declared (or derived) evidence level
+    for ev in load_evals():
+        lvl = ev.evidence_level or ev.derived_evidence
+        for alias in ev.name_aliases:
+            levels.setdefault(alias, lvl)
+    flagged = []
+    for line in text.splitlines():
+        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
+        if not m:
+            continue
+        cells = line.split("|")
+        if len(cells) < 4 or not _has_savings_claim(cells[3]):
+            continue
+        name = m.group(1)
+        lvl = levels.get(_norm(name))
+        if lvl in ("MEASURED", "RUN"):
+            continue  # claim is run-backed — exactly what we want
+        disclosed = bool(_SAVINGS_DISCLAIMER.search(line))
+        flagged.append((name, lvl or "(no eval)", disclosed))
+    return sorted(flagged, key=lambda r: r[0].lower())
+
 # ---------------------------------------------------------------- G. comparison consistency
 # COMPARISON.md mirrors CATALOG.md: its per-stage summary must sum to its own body
 # rows, and its Total must equal the CATALOG entry count. Manual count edits drift
@@ -796,7 +850,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--clusters", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -809,6 +863,7 @@ def main():
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
     do_clusters = "--clusters" in sel  # opt-in report (does not affect exit code)
+    do_savings = "--savings-claims" in sel  # opt-in report (does not affect exit code)
     do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
     do_staleness = "--staleness" in sel  # opt-in report (does not affect exit code)
     if "--offline" in sel: do_inst = False
@@ -947,6 +1002,17 @@ def main():
             print("  OK — every overlap cluster with a CONDITIONAL member also has an ADOPT/KEEP pick")
         for members in cl:
             print(f"  PICK?  {' / '.join(members)}")
+    if do_savings:
+        sav = audit_savings_claims()
+        silent = [r for r in sav if not r[2]]
+        print(f"== N. token-savings claims (report-only) — {len(silent)} unverified savings claim(s), "
+              f"{len(sav) - len(silent)} self-reported ==")
+        if not sav:
+            print("  OK — every numeric token-savings headline is run-backed (MEASURED/RUN)")
+        for name, lvl, disclosed in sav:
+            tag = "  [self-reported — honest, but verify]" if disclosed else \
+                  "  (run the token-savings protocol to graduate to MEASURED)"
+            print(f"  UNVERIFIED {name}  ({lvl}){tag}")
     sys.exit(rc)
 
 if __name__ == "__main__":

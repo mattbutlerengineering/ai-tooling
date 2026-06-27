@@ -553,6 +553,68 @@ class TestDetectorL(unittest.TestCase):
         self.assertEqual(stale, [])
 
 
+# ----------------------------------------------------------------- detector N (savings claims)
+class TestSavingsClaims(unittest.TestCase):
+    HEADER = "| Name | Type | One-liner | Problem | Overlaps |\n|---|---|---|---|---|\n"
+
+    def _has(self, one_liner):
+        return audit._has_savings_claim(one_liner)
+
+    def test_recognises_savings_headlines(self):
+        for s in ("Compresses tool output (60-95% fewer tokens)",
+                  "Context window optimization — 96% reduction across 15 platforms",
+                  "95%+ context reduction for tool outputs",
+                  "returns exact snippets using ~98% fewer tokens than grep",
+                  "257 languages — 50x token reduction",
+                  "claims ~6× lower token consumption than comparable agents"):
+            self.assertTrue(self._has(s), s)
+
+    def test_ignores_non_savings_numbers(self):
+        for s in ("Static-binary engine indexing 158 languages into a graph",
+                  "94% of languages supported by the parser",   # % but no token/context
+                  "2M-token effective context, self-hostable",  # token figure, no reduction verb
+                  "battle-tested at 10B+ tokens/day throughput"):
+            self.assertFalse(self._has(s), s)
+
+    def _run(self, catalog, evals):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", catalog)
+            for name, text in evals.items():
+                _write(d, os.path.join("evaluations", name), text)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                return audit.audit_savings_claims()
+            finally:
+                audit.ROOT = orig
+
+    def _row(self, name, one_liner):
+        return f"| [{name}](https://github.com/a/{name}) | tool | {one_liner} | p | none |\n"
+
+    def test_unverified_claim_flagged(self):
+        cat = self.HEADER + self._row("foo", "Compresses output, 94% token savings")
+        evals = {"foo.md": "**Evidence:** SOURCE-ONLY\n\n## Verdict\n\n**CONDITIONAL**\n"}
+        self.assertEqual(self._run(cat, evals), [("foo", "SOURCE-ONLY", False)])
+
+    def test_measured_claim_suppressed(self):
+        cat = self.HEADER + self._row("foo", "Compresses output, 94% token savings")
+        evals = {"foo.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT**\n"}
+        self.assertEqual(self._run(cat, evals), [])
+
+    def test_no_eval_surfaces_as_no_eval(self):
+        cat = self.HEADER + self._row("bar", "Cuts 65% of tokens by dropping filler")
+        self.assertEqual(self._run(cat, {}), [("bar", "(no eval)", False)])
+
+    def test_self_reported_disclaimer_bucketed(self):
+        cat = self.HEADER + self._row("baz", "Persistent memory; 71.5× fewer tokens; self-reported")
+        flagged = self._run(cat, {})
+        self.assertEqual(flagged, [("baz", "(no eval)", True)])
+
+    def test_non_savings_row_not_flagged(self):
+        cat = self.HEADER + self._row("qux", "Parses session logs into daily token & cost reports")
+        self.assertEqual(self._run(cat, {}), [])
+
+
 # ----------------------------------------------------------------- tier-stack (#72)
 class TestTierStack(unittest.TestCase):
     STACK = ("# Stack\n\n<!-- TIERS:START -->\n<!-- TIERS:END -->\n\n## Plan\n"
