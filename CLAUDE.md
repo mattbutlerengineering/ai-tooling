@@ -60,6 +60,23 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `plugin/skills/` is authoritative for skills; `skills/` is derived (paths stripped)
 - Run `./sync-plugin-docs.sh` after any root doc or plugin skill change
 
+### Supported harnesses (Claude Code + opencode)
+
+opencode is a supported harness alongside Claude Code. Both read this `CLAUDE.md`
+(opencode reads it as its rules fallback — there is intentionally no `AGENTS.md`
+content fork). Canonical homes per artifact, with the other harness derived/synced
+(ADR-0002; never hand-maintain a duplicate that drifts):
+
+- **Instructions** → `CLAUDE.md` (both harnesses)
+- **Repo skills** → `.claude/skills/` + `.agents/skills/` (both harnesses auto-discover; `.claude/skills/find-skills` is a symlink to `.agents/skills/find-skills`)
+- **Specialized agent (`eval-runner`)** → `.opencode/agents/` canonical; `.claude/agents/eval-runner.md` is a symlink to it (one source file, zero drift)
+- **Hook logic** → opencode plugins in `.opencode/plugins/` (`commit-gate.ts`, `auto-sync.ts`) that call the **same** `audit-evals.py --offline` / `sync-plugin-docs.sh` scripts Claude Code's hooks use — so the local opencode, local Claude Code, and CI (`make check`) gates reference one implementation
+- **Deterministic gates** → custom commands `/check` `/fix` `/sync` (opencode) and `make check`/`make fix`/`./sync-plugin-docs.sh` directly
+
+**Lockstep invariant:** any change to a hook behavior must keep the opencode
+plugins, the Claude Code `.claude/hooks/` scripts, and `.github/workflows/integrity.yml`
+in lockstep — they all gate against the same coupled scripts, so they must not drift.
+
 ## Integrity audit
 
 - **`make check` is the canonical gate; `make fix` is the canonical repair.** `make check` runs the full gating set in `--check`/verify mode — exactly what `.github/workflows/integrity.yml` enforces (offline detectors B/D/G/J/K, `--selftest`, `reconcile`/`backfill`/`tier-stack`/`sync-plugin-docs` `--check`, and the network install resolver A) — and exits non-zero on the first failure. `make fix` runs the apply-mode fixers in dependency order (`reconcile-counts` → `backfill-evidence` → `tier-stack` → `sync-plugin-docs`) then re-runs `check`, so a clean exit means the tree is green. CI's `audit` job calls `make check`, so the local and CI gate sets can't drift (pinned by `test_automation.py`'s `TestIntegrityMakefile`). The individual scripts below are still runnable directly when you want one gate in isolation.
