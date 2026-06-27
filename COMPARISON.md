@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 534 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 536 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -176,6 +176,8 @@ All 534 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | assistant-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hashbrown | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | OpenGenerativeUI | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| json-render | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mcp-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentscope | framework | ✓ | ✓ | discovery-log | REVIEW |
 | open-multi-agent | framework | ✓ | ✓ | discovery-log | REVIEW |
 | eino | framework | ✓ | ✓ | discovery-log | REVIEW |
@@ -619,7 +621,7 @@ All 534 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 174 | 174 | 100% |
+| Implement | 176 | 176 | 100% |
 | Verify | 20 | 20 | 100% |
 | Review | 30 | 30 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -630,4 +632,4 @@ All 534 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 36 | 36 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 48 | 48 | 100% |
-| **Total** | **534** | **534** | **100%** |
+| **Total** | **536** | **536** | **100%** |
