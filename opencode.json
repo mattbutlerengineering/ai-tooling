@@ -1,0 +1,43 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "build",
+  "permission": {
+    "read": "allow",
+    "list": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "edit": "allow",
+    "webfetch": "allow",
+    "task": "allow",
+    "skill": "allow",
+    "bash": {
+      "*": "allow",
+      "git push*": "ask",
+      "git push *": "ask",
+      "git commit*": "allow",
+      "rm -rf*": "deny",
+      "rm -fr*": "deny",
+      "rm -r*": "ask",
+      "rm *": "ask",
+      "git reset --hard*": "ask",
+      "git clean -fd*": "ask"
+    }
+  },
+  "command": {
+    "check": {
+      "description": "Run the repo's canonical integrity gate (make check). Use to verify the tree is green before review/commit.",
+      "agent": "build",
+      "template": "Run the repo's canonical integrity gate exactly as CI does:\n\n    make check\n\nReport the result. If it fails, do NOT commit or push — read the diagnostic, fix the underlying issue, and re-run until it exits clean. This is the same set .github/workflows/integrity.yml enforces, so `make check` staying green means local and CI agree."
+    },
+    "fix": {
+      "description": "Apply the repo's offline fixers then re-verify (make fix). Use when make check reports drift that has an apply-mode fixer.",
+      "agent": "build",
+      "template": "Run the repo's apply-mode fixers in dependency order, then re-verify:\n\n    make fix\n\n`make fix` runs reconcile-counts → backfill-evidence → tier-stack → sync-plugin-docs, then re-runs `make check`, so a clean exit means the tree is actually green. Report which fixers applied and the final `make check` status."
+    },
+    "sync": {
+      "description": "Re-sync plugin/docs/ from the authoritative root docs (./sync-plugin-docs.sh). Use after editing CATALOG.md/WORKFLOW.md/STACK.md/evaluations.",
+      "agent": "build",
+      "template": "Re-sync the derived plugin docs copy from the authoritative root docs:\n\n    ./sync-plugin-docs.sh\n\nThen run `./sync-plugin-docs.sh --check` to confirm the tree no longer reports sync drift. Report the result. Note: root docs are authoritative; plugin/docs/ is a synced copy — never edit plugin/docs/ directly."
+    }
+  }
+}
