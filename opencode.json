@@ -9,7 +9,10 @@
     "edit": "allow",
     "webfetch": "allow",
     "task": "allow",
-    "skill": "allow",
+    "skill": {
+      "*": "allow",
+      "add-catalog-entry": "ask"
+    },
     "bash": {
       "*": "allow",
       "git push*": "ask",
