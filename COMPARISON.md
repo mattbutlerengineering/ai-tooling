@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 535 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 537 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -495,10 +495,12 @@ All 535 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | awslabs/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| unity-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | fastapi_mcp | framework | | ✓ | discovery-log | REVIEW |
 | mcp-use | framework | | ✓ | discovery-log | REVIEW |
 | cloudflare-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| agent-toolkit-for-aws | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | confluence | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | devfleet | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -628,7 +630,7 @@ All 535 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 39 | 39 | 100% |
 | Skills & Plugins | 70 | 70 | 100% |
 | Memory & Context | 47 | 47 | 100% |
-| MCP Servers | 36 | 36 | 100% |
+| MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 47 | 47 | 100% |
-| **Total** | **535** | **535** | **100%** |
+| **Total** | **537** | **537** | **100%** |
