@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 537 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 540 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -82,6 +82,7 @@ All 537 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
+| vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | discovery-log | REVIEW |
@@ -134,6 +135,7 @@ All 537 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | smolagents | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | dspy | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | crewAI | framework | | ✓ | SKIP | REVIEW |
+| praisonai | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | vercel-ai | framework | | ✓ | discovery-log | REVIEW |
 | antigravity-sdk-python | framework | | ✓ | discovery-log | REVIEW |
 | pydantic-ai | framework | | ✓ | discovery-log | REVIEW |
@@ -211,6 +213,7 @@ All 537 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gemini-cli | platform | | ✓ | discovery-log | REVIEW |
 | agents-cli | skill | | ✓ | discovery-log | REVIEW |
 | ralph-claude-code | harness | ✓ | ✓ | discovery-log | REVIEW |
+| ralph | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rtk | tool | ✓ | ✓ | discovery-log | REVIEW |
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
 | sandcastle | framework | | ✓ | discovery-log | REVIEW |
@@ -622,7 +625,7 @@ All 537 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 46 | 46 | 100% |
-| Implement | 176 | 176 | 100% |
+| Implement | 179 | 179 | 100% |
 | Verify | 20 | 20 | 100% |
 | Review | 30 | 30 | 100% |
 | Ship | 2 | 2 | 100% |
@@ -633,4 +636,4 @@ All 537 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 47 | 47 | 100% |
-| **Total** | **537** | **537** | **100%** |
+| **Total** | **540** | **540** | **100%** |
