@@ -249,6 +249,7 @@ class TestSyncPluginDocs(unittest.TestCase):
         _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
         _write(d, "evaluations/foo.md", "# eval foo\n")
         _write(d, "discovery/bar.md", "# discovery bar\n")
+        _write(d, "methodologies/baz.md", "# methodology baz\n")
         _write(d, "plugin/skills/myskill/SKILL.md",
                "See ${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md for the catalog.\n")
 
@@ -264,6 +265,7 @@ class TestSyncPluginDocs(unittest.TestCase):
             self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs/CATALOG.md")))
             self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs/evaluations/foo.md")))
             self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs/discovery/bar.md")))
+            self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs/methodologies/baz.md")))
 
     def test_strips_plugin_root_prefix_in_root_skills(self):
         # The sed strips the whole "${CLAUDE_PLUGIN_ROOT}/docs/" prefix, so a
