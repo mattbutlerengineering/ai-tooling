@@ -382,6 +382,13 @@ And eventually, when agents merge autonomously:
 - **bernstein** — audit-grade orchestration with tamper-proof logs
 - **beads** — work coordination to prevent duplicate effort
 
+### Learn the why behind the loop
+
+Tools are only half of it — the mental models matter as much. [LEARNING.md](LEARNING.md)
+curates AI/AI-coding YouTube channels and standout videos mapped onto these stages:
+foundations (how LLMs work), technique (AI-assisted coding), concepts (RAG/agents/MCP
+explainers), and production talks for the outer loop.
+
 ---
 
 ## Tools Deliberately Excluded
