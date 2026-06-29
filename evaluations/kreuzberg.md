@@ -1,6 +1,6 @@
 # Evaluation: kreuzberg
 
-**Repo:** [kreuzberg-dev/kreuzberg](https://github.com/kreuzberg-dev/kreuzberg)
+**Repo:** [xberg-io/xberg](https://github.com/xberg-io/xberg) (formerly kreuzberg-dev/kreuzberg; repo renamed)
 **Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
 **Dev loop stage:** Implement (document ingestion for RAG / Memory & Context)
 **Layer:** Infrastructure
@@ -20,8 +20,8 @@ Per the README: it handles **96 file formats** (PDF, Office, images, HTML, XML, 
 Architecture review against the README and the feature matrix (96 formats, 306-language code intelligence via tree-sitter, OCR backends, transcription, schema extraction, library/CLI/REST/MCP deployment). Confirmed the Rust-core/GPU-free positioning and the multi-format + code-aware extraction. License resolves to NOASSERTION via the API — confirm exact terms before commercial use. Not run on live documents, so condition-gated.
 
 ```bash
-gh api repos/kreuzberg-dev/kreuzberg --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
-gh api repos/kreuzberg-dev/kreuzberg/readme --jq '.content' | base64 -d
+gh api repos/xberg-io/xberg --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
+gh api repos/xberg-io/xberg/readme --jq '.content' | base64 -d
 ```
 
 ## What worked
@@ -56,4 +56,4 @@ Adopt as the document-ingestion layer when you need clean text, metadata, and st
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [kreuzberg](https://github.com/kreuzberg-dev/kreuzberg) | tool | Polyglot document-intelligence framework (Rust core, ★8.5K; SPDX unverified) — extract text, metadata, transcripts (Whisper), and code intelligence (tree-sitter, 306 langs) from 96 formats; OCR + 143 LLM providers; library/CLI/REST/MCP | RAG/agents need clean text + structure from messy documents; want fast, GPU-free, multi-format extraction with OCR and code parsing | LightRAG, PageIndex, cocoindex-code, ref-tools-mcp |
+| [kreuzberg](https://github.com/xberg-io/xberg) | tool | Polyglot document-intelligence framework (Rust core, ★8.5K; SPDX unverified) — extract text, metadata, transcripts (Whisper), and code intelligence (tree-sitter, 306 langs) from 96 formats; OCR + 143 LLM providers; library/CLI/REST/MCP | RAG/agents need clean text + structure from messy documents; want fast, GPU-free, multi-format extraction with OCR and code parsing | LightRAG, PageIndex, cocoindex-code, ref-tools-mcp |

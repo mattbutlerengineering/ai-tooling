@@ -1,6 +1,6 @@
 # Evaluation: presidio
 
-**Repo:** [microsoft/presidio](https://github.com/microsoft/presidio)
+**Repo:** [data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio) (formerly microsoft/presidio; repo moved)
 **Stars:** ~9,250 | **Last updated:** 2026-06-18 | **License:** MIT
 **Dev loop stage:** Reflect (data protection / Outer Loop)
 **Layer:** Infrastructure
@@ -20,8 +20,8 @@ Mechanically it's a pluggable pipeline: **analyzers** detect PII using a mix of 
 Architecture review against the README and the analyzer/anonymizer pipeline model. Confirmed the multi-modal coverage (text/image/structured), the pluggable recognizer architecture (NLP + pattern + context), and the customization story. Presidio is a mature, widely-used Microsoft OSS project. Not wired into a live pipeline, so condition-gated.
 
 ```bash
-gh api repos/microsoft/presidio --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
-gh api repos/microsoft/presidio/readme --jq '.content' | base64 -d
+gh api repos/data-privacy-stack/presidio --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
+gh api repos/data-privacy-stack/presidio/readme --jq '.content' | base64 -d
 ```
 
 ## What worked
@@ -56,4 +56,4 @@ Adopt when your AI workflow handles PII and you need to detect/redact/anonymize 
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [presidio](https://github.com/microsoft/presidio) | tool | PII de-identification SDK (MIT, ★9.2K, by Microsoft) — context-aware identification + anonymization of private entities across text, images, and structured data via NLP + pattern matching + customizable pipelines | LLM prompts/logs/training data leak PII; want to detect, redact, mask, or anonymize sensitive data before it reaches a model or store | superagent, NeMo-Guardrails, ghostsecurity/skills |
+| [presidio](https://github.com/data-privacy-stack/presidio) | tool | PII de-identification SDK (MIT, ★9.2K, by Microsoft) — context-aware identification + anonymization of private entities across text, images, and structured data via NLP + pattern matching + customizable pipelines | LLM prompts/logs/training data leak PII; want to detect, redact, mask, or anonymize sensitive data before it reaches a model or store | superagent, NeMo-Guardrails, ghostsecurity/skills |
