@@ -4,7 +4,8 @@ Status: accepted
 
 `sync-plugin-docs.sh` mirrors root documentation into `plugin/docs/` by copying a
 fixed, named set of files — `CATALOG.md`, `WORKFLOW.md`, `STACK.md`,
-`STACK-LEDGER.md`, plus the `evaluations/` and `discovery/` trees — rather than
+`STACK-LEDGER.md`, plus the `evaluations/`, `discovery/`, and `methodologies/`
+(see [ADR-0003](0003-methodologies-directory.md)) trees — rather than
 globbing every root-level `*.md`. We chose an allowlist so the installable plugin
 never picks up internal or working docs (`CLAUDE.md`, `README.md`, `COMPARISON.md`,
 `docs/`) by accident.

@@ -30,7 +30,7 @@ else
 fi
 
 # --- Docs: root → DEST_DOCS ---
-mkdir -p "$DEST_DOCS/evaluations" "$DEST_DOCS/discovery"
+mkdir -p "$DEST_DOCS/evaluations" "$DEST_DOCS/discovery" "$DEST_DOCS/methodologies"
 
 cp "$REPO_ROOT/CATALOG.md" "$DEST_DOCS/CATALOG.md"
 cp "$REPO_ROOT/WORKFLOW.md" "$DEST_DOCS/WORKFLOW.md"
@@ -38,6 +38,7 @@ cp "$REPO_ROOT/STACK.md" "$DEST_DOCS/STACK.md"
 cp "$REPO_ROOT/STACK-LEDGER.md" "$DEST_DOCS/STACK-LEDGER.md"
 rsync -a --delete "$REPO_ROOT/evaluations/" "$DEST_DOCS/evaluations/"
 rsync -a --delete "$REPO_ROOT/discovery/" "$DEST_DOCS/discovery/"
+rsync -a --delete "$REPO_ROOT/methodologies/" "$DEST_DOCS/methodologies/"
 
 # --- Skills: plugin/skills/ → DEST_SKILLS (strip ${CLAUDE_PLUGIN_ROOT}/docs/ paths) ---
 for skill_dir in "$PLUGIN_SKILLS"/*/; do
