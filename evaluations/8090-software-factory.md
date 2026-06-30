@@ -120,6 +120,31 @@ flowchart TD
 
 ⏸ = human-in-the-loop checkpoint. Solid arrows are the authored pipeline; dotted arrows are MCP context reads, the Validator feedback loop, and Knowledge-Graph linkage.
 
+## The Knowledge Graph — what it actually is
+
+8090 markets a cross-cutting **"Knowledge Graph"** as the single source of truth that links requirements ↔ architecture ↔ implementation and auto-propagates changes. Reading the open skill files (installed via `npx skills add` and inspected at source) shows what that graph concretely *is*: **not a graph database (no Neo4j / RDF / triple-store) but a document graph encoded directly in the markdown artifacts**, traversed by the agent following references.
+
+- **Nodes** are structured blocks inside the artifacts: `component` blocks ("runtime node that does work") and `model` blocks in Blueprints, plus typed Requirement / acceptance-criteria nodes addressed by `REQ-{PREFIX}-{NNN}` and `AC-{PREFIX}-{NNN}.{N}` IDs.
+- **Edges** are three markdown syntaxes: **relationship paragraphs** (`blueprint-writing-guide.md`: *"Relationship paragraphs are graph edges between component nodes"*), `` `#ComponentName` `` mentions (pointing at a `component` block in any Blueprint), and `@…` document mentions / markdown links between Requirements and Blueprints. Every Blueprint *"trace[s] up to Requirements and down to code symbols"*, giving the requirement → blueprint → code spine.
+- **Traversal** is performed by the agent, not a query engine: the execution skill mandates *"Follow all blueprint references … including `@…` mentions and markdown links to other blueprints (resolve and read those through MCP too)."* Reads are brokered by MCP tools (`read_requirement` / `search_requirements` / `read_blueprint` / `search_blueprints`).
+
+So in the open companion the "Knowledge Graph" is closer to a **wiki / Obsidian-style backlink graph of typed, ID'd markdown documents** than a database — the same "markdown as the substrate, links as untyped edges" idea behind Google's Open Knowledge Format ([#178 spike](../spikes/open-knowledge-format.md)).
+
+**Caveat on the SaaS:** the proprietary platform's docs describe the Knowledge Graph as a single-source-of-truth with automatic change propagation but **do not disclose a backing storage technology**. What is verifiable is the *interface* (the MCP read/search tool surface) and the entity model (Requirements ↔ Blueprints ↔ Work Orders ↔ Artifacts), identical to the open graph; whether the hosted app adds an indexed/graph store behind that interface is undisclosed.
+
+## Drift detection — how spec/code stay aligned
+
+Software Factory's drift handling is **agentic and review-time, not an automated analyzer** (no static analysis, hash, or diff engine). It works *because of* the knowledge graph: every change traces back to specific Requirement and Blueprint nodes, so a reviewer can ask "does the code still match what these nodes say?" Three layers, read from the open skills:
+
+1. **Prevent at authoring time.** Work Orders are deliberately scoped *"narrow enough to prevent scope drift"* (`work-order-writing-guide.md`) — the bounded WO is the first guardrail against a change wandering off-spec.
+2. **Detect at review time** (`review-phase.md`). An isolated full review pass splits the diff into buckets and spawns **one review delegate per bucket**; two of its six dimensions are drift checks:
+   - **Requirements alignment** — *"linked acceptance criteria satisfied or explicitly out of scope."*
+   - **Blueprint alignment** — *"components, contracts, data flow, and boundaries match linked blueprints."*
+   Mismatches become structured findings in `review-log.md`; the verdict loops `CHANGES_REQUESTED` → fix → fresh full review until `APPROVED`.
+3. **Gate on a checklist** (`checklist-template.md`, Phase 3): *"All acceptance criteria from the Work Order and linked requirements are satisfied"* and *"Architecture is aligned with linked blueprints, **or documented drift is accepted**."* The design choice is explicit — drift is either corrected or **consciously accepted and written down**, never silently ignored.
+
+So detection is **LLM-based semantic comparison of the implemented change against the `@`-linked Requirements (ACs) and Blueprints (components/contracts/boundaries)**. On the SaaS side, the platform additionally markets *"automatic change propagation across artifacts"* in the Knowledge Graph (change a requirement → dependent blueprints/work orders update) as upstream drift-*prevention* — but the propagation mechanism is undisclosed, verifiable only as a vendor claim. (Contrast our own repo, which detects drift *mechanically* — detector J for stack-derivation drift, `reconcile-counts.py` for count drift; 8090's is semantic/agentic, ours is deterministic.)
+
 ## Open-source companion: plugin vs. harness
 
 The two repos package the **identical methodology** differently — and their **licenses differ, which decides adoptability**:
