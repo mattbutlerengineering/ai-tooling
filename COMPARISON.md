@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 550 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 551 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -34,6 +34,7 @@ All 550 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenSpec | framework | | ✓ | discovery-log | REVIEW |
 | BMAD-METHOD | framework | | ✓ | discovery-log | REVIEW |
 | 8090 Software Factory | platform | ✓ | | SKIP | REVIEW |
+| software-factory-plugin | plugin | | ✓ | CONDITIONAL | MEASURED |
 | spec_driven_develop | skill | | ✓ | discovery-log | REVIEW |
 | reversa | framework | ✓ | ✓ | discovery-log | REVIEW |
 | flow-next | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -634,7 +635,7 @@ All 550 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 50 | 50 | 100% |
+| Plan | 51 | 51 | 100% |
 | Implement | 179 | 179 | 100% |
 | Verify | 20 | 20 | 100% |
 | Review | 30 | 30 | 100% |
@@ -646,4 +647,4 @@ All 550 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 38 | 38 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 49 | 49 | 100% |
-| **Total** | **550** | **550** | **100%** |
+| **Total** | **551** | **551** | **100%** |
