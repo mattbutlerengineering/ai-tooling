@@ -21,7 +21,7 @@ All 551 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-review-graph | tool | | ✓ | discovery-log | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
 | feature-dev | plugin | | ✓ | KEEP | MEASURED |
-| graphify | skill | | ✓ | discovery-log | REVIEW |
+| graphify | skill | | ✓ | CONDITIONAL | MEASURED |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
