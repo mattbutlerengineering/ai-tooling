@@ -93,6 +93,8 @@ agent-skills (REVIEW), trailofbits/skills (REVIEW)
 | [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) | Turns session corrections into persistent CLAUDE.md rules | `claude install-plugin BayramAnnakov/claude-reflect` | Speed, Maintainability |
 | [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | Diátaxis docs + ADR templates and agent-context guidelines (ships in agent-skills, already installed) | `npx skills add addyosmani/agent-skills@documentation-and-adrs -g -y` | Maintainability |
 
+> **documentation-writer** (ADOPT/MEASURED) is deliberately *not* listed here: it overlaps documentation-and-adrs, the installed Diátaxis/ADR pick — recorded in the [stack exclusion ledger](STACK-LEDGER.md). The #188 audit flagged the omission; it's a decision, not drift.
+
 ## Memory
 
 | Tool | What it does | Install | Signal |
@@ -105,6 +107,18 @@ agent-skills (REVIEW), trailofbits/skills (REVIEW)
 |------|-------------|---------|--------|
 | [abtop](https://github.com/graykode/abtop) | Live token/cost TUI for comparing agent session efficiency | `curl --proto '=https' --tlsv1.2 -LsSf https://github.com/graykode/abtop/releases/latest/download/abtop-installer.sh \| sh` | Cost Efficiency |
 | [ccusage](https://github.com/ccusage/ccusage) | Parses local coding-agent session logs into daily/monthly/session/model token & cost reports | `npx ccusage@latest` | Cost Efficiency |
+
+### Outer loop work stages — pointers
+
+The table above covers outer-loop *observability*. The outer loop's *work* stages (Discover → Architect → Decompose → [inner loop] → Integrate → Retrospect, per [WORKFLOW.md](WORKFLOW.md)) mostly reuse tools already on this page — mapped here so each stage is navigable (#188 audit, Gap 2):
+
+| Stage | Use | Where it lives on this page |
+|-------|-----|------------------------------|
+| Discover | [last30days](https://github.com/mvanhorn/last30days-skill) engagement-weighted research; [GSD](https://github.com/obra/superpowers) discovery discussion | Research; Plan |
+| Architect | [GSD](https://github.com/obra/superpowers) planning + [graphify](https://github.com/safishamsi/graphify) knowledge-graph views (CONDITIONAL/MEASURED — see [evaluations/](evaluations/)) | Plan (GSD); graphify is not in STACK — evaluations/ only |
+| Decompose | [GSD](https://github.com/obra/superpowers) milestone/phase breakdown; [mattpocock/skills](https://github.com/mattpocock/skills) `to-issues` vertical slicing | Plan; Implement |
+| Integrate | [claude-squad](https://github.com/smtg-ai/claude-squad) parallel-session management (worktrunk is a candidate pending a hands-on eval — #188 Gap 4) | Implement |
+| Retrospect | [claude-mem](https://github.com/thedotmack/claude-mem) timeline + semantic recall across sessions | Memory |
 
 ---
 
