@@ -5,7 +5,8 @@ are parsed for counting.
 `reconcile-counts.py` *writes* the counts that `audit-evals.py` detector G
 *checks* — two halves of one contract. They used to re-implement this parsing
 independently, so a change to one could silently diverge from the other. Both now
-import from here, so they provably agree by construction.
+import from here, so they provably agree by construction. `sync-plugin-docs.sh`'s
+apply-mode verify block counts through here too (via python3 -c, #195).
 
 All functions are pure (text in, value out) — callers read the files.
 """
