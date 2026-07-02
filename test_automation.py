@@ -241,6 +241,63 @@ class TestComparisonVerdictRows(unittest.TestCase):
         self.assertIs(audit.VERDICTS, audit.catalog_lib.VERDICTS)
 
 
+# ----------------------------------------------------------------- catalog_lib: parse_catalog_rows (#196)
+class TestParseCatalogRows(unittest.TestCase):
+    """Pins catalog_lib.parse_catalog_rows() and is_body_row() — the one CATALOG
+    link-row parser the Evaluation class and detectors F, M, N route through, and
+    the public body-row predicate backfill-evidence consumes (#196). Named fields
+    replace positional cell indexing behind ad-hoc length guards."""
+
+    def test_linked_row_named_fields(self):
+        rows = catalog_lib.parse_catalog_rows(CATALOG_OK)
+        self.assertEqual([r.name for r in rows], ["a", "b", "c"])
+        r = rows[0]
+        self.assertEqual(r.url, "https://github.com/x/a")
+        self.assertEqual(r.type, "tool")
+        self.assertEqual(r.one_liner, "one")
+        self.assertEqual(r.overlaps, "none")
+
+    def test_unlinked_row_name_is_raw_cell_url_none(self):
+        r = catalog_lib.parse_catalog_rows(
+            "| OMEGA | MCP server | mem | pain | peers |\n")[0]
+        self.assertEqual(r.name, "OMEGA")
+        self.assertIsNone(r.url)
+        self.assertEqual(r.type, "MCP server")
+
+    def test_header_and_separator_rows_not_emitted(self):
+        self.assertEqual(len(catalog_lib.parse_catalog_rows(CATALOG_OK)), 3)
+
+    def test_non_vocab_type_row_not_emitted(self):
+        rows = catalog_lib.parse_catalog_rows("| [x](https://u) | CLI | one | two | none |\n")
+        self.assertEqual(rows, [])
+
+    def test_missing_trailing_cells_resolve_to_none(self):
+        r = catalog_lib.parse_catalog_rows("| [x](https://u) | tool |\n")[0]
+        self.assertIsNone(r.one_liner)
+        self.assertIsNone(r.overlaps)
+
+    def test_comparison_style_row_parses_by_name(self):
+        # backfill-evidence rewrites COMPARISON body rows via the same predicate.
+        r = catalog_lib.parse_catalog_rows("| a | tool | | ✓ | ADOPT |\n")[0]
+        self.assertEqual(r.name, "a")
+        self.assertEqual(r.cells[-1], "ADOPT")
+
+    def test_is_body_row_predicate(self):
+        self.assertTrue(catalog_lib.is_body_row("| [a](https://u) | tool | one | two | none |"))
+        self.assertTrue(catalog_lib.is_body_row("| OMEGA | MCP server | m | p | o |"))
+        self.assertFalse(catalog_lib.is_body_row("| Name | Type | One-liner | Problem | Overlaps with |"))
+        self.assertFalse(catalog_lib.is_body_row("|------|------|"))
+        self.assertFalse(catalog_lib.is_body_row("prose, not a table row"))
+
+    def test_no_catalog_lib_privates_referenced_outside(self):
+        # The acceptance criterion of #196: no script reaches into catalog_lib's
+        # underscore-private names (the retired ae.catalog_lib._BODY_ROW pattern).
+        for fn in ("audit-evals.py", "backfill-evidence.py", "tier-stack.py",
+                   "reconcile-counts.py"):
+            src = open(os.path.join(ROOT, fn), encoding="utf-8").read()
+            self.assertNotRegex(src, r"catalog_lib\._", msg=fn)
+
+
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)
 class TestReconcileMain(unittest.TestCase):
     def _fixture_repo(self, d, catalog=CATALOG_OK, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n"):
