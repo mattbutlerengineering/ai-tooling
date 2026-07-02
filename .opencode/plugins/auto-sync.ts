@@ -2,20 +2,37 @@
 //
 // Re-implements the Claude Code `.claude/hooks/auto-sync.sh` PostToolUse(Edit|Write)
 // hook in opencode-native form. After the `edit` or `write` tool runs, if the edited
-// file path is a root doc that sync-plugin-docs.sh mirrors (CATALOG.md /
-// WORKFLOW.md / STACK.md / evaluations/*.md) and is NOT already inside
+// file path is a root doc that sync-plugin-docs.sh mirrors and is NOT already inside
 // plugin/docs/, re-run ./sync-plugin-docs.sh so plugin/docs/ never drifts during a
 // session. Fail-open and silent — mirror auto-sync.sh's contract.
 //
 // Same script, no gate drift: calls the identical sync-plugin-docs.sh that Claude
-// Code's hook and CI (make check) call.
+// Code's hook and CI (make check) call. The trigger set is DERIVED from
+// `sync-plugin-docs.sh --list-watched` — the one definition of the syncable set —
+// never restated here (#194, pinned by TestWatchListSeam in test_automation.py).
 
 import type { Plugin } from "@opencode-ai/plugin"
 
-// Root docs that sync-plugin-docs.sh mirrors from the repo root into plugin/docs/.
-const ROOT_DOC_BASENAMES = new Set(["CATALOG.md", "WORKFLOW.md", "STACK.md"])
+// The watch set as emitted by --list-watched: root-file basenames plus
+// directories whose contents are mirrored (trailing "/" in the emitted form).
+interface WatchList {
+  files: Set<string>
+  dirs: string[]
+}
 
-function pathFromArgs(args: any): string {
+function parseWatchList(text: string): WatchList {
+  const files = new Set<string>()
+  const dirs: string[] = []
+  for (const raw of text.split("\n")) {
+    const line = raw.trim()
+    if (!line) continue
+    if (line.endsWith("/")) dirs.push(line.slice(0, -1))
+    else files.add(line)
+  }
+  return { files, dirs }
+}
+
+function pathFromArgs(args: any, watched: WatchList): string {
   if (!args) return ""
   if (typeof args === "string") return args
   // opencode edit/write arg shapes aren't in the plugin SDK types, so read the
@@ -26,39 +43,59 @@ function pathFromArgs(args: any): string {
   }
   try {
     const s = JSON.stringify(args)
-    for (const b of ROOT_DOC_BASENAMES) {
+    for (const b of watched.files) {
       const i = s.indexOf(b)
       if (i >= 0) return s.slice(Math.max(0, s.lastIndexOf('"', i) + 1), i + b.length)
     }
-    const m = s.match(/evaluations[\/\\][^"'\s\\]+\.md/)
-    if (m) return m[0]
+    for (const d of watched.dirs) {
+      const m = s.match(new RegExp(`${d}[\\/\\\\][^"'\\s\\\\]+\\.md`))
+      if (m) return m[0]
+    }
   } catch {
     /* fall through */
   }
   return ""
 }
 
-// True if the path is a root doc that should trigger a re-sync.
-function isSyncableRootDoc(fp: string): boolean {
+// True if the path is a watched root doc that should trigger a re-sync.
+function isSyncableRootDoc(fp: string, watched: WatchList): boolean {
   if (!fp) return false
   const norm = fp.replace(/\\/g, "/")
   // Edits already inside the derived plugin/docs/ copy would loop / double-sync — skip.
   if (norm.includes("/plugin/docs/")) return false
   const base = norm.slice(norm.lastIndexOf("/") + 1)
-  if (ROOT_DOC_BASENAMES.has(base)) return true
-  // evaluations/<name>.md under the repo root (not under plugin/docs/, checked above)
-  if (/\/evaluations\/[^/]+\.md$/.test(norm)) return true
-  return false
+  if (watched.files.has(base)) return true
+  // any file under a watched directory (not under plugin/docs/, checked above)
+  return watched.dirs.some((d) => norm.includes(`/${d}/`) || norm.startsWith(`${d}/`))
 }
 
 export default (async ({ worktree, $ }) => {
+  // Derived once per session, on first edit; cached only on success so a
+  // transient failure doesn't disable auto-sync for the whole session.
+  let watched: WatchList | null = null
+  const loadWatchList = async (): Promise<WatchList> => {
+    if (watched) return watched
+    try {
+      const r = await $.nothrow().cwd(worktree)`./sync-plugin-docs.sh --list-watched`.quiet()
+      if (r.exitCode === 0) {
+        watched = parseWatchList(r.stdout.toString())
+        return watched
+      }
+    } catch {
+      /* fall through */
+    }
+    // Fail-open: an empty watch set means "never trigger", never break the session.
+    return { files: new Set(), dirs: [] }
+  }
+
   return {
     "tool.execute.after": async (input, output) => {
       const tool = (input.tool ?? "").toLowerCase()
       if (tool !== "edit" && tool !== "write") return
 
-      const fp = pathFromArgs(input.args)
-      if (!isSyncableRootDoc(fp)) return
+      const w = await loadWatchList()
+      const fp = pathFromArgs(input.args, w)
+      if (!isSyncableRootDoc(fp, w)) return
 
       try {
         // Re-sync the derived plugin/docs/ copy. Fail-open and silent: any error is
