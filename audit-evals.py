@@ -502,14 +502,19 @@ class Evaluation:
         return self.evidence.level
 
     @property
+    def catalog_rows(self):
+        """The catalog-row copies embedded in this eval, via the shared parser (#196)."""
+        return catalog_lib.parse_catalog_rows(self.text)
+
+    @property
     def is_skill(self):
-        return bool(re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*skill\s*\|", self.text))
+        return any(r.url and r.type == "skill" for r in self.catalog_rows)
 
     @property
     def type(self):
         """The Type cell from the eval's catalog row (tool/skill/MCP server/…), or None."""
-        m = re.search(r"\|\s*\[[^\]]+\]\([^)]+\)\s*\|\s*([^|]+?)\s*\|", self.text)
-        return m.group(1).strip() if m else None
+        rows = self.catalog_rows
+        return rows[0].type if rows else None
 
     @property
     def last_verified(self):
@@ -543,8 +548,9 @@ class Evaluation:
         cands = {_norm(self.name)}
         h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.M)
         if h: cands.add(_norm(h.group(1)))
-        ce = re.search(r"\|\s*\[([^\]]+)\]\(https://github", self.text)
-        if ce: cands.add(_norm(ce.group(1)))
+        ce = next((r for r in self.catalog_rows
+                   if r.url and r.url.startswith("https://github")), None)
+        if ce: cands.add(_norm(ce.name))
         return cands
 
 def load_evals():
@@ -599,23 +605,17 @@ _OVL_SKIP = ("complementary", "different", "approach", "same repo",
 def audit_overlaps():
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
     names, rows = set(), []
-    for line in text.splitlines():
-        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
-        if m:
-            names.add(m.group(1).lower())
-            names.add(_OVL_STRIP(m.group(1)))  # also the parenthetical-stripped form
-            rows.append(line)
-        else:  # unlinked entries like "| OMEGA | MCP server |"
-            m2 = re.match(rf"\|\s*([A-Za-z0-9][\w.-]+)\s*\|\s*{catalog_lib.ROW_TYPE}\s*\|", line)
-            if m2:
-                names.add(m2.group(1).lower())
+    for r in catalog_lib.parse_catalog_rows(text):
+        names.add(r.name.lower())
+        if r.url is not None:
+            names.add(_OVL_STRIP(r.name))  # also the parenthetical-stripped form
+            rows.append(r)  # unlinked entries ("| OMEGA | ...") name-match only
     from collections import Counter
     miss = Counter()
-    for line in rows:
-        cells = line.split("|")
-        if len(cells) < 6:
+    for r in rows:
+        if r.overlaps is None:
             continue
-        for tok in cells[-2].split(","):  # the "Overlaps with" cell
+        for tok in r.overlaps.split(","):  # the "Overlaps with" cell
             t = _OVL_STRIP(tok)
             tl = tok.lower()
             if (not t or "ext." in tl or "=" in tok or ";" in tok
@@ -638,16 +638,14 @@ def audit_clusters():
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
     # name -> set(overlap peers), restricted to catalogued names
     cat_names, edges = set(), {}
-    for line in text.splitlines():
-        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
-        if not m:
+    for r in catalog_lib.parse_catalog_rows(text):
+        if r.url is None:
             continue
-        nm = _OVL_STRIP(m.group(1))
+        nm = _OVL_STRIP(r.name)
         cat_names.add(nm)
-        cells = line.split("|")
         peers = []
-        if len(cells) >= 6:
-            for tok in cells[-2].split(","):
+        if r.overlaps:
+            for tok in r.overlaps.split(","):
                 t = _OVL_STRIP(tok)
                 if t and "ext." not in tok.lower() and len(t.split()) <= 2:
                     peers.append(t)
@@ -720,19 +718,14 @@ def audit_savings_claims():
         for alias in ev.name_aliases:
             levels.setdefault(alias, lvl)
     flagged = []
-    for line in text.splitlines():
-        m = re.match(r"\|\s*\[([^\]]+)\]\([^)]*\)\s*\|", line)
-        if not m:
+    for r in catalog_lib.parse_catalog_rows(text):
+        if r.url is None or r.one_liner is None or not _has_savings_claim(r.one_liner):
             continue
-        cells = line.split("|")
-        if len(cells) < 4 or not _has_savings_claim(cells[3]):
-            continue
-        name = m.group(1)
-        lvl = levels.get(_norm(name))
+        lvl = levels.get(_norm(r.name))
         if lvl in ("MEASURED", "RUN"):
             continue  # claim is run-backed — exactly what we want
-        disclosed = bool(_SAVINGS_DISCLAIMER.search(line))
-        flagged.append((name, lvl or "(no eval)", disclosed))
+        disclosed = any(_SAVINGS_DISCLAIMER.search(c) for c in r.cells)
+        flagged.append((r.name, lvl or "(no eval)", disclosed))
     return sorted(flagged, key=lambda r: r[0].lower())
 
 # ---------------------------------------------------------------- G. comparison consistency

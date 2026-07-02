@@ -21,6 +21,7 @@ The COMPARISON column is fully regenerated from the evals each run, so it cannot
   ./backfill-evidence.py --check  # verify only: exit 1 if anything would change; mutate nothing
 """
 import os, re, sys, glob, importlib.util
+import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -101,8 +102,9 @@ def rebuild_comparison(text, amap):
             out.append("|" + "------|" * sep_cols)
             sep_cols = None
             continue
-        if ae.catalog_lib._BODY_ROW.match(line):
-            tool = line.split("|")[1].strip()
+        row = next(iter(catalog_lib.parse_catalog_rows(line)), None)
+        if row:
+            tool = row.name
             # strip a trailing Evidence cell if present, then append the fresh value (idempotent)
             core = re.sub(r"\s*\|\s*(MEASURED|RUN|REVIEW|SOURCE-ONLY)\s*\|\s*$", " |", line)
             out.append(re.sub(r"\s*\|\s*$", f" | {_row_evidence(tool, amap)} |", core))

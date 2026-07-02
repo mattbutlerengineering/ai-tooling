@@ -28,6 +28,14 @@ _VERDICT_SET = frozenset(VERDICTS)
 # validate_row() work ADR-0002 lists as falling out of this centralized parser.
 ComparisonRow = collections.namedtuple("ComparisonRow", "tool verdict cells")
 
+# A CATALOG.md entry row (#196). name is the link text for linked rows, the raw
+# first cell for unlinked ones (OMEGA, server-github); url is None when unlinked.
+# one_liner/overlaps are None when the row is short; cells again carries the full
+# row for #198. The positional fields assume CATALOG's 5-column shape — on a
+# COMPARISON-shaped row only name/type/cells are meaningful (validate_row, #198,
+# is where shape enforcement lands).
+CatalogRow = collections.namedtuple("CatalogRow", "name url type one_liner overlaps cells")
+
 # A markdown table separator row: |---|---| (alignment colons allowed).
 _SEPARATOR_ROW = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
 
@@ -84,6 +92,35 @@ def comparison_verdict_rows(text):
             continue
         if cells[vcol] in _VERDICT_SET:
             rows.append(ComparisonRow(cells[0], cells[vcol], cells))
+    return rows
+
+
+def is_body_row(line):
+    """Public predicate: a CATALOG/COMPARISON-style entry row — first cell a name
+    (linked or not), second cell in the Type vocabulary. Header, separator, and
+    prose lines are not body rows. (#196)"""
+    return bool(_BODY_ROW.match(line))
+
+
+# The leading link cell of a CATALOG row: [name](url).
+_LINK_CELL = re.compile(r"^\[([^\]]+)\]\(([^)]*)\)")
+
+
+def parse_catalog_rows(text):
+    """Every CATALOG-style entry row in `text` as CatalogRow records, fields by
+    name instead of positional cell indexing (#196). The Evaluation class and
+    detectors F, M, N all route through here; backfill-evidence uses the same
+    predicate. Works on any text carrying such rows — CATALOG.md itself or the
+    catalog-row copy inside an eval file."""
+    rows = []
+    for line in text.splitlines():
+        if not _BODY_ROW.match(line):
+            continue
+        cells = _row_cells(line)
+        m = _LINK_CELL.match(cells[0])
+        name, url = (m.group(1), m.group(2)) if m else (cells[0], None)
+        cell = lambda i: cells[i] if len(cells) > i else None
+        rows.append(CatalogRow(name, url, cell(1), cell(2), cell(4), cells))
     return rows
 
 
