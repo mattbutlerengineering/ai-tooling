@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 578 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 579 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -48,6 +48,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | markitdown | tool | | ✓ | ADOPT | MEASURED |
 | MinerU | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | deepwiki-rs | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| openwiki | tool | ✓ | ✓ | DEFER | RUN |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
 | repowise | tool | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -662,7 +663,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 53 | 53 | 100% |
+| Plan | 54 | 54 | 100% |
 | Implement | 192 | 192 | 100% |
 | Verify | 21 | 21 | 100% |
 | Review | 32 | 32 | 100% |
@@ -674,4 +675,4 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 39 | 39 | 100% |
 | Research & Discovery | 17 | 17 | 100% |
 | Reference | 52 | 52 | 100% |
-| **Total** | **578** | **578** | **100%** |
+| **Total** | **579** | **579** | **100%** |
