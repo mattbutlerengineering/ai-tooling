@@ -19,6 +19,7 @@ hand; this script only rewrites between them.
   ./tier-stack.py --check  # verify only: exit 1 if the block is stale; mutate nothing
 """
 import os, re, sys, importlib.util
+import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("backfill_evidence", os.path.join(ROOT, "backfill-evidence.py"))
@@ -41,8 +42,7 @@ def stack_tiers(text):
         if text_ in seen:
             continue
         seen.add(text_)
-        repo = url.rstrip("/").split("/")[-1]
-        keys = (ae._norm(text_), ae._norm(re.sub(r"\s*\(.*?\)", "", text_)), ae._norm(repo))
+        keys = catalog_lib.alias_keys(text_, url)
         ev = next((amap[k] for k in keys if k in amap), "SOURCE-ONLY")
         (tier1 if ev in TIER1 else tier2).append((text_, ev))
     return tier1, tier2

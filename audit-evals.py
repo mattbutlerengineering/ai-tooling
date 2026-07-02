@@ -301,19 +301,33 @@ def audit_archived():
 # excluded from verdict-sync (D) and verdict-evidence (K): an eval's tentative
 # CONDITIONAL read is the lead's notes, not a promoted verdict to enforce.
 VERDICTS = catalog_lib.VERDICTS  # vocabulary defined once, in catalog_lib (#193)
-_norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 
 def _comparison_rows():
     """COMPARISON.md's verdict rows via the shared catalog_lib parser (#193) —
-    detectors D, J, and M key the same records with their own normalizers."""
+    detectors D, J, and M all key the records via _comparison_verdict_map (#197)."""
     text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
     return catalog_lib.comparison_verdict_rows(text)
+
+def _comparison_verdict_map():
+    """The ONE COMPARISON name→verdict map detectors D, J, and M share (#197).
+    Each row registers under catalog_lib.identity_keys — full and parenthetical-
+    stripped name_key, never the slash-basename ('vercel-labs/agent-skills' must
+    not shadow the real 'agent-skills' row). When a stripped alias collides
+    across rows ('awesome-claude-skills (Composio)' vs '(travisvn)'), setdefault
+    keeps the FIRST registration in file order for the ambiguous stripped key;
+    each row's full key stays unambiguous, and consumers holding a qualified
+    name always hit the full key first."""
+    m = {}
+    for r in _comparison_rows():
+        for k in catalog_lib.identity_keys(r.tool):
+            m.setdefault(k, r.verdict)
+    return m
 
 def audit_verdicts():
     """Flag evals whose ## Verdict disagrees with their COMPARISON.md row.
     Tolerates: KEEP (installed/validated status) vs ADOPT, and dual verdicts
     ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
-    comp = {_norm(r.tool): r.verdict for r in _comparison_rows()}
+    comp = _comparison_verdict_map()
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
     flagged = []
     for ev in load_evals():
@@ -341,22 +355,13 @@ def audit_verdicts():
 _LEDGER_ROW = re.compile(
     r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.M)
 
-def _drift_key(name):
-    """Normalize a tool name for cross-file matching: drop a parenthetical, then
-    strip to alphanumerics. 'GSD (Get Shit Done)' and 'gsd' collapse to the same key."""
-    return _norm(re.sub(r"\s*\(.*?\)", "", name))
-
-def _comparison_verdict_map():
-    return {_drift_key(r.tool): r.verdict for r in _comparison_rows()}
-
 def _stack_member_keys():
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
     so an entry installed under another name (GSD ← obra/superpowers) still matches."""
     txt = open(os.path.join(ROOT, "STACK.md"), encoding="utf-8").read()
     keys = set()
     for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", txt):
-        keys.add(_drift_key(text))
-        keys.add(_norm(url.rstrip("/").split("/")[-1]))
+        keys.update(catalog_lib.alias_keys(text, url))
     return keys
 
 def audit_stack_drift():
@@ -368,20 +373,23 @@ def audit_stack_drift():
     comp = _comparison_verdict_map()
     stack = _stack_member_keys()
     ledger_text = open(os.path.join(ROOT, "STACK-LEDGER.md"), encoding="utf-8").read()
-    ledger_keys = {}
+    ledger_keys = set()
     for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ledger_text):
-        k = _drift_key(name)
-        ledger_keys[k] = True
+        ids = catalog_lib.identity_keys(name)
+        ledger_keys.update(ids)
         if in_stack == "no" and not reason.strip():
             problems.append(f"ledger '{name}' is excluded (no) but records no reason")
-        cv = comp.get(k)
+        cv = next((comp[k] for k in ids if k in comp), None)
         if cv and cv != verdict and frozenset((cv, verdict)) != frozenset(("KEEP", "ADOPT")):
             problems.append(f"ledger '{name}' verdict {verdict} != COMPARISON {cv}")
-        if in_stack in ("yes", "conditional") and k not in stack:
+        # STACK membership legitimately fans out to basenames (GSD ← superpowers).
+        if in_stack in ("yes", "conditional") and \
+                not any(k in stack for k in catalog_lib.alias_keys(name)):
             problems.append(f"ledger '{name}' marked '{in_stack}' but not found in STACK.md")
-    for k, v in comp.items():
-        if v in ("ADOPT", "KEEP") and k not in ledger_keys:
-            problems.append(f"{v} tool '{k}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
+    for r in _comparison_rows():
+        if r.verdict in ("ADOPT", "KEEP") and \
+                not any(k in ledger_keys for k in catalog_lib.identity_keys(r.tool)):
+            problems.append(f"{r.verdict} tool '{r.tool}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
     return problems
 
 # ---------------------------------------------------------------- K. verdict evidence gate
@@ -545,12 +553,12 @@ class Evaluation:
     @property
     def name_aliases(self):
         # normalized names this eval might be keyed by in COMPARISON.md
-        cands = {_norm(self.name)}
+        cands = {catalog_lib.name_key(self.name)}
         h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.M)
-        if h: cands.add(_norm(h.group(1)))
+        if h: cands.add(catalog_lib.name_key(h.group(1)))
         ce = next((r for r in self.catalog_rows
                    if r.url and r.url.startswith("https://github")), None)
-        if ce: cands.add(_norm(ce.name))
+        if ce: cands.add(catalog_lib.name_key(ce.name))
         return cands
 
 def load_evals():
@@ -598,7 +606,9 @@ def audit_skill_evidence():
 # forgot to add. This is exactly how aider, continue, and agenta were found. The
 # more rows reference the same uncatalogued token, the likelier it is a real gap.
 # Report-only — surfaces candidates for human review; does not affect exit code.
-_OVL_STRIP = lambda s: re.sub(r"\s*\(.*?\)", "", s).strip().lower()
+# _ovl_display is presentation + heuristics (word counts, report text), NOT a
+# same-tool key — matching goes through catalog_lib.name_key (#197).
+_ovl_display = lambda s: catalog_lib.strip_parenthetical(s).strip().lower()
 _OVL_SKIP = ("complementary", "different", "approach", "same repo",
              "conceptual", "none", "—", "–")
 
@@ -606,9 +616,8 @@ def audit_overlaps():
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
     names, rows = set(), []
     for r in catalog_lib.parse_catalog_rows(text):
-        names.add(r.name.lower())
+        names.update(catalog_lib.alias_keys(r.name))
         if r.url is not None:
-            names.add(_OVL_STRIP(r.name))  # also the parenthetical-stripped form
             rows.append(r)  # unlinked entries ("| OMEGA | ...") name-match only
     from collections import Counter
     miss = Counter()
@@ -616,14 +625,14 @@ def audit_overlaps():
         if r.overlaps is None:
             continue
         for tok in r.overlaps.split(","):  # the "Overlaps with" cell
-            t = _OVL_STRIP(tok)
+            t = _ovl_display(tok)
             tl = tok.lower()
             if (not t or "ext." in tl or "=" in tok or ";" in tok
                     or tok.count("(") != tok.count(")")  # mid-parenthetical fragment
                     or len(t) > 22 or len(t.split()) > 2
                     or any(x in tl for x in _OVL_SKIP)):
                 continue  # external/conceptual peer or prose fragment, not a gap
-            if t not in names:
+            if not any(k in names for k in catalog_lib.alias_keys(tok)):
                 miss[t] += 1
     return miss.most_common()
 
@@ -636,22 +645,26 @@ def audit_overlaps():
 # migration findable, it does not migrate anything.
 def audit_clusters():
     text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
-    # name -> set(overlap peers), restricted to catalogued names
-    cat_names, edges = set(), {}
-    for r in catalog_lib.parse_catalog_rows(text):
-        if r.url is None:
-            continue
-        nm = _OVL_STRIP(r.name)
+    # name_key -> set(overlap peer keys), restricted to catalogued names; disp
+    # keeps the human-readable member name the report prints (#197).
+    rows = [r for r in catalog_lib.parse_catalog_rows(text) if r.url is not None]
+    cat_names, edges, disp, nverd = set(), {}, {}, {}
+    verd = _comparison_verdict_map()
+    for r in rows:
+        nm = catalog_lib.name_key(r.name)
         cat_names.add(nm)
+        disp.setdefault(nm, _ovl_display(r.name))
+        nverd[nm] = next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), None)
+    for r in rows:  # second pass: peer tokens resolve against the full name set
+        nm = catalog_lib.name_key(r.name)
         peers = []
         if r.overlaps:
             for tok in r.overlaps.split(","):
-                t = _OVL_STRIP(tok)
+                t = _ovl_display(tok)
                 if t and "ext." not in tok.lower() and len(t.split()) <= 2:
-                    peers.append(t)
+                    p = next((k for k in catalog_lib.alias_keys(tok) if k in cat_names), None)
+                    if p: peers.append(p)
         edges[nm] = peers
-    # verdict per name from COMPARISON
-    verd = {_OVL_STRIP(r.tool): r.verdict for r in _comparison_rows()}
     # union-find over overlap edges (only between catalogued names)
     parent = {n: n for n in cat_names}
     def find(x):
@@ -672,11 +685,11 @@ def audit_clusters():
     for members in clusters.values():
         if len(members) < 2:
             continue
-        verds = {verd.get(m) for m in members}
+        verds = {nverd.get(m) for m in members}
         has_pick = "ADOPT" in verds or "KEEP" in verds
         awaiting = "CONDITIONAL" in verds or "discovery-log" in verds
         if awaiting and not has_pick:
-            flagged.append(sorted(members))
+            flagged.append(sorted(disp[m] for m in members))
     return sorted(flagged, key=lambda c: (-len(c), c[0].lower()))
 
 # ---------------------------------------------------------------- N. token-savings claims (report-only)
@@ -721,7 +734,7 @@ def audit_savings_claims():
     for r in catalog_lib.parse_catalog_rows(text):
         if r.url is None or r.one_liner is None or not _has_savings_claim(r.one_liner):
             continue
-        lvl = levels.get(_norm(r.name))
+        lvl = next((levels[k] for k in catalog_lib.alias_keys(r.name) if k in levels), None)
         if lvl in ("MEASURED", "RUN"):
             continue  # claim is run-backed — exactly what we want
         disclosed = any(_SAVINGS_DISCLAIMER.search(c) for c in r.cells)

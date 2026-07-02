@@ -298,6 +298,90 @@ class TestParseCatalogRows(unittest.TestCase):
             self.assertNotRegex(src, r"catalog_lib\._", msg=fn)
 
 
+# ----------------------------------------------------------------- catalog_lib: name keying (#197)
+class TestNameKeying(unittest.TestCase):
+    """Pins catalog_lib.name_key()/alias_keys() — the ONE definition of "same
+    tool" (#197). Detectors D, J, and M key COMPARISON rows through name_key;
+    the alias-lookup sides (backfill-evidence, tier-stack, STACK membership)
+    use alias_keys. The retired trio (_norm / _drift_key / _OVL_STRIP) keyed
+    the same rows three different ways."""
+
+    def test_case_and_punctuation_collapse(self):
+        for s in ("claude-mem", "Claude Mem", "claude_mem", " CLAUDE.MEM "):
+            self.assertEqual(catalog_lib.name_key(s), "claudemem", s)
+
+    def test_identity_key_keeps_parenthetical_content(self):
+        # The parenthetical can be the only discriminator between rows —
+        # dropping it in the identity key would collide distinct tools.
+        self.assertNotEqual(catalog_lib.name_key("awesome-claude-skills (Composio)"),
+                            catalog_lib.name_key("awesome-claude-skills (travisvn)"))
+
+    def test_distinct_names_stay_distinct(self):
+        self.assertNotEqual(catalog_lib.name_key("codegraph"),
+                            catalog_lib.name_key("code-review-graph"))
+
+    def test_strip_parenthetical_is_the_one_regex(self):
+        self.assertEqual(catalog_lib.strip_parenthetical("GSD (Get Shit Done)"), "GSD")
+        self.assertEqual(catalog_lib.strip_parenthetical("plain"), "plain")
+
+    def test_identity_keys_exclude_basename(self):
+        # A slash-name must never register or match via its basename — that's
+        # how 'vercel-labs/agent-skills' would shadow the real 'agent-skills'.
+        self.assertEqual(catalog_lib.identity_keys("vercel-labs/agent-skills"),
+                         ["vercellabsagentskills"])
+        self.assertEqual(catalog_lib.identity_keys("GSD (Get Shit Done)"),
+                         ["gsdgetshitdone", "gsd"])
+
+    def test_alias_keys_order_and_dedup(self):
+        # most specific first: full name, parenthetical-stripped, slash-basename,
+        # then url basename.
+        self.assertEqual(catalog_lib.alias_keys("owner/repo"), ["ownerrepo", "repo"])
+        self.assertEqual(
+            catalog_lib.alias_keys("GSD (Get Shit Done)", "https://github.com/obra/superpowers/"),
+            ["gsdgetshitdone", "gsd", "superpowers"])
+        self.assertEqual(catalog_lib.alias_keys("tool", "https://github.com/x/tool"), ["tool"])
+
+    def test_detectors_d_j_m_share_one_comparison_map(self):
+        # The #197 symptom: three verdict-parse sites, three normalizers. D, J,
+        # and M now consume the same _comparison_verdict_map, which registers a
+        # row under all its alias keys (full AND stripped)...
+        with tempfile.TemporaryDirectory() as d:
+            comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
+                    "|---|---|---|---|---|\n"
+                    "| GSD (Get Shit Done) | tool | | ✓ | ADOPT |\n"
+                    "| awesome-claude-skills (Composio) | reference | | ✓ | KEEP |\n"
+                    "| awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |\n")
+            _write(d, "COMPARISON.md", comp)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                m = audit._comparison_verdict_map()
+            finally:
+                audit.ROOT = orig
+            self.assertEqual(m.get("gsdgetshitdone"), "ADOPT")
+            self.assertEqual(m.get("gsd"), "ADOPT")  # stripped alias registered too
+            # ...while parenthetical-only discriminators keep distinct full keys.
+            self.assertEqual(m.get("awesomeclaudeskillscomposio"), "KEEP")
+            self.assertEqual(m.get("awesomeclaudeskillstravisvn"), "SKIP")
+
+    def test_detector_d_matches_parenthetical_row_to_plain_eval_name(self):
+        # Under the retired _norm, 'GSD (Get Shit Done)' never matched an eval
+        # named gsd — D silently skipped the row. name_key closes that.
+        with tempfile.TemporaryDirectory() as d:
+            comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
+                    "|---|---|---|---|---|\n"
+                    "| GSD (Get Shit Done) | tool | | ✓ | ADOPT |\n")
+            _write(d, "COMPARISON.md", comp)
+            _write(d, "evaluations/gsd.md", "## Verdict\n\n**SKIP**\n")
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                flagged = audit.audit_verdicts()
+            finally:
+                audit.ROOT = orig
+            self.assertTrue(any(f[0] == "gsd" for f in flagged), flagged)
+
+
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)
 class TestReconcileMain(unittest.TestCase):
     def _fixture_repo(self, d, catalog=CATALOG_OK, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n"):
