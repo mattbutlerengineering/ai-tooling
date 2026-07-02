@@ -78,8 +78,19 @@ if [ "$CHECK" = 1 ]; then
 fi
 
 # --- Verify (apply mode) ---
-root_entries=$(grep "^|" "$REPO_ROOT/CATALOG.md" | grep -v "^| Name " | grep -v "^|---" | wc -l | tr -d ' ')
-plugin_entries=$(grep "^|" "$PLUGIN_DOCS/CATALOG.md" | grep -v "^| Name " | grep -v "^|---" | wc -l | tr -d ' ')
+# Entry counts come from catalog_lib.catalog_count — the one implementation of
+# "what counts as a catalog row" (#195). A grep here had subtly different
+# whitespace rules and could silently diverge.
+# Runs from REPO_ROOT so the repo's catalog_lib.py resolves first, wherever the
+# caller's cwd is (python3 -c puts cwd at the head of sys.path).
+count_catalog_entries() {
+  (cd "$REPO_ROOT" && python3 -c '
+import sys, catalog_lib
+with open(sys.argv[1], encoding="utf-8") as f:
+    print(catalog_lib.catalog_count(f.read()))' "$1")
+}
+root_entries=$(count_catalog_entries "$REPO_ROOT/CATALOG.md")
+plugin_entries=$(count_catalog_entries "$PLUGIN_DOCS/CATALOG.md")
 root_evals=$(ls "$REPO_ROOT/evaluations/"*.md 2>/dev/null | wc -l | tr -d ' ')
 plugin_evals=$(ls "$PLUGIN_DOCS/evaluations/"*.md 2>/dev/null | wc -l | tr -d ' ')
 root_discovery=$(ls "$REPO_ROOT/discovery/"*.md 2>/dev/null | wc -l | tr -d ' ')

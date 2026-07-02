@@ -9,6 +9,8 @@ independently, so a change to one could silently diverge from the other. Both no
 import from here, so they provably agree by construction. The same argument
 centralizes the COMPARISON verdict-row parse (ADR-0002's shared-parser seam):
 three detectors used to carry byte-identical fixed-offset regexes.
+`sync-plugin-docs.sh`'s apply-mode verify block counts through here too
+(via python3 -c, #195).
 
 All functions are pure (text in, value out) — callers read the files.
 """
