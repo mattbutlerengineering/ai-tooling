@@ -57,7 +57,6 @@ def eval_evidence(ev):
 
 
 # ---------------------------------------------------------------- COMPARISON column
-_norm = ae._norm
 _SEP = re.compile(r"^\|[\s\-|]+\|\s*$")
 _HEADER = re.compile(r"^\|\s*Tool\s*\|.*\|\s*Evaluated\s*(\|\s*Evidence\s*)?\|\s*$")
 
@@ -72,7 +71,7 @@ def _build_alias_map():
 
 
 def _row_evidence(tool, amap):
-    for key in (_norm(tool), _norm(re.sub(r"\s*\(.*?\)", "", tool)), _norm(tool.split("/")[-1])):
+    for key in catalog_lib.alias_keys(tool):
         if key in amap:
             return amap[key]
     return "SOURCE-ONLY"  # catalog row with no matching eval file → no evidence, only metadata

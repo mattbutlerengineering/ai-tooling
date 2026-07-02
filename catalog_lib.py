@@ -54,6 +54,59 @@ def github_repos(text):
     return sorted(set(_GITHUB_SLUG.findall(text)))
 
 
+# The parenthetical qualifier in a tool name: "GSD (Get Shit Done)" → "GSD".
+_PARENTHETICAL = re.compile(r"\s*\(.*?\)")
+
+
+def strip_parenthetical(s):
+    """Drop parenthetical qualifiers: 'GSD (Get Shit Done)' → 'GSD'."""
+    return _PARENTHETICAL.sub("", s)
+
+
+def name_key(s):
+    """THE canonical same-tool identity key (#197): lowercased, non-alphanumerics
+    collapsed away — 'claude-mem', 'Claude Mem', and 'claude_mem' key identically.
+    Parenthetical content is KEPT: it can be the only discriminator between rows
+    ('awesome-claude-skills (Composio)' vs '(travisvn)'), so dropping it here
+    would collide distinct tools. Identity maps register under identity_keys
+    (full + stripped); lookups fan out — identity_keys against identity maps,
+    alias_keys (which adds basenames) against alias/STACK maps. The retired
+    trio (_norm / _drift_key / _OVL_STRIP) keyed the same rows three ways."""
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def identity_keys(name):
+    """The keys a tool row REGISTERS under, and that lookups against an identity
+    map (COMPARISON verdicts, the STACK ledger) may try: the full name and the
+    parenthetical-stripped form. Deliberately excludes basenames — a slash-name
+    ('vercel-labs/agent-skills') must never shadow or match the distinct tool
+    its basename spells ('agent-skills'); basenames are an alias_keys-only
+    fallback for maps that need cross-name matching (eval aliases, STACK)."""
+    keys = [name_key(name)]
+    stripped = name_key(strip_parenthetical(name))
+    if stripped and stripped not in keys:
+        keys.append(stripped)
+    return keys
+
+
+def alias_keys(name, url=None):
+    """Every key a lookup for `name` should try, most-specific first: the full
+    name, the parenthetical-stripped form ('GSD (Get Shit Done)' → 'gsd'), the
+    slash-basename ('owner/repo' → 'repo'), and the repo basename of `url` — so
+    an entry installed under another name (GSD ← obra/superpowers) still
+    matches. Ordered and deduped so callers trying keys in sequence keep
+    full-name precedence."""
+    cands = [name, strip_parenthetical(name), name.split("/")[-1]]
+    if url:
+        cands.append(url.rstrip("/").split("/")[-1])
+    keys = []
+    for c in cands:
+        k = name_key(c)
+        if k and k not in keys:
+            keys.append(k)
+    return keys
+
+
 def _row_cells(line):
     """Cell contents of a markdown table row, outer pipes dropped."""
     parts = [p.strip() for p in line.split("|")]
@@ -143,7 +196,7 @@ def comparison_body_counts(comparison_text):
                 in_summary, sec = True, None
             else:
                 in_summary = False
-                sec = re.sub(r"\s*\(.*?\)", "", t).strip()
+                sec = strip_parenthetical(t).strip()
                 body.setdefault(sec, 0)
             continue
         if in_summary:
