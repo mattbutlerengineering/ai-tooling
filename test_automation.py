@@ -156,6 +156,91 @@ class TestCatalogLibGithubRepos(unittest.TestCase):
         self.assertEqual(catalog_lib.github_repos(sample), legacy(sample))
 
 
+# ----------------------------------------------------------------- catalog_lib: comparison_verdict_rows (#193)
+class TestComparisonVerdictRows(unittest.TestCase):
+    """Pins catalog_lib.comparison_verdict_rows() — the one COMPARISON.md
+    verdict-row parser detectors D, J, and M route through (#193). Locates the
+    verdict via each table's 'Evaluated' header column, not a fixed offset."""
+
+    def _pairs(self, text):
+        return [(r.tool, r.verdict) for r in catalog_lib.comparison_verdict_rows(text)]
+
+    def test_extracts_tool_and_verdict_per_body_row(self):
+        self.assertEqual(self._pairs(COMPARISON_OK),
+                         [("a", "ADOPT"), ("b", "SKIP"), ("c", "KEEP")])
+
+    def test_summary_header_and_separator_rows_not_emitted(self):
+        # COMPARISON_OK's Summary table also has an 'Evaluated' column, but its
+        # cells are counts, not verdict tokens — no row may leak from it.
+        pairs = self._pairs(COMPARISON_OK)
+        self.assertNotIn(("Plan", "2"), pairs)
+        self.assertEqual(len(pairs), 3)
+
+    def test_survives_column_appended_after_verdict(self):
+        # backfill-evidence appends an Evidence column; parsing must not care.
+        comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                "|---|---|---|---|---|---|\n"
+                "| foo | tool | | ✓ | ADOPT | RUN |\n")
+        self.assertEqual(self._pairs(comp), [("foo", "ADOPT")])
+
+    def test_survives_column_inserted_before_verdict(self):
+        # The failure mode of the retired fixed-offset regexes: a column inserted
+        # before 'Evaluated' silently un-matched every row.
+        comp = ("## Plan\n| Tool | Type | Auto | Free | Pricing | Evaluated |\n"
+                "|---|---|---|---|---|---|\n"
+                "| foo | tool | | ✓ | free | ADOPT |\n")
+        self.assertEqual(self._pairs(comp), [("foo", "ADOPT")])
+
+    def test_all_verdict_tokens_recognized(self):
+        rows = "".join(f"| t{i} | tool | | ✓ | {v} |\n"
+                       for i, v in enumerate(catalog_lib.VERDICTS))
+        comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
+                "|---|---|---|---|---|\n" + rows)
+        self.assertEqual([v for _, v in self._pairs(comp)], list(catalog_lib.VERDICTS))
+
+    def test_non_verdict_cell_not_emitted(self):
+        comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
+                "|---|---|---|---|---|\n"
+                "| foo | tool | | ✓ | pending |\n")
+        self.assertEqual(self._pairs(comp), [])
+
+    def test_table_without_evaluated_column_contributes_nothing(self):
+        comp = ("## Notes\n| Stage | Count |\n|---|---|\n| Plan | ADOPT |\n")
+        self.assertEqual(self._pairs(comp), [])
+
+    def test_body_cell_named_evaluated_is_not_a_header(self):
+        # Header detection is structural (a row followed by a |---| separator),
+        # so a body cell that happens to read "Evaluated" cannot re-anchor vcol.
+        comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
+                "|---|---|---|---|---|\n"
+                "| Evaluated | tool | | ✓ | ADOPT |\n")
+        self.assertEqual(self._pairs(comp), [("Evaluated", "ADOPT")])
+
+    def test_adjacent_table_without_evaluated_does_not_inherit_vcol(self):
+        # A new table's header re-anchors or clears vcol even with no blank line
+        # between tables — rows can't be keyed against the previous table's column.
+        comp = ("| Tool | Type | Auto | Free | Evaluated |\n"
+                "|---|---|---|---|---|\n"
+                "| foo | tool | | ✓ | ADOPT |\n"
+                "| Stage | Count | Note | Extra | Misc |\n"
+                "|---|---|---|---|---|\n"
+                "| Plan | 2 | x | y | KEEP |\n")
+        self.assertEqual(self._pairs(comp), [("foo", "ADOPT")])
+
+    def test_row_exposes_cells_as_named_field(self):
+        row = catalog_lib.comparison_verdict_rows(COMPARISON_OK)[0]
+        self.assertEqual(row.cells[0], "a")
+        self.assertIn("ADOPT", row.cells)
+
+    def test_verdict_vocabulary_lives_in_catalog_lib(self):
+        self.assertEqual(catalog_lib.VERDICTS,
+                         ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP", "discovery-log"))
+        # audit-evals must reference catalog_lib's tuple, not define its own copy.
+        # (Identity is asserted against the catalog_lib instance audit imported —
+        # _load() gives this test file a separate instance by construction.)
+        self.assertIs(audit.VERDICTS, audit.catalog_lib.VERDICTS)
+
+
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)
 class TestReconcileMain(unittest.TestCase):
     def _fixture_repo(self, d, catalog=CATALOG_OK, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n"):
