@@ -243,6 +243,7 @@ class TestDetectorG(unittest.TestCase):
 class TestSyncPluginDocs(unittest.TestCase):
     def _fixture_tree(self, d):
         shutil.copy(os.path.join(ROOT, "sync-plugin-docs.sh"), os.path.join(d, "sync-plugin-docs.sh"))
+        shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))  # verify block imports it
         _write(d, "CATALOG.md", CATALOG_OK)
         _write(d, "WORKFLOW.md", "# Workflow\n")
         _write(d, "STACK.md", "# Stack\n")
@@ -298,6 +299,19 @@ class TestSyncPluginDocs(unittest.TestCase):
             r = self._run(d, "--check")
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
             self.assertEqual(open(cat, encoding="utf-8").read(), before, "check mutated plugin/docs")
+
+    def test_entry_count_comes_from_catalog_lib(self):
+        # #195: the script's entry count must be catalog_lib.catalog_count, not a
+        # divergent grep. A malformed row with no space after the pipe is exactly
+        # where the two disagreed: grep "^|" counted it, catalog_count does not.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            _write(d, "CATALOG.md", CATALOG_OK + "|x | tool | one | two | none |\n")
+            r = self._run(d)
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+            want = catalog_lib.catalog_count(open(os.path.join(d, "CATALOG.md"), encoding="utf-8").read())
+            self.assertIn(f"CATALOG.md ({want} entries)", r.stdout,
+                          msg=f"count not derived from catalog_lib (want {want}): " + r.stdout)
 
     def test_check_fails_on_drift(self):
         # A stale plugin/docs copy (root doc changed but not re-synced) must fail --check.
