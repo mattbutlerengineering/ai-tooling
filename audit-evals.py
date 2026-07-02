@@ -300,18 +300,20 @@ def audit_archived():
 # never exercised (Evidence REVIEW/SOURCE-ONLY) — leads, not verdicts. They are
 # excluded from verdict-sync (D) and verdict-evidence (K): an eval's tentative
 # CONDITIONAL read is the lead's notes, not a promoted verdict to enforce.
-VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP", "discovery-log")
+VERDICTS = catalog_lib.VERDICTS  # vocabulary defined once, in catalog_lib (#193)
 _norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
+
+def _comparison_rows():
+    """COMPARISON.md's verdict rows via the shared catalog_lib parser (#193) —
+    detectors D, J, and M key the same records with their own normalizers."""
+    text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
+    return catalog_lib.comparison_verdict_rows(text)
 
 def audit_verdicts():
     """Flag evals whose ## Verdict disagrees with their COMPARISON.md row.
     Tolerates: KEEP (installed/validated status) vs ADOPT, and dual verdicts
     ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
-    comp = {}
-    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
-        if m:
-            comp[_norm(m.group(1))] = m.group(2)
+    comp = {_norm(r.tool): r.verdict for r in _comparison_rows()}
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
     flagged = []
     for ev in load_evals():
@@ -345,12 +347,7 @@ def _drift_key(name):
     return _norm(re.sub(r"\s*\(.*?\)", "", name))
 
 def _comparison_verdict_map():
-    comp = {}
-    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
-        if m:
-            comp[_drift_key(m.group(1))] = m.group(2)
-    return comp
+    return {_drift_key(r.tool): r.verdict for r in _comparison_rows()}
 
 def _stack_member_keys():
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
@@ -656,11 +653,7 @@ def audit_clusters():
                     peers.append(t)
         edges[nm] = peers
     # verdict per name from COMPARISON
-    verd = {}
-    for line in open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8"):
-        m = re.match(r"\|\s*(.+?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP|discovery-log)\s*\|", line)
-        if m:
-            verd[_OVL_STRIP(m.group(1))] = m.group(2)
+    verd = {_OVL_STRIP(r.tool): r.verdict for r in _comparison_rows()}
     # union-find over overlap edges (only between catalogued names)
     parent = {n: n for n in cat_names}
     def find(x):
