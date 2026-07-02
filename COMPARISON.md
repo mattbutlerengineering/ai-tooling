@@ -245,7 +245,6 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
 | Aegis | skill | | ✓ | discovery-log | REVIEW |
 | superset | tool | | ✓ | discovery-log | REVIEW |
-| worktrunk | tool | | $ | discovery-log | REVIEW |
 | implement | skill | | ✓ | discovery-log | REVIEW |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
 | codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
@@ -270,6 +269,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agent-browser | tool | | ✓ | discovery-log | REVIEW |
+| web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
 | opencli | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | browser-use | framework | | ✓ | discovery-log | REVIEW |
 | nanobrowser | tool | | ✓ | discovery-log | REVIEW |
@@ -333,6 +333,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | bernstein | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
+| worktrunk | tool | | $ | discovery-log | REVIEW |
 
 ## Reflect
 
@@ -450,7 +451,6 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | council-of-high-intelligence | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | typescript-mcp-server-generator | skill | | ✓ | discovery-log | REVIEW |
 | ui-ux-pro-max | skill | | ✓ | discovery-log | REVIEW |
-| web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
 | Waza | skill | | ✓ | discovery-log | REVIEW |
 | agents (wshobson) | plugin | | ✓ | discovery-log | REVIEW |
 | agent-sprite-forge | skill | | ✓ | SKIP | REVIEW |
@@ -663,13 +663,13 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
 | Plan | 53 | 53 | 100% |
-| Implement | 193 | 193 | 100% |
-| Verify | 20 | 20 | 100% |
+| Implement | 192 | 192 | 100% |
+| Verify | 21 | 21 | 100% |
 | Review | 32 | 32 | 100% |
-| Ship | 2 | 2 | 100% |
+| Ship | 3 | 3 | 100% |
 | Reflect | 5 | 5 | 100% |
 | Outer Loop | 40 | 40 | 100% |
-| Skills & Plugins | 78 | 78 | 100% |
+| Skills & Plugins | 77 | 77 | 100% |
 | Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 39 | 39 | 100% |
 | Research & Discovery | 17 | 17 | 100% |

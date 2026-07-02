@@ -39,7 +39,7 @@ section) · `no` (excluded — a reason is required). Exclusion reasons are grou
 | agent-skills | ADOPT | Skills & Plugins | yes | |
 | mattpocock/skills | ADOPT | Skills & Plugins | yes | |
 | skill-creator | ADOPT | Skills & Plugins | conditional | |
-| web-quality-skills | ADOPT | Skills & Plugins | conditional | |
+| web-quality-skills | ADOPT | Verify | conditional | |
 | cc-skills-golang | ADOPT | Skills & Plugins | no | Language-specific (Go only); verdict explicitly scoped, irrelevant outside Go projects |
 | claude-mem | ADOPT | Memory & Context | yes | |
 | OMEGA | KEEP | Memory & Context | no | Retained incumbent, not independently verified; claude-mem is the open, benchmarkable memory pick that holds the slot |
