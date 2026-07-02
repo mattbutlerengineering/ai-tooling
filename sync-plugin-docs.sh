@@ -3,9 +3,13 @@
 # Also syncs root skills/ from plugin/skills/ (plugin is authoritative for skills).
 # Run before publishing or via pre-commit hook.
 #
-#   ./sync-plugin-docs.sh           # apply: write the synced tree in place
-#   ./sync-plugin-docs.sh --check   # verify only: exit 1 if plugin/docs or skills
-#                                     would change; mutate nothing (CI/pre-commit gate)
+#   ./sync-plugin-docs.sh                # apply: write the synced tree in place
+#   ./sync-plugin-docs.sh --check        # verify only: exit 1 if plugin/docs or skills
+#                                          would change; mutate nothing (CI/pre-commit gate)
+#   ./sync-plugin-docs.sh --list-watched # print the watch set (one entry per line,
+#                                          dirs with a trailing /) and exit; the
+#                                          harness auto-sync hooks derive their trigger
+#                                          predicate from this instead of restating it (#194)
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -13,8 +17,23 @@ PLUGIN_DOCS="$REPO_ROOT/plugin/docs"
 PLUGIN_SKILLS="$REPO_ROOT/plugin/skills"
 ROOT_SKILLS="$REPO_ROOT/skills"
 
+# The watch set — the one definition of what this script mirrors into plugin/docs/.
+# The copy loop below iterates these arrays; adapters consume the same set via
+# --list-watched (pinned by TestWatchListSeam). The apply-mode verify block at the
+# bottom still spot-checks a hand-picked subset — it is a count sanity-check, not
+# a second definition of the set.
+WATCHED_FILES=(CATALOG.md WORKFLOW.md STACK.md STACK-LEDGER.md)
+WATCHED_DIRS=(evaluations discovery methodologies)
+
 CHECK=0
-[ "${1:-}" = "--check" ] && CHECK=1
+case "${1:-}" in
+  --check) CHECK=1 ;;
+  --list-watched)
+    printf '%s\n' "${WATCHED_FILES[@]}"
+    printf '%s/\n' "${WATCHED_DIRS[@]}"
+    exit 0
+    ;;
+esac
 
 # In --check we build the would-be-synced tree in a scratch dir and diff it against
 # the committed copies, mutating nothing. In apply mode we write straight to the
@@ -29,16 +48,15 @@ else
   DEST_SKILLS="$ROOT_SKILLS"
 fi
 
-# --- Docs: root → DEST_DOCS ---
-mkdir -p "$DEST_DOCS/evaluations" "$DEST_DOCS/discovery" "$DEST_DOCS/methodologies"
-
-cp "$REPO_ROOT/CATALOG.md" "$DEST_DOCS/CATALOG.md"
-cp "$REPO_ROOT/WORKFLOW.md" "$DEST_DOCS/WORKFLOW.md"
-cp "$REPO_ROOT/STACK.md" "$DEST_DOCS/STACK.md"
-cp "$REPO_ROOT/STACK-LEDGER.md" "$DEST_DOCS/STACK-LEDGER.md"
-rsync -a --delete "$REPO_ROOT/evaluations/" "$DEST_DOCS/evaluations/"
-rsync -a --delete "$REPO_ROOT/discovery/" "$DEST_DOCS/discovery/"
-rsync -a --delete "$REPO_ROOT/methodologies/" "$DEST_DOCS/methodologies/"
+# --- Docs: root → DEST_DOCS (driven by the watch set, never restated) ---
+mkdir -p "$DEST_DOCS"
+for f in "${WATCHED_FILES[@]}"; do
+  cp "$REPO_ROOT/$f" "$DEST_DOCS/$f"
+done
+for dir in "${WATCHED_DIRS[@]}"; do
+  mkdir -p "$DEST_DOCS/$dir"
+  rsync -a --delete "$REPO_ROOT/$dir/" "$DEST_DOCS/$dir/"
+done
 
 # --- Skills: plugin/skills/ → DEST_SKILLS (strip ${CLAUDE_PLUGIN_ROOT}/docs/ paths) ---
 for skill_dir in "$PLUGIN_SKILLS"/*/; do
