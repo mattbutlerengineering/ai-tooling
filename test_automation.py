@@ -325,18 +325,23 @@ class TestDetectorG(unittest.TestCase):
 
 
 # ----------------------------------------------------------------- sync-plugin-docs.sh
+def _sync_fixture_tree(d):
+    """A minimal repo tree with every synced doc/dir, for exercising sync-plugin-docs.sh."""
+    shutil.copy(os.path.join(ROOT, "sync-plugin-docs.sh"), os.path.join(d, "sync-plugin-docs.sh"))
+    _write(d, "CATALOG.md", CATALOG_OK)
+    _write(d, "WORKFLOW.md", "# Workflow\n")
+    _write(d, "STACK.md", "# Stack\n")
+    _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
+    _write(d, "evaluations/foo.md", "# eval foo\n")
+    _write(d, "discovery/bar.md", "# discovery bar\n")
+    _write(d, "methodologies/baz.md", "# methodology baz\n")
+    _write(d, "plugin/skills/myskill/SKILL.md",
+           "See ${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md for the catalog.\n")
+
+
 class TestSyncPluginDocs(unittest.TestCase):
     def _fixture_tree(self, d):
-        shutil.copy(os.path.join(ROOT, "sync-plugin-docs.sh"), os.path.join(d, "sync-plugin-docs.sh"))
-        _write(d, "CATALOG.md", CATALOG_OK)
-        _write(d, "WORKFLOW.md", "# Workflow\n")
-        _write(d, "STACK.md", "# Stack\n")
-        _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
-        _write(d, "evaluations/foo.md", "# eval foo\n")
-        _write(d, "discovery/bar.md", "# discovery bar\n")
-        _write(d, "methodologies/baz.md", "# methodology baz\n")
-        _write(d, "plugin/skills/myskill/SKILL.md",
-               "See ${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md for the catalog.\n")
+        _sync_fixture_tree(d)
 
     def _run(self, d, *args):
         return subprocess.run(["bash", "sync-plugin-docs.sh", *args], cwd=d, capture_output=True, text=True)
@@ -392,6 +397,145 @@ class TestSyncPluginDocs(unittest.TestCase):
             _write(d, "CATALOG.md", CATALOG_OK + "\n| [new](https://github.com/a/new) | tool | x | y | z |\n")
             r = self._run(d, "--check")
             self.assertEqual(r.returncode, 1, msg="drift not detected: " + r.stdout + r.stderr)
+
+
+# ----------------------------------------------------------------- watch-list seam (#194)
+# Driver for exercising the real opencode plugin under bun: fires edit events at a
+# fixture worktree and exits non-zero if a watched entry fails to sync (or an
+# unwatched one triggers). argv: <worktree> <plugin-path>
+_OPENCODE_DRIVER = """
+import { $ } from "bun"
+import { existsSync } from "node:fs"
+import { join } from "node:path"
+const [worktree, pluginPath] = Bun.argv.slice(2)
+const plugin = (await import(pluginPath)).default
+const hooks = await plugin({ worktree, $ })
+async function fire(fp) {
+  const output = { metadata: {} }
+  await hooks["tool.execute.after"]({ tool: "edit", args: { file_path: fp } }, output)
+  return output.metadata
+}
+let failed = 0
+for (const rel of ["STACK-LEDGER.md", "discovery/bar.md", "methodologies/baz.md", "CATALOG.md"]) {
+  await fire(join(worktree, rel))
+  if (!existsSync(join(worktree, "plugin/docs", rel))) { console.log("FAIL no sync: " + rel); failed = 1 }
+}
+const meta = await fire(join(worktree, "README.md"))
+if (meta.opencodeAutoSynced) { console.log("FAIL unwatched path triggered"); failed = 1 }
+process.exit(failed)
+"""
+
+
+class TestWatchListSeam(unittest.TestCase):
+    """Pins the watch-list seam (#194): sync-plugin-docs.sh --list-watched is the
+    one definition of the syncable set, and both harness auto-sync adapters derive
+    their trigger predicate from it instead of hand-copying it. This fixes
+    adapter-trigger drift; a brand-new root doc still needs a WATCHED_* entry
+    (ADR-0001's allowlist is deliberate)."""
+
+    # The syncable set. Adding a doc to sync-plugin-docs.sh's WATCHED_* arrays
+    # must update this pin — the same alerting contract as TestIntegrityMakefile.GATES.
+    WATCHED = {
+        "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md",
+        "evaluations/", "discovery/", "methodologies/",
+    }
+
+    def test_list_watched_emits_the_syncable_set(self):
+        r = subprocess.run(["bash", os.path.join(ROOT, "sync-plugin-docs.sh"), "--list-watched"],
+                           capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+        self.assertEqual(set(r.stdout.split()), self.WATCHED)
+
+    def test_every_listed_entry_is_actually_synced(self):
+        # The list must describe real sync behavior: after an apply, each listed
+        # file/dir has a counterpart under plugin/docs/.
+        with tempfile.TemporaryDirectory() as d:
+            _sync_fixture_tree(d)
+            fixture_by_dir = {"evaluations": "foo.md", "discovery": "bar.md", "methodologies": "baz.md"}
+            r = subprocess.run(["bash", "sync-plugin-docs.sh"], cwd=d, capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+            for entry in self.WATCHED:
+                if entry.endswith("/"):
+                    tail = os.path.join(entry.rstrip("/"), fixture_by_dir[entry.rstrip("/")])
+                else:
+                    tail = entry
+                self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs", tail)),
+                                msg=f"listed entry not synced: {entry}")
+
+    def _run_claude_hook(self, d, file_path):
+        hook = os.path.join(d, "auto-sync.sh")
+        shutil.copy(os.path.join(ROOT, ".claude/hooks/auto-sync.sh"), hook)
+        payload = '{"tool_input": {"file_path": "%s"}}' % file_path
+        env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
+        return subprocess.run(["bash", hook], input=payload, env=env,
+                              capture_output=True, text=True)
+
+    def test_claude_hook_triggers_on_every_watched_entry(self):
+        # An edit to ANY watched entry — including STACK-LEDGER.md, discovery/,
+        # methodologies/, the three the hand-copied predicate silently omitted —
+        # must re-run the sync (observable as plugin/docs/ being populated).
+        edits = {
+            "CATALOG.md": "CATALOG.md", "WORKFLOW.md": "WORKFLOW.md",
+            "STACK.md": "STACK.md", "STACK-LEDGER.md": "STACK-LEDGER.md",
+            "evaluations/": "evaluations/foo.md", "discovery/": "discovery/bar.md",
+            "methodologies/": "methodologies/baz.md",
+        }
+        self.assertEqual(set(edits), self.WATCHED)  # one edit per watched entry
+        for entry, rel in edits.items():
+            with tempfile.TemporaryDirectory() as d:
+                _sync_fixture_tree(d)
+                r = self._run_claude_hook(d, os.path.join(d, rel))
+                self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+                self.assertTrue(os.path.exists(os.path.join(d, "plugin/docs", rel)),
+                                msg=f"hook did not sync after editing {entry}")
+
+    def test_claude_hook_ignores_unwatched_and_derived_paths(self):
+        # Unwatched files and edits inside the derived plugin/docs/ copy must not
+        # re-sync (observable as plugin/docs/ never being created).
+        for rel in ("README.md", "plugin/docs/CATALOG.md"):
+            with tempfile.TemporaryDirectory() as d:
+                _sync_fixture_tree(d)
+                r = self._run_claude_hook(d, os.path.join(d, rel))
+                self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+                self.assertFalse(os.path.exists(os.path.join(d, "plugin/docs/WORKFLOW.md")),
+                                 msg=f"hook synced on a non-trigger path: {rel}")
+
+    def test_both_adapters_derive_from_list_watched(self):
+        # Lockstep pin (CLAUDE.md invariant): each harness adapter consumes
+        # --list-watched rather than restating the watch set. The opencode plugin
+        # can't be executed from here, so pin its source: it must call
+        # --list-watched and must not hardcode any watched basename.
+        adapters = (".claude/hooks/auto-sync.sh", ".opencode/plugins/auto-sync.ts")
+        for rel in adapters:
+            with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
+                src = f.read()
+            self.assertIn("--list-watched", src,
+                          msg=f"{rel} does not derive its trigger set from --list-watched")
+        with open(os.path.join(ROOT, ".opencode/plugins/auto-sync.ts"), encoding="utf-8") as f:
+            ts = f.read()
+        for name in sorted(self.WATCHED):
+            self.assertNotIn(f'"{name.rstrip("/")}"', ts,
+                             msg=f"opencode adapter hardcodes watched entry {name}")
+
+    def test_claude_hook_fails_open_when_sync_script_missing(self):
+        # The seam's new failure mode: --list-watched unavailable (script missing
+        # or broken). Contract: exit 0, never break the session, no sync attempted.
+        with tempfile.TemporaryDirectory() as d:
+            r = self._run_claude_hook(d, os.path.join(d, "CATALOG.md"))
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+            self.assertFalse(os.path.exists(os.path.join(d, "plugin/docs")))
+
+    @unittest.skipUnless(shutil.which("bun"), "bun not installed; opencode adapter covered by source pin only")
+    def test_opencode_plugin_triggers_on_every_previously_missed_entry(self):
+        # Executes the REAL opencode plugin under bun against a fixture worktree —
+        # the behavioral counterpart to the textual derive-pin above.
+        with tempfile.TemporaryDirectory() as d:
+            _sync_fixture_tree(d)
+            driver = _write(d, "driver.ts", _OPENCODE_DRIVER)
+            r = subprocess.run(
+                ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/auto-sync.ts")],
+                capture_output=True, text=True, cwd=d)
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
 
 # ----------------------------------------------------------------- detector I (evidence field, #62)
