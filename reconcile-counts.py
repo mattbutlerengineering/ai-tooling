@@ -24,8 +24,10 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 def read(p):  return open(os.path.join(ROOT, p), encoding="utf-8").read()
 def write(p, s): open(os.path.join(ROOT, p), "w", encoding="utf-8").write(s)
 
-def catalog_count():
-    return catalog_lib.catalog_count(read("CATALOG.md"))
+def catalog_count(root=None):
+    # `root` is injectable for tests (#199); the CLI always counts this repo's tree.
+    text = open(os.path.join(root or ROOT, "CATALOG.md"), encoding="utf-8").read()
+    return catalog_lib.catalog_count(text)
 
 # count strings that quote the catalog total, by file
 TOTAL_PATTERNS = [

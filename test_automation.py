@@ -7,7 +7,8 @@ sync-plugin-docs.sh.
 These pin the CURRENT correct behavior so the planned shared-parser refactor
 (issue #45) has a regression net. They never touch the real CATALOG.md /
 COMPARISON.md / plugin/ — every test runs against fixtures in a temp dir, either
-by monkeypatching a module's ROOT or by copying the script into a fixture tree.
+through a DetectorContext built from the fixture directory (#199) or by copying
+the script into a fixture tree.
 
 Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
@@ -343,7 +344,7 @@ class TestNameKeying(unittest.TestCase):
 
     def test_detectors_d_j_m_share_one_comparison_map(self):
         # The #197 symptom: three verdict-parse sites, three normalizers. D, J,
-        # and M now consume the same _comparison_verdict_map, which registers a
+        # and M now consume the same ctx.comparison_verdict_map, which registers a
         # row under all its alias keys (full AND stripped)...
         with tempfile.TemporaryDirectory() as d:
             comp = ("## Plan\n| Tool | Type | Auto | Free | Evaluated |\n"
@@ -352,12 +353,7 @@ class TestNameKeying(unittest.TestCase):
                     "| awesome-claude-skills (Composio) | reference | | ✓ | KEEP |\n"
                     "| awesome-claude-skills (travisvn) | reference | | ✓ | SKIP |\n")
             _write(d, "COMPARISON.md", comp)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                m = audit._comparison_verdict_map()
-            finally:
-                audit.ROOT = orig
+            m = audit.DetectorContext(d).comparison_verdict_map
             self.assertEqual(m.get("gsdgetshitdone"), "ADOPT")
             self.assertEqual(m.get("gsd"), "ADOPT")  # stripped alias registered too
             # ...while parenthetical-only discriminators keep distinct full keys.
@@ -373,12 +369,7 @@ class TestNameKeying(unittest.TestCase):
                     "| GSD (Get Shit Done) | tool | | ✓ | ADOPT |\n")
             _write(d, "COMPARISON.md", comp)
             _write(d, "evaluations/gsd.md", "## Verdict\n\n**SKIP**\n")
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                flagged = audit.audit_verdicts()
-            finally:
-                audit.ROOT = orig
+            flagged = audit.audit_verdicts(audit.DetectorContext(d))
             self.assertTrue(any(f[0] == "gsd" for f in flagged), flagged)
 
 
@@ -475,12 +466,7 @@ class TestRowValidation(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", CATALOG_OK + "| [d](https://github.com/x/d) | tool | one |\n")
             _write(d, "COMPARISON.md", COMPARISON_OK)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                probs = audit.audit_row_shapes()
-            finally:
-                audit.ROOT = orig
+            probs = audit.audit_row_shapes(audit.DetectorContext(d))
             self.assertEqual(len(probs), 1)
             self.assertIn("CATALOG.md", probs[0])
 
@@ -488,12 +474,36 @@ class TestRowValidation(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", CATALOG_OK)
             _write(d, "COMPARISON.md", COMPARISON_OK)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                self.assertEqual(audit.audit_row_shapes(), [])
-            finally:
-                audit.ROOT = orig
+            self.assertEqual(audit.audit_row_shapes(audit.DetectorContext(d)), [])
+
+
+# ----------------------------------------------------------------- detector context (#199)
+class TestDetectorContext(unittest.TestCase):
+    """Pins the DetectorContext protocol: every detector's inputs come through
+    the context (visible in its signature), and no test monkeypatches the
+    module-global ROOT anymore."""
+
+    def test_every_detector_takes_ctx_first(self):
+        import inspect
+        for name in dir(audit):
+            if not name.startswith("audit_"):
+                continue
+            params = list(inspect.signature(getattr(audit, name)).parameters)
+            self.assertTrue(params and params[0] == "ctx",
+                            f"{name} must take ctx as its first parameter, has {params}")
+
+    def test_context_caches_loads(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", CATALOG_OK)
+            ctx = audit.DetectorContext(d)
+            first = ctx.catalog
+            _write(d, "CATALOG.md", "changed")
+            self.assertIs(ctx.catalog, first)  # cached — one read per run
+
+    def test_no_root_monkeypatch_left_in_tests(self):
+        src = open(os.path.join(ROOT, "test_automation.py"), encoding="utf-8").read()
+        for needle in ("audit.ROOT" + " = ", "reconcile.ROOT" + " = "):  # split: don't match this line
+            self.assertNotIn(needle, src)
 
 
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)
@@ -512,15 +522,10 @@ class TestReconcileMain(unittest.TestCase):
         return subprocess.run(["python3", "reconcile-counts.py", *args],
                               cwd=d, capture_output=True, text=True)
 
-    def test_catalog_count_via_monkeypatched_root(self):
+    def test_catalog_count_from_fixture_root(self):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", CATALOG_OK)
-            orig = reconcile.ROOT
-            try:
-                reconcile.ROOT = d
-                self.assertEqual(reconcile.catalog_count(), 3)
-            finally:
-                reconcile.ROOT = orig
+            self.assertEqual(reconcile.catalog_count(d), 3)
 
     def test_check_clean_exits_zero(self):
         with tempfile.TemporaryDirectory() as d:
@@ -549,12 +554,7 @@ class TestDetectorG(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", catalog)
             _write(d, "COMPARISON.md", comparison)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_comparison()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_comparison(audit.DetectorContext(d))
 
     def test_consistent_fixture_has_no_problems(self):
         self.assertEqual(self._run_audit(CATALOG_OK, COMPARISON_OK), [])
@@ -827,19 +827,14 @@ class TestEvidenceField(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             for name, text in files.items():
                 _write(d, os.path.join("evaluations", name), text)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_evidence_field()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_evidence_field(audit.DetectorContext(d))
 
     def test_audit_counts_and_lists_missing(self):
         counts, missing, strong = self._run_audit({
             "a.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT**\n",
             "b.md": "**Evidence:** REVIEW\n",
             "c.md": "no field here\n",
-            "TEMPLATE.md": "**Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}\n",  # skipped by load_evals
+            "TEMPLATE.md": "**Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}\n",  # skipped by ctx.evals
         })
         self.assertEqual(counts["MEASURED"], 1)
         self.assertEqual(counts["REVIEW"], 1)
@@ -863,12 +858,7 @@ class TestDetectorJ(unittest.TestCase):
             _write(d, "STACK.md", stack)
             _write(d, "STACK-LEDGER.md", ledger)
             _write(d, "COMPARISON.md", comp)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_stack_drift()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_stack_drift(audit.DetectorContext(d))
 
     def test_consistent_passes(self):
         self.assertEqual(self._run(self.STACK, self.LEDGER_OK, self.COMP), [])
@@ -905,12 +895,7 @@ class TestDetectorK(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             for name, text in files.items():
                 _write(d, os.path.join("evaluations", name), text)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_verdict_evidence()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_verdict_evidence(audit.DetectorContext(d))
 
     def test_measured_adopt_passes(self):
         self.assertEqual(self._run({"a.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT**\n"}), [])
@@ -946,12 +931,7 @@ class TestDetectorD(unittest.TestCase):
             _write(d, "COMPARISON.md", comparison)
             for name, text in evals.items():
                 _write(d, os.path.join("evaluations", name), text)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_verdicts()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_verdicts(audit.DetectorContext(d))
 
     HEADER = "## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
 
@@ -1000,12 +980,8 @@ class TestEvidenceBackfill(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", CATALOG_OK)
             _write(d, "COMPARISON.md", cmp6)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                self.assertEqual(audit.audit_comparison(), [])  # G still clean with the new column
-            finally:
-                audit.ROOT = orig
+            # G still clean with the new column
+            self.assertEqual(audit.audit_comparison(audit.DetectorContext(d)), [])
 
 
 # ----------------------------------------------------------------- detector L (staleness, #65)
@@ -1020,12 +996,7 @@ class TestDetectorL(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             for name, text in files.items():
                 _write(d, os.path.join("evaluations", name), text)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_staleness(today=self.TODAY)
-            finally:
-                audit.ROOT = orig
+            return audit.audit_staleness(audit.DetectorContext(d), today=self.TODAY)
 
     def _ago(self, days):
         return (self.TODAY - datetime.timedelta(days=days)).isoformat()
@@ -1081,12 +1052,7 @@ class TestSavingsClaims(unittest.TestCase):
             _write(d, "CATALOG.md", catalog)
             for name, text in evals.items():
                 _write(d, os.path.join("evaluations", name), text)
-            orig = audit.ROOT
-            try:
-                audit.ROOT = d
-                return audit.audit_savings_claims()
-            finally:
-                audit.ROOT = orig
+            return audit.audit_savings_claims(audit.DetectorContext(d))
 
     def _row(self, name, one_liner):
         return f"| [{name}](https://github.com/a/{name}) | tool | {one_liner} | p | none |\n"
@@ -1122,27 +1088,21 @@ class TestTierStack(unittest.TestCase):
              "| [bar](https://github.com/x/bar) | d | `c` | s |\n"
              "| [baz](https://github.com/x/baz) | d | `c` | s |\n")
 
-    def _with_amap(self, amap, fn):
-        orig = tier.bf._build_alias_map
-        try:
-            tier.bf._build_alias_map = lambda: amap
-            return fn()
-        finally:
-            tier.bf._build_alias_map = orig
-
     def test_tiering_split_derived_from_evidence(self):
+        # amap is injected through stack_tiers' interface (#199) — no patching
+        # another module's private function.
         amap = {"foo": "MEASURED", "bar": "REVIEW"}  # baz has no eval -> SOURCE-ONLY
-        t1, t2 = self._with_amap(amap, lambda: tier.stack_tiers(self.STACK))
+        t1, t2 = tier.stack_tiers(self.STACK, amap)
         self.assertEqual(t1, [("foo", "MEASURED")])           # MEASURED/RUN -> Tier 1
         self.assertEqual(t2, [("bar", "REVIEW"), ("baz", "SOURCE-ONLY")])  # rest -> Tier 2
 
     def test_apply_replaces_between_markers_and_is_idempotent(self):
         amap = {"foo": "RUN", "bar": "REVIEW"}
-        out = self._with_amap(amap, lambda: tier.apply(self.STACK))
+        out = tier.apply(self.STACK, amap)
         self.assertIn("**Tier 1 — measured (1)", out)
         self.assertIn("foo (RUN)", out)
         self.assertIn("baz (SOURCE-ONLY)", out)
-        self.assertEqual(self._with_amap(amap, lambda: tier.apply(out)), out)  # idempotent
+        self.assertEqual(tier.apply(out, amap), out)  # idempotent
 
     def test_missing_markers_exits_2(self):
         with self.assertRaises(SystemExit) as cm:

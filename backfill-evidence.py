@@ -61,9 +61,12 @@ _SEP = re.compile(r"^\|[\s\-|]+\|\s*$")
 _HEADER = re.compile(r"^\|\s*Tool\s*\|.*\|\s*Evaluated\s*(\|\s*Evidence\s*)?\|\s*$")
 
 
-def _build_alias_map():
+def _build_alias_map(ctx=None):
+    # Default to a fresh DetectorContext (#199): apply mode rewrites eval files
+    # first, so the map must be built from a context created AFTER those writes.
+    evals = (ctx or ae.DetectorContext(ROOT)).evals
     amap = {}
-    for ev in ae.load_evals():
+    for ev in evals:
         val = eval_evidence(ev)
         for a in ev.name_aliases:
             amap.setdefault(a, val)

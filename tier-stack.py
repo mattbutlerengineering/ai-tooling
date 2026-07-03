@@ -32,11 +32,12 @@ TIER1 = ("MEASURED", "RUN")
 _LINK = re.compile(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)")
 
 
-def stack_tiers(text):
+def stack_tiers(text, amap=None):
     """(tier1, tier2) lists of (tool, evidence), in STACK appearance order. Evidence is
-    looked up from the evals (same alias map backfill-evidence.py uses); a STACK tool
-    with no eval resolves to SOURCE-ONLY → Tier 2."""
-    amap = bf._build_alias_map()
+    looked up from the evals (same alias map backfill-evidence.py uses, injectable for
+    tests — #199); a STACK tool with no eval resolves to SOURCE-ONLY → Tier 2."""
+    if amap is None:
+        amap = bf._build_alias_map()
     tier1, tier2, seen = [], [], set()
     for text_, url in _LINK.findall(text):
         if text_ in seen:
@@ -69,11 +70,11 @@ def render(tier1, tier2):
     )
 
 
-def apply(text):
+def apply(text, amap=None):
     if START not in text or END not in text:
         sys.stderr.write(f"tier-stack: markers {START} / {END} not found in STACK.md — add them once by hand.\n")
         sys.exit(2)
-    block = render(*stack_tiers(text))
+    block = render(*stack_tiers(text, amap))
     return re.sub(re.escape(START) + r".*?" + re.escape(END), lambda m: block, text, flags=re.S)
 
 

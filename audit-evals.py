@@ -114,7 +114,7 @@ pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence fiel
 are report-only and never affect the exit code; --selftest exits non-zero on a
 failing assertion, so it can gate alone.
 """
-import os, re, sys, json, glob, subprocess, datetime, urllib.request, urllib.error
+import os, re, sys, json, glob, functools, subprocess, datetime, urllib.request, urllib.error
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -182,14 +182,13 @@ def extract_installs(text):
                 if pkg and not PLACEHOLDER.search(pkg):
                     yield kind, pkg
 
-def audit_installs():
-    files = ["STACK.md", "CATALOG.md"] + sorted(glob.glob("evaluations/*.md", root_dir=ROOT))
+def audit_installs(ctx):
+    files = ["STACK.md", "CATALOG.md"] + sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))
     seen, broken = {}, []
     checkers = {"pypi": pypi_exists, "crates": crates_exists, "npm": npm_exists, "gh": gh_repo_exists}
     for rel in files:
-        p = os.path.join(ROOT, rel)
-        if not os.path.exists(p): continue
-        for kind, pkg in extract_installs(open(p, encoding="utf-8").read()):
+        if not os.path.exists(ctx.path(rel)): continue
+        for kind, pkg in extract_installs(ctx.read(rel)):
             key = (kind, pkg)
             if key in seen:
                 ok = seen[key]
@@ -225,9 +224,9 @@ def how_section(text):
     m = re.search(r"#+\s*How we tested.*?(?=\n#+\s|\Z)", text, re.S | re.I)
     return m.group(0) if m else ""
 
-def audit_fabrication():
+def audit_fabrication(ctx):
     flagged = []
-    for ev in load_evals():
+    for ev in ctx.evals:
         if not ev.how:
             continue
         if ev.evidence.is_fabrication_candidate:
@@ -250,10 +249,9 @@ def check_repo(slug):
     except Exception:
         return "ok"  # network hiccup — don't false-flag
 
-def audit_links():
+def audit_links(ctx):
     import concurrent.futures
-    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
-    slugs = catalog_lib.github_repos(text)
+    slugs = catalog_lib.github_repos(ctx.catalog)
     problems = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
         for slug, res in zip(slugs, ex.map(check_repo, slugs)):
@@ -262,7 +260,7 @@ def audit_links():
     return problems, len(slugs)
 
 # ---------------------------------------------------------------- L. staleness sweep
-def audit_staleness(today=None):
+def audit_staleness(ctx, today=None):
     """Detector L (#65, REPORT-ONLY): flag evals whose **Last verified:** date is older
     than its category threshold (STALENESS_DAYS, keyed by Type) — fast-moving harnesses/
     MCP servers rot sooner than stable references. `today` is injectable for tests.
@@ -270,7 +268,7 @@ def audit_staleness(today=None):
     threshold) and undated is the count of evals carrying no last-verified date."""
     today = today or datetime.date.today()
     stale, undated = [], 0
-    for ev in load_evals():
+    for ev in ctx.evals:
         d = ev.last_verified
         if d is None:
             undated += 1
@@ -299,9 +297,9 @@ def check_archived(slug):
     except Exception:
         return None
 
-def audit_archived():
+def audit_archived(ctx):
     import concurrent.futures
-    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+    text = ctx.catalog
     slugs = catalog_lib.github_repos(text)
     archived = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
@@ -319,35 +317,14 @@ def audit_archived():
 # CONDITIONAL read is the lead's notes, not a promoted verdict to enforce.
 VERDICTS = catalog_lib.VERDICTS  # vocabulary defined once, in catalog_lib (#193)
 
-def _comparison_rows():
-    """COMPARISON.md's verdict rows via the shared catalog_lib parser (#193) —
-    detectors D, J, and M all key the records via _comparison_verdict_map (#197)."""
-    text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
-    return catalog_lib.comparison_verdict_rows(text)
-
-def _comparison_verdict_map():
-    """The ONE COMPARISON name→verdict map detectors D, J, and M share (#197).
-    Each row registers under catalog_lib.identity_keys — full and parenthetical-
-    stripped name_key, never the slash-basename ('vercel-labs/agent-skills' must
-    not shadow the real 'agent-skills' row). When a stripped alias collides
-    across rows ('awesome-claude-skills (Composio)' vs '(travisvn)'), setdefault
-    keeps the FIRST registration in file order for the ambiguous stripped key;
-    each row's full key stays unambiguous, and consumers holding a qualified
-    name always hit the full key first."""
-    m = {}
-    for r in _comparison_rows():
-        for k in catalog_lib.identity_keys(r.tool):
-            m.setdefault(k, r.verdict)
-    return m
-
-def audit_verdicts():
+def audit_verdicts(ctx):
     """Flag evals whose ## Verdict disagrees with their COMPARISON.md row.
     Tolerates: KEEP (installed/validated status) vs ADOPT, and dual verdicts
     ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
-    comp = _comparison_verdict_map()
+    comp = ctx.comparison_verdict_map
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
     flagged = []
-    for ev in load_evals():
+    for ev in ctx.evals:
         if not ev.verdict:
             continue
         ev_set = ev.verdict_set  # every verdict word — handles dual verdicts
@@ -372,26 +349,24 @@ def audit_verdicts():
 _LEDGER_ROW = re.compile(
     r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.M)
 
-def _stack_member_keys():
+def _stack_member_keys(stack_text):
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
     so an entry installed under another name (GSD ← obra/superpowers) still matches."""
-    txt = open(os.path.join(ROOT, "STACK.md"), encoding="utf-8").read()
     keys = set()
-    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", txt):
+    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
         keys.update(catalog_lib.alias_keys(text, url))
     return keys
 
-def audit_stack_drift():
+def audit_stack_drift(ctx):
     """Detector J: cross-check STACK.md against COMPARISON.md verdicts + the ledger.
     Flags: an ADOPT/KEEP tool absent from both STACK and the ledger; a ledger row whose
     verdict disagrees with COMPARISON; an excluded row with no reason; a ledger row
     marked in-STACK that isn't actually in STACK.md."""
     problems = []
-    comp = _comparison_verdict_map()
-    stack = _stack_member_keys()
-    ledger_text = open(os.path.join(ROOT, "STACK-LEDGER.md"), encoding="utf-8").read()
+    comp = ctx.comparison_verdict_map
+    stack = _stack_member_keys(ctx.stack)
     ledger_keys = set()
-    for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ledger_text):
+    for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ctx.ledger):
         ids = catalog_lib.identity_keys(name)
         ledger_keys.update(ids)
         if in_stack == "no" and not reason.strip():
@@ -403,7 +378,7 @@ def audit_stack_drift():
         if in_stack in ("yes", "conditional") and \
                 not any(k in stack for k in catalog_lib.alias_keys(name)):
             problems.append(f"ledger '{name}' marked '{in_stack}' but not found in STACK.md")
-    for r in _comparison_rows():
+    for r in ctx.comparison_rows:
         if r.verdict in ("ADOPT", "KEEP") and \
                 not any(k in ledger_keys for k in catalog_lib.identity_keys(r.tool)):
             problems.append(f"{r.verdict} tool '{r.tool}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
@@ -416,23 +391,22 @@ def audit_stack_drift():
 # counts quietly excluded it. Validation now happens in one place (catalog_lib)
 # and a bad row is a gating finding — it corrupts the counts the suite already
 # gates on (G), so it must not pass. (#198)
-def audit_row_shapes():
+def audit_row_shapes(ctx):
     problems = []
-    for fname, validate in (("CATALOG.md", catalog_lib.validate_catalog_rows),
-                            ("COMPARISON.md", catalog_lib.validate_comparison_rows)):
-        text = open(os.path.join(ROOT, fname), encoding="utf-8").read()
+    for fname, text, validate in (("CATALOG.md", ctx.catalog, catalog_lib.validate_catalog_rows),
+                                  ("COMPARISON.md", ctx.comparison, catalog_lib.validate_comparison_rows)):
         problems.extend(f"{fname}:{ln} {msg}" for ln, msg in validate(text))
     return problems
 
 # ---------------------------------------------------------------- K. verdict evidence gate
-def audit_verdict_evidence():
+def audit_verdict_evidence(ctx):
     """Detector K (#71): a strong verdict can't rest on a README skim. An ADOPT/KEEP
     eval must be run-backed (Evidence MEASURED or RUN) OR carry an explicit honesty
     disclaimer in its 'How we tested' section (Evidence.honest — the documented escape
     hatch). A REVIEW/SOURCE-ONLY ADOPT/KEEP with no disclaimer is flagged. Generalizes
     the skills-only report-only detector E into a catalog-wide gate. Offline, gating."""
     flagged = []
-    for ev in load_evals():
+    for ev in ctx.evals:
         if ev.verdict not in ("ADOPT", "KEEP"):
             continue
         if ev.evidence_level in ("MEASURED", "RUN"):
@@ -593,14 +567,70 @@ class Evaluation:
         if ce: cands.add(catalog_lib.name_key(ce.name))
         return cands
 
-def load_evals():
-    """Yield every Evaluation under evaluations/, skipping the template."""
-    for p in sorted(glob.glob(os.path.join(ROOT, "evaluations/*.md"))):
-        if os.path.basename(p) == "TEMPLATE.md":
-            continue
-        yield Evaluation.from_path(p)
+# ---------------------------------------------------------------- detector context (#199)
+class DetectorContext:
+    """The detectors' input seam: everything a detector consumes, loaded once
+    from one root directory. main() builds one from ROOT; tests build one from
+    a fixture directory — the context replaces the ROOT monkeypatch as the test
+    surface, so a detector's real inputs are visible in its signature.
+    Properties are read lazily and cached — each cached input is read once per
+    run, and detectors D, J, and M literally share one comparison_verdict_map
+    (#197). (Detector A additionally walks raw file text via ctx.read: it scans
+    every evaluations/*.md including the template ctx.evals skips.)"""
+    def __init__(self, root):
+        self.root = root
 
-def audit_evidence_field():
+    def path(self, rel):
+        return os.path.join(self.root, rel)
+
+    def read(self, rel):
+        return open(self.path(rel), encoding="utf-8").read()
+
+    @functools.cached_property
+    def catalog(self):
+        return self.read("CATALOG.md")
+
+    @functools.cached_property
+    def comparison(self):
+        return self.read("COMPARISON.md")
+
+    @functools.cached_property
+    def stack(self):
+        return self.read("STACK.md")
+
+    @functools.cached_property
+    def ledger(self):
+        return self.read("STACK-LEDGER.md")
+
+    @functools.cached_property
+    def evals(self):
+        """Every Evaluation under evaluations/, skipping the template."""
+        return [Evaluation.from_path(p)
+                for p in sorted(glob.glob(os.path.join(self.root, "evaluations/*.md")))
+                if os.path.basename(p) != "TEMPLATE.md"]
+
+    @functools.cached_property
+    def comparison_rows(self):
+        """COMPARISON.md's verdict rows via the shared catalog_lib parser (#193)."""
+        return catalog_lib.comparison_verdict_rows(self.comparison)
+
+    @functools.cached_property
+    def comparison_verdict_map(self):
+        """The ONE COMPARISON name→verdict map detectors D, J, and M share (#197).
+        Each row registers under catalog_lib.identity_keys — full and parenthetical-
+        stripped name_key, never the slash-basename ('vercel-labs/agent-skills' must
+        not shadow the real 'agent-skills' row). When a stripped alias collides
+        across rows ('awesome-claude-skills (Composio)' vs '(travisvn)'), setdefault
+        keeps the FIRST registration in file order for the ambiguous stripped key;
+        each row's full key stays unambiguous, and consumers holding a qualified
+        name always hit the full key first."""
+        m = {}
+        for r in self.comparison_rows:
+            for k in catalog_lib.identity_keys(r.tool):
+                m.setdefault(k, r.verdict)
+        return m
+
+def audit_evidence_field(ctx):
     """REPORT-ONLY: tally the declared **Evidence:** field across evals (issue #62),
     catalog-wide and within the ADOPT/KEEP set (issue #67 — "what % of ADOPT is
     MEASURED"). Returns (counts, missing, strong) where counts/strong are level->int
@@ -609,7 +639,7 @@ def audit_evidence_field():
     counts = {lvl: 0 for lvl in EVIDENCE_LEVELS}
     strong = {lvl: 0 for lvl in EVIDENCE_LEVELS}  # restricted to ADOPT/KEEP-verdict evals
     missing = []
-    for ev in load_evals():
+    for ev in ctx.evals:
         lvl = ev.evidence_level
         if lvl:
             counts[lvl] += 1
@@ -619,9 +649,9 @@ def audit_evidence_field():
             missing.append(ev.name)
     return counts, missing, strong
 
-def audit_skill_evidence():
+def audit_skill_evidence(ctx):
     measured, backlog = [], []
-    for ev in load_evals():
+    for ev in ctx.evals:
         if not ev.is_skill:
             continue  # not a skill-type entry
         if ev.verdict != "ADOPT":
@@ -644,10 +674,9 @@ _ovl_display = lambda s: catalog_lib.strip_parenthetical(s).strip().lower()
 _OVL_SKIP = ("complementary", "different", "approach", "same repo",
              "conceptual", "none", "—", "–")
 
-def audit_overlaps():
-    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+def audit_overlaps(ctx):
     names, rows = set(), []
-    for r in catalog_lib.parse_catalog_rows(text):
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         names.update(catalog_lib.alias_keys(r.name))
         if r.url is not None:
             rows.append(r)  # unlinked entries ("| OMEGA | ...") name-match only
@@ -675,13 +704,12 @@ def audit_overlaps():
 # the "Overlaps with" graph) where NO member is ADOPT/KEEP yet at least one is
 # CONDITIONAL — i.e. clusters still awaiting a pick. Report-only; it makes the #69
 # migration findable, it does not migrate anything.
-def audit_clusters():
-    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
+def audit_clusters(ctx):
     # name_key -> set(overlap peer keys), restricted to catalogued names; disp
     # keeps the human-readable member name the report prints (#197).
-    rows = [r for r in catalog_lib.parse_catalog_rows(text) if r.url is not None]
+    rows = [r for r in catalog_lib.parse_catalog_rows(ctx.catalog) if r.url is not None]
     cat_names, edges, disp, nverd = set(), {}, {}, {}
-    verd = _comparison_verdict_map()
+    verd = ctx.comparison_verdict_map
     for r in rows:
         nm = catalog_lib.name_key(r.name)
         cat_names.add(nm)
@@ -752,18 +780,17 @@ def _has_savings_claim(one_liner):
             return True
     return False
 
-def audit_savings_claims():
+def audit_savings_claims(ctx):
     """Return (name, evidence_level, disclosed) for every CATALOG row making a numeric
     token-savings claim that is NOT run-backed. Verified rows (MEASURED/RUN) drop out;
     rows with no eval surface as '(no eval)'. Sorted by name. Report-only."""
-    text = open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read()
     levels = {}  # normalized catalog name -> declared (or derived) evidence level
-    for ev in load_evals():
+    for ev in ctx.evals:
         lvl = ev.evidence_level or ev.derived_evidence
         for alias in ev.name_aliases:
             levels.setdefault(alias, lvl)
     flagged = []
-    for r in catalog_lib.parse_catalog_rows(text):
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         if r.url is None or r.one_liner is None or not _has_savings_claim(r.one_liner):
             continue
         lvl = next((levels[k] for k in catalog_lib.alias_keys(r.name) if k in levels), None)
@@ -778,11 +805,8 @@ def audit_savings_claims():
 # rows, and its Total must equal the CATALOG entry count. Manual count edits drift
 # easily (a single tool addition touches both files), and nothing else cross-checks
 # them — so a CATALOG/COMPARISON disagreement could ship silently. Gating, offline.
-def _catalog_count():
-    return catalog_lib.catalog_count(open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read())
-
-def audit_comparison():
-    text = open(os.path.join(ROOT, "COMPARISON.md"), encoding="utf-8").read()
+def audit_comparison(ctx):
+    text = ctx.comparison
     body = catalog_lib.comparison_body_counts(text)  # shared with reconcile-counts.py
     summary, in_summary = {}, False
     for l in text.splitlines():       # second pass: the Summary table only
@@ -803,7 +827,7 @@ def audit_comparison():
     body_total = sum(body.values())
     if total is not None and total != body_total:
         problems.append(f"Total says {total}, body rows sum to {body_total}")
-    cat = _catalog_count()
+    cat = catalog_lib.catalog_count(ctx.catalog)
     if total is not None and total != cat:
         problems.append(f"COMPARISON Total {total} != CATALOG.md {cat} entries")
     return problems
@@ -908,10 +932,11 @@ def main():
         do_vev = "--verdict-evidence" in sel
         do_rows = "--rows" in sel
 
+    ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
     if do_inst:
         print("== A. install resolver ==")
-        broken = audit_installs()
+        broken = audit_installs(ctx)
         if broken:
             rc = 1
             for rel, kind, pkg in broken:
@@ -920,7 +945,7 @@ def main():
             print("  OK — all checked install targets resolve")
     if do_fab:
         print("== B. fabrication classifier ==")
-        flagged = audit_fabrication()
+        flagged = audit_fabrication(ctx)
         if flagged:
             rc = 1
             print(f"  REVIEW ({len(flagged)}): a 'How we tested' that claims a run with no honesty disclaimer")
@@ -930,7 +955,7 @@ def main():
             print("  OK — every 'How we tested' either discloses not-run or shows a verified run")
     if do_verd:
         print("== D. verdict sync (eval ## Verdict vs COMPARISON.md) ==")
-        vflag = audit_verdicts()
+        vflag = audit_verdicts(ctx)
         if vflag:
             rc = 1
             for name, ev, cv in vflag:
@@ -939,7 +964,7 @@ def main():
             print("  OK — eval verdicts agree with COMPARISON (dual verdicts & KEEP tolerated)")
     if do_comp:
         print("== G. comparison consistency (COMPARISON.md vs CATALOG.md) ==")
-        cprob = audit_comparison()
+        cprob = audit_comparison(ctx)
         if cprob:
             rc = 1
             for p in cprob:
@@ -948,7 +973,7 @@ def main():
             print("  OK — COMPARISON summary sums to its body rows and Total matches CATALOG.md")
     if do_rows:
         print("== O. row shape (CATALOG.md / COMPARISON.md table rows) ==")
-        rprob = audit_row_shapes()
+        rprob = audit_row_shapes(ctx)
         if rprob:
             rc = 1
             for p in rprob:
@@ -957,7 +982,7 @@ def main():
             print("  OK — every table row parses as a well-formed entry row")
     if do_drift:
         print("== J. stack-derivation drift (STACK.md vs verdicts + ledger) ==")
-        dprob = audit_stack_drift()
+        dprob = audit_stack_drift(ctx)
         if dprob:
             rc = 1
             for p in dprob:
@@ -966,7 +991,7 @@ def main():
             print("  OK — every ADOPT/KEEP tool is in STACK or the ledger; STACK & ledger agree with verdicts")
     if do_vev:
         print("== K. verdict evidence (ADOPT/KEEP must be run-backed or disclaimered) ==")
-        vev = audit_verdict_evidence()
+        vev = audit_verdict_evidence(ctx)
         if vev:
             rc = 1
             for name, verd, lvl in vev:
@@ -976,7 +1001,7 @@ def main():
             print("  OK — every ADOPT/KEEP eval is run-backed (MEASURED/RUN) or carries a disclaimer")
     if do_links:
         print("== C. link rot (CATALOG.md repo links) ==")
-        problems, total = audit_links()
+        problems, total = audit_links(ctx)
         if problems:
             rc = 1
             for slug, res in problems:
@@ -985,7 +1010,7 @@ def main():
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
     if do_archived:
         print("== H. archived repos (report-only) ==")
-        arch, total = audit_archived()
+        arch, total = audit_archived(ctx)
         undisclosed = [(s, p) for s, p, flagged in arch if not flagged]
         for s, p, flagged in arch:
             tag = "" if flagged else "  <- NOT disclosed in the entry; add a ⚠️ archived note or repoint"
@@ -995,7 +1020,7 @@ def main():
         elif not undisclosed:
             print(f"  ({len(arch)} archived, all already disclosed with a ⚠️ note)")
     if do_skills:
-        measured, backlog = audit_skill_evidence()
+        measured, backlog = audit_skill_evidence(ctx)
         tot = len(measured) + len(backlog)
         print(f"== E. skill evidence (report-only) — {len(measured)}/{tot} ADOPT skills have measured backing ==")
         for n in measured:
@@ -1003,7 +1028,7 @@ def main():
         for n in backlog:
             print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
     if do_evidence:
-        counts, missing, strong = audit_evidence_field()
+        counts, missing, strong = audit_evidence_field(ctx)
         have = sum(counts.values()); tot = have + len(missing)
         strong_tot = sum(strong.values())
         print(f"== I. evidence-strength field (report-only) — {have}/{tot} evals declare Evidence ==")
@@ -1018,7 +1043,7 @@ def main():
                   f"{strong['RUN']} RUN, {strong['REVIEW']} REVIEW, {strong['SOURCE-ONLY']} SOURCE-ONLY "
                   f"→ {backed}/{strong_tot} run-backed (the rest are review-only — #68 graduates them, #71 gates)")
     if do_staleness:
-        stale, undated = audit_staleness()
+        stale, undated = audit_staleness(ctx)
         print(f"== L. staleness sweep (report-only) — {len(stale)} stale eval(s), {undated} undated ==")
         for name, typ, d, age, thr in sorted(stale, key=lambda r: -r[3]):
             print(f"  STALE {name} ({typ}) last verified {d} — {age}d old > {thr}d threshold")
@@ -1027,7 +1052,7 @@ def main():
         if undated:
             print(f"  ({undated} evals carry no **Last verified:** date yet — add one when you re-check them)")
     if do_overlaps:
-        gaps = audit_overlaps()
+        gaps = audit_overlaps(ctx)
         strong = [(t, c) for t, c in gaps if c >= 2]
         print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer tokens ==")
         if not gaps:
@@ -1038,14 +1063,14 @@ def main():
             if c < 2:
                 print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
     if do_clusters:
-        cl = audit_clusters()
+        cl = audit_clusters(ctx)
         print(f"== M. clusters without a pick (report-only, #69) — {len(cl)} overlap cluster(s) all-CONDITIONAL, no ADOPT/KEEP pick ==")
         if not cl:
             print("  OK — every overlap cluster with a CONDITIONAL member also has an ADOPT/KEEP pick")
         for members in cl:
             print(f"  PICK?  {' / '.join(members)}")
     if do_savings:
-        sav = audit_savings_claims()
+        sav = audit_savings_claims(ctx)
         silent = [r for r in sav if not r[2]]
         print(f"== N. token-savings claims (report-only) — {len(silent)} unverified savings claim(s), "
               f"{len(sav) - len(silent)} self-reported ==")
