@@ -949,6 +949,147 @@ class TestDetectorD(unittest.TestCase):
         self.assertTrue(any(f[0] == "bar" for f in flagged), flagged)
 
 
+# ----------------------------------------------------------------- detector B (fabrication, #200)
+class TestDetectorB(unittest.TestCase):
+    """audit_fabrication over fixtures (#200): the Evidence-classifier core is
+    pinned by --selftest; these pin the wrapper — which evals get flagged."""
+
+    def _run(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            return audit.audit_fabrication(audit.DetectorContext(d))
+
+    def test_honest_review_and_verified_run_pass(self):
+        self.assertEqual(self._run({
+            "honest.md": "## How we tested it\n\nWe did not run it; source review only.\n",
+            "verified.md": "## How we tested it\n\nRan it **live** via pip install; exercised the CLI.\n",
+        }), [])
+
+    def test_bare_run_claim_flagged_by_name(self):
+        flagged = self._run({
+            "fabber.md": "## How we tested it\n\nWe ran it on our repo and it generated the report.\n",
+            "honest.md": "## How we tested it\n\nWe did not run it; source review only.\n",
+        })
+        self.assertEqual(flagged, ["fabber"])
+
+    def test_eval_without_how_section_skipped(self):
+        # No 'How we tested' section = nothing to classify, not a fabrication.
+        self.assertEqual(self._run({"bare.md": "## Verdict\n\n**SKIP**\n"}), [])
+
+
+# ----------------------------------------------------------------- detector E (skill evidence, #200)
+class TestDetectorE(unittest.TestCase):
+    SKILL_ROW = "| [{n}](https://github.com/a/{n}) | skill | x | y | z |\n"
+    TOOL_ROW = "| [{n}](https://github.com/a/{n}) | tool | x | y | z |\n"
+
+    def _eval(self, row, verdict, how):
+        return f"{row}\n## How we tested it\n\n{how}\n\n## Verdict\n\n**{verdict}**\n"
+
+    def _run(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            return audit.audit_skill_evidence(audit.DetectorContext(d))
+
+    def test_measured_adopt_skill_vs_review_backlog(self):
+        measured, backlog = self._run({
+            "meas.md": self._eval(self.SKILL_ROW.format(n="meas"), "ADOPT",
+                                  "**Hands-on, measured** with-skill vs baseline A/B."),
+            "revw.md": self._eval(self.SKILL_ROW.format(n="revw"), "ADOPT",
+                                  "Source-grounded review — not run hands-on."),
+        })
+        self.assertEqual(measured, ["meas"])
+        self.assertEqual(backlog, ["revw"])
+
+    def test_non_skills_and_non_adopt_skills_ignored(self):
+        measured, backlog = self._run({
+            "tool.md": self._eval(self.TOOL_ROW.format(n="tool"), "ADOPT",
+                                  "Source-grounded review — not run hands-on."),
+            "skip.md": self._eval(self.SKILL_ROW.format(n="skip"), "SKIP",
+                                  "Source-grounded review — not run hands-on."),
+        })
+        self.assertEqual((measured, backlog), ([], []))
+
+
+# ----------------------------------------------------------------- detector F (dangling overlaps, #200)
+class TestDetectorF(unittest.TestCase):
+    HEADER = "| Name | Type | One-liner | Problem | Overlaps with |\n|---|---|---|---|---|\n"
+
+    def _row(self, name, overlaps):
+        return f"| [{name}](https://github.com/a/{name}) | tool | one | two | {overlaps} |\n"
+
+    def _run(self, catalog):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", catalog)
+            return audit.audit_overlaps(audit.DetectorContext(d))
+
+    def test_all_overlaps_resolve_no_findings(self):
+        cat = self.HEADER + self._row("a", "b") + self._row("b", "a (fork)") + self._row("c", "none")
+        self.assertEqual(self._run(cat), [])  # peer, parenthetical-qualified peer, and skip-vocab
+
+    def test_uncatalogued_token_counted_across_rows_and_lowercased(self):
+        cat = self.HEADER + self._row("a", "Ghost-Tool") + self._row("b", "ghost-tool, a")
+        self.assertEqual(self._run(cat), [("ghost-tool", 2)])  # display-normalized, deduped
+
+    def test_external_peer_marker_and_prose_fragments_not_flagged(self):
+        cat = self.HEADER + self._row("a", "aider-style (ext.)") \
+                          + self._row("b", "same repo; a much longer prose fragment here")
+        self.assertEqual(self._run(cat), [])
+
+    def test_unlinked_row_name_matches_but_contributes_no_overlaps(self):
+        # An unlinked entry ("| OMEGA | ...") resolves peers' tokens, but its own
+        # Overlaps cell is never scanned for gaps.
+        cat = (self.HEADER + "| OMEGA | tool | one | two | ghost-tool |\n"
+               + self._row("a", "OMEGA"))
+        self.assertEqual(self._run(cat), [])
+
+
+# ----------------------------------------------------------------- detector M (clusters without a pick, #200)
+class TestDetectorM(unittest.TestCase):
+    CAT_HEADER = "| Name | Type | One-liner | Problem | Overlaps with |\n|---|---|---|---|---|\n"
+    COMP_HEADER = "## Plan\n| Tool | Type | Auto | Free | Evaluated |\n|---|---|---|---|---|\n"
+
+    def _row(self, name, overlaps):
+        return f"| [{name}](https://github.com/a/{name}) | tool | one | two | {overlaps} |\n"
+
+    def _verdict(self, name, verdict):
+        return f"| {name} | tool | | ✓ | {verdict} |\n"
+
+    def _run(self, catalog, comparison):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", catalog)
+            _write(d, "COMPARISON.md", comparison)
+            return audit.audit_clusters(audit.DetectorContext(d))
+
+    def test_all_conditional_cluster_flagged(self):
+        cat = self.CAT_HEADER + self._row("a", "b") + self._row("b", "a")
+        comp = self.COMP_HEADER + self._verdict("a", "CONDITIONAL") + self._verdict("b", "SKIP")
+        self.assertEqual(self._run(cat, comp), [["a", "b"]])
+
+    def test_cluster_with_adopt_pick_passes(self):
+        cat = self.CAT_HEADER + self._row("a", "b") + self._row("b", "a")
+        comp = self.COMP_HEADER + self._verdict("a", "CONDITIONAL") + self._verdict("b", "ADOPT")
+        self.assertEqual(self._run(cat, comp), [])
+
+    def test_cluster_without_conditional_not_awaiting_a_pick(self):
+        # All-SKIP clusters are settled, not awaiting: nothing to flag.
+        cat = self.CAT_HEADER + self._row("a", "b") + self._row("b", "a")
+        comp = self.COMP_HEADER + self._verdict("a", "SKIP") + self._verdict("b", "SKIP")
+        self.assertEqual(self._run(cat, comp), [])
+
+    def test_discovery_log_cluster_also_awaiting_a_pick(self):
+        # discovery-log members count as awaiting, same as CONDITIONAL (ADR 0001/#69).
+        cat = self.CAT_HEADER + self._row("a", "b") + self._row("b", "a")
+        comp = self.COMP_HEADER + self._verdict("a", "discovery-log") + self._verdict("b", "SKIP")
+        self.assertEqual(self._run(cat, comp), [["a", "b"]])
+
+    def test_singleton_never_flagged(self):
+        cat = self.CAT_HEADER + self._row("a", "none")
+        comp = self.COMP_HEADER + self._verdict("a", "CONDITIONAL")
+        self.assertEqual(self._run(cat, comp), [])
+
+
 # ----------------------------------------------------------------- backfill-evidence (#67)
 class TestEvidenceBackfill(unittest.TestCase):
     def test_derive_levels(self):
