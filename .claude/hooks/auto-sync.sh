@@ -6,7 +6,7 @@
 # definition of the syncable set — never restated here (#194, pinned by
 # TestWatchListSeam in test_automation.py).
 input=$(cat)
-fp=$(printf '%s' "$input" | python3 -c "import sys,json; print(json.load(sys.stdin).get('tool_input',{}).get('file_path',''))" 2>/dev/null)
+fp=$(printf '%s' "$input" | python3 "$(dirname "$0")/hook-field.py" file_path 2>/dev/null)
 [ -z "$fp" ] && exit 0
 # ignore edits already inside plugin/docs (would be a no-op loop anyway)
 case "$fp" in */plugin/docs/*) exit 0 ;; esac

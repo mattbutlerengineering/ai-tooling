@@ -18,6 +18,7 @@
 check:
 	python3 audit-evals.py --offline
 	python3 audit-evals.py --selftest
+	python3 -m unittest -q test_automation
 	python3 reconcile-counts.py --check
 	python3 backfill-evidence.py --check
 	python3 tier-stack.py --check

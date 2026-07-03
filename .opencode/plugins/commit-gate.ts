@@ -15,6 +15,9 @@
 
 import type { Plugin } from "@opencode-ai/plugin"
 
+// The one commit predicate — pinned in lockstep with .claude/hooks/audit-gate.sh's
+// `case *"git commit"*` by TestHookTriggerSeam in test_automation.py (#202). Keep it
+// metacharacter-free so the regex test stays a plain substring match, same as bash's.
 const COMMIT_RE = /git commit/
 const DIAG_TRUNC = 4000
 
