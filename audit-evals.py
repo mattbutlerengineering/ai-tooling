@@ -2,7 +2,7 @@
 """
 audit-evals.py — integrity checks for the ai-tooling catalog.
 
-Twelve detectors (A-L), each proven to catch real problems (see git history,
+Fifteen detectors (A-O), each proven to catch real problems (see git history,
 2026-06-20), plus a --selftest that unit-tests the evidence classifier:
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
@@ -73,29 +73,46 @@ Twelve detectors (A-L), each proven to catch real problems (see git history,
      where no member is ADOPT/KEEP yet at least one is CONDITIONAL — the clusters still
      awaiting a pick. Makes the #69 migration findable; migrates nothing.
 
+  N. TOKEN-SAVINGS CLAIMS (opt-in, --savings-claims, REPORT-ONLY) — a CATALOG row
+     whose one-liner makes a numeric token-savings headline (a % or N× next to token
+     vocabulary) should be run-backed (Evidence MEASURED/RUN) or carry an in-row
+     self-reported/unverified disclaimer. Turns the Optimize cluster's unverified
+     savings claims into a number to shrink (evaluations/token-savings-protocol.md).
+
+  O. ROW SHAPE — a malformed table row in CATALOG.md / COMPARISON.md used to be
+     silently skipped by the parse sites, quietly corrupting the counts G gates on.
+     validate_catalog_rows / validate_comparison_rows (catalog_lib) report any
+     unrecognized, wrong-width, indented, or nameless entry row, and any per-stage
+     COMPARISON row whose Evaluated cell isn't a verdict token, with file and line
+     number (#198). Offline, gating, on by default.
+
 Usage:
-  python3 audit-evals.py              # A + B + D + G (D/B/G offline; A hits registries)
-  python3 audit-evals.py --offline    # B + D + G only (no network)
+  python3 audit-evals.py              # A + B + D + G + J + K + O (all offline but A)
+  python3 audit-evals.py --offline    # B + D + G + J + K + O only (no network)
   python3 audit-evals.py --installs   # install resolver only
   python3 audit-evals.py --fabrication # fabrication classifier only
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
   python3 audit-evals.py --comparison # COMPARISON.md vs CATALOG.md consistency (offline)
   python3 audit-evals.py --drift      # STACK.md vs verdicts + exclusion ledger (offline)
   python3 audit-evals.py --verdict-evidence  # ADOPT/KEEP must be run-backed or disclaimered (offline)
+  python3 audit-evals.py --rows       # malformed CATALOG/COMPARISON table rows (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
   python3 audit-evals.py --overlaps   # dangling overlap-reference report (offline)
+  python3 audit-evals.py --clusters   # overlap clusters still awaiting a pick (offline)
+  python3 audit-evals.py --savings-claims  # unverified token-savings headlines (offline)
   python3 audit-evals.py --evidence   # declared Evidence-field distribution (offline)
   python3 audit-evals.py --staleness  # flag evals past their last-verified threshold (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
 (A), a FABRICATION candidate (B), a VERDICT mismatch (D), COMPARISON drift (G),
-STACK-derivation drift (J), a WEAK-backed ADOPT/KEEP verdict (K), or link rot (C,
-when --links is run) — so it can gate CI or a pre-commit hook. E (skill evidence),
-F (dangling overlaps), and I (evidence field) are report-only and never affect the
-exit code; --selftest exits non-zero on a failing assertion, so it can gate alone.
+STACK-derivation drift (J), a WEAK-backed ADOPT/KEEP verdict (K), a MALFORMED
+table row (O), or link rot (C, when --links is run) — so it can gate CI or a
+pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence field)
+are report-only and never affect the exit code; --selftest exits non-zero on a
+failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, subprocess, datetime, urllib.request, urllib.error
 import catalog_lib
@@ -390,6 +407,21 @@ def audit_stack_drift():
         if r.verdict in ("ADOPT", "KEEP") and \
                 not any(k in ledger_keys for k in catalog_lib.identity_keys(r.tool)):
             problems.append(f"{r.verdict} tool '{r.tool}' in COMPARISON is neither in STACK nor the exclusion ledger (#64)")
+    return problems
+
+# ---------------------------------------------------------------- O. row shape (gating)
+# A malformed table row used to be silently skipped: the parse sites guarded with
+# ad-hoc cell-count thresholds and continued past anything unrecognized, so
+# reconcile-counts and backfill-evidence simply rewrote around a bad row and the
+# counts quietly excluded it. Validation now happens in one place (catalog_lib)
+# and a bad row is a gating finding — it corrupts the counts the suite already
+# gates on (G), so it must not pass. (#198)
+def audit_row_shapes():
+    problems = []
+    for fname, validate in (("CATALOG.md", catalog_lib.validate_catalog_rows),
+                            ("COMPARISON.md", catalog_lib.validate_comparison_rows)):
+        text = open(os.path.join(ROOT, fname), encoding="utf-8").read()
+        problems.extend(f"{fname}:{ln} {msg}" for ln, msg in validate(text))
     return problems
 
 # ---------------------------------------------------------------- K. verdict evidence gate
@@ -849,7 +881,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--skills", "--overlaps", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--overlaps", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -857,6 +889,7 @@ def main():
     do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
     do_drift = (not explicit) or "--drift" in sel or "--offline" in sel  # offline gate (#70)
     do_vev = (not explicit) or "--verdict-evidence" in sel or "--offline" in sel  # offline gate (#71)
+    do_rows = (not explicit) or "--rows" in sel or "--offline" in sel  # offline gate (#198)
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
@@ -873,6 +906,7 @@ def main():
         do_comp = "--comparison" in sel
         do_drift = "--drift" in sel
         do_vev = "--verdict-evidence" in sel
+        do_rows = "--rows" in sel
 
     rc = 0
     if do_inst:
@@ -912,6 +946,15 @@ def main():
                 print(f"  DRIFT {p}")
         else:
             print("  OK — COMPARISON summary sums to its body rows and Total matches CATALOG.md")
+    if do_rows:
+        print("== O. row shape (CATALOG.md / COMPARISON.md table rows) ==")
+        rprob = audit_row_shapes()
+        if rprob:
+            rc = 1
+            for p in rprob:
+                print(f"  MALFORMED {p}")
+        else:
+            print("  OK — every table row parses as a well-formed entry row")
     if do_drift:
         print("== J. stack-derivation drift (STACK.md vs verdicts + ledger) ==")
         dprob = audit_stack_drift()

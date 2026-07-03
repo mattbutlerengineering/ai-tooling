@@ -32,8 +32,8 @@ ComparisonRow = collections.namedtuple("ComparisonRow", "tool verdict cells")
 # first cell for unlinked ones (OMEGA, server-github); url is None when unlinked.
 # one_liner/overlaps are None when the row is short; cells again carries the full
 # row for #198. The positional fields assume CATALOG's 5-column shape — on a
-# COMPARISON-shaped row only name/type/cells are meaningful (validate_row, #198,
-# is where shape enforcement lands).
+# COMPARISON-shaped row only name/type/cells are meaningful (validate_catalog_rows /
+# validate_comparison_rows, #198, enforce shape).
 CatalogRow = collections.namedtuple("CatalogRow", "name url type one_liner overlaps cells")
 
 # A markdown table separator row: |---|---| (alignment colons allowed).
@@ -175,6 +175,80 @@ def parse_catalog_rows(text):
         cell = lambda i: cells[i] if len(cells) > i else None
         rows.append(CatalogRow(name, url, cell(1), cell(2), cell(4), cells))
     return rows
+
+
+# CATALOG.md's documented column count: Name | Type | One-liner | Problem | Overlaps.
+CATALOG_COLUMNS = 5
+
+
+def validate_catalog_rows(text):
+    """(line_no, problem) findings for CATALOG table lines that would otherwise
+    be silently skipped or mis-parsed (#198): a pipe-line that isn't a header,
+    separator, or recognized entry row; entry rows whose cell count isn't
+    CATALOG_COLUMNS (a missing cell silently shifts every field after it); an
+    indented row (markdown renders it, the ^|-anchored parsers and counters
+    skip it); and an empty Name cell (counted, but nameless). A clean tree
+    returns []."""
+    problems = []
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        if not line.lstrip().startswith("|") or _SEPARATOR_ROW.match(line):
+            continue
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if _SEPARATOR_ROW.match(nxt):
+            continue  # header row (structural: the row above a |---| separator)
+        cells = _row_cells(line)
+        if line != line.lstrip():
+            problems.append((i + 1, "indented table row (markdown renders it, but the parsers and counters skip it)"))
+        elif not _BODY_ROW.match(line):
+            got = repr(cells[1]) if len(cells) > 1 else "missing"
+            problems.append((i + 1, f"not a recognized entry row (Type cell {got} not in the Type vocabulary)"))
+        elif len(cells) != CATALOG_COLUMNS:
+            problems.append((i + 1, f"expected {CATALOG_COLUMNS} cells, found {len(cells)} cells"))
+        elif not cells[0]:
+            problems.append((i + 1, "empty Name cell (row is counted, but nameless)"))
+    return problems
+
+
+def validate_comparison_rows(text):
+    """(line_no, problem) findings for COMPARISON per-stage table rows (#198):
+    inside any table whose header carries an 'Evaluated' column — the same
+    anchor comparison_verdict_rows uses, so a table the parser consumes is
+    always validated — every body row must match the header's width, hold a
+    verdict token in its Evaluated cell, and name a tool in its first cell.
+    The '## Summary' section is excluded by section (its header also says
+    'Evaluated' but its rows are aggregate counts, not tool rows — the same
+    exclusion comparison_body_counts applies). A clean tree returns []."""
+    problems = []
+    lines = text.splitlines()
+    hdr_cols = vcol = None
+    in_summary = False
+    for i, line in enumerate(lines):
+        hm = re.match(r"^##\s+(.*)", line)
+        if hm:
+            in_summary = hm.group(1).strip().lower() == "summary"
+        if not line.lstrip().startswith("|"):
+            hdr_cols = vcol = None
+            continue
+        if _SEPARATOR_ROW.match(line):
+            continue
+        cells = _row_cells(line)
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if _SEPARATOR_ROW.match(nxt):
+            if not in_summary and "Evaluated" in cells:
+                hdr_cols, vcol = len(cells), cells.index("Evaluated")
+            else:
+                hdr_cols = vcol = None  # Summary or foreign table
+            continue
+        if hdr_cols is None:
+            continue
+        if len(cells) != hdr_cols:
+            problems.append((i + 1, f"expected {hdr_cols} cells, found {len(cells)} cells"))
+        elif cells[vcol] not in _VERDICT_SET:
+            problems.append((i + 1, f"Evaluated cell {cells[vcol]!r} is not a verdict token"))
+        elif not cells[0]:
+            problems.append((i + 1, "empty Tool cell (row carries a verdict, but no name)"))
+    return problems
 
 
 def catalog_count(catalog_text):
