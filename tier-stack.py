@@ -22,9 +22,9 @@ import os, re, sys, importlib.util
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-_spec = importlib.util.spec_from_file_location("backfill_evidence", os.path.join(ROOT, "backfill-evidence.py"))
-bf = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(bf)
-ae = bf.ae
+# Import the eval model directly (#201) — no more reaching through backfill-evidence.
+_spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 STACK = os.path.join(ROOT, "STACK.md")
 START, END = "<!-- TIERS:START -->", "<!-- TIERS:END -->"
@@ -33,18 +33,18 @@ _LINK = re.compile(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)")
 
 
 def stack_tiers(text, amap=None):
-    """(tier1, tier2) lists of (tool, evidence), in STACK appearance order. Evidence is
-    looked up from the evals (same alias map backfill-evidence.py uses, injectable for
-    tests — #199); a STACK tool with no eval resolves to SOURCE-ONLY → Tier 2."""
+    """(tier1, tier2) lists of (tool, evidence), in STACK appearance order. Evidence
+    comes from catalog_lib.evidence_lookup over the shared evidence_alias_map
+    (injectable for tests — #199/#201); a STACK tool with no eval resolves to
+    SOURCE-ONLY → Tier 2."""
     if amap is None:
-        amap = bf._build_alias_map()
+        amap = ae.DetectorContext(ROOT).evidence_alias_map
     tier1, tier2, seen = [], [], set()
     for text_, url in _LINK.findall(text):
         if text_ in seen:
             continue
         seen.add(text_)
-        keys = catalog_lib.alias_keys(text_, url)
-        ev = next((amap[k] for k in keys if k in amap), "SOURCE-ONLY")
+        ev = catalog_lib.evidence_lookup(amap, text_, url)
         (tier1 if ev in TIER1 else tier2).append((text_, ev))
     return tier1, tier2
 

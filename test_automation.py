@@ -477,6 +477,37 @@ class TestRowValidation(unittest.TestCase):
             self.assertEqual(audit.audit_row_shapes(audit.DetectorContext(d)), [])
 
 
+# ----------------------------------------------------------------- evidence lookup seam (#201)
+class TestEvidenceLookup(unittest.TestCase):
+    """catalog_lib.evidence_lookup + DetectorContext.evidence_alias_map — the ONE
+    triple-key evidence lookup tier-stack and backfill-evidence route through."""
+
+    def test_fanout_most_specific_key_first(self):
+        amap = {"gsdgetshitdone": "MEASURED", "gsd": "REVIEW"}
+        self.assertEqual(catalog_lib.evidence_lookup(amap, "GSD (Get Shit Done)"), "MEASURED")
+
+    def test_url_basename_fallback(self):
+        # GSD has no eval under its own name; the install-source repo does.
+        amap = {"superpowers": "RUN"}
+        self.assertEqual(
+            catalog_lib.evidence_lookup(amap, "GSD", "https://github.com/obra/superpowers"), "RUN")
+
+    def test_no_match_defaults_to_source_only(self):
+        self.assertEqual(catalog_lib.evidence_lookup({}, "ghost"), "SOURCE-ONLY")
+
+    def test_alias_map_declared_beats_derived_and_derived_fallback(self):
+        with tempfile.TemporaryDirectory() as d:
+            # declared field wins over what the How-section prose would derive
+            _write(d, "evaluations/decl.md",
+                   "**Evidence:** MEASURED\n\n## How we tested it\n\nWe did not run it.\n")
+            # no declared field -> derived (honest disclaimer -> REVIEW)
+            _write(d, "evaluations/derv.md",
+                   "## How we tested it\n\nSource-grounded review — not run hands-on.\n")
+            amap = audit.DetectorContext(d).evidence_alias_map
+            self.assertEqual(amap["decl"], "MEASURED")
+            self.assertEqual(amap["derv"], "REVIEW")
+
+
 # ----------------------------------------------------------------- detector context (#199)
 class TestDetectorContext(unittest.TestCase):
     """Pins the DetectorContext protocol: every detector's inputs come through
@@ -1228,6 +1259,11 @@ class TestTierStack(unittest.TestCase):
              "| [foo](https://github.com/x/foo) | d | `c` | s |\n"
              "| [bar](https://github.com/x/bar) | d | `c` | s |\n"
              "| [baz](https://github.com/x/baz) | d | `c` | s |\n")
+
+    def test_no_reach_through_to_backfill(self):
+        # #201: tier-stack imports the eval model directly; the two-hop
+        # tier -> backfill -> audit-evals chain (and borrowed privates) is gone.
+        self.assertFalse(hasattr(tier, "bf"))
 
     def test_tiering_split_derived_from_evidence(self):
         # amap is injected through stack_tiers' interface (#199) — no patching
