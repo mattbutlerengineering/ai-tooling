@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 578 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 582 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -25,6 +25,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
+| vibe-coding-prompt-template | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | discovery-log | REVIEW |
 | claude-code-spec-workflow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -124,6 +125,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Kaku | tool | | ✓ | discovery-log | REVIEW |
 | jcode | harness | | ✓ | discovery-log | REVIEW |
 | gstack | harness | | ✓ | discovery-log | REVIEW |
+| gbrain | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | happy | platform | | $ | discovery-log | REVIEW |
 | harness | skill | | ✓ | discovery-log | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
@@ -576,6 +578,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AutoResearchClaw | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aisuite | framework | | ✓ | SKIP | REVIEW |
 | webclaw | tool | | ✓ | SKIP | REVIEW |
+| firecrawl | tool | | ✓/$ | discovery-log | SOURCE-ONLY |
 | autoresearch | tool | ✓ | ✓ | discovery-log | REVIEW |
 | ARIS | skill | ✓ | ✓ | discovery-log | REVIEW |
 | last30days-skill | skill | | ✓ | ADOPT | MEASURED |
@@ -633,6 +636,7 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentskills | reference | | ✓ | ADOPT | REVIEW |
 | agents-best-practices | skill | | ✓ | discovery-log | REVIEW |
 | buildwithclaude | reference | | ✓ | discovery-log | REVIEW |
+| awesome-mcp-servers | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | karpathy-llm-wiki | skill | | ✓ | discovery-log | REVIEW |
 | ctx | tool | | ✓ | discovery-log | REVIEW |
 | system-prompts-leaks | reference | | ✓ | discovery-log | REVIEW |
@@ -662,8 +666,8 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Evaluated | Adoption rate |
 |-------|-------|-----------|---------------|
-| Plan | 53 | 53 | 100% |
-| Implement | 192 | 192 | 100% |
+| Plan | 54 | 54 | 100% |
+| Implement | 193 | 193 | 100% |
 | Verify | 21 | 21 | 100% |
 | Review | 32 | 32 | 100% |
 | Ship | 3 | 3 | 100% |
@@ -672,6 +676,6 @@ All 578 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Skills & Plugins | 77 | 77 | 100% |
 | Memory & Context | 47 | 47 | 100% |
 | MCP Servers | 39 | 39 | 100% |
-| Research & Discovery | 17 | 17 | 100% |
-| Reference | 52 | 52 | 100% |
-| **Total** | **578** | **578** | **100%** |
+| Research & Discovery | 18 | 18 | 100% |
+| Reference | 53 | 53 | 100% |
+| **Total** | **582** | **582** | **100%** |
