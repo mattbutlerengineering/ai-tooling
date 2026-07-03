@@ -382,6 +382,120 @@ class TestNameKeying(unittest.TestCase):
             self.assertTrue(any(f[0] == "gsd" for f in flagged), flagged)
 
 
+# ----------------------------------------------------------------- catalog_lib: row-shape validation (#198)
+class TestRowValidation(unittest.TestCase):
+    """Pins catalog_lib.validate_catalog_rows()/validate_comparison_rows() and
+    detector O — a malformed row is a reported finding, not a silent skip that
+    quietly corrupts the counts the suite gates on (#198)."""
+
+    def test_wellformed_catalog_has_no_findings(self):
+        self.assertEqual(catalog_lib.validate_catalog_rows(CATALOG_OK), [])
+
+    def test_catalog_row_with_wrong_cell_count_flagged(self):
+        bad = CATALOG_OK + "| [d](https://github.com/x/d) | tool | one | two |\n"
+        probs = catalog_lib.validate_catalog_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("4 cells", probs[0][1])
+
+    def test_catalog_row_with_unknown_type_flagged(self):
+        bad = CATALOG_OK + "| [d](https://github.com/x/d) | CLI | one | two | none |\n"
+        probs = catalog_lib.validate_catalog_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("CLI", probs[0][1])
+
+    def test_indented_catalog_row_flagged(self):
+        # Markdown renders a ≤3-space-indented row as a table row, but the
+        # ^|-anchored parsers and counters skip it — the exact silent-skip #198 kills.
+        bad = CATALOG_OK + "  | [d](https://github.com/x/d) | tool | one | two | none |\n"
+        probs = catalog_lib.validate_catalog_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("indented", probs[0][1])
+
+    def test_catalog_row_with_empty_name_cell_flagged(self):
+        # A whitespace-only Name cell still matches _BODY_ROW and is counted —
+        # a nameless entry corrupting the counts G gates on.
+        bad = CATALOG_OK + "| | tool | one | two | none |\n"
+        probs = catalog_lib.validate_catalog_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("Name", probs[0][1])
+
+    def test_catalog_row_without_trailing_pipe_is_wellformed(self):
+        # Markdown parses `| a | b | c | d | e` identically to the piped form —
+        # the cells are all present, so it is NOT a malformed row.
+        ok = CATALOG_OK + "| [d](https://github.com/x/d) | tool | one | two | none\n"
+        self.assertEqual(catalog_lib.validate_catalog_rows(ok), [])
+
+    def test_header_and_separator_not_flagged(self):
+        # CATALOG_OK already carries a header + separator; a fresh table mid-file
+        # must not produce findings either.
+        ok = CATALOG_OK + "\n## Ship\n\n| Name | Type | One-liner | Problem | Overlaps with |\n|---|---|---|---|---|\n"
+        self.assertEqual(catalog_lib.validate_catalog_rows(ok), [])
+
+    def test_wellformed_comparison_has_no_findings(self):
+        self.assertEqual(catalog_lib.validate_comparison_rows(COMPARISON_OK), [])
+
+    def test_comparison_row_with_wrong_cell_count_flagged(self):
+        bad = COMPARISON_OK.replace("| a | tool | | ✓ | ADOPT |",
+                                    "| a | tool | | ✓ | ADOPT | extra |")
+        probs = catalog_lib.validate_comparison_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("6 cells", probs[0][1])
+
+    def test_comparison_row_with_bad_verdict_flagged(self):
+        bad = COMPARISON_OK.replace("| a | tool | | ✓ | ADOPT |",
+                                    "| a | tool | | ✓ | pending |")
+        probs = catalog_lib.validate_comparison_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("pending", probs[0][1])
+
+    def test_summary_table_not_validated_as_tool_rows(self):
+        # Summary rows carry counts, not verdicts, and the Summary header also
+        # says 'Evaluated' — the section-based exclusion keeps them finding-free.
+        self.assertEqual(catalog_lib.validate_comparison_rows(COMPARISON_OK), [])
+
+    def test_comparison_row_with_empty_tool_cell_flagged(self):
+        bad = COMPARISON_OK.replace("| a | tool | | ✓ | ADOPT |",
+                                    "| | tool | | ✓ | ADOPT |")
+        probs = catalog_lib.validate_comparison_rows(bad)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("Tool cell", probs[0][1])
+
+    def test_comparison_table_with_nontool_header_still_validated(self):
+        # comparison_verdict_rows anchors on ANY header carrying 'Evaluated';
+        # the validator must use the same anchor, or a renamed first column
+        # would let the parser consume rows the validator never sees.
+        text = ("## Plan\n\n| Name | Type | Auto | Free | Evaluated |\n"
+                "|---|---|---|---|---|\n"
+                "| a | tool | | ✓ | pending |\n")
+        probs = catalog_lib.validate_comparison_rows(text)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("pending", probs[0][1])
+
+    def test_detector_o_reports_findings_and_gates(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", CATALOG_OK + "| [d](https://github.com/x/d) | tool | one |\n")
+            _write(d, "COMPARISON.md", COMPARISON_OK)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                probs = audit.audit_row_shapes()
+            finally:
+                audit.ROOT = orig
+            self.assertEqual(len(probs), 1)
+            self.assertIn("CATALOG.md", probs[0])
+
+    def test_detector_o_clean_tree_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", CATALOG_OK)
+            _write(d, "COMPARISON.md", COMPARISON_OK)
+            orig = audit.ROOT
+            try:
+                audit.ROOT = d
+                self.assertEqual(audit.audit_row_shapes(), [])
+            finally:
+                audit.ROOT = orig
+
+
 # ----------------------------------------------------------------- reconcile: catalog_count + main (subprocess)
 class TestReconcileMain(unittest.TestCase):
     def _fixture_repo(self, d, catalog=CATALOG_OK, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n"):

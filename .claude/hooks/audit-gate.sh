@@ -1,6 +1,6 @@
 #!/bin/bash
 # PreToolUse(Bash) gate: block a `git commit` if the offline integrity audit fails.
-# Uses --offline (B fabrication + D verdict + G comparison) so it's fast and works
+# Uses --offline (gating detectors B/D/G/J/K/O) so it's fast and works
 # with no network; detector A (install resolution, network) is left for CI.
 # Fail-open: if the command can't be parsed or isn't a commit, do nothing (exit 0).
 input=$(cat)
