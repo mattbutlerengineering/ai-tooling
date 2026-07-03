@@ -26,8 +26,9 @@ jobs:
           python-version: "3.12"
 
       # Single entrypoint (#114): `make check` runs the full gate set in --check mode
-      # — offline gates (B/D/G/J/K/O), the selftest, reconcile/backfill/tier/sync --check,
-      # and the network install resolver (A) — exiting non-zero on the first failure.
+      # — offline gates (B/D/G/J/K/O), the selftest, the test_automation unit suite,
+      # reconcile/backfill/tier/sync --check, and the network install resolver (A) —
+      # exiting non-zero on the first failure.
       # Defined in ./Makefile so the local and CI gate sets cannot drift; Node and gh
       # are preinstalled on ubuntu-latest and GH_TOKEN above authenticates the resolver.
       - name: Integrity gates (make check)

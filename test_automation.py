@@ -765,6 +765,8 @@ class TestWatchListSeam(unittest.TestCase):
     def _run_claude_hook(self, d, file_path):
         hook = os.path.join(d, "auto-sync.sh")
         shutil.copy(os.path.join(ROOT, ".claude/hooks/auto-sync.sh"), hook)
+        # the hook resolves its JSON helper next to itself (#202) — ship it along
+        shutil.copy(os.path.join(ROOT, ".claude/hooks/hook-field.py"), os.path.join(d, "hook-field.py"))
         payload = '{"tool_input": {"file_path": "%s"}}' % file_path
         env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
         return subprocess.run(["bash", hook], input=payload, env=env,
@@ -834,6 +836,146 @@ class TestWatchListSeam(unittest.TestCase):
             driver = _write(d, "driver.ts", _OPENCODE_DRIVER)
             r = subprocess.run(
                 ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/auto-sync.ts")],
+                capture_output=True, text=True, cwd=d)
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+
+
+# ----------------------------------------------------------------- hook trigger seam (#202)
+_GATE_DRIVER = """
+import { $ } from "bun"
+const [worktree, pluginPath] = Bun.argv.slice(2)
+const plugin = (await import(pluginPath)).default
+const hooks = await plugin({ worktree, $ })
+async function gate(command) {
+  const output = { args: { command } }
+  await hooks["tool.execute.before"]({ tool: "bash" }, output)
+  return output.args.command
+}
+let failed = 0
+const blocked = await gate("git commit -m x")
+if (!blocked.includes("BLOCKED")) { console.log("FAIL commit not blocked"); failed = 1 }
+const passed = await gate("git status")
+if (passed !== "git status") { console.log("FAIL non-commit rewritten"); failed = 1 }
+process.exit(failed)
+"""
+
+
+class TestHookTriggerSeam(unittest.TestCase):
+    """Pins the hook trigger layer (#202): the commit predicate is one literal
+    kept in lockstep across the bash and TS gate adapters (a cross-language
+    share isn't practical, so this pin IS the single definition), and both bash
+    hooks extract hook-JSON fields via the one shared helper instead of each
+    embedding an inline-Python one-liner."""
+
+    # The one commit predicate. Both adapters match it as a plain substring
+    # (bash `case *"lit"*`, TS regex test), so they agree iff (a) each pins this
+    # literal and (b) the literal has no regex metacharacters — both asserted below.
+    PREDICATE = "git commit"
+    GATE = ".claude/hooks/audit-gate.sh"
+    HELPER = ".claude/hooks/hook-field.py"
+
+    def _source(self, rel):
+        with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
+            return f.read()
+
+    # ---- predicate pins
+    def test_bash_gate_pins_the_commit_predicate(self):
+        # Pin the case ARM (trailing `)`) — a bare substring check could be
+        # satisfied by a comment while the actual predicate drifted.
+        src = self._source(self.GATE)
+        self.assertIn('case "$cmd" in', src,
+                      msg="audit-gate.sh no longer dispatches on the extracted command")
+        self.assertIn(f'*"{self.PREDICATE}"*)', src,
+                      msg="audit-gate.sh commit predicate drifted from the pin")
+
+    def test_opencode_gate_pins_the_commit_predicate(self):
+        import re
+        m = re.search(r"COMMIT_RE = /(.+?)/(\w*)", self._source(".opencode/plugins/commit-gate.ts"))
+        self.assertIsNotNone(m, msg="commit-gate.ts no longer defines COMMIT_RE")
+        self.assertEqual(m.group(1), self.PREDICATE,
+                         msg="commit-gate.ts commit predicate drifted from the pin")
+        self.assertEqual(m.group(2), "",
+                         msg="regex flags (e.g. /i) would diverge from bash's case-sensitive match")
+
+    def test_predicate_is_metacharacter_free(self):
+        # With no metacharacters the TS regex test degenerates to the same
+        # substring match as bash's `case *"lit"*` glob — identical semantics.
+        import re
+        self.assertFalse(re.search(r"[\\.^$*+?()\[\]{}|]", self.PREDICATE))
+
+    # ---- shared JSON extraction
+    def test_bash_hooks_share_the_json_helper(self):
+        for rel in (self.GATE, ".claude/hooks/auto-sync.sh"):
+            src = self._source(rel)
+            self.assertIn("hook-field.py", src,
+                          msg=f"{rel} does not use the shared JSON helper")
+            self.assertNotIn("json.load(sys.stdin)", src,
+                             msg=f"{rel} still embeds an inline JSON one-liner")
+
+    def _extract(self, field, payload):
+        return subprocess.run(["python3", os.path.join(ROOT, self.HELPER), field],
+                              input=payload, capture_output=True, text=True)
+
+    def test_helper_extracts_the_requested_field(self):
+        r = self._extract("command", '{"tool_input": {"command": "git commit -m x"}}')
+        self.assertEqual(r.returncode, 0, msg=r.stderr)
+        self.assertEqual(r.stdout.strip(), "git commit -m x")
+
+    def test_helper_missing_field_prints_empty(self):
+        r = self._extract("file_path", '{"tool_input": {"command": "git status"}}')
+        self.assertEqual(r.returncode, 0, msg=r.stderr)
+        self.assertEqual(r.stdout.strip(), "")
+
+    def test_helper_fails_open_on_garbage_payload(self):
+        r = self._extract("command", "not json at all")
+        self.assertEqual(r.returncode, 0, msg="helper must fail open, not crash")
+        self.assertEqual(r.stdout.strip(), "")
+
+    # ---- gate behavior (the predicate + helper working end-to-end)
+    def _run_gate(self, d, payload):
+        gate = os.path.join(d, "audit-gate.sh")
+        shutil.copy(os.path.join(ROOT, self.GATE), gate)
+        shutil.copy(os.path.join(ROOT, self.HELPER), os.path.join(d, "hook-field.py"))
+        env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
+        return subprocess.run(["bash", gate], input=payload, env=env,
+                              capture_output=True, text=True)
+
+    _FAILING_AUDIT = "import sys; sys.stderr.write('detector X: fail\\n'); sys.exit(1)\n"
+
+    def test_gate_blocks_commit_when_audit_fails(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            r = self._run_gate(d, '{"tool_input": {"command": "git commit -m x"}}')
+            self.assertEqual(r.returncode, 2, msg=r.stdout + r.stderr)
+            self.assertIn("BLOCKED", r.stderr)
+
+    def test_gate_passes_non_commit_despite_failing_audit(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            r = self._run_gate(d, '{"tool_input": {"command": "git status"}}')
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+
+    def test_gate_passes_commit_when_audit_clean(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", "import sys; sys.exit(0)\n")
+            r = self._run_gate(d, '{"tool_input": {"command": "git commit -m x"}}')
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+
+    def test_gate_fails_open_on_garbage_payload(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            r = self._run_gate(d, "not json at all")
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+
+    @unittest.skipUnless(shutil.which("bun"), "bun not installed; opencode gate covered by the predicate pin only")
+    def test_opencode_gate_blocks_commit_and_passes_noncommit(self):
+        # Executes the REAL commit-gate plugin under bun against a fixture whose
+        # audit always fails — the behavioral counterpart to the predicate pin.
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            driver = _write(d, "driver.ts", _GATE_DRIVER)
+            r = subprocess.run(
+                ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/commit-gate.ts")],
                 capture_output=True, text=True, cwd=d)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
@@ -1297,6 +1439,7 @@ class TestIntegrityMakefile(unittest.TestCase):
     GATES = (
         "audit-evals.py --offline",
         "audit-evals.py --selftest",
+        "python3 -m unittest -q test_automation",
         "reconcile-counts.py --check",
         "backfill-evidence.py --check",
         "tier-stack.py --check",
