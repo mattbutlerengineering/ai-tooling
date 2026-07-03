@@ -516,6 +516,12 @@ class Evaluation:
         return self.evidence.level
 
     @property
+    def effective_evidence(self):
+        """The declared **Evidence:** value if the eval carries one, else the
+        derived level — what every evidence consumer should read (#201)."""
+        return self.evidence_level or self.derived_evidence
+
+    @property
     def catalog_rows(self):
         """The catalog-row copies embedded in this eval, via the shared parser (#196)."""
         return catalog_lib.parse_catalog_rows(self.text)
@@ -629,6 +635,18 @@ class DetectorContext:
             for k in catalog_lib.identity_keys(r.tool):
                 m.setdefault(k, r.verdict)
         return m
+
+    @functools.cached_property
+    def evidence_alias_map(self):
+        """alias name_key → effective Evidence level, first registration wins —
+        the map catalog_lib.evidence_lookup consumes (#201). Built once here so
+        detector N, backfill-evidence, and tier-stack all read the same map
+        instead of each rebuilding it from the evals."""
+        amap = {}
+        for ev in self.evals:
+            for a in ev.name_aliases:
+                amap.setdefault(a, ev.effective_evidence)
+        return amap
 
 def audit_evidence_field(ctx):
     """REPORT-ONLY: tally the declared **Evidence:** field across evals (issue #62),
@@ -784,15 +802,13 @@ def audit_savings_claims(ctx):
     """Return (name, evidence_level, disclosed) for every CATALOG row making a numeric
     token-savings claim that is NOT run-backed. Verified rows (MEASURED/RUN) drop out;
     rows with no eval surface as '(no eval)'. Sorted by name. Report-only."""
-    levels = {}  # normalized catalog name -> declared (or derived) evidence level
-    for ev in ctx.evals:
-        lvl = ev.evidence_level or ev.derived_evidence
-        for alias in ev.name_aliases:
-            levels.setdefault(alias, lvl)
+    levels = ctx.evidence_alias_map  # normalized catalog name -> effective evidence level
     flagged = []
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         if r.url is None or r.one_liner is None or not _has_savings_claim(r.one_liner):
             continue
+        # NOT catalog_lib.evidence_lookup: N distinguishes "(no eval)" (None) from an
+        # eval-derived SOURCE-ONLY, which the lookup's SOURCE-ONLY default would erase.
         lvl = next((levels[k] for k in catalog_lib.alias_keys(r.name) if k in levels), None)
         if lvl in ("MEASURED", "RUN"):
             continue  # claim is run-backed — exactly what we want

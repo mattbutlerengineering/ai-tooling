@@ -51,33 +51,9 @@ def backfill_eval_text(text):
     return field + "\n\n" + text
 
 
-def eval_evidence(ev):
-    """Declared value if the eval carries one, else the derived value."""
-    return ev.evidence_level or ev.derived_evidence
-
-
 # ---------------------------------------------------------------- COMPARISON column
 _SEP = re.compile(r"^\|[\s\-|]+\|\s*$")
 _HEADER = re.compile(r"^\|\s*Tool\s*\|.*\|\s*Evaluated\s*(\|\s*Evidence\s*)?\|\s*$")
-
-
-def _build_alias_map(ctx=None):
-    # Default to a fresh DetectorContext (#199): apply mode rewrites eval files
-    # first, so the map must be built from a context created AFTER those writes.
-    evals = (ctx or ae.DetectorContext(ROOT)).evals
-    amap = {}
-    for ev in evals:
-        val = eval_evidence(ev)
-        for a in ev.name_aliases:
-            amap.setdefault(a, val)
-    return amap
-
-
-def _row_evidence(tool, amap):
-    for key in catalog_lib.alias_keys(tool):
-        if key in amap:
-            return amap[key]
-    return "SOURCE-ONLY"  # catalog row with no matching eval file → no evidence, only metadata
 
 
 def rebuild_comparison(text, amap):
@@ -109,7 +85,7 @@ def rebuild_comparison(text, amap):
             tool = row.name
             # strip a trailing Evidence cell if present, then append the fresh value (idempotent)
             core = re.sub(r"\s*\|\s*(MEASURED|RUN|REVIEW|SOURCE-ONLY)\s*\|\s*$", " |", line)
-            out.append(re.sub(r"\s*\|\s*$", f" | {_row_evidence(tool, amap)} |", core))
+            out.append(re.sub(r"\s*\|\s*$", f" | {catalog_lib.evidence_lookup(amap, tool)} |", core))
             continue
         out.append(line)
     return "\n".join(out) + ("\n" if text.endswith("\n") else "")
@@ -130,7 +106,9 @@ def main():
             if not check:
                 open(path, "w", encoding="utf-8").write(new)
 
-    amap = _build_alias_map()
+    # Built from a fresh DetectorContext AFTER the eval rewrites above, so the
+    # map reflects any Evidence fields this run just inserted (#199/#201).
+    amap = ae.DetectorContext(ROOT).evidence_alias_map
     ctext = open(COMPARISON, encoding="utf-8").read()
     cnew = rebuild_comparison(ctext, amap)
     if cnew != ctext:

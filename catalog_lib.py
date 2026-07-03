@@ -10,9 +10,10 @@ import from here, so they provably agree by construction. The same argument
 centralizes the COMPARISON verdict-row parse (ADR-0002's shared-parser seam):
 three detectors used to carry byte-identical fixed-offset regexes.
 `sync-plugin-docs.sh`'s apply-mode verify block counts through here too
-(via python3 -c, #195).
+(via python3 -c, #195). The same-tool keying (#197) and the triple-key
+evidence lookup (#201) live here as well, next to the parsers they serve.
 
-All functions are pure (text in, value out) — callers read the files.
+All functions are pure (text/values in, value out) — callers read the files.
 """
 import collections
 import re
@@ -105,6 +106,17 @@ def alias_keys(name, url=None):
         if k and k not in keys:
             keys.append(k)
     return keys
+
+
+def evidence_lookup(alias_map, name, url=None):
+    """The ONE triple-key evidence lookup (#201): fan `name` (and `url`) out
+    through alias_keys against `alias_map` (alias name_key → Evidence level,
+    most-specific key wins) and default to SOURCE-ONLY — a name with no eval
+    has no evaluation evidence, only metadata. tier-stack and backfill-evidence
+    both route through here instead of re-implementing the fan-out; the map
+    itself is built once by DetectorContext.evidence_alias_map (audit-evals)."""
+    return next((alias_map[k] for k in alias_keys(name, url) if k in alias_map),
+                "SOURCE-ONLY")
 
 
 def _row_cells(line):
