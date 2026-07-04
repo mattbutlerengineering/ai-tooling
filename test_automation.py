@@ -34,6 +34,7 @@ backfill = _load("backfill_evidence", "backfill-evidence.py")
 backfill_lv = _load("backfill_lastverified", "backfill-lastverified.py")
 tier = _load("tier_stack", "tier-stack.py")
 nexteval = _load("next_evals", "next-evals.py")
+watchlist = _load("watchlist", "watchlist.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -692,6 +693,7 @@ def _sync_fixture_tree(d):
     _write(d, "STACK.md", "# Stack\n")
     _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
     _write(d, "NEXT-EVALS.md", "# Next evals\n")
+    _write(d, "WATCHLIST.md", "# Watchlist\n")
     _write(d, "evaluations/foo.md", "# eval foo\n")
     _write(d, "discovery/bar.md", "# discovery bar\n")
     _write(d, "methodologies/baz.md", "# methodology baz\n")
@@ -810,7 +812,7 @@ class TestWatchListSeam(unittest.TestCase):
     # must update this pin — the same alerting contract as TestIntegrityMakefile.GATES.
     WATCHED = {
         "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md", "NEXT-EVALS.md",
-        "evaluations/", "discovery/", "methodologies/",
+        "WATCHLIST.md", "evaluations/", "discovery/", "methodologies/",
     }
 
     def test_list_watched_emits_the_syncable_set(self):
@@ -852,7 +854,7 @@ class TestWatchListSeam(unittest.TestCase):
         edits = {
             "CATALOG.md": "CATALOG.md", "WORKFLOW.md": "WORKFLOW.md",
             "STACK.md": "STACK.md", "STACK-LEDGER.md": "STACK-LEDGER.md",
-            "NEXT-EVALS.md": "NEXT-EVALS.md",
+            "NEXT-EVALS.md": "NEXT-EVALS.md", "WATCHLIST.md": "WATCHLIST.md",
             "evaluations/": "evaluations/foo.md", "discovery/": "discovery/bar.md",
             "methodologies/": "methodologies/baz.md",
         }
@@ -1611,6 +1613,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "backfill-lastverified.py --check",
         "tier-stack.py --check",
         "next-evals.py --check",
+        "watchlist.py --check",
         "sync-plugin-docs.sh --check",
         "audit-evals.py --installs",
     )
@@ -1823,6 +1826,89 @@ class TestNextEvals(unittest.TestCase):
                 text = f.read()
             with open(p, "w", encoding="utf-8") as f:
                 f.write(text.replace("| 1 | a ", "| 9 | a ", 1))
+            self.assertEqual(self._run(d, "--check").returncode, 1)  # drift caught
+            self.assertEqual(self._run(d).returncode, 0)             # regenerate repairs
+            self.assertEqual(self._run(d, "--check").returncode, 0)
+
+
+class TestWatchlist(unittest.TestCase):
+    """Pins watchlist.py's section derivation and --check gate. Fixture-based —
+    never the real files. Section 1 pulls each DEFER row's re-evaluate trigger
+    from its eval's Verdict prose; section 2 grep-parses STACK's flag phrases
+    (both grammatical forms). Mirrors TestNextEvals."""
+
+    def test_deferred_extracts_trigger_and_counts_missing(self):
+        # Two DEFER rows: one has an eval whose Verdict records a trigger; the
+        # other has no eval, so its trigger is unrecoverable and counts as missing.
+        comparison = (
+            "# Tool Comparison\n\n## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|------|------|------|------|-----------|----------|\n"
+            "| blocked | tool | | ✓ | DEFER | REVIEW |\n"
+            "| orphan | tool | | ✓ | DEFER | SOURCE-ONLY |\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "COMPARISON.md", comparison)
+            _write(d, "evaluations/blocked.md",
+                   "# Evaluation: blocked\n\n## Verdict\n\n"
+                   "**DEFER** — promising but blocked; re-evaluate after "
+                   "the API stabilizes.\n")
+            rows, missing = watchlist.deferred(audit.DetectorContext(d))
+            by_tool = {tool: trig for tool, _stage, trig in rows}
+            self.assertEqual(by_tool["blocked"], "the API stabilizes")
+            self.assertEqual(by_tool["orphan"], watchlist._NO_TRIGGER)
+            self.assertEqual(missing, 1)
+            # stage travels with the row so section 1 can show it
+            self.assertEqual({stage for _t, stage, _tr in rows}, {"Plan"})
+
+    def test_stack_flagged_reads_both_phrase_forms(self):
+        # "flagged … — [A](u) and [B](u)": tools FOLLOW the phrase, with URLs.
+        # "NAME is a candidate pending …": the subject PRECEDES it, no URL.
+        stack = (
+            "# Stack\n\n"
+            "Two fill genuine gaps and are flagged for a hands-on eval before "
+            "promotion — [alpha](https://github.com/x/alpha) and "
+            "[beta](https://github.com/x/beta).\n\n"
+            "worktrunk is a candidate pending a hands-on eval — see #188.\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "STACK.md", stack)
+            _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
+            found, _lines = watchlist.stack_flagged(audit.DetectorContext(d))
+            self.assertEqual({f[0] for f in found}, {"alpha", "beta", "worktrunk"})
+            alpha = next(f for f in found if f[0] == "alpha")
+            self.assertEqual(alpha[1], "https://github.com/x/alpha")
+            worktrunk = next(f for f in found if f[0] == "worktrunk")
+            self.assertIsNone(worktrunk[1])  # preceding-subject form carries no link
+
+    def _fixture_tree(self, d):
+        for fn in ("watchlist.py", "audit-evals.py", "catalog_lib.py"):
+            shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+
+    def _run(self, d, *args):
+        return subprocess.run(["python3", "watchlist.py", *args],
+                              cwd=d, capture_output=True, text=True)
+
+    def test_check_catches_drift(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            _write(d, "CATALOG.md",
+                   "## Plan\n\n| Name | Type | One-liner | Problem | Overlaps with |\n"
+                   "|------|------|-----------|---------|---------------|\n")
+            _write(d, "COMPARISON.md",
+                   "# Tool Comparison\n\n## Plan\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|------|------|------|------|-----------|----------|\n"
+                   "| blocked | tool | | ✓ | DEFER | REVIEW |\n")
+            _write(d, "STACK.md", "# Stack\n")
+            _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
+            self.assertEqual(self._run(d).returncode, 0)             # generate
+            self.assertEqual(self._run(d, "--check").returncode, 0)  # fresh
+            p = os.path.join(d, "WATCHLIST.md")
+            with open(p, encoding="utf-8") as f:
+                text = f.read()
+            with open(p, "w", encoding="utf-8") as f:
+                f.write(text.replace("what to revisit", "corrupted", 1))
             self.assertEqual(self._run(d, "--check").returncode, 1)  # drift caught
             self.assertEqual(self._run(d).returncode, 0)             # regenerate repairs
             self.assertEqual(self._run(d, "--check").returncode, 0)

@@ -22,7 +22,7 @@ ROOT_SKILLS="$REPO_ROOT/skills"
 # --list-watched (pinned by TestWatchListSeam). The apply-mode verify block at the
 # bottom still spot-checks a hand-picked subset — it is a count sanity-check, not
 # a second definition of the set.
-WATCHED_FILES=(CATALOG.md WORKFLOW.md STACK.md STACK-LEDGER.md NEXT-EVALS.md)
+WATCHED_FILES=(CATALOG.md WORKFLOW.md STACK.md STACK-LEDGER.md NEXT-EVALS.md WATCHLIST.md)
 WATCHED_DIRS=(evaluations discovery methodologies)
 
 CHECK=0
