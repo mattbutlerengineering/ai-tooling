@@ -17,7 +17,7 @@
 **Evidence:** {MEASURED | RUN | REVIEW | SOURCE-ONLY}
 
 > **Choosing a value** — the `Evidence` field records *how hard we looked*, separate from the verdict (*what we concluded*). Pick the strongest one that is honestly true:
-> - `MEASURED` — ran it hands-on **and** captured metrics (token deltas, latency, A/B accuracy, counts).
+> - `MEASURED` — ran it hands-on **and** captured metrics (token deltas, latency, A/B accuracy, counts) under a protocol from [`measurement-protocols.md`](measurement-protocols.md) — a with/without delta on a disclosed task, not an n=1 smoke run.
 > - `RUN` — executed it hands-on, but no formal metrics (smoke test, exercised the CLI/flow).
 > - `REVIEW` — read the docs/source carefully, did **not** run it (needs an API key, heavy infra, untrusted install).
 > - `SOURCE-ONLY` — catalog-inferred from repo metadata (stars/README/license); not opened in depth.
@@ -27,6 +27,15 @@
 {Describe the actual hands-on usage. What project did you run it on? What commands did you execute? What was the input and what came back? This section must contain evidence of real usage, not README paraphrasing.}
 
 > **Honesty rule (checked by `audit-evals.py`):** if you did NOT actually run the tool, say so plainly — open this section with a disclaimer like "**Source-grounded review — not run hands-on**" and explain why (needs an API key, heavy infra, untrusted install, etc.). Never invent a run, specific metrics, or example outputs; a fabricated run is worse than an honest review. Quote any vendor benchmark as the vendor's, not as measured. Verify every install command resolves (npm/PyPI/crates/GitHub) before publishing — a wrong install command is a dead giveaway the tool was never run.
+
+## Test design
+
+> Required for MEASURED evals; recommended for RUN. See [`measurement-protocols.md`](measurement-protocols.md) for the per-signal method (Correctness/Speed measured with-vs-without; Maintainability/Safety as named-criteria rubrics).
+
+- **Task/corpus:** {the fixed, disclosed input — the task set / corpus, named so the run is reproducible}
+- **Baseline:** {what "without the tool" means here — the arm you compare against}
+- **Metric:** {pass-rate (k/N) / wall-clock / tokens / counts — per the protocol}
+- **Reproduce:** {the command(s) to re-run this measurement}
 
 > **If the entry is a _skill_** (not a runnable CLI/MCP), measure it the way Anthropic's `skill-creator` does — a skill's value is a *change in agent behaviour*, so evaluate two dimensions (see [issue #38](https://github.com/mattbutlerengineering/ai-tooling/issues/38)):
 > 1. **Triggering** — does the skill's `description` make it fire on the right prompts and *not* the wrong ones? Note that skills tend to *under*-trigger. (`skill-creator/scripts/run_eval.py` measures this with `claude -p`; or judge a balanced should/shouldn't-trigger prompt set.)

@@ -16,7 +16,7 @@ Execute in the order below unless dependencies say otherwise. Each executor: rea
 | [006](006-watchlist.md) | Generate WATCHLIST.md — deferred/stale/flagged/unverified in one page | P2 | M | 005 | TODO ([#224](https://github.com/mattbutlerengineering/ai-tooling/issues/224)) |
 | [007](007-playbook-front-door.md) | PLAYBOOK.md — single front door: install / work / watch | P1 | M | 005, 006 | TODO ([#225](https://github.com/mattbutlerengineering/ai-tooling/issues/225)) |
 | [008](008-staleness-activation.md) | Backfill Last-verified dates; gate field presence; surface the sweep | P2 | M | — | DONE ([#218](https://github.com/mattbutlerengineering/ai-tooling/issues/218)) |
-| [009](009-measurement-protocols.md) | Per-signal measurement protocols + Test-design template block | P1 | M | — | TODO ([#219](https://github.com/mattbutlerengineering/ai-tooling/issues/219)) |
+| [009](009-measurement-protocols.md) | Per-signal measurement protocols + Test-design template block | P1 | M | — | DONE ([#219](https://github.com/mattbutlerengineering/ai-tooling/issues/219)) |
 | [010](010-skill-eval-enforcement.md) | Skill-eval protocol: required section + `--skill-design` detector | P2 | S | 009 | TODO ([#221](https://github.com/mattbutlerengineering/ai-tooling/issues/221)) |
 | [011](011-overlap-bakeoffs.md) | Bake-off protocol + Memory & Context pilot head-to-head | P2 | M | 009 | TODO ([#222](https://github.com/mattbutlerengineering/ai-tooling/issues/222)) |
 
