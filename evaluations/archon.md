@@ -2,6 +2,7 @@
 
 **Repo:** [coleam00/Archon](https://github.com/coleam00/Archon)
 **Stars:** ~22,500 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (workflow orchestration for coding agents)
 **Layer:** Tooling
 

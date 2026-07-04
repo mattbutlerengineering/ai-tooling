@@ -2,6 +2,7 @@
 
 **Repo:** [Aimino-Tech/opendocswork-mcp](https://github.com/Aimino-Tech/opendocswork-mcp)
 **Stars:** 149 | **Last updated:** 2026-06-16 (pushed; created 2026-05-26) | **License:** GPL-3.0 (README also claims MIT/Apache-2.0 — see flags)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Ship (generating and processing Office artifacts — reports, decks, spreadsheets, filled PDF forms)
 **Layer:** Tooling (a Rust-native MCP server exposing document read/write/transform tools)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep)
 **Stars:** 12,350 | **Last updated:** 2026-06-19 (pushed; created 2026-03-10) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research & Discovery (a research-automation methodology; the cross-model adversarial-review and self-evolution patterns also touch Review and Reflect)
 **Layer:** Process + Tooling (a portable skill-based workflow *plus* an optional standalone Rust CLI, "ARIS-Code")
 

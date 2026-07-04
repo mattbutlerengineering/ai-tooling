@@ -2,6 +2,7 @@
 
 **Repo:** [Kilo-Org/kilocode](https://github.com/Kilo-Org/kilocode)
 **Stars:** 22,863 | **Last updated:** 2026-06-19 (pushed; created 2025-03-10) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Inner-loop **Implement** primarily (in-editor agentic coding), reaching into Review (automated PR reviews) and Ship (cloud agents / "KiloClaw" always-on runner).
 **Layer:** Tooling (a VS Code / JetBrains extension + CLI in the Cline/Roo lineage) sitting on a hosted platform (model router, cloud agents, PR reviews)
 

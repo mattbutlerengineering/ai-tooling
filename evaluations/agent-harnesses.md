@@ -1,6 +1,7 @@
 # Agent Harnesses
 
 **Evidence:** SOURCE-ONLY
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 
 Comparative evaluation of agent harness frameworks — tools that structure how a coding agent operates.
 

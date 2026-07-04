@@ -2,6 +2,7 @@
 
 **Repo:** [agentskills/agentskills](https://github.com/agentskills/agentskills)
 **Stars:** 20,770 | **Last updated:** 2026-05-20 | **License:** Apache-2.0 (docs CC-BY-4.0)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [vercel/ai](https://github.com/vercel/ai)
 **Stars:** 24,995 | **Last updated:** 2026-06-19 (pushed; created 2023-05-23) | **License:** NOASSERTION (Apache-2.0 per package manifests; GitHub couldn't resolve a single SPDX for the monorepo)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Mostly off-loop (an SDK for building LLM apps), with one genuine bridge into Implement: it ships an installable coding-agent skill and a `ToolLoopAgent` primitive people use to *build* coding harnesses.
 **Layer:** Infrastructure — a provider-agnostic TypeScript toolkit (`ai`, `@ai-sdk/*`) imported into product code, plus UI hooks (`@ai-sdk/react`) and a Vercel AI Gateway path.
 

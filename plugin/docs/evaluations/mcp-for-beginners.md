@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/mcp-for-beginners](https://github.com/microsoft/mcp-for-beginners)
 **Stars:** 16,568 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover / Plan (outer loop)
 **Layer:** Process / Infrastructure
 

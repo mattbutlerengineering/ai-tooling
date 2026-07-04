@@ -2,6 +2,7 @@
 
 **Repo:** [Alan-TheGentleman/gentleman-book-mcp](https://github.com/Alan-TheGentleman/gentleman-book-mcp)
 **Stars:** 102 | **Last updated:** 2025-12-29 (created 2025-12-24; no releases/tags) | **License:** MIT (server code) — **but see content licensing below**
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (architecture/design decisions) — touches Implement when applying a pattern
 **Layer:** Tooling (knowledge layer — serves book text to the agent; no live system access)
 

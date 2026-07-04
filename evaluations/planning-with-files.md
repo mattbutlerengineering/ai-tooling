@@ -2,6 +2,7 @@
 
 **Repo:** [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files)
 **Stars:** 23,613 | **Last updated:** 2026-06-16 (created 2026-01-03) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (with carry-through to Implement/Verify via durable progress + completion gate)
 **Layer:** Process (a planning discipline) with a Tooling spine (lifecycle hooks + shell/PowerShell scripts)
 

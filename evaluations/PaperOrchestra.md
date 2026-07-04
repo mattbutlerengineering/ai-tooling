@@ -2,6 +2,7 @@
 
 **Repo:** [Ar9av/PaperOrchestra](https://github.com/Ar9av/PaperOrchestra)
 **Stars:** 587 | **Last updated:** 2026-06-13 (pushed; created 2026-04-09) | **License:** NOASSERTION (see repo `LICENSE`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Research (outer-loop knowledge production), with Verify-style integrity gates (citation F1, autoraters); not a code-production tool
 **Layer:** Process / Tooling (a host-agent-executable skill pack: `SKILL.md` instruction docs + verbatim paper prompts + purely deterministic local helper scripts; no API keys, no LLM SDK)
 

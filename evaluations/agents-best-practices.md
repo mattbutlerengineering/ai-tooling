@@ -2,6 +2,7 @@
 
 **Repo:** [DenisSergeevitch/agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices)
 **Stars:** 1,976 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Tooling
 

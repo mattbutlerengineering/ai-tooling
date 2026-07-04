@@ -2,6 +2,7 @@
 
 **Repo:** [letta-ai/letta](https://github.com/letta-ai/letta)
 **Stars:** 23,415 | **Last updated:** 2026-05-14 (pushed; created 2023-10-11) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting (Memory & Context) — it is not a dev-loop stage tool but the *substrate* an agent stands on: stateful agents whose memory persists, self-edits, and self-improves across sessions. Touches Reflect (continual learning) and Implement (Letta Code, a terminal agent built on the memory engine).
 **Layer:** Infrastructure (a self-hostable agent-memory *server* + Python/TypeScript SDKs + REST API — a backend platform you build agents into, formerly the MemGPT research project), not a Claude Code add-on
 

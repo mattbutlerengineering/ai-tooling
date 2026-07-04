@@ -2,6 +2,7 @@
 
 **Repo:** [modu-ai/moai-adk](https://github.com/modu-ai/moai-adk)
 **Stars:** ~1,100 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Process / Tooling
 

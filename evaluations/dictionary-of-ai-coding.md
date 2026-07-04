@@ -2,6 +2,7 @@
 
 **Repo:** [mattpocock/dictionary-of-ai-coding](https://github.com/mattpocock/dictionary-of-ai-coding)
 **Stars:** 2,273 | **Last updated:** 2026-06-05 | **License:** none declared
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Process
 

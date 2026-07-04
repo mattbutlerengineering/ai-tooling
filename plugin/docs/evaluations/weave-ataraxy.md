@@ -2,6 +2,7 @@
 
 **Repo:** [Ataraxy-Labs/weave](https://github.com/Ataraxy-Labs/weave)
 **Stars:** 1,185 | **Last updated:** 2026-06-13 (pushed) | **License:** Apache-2.0 | **Language:** Rust
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Dev Workflow — git merge conflict resolution
 **Layer:** Tooling (git merge driver)
 

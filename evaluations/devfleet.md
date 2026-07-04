@@ -2,6 +2,7 @@
 
 **Repo:** [LEC-AI/claude-devfleet](https://github.com/LEC-AI/claude-devfleet)
 **Stars:** 16 | **Last updated:** 2026-05-28 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (also Plan — AI project planner; Ship — auto-merge of worktree branches)
 **Layer:** Infrastructure (a coordination service, not a single tool)
 

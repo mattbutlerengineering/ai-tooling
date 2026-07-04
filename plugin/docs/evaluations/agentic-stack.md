@@ -2,6 +2,7 @@
 
 **Repo:** [codejunkie99/agentic-stack](https://github.com/codejunkie99/agentic-stack)
 **Stars:** 2,117 | **Last updated:** 2026-05-25 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

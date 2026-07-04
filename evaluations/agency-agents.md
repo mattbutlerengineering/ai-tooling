@@ -2,6 +2,7 @@
 
 **Repo:** [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)
 **Stars:** 114,550 | **Last updated:** 2026-06-18 (pushed; created 2025-10-13) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the loop by *role*, not by stage — it ships personas for Plan (software-architect), Implement (frontend/backend/mobile/senior-dev), Review (code-reviewer), and outer-loop Architect/Decompose (multi-agent-systems-architect). It is a persona library, not a workflow.
 **Layer:** Process (a portable collection of agent-definition markdown files installed into each tool's agent directory; no runtime, no code that executes)
 

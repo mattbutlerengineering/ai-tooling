@@ -2,6 +2,7 @@
 
 **Repo:** [iamzhihuix/skills-manage](https://github.com/iamzhihuix/skills-manage)
 **Stars:** 2,023 | **Last updated:** 2026-05-02 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (sits beside the inner loop — manages which skills are installed where, not how the agent uses them)
 **Layer:** Infrastructure (skill installation/config management around the agent CLI)
 

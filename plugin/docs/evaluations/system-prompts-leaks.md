@@ -2,6 +2,7 @@
 
 **Repo:** [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks)
 **Stars:** 43,512 | **Last updated:** 2026-06-19 | **License:** CC0-1.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover, Reflect (outer loop)
 **Layer:** Infrastructure
 

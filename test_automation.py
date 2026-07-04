@@ -31,6 +31,7 @@ catalog_lib = _load("catalog_lib", "catalog_lib.py")
 reconcile = _load("reconcile_counts", "reconcile-counts.py")
 audit = _load("audit_evals", "audit-evals.py")
 backfill = _load("backfill_evidence", "backfill-evidence.py")
+backfill_lv = _load("backfill_lastverified", "backfill-lastverified.py")
 tier = _load("tier_stack", "tier-stack.py")
 
 
@@ -1333,6 +1334,56 @@ class TestEvidenceBackfill(unittest.TestCase):
             self.assertEqual(audit.audit_comparison(audit.DetectorContext(d)), [])
 
 
+# ----------------------------------------------------------------- last-verified backfill (#65)
+class TestLastVerifiedBackfill(unittest.TestCase):
+    """Pins backfill-lastverified.py: the field lands in the header block, an existing
+    hand-set date is never overwritten, and --check catches a missing field. Fixture-only."""
+    DATE = "2026-06-22"
+
+    def test_inserts_before_dev_loop_stage(self):
+        # Primary anchor (TEMPLATE order): the line lands directly above **Dev loop stage:**,
+        # i.e. after the Repo/Stars header block, as a consecutive metadata line.
+        t = ("# Evaluation: X\n\n**Repo:** [a/x](https://github.com/a/x)\n"
+             "**Stars:** 10 | **License:** MIT\n"
+             "**Dev loop stage:** Plan\n**Layer:** Tooling\n")
+        out = backfill_lv.backfill_text(t, self.DATE)
+        self.assertIn("**Stars:** 10 | **License:** MIT\n"
+                      f"**Last verified:** {self.DATE}  {backfill_lv.COMMENT}\n"
+                      "**Dev loop stage:** Plan\n", out)
+        self.assertEqual(backfill_lv.backfill_text(out, "2099-01-01"), out)  # idempotent
+
+    def test_falls_back_to_evidence_line_when_no_dev_stage(self):
+        # Cluster/landscape evals have no **Dev loop stage:**; the line follows **Evidence:**.
+        t = "# Landscape\n\n**Evidence:** SOURCE-ONLY\n\nbody text\n"
+        out = backfill_lv.backfill_text(t, self.DATE)
+        self.assertIn(f"**Evidence:** SOURCE-ONLY\n**Last verified:** {self.DATE}  "
+                      f"{backfill_lv.COMMENT}\n", out)
+
+    def test_never_overwrites_hand_set_date(self):
+        t = ("# Evaluation: Y\n\n**Last verified:** 2026-06-26\n"
+             "**Dev loop stage:** Reflect\n")
+        self.assertEqual(backfill_lv.backfill_text(t, self.DATE), t)
+
+    def _run_check(self, d):
+        return subprocess.run(["python3", "backfill-lastverified.py", "--check"],
+                              cwd=d, capture_output=True, text=True)
+
+    def test_check_flags_missing_and_passes_after_apply(self):
+        # End-to-end: a temp eval with no field -> --check exits 1; add the field -> exit 0.
+        with tempfile.TemporaryDirectory() as d:
+            shutil.copy(os.path.join(ROOT, "backfill-lastverified.py"), d)
+            _write(d, "evaluations/missing.md",
+                   "# Evaluation: Z\n\n**Dev loop stage:** Plan\n**Layer:** Tooling\n")
+            _write(d, "evaluations/TEMPLATE.md", "# Template\n\n**Last verified:** {date}\n")
+            r = self._run_check(d)
+            self.assertEqual(r.returncode, 1, msg=r.stdout + r.stderr)
+            self.assertIn("missing.md", r.stdout)
+            # add the field -> now clean
+            _write(d, "evaluations/missing.md",
+                   "# Evaluation: Z\n\n**Last verified:** 2026-06-22\n**Dev loop stage:** Plan\n")
+            self.assertEqual(self._run_check(d).returncode, 0)
+
+
 # ----------------------------------------------------------------- detector L (staleness, #65)
 class TestDetectorL(unittest.TestCase):
     TODAY = datetime.date(2026, 6, 22)
@@ -1477,6 +1528,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "python3 -m unittest -q test_automation",
         "reconcile-counts.py --check",
         "backfill-evidence.py --check",
+        "backfill-lastverified.py --check",
         "tier-stack.py --check",
         "sync-plugin-docs.sh --check",
         "audit-evals.py --installs",
@@ -1515,6 +1567,23 @@ class TestIntegrityMakefile(unittest.TestCase):
             mk = f.read()
         self.assertRegex(mk, r"fix:[\s\S]*\$\(MAKE\)\s+check",
                          "`make fix` must re-run `make check` after applying fixers")
+
+    def test_staleness_report_runs_in_check_non_failing(self):
+        # The staleness sweep (#65) runs inside `make check` as a report — a `-`-prefixed
+        # line so a stale eval can't fail the gate (only field presence, gated by
+        # backfill-lastverified --check, is enforced). Pins that wiring.
+        body = self._check_target_body()
+        stale = [l for l in body if "audit-evals.py --staleness" in l]
+        self.assertEqual(len(stale), 1, "`make check` must run the staleness report exactly once")
+        self.assertTrue(stale[0].startswith("-"),
+                        "the staleness line must be `-`-prefixed (report-only, non-failing)")
+
+    def test_backfill_lastverified_apply_in_fix(self):
+        # apply-mode backfill must run in `fix` so the field is populated before check gates it.
+        with open(os.path.join(ROOT, "Makefile"), encoding="utf-8") as f:
+            mk = f.read()
+        self.assertRegex(mk, r"fix:[\s\S]*python3 backfill-lastverified\.py(?!\s+--check)",
+                         "`make fix` must run backfill-lastverified.py in apply mode")
 
 
 # ----------------------------------------------------------------- detector P: WORKFLOW↔STACK drift (report-only)

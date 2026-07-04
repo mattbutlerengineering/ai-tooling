@@ -2,6 +2,7 @@
 
 **Repo:** [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk)
 **Stars:** 6,218 | **Last updated:** 2026-06-20 (pushed) | **License:** Apache-2.0 | **Language:** Python + TypeScript (PyPI: `strands-agents`; npm: `@strands-agents/sdk`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Harnesses (agent-building SDK) — Implement
 **Layer:** Infrastructure (SDK/framework for building production agents)
 

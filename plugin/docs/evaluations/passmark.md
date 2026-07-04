@@ -2,6 +2,7 @@
 
 **Repo:** [bug0inc/passmark](https://github.com/bug0inc/passmark)
 **Stars:** 1,023 | **Last updated:** 2026-06-16 | **License:** FSL-1.1-Apache-2.0 (Functional Source License; GitHub reports NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [AgentsMesh/AgentsMesh](https://github.com/AgentsMesh/AgentsMesh)
 **Stars:** 2,225 | **Last updated:** 2026-06-19 (pushed; created 2026-02-28) | **License:** BSL-1.1 (Business Source License — source-available, **not** OSI open source)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (orchestration/control layer for running many agents; touches Ship via MR/PR tracking on tickets)
 **Layer:** Infrastructure (self-hosted control plane + runner fleet across machines)
 

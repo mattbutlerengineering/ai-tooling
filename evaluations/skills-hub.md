@@ -2,6 +2,7 @@
 
 **Repo:** [qufei1993/skills-hub](https://github.com/qufei1993/skills-hub)
 **Stars:** ~1,050 | **Last updated:** 2026-06-20 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (skill management)
 **Layer:** Tooling
 

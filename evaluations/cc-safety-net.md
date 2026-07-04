@@ -2,6 +2,7 @@
 
 **Repo:** [kenryu42/cc-safety-net](https://github.com/kenryu42/cc-safety-net)
 **Stars:** 1,405 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Ship (runtime guardrail, not post-hoc Review)
 **Layer:** Infrastructure
 

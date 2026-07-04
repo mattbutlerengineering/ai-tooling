@@ -2,6 +2,7 @@
 
 **Repo:** [withkynam/vibecode-pro-max-kit](https://github.com/withkynam/vibecode-pro-max-kit)
 **Stars:** 948 | **Last updated:** 2026-06-17 (pushed; created 2026-05-27) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Inner loop, full sweep — Plan (Research/Spec/Innovate/Plan), Implement (Execute), Verify (Validate, test-check-fix loops), plus Reflect (self-improving project memory / Update-Process). A spec-driven autopilot harness.
 **Layer:** Process + Tooling (a RIPER-5 workflow expressed as Claude Code agents/skills, plus real Node.js hooks — installed per project, no server)
 

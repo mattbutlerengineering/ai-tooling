@@ -2,6 +2,7 @@
 
 **Repo:** [triggerdotdev/trigger.dev](https://github.com/triggerdotdev/trigger.dev)
 **Stars:** 15,403 | **Last updated:** 2026-06-19 (pushed; created 2022-11-30) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer Loop (deployment/operations infrastructure for the *thing you build*), not the inner Plan→Implement→Verify→Review→Ship loop over a codebase. It is where your AI agents/workflows *run in production*, not a tool that produces or ships your code.
 **Layer:** Infrastructure / platform (a TS/JS SDK — `@trigger.dev/sdk` — plus a managed cloud or self-hostable Docker/Kubernetes runtime that executes, retries, queues, checkpoints, and observes long-running tasks)
 

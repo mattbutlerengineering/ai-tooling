@@ -2,6 +2,7 @@
 
 **Repo:** [agent-sh/agnix](https://github.com/agent-sh/agnix)
 **Stars:** 293 | **Last updated:** 2026-06-19 (release v0.33.2, 2026-06-18) | **License:** MIT OR Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify (lints config artifacts) — also Ship (CI gate) and Implement (in-editor LSP)
 **Layer:** Tooling
 

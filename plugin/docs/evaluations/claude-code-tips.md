@@ -2,6 +2,7 @@
 
 **Repo:** [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips)
 **Stars:** 8,852 | **Last updated:** 2026-06-19 | **License:** unlicensed (no SPDX)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** All (cross-cutting reference)
 **Layer:** Process
 

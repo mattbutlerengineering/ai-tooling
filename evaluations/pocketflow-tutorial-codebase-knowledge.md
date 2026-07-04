@@ -2,6 +2,7 @@
 
 **Repo:** [The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge)
 **Stars:** ~12,400 | **Last updated:** 2026-05-31 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (code understanding / onboarding)
 **Layer:** Tooling
 

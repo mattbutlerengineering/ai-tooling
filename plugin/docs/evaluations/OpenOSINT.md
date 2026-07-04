@@ -2,6 +2,7 @@
 
 **Repo:** [OpenOSINT/OpenOSINT](https://github.com/OpenOSINT/OpenOSINT)
 **Stars:** 711 | **Last updated:** 2026-06-19 (pushed; created 2026-05-06) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop — reconnaissance/intelligence gathering); not a software-build tool
 **Layer:** Tooling (a Python agent + CLI + MCP server that wraps external OSINT binaries and APIs)
 

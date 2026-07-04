@@ -2,6 +2,7 @@
 
 **Repo:** [ciembor/agent-rules-books](https://github.com/ciembor/agent-rules-books)
 **Stars:** 1,902 | **Last updated:** 2026-05-22 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan, Implement
 **Layer:** Process
 

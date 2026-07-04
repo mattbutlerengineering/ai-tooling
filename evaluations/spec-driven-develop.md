@@ -2,6 +2,7 @@
 
 **Repo:** [zhu1090093659/spec_driven_develop](https://github.com/zhu1090093659/spec_driven_develop)
 **Stars:** 905 | **Last updated:** 2026-06-09 (pushed; created 2026-03-21) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (architecture-first spec workflow feeding Implement; tracks via GitHub Issues/PRs into Ship)
 **Layer:** Process (pure-Markdown skills — no SDK, no runtime)
 

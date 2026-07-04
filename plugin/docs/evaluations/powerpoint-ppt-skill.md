@@ -2,6 +2,7 @@
 
 **Repo:** [practicalswan/agent-skills](https://github.com/practicalswan/agent-skills)
 **Stars:** 3 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / outer loop (communication artifacts)
 **Layer:** Tooling
 

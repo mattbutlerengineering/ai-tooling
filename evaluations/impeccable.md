@@ -2,6 +2,7 @@
 
 **Repo:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 **Stars:** 39,641 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (build/refine frontend UI) + Review (critique/audit of design quality)
 **Layer:** Process (design vocabulary + rules) with a Tooling component (deterministic detector + edit hook)
 

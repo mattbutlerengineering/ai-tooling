@@ -9,9 +9,11 @@
 # lockstep with the gate set: a gate added to integrity.yml must be added here (and
 # test_automation.py's TestIntegrityMakefile pins that they stay in sync).
 #
-# `check`'s last step (audit-evals.py --installs) hits the network and uses `gh`,
-# so it needs gh auth / GH_TOKEN. `fix`'s fixers are offline, but its trailing
-# `check` re-run inherits that same network/gh requirement.
+# `check`'s install resolver (audit-evals.py --installs) hits the network and uses
+# `gh`, so it needs gh auth / GH_TOKEN. `fix`'s fixers are offline, but its trailing
+# `check` re-run inherits that same network/gh requirement. The final `-`-prefixed
+# staleness line is a report-only trailer (offline) — its `-` prefix keeps a stale
+# eval from failing the gate; only **Last verified:** field presence is gated.
 
 .PHONY: check fix
 
@@ -21,13 +23,16 @@ check:
 	python3 -m unittest -q test_automation
 	python3 reconcile-counts.py --check
 	python3 backfill-evidence.py --check
+	python3 backfill-lastverified.py --check
 	python3 tier-stack.py --check
 	./sync-plugin-docs.sh --check
 	python3 audit-evals.py --installs
+	-python3 audit-evals.py --staleness
 
 fix:
 	python3 reconcile-counts.py
 	python3 backfill-evidence.py
+	python3 backfill-lastverified.py
 	python3 tier-stack.py
 	./sync-plugin-docs.sh
 	@$(MAKE) check

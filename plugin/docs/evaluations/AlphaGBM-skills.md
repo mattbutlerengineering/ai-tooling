@@ -2,6 +2,7 @@
 
 **Repo:** [AlphaGBM/skills](https://github.com/AlphaGBM/skills)
 **Stars:** 951 | **Last updated:** 2026-05-27 (pushed; created 2026-04-06) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None of the software dev loop. This is a *domain* skill pack for options/equities trading and market research — it sits outside Plan/Implement/Verify/Review/Ship/Reflect entirely. The only loop-adjacent piece is `cli/` (a thin Python client you could read as a reference for skill→API wiring).
 **Layer:** Process (29 single-file `SKILL.md` instruction packs that teach an agent to call the hosted AlphaGBM options-data API, plus mock JSON and a pip-installable CLI; no orchestration runtime)
 

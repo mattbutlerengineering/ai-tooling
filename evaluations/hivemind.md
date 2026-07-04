@@ -2,6 +2,7 @@
 
 **Repo:** [activeloopai/hivemind](https://github.com/activeloopai/hivemind)
 **Stars:** 1,313 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (capture/codify) + Plan/Implement (recall at inference time)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** _none public_ (proprietary MCP server; no public GitHub repository to inspect)
 **Stars:** n/a | **Last updated:** n/a | **License:** proprietary / freemium (✓/$)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (cross-session continuity) — a memory/coordination layer that spans the whole loop rather than sitting in one stage
 **Layer:** Infrastructure (MCP server providing persistent memory + coordination tools)
 

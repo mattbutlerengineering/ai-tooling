@@ -2,6 +2,7 @@
 
 **Repo:** [qualifire-dev/rogue](https://github.com/qualifire-dev/rogue)
 **Stars:** ~1,040 | **Last updated:** 2026-05-04 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (agent evaluation + red-teaming / Outer Loop)
 **Layer:** Tooling
 

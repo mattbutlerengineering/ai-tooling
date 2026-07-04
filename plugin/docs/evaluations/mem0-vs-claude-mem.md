@@ -1,6 +1,7 @@
 # mem0 vs claude-mem
 
 **Evidence:** SOURCE-ONLY
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 
 ## mem0
 **Repo:** [mem0ai/mem0](https://github.com/mem0ai/mem0)

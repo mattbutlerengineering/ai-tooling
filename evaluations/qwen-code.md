@@ -2,6 +2,7 @@
 
 **Repo:** [QwenLM/qwen-code](https://github.com/QwenLM/qwen-code)
 **Stars:** 25,365 (2,536 forks) | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify (a full inner-loop terminal agent — but a *replacement* front-end, not a Claude Code add-on)
 **Layer:** Tooling (an alternative agent harness / standalone CLI), backed by Infrastructure (Alibaba's Qwen models)
 

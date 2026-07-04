@@ -2,6 +2,7 @@
 
 **Repo:** [comet-ml/opik](https://github.com/comet-ml/opik)
 **Stars:** 19,700 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python + TS (by Comet)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability / Verify — LLM tracing, evaluation, optimization
 **Layer:** Infrastructure (self-hostable server + client SDKs)
 

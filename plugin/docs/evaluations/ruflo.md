@@ -2,6 +2,7 @@
 
 **Repo:** [ruvnet/ruflo](https://github.com/ruvnet/ruflo)
 **Stars:** 60,327 | **Last updated:** 2026-06-19 (v3.12.4, released 2026-06-18) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Reflect (an orchestration + memory + learning layer over Claude Code)
 **Layer:** Infrastructure (MCP server, hooks daemon, WASM kernels, vector DB) + Tooling (45 CLI commands, 35 plugins, 98 agents)
 

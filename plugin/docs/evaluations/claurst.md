@@ -2,6 +2,7 @@
 
 **Repo:** [Kuberwastaken/claurst](https://github.com/Kuberwastaken/claurst)
 **Stars:** 9,830 (7,780 forks) | **Last updated:** 2026-06-17 | **License:** GPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify (a full inner-loop terminal agent — but a *replacement* front-end, not a Claude Code add-on)
 **Layer:** Tooling (an alternative agent harness / standalone CLI)
 

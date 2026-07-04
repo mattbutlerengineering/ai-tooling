@@ -2,6 +2,7 @@
 
 **Repo:** [benjaminr/chrome-devtools-mcp](https://github.com/benjaminr/chrome-devtools-mcp)
 **Stars:** 300 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify
 **Layer:** Infrastructure
 

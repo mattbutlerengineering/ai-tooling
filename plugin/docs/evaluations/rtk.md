@@ -2,6 +2,7 @@
 
 **Repo:** [rtk-ai/rtk](https://github.com/rtk-ai/rtk)
 **Stars:** 63,902 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify (intervenes on every Bash tool call across the inner loop)
 **Layer:** Infrastructure
 

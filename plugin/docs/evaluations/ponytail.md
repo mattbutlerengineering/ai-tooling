@@ -2,6 +2,7 @@
 
 **Repo:** [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
 **Stars:** 39,695 | **Last updated:** 2026-06-19 (pushed; created 2026-06-12) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a behavioral skill that gates *how much* code the agent writes before it writes it); touches Review (the `ponytail-audit` / `ponytail-debt` skills flag over-build after the fact)
 **Layer:** Process / Tooling (a behavioral skill distributed for 14 agents, with two small Node.js lifecycle hooks for always-on activation)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [nyldn/claude-octopus](https://github.com/nyldn/claude-octopus)
 **Stars:** 3,646 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Review (primary) — also spans Implement/Verify/Ship via lifecycle commands
 **Layer:** Tooling
 

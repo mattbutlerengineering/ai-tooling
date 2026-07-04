@@ -2,6 +2,7 @@
 
 **Repo:** [numman-ali/openskills](https://github.com/numman-ali/openskills)
 **Stars:** 10,446 | **Last updated:** 2026-01-18 (v1.5.0) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (sits beside the inner loop — installs/distributes skills agents load while working; does not change how a skill behaves)
 **Layer:** Infrastructure (skill installation + a load shim around the agent CLI)
 

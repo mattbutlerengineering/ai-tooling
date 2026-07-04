@@ -2,6 +2,7 @@
 
 **Repo:** [tianyilt/claude-fleet](https://github.com/tianyilt/claude-fleet)
 **Stars:** 34 | **Last updated:** 2026-06-16 (pushed; created 2026-05-30) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop / Observability (monitoring parallel agent sessions; touches Implement by helping you triage which session to attend to)
 **Layer:** Tooling (local Python web dashboard + optional signed macOS app)
 

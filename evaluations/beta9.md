@@ -2,6 +2,7 @@
 
 **Repo:** [beam-cloud/beta9](https://github.com/beam-cloud/beta9)
 **Stars:** ~1,670 | **Last updated:** 2026-06-20 | **License:** AGPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (serverless execution / sandboxes)
 **Layer:** Infrastructure
 

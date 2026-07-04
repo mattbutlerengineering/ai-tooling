@@ -2,6 +2,7 @@
 
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official)
 **Stars:** 30,445 | **Last updated:** 2026-06-19 (`pushed_at`) | **License:** Apache-2.0 (per-plugin LICENSE; marketplace itself Apache-2.0)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / cross-cutting — it is the *distribution channel* for tools that act across every stage (Implement, Verify, Review, Ship)
 **Layer:** Infrastructure (a marketplace/registry — the delivery substrate, not a single tool)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/agent-framework](https://github.com/microsoft/agent-framework)
 **Stars:** 11,486 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Language:** Python + C#/.NET
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (production agent/workflow framework) — building agentic systems
 **Layer:** Infrastructure (framework/SDK; PyPI `agent-framework` + NuGet `Microsoft.Agents.AI`)
 

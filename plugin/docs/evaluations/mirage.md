@@ -2,6 +2,7 @@
 
 **Repo:** [strukto-ai/mirage](https://github.com/strukto-ai/mirage)
 **Stars:** 3,197 | **Last updated:** 2026-06-20 (pushed; created 2026-05-06) | **License:** Apache-2.0 | **Releases:** 2
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / cross-cutting (a tool/data-access layer agents use during execution)
 **Layer:** Infrastructure (Python + TypeScript SDKs + CLI/daemon; FUSE-based mounts)
 

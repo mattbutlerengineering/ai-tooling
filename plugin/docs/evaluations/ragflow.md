@@ -2,6 +2,7 @@
 
 **Repo:** [infiniflow/ragflow](https://github.com/infiniflow/ragflow)
 **Stars:** 83,201 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Deploy:** self-hosted (Docker; Elasticsearch or Infinity doc engine)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (cross-cutting — RAG/context infrastructure; tangential to the coding dev loop)
 **Layer:** Infrastructure (self-hosted RAG engine + agentic workflow platform)
 

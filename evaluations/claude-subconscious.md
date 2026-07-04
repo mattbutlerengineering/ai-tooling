@@ -2,6 +2,7 @@
 
 **Repo:** [letta-ai/claude-subconscious](https://github.com/letta-ai/claude-subconscious)
 **Stars:** 2,796 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

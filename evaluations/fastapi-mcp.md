@@ -2,6 +2,7 @@
 
 **Repo:** [tadata-org/fastapi_mcp](https://github.com/tadata-org/fastapi_mcp)
 **Stars:** 11,920 | **Last updated:** 2025-11-24 (pushed; created 2025-03-08) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer-loop Ship/Infrastructure — it is a build-time library for *producing* an MCP server from an existing FastAPI app, not a tool you run inside the dev loop. Its output (the MCP endpoint) is then consumed by agents during Plan/Implement.
 **Layer:** Tooling — a Python package (`pip install fastapi-mcp` / `uv add`) that mounts an MCP server onto a FastAPI application. It generates infrastructure; it is not itself a workflow step or agent.
 

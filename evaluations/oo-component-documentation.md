@@ -2,6 +2,7 @@
 
 **Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot)
 **Stars:** community repo | **Last updated:** 2026 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (generating component docs from code), Reflect (updating docs after refactors)
 **Layer:** Process
 

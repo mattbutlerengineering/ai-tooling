@@ -2,6 +2,7 @@
 
 **Repo:** [elara-labs/code-context-engine](https://github.com/elara-labs/code-context-engine)
 **Stars:** 175 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (codebase exploration before/during implementation)
 **Layer:** Tooling
 

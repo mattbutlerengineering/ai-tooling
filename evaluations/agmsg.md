@@ -2,6 +2,7 @@
 
 **Repo:** [fujibee/agmsg](https://github.com/fujibee/agmsg)
 **Stars:** 757 | **Last updated:** 2026-06-19 (pushed; created 2026-04-02) | **License:** MIT | **Requires:** `bash` + `sqlite3`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (peer-to-peer messaging across CLI agents)
 **Layer:** Tooling (a shared local SQLite file + a skill/command per agent)
 

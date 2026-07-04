@@ -2,6 +2,7 @@
 
 **Repo:** [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix)
 **Stars:** ~10,200 | **Last updated:** 2026-06-20 | **License:** Elastic License 2.0 (source-available)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Outer Loop / observability + evaluation)
 **Layer:** Infrastructure
 

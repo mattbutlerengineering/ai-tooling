@@ -2,6 +2,7 @@
 
 **Repo:** [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues)
 **Stars:** 1,280 | **Last updated:** 2026-05-07 (pushed) | **License:** MIT | **Language:** TypeScript (npm: `continues`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Dev Workflow — cross-tool session handoff
 **Layer:** Tooling (CLI, `npx continues`)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
 **Stars:** 5,495 | **Last updated:** 2026-06-17 | **License:** proprietary
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

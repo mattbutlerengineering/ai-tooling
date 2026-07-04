@@ -2,6 +2,7 @@
 
 **Repo:** [google/agents-cli](https://github.com/google/agents-cli)
 **Stars:** 3,012 | **Last updated:** 2026-06-15 (pushed; created 2026-04-08) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the loop *for one narrow domain* — building, evaluating, and deploying agents on Google Cloud: Plan/Implement (scaffold + ADK), Verify (eval generate/grade/analyze/optimize), Ship (deploy, CI/CD, publish to Gemini Enterprise), Reflect (observability via Cloud Trace). It is not a general coding agent.
 **Layer:** Tooling + Process — a PyPI CLI (`google-agents-cli`) that does the Google Cloud heavy lifting, plus an installable **Skills pack** that teaches *your* coding assistant how to drive it.
 

@@ -2,6 +2,7 @@
 
 **Repo:** [EvoMap/evolver](https://github.com/EvoMap/evolver)
 **Stars:** 8,714 | **Last updated:** 2026-06-18 (pushed) | **License:** GPL-3.0 (⚠️ future releases moving to source-available) | **Language:** Node.js (npm: `@evomap/evolver`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (agent self-improvement) — Reflect
 **Layer:** Tooling (CLI engine; core behind the EvoMap network)
 

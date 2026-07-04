@@ -2,6 +2,7 @@
 
 **Repo:** [promptfoo/promptfoo](https://github.com/promptfoo/promptfoo)
 **Stars:** 22,392 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Language:** TypeScript (npm/brew/pip)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability / Verify — LLM eval, red-teaming, CI/CD gating
 **Layer:** Tooling (CLI + library + web viewer)
 

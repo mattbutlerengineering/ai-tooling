@@ -2,6 +2,7 @@
 
 **Repo:** [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs)
 **Stars:** 9,862 | **Last updated:** 2026-06-16 (pushed; created 2025-11-03) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop — Research/Discover, Plan, and a domain-specific Implement/Verify for *ML research engineering* (training, fine-tuning, eval, serving), capped by Reflect (paper writing). Not the general software dev loop.
 **Layer:** Process (98 Agent-Skills-spec `SKILL.md` files across 23 categories) + a thin Tooling layer (`@orchestra-research/ai-research-skills` npx installer that symlinks skills into detected agents)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [superagent-ai/superagent](https://github.com/superagent-ai/superagent)
 **Stars:** ~6,600 | **Last updated:** 2026-04-11 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (agent safety / Outer Loop)
 **Layer:** Tooling
 

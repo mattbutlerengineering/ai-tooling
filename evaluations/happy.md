@@ -2,6 +2,7 @@
 
 **Repo:** [slopus/happy](https://github.com/slopus/happy)
 **Stars:** 22,068 | **Last updated:** 2026-06-10 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement + Verify (remote access/monitoring across the inner loop)
 **Layer:** Infrastructure (access/transport layer around the agent, not the agent itself)
 

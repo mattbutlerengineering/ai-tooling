@@ -2,6 +2,7 @@
 
 **Repo:** [aden-hive/hive](https://github.com/aden-hive/hive)
 **Stars:** 10,565 | **Last updated:** 2026-05-29 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a platform you build agent *products* with — not a stage of your own coding dev loop)
 **Layer:** Infrastructure
 

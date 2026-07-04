@@ -2,6 +2,7 @@
 
 **Repo:** [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills)
 **Stars:** 36,142 | **Last updated:** 2026-06-08 (pushed; created 2026-01-02) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Mostly *out of the code dev loop* — it teaches an agent to read/write a personal knowledge base (Obsidian vaults). The one stage-relevant member is `defuddle` (web → clean markdown), which touches Research/Discover and Plan by cutting ingestion token cost.
 **Layer:** Process (five Agent-Skills-spec `SKILL.md` files plus reference docs; no runtime — the only executable dependency is the external Obsidian CLI / Defuddle CLI the skills shell out to)
 

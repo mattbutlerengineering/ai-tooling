@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/SkillOpt](https://github.com/microsoft/SkillOpt)
 **Stars:** 8,365 | **Last updated:** 2026-06-17 (pushed; created 2026-05-08) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer-loop **Reflect** — an offline optimization/training step that takes a seed skill plus a scored task set and iterates it into a better skill document. It is a learning loop *about* a skill, run between dev cycles, not a per-task inner-loop tool.
 **Layer:** Tooling (a Python training framework — `pip install skillopt` — with a rollout/reflect/aggregate/select/update/evaluate engine, multi-backend model adapters, six benchmarks, and a Gradio WebUI; produces a `best_skill.md` artifact)
 

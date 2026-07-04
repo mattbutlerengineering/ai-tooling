@@ -2,6 +2,7 @@
 
 **Repo:** [YishenTu/claudian](https://github.com/YishenTu/claudian)
 **Stars:** 12,963 | **Last updated:** 2026-06-18 (pushed; created 2025-12-05) | **License:** MIT | **Releases:** 30
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / cross-cutting (an agent host inside Obsidian; also Plan via Plan Mode)
 **Layer:** Tooling (TypeScript Obsidian plugin; desktop)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [CherryHQ/cherry-studio](https://github.com/CherryHQ/cherry-studio)
 **Stars:** 47,525 | **Last updated:** 2026-06-19 | **License:** AGPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

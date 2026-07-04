@@ -2,6 +2,7 @@
 
 **Repo:** [zhukunpenglinyutong/jetbrains-cc-gui](https://github.com/zhukunpenglinyutong/jetbrains-cc-gui)
 **Stars:** 4,068 | **Last updated:** 2026-06-17 (pushed; created 2025-11-20) | **License:** MIT | **Releases:** 30
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (in-IDE agent host; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript; IntelliJ/JetBrains plugin via JetBrains Marketplace)
 

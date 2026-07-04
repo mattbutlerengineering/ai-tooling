@@ -2,6 +2,7 @@
 
 **Repo:** [xknight254-hub/align-dev](https://github.com/xknight254-hub/align-dev)
 **Stars:** 372 | **Last updated:** 2026-06-05 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (one-time scaffolding of a repo's agent-facing standards; touches Reflect when you revise conventions)
 **Layer:** Process (it produces the team's convention contract; it is not infrastructure the agent runs against)
 

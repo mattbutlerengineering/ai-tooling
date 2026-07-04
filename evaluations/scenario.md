@@ -2,6 +2,7 @@
 
 **Repo:** [langwatch/scenario](https://github.com/langwatch/scenario)
 **Stars:** ~900 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify (agent testing)
 **Layer:** Tooling
 

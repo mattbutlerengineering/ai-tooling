@@ -2,6 +2,7 @@
 
 **Repo:** [google-gemini/gemini-skills](https://github.com/google-gemini/gemini-skills)
 **Stars:** 3,671 | **Last updated:** 2026-06-17 (pushed; created 2026-02-06) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement — it is reference context injected at code-gen time so the agent writes correct, current Gemini API/SDK code. Secondarily Plan (model selection). Not a Verify/Review tool.
 **Layer:** Process (a small set of `SKILL.md` files installed into the agent's skills directory; no runtime, no code that executes — the optional companion is an MCP docs server, evaluated separately).
 

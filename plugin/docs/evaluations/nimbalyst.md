@@ -2,6 +2,7 @@
 
 **Repo:** [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst)
 **Stars:** 876 (successor) | **Last updated:** 2026-06-19 (pushed; created 2025-10-30) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a visual session-manager/workspace wrapping coding agents; touches Plan via tasks and Review via WYSIWYG diff approval)
 **Layer:** Tooling (cross-platform Electron desktop app + mobile companion)
 

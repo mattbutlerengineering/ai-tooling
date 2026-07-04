@@ -2,6 +2,7 @@
 
 **Repo:** [BoundaryML/baml](https://github.com/BoundaryML/baml)
 **Stars:** ~8,400 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

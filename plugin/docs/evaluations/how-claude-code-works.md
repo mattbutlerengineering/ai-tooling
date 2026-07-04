@@ -2,6 +2,7 @@
 
 **Repo:** [Windy3f3f3f3f/how-claude-code-works](https://github.com/Windy3f3f3f3f/how-claude-code-works)
 **Stars:** 2,680 | **Last updated:** 2026-05-05 (pushed; created 2026-03-31) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / Reference (understanding the tool you build with; not part of the edit-test loop)
 **Layer:** Reference (documentation — 15 chapters + online docs site, bilingual 中文/English)
 

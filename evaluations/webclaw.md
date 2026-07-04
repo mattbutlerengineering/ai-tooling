@@ -2,6 +2,7 @@
 
 **Repo:** [0xMassi/webclaw](https://github.com/0xMassi/webclaw)
 **Stars:** 1,445 | **Last updated:** 2026-06-17 (pushed; created 2026-03-10) | **License:** ⚠️ AGPL-3.0 (strong copyleft)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research & Discovery (web content acquisition for agents/RAG; feeds Plan/Implement)
 **Layer:** Tooling (Rust CLI + MCP server + REST API + SDKs; hosted option at webclaw.io)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [opensquilla/opensquilla](https://github.com/opensquilla/opensquilla)
 **Stars:** 4,398 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify (a full standalone agent runtime — it *is* the inner loop, not a stage within Claude Code's)
 **Layer:** Tooling (an alternative agent harness/platform, not a Claude Code add-on)
 

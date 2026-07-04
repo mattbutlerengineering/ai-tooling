@@ -2,6 +2,7 @@
 
 **Repo:** [alibaba/page-agent](https://github.com/alibaba/page-agent)
 **Stars:** 18,673 | **Last updated:** 2026-06-17 (pushed) | **License:** MIT | **Package:** npm `page-agent` (TypeScript)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify / browser automation (also an in-product copilot SDK — partly out of dev-loop scope)
 **Layer:** Tooling (in-page JS library; optional Chrome extension + MCP server)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [router-for-me/CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI)
 **Stars:** 37,921 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Language:** Go
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Dev Workflow (infrastructure — API gateway in front of coding-agent CLI accounts)
 **Layer:** Infrastructure (proxy server; local or multi-account)
 

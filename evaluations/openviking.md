@@ -2,6 +2,7 @@
 
 **Repo:** [volcengine/OpenViking](https://github.com/volcengine/OpenViking)
 **Stars:** 25,830 | **Last updated:** 2026-06-19 (pushed; created 2026-01-05) | **License:** ⚠️ AGPL-3.0 (network copyleft) | **Releases:** 30
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (cross-cutting context infrastructure for agents)
 **Layer:** Infrastructure (Python + Rust; self-hostable; by volcengine / ByteDance)
 

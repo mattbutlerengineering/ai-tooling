@@ -2,6 +2,7 @@
 
 **Repo:** [Gentleman-Programming/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai)
 **Stars:** 4,100 | **Last updated:** 2026-06-19 (pushed; created 2026-02-27) | **License:** MIT | **Releases:** 30
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting (configures the whole inner loop — Plan→Implement→Review — across many agents)
 **Layer:** Tooling (Go CLI/installer; pure-Markdown skills + config it injects)
 

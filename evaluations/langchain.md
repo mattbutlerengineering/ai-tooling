@@ -2,6 +2,7 @@
 
 **Repo:** [langchain-ai/langchain](https://github.com/langchain-ai/langchain)
 **Stars:** 139,711 | **Last updated:** 2026-06-19 (pushed; created 2022-10-17) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Not on the dev loop. It is an SDK for building LLM-powered *applications and agents* (the artifact you ship), not a tool that intervenes in your own Plan/Implement/Verify/Review/Ship cycle.
 **Layer:** Infrastructure — a Python library/framework you import into product code (`init_chat_model`, chains, retrievers, tool-calling), plus an ecosystem (LangGraph, Deep Agents, LangSmith).
 

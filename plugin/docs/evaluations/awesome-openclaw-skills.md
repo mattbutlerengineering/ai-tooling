@@ -2,6 +2,7 @@
 
 **Repo:** [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills)
 **Stars:** 50,368 | **Last updated:** 2026-06-16 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** N/A (discovery reference)
 **Layer:** N/A
 

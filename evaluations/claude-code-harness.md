@@ -2,6 +2,7 @@
 
 **Repo:** [Chachamaru127/claude-code-harness](https://github.com/Chachamaru127/claude-code-harness)
 **Stars:** 2,815 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

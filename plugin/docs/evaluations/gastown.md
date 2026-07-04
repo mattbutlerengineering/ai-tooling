@@ -2,6 +2,7 @@
 
 **Repo:** [gastownhall/gastown](https://github.com/gastownhall/gastown)
 **Stars:** 15,976 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement + Ship (also Plan/Review — convoys, merge queue, escalation)
 **Layer:** Infrastructure (a full coordination substrate, not a single tool)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix)
 **Stars:** 23,214 | **Last updated:** 2026-06-19 (pushed; created 2026-04-21) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (inner loop) — a terminal coding agent you point at a repo (`reasonix run "implement the TODOs in main.go"`), with the same agentic surface as Claude Code / opencode: tools, plugins (MCP), slash commands, `@` references, permissions/sandbox, checkpoints. Touches Plan and Verify only insofar as the agent plans-then-edits-then-tests inside one session.
 **Layer:** Infrastructure (a single static Go binary harness that drives an LLM over your codebase) + Tooling (config-driven provider/tool/plugin registry)
 

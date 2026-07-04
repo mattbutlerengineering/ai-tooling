@@ -2,6 +2,7 @@
 
 **Repo:** [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)
 **Stars:** 10,050 | **Last updated:** 2026-05-20 (pushed; created 2025-10-20) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans Implement and Verify/Review by *technology*, not by stage — most of the 66 skills are framework/language "experts" (react-expert, nestjs-expert, golang-pro, postgres-pro) that fire during Implement; a thinner band (code-reviewer, secure-code-guardian, test-master, debugging-wizard) covers Review/Verify. A 9-command outer-loop layer (`common-ground`, Jira/Confluence workflow commands) touches Plan and Ship.
 **Layer:** Process + Tooling (installable Claude Code plugin: 66 `SKILL.md` files with bundled `references/`, plus slash commands; no runtime beyond Claude Code's skill loader, though workflow commands require an Atlassian MCP server)
 

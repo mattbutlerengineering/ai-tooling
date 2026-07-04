@@ -2,6 +2,7 @@
 
 **Repo:** [vibrantlabsai/ragas](https://github.com/vibrantlabsai/ragas)
 **Stars:** 14,439 | **Last updated:** 2026-02-24 (pushed) | **License:** Apache-2.0 | **Language:** Python (PyPI: `ragas`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability / Verify — LLM/RAG application evaluation
 **Layer:** Tooling (Python library)
 

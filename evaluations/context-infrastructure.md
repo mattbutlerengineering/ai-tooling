@@ -2,6 +2,7 @@
 
 **Repo:** [grapeot/context-infrastructure](https://github.com/grapeot/context-infrastructure)
 **Stars:** 609 | **Last updated:** 2026-06-16 | **License:** MIT (stated in README; GitHub API returns no detected license file)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

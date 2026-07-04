@@ -2,6 +2,7 @@
 
 **Repo:** [coleam00/excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill)
 **Stars:** 3,783 | **Last updated:** 2026-03-01 (pushed; created 2026-03-01) | **License:** none declared
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Reflect (outer loop) — it produces architecture and concept diagrams for design docs, READMEs, ADRs, and explanations. Not an inner-loop coding tool; it generates an artifact *about* the system, not the system.
 **Layer:** Process (a single-file Claude/OpenCode skill: `SKILL.md` design methodology plus a `references/` bundle with JSON templates, a color palette, and a Python+Playwright render-and-validate pipeline)
 

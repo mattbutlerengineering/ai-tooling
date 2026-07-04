@@ -2,6 +2,7 @@
 
 **Repo:** [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai)
 **Stars:** 17,861 | **Last updated:** 2026-06-18 (pushed) | **License:** MIT | **Language:** Python (PyPI: `pydantic-ai`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (agent-building framework) — for building LLM apps, adjacent to the coding dev loop
 **Layer:** Infrastructure (framework/library)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
 **Stars:** 62,906 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** All (full lifecycle: Spec → Plan → Build → Test → Review → Ship)
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [backnotprop/plannotator](https://github.com/backnotprop/plannotator)
 **Stars:** 6,338 | **Last updated:** 2026-06-19 | **License:** Apache-2.0 (dual-licensed Apache-2.0 / MIT)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review (plan review at the Plan→Implement gate; diff/PR review at the Implement→Ship gate)
 **Layer:** Tooling
 

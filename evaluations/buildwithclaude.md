@@ -2,6 +2,7 @@
 
 **Repo:** [davepoon/buildwithclaude](https://github.com/davepoon/buildwithclaude)
 **Stars:** 3,087 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (discover the right skill/agent/command/plugin before work)
 **Layer:** Process
 

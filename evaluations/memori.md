@@ -2,6 +2,7 @@
 
 **Repo:** [MemoriLabs/Memori](https://github.com/MemoriLabs/Memori)
 **Stars:** 15,333 | **Last updated:** 2026-06-15 (pushed; created 2025-07-24) | **License:** Apache-2.0 (GitHub classifies as "Other"/NOASSERTION, but the LICENSE file is verbatim Apache 2.0) | **Releases:** 30
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory layer for agents across sessions)
 **Layer:** Infrastructure (LLM/datastore/framework-agnostic; TypeScript + Python SDKs; Memori Cloud or self-host)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [ossf/scorecard](https://github.com/ossf/scorecard)
 **Stars:** 5,532 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer Loop
 **Layer:** Infrastructure
 

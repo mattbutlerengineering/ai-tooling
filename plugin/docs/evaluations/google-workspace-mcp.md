@@ -2,6 +2,7 @@
 
 **Repo:** [taylorwilsdon/google_workspace_mcp](https://github.com/taylorwilsdon/google_workspace_mcp)
 **Stars:** ~2,700 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (MCP server)
 **Layer:** Infrastructure
 

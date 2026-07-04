@@ -2,6 +2,7 @@
 
 **Repo:** [sigoden/aichat](https://github.com/sigoden/aichat)
 **Stars:** ~10,200 | **Last updated:** 2026-02-23 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

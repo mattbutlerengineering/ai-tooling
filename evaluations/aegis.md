@@ -2,6 +2,7 @@
 
 **Repo:** [GanyuanRan/Aegis](https://github.com/GanyuanRan/Aegis)
 **Stars:** 542 | **Last updated:** 2026-06-17 (pushed; created 2026-04-30) | **License:** MIT | **Install:** natural-language, host-detected method-pack
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Dev Workflow (workflow-discipline guardrails)
 **Layer:** Skill pack (portable "method-pack" skills across multiple agent hosts)
 

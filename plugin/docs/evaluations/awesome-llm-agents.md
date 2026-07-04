@@ -2,6 +2,7 @@
 
 **Repo:** [kaushikb11/awesome-llm-agents](https://github.com/kaushikb11/awesome-llm-agents)
 **Stars:** 1,514 | **Last commit:** 2026-06-14 | **License:** none
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

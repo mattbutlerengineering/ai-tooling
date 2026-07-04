@@ -2,6 +2,7 @@
 
 **Repo:** [gmickel/flow-next](https://github.com/gmickel/flow-next)
 **Stars:** 635 | **Last updated:** 2026-06-18 (pushed) | **License:** MIT | **Language:** Python (pure-stdlib `flowctl` CLI) + agent skills
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Dev Workflow (spec-driven engineering) — Plan → Implement → Review → Ship
 **Layer:** Process + Tooling (plugin: 28 skills layered on a deterministic CLI)
 

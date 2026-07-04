@@ -2,6 +2,7 @@
 
 **Repo:** [revfactory/harness](https://github.com/revfactory/harness)
 **Stars:** 7,095 | **Last updated:** 2026-06-10 (pushed; created 2026-03-26) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer-loop **Architect / Decompose** — it is a *setup-time* generator, not a per-task tool. You run it once to manufacture a domain-tailored `.claude/agents/` + `.claude/skills/` team, which then operates across the inner loop (Plan → Implement → Verify) on subsequent sessions. It builds the harness; the harness does the work.
 **Layer:** Process generator that emits Process artifacts (markdown agent/skill definitions). No runtime of its own — it leans on Claude Code's Agent Teams API (`TeamCreate`/`SendMessage`/`TaskCreate`) at generation and execution time.
 

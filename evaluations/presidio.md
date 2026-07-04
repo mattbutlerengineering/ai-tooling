@@ -2,6 +2,7 @@
 
 **Repo:** [data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio) (formerly microsoft/presidio; repo moved)
 **Stars:** ~9,250 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (data protection / Outer Loop)
 **Layer:** Infrastructure
 

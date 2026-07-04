@@ -2,6 +2,7 @@
 
 **Repo:** [mito-ds/mito](https://github.com/mito-ds/mito)
 **Stars:** ~2,640 | **Last updated:** 2026-06-11 | **License:** open-core (repo SPDX returns NOASSERTION; Mito Pro tier)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

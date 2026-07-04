@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp)
 **Stars:** 34,050 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [prisma/claude-plugin](https://github.com/prisma/claude-plugin) (plugin manifest) / [prisma/prisma](https://github.com/prisma/prisma) (MCP implementation)
 **Stars:** 46,347 (main Prisma repo) | **Last updated:** 2026-06-18 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 

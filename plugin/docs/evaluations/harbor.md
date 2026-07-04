@@ -2,6 +2,7 @@
 
 **Repo:** [harbor-framework/harbor](https://github.com/harbor-framework/harbor)
 **Stars:** ~2,600 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (agent evaluation / Outer Loop)
 **Layer:** Infrastructure
 

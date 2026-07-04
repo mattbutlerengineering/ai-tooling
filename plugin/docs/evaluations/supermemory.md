@@ -2,6 +2,7 @@
 
 **Repo:** [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
 **Stars:** 27,206 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory + context layer for AI apps and agents)
 **Layer:** Infrastructure (memory/context engine + hosted app; cloud API or fully self-hostable)
 

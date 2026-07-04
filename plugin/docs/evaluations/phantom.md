@@ -2,6 +2,7 @@
 
 **Repo:** [ghostwright/phantom](https://github.com/ghostwright/phantom)
 **Stars:** 1,432 | **Last updated:** 2026-06-16 (pushed; created 2026-03-26) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting / autonomous operations (a persistent self-directed agent, not a single dev-loop stage)
 **Layer:** Infrastructure (deployable TypeScript agent platform on the Claude Agent SDK; Docker)
 

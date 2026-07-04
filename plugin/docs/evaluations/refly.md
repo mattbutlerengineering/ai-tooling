@@ -2,6 +2,7 @@
 
 **Repo:** [refly-ai/refly](https://github.com/refly-ai/refly)
 **Stars:** 7,381 | **Last updated:** 2026-03-25 (pushed); latest release v1.1.0, 2026-02-02 | **License:** ReflyAI Open Source License (Apache-2.0 + commercial-use restriction)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (only via the thin Claude Code skill-export edge; the platform itself sits outside the loop)
 **Layer:** Infrastructure (self-hosted Docker app platform)
 

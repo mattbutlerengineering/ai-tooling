@@ -2,6 +2,7 @@
 
 **Repo:** [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills)
 **Stars:** 65,223 | **Last updated:** 2026-05-22 | **License:** none declared (README badge claims Apache-2.0)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

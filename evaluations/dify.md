@@ -2,6 +2,7 @@
 
 **Repo:** [langgenius/dify](https://github.com/langgenius/dify)
 **Stars:** 145,776 | **Last updated:** 2026-06-19 | **License:** Custom (SSPL-like with Commons Clause)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

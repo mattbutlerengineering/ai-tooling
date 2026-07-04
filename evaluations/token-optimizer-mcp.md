@@ -2,6 +2,7 @@
 
 **Repo:** [ooples/token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp)
 **Stars:** 410 | **Last updated:** 2026-06-14 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify (intervenes on tool calls across the inner loop)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [ConardLi/garden-skills](https://github.com/ConardLi/garden-skills)
 **Stars:** 8,369 | **Last updated:** 2026-06-10 (pushed; created 2026-04-21) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans outer-loop *output/communication* work, not the core coding loop — Plan/Reflect (diagrams via web-design, knowledge retrieval) and Ship/communicate (presentations, articles, images). These are skills for producing polished deliverables *about* or *alongside* code, plus one retrieval skill that touches context.
 **Layer:** Process (a multi-skill collection: each skill is a `SKILL.md` + `references/` + scaffold templates; the repo adds a Claude Code plugin marketplace, a `skills` CLI installer, per-skill release `.zip`s, and CI validation)
 

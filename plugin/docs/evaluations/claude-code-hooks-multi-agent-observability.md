@@ -2,6 +2,7 @@
 
 **Repo:** [disler/claude-code-hooks-multi-agent-observability](https://github.com/disler/claude-code-hooks-multi-agent-observability)
 **Stars:** ~1,470 | **Last updated:** 2026-02-08 | **License:** none specified
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (observability for Claude Code)
 **Layer:** Infrastructure
 

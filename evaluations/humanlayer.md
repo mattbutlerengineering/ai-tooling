@@ -2,6 +2,7 @@
 
 **Repo:** [humanlayer/humanlayer](https://github.com/humanlayer/humanlayer)
 **Stars:** 11,034 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement (whole inner loop, as an alternative harness)
 **Layer:** Tooling (a desktop IDE/harness that wraps Claude Code)
 

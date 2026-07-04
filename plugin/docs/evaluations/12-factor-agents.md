@@ -2,6 +2,7 @@
 
 **Repo:** [humanlayer/12-factor-agents](https://github.com/humanlayer/12-factor-agents)
 **Stars:** 23,418 | **Last updated:** 2025-09-21 (pushed) | **License:** Apache-2.0 (code) / CC-BY-SA-4.0 (content) | **Type:** reference guide
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reference (agent engineering principles) — informs Plan/architecture
 **Layer:** Process/Reference (a written methodology, not a tool)
 

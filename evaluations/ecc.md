@@ -2,6 +2,7 @@
 
 **Repo:** [affaan-m/ECC](https://github.com/affaan-m/ECC)
 **Stars:** 218,088 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** All stages (Plan, Implement, Verify, Review, Ship, Reflect) — a full harness layer
 **Layer:** Tooling + Infrastructure (skills/agents/rules + a hook runtime, memory store, and CLI control-plane)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU)
 **Stars:** 13,890 | **Last updated:** 2026-06-19 (pushed) | **License:** see repo (no SPDX detected) | **Language:** Python
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context — file-structured agent memory
 **Layer:** Infrastructure (memory framework/service)
 

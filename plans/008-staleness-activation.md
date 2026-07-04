@@ -9,6 +9,7 @@
 
 ## Status
 
+- **State**: DONE (2026-07-03) — backfilled 455 evals; field gated in `make check`; sweep runs as a report trailer; 0 stale / 0 undated post-backfill.
 - **Priority**: P2
 - **Effort**: M (S logic + M mechanical backfill across ~455 files)
 - **Risk**: LOW

@@ -2,6 +2,7 @@
 
 **Repo:** [alchaincyf/huashu-design](https://github.com/alchaincyf/huashu-design)
 **Stars:** 19,196 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

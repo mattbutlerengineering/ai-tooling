@@ -2,6 +2,7 @@
 
 **Repo:** [slidevjs/slidev](https://github.com/slidevjs/slidev)
 **Stars:** 47,257 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Tooling
 

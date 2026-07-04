@@ -2,6 +2,7 @@
 
 **Repo:** [tastyeffectco/sandboxd](https://github.com/tastyeffectco/sandboxd)
 **Stars:** 675 | **Last updated:** 2026-06-16 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify / Ship (preview-environment + agent-in-sandbox infrastructure)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [karpathy/autoresearch](https://github.com/karpathy/autoresearch)
 **Stars:** 87,570 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / Discover (outer loop — automated experimentation)
 **Layer:** Tooling
 

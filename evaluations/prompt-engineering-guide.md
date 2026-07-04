@@ -2,6 +2,7 @@
 
 **Repo:** [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)
 **Stars:** 75,755 | **Last updated:** 2026-03-11 (pushed) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reference (cross-cutting — prompt/context-engineering knowledge base)
 **Layer:** Reference (guides, papers, lessons, notebooks)
 

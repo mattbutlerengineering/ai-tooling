@@ -2,6 +2,7 @@
 
 **Repo:** [vercel-labs/skills](https://github.com/vercel-labs/skills)
 **Stars:** 22,937 | **Last updated:** 2026-06-18 (pushed; created 2026-01-14) | **License:** none declared
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Pre-loop / cross-cutting — it is the *acquisition* mechanism that gets skills into whatever tool you run for every stage. It does not itself participate in Plan/Implement/Verify; it provisions the skills that do.
 **Layer:** Tooling (an npm CLI that resolves a source, parses `SKILL.md` files, and symlinks or copies them into each agent's skills directory; plus a telemetry/registry backend)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [kodustech/kodus-ai](https://github.com/kodustech/kodus-ai)
 **Stars:** ~1,200 | **Last updated:** 2026-06-19 | **License:** open-core (repo LICENSE returns NOASSERTION; Open Source / Teams / Enterprise tiers)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 

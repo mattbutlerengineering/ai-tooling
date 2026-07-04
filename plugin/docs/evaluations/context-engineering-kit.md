@@ -2,6 +2,7 @@
 
 **Repo:** [NeoLabHQ/context-engineering-kit](https://github.com/NeoLabHQ/context-engineering-kit)
 **Stars:** ~1,150 | **Last updated:** 2026-06-16 | **License:** GPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement (context engineering)
 **Layer:** Process / Tooling
 

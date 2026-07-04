@@ -2,6 +2,7 @@
 
 **Repo:** [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)
 **Stars:** 11,386 | **Last updated:** 2026-03-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship (prose artifacts — docs, PRs, commit messages, release notes); touches Review when the artifact under review is prose
 **Layer:** Process
 

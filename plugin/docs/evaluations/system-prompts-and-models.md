@@ -2,6 +2,7 @@
 
 **Repo:** [x1xhlol/system-prompts-and-models-of-ai-tools](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
 **Stars:** 140,892 | **Last updated:** 2026-06-12 | **License:** GPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover
 **Layer:** Infrastructure
 

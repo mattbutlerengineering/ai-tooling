@@ -2,6 +2,7 @@
 
 **Repo:** [lobehub/lobehub](https://github.com/lobehub/lobehub)
 **Stars:** 78,828 | **Last updated:** 2026-06-19 | **License:** LobeHub Community License (Apache-2.0 base with commercial restrictions)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (Agent Orchestration)
 **Layer:** Infrastructure
 

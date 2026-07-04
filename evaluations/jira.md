@@ -2,6 +2,7 @@
 
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (active) | **License:** MIT (not an official Atlassian product)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (read tickets → scope work) and Ship (update status / close tickets); touches Reflect when summarizing what shipped
 **Layer:** Tooling (team-workflow integration; connects the agent to a live Jira instance)
 

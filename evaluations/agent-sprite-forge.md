@@ -2,6 +2,7 @@
 
 **Repo:** [0x0funky/agent-sprite-forge](https://github.com/0x0funky/agent-sprite-forge)
 **Stars:** 2,876 | **Last updated:** 2026-05-05 (pushed; created 2026-04-23) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None of the software dev loop. This is a **game-art asset-generation pipeline**, not a coding tool — it produces sprite sheets, tilemaps, and engine scenes, not application code. The nearest mapping is "Implement" for a game project's *art* pipeline, but it does not touch the Plan/Implement/Verify/Review/Ship loop this catalog is organized around.
 **Layer:** Tooling — two Codex skills (`SKILL.md` + Python scripts) that orchestrate built-in image generation plus deterministic local post-processing (numpy/Pillow).
 

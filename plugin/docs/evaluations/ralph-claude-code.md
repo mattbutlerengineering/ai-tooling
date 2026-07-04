@@ -2,6 +2,7 @@
 
 **Repo:** [frankbria/ralph-claude-code](https://github.com/frankbria/ralph-claude-code)
 **Stars:** 9,368 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (autonomous)
 **Layer:** Tooling
 

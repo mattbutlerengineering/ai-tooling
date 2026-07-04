@@ -2,6 +2,7 @@
 
 **Repo:** [tailcallhq/forgecode](https://github.com/tailcallhq/forgecode)
 **Stars:** 7,423 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Rust (by Tailcall)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Harnesses / Implement — terminal AI pair programmer
 **Layer:** Tooling (CLI coding agent)
 

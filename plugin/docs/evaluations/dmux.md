@@ -2,6 +2,7 @@
 
 **Repo:** [standardagents/dmux](https://github.com/standardagents/dmux)
 **Stars:** 1,655 | **Last updated:** 2026-05-25 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (also Ship — branch/merge/PR handling)
 **Layer:** Tooling
 

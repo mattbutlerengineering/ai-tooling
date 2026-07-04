@@ -2,6 +2,7 @@
 
 **Repo:** [sourcebot-dev/sourcebot](https://github.com/sourcebot-dev/sourcebot)
 **Stars:** 3,524 | **Last updated:** 2026-06-20 (pushed) | **License:** see repo (no SPDX detected; self-hostable) | **Language:** TypeScript (self-hosted web app)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Code Understanding — search, navigation, NL Q&A across repos
 **Layer:** Infrastructure (self-hosted server; humans + agents)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [luminarylane/fal-mcp-server](https://github.com/luminarylane/fal-mcp-server) (formerly `raveenb/fal-mcp-server`, which now redirects here)
 **Stars:** 50 | **Last updated:** 2026-05-04 (pushed; created 2025-08-28) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (generating media assets — images/video/audio — as build artifacts)
 **Layer:** Tooling (an MCP server wrapping the fal.ai generative-media API)
 

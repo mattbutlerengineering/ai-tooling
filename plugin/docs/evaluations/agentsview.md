@@ -2,6 +2,7 @@
 
 **Repo:** [kenn-io/agentsview](https://github.com/kenn-io/agentsview)
 **Stars:** 2,946 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Distribution:** install script, Homebrew cask, desktop app, Docker
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability (Reflect / outer loop — see what your agents did and what they cost)
 **Layer:** Tooling (single local binary + local SQLite + web UI)
 

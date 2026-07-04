@@ -2,6 +2,7 @@
 
 **Repo:** [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex)
 **Stars:** 1,517 | **Last updated:** 2026-06-20 (pushed; created 2026-05-25) | **License:** MIT | **Install:** `npx lazycodex-ai install`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (agent harness layered onto Codex)
 **Layer:** Harness (skill/discipline pack for Codex)
 

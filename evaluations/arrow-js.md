@@ -2,6 +2,7 @@
 
 **Repo:** [standardagents/arrow-js](https://github.com/standardagents/arrow-js)
 **Stars:** 3,666 | **Last updated:** 2026-04-01 (pushed; created 2022-11-08) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement — it is a UI runtime/library you build *with*, not a workflow that drives the loop. Its agent-relevant hooks (the `@arrow-js/skill` installer, the QuickJS sandbox) touch Plan/Implement and Safety, but the artifact is application code.
 **Layer:** Infrastructure (a published npm runtime — `@arrow-js/core` and a monorepo of framework/SSR/hydrate/sandbox/compiler packages — that ships inside the product, not into the agent's config).
 

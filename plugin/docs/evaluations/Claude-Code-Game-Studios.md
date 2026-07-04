@@ -2,6 +2,7 @@
 
 **Repo:** [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
 **Stars:** 21,922 | **Last updated:** 2026-05-21 (pushed; created 2026-02-12) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the whole loop *for one domain* — Plan (brainstorm, GDD, epics/stories), Implement (engine specialists), Verify/Review (QA, design review, director gates), Ship (release-manager), Reflect (sprint retrospective hook). It is a full game-studio workflow scaffold, not a single-stage tool.
 **Layer:** Process + Tooling — a `.claude/` directory you copy into a game project: agent personas + slash-command skills + lifecycle hooks + path-scoped rules + document templates, all wired into a studio hierarchy. No runtime of its own.
 

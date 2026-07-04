@@ -2,6 +2,7 @@
 
 **Repo:** [awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows)
 **Stars:** 2,984 | **Last updated:** 2026-06-18 | **License:** MIT-0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (cross-cutting: all stages)
 **Layer:** Process
 

@@ -2,6 +2,7 @@
 
 **Repo:** [neuml/txtai](https://github.com/neuml/txtai)
 **Stars:** ~12,700 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (semantic search + LLM orchestration framework)
 **Layer:** Tooling
 

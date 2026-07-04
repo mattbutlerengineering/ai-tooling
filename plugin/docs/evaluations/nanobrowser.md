@@ -2,6 +2,7 @@
 
 **Repo:** [nanobrowser/nanobrowser](https://github.com/nanobrowser/nanobrowser)
 **Stars:** 13,329 | **Last updated:** 2025-11-24 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (Chrome extension)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify — AI web automation in the browser
 **Layer:** Tooling (Chrome extension)
 

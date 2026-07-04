@@ -2,6 +2,7 @@
 
 **Repo:** [mattpocock/sandcastle](https://github.com/mattpocock/sandcastle)
 **Stars:** 6,167 | **Last updated:** 2026-06-18 (v0.10.0) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify / Review / Ship (AFK agent orchestration harness)
 **Layer:** Infrastructure (the orchestration engine) + Tooling (the CLI + templated harnesses you run)
 

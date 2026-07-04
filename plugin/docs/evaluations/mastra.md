@@ -2,6 +2,7 @@
 
 **Repo:** [mastra-ai/mastra](https://github.com/mastra-ai/mastra)
 **Stars:** ~25,300 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

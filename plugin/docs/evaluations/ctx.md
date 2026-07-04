@@ -2,6 +2,7 @@
 
 **Repo:** [stevesolun/ctx](https://github.com/stevesolun/ctx)
 **Stars:** 518 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (recommends the right tools for the task before/during work)
 **Layer:** Tooling
 

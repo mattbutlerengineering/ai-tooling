@@ -2,6 +2,7 @@
 
 **Repo:** [nexu-io/open-design](https://github.com/nexu-io/open-design)
 **Stars:** 67,833 | **Last updated:** 2026-06-19 (created 2026-04-28; 13 tagged releases) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None (visual/design artifact authoring, outside the coding dev loop)
 **Layer:** Tooling (a standalone native desktop app + daemon that drives coding-agent CLIs as an LLM backend, and exposes its own MCP server)
 

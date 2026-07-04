@@ -2,6 +2,7 @@
 
 **Repo:** [refactoringhq/tolaria](https://github.com/refactoringhq/tolaria)
 **Stars:** 16,738 | **Last updated:** 2026-06-19 | **License:** AGPL-3.0-or-later
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Reflect (sits beside the loop — authoring and organizing the markdown *context* an agent reads, not driving the agent)
 **Layer:** Tooling (a GUI editor over the files; the files themselves are the substance)
 

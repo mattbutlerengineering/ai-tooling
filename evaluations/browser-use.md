@@ -2,6 +2,7 @@
 
 **Repo:** [browser-use/browser-use](https://github.com/browser-use/browser-use)
 **Stars:** 99,580 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 

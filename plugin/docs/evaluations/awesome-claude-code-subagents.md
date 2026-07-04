@@ -2,6 +2,7 @@
 
 **Repo:** [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents)
 **Stars:** 22,115 | **Created:** 2025-07-30 | **Last commit:** 2026-06-16 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

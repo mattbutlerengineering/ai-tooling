@@ -2,6 +2,7 @@
 
 **Repo:** [pydantic/logfire](https://github.com/pydantic/logfire)
 **Stars:** ~4,300 | **Last updated:** 2026-06-20 | **License:** MIT (SDK); server is closed source
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Outer Loop / observability)
 **Layer:** Infrastructure
 

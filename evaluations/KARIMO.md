@@ -2,6 +2,7 @@
 
 **Repo:** [opensesh/KARIMO](https://github.com/opensesh/KARIMO)
 **Stars:** 225 | **Last updated:** 2026-05-11 (pushed; created 2026-02-15) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the loop as a workflow — Plan (research → PRD interview → task briefs → brief review), Implement/Verify (wave-ordered parallel agent execution with implementer/tester roles), Review (Greptile or Claude Code Review), Ship (merge to main), Reflect (`/karimo:feedback` captures learnings). A PRD-to-merge pipeline, not a single-stage tool.
 **Layer:** Process + Tooling — a Claude Code marketplace plugin (~206 files, mostly markdown agent/command/skill definitions plus bash hooks/scripts) that adds a coordination layer on top of Claude Code's native worktrees, sub-agents, and hooks.
 

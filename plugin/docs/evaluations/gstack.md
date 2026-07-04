@@ -2,6 +2,7 @@
 
 **Repo:** [garrytan/gstack](https://github.com/garrytan/gstack)
 **Stars:** 111,392 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-sprint workflow)
 **Layer:** Process (with a Tooling browser/eval substrate underneath)
 

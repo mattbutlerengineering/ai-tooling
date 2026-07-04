@@ -2,6 +2,7 @@
 
 **Repo:** [letta-ai/letta-code](https://github.com/letta-ai/letta-code)
 **Stars:** 2,750 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (npm: `@letta-ai/letta-code`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Harnesses (stateful, self-improving coding agent)
 **Layer:** Tooling/Infrastructure (CLI + desktop app + browser + messaging channels)
 

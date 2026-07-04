@@ -2,6 +2,7 @@
 
 **Repo:** [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI)
 **Stars:** 53,987 | **Last updated:** 2026-06-19 (pushed; created 2023-10-27) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None of ours, by design. CrewAI is a runtime for orchestrating role-playing agents *inside an application you ship* — not a tool that intervenes in the Plan/Implement/Verify/Review/Ship/Reflect loop a developer runs to produce code. It is the engine *of* an agentic product, not an assistant *to* the engineer building one.
 **Layer:** Infrastructure / framework (a `pip install crewai` Python library + an "AMP Suite" commercial control plane for hosting/observing the agents it runs)
 

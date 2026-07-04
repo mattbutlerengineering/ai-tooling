@@ -2,6 +2,7 @@
 
 **Repo:** [RKiding/Awesome-finance-skills](https://github.com/RKiding/Awesome-finance-skills)
 **Stars:** 2,569 | **Last commit:** 2026-03-29 | **Created:** 2026-01-31 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

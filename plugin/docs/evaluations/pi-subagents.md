@@ -2,6 +2,7 @@
 
 **Repo:** [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)
 **Stars:** ~2,260 | **Last updated:** 2026-06-20 | **License:** none specified
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (subagent orchestration for Pi)
 **Layer:** Tooling
 

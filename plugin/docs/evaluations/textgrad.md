@@ -2,6 +2,7 @@
 
 **Repo:** [zou-group/textgrad](https://github.com/zou-group/textgrad)
 **Stars:** ~3,600 | **Last updated:** 2025-07-25 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (optimization / Outer Loop)
 **Layer:** Tooling
 

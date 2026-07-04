@@ -2,6 +2,7 @@
 
 **Repo:** [mem0ai/mem0](https://github.com/mem0ai/mem0)
 **Stars:** 58,871 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

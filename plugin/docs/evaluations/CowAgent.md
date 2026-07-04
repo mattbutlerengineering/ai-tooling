@@ -2,6 +2,7 @@
 
 **Repo:** [zhayujie/CowAgent](https://github.com/zhayujie/CowAgent)
 **Stars:** 45,464 | **Last updated:** 2026-06-19 (pushed; created 2022-08-07 as chatgpt-on-wechat) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the loop as a *standalone harness*, not a coding-loop helper — Plan (task decomposition), Implement (tool/skill execution), Reflect (self-evolution, memory/knowledge consolidation). It is an assistant-style agent, not a code-shipping harness.
 **Layer:** Tooling + Infrastructure (a deployable Python service with Web console, multi-channel ingress, embeddings, and persistent storage — not a prompt pack)
 

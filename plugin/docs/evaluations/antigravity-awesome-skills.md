@@ -2,6 +2,7 @@
 
 **Repo:** [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
 **Stars:** 41,059 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** All (reference + installable catalog)
 **Layer:** Tooling
 

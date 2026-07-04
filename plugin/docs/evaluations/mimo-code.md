@@ -2,6 +2,7 @@
 
 **Repo:** [XiaomiMiMo/MiMo-Code](https://github.com/XiaomiMiMo/MiMo-Code)
 **Stars:** 9,944 | **Last updated:** 2026-06-19 (pushed; created 2026-06-10) | **License:** MIT | **Releases:** 2
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a terminal coding agent CLI; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript, `npm i -g @mimo-ai/cli` or one-line installer)
 

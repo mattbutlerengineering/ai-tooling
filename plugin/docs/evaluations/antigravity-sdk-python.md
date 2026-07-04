@@ -2,6 +2,7 @@
 
 **Repo:** [google-antigravity/antigravity-sdk-python](https://github.com/google-antigravity/antigravity-sdk-python)
 **Stars:** 1,885 | **Last updated:** 2026-06-18 (pushed; created 2026-04-29) | **License:** Apache-2.0 | **Package:** PyPI `google-antigravity`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (agent-building SDK / framework)
 **Layer:** Infrastructure (SDK + compiled runtime binary)
 

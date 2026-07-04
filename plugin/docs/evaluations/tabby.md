@@ -2,6 +2,7 @@
 
 **Repo:** [TabbyML/tabby](https://github.com/TabbyML/tabby)
 **Stars:** ~33,600 | **Last updated:** 2026-03-02 | **License:** open-source / on-prem (repo SPDX returns NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

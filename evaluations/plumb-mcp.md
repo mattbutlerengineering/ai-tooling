@@ -2,6 +2,7 @@
 
 **Repo:** [tathagat22/plumb-mcp](https://github.com/tathagat22/plumb-mcp)
 **Stars:** 57 | **Last updated:** 2026-06-18 (last push; latest tag v0.12.0) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (Figma design→code grounding) + Verify (`plumb_verify` / `plumb_fit` diff rendered code against the design)
 **Layer:** Tooling (agent-facing MCP bridge + verification CLI — not hosted infrastructure)
 
