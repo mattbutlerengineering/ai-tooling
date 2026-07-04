@@ -37,9 +37,13 @@
 - **Metric:** {pass-rate (k/N) / wall-clock / tokens / counts — per the protocol}
 - **Reproduce:** {the command(s) to re-run this measurement}
 
-> **If the entry is a _skill_** (not a runnable CLI/MCP), measure it the way Anthropic's `skill-creator` does — a skill's value is a *change in agent behaviour*, so evaluate two dimensions (see [issue #38](https://github.com/mattbutlerengineering/ai-tooling/issues/38)):
-> 1. **Triggering** — does the skill's `description` make it fire on the right prompts and *not* the wrong ones? Note that skills tend to *under*-trigger. (`skill-creator/scripts/run_eval.py` measures this with `claude -p`; or judge a balanced should/shouldn't-trigger prompt set.)
-> 2. **Output quality** — run a **with-skill vs baseline A/B** (same prompt, skill on vs off). For a deterministic skill with a quantitative claim you can apply its `SKILL.md` rules by hand and count tokens with `tiktoken` (cheap, reproducible — see `caveman.md`); for non-deterministic skills, compare outputs qualitatively. Report token/latency deltas and an explicit accuracy check. A not-run skill review must still say so.
+### Test design — skills (required when Type is skill or plugin)
+
+A skill's value is a *change in agent behaviour*, not a CLI you can run — so measure both dimensions the way Anthropic's `skill-creator` does (see [issue #38](https://github.com/mattbutlerengineering/ai-tooling/issues/38)):
+
+- **Triggering:** {should-fire prompts k/N; shouldn't-fire prompts k/N — does the skill's `description` fire on the right prompts and *not* the wrong ones? Skills tend to *under*-trigger. Measure via `skill-creator/scripts/run_eval.py` (`claude -p`) or a balanced hand-judged should/shouldn't-trigger prompt set.}
+- **Output A/B:** {a **with-skill vs baseline A/B** — same prompt, skill on vs off; report token/latency deltas and an explicit accuracy check. For a deterministic skill with a quantitative claim, apply its `SKILL.md` rules by hand and count tokens with `tiktoken` (cheap, reproducible — see `caveman.md`); for non-deterministic skills, compare outputs qualitatively.}
+- **Not run?** say so plainly — the honesty rule above applies unchanged; a not-run skill review must still disclose it.
 
 ```
 {Paste the actual command(s) you ran — or, for a not-run review, the documented install/usage clearly labeled as such}

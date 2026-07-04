@@ -1256,6 +1256,48 @@ class TestDetectorE(unittest.TestCase):
         self.assertEqual((measured, backlog), ([], []))
 
 
+# ----------------------------------------------------------------- detector Q (skill test-design, #221)
+class TestDetectorQ(unittest.TestCase):
+    """Detector Q (--skill-design, report-only): a skill/plugin-Type eval that records a
+    Triggering test OR a with-skill-vs-baseline A/B is compliant; one recording neither
+    is flagged. Conservative (any triggering/A/B vocab passes); never affects exit code."""
+    SKILL_ROW = "| [{n}](https://github.com/a/{n}) | skill | x | y | z |\n"
+    TOOL_ROW = "| [{n}](https://github.com/a/{n}) | tool | x | y | z |\n"
+
+    def _eval(self, row, body):
+        return f"{row}\n## Test design\n\n{body}\n"
+
+    def _run(self, files):
+        with tempfile.TemporaryDirectory() as d:
+            for name, text in files.items():
+                _write(d, os.path.join("evaluations", name), text)
+            return audit.audit_skill_design(audit.DetectorContext(d))
+
+    def test_triggering_line_compliant_bare_flagged(self):
+        compliant, missing = self._run({
+            "trig.md": self._eval(self.SKILL_ROW.format(n="trig"),
+                                  "Triggering: 5/5 should-fire prompts fired."),
+            "bare.md": self._eval(self.SKILL_ROW.format(n="bare"),
+                                  "A source-grounded read of the repository."),
+        })
+        self.assertEqual(compliant, ["trig"])
+        self.assertEqual(missing, ["bare"])
+
+    def test_ab_line_is_compliant(self):
+        compliant, missing = self._run({
+            "ab.md": self._eval(self.SKILL_ROW.format(n="ab"),
+                                "Ran a with-skill vs baseline A/B on four prompts."),
+        })
+        self.assertEqual((compliant, missing), (["ab"], []))
+
+    def test_non_skill_type_ignored(self):
+        compliant, missing = self._run({
+            "tool.md": self._eval(self.TOOL_ROW.format(n="tool"),
+                                  "A source-grounded read of the repository."),
+        })
+        self.assertEqual((compliant, missing), ([], []))
+
+
 # ----------------------------------------------------------------- detector F (dangling overlaps, #200)
 class TestDetectorF(unittest.TestCase):
     HEADER = "| Name | Type | One-liner | Problem | Overlaps with |\n|---|---|---|---|---|\n"
