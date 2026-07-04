@@ -10,6 +10,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 
 ## Structure
 
+- `PLAYBOOK.md` — the one-page front door: what to install / how to work / what to watch, routing to the depth docs (hand-maintained router, never a data mirror)
 - `CATALOG.md` — flat inventory of 582 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
 - `STACK.md` — recommended stack (~25 tools to actually install, with commands)
