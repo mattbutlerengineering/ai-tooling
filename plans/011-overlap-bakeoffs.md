@@ -11,6 +11,7 @@
 
 ## Status
 
+- **State**: BLOCKED 2026-07-03 (pilot needs attended run) — Steps 1-2 done by an unattended executor: `evaluations/bakeoff-protocol.md` written, pilot pair selected (claude-mem vs agentmemory) and the pilot eval `evaluations/agentmemory-vs-claude-mem-bakeoff.md` created as a designed-but-NOT-run record (Evidence REVIEW, honest not-run disclaimer, Verdict DEFER). Step 3 (running the three arms) and Step 4 (propagating a verdict) remain — they require an attended session. Never simulate the run.
 - **Priority**: P2
 - **Effort**: M (protocol S + pilot M)
 - **Risk**: MED (the pilot involves real tool runs; honesty gates will correctly reject a thin result)
