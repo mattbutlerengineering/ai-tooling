@@ -16,7 +16,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 - `STACK-LEDGER.md` — machine-readable record of why each ADOPT/KEEP tool is/isn't in STACK (data foundation for the #70 drift gate)
 - `evaluations/` — hands-on tool evaluations following `TEMPLATE.md`
 - `methodologies/` — external AI-native SDLC methodologies mapped onto our dev loop + stack (synced to plugin; see ADR-0003)
-- `discovery/` — bulk discovery logs (`new-tools-loopN.md`) from scanning sessions
+- `discovery/` — historical bulk discovery logs (loops 1–21); new scans are GitHub issues labeled `scan` (see discovery/README.md)
 - `skills/` — source skills for reference
 - `plugin/` — installable Claude Code marketplace package (skills, docs, hooks)
 - `README.md` — repo overview with install instructions
@@ -129,5 +129,5 @@ Single-context layout. See `docs/agents/domain.md`.
 ## Evaluations
 
 - **Hands-on evaluations** use `evaluations/TEMPLATE.md` — copy it and fill every section with evidence from actual usage. The "How we tested it" section is mandatory; README-only evaluations are discovery logs, not evaluations.
-- **Discovery logs** (`evaluations/new-tools-loopN.md`) are for bulk triage — one-liner verdicts from scanning repos. They feed the catalog but don't constitute a full evaluation.
+- **Discovery logs** (`discovery/new-tools-loopN.md`) are the historical bulk-triage record — one-liner verdicts from scanning repos. They feed the catalog but don't constitute a full evaluation. New scans are GitHub issues labeled `scan` (see discovery/README.md), not new loop files.
 - Use inner/outer loop vocabulary (Plan, Implement, Verify, Review, Ship, Reflect), not ACMM levels.
