@@ -11,7 +11,7 @@ Execute in the order below unless dependencies say otherwise. Each executor: rea
 | [001](001-fix-stale-counts.md) | Fix stale prose counts; derive eval count in reconcile | P1 | S | — | DONE ([#215](https://github.com/mattbutlerengineering/ai-tooling/issues/215)) |
 | [002](002-honest-funnel-metric.md) | COMPARISON Summary reports real Validated %, not 100% | P1 | M | 001 | TODO ([#220](https://github.com/mattbutlerengineering/ai-tooling/issues/220)) |
 | [003](003-workflow-stack-drift.md) | Reconcile WORKFLOW↔STACK + report-only drift detector | P1 | M | — | DONE ([#216](https://github.com/mattbutlerengineering/ai-tooling/issues/216)) |
-| [004](004-discovery-intake-consolidation.md) | Consolidate scan intake on `scan`-labeled issues; index discovery/ | P2 | S | — | TODO ([#217](https://github.com/mattbutlerengineering/ai-tooling/issues/217)) |
+| [004](004-discovery-intake-consolidation.md) | Consolidate scan intake on `scan`-labeled issues; index discovery/ | P2 | S | — | DONE ([#217](https://github.com/mattbutlerengineering/ai-tooling/issues/217)) |
 | [005](005-next-evals-queue.md) | Generate NEXT-EVALS.md — ranked discovery-log promotion queue | P1 | M | 002 | TODO ([#223](https://github.com/mattbutlerengineering/ai-tooling/issues/223)) |
 | [006](006-watchlist.md) | Generate WATCHLIST.md — deferred/stale/flagged/unverified in one page | P2 | M | 005 | TODO ([#224](https://github.com/mattbutlerengineering/ai-tooling/issues/224)) |
 | [007](007-playbook-front-door.md) | PLAYBOOK.md — single front door: install / work / watch | P1 | M | 005, 006 | TODO ([#225](https://github.com/mattbutlerengineering/ai-tooling/issues/225)) |
