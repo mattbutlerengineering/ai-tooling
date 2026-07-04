@@ -47,6 +47,7 @@ Understand the codebase and task before writing a line of code. Break the work i
 | **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/graphify.md)) | Correctness |
 | | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/codegraph.md)) | Speed, Cost Efficiency |
 | | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
+| | [markitdown](https://github.com/microsoft/markitdown) — converts PDF/Office/images/audio/HTML to clean Markdown so agents can actually read binary docs ([eval](evaluations/markitdown.md)) | Correctness, Cost Efficiency |
 | | [codebase-design](https://github.com/mattpocock/skills) — shared vocabulary for deep modules: interfaces, seams, depth, leverage, locality | Maintainability |
 | | [domain-modeling](https://github.com/mattpocock/skills) — build CONTEXT.md glossaries and ADRs as designs evolve | Correctness, Maintainability |
 | **Infrastructure** | [github-mcp-server](https://github.com/github/github-mcp-server) — GitHub's official MCP: search repos, read issues/PRs, browse code during planning ([eval](evaluations/github-mcp-server.md)) | Speed, Correctness |
@@ -180,7 +181,7 @@ How do we build it? Solution design, technology choices, interface boundaries. A
 |-------|------|
 | **Process** | Map the codebase before proposing changes. Design interfaces before implementations. Record non-obvious decisions in ADRs. |
 | **Tooling** | GSD `map-codebase` + `plan-phase` — parallel mapper agents produce structured analysis ([eval](evaluations/recommended-tools.md#gsd-get-shit-done)) |
-| | feature-dev `code-architect` — architecture design with codebase awareness ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
+| | [feature-dev](https://github.com/anthropics/claude-plugins-official) `code-architect` — architecture design with codebase awareness ([eval](evaluations/recommended-tools.md#feature-dev-anthropic)) |
 | | graphify — architecture visualization for understanding component relationships ([eval](evaluations/graphify.md)) |
 | **Infrastructure** | ADR count and staleness tracking — flag decisions older than 90 days with no review | Maintainability |
 | | Architecture fitness functions in CI — automated checks that dependencies respect module boundaries | Maintainability, Safety |
@@ -263,7 +264,7 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 | [ponytail](https://github.com/DietrichGebert/ponytail) | "Lazy senior dev" pre-write decision ladder (YAGNI → stdlib → native → dep → one-liner) with explicit safety carve-outs; benchmarked ([eval](evaluations/ponytail.md)) |
 | [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | CLAUDE.md guidelines derived from known LLM coding pitfalls ([eval](evaluations/andrej-karpathy-skills.md)) |
 
-**Layer 4 — avoid the read entirely** — semantic code search returns the few relevant snippets instead of loading whole files, cutting Layer-1 input at the source. These live under [Code Understanding](CATALOG.md) (`semble`, `serena`, `claude-context`, `cocoindex-code`, `gortex`, `code-context-engine`).
+**Layer 4 — avoid the read entirely** — semantic code search returns the few relevant snippets instead of loading whole files, cutting Layer-1 input at the source. These live under [Code Understanding](CATALOG.md) (`semble`, [serena](https://github.com/oraios/serena), `claude-context`, `cocoindex-code`, `gortex`, `code-context-engine`).
 
 > **Why the distinction bites:** Layers 1–2 are *token-efficiency* plays — same work, smaller bill. Layer 3 is a *code-quality* play whose token savings are incidental. `ponytail`'s own benchmark uses `caveman` as the baseline and beats it on every code metric, precisely because `caveman` only changes how work is *described* while `ponytail` changes what gets *built*. Your global `implementation-discipline.md` already encodes much of Layer 3 by default.
 
@@ -276,7 +277,7 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 | Job | Pick | What you get | Install | Eval |
 |-----|------|--------------|---------|------|
 | **Monitor — live** | abtop (CONDITIONAL · MEASURED, in STACK) | htop-style TUI showing per-session tokens, cost, context %, and rate limits in real time | `curl --proto '=https' --tlsv1.2 -LsSf https://github.com/graykode/abtop/releases/latest/download/abtop-installer.sh \| sh` | [abtop.md](evaluations/abtop.md) |
-| **Monitor — historical** | ccusage (ADOPT · MEASURED, in STACK) | Daily/monthly/session/model token & cost reports parsed from local session logs | `npx ccusage@latest` | [ccusage.md](evaluations/ccusage.md) |
+| **Monitor — historical** | [ccusage](https://github.com/ccusage/ccusage) (ADOPT · MEASURED, in STACK) | Daily/monthly/session/model token & cost reports parsed from local session logs | `npx ccusage@latest` | [ccusage.md](evaluations/ccusage.md) |
 | **Attribute spend / find waste** | codeburn (ADOPT · MEASURED) | Breaks spend down by task/model/tool/project across ~30 tools and emits ranked waste fixes; logged-excluded from STACK — pull in for multi-tool bills (needs Node ≥ 22.13). Secondary: tokencost (CONDITIONAL · RUN) for per-call cost estimation in Python pipelines you control. | `npx codeburn@latest` · `pip install tokencost` | [codeburn.md](evaluations/codeburn.md) · [cost-observability.md](evaluations/cost-observability.md#tokencost) |
 | **Reduce / optimize** | caveman (ADOPT · MEASURED, in STACK) | Compresses agent *prose output* (~49–59% measured) with no accuracy loss. For *tool-output* compression, use the [Layer-1 table](#cross-cutting-cost-efficiency) (headroom is the in-STACK pick). | `claude install-skill JuliusBrussee/caveman` | [caveman.md](evaluations/caveman.md) |
 
