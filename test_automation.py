@@ -1517,5 +1517,53 @@ class TestIntegrityMakefile(unittest.TestCase):
                          "`make fix` must re-run `make check` after applying fixers")
 
 
+# ----------------------------------------------------------------- detector P: WORKFLOW↔STACK drift (report-only)
+class TestWorkflowDrift(unittest.TestCase):
+    """Pins detector P (audit_workflow_drift): every STACK *pick* (github owner/repo
+    slug from an install-command table row) must appear somewhere in WORKFLOW.md.
+    One-directional, case-insensitive, table-scoped (excluded-tool prose isn't a pick),
+    report-only. Fixture-based — never the real files (plan 003)."""
+
+    def _ctx(self, d, stack, workflow):
+        _write(d, "STACK.md", stack)
+        _write(d, "WORKFLOW.md", workflow)
+        return audit.DetectorContext(d)
+
+    def test_reports_pick_absent_from_workflow(self):
+        # STACK has 2 picks (table rows), WORKFLOW mentions only 1 -> 1 missing.
+        stack = ("## Plan\n| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n"
+                 "| [b](https://github.com/own/b) | y | `pip install b` | Speed |\n")
+        workflow = "### Plan\n| [a](https://github.com/own/a) — x |\n"
+        with tempfile.TemporaryDirectory() as d:
+            miss = audit.audit_workflow_drift(self._ctx(d, stack, workflow))
+            self.assertEqual(miss, [("own/b", 5)])  # slug + first STACK line
+
+    def test_all_picks_present_is_empty(self):
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n")
+        workflow = "the manual mentions [a](https://github.com/own/a) here\n"
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+
+    def test_excluded_prose_slug_is_not_a_pick(self):
+        # A github slug named only in STACK prose (an *excluded* tool) is not a pick
+        # and must not be flagged, even though it's absent from WORKFLOW.
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n\n"
+                 "- **excluded batch** — [b](https://github.com/own/b) didn't meet the bar.\n")
+        workflow = "[a](https://github.com/own/a)\n"
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+
+    def test_slug_match_is_case_insensitive(self):
+        # GitHub slugs are case-insensitive: STACK links Own/Repo, WORKFLOW own/repo.
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/Own/Repo) | x | `pip install a` | Correctness |\n")
+        workflow = "[a](https://github.com/own/repo)\n"
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

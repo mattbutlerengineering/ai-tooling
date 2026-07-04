@@ -605,6 +605,10 @@ class DetectorContext:
         return self.read("STACK.md")
 
     @functools.cached_property
+    def workflow(self):
+        return self.read("WORKFLOW.md")
+
+    @functools.cached_property
     def ledger(self):
         return self.read("STACK-LEDGER.md")
 
@@ -714,6 +718,31 @@ def audit_overlaps(ctx):
             if not any(k in names for k in catalog_lib.alias_keys(tok)):
                 miss[t] += 1
     return miss.most_common()
+
+# ---------------------------------------------------------------- P. WORKFLOW↔STACK drift (report-only)
+# README sends readers to WORKFLOW.md as "the full operating manual" and STACK.md is
+# the install list; they must not give a newcomer two different answers to "what do I
+# use for X". The invariant is ONE-directional: every STACK *pick* must appear
+# somewhere in WORKFLOW.md (the manual must at least mention every pick). The reverse
+# is NOT required — WORKFLOW legitimately lists non-STACK CONDITIONAL options.
+# Matched by github owner/repo slug, NOT display name (names vary — "GSD" links to
+# obra/superpowers), reusing catalog_lib.github_repos so the extraction can't drift.
+# STACK picks are scoped to the install-command *table rows*, so the prose that names
+# *excluded* tools (the "excluded (#37)" batch: brooks-lint, code-on-incus) and self/
+# issue links aren't mistaken for picks. Slugs are lowercased (GitHub is case-
+# insensitive: STACK links NVIDIA/SkillSpector but clones NVIDIA/skillspector).
+# Report-only, not a gate — prints a count so it's "a number to shrink" (plan 003).
+def audit_workflow_drift(ctx):
+    """Detector P: STACK picks absent from WORKFLOW.md. Returns (slug, stack_line) for
+    each STACK-pick github slug that appears nowhere in WORKFLOW.md, first STACK line."""
+    wf = {s.lower() for s in catalog_lib.github_repos(ctx.workflow)}
+    first_line = {}
+    for i, line in enumerate(ctx.stack.splitlines(), 1):
+        if not line.lstrip().startswith("|"):
+            continue  # picks live in the install-command tables, not the prose
+        for slug in catalog_lib.github_repos(line):
+            first_line.setdefault(slug.lower(), i)
+    return [(slug, ln) for slug, ln in sorted(first_line.items()) if slug not in wf]
 
 # ---------------------------------------------------------------- M. clusters without a pick (report-only)
 # ADR 0001 / #69: when several catalogued tools solve the same problem (an overlap
@@ -921,7 +950,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--overlaps", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -934,6 +963,7 @@ def main():
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
+    do_wf_drift = "--workflow-drift" in sel  # opt-in report (does not affect exit code)
     do_clusters = "--clusters" in sel  # opt-in report (does not affect exit code)
     do_savings = "--savings-claims" in sel  # opt-in report (does not affect exit code)
     do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
@@ -1078,6 +1108,13 @@ def main():
         for t, c in gaps:
             if c < 2:
                 print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
+    if do_wf_drift:
+        wfmiss = audit_workflow_drift(ctx)
+        print(f"== P. WORKFLOW↔STACK drift (report-only) — {len(wfmiss)} STACK pick(s) missing from WORKFLOW.md ==")
+        if not wfmiss:
+            print("  OK — every STACK pick appears somewhere in WORKFLOW.md")
+        for slug, ln in wfmiss:
+            print(f"  MISSING {slug}  (STACK.md:{ln} — add it to the appropriate WORKFLOW stage)")
     if do_clusters:
         cl = audit_clusters(ctx)
         print(f"== M. clusters without a pick (report-only, #69) — {len(cl)} overlap cluster(s) all-CONDITIONAL, no ADOPT/KEEP pick ==")
