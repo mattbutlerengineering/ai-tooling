@@ -846,35 +846,55 @@ def audit_savings_claims(ctx):
     return sorted(flagged, key=lambda r: r[0].lower())
 
 # ---------------------------------------------------------------- G. comparison consistency
-# COMPARISON.md mirrors CATALOG.md: its per-stage summary must sum to its own body
-# rows, and its Total must equal the CATALOG entry count. Manual count edits drift
-# easily (a single tool addition touches both files), and nothing else cross-checks
-# them — so a CATALOG/COMPARISON disagreement could ship silently. Gating, offline.
+# COMPARISON.md mirrors CATALOG.md: its per-stage Summary must be an honest funnel.
+# Tools must sum to its own body rows and equal the CATALOG entry count; Validated
+# must equal the real-verdict rows (discovery-log excluded, per ADR 0001) — not the
+# raw catalogued count. Manual edits drift easily (a single tool addition touches both
+# files) and nothing else cross-checks them, so a disagreement could ship silently.
+# Gating, offline.
+def _summary_cells(line):
+    """Cells of a Summary table row, outer pipes dropped and bold markers stripped."""
+    return [c.strip().replace("**", "") for c in line.strip().strip("|").split("|")]
+
 def audit_comparison(ctx):
     text = ctx.comparison
-    body = catalog_lib.comparison_body_counts(text)  # shared with reconcile-counts.py
-    summary, in_summary = {}, False
+    body = catalog_lib.comparison_body_counts(text)          # shared with reconcile-counts.py
+    breakdown = catalog_lib.comparison_verdict_breakdown(text)  # per-stage (validated, recommended)
+    # Parse the Summary table into per-stage {tools, validated} plus the Total row.
+    summary, total, in_summary = {}, None, False
     for l in text.splitlines():       # second pass: the Summary table only
         hm = re.match(r"^##\s+(.*)", l)
         if hm:
             in_summary = hm.group(1).strip().lower() == "summary"
             continue
-        if in_summary:
-            sm = re.match(r"\|\s*(.+?)\s*\|\s*(\d+)\s*\|", l)
-            if sm and sm.group(1).strip().replace("**", "").lower() not in ("stage", "total"):
-                summary[sm.group(1).strip().replace("**", "")] = int(sm.group(2))
+        if not in_summary or not l.lstrip().startswith("|"):
+            continue
+        cells = _summary_cells(l)
+        name = cells[0]
+        if len(cells) < 3 or not cells[1].isdigit() or not cells[2].isdigit():
+            continue  # header, separator, or a malformed row
+        rec = {"tools": int(cells[1]), "validated": int(cells[2])}
+        if name.lower() == "total":
+            total = rec
+        else:
+            summary[name] = rec
     problems = []
-    for s, cnt in summary.items():
-        if body.get(s, 0) != cnt:
-            problems.append(f"section '{s}': summary says {cnt}, body has {body.get(s, 0)}")
-    mtot = re.search(r"\|\s*\*\*Total\*\*\s*\|\s*\*\*(\d+)\*\*", text)
-    total = int(mtot.group(1)) if mtot else None
+    for s, rec in summary.items():
+        if body.get(s, 0) != rec["tools"]:
+            problems.append(f"section '{s}': summary Tools {rec['tools']}, body has {body.get(s, 0)}")
+        exp_val = breakdown.get(s, (0, 0))[0]
+        if rec["validated"] != exp_val:
+            problems.append(f"section '{s}': summary Validated {rec['validated']}, real-verdict rows total {exp_val}")
     body_total = sum(body.values())
-    if total is not None and total != body_total:
-        problems.append(f"Total says {total}, body rows sum to {body_total}")
+    val_total = sum(v for v, _ in breakdown.values())
     cat = catalog_lib.catalog_count(ctx.catalog)
-    if total is not None and total != cat:
-        problems.append(f"COMPARISON Total {total} != CATALOG.md {cat} entries")
+    if total is not None:
+        if total["tools"] != body_total:
+            problems.append(f"Total Tools says {total['tools']}, body rows sum to {body_total}")
+        if total["validated"] != val_total:
+            problems.append(f"Total Validated says {total['validated']}, real-verdict rows sum to {val_total}")
+        if total["tools"] != cat:
+            problems.append(f"COMPARISON Total {total['tools']} != CATALOG.md {cat} entries")
     return problems
 
 # ---------------------------------------------------------------- selftest

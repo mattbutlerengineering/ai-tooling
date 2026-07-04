@@ -18,7 +18,7 @@ NOT touch plugin/docs/ (run ./sync-plugin-docs.sh for the latter).
 """
 import glob, os, re, sys
 import catalog_lib
-from catalog_lib import comparison_body_counts
+from catalog_lib import comparison_body_counts, comparison_verdict_breakdown
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -63,22 +63,74 @@ def fix_eval_strings(text, E):
         text = re.sub(pat, repl.replace("{E}", str(E)), text)
     return text
 
+def _pct(num, den):
+    """Integer percent num/den (0% when den is 0), for the Validated % column."""
+    return f"{round(100 * num / den)}%" if den else "0%"
+
+# The existing Summary stage rows: first cell a plain name (no | or *), second cell
+# a bare int. Header ('Tools' 2nd cell), separator, and the bold Total row don't match.
+_SUMMARY_STAGE_ROW = re.compile(r"^\|\s*([A-Za-z][^|*]+?)\s*\|\s*\d+\s*\|")
+
+def _summary_stages(text):
+    """Ordered stage names in the existing '## Summary' table (header/Total excluded).
+    fix_comparison rebuilds these rows' values in place — it never invents a stage row
+    or drops one, so sections absent from the summary (e.g. Legend) stay absent."""
+    stages, in_summary = [], False
+    for line in text.splitlines():
+        hm = re.match(r"^##\s+(.*)", line)
+        if hm:
+            in_summary = hm.group(1).strip().lower() == "summary"
+            continue
+        if in_summary:
+            m = _SUMMARY_STAGE_ROW.match(line)
+            if m:
+                stages.append(m.group(1).strip())
+    return stages
+
+def _build_summary_table(stages, body, breakdown, C):
+    """The regenerated Summary table lines: honest funnel columns
+    'Stage | Tools | Validated | Recommended | Validated %'. Tools is the body-row
+    count; Validated counts real verdicts (discovery-log excluded); Recommended is
+    ADOPT+KEEP; Validated % = Validated/Tools. Total keeps Tools=C so detector G's
+    CATALOG==COMPARISON check still compares the catalogued total."""
+    rows = ["| Stage | Tools | Validated | Recommended | Validated % |",
+            "|-------|-------|-----------|-------------|-------------|"]
+    tv = tr = 0
+    for s in stages:
+        tools = body.get(s, 0)
+        val, rec = breakdown.get(s, (0, 0))
+        tv += val; tr += rec
+        rows.append(f"| {s} | {tools} | {val} | {rec} | {_pct(val, tools)} |")
+    rows.append(f"| **Total** | **{C}** | **{tv}** | **{tr}** | **{_pct(tv, C)}** |")
+    return rows
+
 def fix_comparison(text, C):
     body = comparison_body_counts(text)
+    breakdown = comparison_verdict_breakdown(text)
     # header "All N tools from CATALOG.md"
     text = re.sub(r"(All )\d+( tools from CATALOG\.md)", rf"\g<1>{C}\g<2>", text)
-    # per-stage summary rows "| Section | n | n | ... |" (bare ints; name has no | or *)
-    def fix_sec(m):
-        name = m.group(1).strip()
-        if name in body:
-            b = body[name]
-            return f"| {m.group(1)} | {b} | {b} |{m.group(2)}"
-        return m.group(0)
-    text = re.sub(r"^\|\s*([A-Za-z][^|*]+?)\s*\|\s*\d+\s*\|\s*\d+\s*\|(.*)$", fix_sec, text, flags=re.M)
-    # Total row "| **Total** | **n** | **n** | ... |" (bolded numbers)
-    text = re.sub(r"(\|\s*\*\*Total\*\*\s*\|\s*\*\*)\d+(\*\*\s*\|\s*\*\*)\d+(\*\*\s*\|)",
-                  rf"\g<1>{C}\g<2>{C}\g<3>", text)
-    return text
+    stages = _summary_stages(text)
+    table = _build_summary_table(stages, body, breakdown, C)
+    # Replace the whole '## Summary' table (header→Total) with the regenerated one,
+    # emitted where the first table row was; non-table lines in the section pass through.
+    out, in_summary, written = [], False, False
+    for line in text.splitlines():
+        hm = re.match(r"^##\s+(.*)", line)
+        if hm:
+            in_summary = hm.group(1).strip().lower() == "summary"
+            written = False
+            out.append(line)
+            continue
+        if in_summary and line.lstrip().startswith("|"):
+            if not written:
+                out.extend(table)
+                written = True
+            continue  # drop original table rows
+        out.append(line)
+    result = "\n".join(out)
+    if text.endswith("\n"):
+        result += "\n"
+    return result
 
 FILES_TOTAL = ["README.md", "CLAUDE.md", "STACK.md", "plugin/CLAUDE.md"]
 

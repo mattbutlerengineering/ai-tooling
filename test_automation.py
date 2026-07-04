@@ -68,11 +68,11 @@ All 3 tools from CATALOG.md at a glance.
 
 ## Summary
 
-| Stage | Tools | Evaluated | Adoption rate |
-|-------|-------|-----------|---------------|
-| Plan | 2 | 2 | 100% |
-| Ship | 1 | 1 | 100% |
-| **Total** | **3** | **3** | **100%** |
+| Stage | Tools | Validated | Recommended | Validated % |
+|-------|-------|-----------|-------------|-------------|
+| Plan | 2 | 2 | 1 | 100% |
+| Ship | 1 | 1 | 1 | 100% |
+| **Total** | **3** | **3** | **2** | **100%** |
 """
 
 
@@ -104,20 +104,46 @@ class TestReconcilePureFns(unittest.TestCase):
         self.assertEqual(reconcile.comparison_body_counts(COMPARISON_OK), {"Plan": 2, "Ship": 1})
 
     def test_fix_comparison_rebuilds_summary_and_header(self):
-        broken = COMPARISON_OK.replace("| Plan | 2 | 2 |", "| Plan | 9 | 9 |") \
+        # Validated/Recommended come from the body verdicts (Plan: ADOPT+SKIP -> 2
+        # validated, 1 recommended), not the Tools count — so a corrupted stage row
+        # is rebuilt to the real funnel figures.
+        broken = COMPARISON_OK.replace("| Plan | 2 | 2 | 1 | 100% |", "| Plan | 9 | 9 | 9 | 42% |") \
                               .replace("All 3 tools", "All 99 tools")
         fixed = reconcile.fix_comparison(broken, 3)
-        self.assertIn("| Plan | 2 | 2 | 100% |", fixed)
+        self.assertIn("| Stage | Tools | Validated | Recommended | Validated % |", fixed)
+        self.assertIn("| Plan | 2 | 2 | 1 | 100% |", fixed)
         self.assertIn("All 3 tools from CATALOG.md", fixed)
 
     def test_fix_comparison_fixes_total_row(self):
         # Regression test for the historical bug: the bolded **Total** row was
-        # not rewritten because section and Total shared one regex.
-        broken = COMPARISON_OK.replace("| **Total** | **3** | **3** |",
-                                       "| **Total** | **99** | **99** |")
+        # not rewritten because section and Total shared one regex. The Total now
+        # carries Tools/Validated/Recommended (Tools stays the catalog count C).
+        broken = COMPARISON_OK.replace("| **Total** | **3** | **3** | **2** | **100%** |",
+                                       "| **Total** | **99** | **99** | **99** | **1%** |")
         fixed = reconcile.fix_comparison(broken, 3)
-        self.assertIn("| **Total** | **3** | **3** | **100%** |", fixed)
+        self.assertIn("| **Total** | **3** | **3** | **2** | **100%** |", fixed)
         self.assertNotIn("**99**", fixed)
+
+    def test_fix_comparison_excludes_discovery_log_from_validated(self):
+        # discovery-log is a catalogued lead, not a verdict (ADR 0001): it counts
+        # toward Tools but never toward Validated/Recommended.
+        comp = (
+            "All 2 tools from CATALOG.md at a glance.\n\n"
+            "## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated |\n"
+            "|------|------|------|------|-----------|\n"
+            "| a | tool | | ✓ | ADOPT |\n"
+            "| b | tool | | ✓ | discovery-log |\n\n"
+            "## Summary\n\n"
+            "| Stage | Tools | Validated | Recommended | Validated % |\n"
+            "|-------|-------|-----------|-------------|-------------|\n"
+            "| Plan | 0 | 0 | 0 | 0% |\n"
+            "| **Total** | **0** | **0** | **0** | **0%** |\n"
+        )
+        fixed = reconcile.fix_comparison(comp, 2)
+        # 2 body rows, but only ADOPT is validated (discovery-log excluded); 50%.
+        self.assertIn("| Plan | 2 | 1 | 1 | 50% |", fixed)
+        self.assertIn("| **Total** | **2** | **1** | **1** | **50%** |", fixed)
 
     def test_fix_eval_strings_both_variants(self):
         self.assertEqual(reconcile.fix_eval_strings("distilled from 471 evaluations.", 487),
@@ -626,17 +652,26 @@ class TestDetectorG(unittest.TestCase):
     def test_consistent_fixture_has_no_problems(self):
         self.assertEqual(self._run_audit(CATALOG_OK, COMPARISON_OK), [])
 
-    def test_section_sum_mismatch(self):
-        bad = COMPARISON_OK.replace("| Plan | 2 | 2 |", "| Plan | 5 | 5 |")
+    def test_section_tools_mismatch(self):
+        # Summary Tools cell disagrees with the body-row count for the stage.
+        bad = COMPARISON_OK.replace("| Plan | 2 | 2 | 1 | 100% |", "| Plan | 5 | 2 | 1 | 100% |")
         problems = self._run_audit(CATALOG_OK, bad)
-        self.assertTrue(any("section 'Plan'" in p for p in problems), msg=str(problems))
+        self.assertTrue(any("section 'Plan'" in p and "Tools" in p for p in problems), msg=str(problems))
+
+    def test_section_validated_mismatch(self):
+        # Summary Validated cell disagrees with the real-verdict rows (Plan has 2:
+        # ADOPT+SKIP). discovery-log would be excluded — here a plain corruption.
+        bad = COMPARISON_OK.replace("| Plan | 2 | 2 | 1 | 100% |", "| Plan | 2 | 9 | 1 | 100% |")
+        problems = self._run_audit(CATALOG_OK, bad)
+        self.assertTrue(any("section 'Plan'" in p and "Validated" in p for p in problems), msg=str(problems))
 
     def test_total_vs_body_mismatch(self):
-        # Total says 9 but body sums to 3. CATALOG also 9 rows so the catalog
+        # Total Tools says 9 but body sums to 3. CATALOG also 9 rows so the catalog
         # check passes and the body-total mismatch is isolated.
         catalog9 = CATALOG_OK + "".join(
             f"| [d{i}](https://github.com/x/d{i}) | tool | o | t | none |\n" for i in range(6))
-        bad = COMPARISON_OK.replace("| **Total** | **3** | **3** |", "| **Total** | **9** | **9** |")
+        bad = COMPARISON_OK.replace("| **Total** | **3** | **3** | **2** | **100%** |",
+                                    "| **Total** | **9** | **3** | **2** | **100%** |")
         problems = self._run_audit(catalog9, bad)
         self.assertTrue(any("body rows sum to 3" in p for p in problems), msg=str(problems))
 
@@ -1323,7 +1358,7 @@ class TestEvidenceBackfill(unittest.TestCase):
         self.assertIn("| Evaluated | Evidence |", cmp6)
         self.assertIn("| ADOPT | SOURCE-ONLY |", cmp6)
         # Summary table untouched (no Evidence column bleeds into per-stage aggregates)
-        self.assertIn("| Stage | Tools | Evaluated | Adoption rate |", cmp6)
+        self.assertIn("| Stage | Tools | Validated | Recommended | Validated % |", cmp6)
         # body counts unchanged -> detector G / reconcile see the same rows
         self.assertEqual(reconcile.comparison_body_counts(cmp6), {"Plan": 2, "Ship": 1})
         self.assertEqual(backfill.rebuild_comparison(cmp6, {}), cmp6)  # idempotent
