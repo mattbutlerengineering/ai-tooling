@@ -683,6 +683,30 @@ def audit_skill_evidence(ctx):
         (measured if ev.evidence.is_measured else backlog).append(ev.name)
     return measured, backlog
 
+# ---------------------------------------------------------------- Q. skill test-design (report-only)
+# TEMPLATE.md's "Test design — skills" section requires every skill/plugin-Type eval to
+# record BOTH skill dimensions (issue #38): Triggering (does the description fire on the
+# right prompts?) and an Output A/B (with-skill vs baseline). This report surfaces
+# skill/plugin evals that record NEITHER — the structural gap the required section
+# closes. Conservative by design (same lenient-vocab spirit as detector B's HONEST
+# regex): an eval counts as compliant if it names a triggering test OR an A/B anywhere,
+# so an honest measured eval is never false-flagged. Widen the vocab if it does; never
+# tighten it into a gate here — this mirrors --skills as a tracked metric, not a gate.
+_SKILL_TRIGGER_RE = re.compile(r"trigger|run_eval|should[- ]?fire", re.I)
+_SKILL_AB_RE = re.compile(r"\bA/B\b|with[- ]skill|without[- ]skill|baseline|skill on vs", re.I)
+
+def audit_skill_design(ctx):
+    """Detector Q (REPORT-ONLY): skill/plugin-Type evals that record NEITHER a triggering
+    test nor an A/B, per TEMPLATE.md's required skills Test-design section (#38). Returns
+    (compliant, missing) as lists of eval names. Never affects the exit code."""
+    compliant, missing = [], []
+    for ev in ctx.evals:
+        if ev.type not in ("skill", "plugin"):
+            continue  # only skill/plugin-Type evals carry the two-dimension bar
+        has = bool(_SKILL_TRIGGER_RE.search(ev.text) or _SKILL_AB_RE.search(ev.text))
+        (compliant if has else missing).append(ev.name)
+    return compliant, missing
+
 # ---------------------------------------------------------------- F. dangling overlaps (report-only)
 # Each entry's "Overlaps with" cell names peer tools. A token naming a tool that
 # ISN'T itself catalogued is either a deliberate external/conceptual peer (the
@@ -970,7 +994,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--skill-design", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -982,6 +1006,7 @@ def main():
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
+    do_skill_design = "--skill-design" in sel  # opt-in report (does not affect exit code)
     do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
     do_wf_drift = "--workflow-drift" in sel  # opt-in report (does not affect exit code)
     do_clusters = "--clusters" in sel  # opt-in report (does not affect exit code)
@@ -1093,6 +1118,16 @@ def main():
             print(f"  MEASURED {n}")
         for n in backlog:
             print(f"  backlog  {n}  (ADOPT skill, review-based — would benefit from a measured A/B; see TEMPLATE.md)")
+    if do_skill_design:
+        compliant, missing = audit_skill_design(ctx)
+        tot = len(compliant) + len(missing)
+        print(f"== Q. skill test-design (report-only) — {len(compliant)}/{tot} skill/plugin evals record a triggering test or A/B ==")
+        for n in compliant:
+            print(f"  ok       {n}")
+        for n in missing:
+            print(f"  MISSING  {n}  (skill/plugin eval records neither a triggering test nor an A/B; see TEMPLATE.md's skills Test-design section)")
+        if not missing:
+            print("  OK — every skill/plugin eval records at least one skill dimension")
     if do_evidence:
         counts, missing, strong = audit_evidence_field(ctx)
         have = sum(counts.values()); tot = have + len(missing)
