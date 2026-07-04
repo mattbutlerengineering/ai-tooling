@@ -25,6 +25,21 @@ import re
 VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP", "discovery-log")
 _VERDICT_SET = frozenset(VERDICTS)
 
+# The subset of VERDICTS that are *genuine* evaluation verdicts. discovery-log is
+# a catalogued lead, not a verdict ("surfaced in triage but never exercised") — the
+# Legend's split, in code (#plan-002). Used by the COMPARISON Summary's Validated
+# funnel: Validated counts real verdicts only, discovery-log excluded.
+REAL_VERDICTS = frozenset({"ADOPT", "KEEP", "CONDITIONAL", "SKIP", "DEFER"})
+# ADOPT/KEEP are the "Recommended" subset (adopt-in-all-projects or validated-keep).
+RECOMMENDED_VERDICTS = frozenset({"ADOPT", "KEEP"})
+
+
+def is_real_verdict(token):
+    """True iff `token` is a genuine evaluation verdict (ADR 0001), excluding
+    discovery-log — a lead surfaced in triage, not a verdict. This is the domain
+    rule that splits COMPARISON's Validated funnel from its raw catalogued count."""
+    return token in REAL_VERDICTS
+
 # cells carries the full row for the row-shape validation slice (#198) — the
 # validate_row() work ADR-0002 lists as falling out of this centralized parser.
 ComparisonRow = collections.namedtuple("ComparisonRow", "tool verdict cells")
@@ -290,3 +305,45 @@ def comparison_body_counts(comparison_text):
         if sec and _BODY_ROW.match(l):
             body[sec] += 1
     return body
+
+
+def comparison_verdict_breakdown(comparison_text):
+    """Per '## Section' of COMPARISON.md, a (validated, recommended) count pair:
+    validated = body rows whose Evaluated cell is a real verdict (discovery-log
+    excluded, per ADR 0001); recommended = the ADOPT+KEEP subset. Section tracking
+    mirrors comparison_body_counts; the Evaluated column is anchored via each table's
+    header row exactly as comparison_verdict_rows does (never a fixed offset). The
+    '## Summary' section is excluded. This is the source the Summary's Validated
+    funnel is rebuilt from (reconcile) and gated against (detector G)."""
+    breakdown, sec, in_summary, vcol = {}, None, False, None
+    lines = comparison_text.splitlines()
+    for i, l in enumerate(lines):
+        hm = re.match(r"^##\s+(.*)", l)
+        if hm:
+            t = hm.group(1).strip()
+            if t.lower() == "summary":
+                in_summary, sec = True, None
+            else:
+                in_summary = False
+                sec = strip_parenthetical(t).strip()
+                breakdown.setdefault(sec, [0, 0])
+            vcol = None
+            continue
+        if not l.lstrip().startswith("|"):
+            vcol = None  # table ended
+            continue
+        if in_summary or _SEPARATOR_ROW.match(l):
+            continue
+        cells = _row_cells(l)
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if _SEPARATOR_ROW.match(nxt):
+            vcol = cells.index("Evaluated") if "Evaluated" in cells else None
+            continue
+        if sec is None or vcol is None or vcol >= len(cells):
+            continue
+        v = cells[vcol]
+        if is_real_verdict(v):
+            breakdown[sec][0] += 1
+            if v in RECOMMENDED_VERDICTS:
+                breakdown[sec][1] += 1
+    return {k: tuple(v) for k, v in breakdown.items()}

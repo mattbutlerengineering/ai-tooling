@@ -664,18 +664,18 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 ## Summary
 
-| Stage | Tools | Evaluated | Adoption rate |
-|-------|-------|-----------|---------------|
-| Plan | 54 | 54 | 100% |
-| Implement | 193 | 193 | 100% |
-| Verify | 21 | 21 | 100% |
-| Review | 32 | 32 | 100% |
-| Ship | 3 | 3 | 100% |
-| Reflect | 5 | 5 | 100% |
-| Outer Loop | 40 | 40 | 100% |
-| Skills & Plugins | 77 | 77 | 100% |
-| Memory & Context | 47 | 47 | 100% |
-| MCP Servers | 39 | 39 | 100% |
-| Research & Discovery | 18 | 18 | 100% |
-| Reference | 53 | 53 | 100% |
-| **Total** | **582** | **582** | **100%** |
+| Stage | Tools | Validated | Recommended | Validated % |
+|-------|-------|-----------|-------------|-------------|
+| Plan | 54 | 17 | 6 | 31% |
+| Implement | 193 | 29 | 4 | 15% |
+| Verify | 21 | 5 | 2 | 24% |
+| Review | 32 | 9 | 3 | 28% |
+| Ship | 3 | 1 | 1 | 33% |
+| Reflect | 5 | 4 | 3 | 80% |
+| Outer Loop | 40 | 7 | 2 | 18% |
+| Skills & Plugins | 77 | 11 | 4 | 14% |
+| Memory & Context | 47 | 7 | 2 | 15% |
+| MCP Servers | 39 | 7 | 2 | 18% |
+| Research & Discovery | 18 | 3 | 1 | 17% |
+| Reference | 53 | 9 | 4 | 17% |
+| **Total** | **582** | **109** | **34** | **19%** |
