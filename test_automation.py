@@ -118,6 +118,17 @@ class TestReconcilePureFns(unittest.TestCase):
         self.assertIn("| **Total** | **3** | **3** | **100%** |", fixed)
         self.assertNotIn("**99**", fixed)
 
+    def test_fix_eval_strings_both_variants(self):
+        self.assertEqual(reconcile.fix_eval_strings("distilled from 471 evaluations.", 487),
+                         "distilled from 487 evaluations.")
+        self.assertEqual(reconcile.fix_eval_strings("471 evidence-based evaluations here", 487),
+                         "487 evidence-based evaluations here")
+
+    def test_fix_eval_strings_ignores_unrelated_numbers(self):
+        # The regex is anchored on "evaluations"; issue refs / bare counts are left alone.
+        s = "see issue 471 and 12 tools cataloged"
+        self.assertEqual(reconcile.fix_eval_strings(s, 487), s)
+
 
 # ----------------------------------------------------------------- catalog_lib: github_repos
 class TestCatalogLibGithubRepos(unittest.TestCase):
@@ -577,6 +588,30 @@ class TestReconcileMain(unittest.TestCase):
             self.assertEqual(first.returncode, 0, msg=first.stdout + first.stderr)
             second = self._run(d, "--check")     # nothing left to change
             self.assertEqual(second.returncode, 0, msg=second.stdout + second.stderr)
+
+    def test_eval_count_excludes_template(self):
+        with tempfile.TemporaryDirectory() as d:
+            for i in range(3):
+                _write(d, f"evaluations/e{i}.md", "# eval\n")
+            _write(d, "evaluations/TEMPLATE.md", "# template\n")  # not counted
+            self.assertEqual(reconcile.eval_count(d), 3)
+
+    def test_eval_count_derived_and_substituted(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(
+                d, readme="distilled from 999 evaluations, 999 evidence-based evaluations.\n")
+            for i in range(4):                                   # K = 4 real evals
+                _write(d, f"evaluations/e{i}.md", "# eval\n")
+            _write(d, "evaluations/TEMPLATE.md", "# template\n")  # excluded from the count
+            # --check flags the stale 999 before applying
+            self.assertEqual(self._run(d, "--check").returncode, 1)
+            # apply rewrites 999 -> 4 (TEMPLATE.md excluded)
+            self.assertEqual(self._run(d).returncode, 0)
+            readme = open(os.path.join(d, "README.md"), encoding="utf-8").read()
+            self.assertIn("distilled from 4 evaluations, 4 evidence-based evaluations.", readme)
+            self.assertNotIn("999", readme)
+            # idempotent: --check now clean
+            self.assertEqual(self._run(d, "--check").returncode, 0)
 
 
 # ----------------------------------------------------------------- detector G (audit_comparison)
