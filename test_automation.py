@@ -33,6 +33,7 @@ audit = _load("audit_evals", "audit-evals.py")
 backfill = _load("backfill_evidence", "backfill-evidence.py")
 backfill_lv = _load("backfill_lastverified", "backfill-lastverified.py")
 tier = _load("tier_stack", "tier-stack.py")
+nexteval = _load("next_evals", "next-evals.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -690,6 +691,7 @@ def _sync_fixture_tree(d):
     _write(d, "WORKFLOW.md", "# Workflow\n")
     _write(d, "STACK.md", "# Stack\n")
     _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
+    _write(d, "NEXT-EVALS.md", "# Next evals\n")
     _write(d, "evaluations/foo.md", "# eval foo\n")
     _write(d, "discovery/bar.md", "# discovery bar\n")
     _write(d, "methodologies/baz.md", "# methodology baz\n")
@@ -807,7 +809,7 @@ class TestWatchListSeam(unittest.TestCase):
     # The syncable set. Adding a doc to sync-plugin-docs.sh's WATCHED_* arrays
     # must update this pin — the same alerting contract as TestIntegrityMakefile.GATES.
     WATCHED = {
-        "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md",
+        "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md", "NEXT-EVALS.md",
         "evaluations/", "discovery/", "methodologies/",
     }
 
@@ -850,6 +852,7 @@ class TestWatchListSeam(unittest.TestCase):
         edits = {
             "CATALOG.md": "CATALOG.md", "WORKFLOW.md": "WORKFLOW.md",
             "STACK.md": "STACK.md", "STACK-LEDGER.md": "STACK-LEDGER.md",
+            "NEXT-EVALS.md": "NEXT-EVALS.md",
             "evaluations/": "evaluations/foo.md", "discovery/": "discovery/bar.md",
             "methodologies/": "methodologies/baz.md",
         }
@@ -1607,6 +1610,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "backfill-evidence.py --check",
         "backfill-lastverified.py --check",
         "tier-stack.py --check",
+        "next-evals.py --check",
         "sync-plugin-docs.sh --check",
         "audit-evals.py --installs",
     )
@@ -1709,6 +1713,119 @@ class TestWorkflowDrift(unittest.TestCase):
         workflow = "[a](https://github.com/own/repo)\n"
         with tempfile.TemporaryDirectory() as d:
             self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+
+
+# ----------------------------------------------------------------- next-evals (#plan-005)
+class TestNextEvals(unittest.TestCase):
+    """Pins next-evals.py's ranking and --check gate. Fixture-based — never the
+    real CATALOG.md/COMPARISON.md. Only discovery-log rows are candidates; overlap
+    pressure and stage gap drive the order."""
+
+    def _ctx(self, d, catalog, comparison):
+        _write(d, "CATALOG.md", catalog)
+        _write(d, "COMPARISON.md", comparison)
+        return audit.DetectorContext(d)
+
+    def test_overlap_pressure_lifts_cited_tool(self):
+        # `popular` is cited by three peers; `lonely` by none. Same stage, same
+        # (empty) validation, so only overlap pressure separates them.
+        catalog = (
+            "## Plan\n"
+            "| Name | Type | One-liner | Problem | Overlaps with |\n"
+            "|------|------|-----------|---------|---------------|\n"
+            "| [popular](https://github.com/x/popular) | tool | one | two | none |\n"
+            "| [lonely](https://github.com/x/lonely) | tool | one | two | none |\n"
+            "| [c1](https://github.com/x/c1) | tool | one | two | popular |\n"
+            "| [c2](https://github.com/x/c2) | tool | one | two | popular |\n"
+            "| [c3](https://github.com/x/c3) | tool | one | two | popular |\n"
+        )
+        comparison = (
+            "# Tool Comparison\n\n## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|------|------|------|------|-----------|----------|\n"
+            "| popular | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| lonely | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| c1 | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| c2 | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| c3 | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            ranked = nexteval.rank(self._ctx(d, catalog, comparison))
+            tools = [row[1] for row in ranked]
+            self.assertEqual(tools[0], "popular", f"cited tool should rank first: {tools}")
+            pop = next(r for r in ranked if r[1] == "popular")
+            lon = next(r for r in ranked if r[1] == "lonely")
+            self.assertEqual(pop[3], 3)   # overlap_pressure
+            self.assertEqual(lon[3], 0)
+            self.assertGreater(pop[0], lon[0])   # score
+
+    def test_only_discovery_log_rows_are_candidates(self):
+        # Evaluated verdicts (ADOPT/KEEP/SKIP/CONDITIONAL/DEFER) are already
+        # evaluated and must never appear in the queue.
+        catalog = (
+            "## Plan\n"
+            "| Name | Type | One-liner | Problem | Overlaps with |\n"
+            "|------|------|-----------|---------|---------------|\n"
+            "| [lead](https://github.com/x/lead) | tool | one | two | none |\n"
+            "| [picked](https://github.com/x/picked) | tool | one | two | none |\n"
+            "| [kept](https://github.com/x/kept) | tool | one | two | none |\n"
+            "| [dropped](https://github.com/x/dropped) | tool | one | two | none |\n"
+            "| [maybe](https://github.com/x/maybe) | tool | one | two | none |\n"
+        )
+        comparison = (
+            "# Tool Comparison\n\n## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|------|------|------|------|-----------|----------|\n"
+            "| lead | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| picked | tool | | ✓ | ADOPT | MEASURED |\n"
+            "| kept | tool | | ✓ | KEEP | MEASURED |\n"
+            "| dropped | tool | | ✓ | SKIP | REVIEW |\n"
+            "| maybe | tool | | ✓ | CONDITIONAL | RUN |\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            tools = [row[1] for row in nexteval.rank(self._ctx(d, catalog, comparison))]
+            self.assertEqual(tools, ["lead"], f"only discovery-log rows queue: {tools}")
+            for evaluated in ("picked", "kept", "dropped", "maybe"):
+                self.assertNotIn(evaluated, tools)
+
+    def _fixture_tree(self, d):
+        for fn in ("next-evals.py", "audit-evals.py", "catalog_lib.py"):
+            shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+
+    def _run(self, d, *args):
+        return subprocess.run(["python3", "next-evals.py", *args],
+                              cwd=d, capture_output=True, text=True)
+
+    def test_check_catches_drift(self):
+        catalog = (
+            "## Plan\n"
+            "| Name | Type | One-liner | Problem | Overlaps with |\n"
+            "|------|------|-----------|---------|---------------|\n"
+            "| [a](https://github.com/x/a) | tool | one | two | none |\n"
+            "| [b](https://github.com/x/b) | tool | one | two | a |\n"
+        )
+        comparison = (
+            "# Tool Comparison\n\n## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|------|------|------|------|-----------|----------|\n"
+            "| a | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| b | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            _write(d, "CATALOG.md", catalog)
+            _write(d, "COMPARISON.md", comparison)
+            self.assertEqual(self._run(d).returncode, 0)          # generate
+            self.assertEqual(self._run(d, "--check").returncode, 0)  # fresh
+            # Corrupt a rank cell -> drift.
+            p = os.path.join(d, "NEXT-EVALS.md")
+            with open(p, encoding="utf-8") as f:
+                text = f.read()
+            with open(p, "w", encoding="utf-8") as f:
+                f.write(text.replace("| 1 | a ", "| 9 | a ", 1))
+            self.assertEqual(self._run(d, "--check").returncode, 1)  # drift caught
+            self.assertEqual(self._run(d).returncode, 0)             # regenerate repairs
+            self.assertEqual(self._run(d, "--check").returncode, 0)
 
 
 if __name__ == "__main__":

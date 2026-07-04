@@ -743,6 +743,31 @@ def audit_overlaps(ctx):
                 miss[t] += 1
     return miss.most_common()
 
+
+def overlap_pressure_map(ctx):
+    """name_key(cited tool) -> set of DISTINCT catalog rows (by their name_key)
+    that cite it in 'Overlaps with'. Shares audit_overlaps' tokenization and skip
+    filters — the only difference is it counts EVERY cited token, not just the
+    uncatalogued ones detector F reports — so next-evals.py can weigh a
+    discovery-log candidate by how many peers point at it (#plan-005). A caller
+    unions the sets across a candidate's alias_keys; self-citations are dropped."""
+    cites = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if r.overlaps is None:
+            continue
+        citer = catalog_lib.name_key(r.name)
+        for tok in r.overlaps.split(","):
+            t, tl = _ovl_display(tok), tok.lower()
+            if (not t or "ext." in tl or "=" in tok or ";" in tok
+                    or tok.count("(") != tok.count(")")
+                    or len(t) > 22 or len(t.split()) > 2
+                    or any(x in tl for x in _OVL_SKIP)):
+                continue
+            key = catalog_lib.name_key(catalog_lib.strip_parenthetical(tok))
+            if key and key != citer:
+                cites.setdefault(key, set()).add(citer)
+    return cites
+
 # ---------------------------------------------------------------- P. WORKFLOW↔STACK drift (report-only)
 # README sends readers to WORKFLOW.md as "the full operating manual" and STACK.md is
 # the install list; they must not give a newcomer two different answers to "what do I

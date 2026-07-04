@@ -347,3 +347,41 @@ def comparison_verdict_breakdown(comparison_text):
             if v in RECOMMENDED_VERDICTS:
                 breakdown[sec][1] += 1
     return {k: tuple(v) for k, v in breakdown.items()}
+
+
+def comparison_rows_by_section(text):
+    """{section -> [ComparisonRow]} for COMPARISON.md — every verdict-bearing body
+    row grouped by its '## Section' (parenthetical stripped). Section tracking and
+    Evaluated-column anchoring are identical to comparison_verdict_breakdown (never
+    a fixed offset); the '## Summary' section is excluded. Lets a caller that needs
+    a row's *stage* — not just its verdict — avoid re-parsing COMPARISON (next-evals
+    keys candidates to their stage this way, #plan-005)."""
+    out, sec, in_summary, vcol = {}, None, False, None
+    lines = text.splitlines()
+    for i, l in enumerate(lines):
+        hm = re.match(r"^##\s+(.*)", l)
+        if hm:
+            t = hm.group(1).strip()
+            if t.lower() == "summary":
+                in_summary, sec = True, None
+            else:
+                in_summary = False
+                sec = strip_parenthetical(t).strip()
+                out.setdefault(sec, [])
+            vcol = None
+            continue
+        if not l.lstrip().startswith("|"):
+            vcol = None  # table ended
+            continue
+        if in_summary or _SEPARATOR_ROW.match(l):
+            continue
+        cells = _row_cells(l)
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if _SEPARATOR_ROW.match(nxt):
+            vcol = cells.index("Evaluated") if "Evaluated" in cells else None
+            continue
+        if sec is None or vcol is None or vcol >= len(cells):
+            continue
+        if cells[vcol] in _VERDICT_SET:
+            out[sec].append(ComparisonRow(cells[0], cells[vcol], cells))
+    return out
