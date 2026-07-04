@@ -14,7 +14,7 @@ Execute in the order below unless dependencies say otherwise. Each executor: rea
 | [004](004-discovery-intake-consolidation.md) | Consolidate scan intake on `scan`-labeled issues; index discovery/ | P2 | S | — | DONE ([#217](https://github.com/mattbutlerengineering/ai-tooling/issues/217)) |
 | [005](005-next-evals-queue.md) | Generate NEXT-EVALS.md — ranked discovery-log promotion queue | P1 | M | 002 | DONE ([#223](https://github.com/mattbutlerengineering/ai-tooling/issues/223)) |
 | [006](006-watchlist.md) | Generate WATCHLIST.md — deferred/stale/flagged/unverified in one page | P2 | M | 005 | DONE 2026-07-04 ([#224](https://github.com/mattbutlerengineering/ai-tooling/issues/224)) |
-| [007](007-playbook-front-door.md) | PLAYBOOK.md — single front door: install / work / watch | P1 | M | 005, 006 | TODO ([#225](https://github.com/mattbutlerengineering/ai-tooling/issues/225)) |
+| [007](007-playbook-front-door.md) | PLAYBOOK.md — single front door: install / work / watch | P1 | M | 005, 006 | DONE 2026-07-04 ([#225](https://github.com/mattbutlerengineering/ai-tooling/issues/225)) |
 | [008](008-staleness-activation.md) | Backfill Last-verified dates; gate field presence; surface the sweep | P2 | M | — | DONE ([#218](https://github.com/mattbutlerengineering/ai-tooling/issues/218)) |
 | [009](009-measurement-protocols.md) | Per-signal measurement protocols + Test-design template block | P1 | M | — | DONE ([#219](https://github.com/mattbutlerengineering/ai-tooling/issues/219)) |
 | [010](010-skill-eval-enforcement.md) | Skill-eval protocol: required section + `--skill-design` detector | P2 | S | 009 | DONE 2026-07-03 ([#221](https://github.com/mattbutlerengineering/ai-tooling/issues/221)) |

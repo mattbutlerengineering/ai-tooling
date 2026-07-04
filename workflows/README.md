@@ -16,6 +16,15 @@ These are *workflow patterns* (how people sequence AI tools through the dev loop
 
 When a workflow here proves durable, fold it into `WORKFLOW.md` (the canonical dev-loop map) and link the supporting tools from `CATALOG.md`.
 
+## Promoted to WORKFLOW.md
+
+Durable patterns that graduated from these logs into the canonical map. Add a row **in the same PR** that edits `WORKFLOW.md`, so the fold-in is never lost.
+
+| Date | Pattern | Where it landed |
+|------|---------|-----------------|
+
+No promotions recorded yet — when a pattern from these logs proves durable, add a row here in the same PR that edits `WORKFLOW.md`.
+
 ## Index
 
 | File | Theme |

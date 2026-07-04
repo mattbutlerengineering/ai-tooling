@@ -694,6 +694,7 @@ def _sync_fixture_tree(d):
     _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
     _write(d, "NEXT-EVALS.md", "# Next evals\n")
     _write(d, "WATCHLIST.md", "# Watchlist\n")
+    _write(d, "PLAYBOOK.md", "# Playbook\n")
     _write(d, "evaluations/foo.md", "# eval foo\n")
     _write(d, "discovery/bar.md", "# discovery bar\n")
     _write(d, "methodologies/baz.md", "# methodology baz\n")
@@ -812,7 +813,7 @@ class TestWatchListSeam(unittest.TestCase):
     # must update this pin — the same alerting contract as TestIntegrityMakefile.GATES.
     WATCHED = {
         "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md", "NEXT-EVALS.md",
-        "WATCHLIST.md", "evaluations/", "discovery/", "methodologies/",
+        "WATCHLIST.md", "PLAYBOOK.md", "evaluations/", "discovery/", "methodologies/",
     }
 
     def test_list_watched_emits_the_syncable_set(self):
@@ -855,6 +856,7 @@ class TestWatchListSeam(unittest.TestCase):
             "CATALOG.md": "CATALOG.md", "WORKFLOW.md": "WORKFLOW.md",
             "STACK.md": "STACK.md", "STACK-LEDGER.md": "STACK-LEDGER.md",
             "NEXT-EVALS.md": "NEXT-EVALS.md", "WATCHLIST.md": "WATCHLIST.md",
+            "PLAYBOOK.md": "PLAYBOOK.md",
             "evaluations/": "evaluations/foo.md", "discovery/": "discovery/bar.md",
             "methodologies/": "methodologies/baz.md",
         }

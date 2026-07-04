@@ -23,6 +23,7 @@ This gives you five skills:
 
 ## Contents
 
+- [PLAYBOOK.md](PLAYBOOK.md) — **start here**: how to use AI for development in one page — what to install, how to work, what to watch
 - [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
 - [CATALOG.md](CATALOG.md) — flat inventory of 582 tools with definitions, problem statements, and overlap markers
 - [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
@@ -40,16 +41,6 @@ After installing, run `/setup-workflow` in any repo to bootstrap the recommended
 
 ## The Workflow
 
-Two loops, three layers, five signals.
+Two loops, three layers, five signals — Plan → Implement → Verify → Review → Ship with Reflect feeding back, wrapped by an outer Discover → Architect → Decompose → Integrate → Retrospect loop.
 
-**Inner loop** (single task): Plan → Implement → Verify → Review → Ship, with Reflect as the feedback arc.
-
-**Outer loop** (epic/project): Discover → Architect → Decompose → [inner loop per task] → Integrate → Retrospect.
-
-**Three layers** per stage: Process (what you do), Tooling (what automates it), Infrastructure (what measures it) — connected by feedback arcs that close the loop.
-
-**Five quality signals**: Correctness, Speed, Maintainability, Safety, Cost Efficiency. Every tool is justified by which signals it moves.
-
-**Adopt in layers**: Start with process (skills, conventions, TDD). Add infrastructure when you want data. Add orchestration when you want autonomy.
-
-See [WORKFLOW.md](WORKFLOW.md) for the full operating manual.
+New here? Read [PLAYBOOK.md](PLAYBOOK.md) — the one-page front door to what to install, how to work, and what to watch. For the full stage-by-stage map, see [WORKFLOW.md](WORKFLOW.md).
