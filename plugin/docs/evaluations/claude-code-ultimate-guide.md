@@ -2,6 +2,7 @@
 
 **Repo:** [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)
 **Stars:** 5,106 | **Last updated:** 2026-06-19 (pushed; created 2026-01-09) | **License:** CC-BY-SA-4.0 (content license — attribution + share-alike)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / Reference (learning to design agentic workflows; spans the whole loop conceptually)
 **Layer:** Reference (documentation — role-based paths, 48 diagrams, quizzes, templates)
 

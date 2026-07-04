@@ -2,6 +2,7 @@
 
 **Repo:** [PrefectHQ/fastmcp](https://github.com/PrefectHQ/fastmcp)
 **Stars:** 25,702 | **Last updated:** 2026-06-06 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

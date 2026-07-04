@@ -2,6 +2,7 @@
 
 **Repo:** [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)
 **Stars:** 62,845 | **Last updated:** 2026-06-19 | **License:** Sustainable Use License 1.0 (SUL-1.0 — source-available, non-commercial; NOT OSI open source)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify (a full inner-loop harness layer)
 **Layer:** Tooling (an alternative agent harness, plus a Codex CLI plugin edition)
 

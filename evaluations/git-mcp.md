@@ -2,6 +2,7 @@
 
 **Repo:** [idosal/git-mcp](https://github.com/idosal/git-mcp)
 **Stars:** 8,183 | **Last updated:** 2026-05-08 (pushed) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (grounding code generation in real APIs) — touches Plan when researching an unfamiliar library
 **Layer:** Tooling (knowledge/retrieval layer; the hosted variant is Infrastructure-adjacent — it's a remote service)
 

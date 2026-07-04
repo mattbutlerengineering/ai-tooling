@@ -2,6 +2,7 @@
 
 **Repo:** [shadcn/improve](https://github.com/shadcn/improve)
 **Stars:** 5,185 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review (outer loop — periodic audits)
 **Layer:** Tooling
 

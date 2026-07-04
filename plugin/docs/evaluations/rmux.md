@@ -2,6 +2,7 @@
 
 **Repo:** [Helvesec/rmux](https://github.com/Helvesec/rmux)
 **Stars:** 1,799 | **Last updated:** 2026-06-19 (pushed; created 2026-05-15) | **License:** MIT OR Apache-2.0 (dual; GitHub reports NOASSERTION because of the dual SPDX) | **Releases:** 10
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Agent Orchestration (a programmable multiplexer for driving agents and CLIs)
 **Layer:** Infrastructure (Rust multiplexer + typed Rust/Python SDKs)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [hyhmrright/brooks-lint](https://github.com/hyhmrright/brooks-lint)
 **Stars:** 1,118 | **Last updated:** 2026-06-18 (pushed; active) | **License:** MIT | **Releases:** 28
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review (code-quality diagnosis of changes/codebase)
 **Layer:** Process/Tooling (a skill bundle — JavaScript, installable skills)
 

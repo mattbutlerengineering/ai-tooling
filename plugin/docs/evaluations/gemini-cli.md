@@ -2,6 +2,7 @@
 
 **Repo:** [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)
 **Stars:** 105,414 | **Last updated:** 2026-06-19 (pushed; created 2025-04-17) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (an interactive terminal coding agent — query/edit codebases, run shell, fetch web; spills into Verify via `/review`, async PR-review skills, and CI automation, and into Plan via its `/full-context` and introspection commands)
 **Layer:** Tooling (a Node.js CLI that wraps Google's Gemini models as an agentic loop with built-in tools, MCP support, and an extension/skill system) — a direct peer of Claude Code, not infrastructure or process
 

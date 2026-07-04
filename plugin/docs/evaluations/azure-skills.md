@@ -2,6 +2,7 @@
 
 **Repo:** [microsoft/azure-skills](https://github.com/microsoft/azure-skills)
 **Stars:** 1,220 | **Last updated:** 2026-06-18 (pushed; created 2026-02-26) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop — Ship (deploy/validate) and Operate (diagnostics, monitoring, cost, compliance). Touches inner-loop Implement only for Azure-SDK wiring; its center of gravity is the cloud-operations end of the loop, not writing application code.
 **Layer:** Tooling + Infrastructure — a packaged capability layer that pairs guidance *skills* (the "brain") with the Azure MCP Server and Foundry MCP (the "hands") that reach live Azure resources.
 

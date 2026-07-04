@@ -9,6 +9,7 @@ Tools in the recommended workflow that have no direct competitor to compare agai
 ## context7
 **Repo:** [upstash/context7](https://github.com/upstash/context7)
 **Stars:** 57,442 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan
 **Quality signals:** Correctness
 

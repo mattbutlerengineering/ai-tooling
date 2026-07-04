@@ -2,6 +2,7 @@
 
 **Repo:** [MemPalace/mempalace](https://github.com/MemPalace/mempalace)
 **Stars:** ~56,000 (very high for a ~2-month repo; ~7.3K forks, reported as-is) | **Last updated:** 2026-06-19 (pushed; created 2026-04-05) | **License:** MIT | **Package:** PyPI `mempalace`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (local-first memory layer)
 **Layer:** Infrastructure (local store + pluggable backend)
 

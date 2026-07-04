@@ -2,6 +2,7 @@
 
 **Repo:** [mdn/mcp](https://github.com/mdn/mcp)
 **Stars:** 71 | **Last updated:** 2026-06-17 | **License:** MPL-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 

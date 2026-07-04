@@ -2,6 +2,7 @@
 
 **Repo:** [zzet/gortex](https://github.com/zzet/gortex)
 **Stars:** 642 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (primary: structural navigation during implementation); Review (PR triage, blast radius, line-anchored findings)
 **Layer:** Tooling
 

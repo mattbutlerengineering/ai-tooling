@@ -2,6 +2,7 @@
 
 **Repo:** [Dave-London/Pare](https://github.com/Dave-London/Pare)
 **Stars:** 129 | **Last updated:** 2026-06-16 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify (intervenes on every git/test/build/package tool call across the inner loop)
 **Layer:** Tooling
 

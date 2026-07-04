@@ -2,6 +2,7 @@
 
 **Repo:** [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 **Stars:** ~197,700 (unusually high — reported as-is, unverified) | **Last updated:** 2026-06-20 (pushed; created 2025-07-22) | **License:** MIT | **Forks:** ~35K
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (general self-improving personal agent; tangential to the coding dev loop)
 **Layer:** Harness (CLI + gateway + TUI; runs on VPS/GPU/serverless)
 

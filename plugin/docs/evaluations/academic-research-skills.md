@@ -2,6 +2,7 @@
 
 **Repo:** [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)
 **Stars:** 32,912 | **Last updated:** 2026-06-19 (pushed; created 2026-02-26) | **License:** CC BY-NC 4.0 (NonCommercial)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (research, outline, literature) → and a Review/Verify analogue for the *writing* loop (peer-review and integrity gates over a manuscript, not over code)
 **Layer:** Process / Tooling (a Claude Code plugin: four parent skills, ~30+ agent definitions, modes, hooks; prompt-driven, optional Python guard)
 

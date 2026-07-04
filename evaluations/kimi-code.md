@@ -2,6 +2,7 @@
 
 **Repo:** [MoonshotAI/kimi-code](https://github.com/MoonshotAI/kimi-code)
 **Stars:** 2,564 | **Last updated:** 2026-06-19 (pushed; created 2026-05-22) | **License:** MIT | **Releases:** 24
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a terminal coding agent CLI; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript; install script, Homebrew, npm; macOS/Linux/Windows)
 

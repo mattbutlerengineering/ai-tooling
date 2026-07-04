@@ -2,6 +2,7 @@
 
 **Repo:** [memvid/memvid](https://github.com/memvid/memvid)
 **Stars:** ~15,700 | **Last updated:** 2026-05-27 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 

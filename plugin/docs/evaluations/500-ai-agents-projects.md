@@ -2,6 +2,7 @@
 
 **Repo:** [ashishpatel26/500-AI-Agents-Projects](https://github.com/ashishpatel26/500-AI-Agents-Projects)
 **Stars:** 32,806 | **Last updated:** 2026-06-06 (pushed) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reference (cross-cutting — agent use-case catalog)
 **Layer:** Reference (curated index of projects)
 

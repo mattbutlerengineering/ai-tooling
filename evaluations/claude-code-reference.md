@@ -2,6 +2,7 @@
 
 **Repo:** [anthropics/claude-code](https://github.com/anthropics/claude-code)
 **Stars:** 133,228 | **Last updated:** 2026-06-18 | **License:** Proprietary (source-available)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** All (reference resource)
 **Layer:** Infrastructure
 

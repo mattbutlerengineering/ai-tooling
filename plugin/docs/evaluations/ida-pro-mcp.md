@@ -2,6 +2,7 @@
 
 **Repo:** [mrexodia/ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp)
 **Stars:** 9,501 | **Last updated:** 2026-06-06 (pushed; created 2025-03-25) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None of the standard inner/outer loop — this is **domain-specific tooling for reverse engineering / malware analysis**, not software-build work. It belongs to a security analyst's loop (triage a binary → decompile → annotate → report), which the AI-tooling dev loop doesn't model. In-scope only as a Security & Safety capability.
 **Layer:** Tooling/Infrastructure — an MCP server (GUI plugin + headless `idalib-mcp` supervisor) that bridges an installed IDA Pro into any MCP client. Requires a licensed IDA Pro 8.3+ (IDA Free unsupported); maintained by mrexodia (x64dbg author).
 

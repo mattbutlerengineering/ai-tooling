@@ -2,6 +2,7 @@
 
 **Repo:** [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto)
 **Stars:** 37,603 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Process
 

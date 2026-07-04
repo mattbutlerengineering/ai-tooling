@@ -2,6 +2,7 @@
 
 **Repo:** [1jehuang/jcode](https://github.com/1jehuang/jcode)
 **Stars:** 7,251 | **Last updated:** 2026-06-18 (pushed; created 2026-01-05) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a terminal coding-agent harness spanning plan→edit→run within a session)
 **Layer:** Tooling (a cross-platform Rust CLI coding agent; BYO model provider)
 

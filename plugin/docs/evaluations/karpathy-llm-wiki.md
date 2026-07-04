@@ -2,6 +2,7 @@
 
 **Repo:** [Astro-Han/karpathy-llm-wiki](https://github.com/Astro-Han/karpathy-llm-wiki)
 **Stars:** 1,164 | **Last updated:** 2026-04-13 (pushed; created 2026-04-05; updated 2026-06-19) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (knowledge layer — feeds research/design with a durable, citable knowledge base); touches Reflect (compounding knowledge over time)
 **Layer:** Process / Tooling (a portable Agent Skill that drives an agent-maintained markdown knowledge base; no server, no infrastructure)
 

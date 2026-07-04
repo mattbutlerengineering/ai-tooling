@@ -2,6 +2,7 @@
 
 **Repo:** [farion1231/cc-switch](https://github.com/farion1231/cc-switch)
 **Stars:** 104,624 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (sits beside the inner loop — manages which provider/config the agent runs against, not how it codes)
 **Layer:** Infrastructure (config/provider management around the agent CLI)
 

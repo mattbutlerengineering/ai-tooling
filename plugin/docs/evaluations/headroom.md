@@ -2,6 +2,7 @@
 
 **Repo:** [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
 **Stars:** 37,301 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify (intervenes on every tool call and model turn; spans the whole inner loop)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [nexu-io/html-anything](https://github.com/nexu-io/html-anything)
 **Stars:** 7,005 | **Last updated:** 2026-06-16 (created 2026-05-11; no tagged releases) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None (content/design authoring, outside the coding dev loop)
 **Layer:** Tooling (a standalone Next.js app + CLI that drives coding-agent CLIs as an LLM backend)
 

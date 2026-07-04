@@ -2,6 +2,7 @@
 
 **Repo:** [sentrux/sentrux](https://github.com/sentrux/sentrux)
 **Stars:** 2,480 | **Last updated:** 2026-03-19 (release v0.5.7, 2026-03-18) | **License:** MIT (free core); Pro tier is BSL/commercial
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify (structural quality gate) — also Review (architecture inspection) and Reflect (cross-session degradation tracking)
 **Layer:** Tooling
 

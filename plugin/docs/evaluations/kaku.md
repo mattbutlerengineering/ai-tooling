@@ -2,6 +2,7 @@
 
 **Repo:** [tw93/Kaku](https://github.com/tw93/Kaku)
 **Stars:** 5,423 | **Last updated:** 2026-06-18 (pushed; created 2026-02-07) | **License:** MIT (README/LICENSE.md; GitHub API reports NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting environment — the terminal you run coding agents *in*, not a stage participant; light Implement/Verify conveniences via its AI panel
 **Layer:** Infrastructure (a macOS terminal emulator — a deeply customized WezTerm fork in Rust)
 

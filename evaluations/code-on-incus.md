@@ -2,6 +2,7 @@
 
 **Repo:** [mensfeld/code-on-incus](https://github.com/mensfeld/code-on-incus)
 **Stars:** 554 | **Last updated:** 2026-06-19 (pushed; very active) | **License:** MIT | **Releases:** 10
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting / Safety (isolation substrate for running coding agents; touches Implement)
 **Layer:** Infrastructure (CLI over Incus/LXD system containers; GitHub-reported language Python, ships tagged release binaries)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [modelcontextprotocol/servers-archived (src/github)](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/github)
 **Stars:** N/A (lives in `servers-archived`, an archived monorepo; the parent `servers` repo had ~87.4K stars at evaluation time but the GitHub server has been removed from it) | **Last updated:** Archived — no longer maintained | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Ship (GitHub operations for agents: repos, issues, PRs, actions, search)
 **Layer:** Tooling
 

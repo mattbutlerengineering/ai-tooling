@@ -2,6 +2,7 @@
 
 **Repo:** [kayba-ai/agentic-context-engine](https://github.com/kayba-ai/agentic-context-engine)
 **Stars:** 2,449 | **Last updated:** 2026-06-13 (pushed) | **License:** Apache-2.0 | **Language:** Python (`ace-framework`; LiteLLM, 100+ providers)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (in-context learning / self-improvement)
 **Layer:** Infrastructure (framework/library; open-source engine behind the hosted Kayba service)
 

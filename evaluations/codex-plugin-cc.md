@@ -2,6 +2,7 @@
 
 **Repo:** [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc)
 **Stars:** 21,295 | **Last updated:** 2026-06-14 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review (primary) — also Implement via `/codex:rescue` delegation
 **Layer:** Tooling
 

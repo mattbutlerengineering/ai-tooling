@@ -2,6 +2,7 @@
 
 **Repo:** [docmd-io/docmd](https://github.com/docmd-io/docmd)
 **Stars:** 2,061 | **Last updated:** 2026-06-19 (latest release 0.8.6, 2026-06-05) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship (publishing docs) — touches Reflect (docs an agent can query later)
 **Layer:** Tooling (a docs-site generator + an MCP server over your local docs)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [VoltAgent/voltagent](https://github.com/VoltAgent/voltagent)
 **Stars:** ~9,700 | **Last updated:** 2026-06-08 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

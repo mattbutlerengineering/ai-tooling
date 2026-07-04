@@ -2,6 +2,7 @@
 
 **Repo:** [oxygen-fragment/claude-modular](https://github.com/oxygen-fragment/claude-modular)
 **Stars:** 284 | **Last updated:** 2025-07-16 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship (a full-loop command template)
 **Layer:** Process (markdown command prompts) with a decorative Infrastructure/config veneer
 

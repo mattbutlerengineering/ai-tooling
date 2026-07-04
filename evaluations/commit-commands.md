@@ -2,6 +2,7 @@
 
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/commit-commands)
 **Stars:** 30,444 (monorepo) | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship
 **Layer:** Process
 

@@ -2,6 +2,7 @@
 
 **Repo:** [eze-is/web-access](https://github.com/eze-is/web-access)
 **Stars:** 7,739 | **Last updated:** 2026-05-16 (pushed) | **License:** ⚠️ none declared | **Language:** JavaScript (SKILL.md skill; primarily 中文 docs)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Skills & Plugins / Verify — gives agents full web access
 **Layer:** Tooling (agent skill, SKILL.md-compatible)
 

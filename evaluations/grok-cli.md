@@ -2,6 +2,7 @@
 
 **Repo:** [superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli)
 **Stars:** 3,158 | **Last updated:** 2026-06-17 (pushed; created 2025-07-14) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Inner loop, all stages — it is a full terminal coding agent (Plan, Implement, Verify) with an outer-loop tilt via `--verify` smoke checks, scheduled overnight runs, and remote (Telegram) drive-by-phone.
 **Layer:** Tooling (a standalone TypeScript/Bun coding-agent CLI you install and run; it owns the agent loop, tools, and TUI — not a plugin on top of another harness)
 

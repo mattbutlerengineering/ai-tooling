@@ -2,6 +2,7 @@
 
 **Repo:** [dsherret/ts-morph](https://github.com/dsherret/ts-morph)
 **Stars:** ~6,100 | **Last updated:** 2026-04-12 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement (static analysis + codemods)
 **Layer:** Tooling
 

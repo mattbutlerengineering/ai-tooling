@@ -2,6 +2,7 @@
 
 **Repo:** [erha19/ping-island](https://github.com/erha19/ping-island)
 **Stars:** 899 | **Last updated:** 2026-06-14 (pushed; created 2026-04-03) | **License:** Apache-2.0 | **Install:** `brew install --cask ping-island`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability (Reflect / outer loop — live agent session status)
 **Layer:** Tooling (native macOS app; Swift)
 

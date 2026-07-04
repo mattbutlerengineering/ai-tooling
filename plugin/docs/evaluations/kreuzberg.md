@@ -2,6 +2,7 @@
 
 **Repo:** [xberg-io/xberg](https://github.com/xberg-io/xberg) (formerly kreuzberg-dev/kreuzberg; repo renamed)
 **Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (document ingestion for RAG / Memory & Context)
 **Layer:** Infrastructure
 

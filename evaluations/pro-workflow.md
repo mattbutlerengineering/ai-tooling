@@ -2,6 +2,7 @@
 
 **Repo:** [rohitg00/pro-workflow](https://github.com/rohitg00/pro-workflow)
 **Stars:** 2,322 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (primary); spills into Plan, Implement, Review, Ship
 **Layer:** Process + Tooling (Claude Code plugin)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)
 **Stars:** 13,578 | **Last updated:** 2026-06-19 | **License:** none
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** N/A (reference)
 **Layer:** N/A (reference)
 

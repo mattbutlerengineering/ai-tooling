@@ -2,6 +2,7 @@
 
 **Repo:** [vercel/sandbox](https://github.com/vercel/sandbox)
 **Stars:** 147 | **Last updated:** 2026-06-16 (pushed; created 2026-01-23) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify — execution isolation infrastructure. It is where agent-generated code *runs*: install deps, start a dev server, run a build or test, expose a preview URL — all inside a disposable VM rather than on the host. Not an orchestrator and not a harness itself; a primitive a harness calls.
 **Layer:** Infrastructure (a hosted Vercel service fronted by an npm SDK `@vercel/sandbox` and a `sandbox` CLI; the VMs run on Vercel's Firecracker fleet, not on your machine)
 

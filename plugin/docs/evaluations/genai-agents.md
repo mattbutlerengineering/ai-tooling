@@ -2,6 +2,7 @@
 
 **Repo:** [NirDiamant/GenAI_Agents](https://github.com/NirDiamant/GenAI_Agents)
 **Stars:** 22,730 | **Last updated:** 2026-06-17 | **License:** NOASSERTION ("Other")
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover / Plan (outer loop)
 **Layer:** Process
 

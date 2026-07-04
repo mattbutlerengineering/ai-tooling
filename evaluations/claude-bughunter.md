@@ -2,6 +2,7 @@
 
 **Repo:** [elementalsouls/Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter)
 **Stars:** 2,556 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review (external security testing)
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
 **Stars:** 3,878 | **Last updated:** pushed 2026-06-08 (created 2024-11-27) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship (deploy/operate Cloudflare infra from agent sessions) — with Verify/Reflect use (observability, logs, analytics)
 **Layer:** Infrastructure (managed remote MCP servers fronting Cloudflare's account APIs)
 

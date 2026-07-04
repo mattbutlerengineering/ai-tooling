@@ -2,6 +2,7 @@
 
 **Repo:** [igorwarzocha/opencode-workflows](https://github.com/igorwarzocha/opencode-workflows)
 **Stars:** 125 | **Last updated:** 2026-06-18 | **License:** not listed
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (outer loop communication)
 **Layer:** Tooling
 

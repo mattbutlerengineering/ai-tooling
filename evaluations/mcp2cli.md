@@ -2,6 +2,7 @@
 
 **Repo:** [knowsuchagency/mcp2cli](https://github.com/knowsuchagency/mcp2cli)
 **Stars:** 2,240 | **Last updated:** 2026-06-17 (pushed; created 2026-03-09) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a tool-access layer that changes how agents reach MCP/HTTP tools; cross-cutting)
 **Layer:** Infrastructure (Python CLI, `uvx`/`uv tool install`)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [agent-of-empires/agent-of-empires](https://github.com/agent-of-empires/agent-of-empires)
 **Stars:** 2,613 | **Last updated:** 2026-06-19 (pushed; created 2026-01-09) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a session manager that runs/monitors multiple coding-agent sessions; touches Review via in-TUI diff view)
 **Layer:** Tooling (Rust TUI + web dashboard, tmux-backed)
 

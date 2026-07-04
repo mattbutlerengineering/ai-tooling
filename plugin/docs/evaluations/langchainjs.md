@@ -2,6 +2,7 @@
 
 **Repo:** [langchain-ai/langchainjs](https://github.com/langchain-ai/langchainjs)
 **Stars:** 17,824 | **Last updated:** 2026-06-19 (pushed; created 2023-02-06) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Adjacent to the loop, not inside it. LangChain.js is a framework for *building LLM-powered applications* (chains, RAG, tool-using agents). It sits at Implement only in the sense that you could use it to *build* a coding agent or harness — but it is not itself a dev-loop tool that helps you plan/implement/verify/review/ship *your own* code.
 **Layer:** Tooling (an npm library / SDK you `import`, not a process or piece of infrastructure for the dev loop)
 

@@ -10,6 +10,7 @@ Combined evaluation of three cost observability approaches: tokencost (per-call 
 
 **Repo:** [AgentOps-AI/tokencost](https://github.com/AgentOps-AI/tokencost)
 **Stars:** 1,985 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-24  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop (Observe)
 **Layer:** Infrastructure
 

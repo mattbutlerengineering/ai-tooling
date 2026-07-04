@@ -2,6 +2,7 @@
 
 **Repo:** [vercel-labs/openreview](https://github.com/vercel-labs/openreview)
 **Stars:** 1,438 | **Last updated:** 2026-03-06 (pushed; ⚠️ quiet since) | **License:** ⚠️ none declared | **Releases:** 0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review / Ship (automated PR review bot in CI/GitHub)
 **Layer:** Infrastructure (self-hosted Next.js app deployed to Vercel; GitHub App)
 

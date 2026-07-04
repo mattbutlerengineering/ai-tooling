@@ -2,6 +2,7 @@
 
 **Repo:** [blader/humanizer](https://github.com/blader/humanizer)
 **Stars:** 25,042 | **Last updated:** 2026-06-07 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship (prose artifacts — docs, PRs, commit messages, release notes, blog posts); touches Review when the artifact under review is prose
 **Layer:** Process
 

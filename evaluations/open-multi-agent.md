@@ -2,6 +2,7 @@
 
 **Repo:** [open-multi-agent/open-multi-agent](https://github.com/open-multi-agent/open-multi-agent)
 **Stars:** ~6,400 | **Last updated:** 2026-06-20 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

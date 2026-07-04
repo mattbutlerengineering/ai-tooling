@@ -2,6 +2,7 @@
 
 **Repo:** [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord)
 **Stars:** 5,142 | **Last updated:** 2026-06-19 (pushed; created 2022-02-01) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement + Verify — gives the agent live cluster context while writing, then runs the change against real services to confirm it end-to-end
 **Layer:** Infrastructure (Rust CLI + VS Code extension + IntelliJ plugin; bridges a local process into a Kubernetes pod)
 

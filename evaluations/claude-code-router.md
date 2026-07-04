@@ -2,6 +2,7 @@
 
 **Repo:** [musistudio/claude-code-router](https://github.com/musistudio/claude-code-router)
 **Stars:** 35,136 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Verify (intercepts every model request Claude Code makes; spans the whole inner loop)
 **Layer:** Infrastructure
 

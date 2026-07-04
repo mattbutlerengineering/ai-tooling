@@ -2,6 +2,7 @@
 
 **Repo:** [agentforce314/clawcodex](https://github.com/agentforce314/clawcodex)
 **Stars:** 648 | **Last updated:** 2026-06-19 (pushed; created 2026-04-20) | **License:** MIT | **Language:** Python
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (alternative terminal coding-agent runtime)
 **Layer:** Harness (Python-native CLI agent)
 

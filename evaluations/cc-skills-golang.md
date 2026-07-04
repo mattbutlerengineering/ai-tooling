@@ -2,6 +2,7 @@
 
 **Repo:** [samber/cc-skills-golang](https://github.com/samber/cc-skills-golang)
 **Stars:** 2,227 | **Last updated:** 2026-06-09 (pushed; created 2026-03-21) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Primarily **Implement** and **Review** (idiomatic Go authoring + diff-focused review modes), with strong **Verify** coverage (testing, benchmarking, troubleshooting) and **Reflect/Ship** touches (observability, CI, security scanning). A language-knowledge layer that loads on demand into whichever stage the agent is in.
 **Layer:** Process — a pack of 43 cross-referencing `SKILL.md` instruction sets (plus references, code examples, and per-skill evals); no runtime of its own.
 

@@ -2,6 +2,7 @@
 
 **Repo:** [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem)
 **Stars:** 87,449 (monorepo) | **Last updated:** 2026-06-19 | **License:** MIT (per-package; repo metadata reports NOASSERTION for the monorepo)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 

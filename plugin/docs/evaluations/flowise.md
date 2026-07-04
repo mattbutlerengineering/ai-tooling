@@ -2,6 +2,7 @@
 
 **Repo:** [FlowiseAI/Flowise](https://github.com/FlowiseAI/Flowise)
 **Stars:** 53,727 | **Last updated:** 2026-06-16 (pushed; created 2023-03-31) | **License:** Apache-2.0 with Commons Clause (reported as NOASSERTION / "Other" by the GitHub license API)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** *Builds the product, not the loop.* Maps loosely to Implement — but the artifact you implement is an end-user LLM *application* (chatbot, RAG pipeline, agent workflow), not your own codebase. It does not write, review, test, or ship the code in your repo; it is a destination you build apps in, adjacent to the dev loop this catalog optimizes.
 **Layer:** Infrastructure (a self-hostable Node/React monorepo app + visual builder) with a managed cloud option
 

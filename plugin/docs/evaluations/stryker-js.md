@@ -2,6 +2,7 @@
 
 **Repo:** [stryker-mutator/stryker-js](https://github.com/stryker-mutator/stryker-js)
 **Stars:** 2,917 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify
 **Layer:** Infrastructure
 

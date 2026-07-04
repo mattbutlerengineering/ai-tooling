@@ -2,6 +2,7 @@
 
 **Repo:** [vkhanhqui/figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go)
 **Stars:** 1,158 | **Last updated:** 2026-04-30 (last push; latest release v0.1.3, 2026-04-12) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (design-to-code grounding; also Plan when generating designs from text)
 **Layer:** Tooling (agent-facing bridge into a live Figma file — not infrastructure, no hosted service)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [HKUDS/nanobot](https://github.com/HKUDS/nanobot)
 **Stars:** 44,465 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Package:** PyPI `nanobot-ai` (Python ≥3.11)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (general-purpose own-it agent harness; tangential to the coding dev loop)
 **Layer:** Harness (small readable core + bundled WebUI + chat-channel connectors)
 

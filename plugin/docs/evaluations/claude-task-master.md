@@ -2,6 +2,7 @@
 
 **Repo:** [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)
 **Stars:** 27,612 | **Last updated:** 2026-04-28 (last *code* release `task-master-ai@0.43.1`, 2026-03-31; commits since are URL/branding chores) | **License:** MIT with Commons Clause
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (primary: PRD→tasks breakdown + tracking); spans Implement/Verify via the autopilot TDD loop
 **Layer:** Tooling (an installable MCP server + CLI, with a Process workflow layered on top)
 

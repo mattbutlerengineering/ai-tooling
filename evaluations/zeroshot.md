@@ -2,6 +2,7 @@
 
 **Repo:** [the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot)
 **Stars:** ~1,520 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (autonomous orchestration)
 **Layer:** Tooling
 

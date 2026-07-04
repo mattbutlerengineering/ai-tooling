@@ -2,6 +2,7 @@
 
 **Repo:** [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw)
 **Stars:** 13,490 | **Last updated:** 2026-06-03 (pushed; created 2026-03-15) | **License:** MIT | **CLI:** `researchclaw`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research & Discovery (autonomous end-to-end research)
 **Layer:** Harness (multi-stage research pipeline over any ACP-compatible agent backend)
 

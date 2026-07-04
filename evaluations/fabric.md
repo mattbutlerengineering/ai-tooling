@@ -2,6 +2,7 @@
 
 **Repo:** [danielmiessler/Fabric](https://github.com/danielmiessler/Fabric)
 **Stars:** 42,466 | **Last updated:** 2026-06-09 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Cross-cutting (general AI tasks; a thin slice touches Implement/Review/Ship)
 **Layer:** Tooling (standalone CLI), not a coding-agent extension
 

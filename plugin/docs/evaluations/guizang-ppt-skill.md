@@ -2,6 +2,7 @@
 
 **Repo:** [op7418/guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill)
 **Stars:** 18,073 | **Last updated:** 2026-06-02 (pushed; created 2026-04-23) | **License:** AGPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer-loop *artifact production* — Ship/Communicate, not a code stage. It turns prose/Markdown into a presentation. Tangential to the inner dev loop; it produces a deliverable, not code that ships to users.
 **Layer:** Process — a single agent **Skill** (`SKILL.md` + HTML templates, reference docs, themes, a validation script) installed into Claude Code / Codex; no runtime service.
 

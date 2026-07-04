@@ -2,6 +2,7 @@
 
 **Repo:** [zarazhangrui/codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 **Stars:** 4,843 | **Last updated:** 2026-03-30 (pushed; created 2026-03-22) | **License:** none declared (⚠️ no LICENSE file)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / onboarding (comprehension *before* working in a codebase; not part of the edit-test loop)
 **Layer:** Process/Tooling (a Claude Code skill — Markdown + reference docs)
 

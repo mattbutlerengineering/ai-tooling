@@ -2,6 +2,7 @@
 
 **Repo:** [timescale/pg-aiguide](https://github.com/timescale/pg-aiguide)
 **Stars:** 1,768 | **Last updated:** 2026-06-10 (latest release v0.5.0, 2026-04-28) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (writing schema/SQL) — touches Plan when modeling a data model up front
 **Layer:** Tooling (knowledge layer, not infrastructure — it does not touch a live DB)
 

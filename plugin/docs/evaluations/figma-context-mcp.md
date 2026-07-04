@@ -2,6 +2,7 @@
 
 **Repo:** [GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
 **Stars:** 15,153 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [Giskard-AI/giskard-oss](https://github.com/Giskard-AI/giskard-oss)
 **Stars:** 5,438 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (PyPI: `giskard`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability / Verify — eval, red-teaming, test generation for agents
 **Layer:** Tooling (Python library)
 

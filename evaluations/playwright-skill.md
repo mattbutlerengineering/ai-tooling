@@ -2,6 +2,7 @@
 
 **Repo:** [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill)
 **Stars:** 2,791 | **Last updated:** 2025-12-19 (pushed; created 2025-10-19 — ⚠️ ~6 months stale at evaluation) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify (browser automation for testing/validation)
 **Layer:** Process/Tooling (a Claude Code skill)
 

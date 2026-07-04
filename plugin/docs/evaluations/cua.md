@@ -2,6 +2,7 @@
 
 **Repo:** [trycua/cua](https://github.com/trycua/cua)
 **Stars:** ~18,600 | **Last updated:** 2026-06-20 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (computer-use agent infrastructure)
 **Layer:** Infrastructure
 

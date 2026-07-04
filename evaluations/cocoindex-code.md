@@ -2,6 +2,7 @@
 
 **Repo:** [cocoindex-io/cocoindex-code](https://github.com/cocoindex-io/cocoindex-code)
 **Stars:** 2,175 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (built on the Rust CocoIndex engine)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Code Understanding (semantic code search) — Implement
 **Layer:** Tooling (CLI + Claude Code skill / plugin + MCP server)
 

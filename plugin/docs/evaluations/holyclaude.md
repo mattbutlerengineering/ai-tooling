@@ -2,6 +2,7 @@
 
 **Repo:** [CoderLuii/HolyClaude](https://github.com/CoderLuii/HolyClaude)
 **Stars:** 2,352 | **Last updated:** 2026-06-19 (pushed; created 2026-03-22) | **License:** MIT | **Run:** `docker compose up`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration (a containerized coding workstation)
 **Layer:** Platform (Docker stack bundling agent + web UI + tools)
 

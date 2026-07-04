@@ -2,6 +2,7 @@
 
 **Repo:** [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents)
 **Stars:** 28,393 | **Last commit:** 2025-02-26 | **License:** NOASSERTION
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

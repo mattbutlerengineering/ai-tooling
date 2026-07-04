@@ -2,6 +2,7 @@
 
 **Repo:** [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)
 **Stars:** 28,756 | **Last updated:** 2026-06-15 (pushed; created 2025-10-19) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (domain research, data access, literature) → Implement (writing analysis code against scientific libraries/databases); a research-domain analogue, not the code dev loop
 **Layer:** Tooling (147 Agent Skills — curated `SKILL.md` + references + a few deterministic Python scripts per skill; cross-tool via the open Agent Skills standard)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [keploy/keploy](https://github.com/keploy/keploy)
 **Stars:** ~17,600 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify (test generation)
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [himself65/finance-skills](https://github.com/himself65/finance-skills)
 **Stars:** 2,851 | **Last updated:** 2026-06-14 (pushed; created 2026-03-13) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** None of the software dev loop. This is a *domain* collection for financial analysis/trading — it sits outside Plan/Implement/Verify/Review/Ship/Reflect. The loop-adjacent exception is the bundled **`finance-skill-creator`** plugin (a skill-authoring/quality-scoring skill) and the `opencli-plugins/` JS adapters, which are reusable patterns rather than dev tooling.
 **Layer:** Process (25 `SKILL.md` packs grouped into 6 installable Claude Code plugins via a `marketplace.json`; backed by yfinance, opencli adapters, and external MCP/REST APIs — no orchestration runtime)
 

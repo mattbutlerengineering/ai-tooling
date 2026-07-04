@@ -2,6 +2,7 @@
 
 **Repo:** [UditAkhourii/adhd](https://github.com/UditAkhourii/adhd)
 **Stars:** 852 | **Last updated:** 2026-06-04 (pushed; created 2026-05-25) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Inner-loop **Plan / Architect** — a divergent-ideation skill you invoke at a decision point (architecture, API surface, naming, fuzzy-bug hypothesis generation) to widen the option space *before* committing to an approach. Not an implement/verify/ship tool.
 **Layer:** Process (a single `SKILL.md` prompt-program that orchestrates parallel `Agent`/`Task` calls), with an optional standalone Node CLI (`adhd-agent` on npm) that reimplements the same loop outside an agent harness.
 

@@ -2,6 +2,7 @@
 
 **Repo:** [ref-tools/ref-tools-mcp](https://github.com/ref-tools/ref-tools-mcp)
 **Stars:** 1,132 | **Last updated:** 2026-05-06 (pushed) | **License:** MIT | **Language:** TypeScript (npm: `ref-tools-mcp`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** MCP Servers (documentation retrieval) — Implement/Verify
 **Layer:** Tooling (MCP server; streamable-HTTP recommended, stdio legacy)
 

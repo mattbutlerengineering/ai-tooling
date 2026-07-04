@@ -2,6 +2,7 @@
 
 **Repo:** [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
 **Stars:** 34,093 | **Last updated:** 2026-06-17 (pushed; created 2026-01-15) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outside the software dev loop — it targets a *marketing* workflow (CRO, copy, SEO, ads, lifecycle, GTM), not Plan/Implement/Verify/Review/Ship/Reflect on code. The closest overlap with our loop is "growth engineering" tasks (programmatic SEO pages, schema markup, free-tool builds) where a marketer-developer writes code, but the skills themselves coach *marketing decisions*, not code quality.
 **Layer:** Process (a portable collection of `SKILL.md` instruction files installed into any Agent-Skills-compatible tool; no runtime, no executing code)
 

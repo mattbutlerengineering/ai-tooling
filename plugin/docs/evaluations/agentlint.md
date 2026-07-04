@@ -2,6 +2,7 @@
 
 **Repo:** [mauhpr/agentlint](https://github.com/mauhpr/agentlint)
 **Stars:** 25 | **Last updated:** 2026-05-26 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Ship (runtime guardrail, not post-hoc Review)
 **Layer:** Infrastructure
 

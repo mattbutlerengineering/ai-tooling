@@ -2,6 +2,7 @@
 
 **Repo:** [ZaxbyHub/opencode-swarm](https://github.com/ZaxbyHub/opencode-swarm)
 **Stars:** 356 | **Last updated:** 2026-06-19 (pushed; created 2026-01-27) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the inner loop end-to-end — Plan (architect + critic gate), Implement (coder), Verify (test_engineer + automated checks + regression sweep), Review (reviewer + critic), and into Ship (PR monitor, CI-fix). It is a gated pipeline, not a single-stage tool.
 **Layer:** Tooling + Infrastructure — an installable OpenCode plugin (npm package, ~2,000 TypeScript files) that injects a hub-and-spoke agent team, scope-enforcement guardrails, shell-write static analysis, and persistent `.swarm/` state into a coding session.
 

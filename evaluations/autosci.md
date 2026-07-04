@@ -2,6 +2,7 @@
 
 **Repo:** [skyllwt/AutoSci](https://github.com/skyllwt/AutoSci)
 **Stars:** ~1,360 | **Last updated:** 2026-06-20 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Research & Discovery)
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 **Stars:** 30,444 (monorepo) | **Last updated:** 2025-12-18 (plugin author: Daisy Hollman, daisy@anthropic.com) | **License:** MIT (per plugin README); monorepo is Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (meta: building the tools you implement *with*)
 **Layer:** Tooling
 

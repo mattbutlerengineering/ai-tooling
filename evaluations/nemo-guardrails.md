@@ -2,6 +2,7 @@
 
 **Repo:** [NVIDIA-NeMo/Guardrails](https://github.com/NVIDIA-NeMo/Guardrails)
 **Stars:** ~6,500 | **Last updated:** 2026-06-19 | **License:** Apache-2.0 (repo SPDX returns NOASSERTION)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (runtime guardrails / Outer Loop)
 **Layer:** Infrastructure
 

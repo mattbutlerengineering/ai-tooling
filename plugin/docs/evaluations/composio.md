@@ -1,6 +1,7 @@
 # Composio
 
 **Evidence:** SOURCE-ONLY
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 
 ## What it does
 

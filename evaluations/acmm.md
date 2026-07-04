@@ -2,6 +2,7 @@
 
 **Repo:** [arXiv:2604.09388](https://arxiv.org/abs/2604.09388) (paper, not a repo)
 **Stars:** N/A (academic paper) | **Last updated:** v2 — Apr 27, 2026 | **License:** arXiv (author: Andy Anderson)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / Retrospect (used to assess and direct workflow maturity)
 **Layer:** Process (a conceptual model, not tooling or infrastructure)
 

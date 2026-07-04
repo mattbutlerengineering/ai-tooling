@@ -2,6 +2,7 @@
 
 **Repo:** [CloakHQ/CloakBrowser](https://github.com/CloakHQ/CloakBrowser)
 **Stars:** 26,633 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** — (browser automation, but primarily anti-bot-detection — out of dev-loop scope)
 **Layer:** Tooling (patched Chromium binary; drop-in Playwright/Puppeteer replacement, Python + JS)
 

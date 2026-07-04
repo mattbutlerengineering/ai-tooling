@@ -2,6 +2,7 @@
 
 **Repo:** [plastic-labs/honcho](https://github.com/plastic-labs/honcho)
 **Stars:** 5,297 | **Last updated:** 2026-06-19 (pushed) | **License:** AGPL-3.0 | **Language:** Python (FastAPI; Python + TS SDKs)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (memory infrastructure)
 **Layer:** Infrastructure (FastAPI server; managed at api.honcho.dev or self-hosted)
 

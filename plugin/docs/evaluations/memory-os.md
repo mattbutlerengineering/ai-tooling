@@ -2,6 +2,7 @@
 
 **Repo:** [ClaudioDrews/memory-os](https://github.com/ClaudioDrews/memory-os)
 **Stars:** 1,170 | **Last updated:** 2026-06-10 (pushed; created 2026-05-31) | **License:** MIT | **Install:** one-command `setup.sh`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (memory infrastructure for a specific agent)
 **Layer:** Infrastructure (local Docker + Qdrant + SQLite, as a Hermes Agent plugin)
 

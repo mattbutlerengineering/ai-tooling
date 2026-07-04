@@ -2,6 +2,7 @@
 
 **Repo:** [superset-sh/superset](https://github.com/superset-sh/superset)
 **Stars:** 11,948 | **Last updated:** 2026-06-18 | **License:** Elastic License 2.0 (ELv2 — source-available, not OSI-open)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (also Ship — branch/worktree/diff/merge handoff)
 **Layer:** Tooling
 

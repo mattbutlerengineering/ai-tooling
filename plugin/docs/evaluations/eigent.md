@@ -2,6 +2,7 @@
 
 **Repo:** [eigent-ai/eigent](https://github.com/eigent-ai/eigent)
 **Stars:** 14,333 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** TS/Python (desktop app; built on CAMEL-AI)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration — multi-agent workforce desktop
 **Layer:** Tooling/Platform (local desktop app)
 

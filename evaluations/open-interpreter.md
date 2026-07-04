@@ -2,6 +2,7 @@
 
 **Repo:** [openinterpreter/openinterpreter](https://github.com/openinterpreter/openinterpreter)
 **Stars:** 64,057 | **Last updated:** 2026-06-19 (pushed; created 2023-07-14) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Inner-loop **Implement** (and adjacent Verify via its QA skill) — a terminal coding agent that plans, edits, and runs code on your machine.
 **Layer:** Tooling/Infrastructure (a standalone Rust TUI binary with native OS sandboxing; you bring your own model/provider)
 

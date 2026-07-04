@@ -2,6 +2,7 @@
 
 **Repo:** [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi)
 **Stars:** 13,501 (1,187 forks) | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review (a full inner-loop terminal agent — a *replacement* front-end, not a Claude Code add-on)
 **Layer:** Tooling (an alternative agent harness / standalone CLI), with substantial Infrastructure (its own LSP/DAP/runtime/browser plumbing)
 

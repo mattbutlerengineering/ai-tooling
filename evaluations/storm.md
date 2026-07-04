@@ -2,6 +2,7 @@
 
 **Repo:** [stanford-oval/storm](https://github.com/stanford-oval/storm)
 **Stars:** ~28,800 | **Last updated:** 2025-09-30 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Research & Discovery)
 **Layer:** Tooling
 

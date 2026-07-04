@@ -2,6 +2,7 @@
 
 **Repo:** [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp)
 **Stars:** 731 | **Last updated:** 2026-06-18 | **License:** Proprietary (Sentry BSL)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify / Reflect
 **Layer:** Infrastructure
 

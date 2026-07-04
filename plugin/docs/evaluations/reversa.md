@@ -2,6 +2,7 @@
 
 **Repo:** [sandeco/reversa](https://github.com/sandeco/reversa)
 **Stars:** 1,242 | **Last updated:** 2026-05-24 (pushed; created 2026-04-26) | **License:** MIT | **Install:** `npx reversa install`
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Dev Workflow (spec generation — but *reverse*, from legacy code)
 **Layer:** Tooling (multi-agent installer that writes specs into a legacy project)
 

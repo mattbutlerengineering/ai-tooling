@@ -2,6 +2,7 @@
 
 **Repo:** [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox)
 **Stars:** 15,661 | **Last updated:** 2026-06-19 (latest release v1.5.0, 2026-06-18) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (DB-aware coding, schema discovery) — with strong Infrastructure use beyond the dev loop (build production agent tools)
 **Layer:** Tooling (prebuilt-tools mode, what the catalog cares about) / Infrastructure (custom-tools framework mode)
 

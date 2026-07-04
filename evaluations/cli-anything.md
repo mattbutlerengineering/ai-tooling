@@ -2,6 +2,7 @@
 
 **Repo:** [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)
 **Stars:** 43,466 | **Last updated:** 2026-06-14 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (occasionally Verify) — but primarily for *non-coding* software domains
 **Layer:** Infrastructure (Claude Code plugin that generates tooling)
 

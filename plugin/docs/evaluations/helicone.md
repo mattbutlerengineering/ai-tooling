@@ -2,6 +2,7 @@
 
 **Repo:** [Helicone/helicone](https://github.com/Helicone/helicone)
 **Stars:** 5,841 | **Last updated:** 2026-06-11 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (self-hostable + hosted)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Observability — AI gateway + LLM observability
 **Layer:** Infrastructure (gateway + observability platform)
 

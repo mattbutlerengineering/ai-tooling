@@ -2,6 +2,7 @@
 
 **Repo:** [deepset-ai/haystack](https://github.com/deepset-ai/haystack)
 **Stars:** ~25,600 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

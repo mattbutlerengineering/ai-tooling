@@ -2,6 +2,7 @@
 
 **Repo:** [Manavarya09/design-extract](https://github.com/Manavarya09/design-extract)
 **Stars:** 3,294 | **Last updated:** 2026-06-19 (last push; latest tagged release v12.15.0, 2026-05-21) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (design-to-code grounding; also Verify via `grade`/`drift`/`lint`/`visual-diff`)
 **Layer:** Tooling (a CLI + an agent-facing MCP/skill/plugin bridge — not hosted infrastructure)
 

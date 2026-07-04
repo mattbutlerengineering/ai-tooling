@@ -2,6 +2,7 @@
 
 **Repo:** [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill)
 **Stars:** 6,047 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Tooling
 

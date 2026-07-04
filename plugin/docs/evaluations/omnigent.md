@@ -2,6 +2,7 @@
 
 **Repo:** [omnigent-ai/omnigent](https://github.com/omnigent-ai/omnigent)
 **Stars:** 3,985 | **Last updated:** 2026-06-19 (v0.2.0, status: alpha) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship (a meta-harness orchestration layer)
 **Layer:** Infrastructure (the orchestration server/runtime + sandbox + policy engine) + Tooling (the `omnigent`/`omni` CLI and the agents you run)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) (bundled in official MCP servers repo)
 **Stars:** 87,393 (parent repo) | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 

@@ -2,6 +2,7 @@
 
 **Repo:** [Piebald-AI/claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts)
 **Stars:** 11,225 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover, Reflect (outer loop)
 **Layer:** Infrastructure
 

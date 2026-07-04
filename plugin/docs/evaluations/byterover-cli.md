@@ -2,6 +2,7 @@
 
 **Repo:** [campfirein/byterover-cli](https://github.com/campfirein/byterover-cli)
 **Stars:** ~4,900 | **Last updated:** 2026-06-17 | **License:** source-available (repo SPDX returns NOASSERTION); formerly Cipher
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 

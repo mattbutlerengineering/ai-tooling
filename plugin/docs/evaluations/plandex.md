@@ -2,6 +2,7 @@
 
 **Repo:** [plandex-ai/plandex](https://github.com/plandex-ai/plandex)
 **Stars:** 15,458 | **Last updated:** 2025-10-03 (pushed) | **License:** MIT | **Language:** Go (terminal agent; self-hostable)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Agent Orchestration / Implement — autonomous terminal coding agent
 **Layer:** Tooling/Platform (CLI + self-hostable server)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [daytonaio/daytona](https://github.com/daytonaio/daytona)
 **Stars:** ~72,400 | **Last updated:** 2026-06-19 | **License:** AGPL-3.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (code-execution infrastructure)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [ComposioHQ/awesome-codex-skills](https://github.com/ComposioHQ/awesome-codex-skills)
 **Stars:** 13,932 | **Created:** 2026-01-12 | **Last updated:** 2026-05-15 | **License:** none (no LICENSE file)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 

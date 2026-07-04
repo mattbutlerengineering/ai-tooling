@@ -2,6 +2,7 @@
 
 **Repo:** [andrewyng/aisuite](https://github.com/andrewyng/aisuite)
 **Stars:** 14,755 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (library for building AI applications)
 **Layer:** Infrastructure
 

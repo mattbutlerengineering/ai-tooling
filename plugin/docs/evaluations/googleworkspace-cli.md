@@ -2,6 +2,7 @@
 
 **Repo:** [googleworkspace/cli](https://github.com/googleworkspace/cli)
 **Stars:** 27,161 | **Last updated:** 2026-06-10 (pushed; created 2026-03-02) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer-loop *side channel*, not a code stage. `gws` is a tool an agent **calls** to read/write Google Workspace (Drive, Gmail, Calendar, Sheets, Docs, Chat) — useful for Ship/Reflect-adjacent ops (post a release note to Chat, file a status in Sheets, pull a spec from a Doc) but it touches no source code and intervenes in no inner-loop quality signal directly.
 **Layer:** Tooling — a Rust CLI binary (`gws`) plus a shipped bundle of 100+ Agent Skills that teach an LLM how to invoke it.
 

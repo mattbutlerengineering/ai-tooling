@@ -2,6 +2,7 @@
 
 **Repo:** [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides)
 **Stars:** 22,282 | **Last commit:** 2026-06-13 | **Created:** 2026-01-28 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (outer loop)
 **Layer:** Tooling
 

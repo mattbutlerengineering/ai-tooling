@@ -2,6 +2,7 @@
 
 **Repo:** [Infisical/agent-vault](https://github.com/Infisical/agent-vault)
 **Stars:** 1,699 | **Last updated:** 2026-06-19 | **License:** MIT (Expat; `ee/` dir reserved for enterprise)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship / Implement (runtime infrastructure that wraps the agent process during any outbound API call)
 **Layer:** Infrastructure
 

@@ -2,6 +2,7 @@
 
 **Repo:** [giancarloerra/SocratiCode](https://github.com/giancarloerra/SocratiCode)
 **Stars:** 3,014 | **Last updated:** 2026-06-18 | **License:** AGPL-3.0 (commercial license also offered)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (codebase exploration before/during implementation)
 **Layer:** Tooling
 

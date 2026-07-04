@@ -2,6 +2,7 @@
 
 **Repo:** [karpathy/llm-council](https://github.com/karpathy/llm-council)
 **Stars:** 21,052 | **Last updated:** 2026-06-19 | **License:** None (unlicensed)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research & Discovery
 **Layer:** Tooling
 

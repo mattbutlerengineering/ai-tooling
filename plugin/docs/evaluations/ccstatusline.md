@@ -2,6 +2,7 @@
 
 **Repo:** [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)
 **Stars:** 10,981 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (situational awareness across all stages)
 **Layer:** Infrastructure
 

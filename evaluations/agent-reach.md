@@ -2,6 +2,7 @@
 
 **Repo:** [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach)
 **Stars:** 34,975 | **Last updated:** 2026-06-16 (latest release v1.5.0, 2026-06-11) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / Plan (research & discovery) — and largely outside the dev loop (general internet access)
 **Layer:** Tooling (capability router / installer over upstream CLIs)
 

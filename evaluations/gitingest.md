@@ -2,6 +2,7 @@
 
 **Repo:** [coderamp-labs/gitingest](https://github.com/coderamp-labs/gitingest)
 **Stars:** ~14.9K | **Last updated:** 2026-06-14 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (context-gathering before prompting)
 **Layer:** Tooling
 

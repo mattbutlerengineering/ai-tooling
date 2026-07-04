@@ -2,6 +2,7 @@
 
 **Repo:** [ahujasid/blender-mcp](https://github.com/ahujasid/blender-mcp)
 **Stars:** 22,947 | **Last updated:** 2026-06-11 (pushed; created 2025-03-07) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Off the software dev loop — it is a 3D-content authoring bridge (Implement/produce *assets*, not code). Relevant to this catalog mainly as a Safety case study in host-reaching MCP servers.
 **Layer:** Infrastructure (a stdio MCP server that opens a TCP socket to a running Blender instance and drives it; an in-app Blender addon executes the commands)
 

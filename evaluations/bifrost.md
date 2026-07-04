@@ -2,6 +2,7 @@
 
 **Repo:** [maximhq/bifrost](https://github.com/maximhq/bifrost)
 **Stars:** ~5,900 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (infrastructure / gateway)
 **Layer:** Infrastructure
 

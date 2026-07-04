@@ -2,6 +2,7 @@
 
 **Repo:** [DanMcInerney/architect-loop](https://github.com/DanMcInerney/architect-loop)
 **Stars:** 518 | **Last updated:** 2026-06-13 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement (also Review/Verify within the loop)
 **Layer:** Process
 

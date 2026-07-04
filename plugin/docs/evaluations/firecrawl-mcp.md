@@ -2,6 +2,7 @@
 
 **Repo:** [firecrawl/firecrawl-mcp-server](https://github.com/firecrawl/firecrawl-mcp-server)
 **Stars:** 6,629 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research/Discovery (gathering web content) — touches Plan when scraping docs/data to ground a task
 **Layer:** Tooling (retrieval layer; the default cloud path is Infrastructure-adjacent — a remote paid API)
 

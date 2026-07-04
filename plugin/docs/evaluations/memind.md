@@ -2,6 +2,7 @@
 
 **Repo:** [openmemind/memind](https://github.com/openmemind/memind)
 **Stars:** 902 | **Last updated:** 2026-06-14 (pushed; created 2026-03-19) | **License:** Apache-2.0 | **Language:** Java
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Memory & Context (memory + context engine)
 **Layer:** Infrastructure (Java service; REST + MCP + SDKs + agent plugins)
 

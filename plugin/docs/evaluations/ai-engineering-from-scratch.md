@@ -2,6 +2,7 @@
 
 **Repo:** [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)
 **Stars:** 34,701 | **Last updated:** 2026-06-14 (pushed; created 2026-03-18) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover / Plan (outer loop — a learning path that builds background before you touch a real codebase)
 **Layer:** Process / Infrastructure (a curriculum-as-process; ships runnable code, prompts, skills, agents, and MCP servers as artifacts)
 

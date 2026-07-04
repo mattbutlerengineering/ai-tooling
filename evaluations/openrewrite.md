@@ -2,6 +2,7 @@
 
 **Repo:** [openrewrite/rewrite](https://github.com/openrewrite/rewrite)
 **Stars:** 3,555 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 (framework; some recipes differently licensed) | **Language:** Java (recipes run via Gradle/Maven plugins or Moderne CLI)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Code Review & Quality / Dev Workflow — deterministic refactoring
 **Layer:** Tooling/Infrastructure (auto-refactoring engine + recipe catalog; agent tool calls via Moderne MCP)
 

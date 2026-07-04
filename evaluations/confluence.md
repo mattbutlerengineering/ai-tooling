@@ -2,6 +2,7 @@
 
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (latest release v0.21.1, 2026-04-10) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Reflect (read team docs into context up front; write findings/runbooks back out) — touches Implement when a spec lives on the wiki
 **Layer:** Infrastructure (network connector to a live external system — the team's Confluence instance)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)
 **Stars:** 49,365 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan + Implement + Verify + Review (a full-lifecycle planning-to-code framework)
 **Layer:** Process (with a Tooling install layer — native skills/plugin)
 

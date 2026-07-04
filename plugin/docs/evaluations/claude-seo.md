@@ -2,6 +2,7 @@
 
 **Repo:** [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)
 **Stars:** 9,262 | **Last updated:** 2026-06-13 (pushed; created 2026-02-07) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify / Review — a domain audit layer that scores a shipped site against primary-source SEO/GEO guidance and produces a prioritized action plan; runs outside the code-change loop on a deployed surface
 **Layer:** Process / Tooling (a Claude Code plugin: 25 sub-skills + 18 sub-agents orchestrated in parallel; optional MCP/API extensions add infrastructure)
 

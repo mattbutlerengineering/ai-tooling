@@ -2,6 +2,7 @@
 
 **Repo:** [phuryn/pm-skills](https://github.com/phuryn/pm-skills)
 **Stars:** 19,769 | **Last updated:** 2026-06-06 (pushed; created 2026-03-01) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Mostly *outside* the software dev loop — it targets the product-management workflow (discovery → strategy → execution → launch → growth). The exception is the `pm-ai-shipping` plugin, which lands squarely in our **Verify/Review** stages: it audits AI-built code for the gap between documented intent and actual implementation (`intended-vs-implemented`, `ship-check`, static security/performance audits).
 **Layer:** Process (a Claude Code plugin *marketplace* of `SKILL.md` files + `/slash` command workflows; no runtime, no executing code)
 

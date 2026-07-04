@@ -2,6 +2,7 @@
 
 **Repo:** [vercel-labs/opensrc](https://github.com/vercel-labs/opensrc)
 **Stars:** 2,590 | **Last updated:** 2026-05-01 (latest release v0.7.2, 2026-04-18) | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (reading dependency internals while writing code) — touches Plan when modeling against a library's API and Review when verifying agent-written usage against real source
 **Layer:** Tooling (a CLI the agent composes with `rg`/`cat`/`find`; not infrastructure, not a hosted service)
 

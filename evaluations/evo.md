@@ -2,6 +2,7 @@
 
 **Repo:** [evo-hq/evo](https://github.com/evo-hq/evo)
 **Stars:** ~1,210 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (autoresearch / optimization)
 **Layer:** Tooling
 

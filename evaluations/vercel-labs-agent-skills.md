@@ -2,6 +2,7 @@
 
 **Repo:** [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
 **Stars:** 28,119 | **Last updated:** 2026-06-10 (pushed; created 2025-12-08) | **License:** none declared
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement + Review — the skills are coding guidance (React/Next.js, React Native, view transitions, web design, prose) applied while writing and reviewing UI/docs, plus a Verify-adjacent Vercel cost/perf audit. Frontend- and Vercel-leaning, not a general-purpose roster.
 **Layer:** Process (a small collection of `SKILL.md` instruction-and-script packages installed into an agent's skills directory; no runtime of its own — installed via the sibling `npx skills` CLI)
 

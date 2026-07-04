@@ -2,6 +2,7 @@
 
 **Repo:** [Doorman11991/smallcode](https://github.com/Doorman11991/smallcode)
 **Stars:** 1,903 | **Last updated:** 2026-06-04 (pushed; created 2026-05-18) | **License:** MIT | **Releases:** 24
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a terminal coding agent; touches all inner-loop stages)
 **Layer:** Tooling (JavaScript; `npm i -g smallcode` / `npx smallcode`)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [michielhdoteth/squish](https://github.com/michielhdoteth/squish) (npm: [`squish-memory`](https://www.npmjs.com/package/squish-memory))
 **Stars:** 4 | **Last updated:** 2026-06-15 (created 2026-01-13) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

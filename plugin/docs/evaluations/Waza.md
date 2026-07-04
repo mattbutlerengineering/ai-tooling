@@ -2,6 +2,7 @@
 
 **Repo:** [tw93/Waza](https://github.com/tw93/Waza)
 **Stars:** 5,945 | **Last updated:** 2026-06-19 (pushed; created 2026-03-12) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Spans the inner loop by *habit* — Plan (`/think`), Implement/Design (`/design`), Verify (`/hunt` debugging), Review (`/check`), plus Reflect/knowledge (`/learn`, `/read`, `/health`). It is a curated skill suite, not a single-stage tool.
 **Layer:** Process / Tooling (eight installed Agent Skills — `SKILL.md` + reference docs + helper scripts per skill; cross-tool via the `skills` installer and Claude Code / Codex plugin marketplaces)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [exa-labs/exa-mcp-server](https://github.com/exa-labs/exa-mcp-server)
 **Stars:** 4,593 | **Last updated:** 2026-06-08 (pushed) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Research / Plan (live web grounding) — touches Implement when used as a code-search source
 **Layer:** Tooling (retrieval layer; the default hosted endpoint is Infrastructure-adjacent — a remote, paid service)
 

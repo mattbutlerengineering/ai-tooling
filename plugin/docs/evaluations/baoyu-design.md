@@ -2,6 +2,7 @@
 
 **Repo:** [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design)
 **Stars:** 1,622 | **Last updated:** 2026-06-19 (pushed; created 2026-06-07) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan / Implement on the *design* track — it drives a clarify → context → produce-HTML → preview → verify loop that yields UI mockups, prototypes, decks, and wireframes before (or instead of) production code. Outer-loop-adjacent for pitch/deck artifacts.
 **Layer:** Process + Tooling — the design methodology is markdown (`SKILL.md` + `system-prompt.md` + built-in skills), but it ships a real **67-file Node/TypeScript toolchain** (PPTX pipeline, offline Figma `.fig` decoder, design-system compiler/checker) that executes.
 

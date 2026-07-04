@@ -2,6 +2,7 @@
 
 **Repo:** [formkit/formkit](https://github.com/formkit/formkit)
 **Stars:** 4,729 | **Last updated:** 2026-06-10 (v2.1.0) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (a UI library you build apps with; ships an optional agent skill)
 **Layer:** Infrastructure (application dependency)
 

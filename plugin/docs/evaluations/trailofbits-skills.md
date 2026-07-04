@@ -2,6 +2,7 @@
 
 **Repo:** [trailofbits/skills](https://github.com/trailofbits/skills)
 **Stars:** 5,748 | **Last updated:** 2026-06-17 | **License:** CC-BY-SA-4.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 

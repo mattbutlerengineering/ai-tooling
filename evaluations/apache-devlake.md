@@ -2,6 +2,7 @@
 
 **Repo:** [apache/incubator-devlake](https://github.com/apache/incubator-devlake)
 **Stars:** 3,039 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop (Retrospect)
 **Layer:** Infrastructure
 

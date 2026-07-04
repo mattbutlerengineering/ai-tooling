@@ -2,6 +2,7 @@
 
 **Repo:** [jarrodwatts/claude-hud](https://github.com/jarrodwatts/claude-hud)
 **Stars:** 25,431 | **Last updated:** 2026-06-19 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan (situational awareness during all stages)
 **Layer:** Infrastructure
 

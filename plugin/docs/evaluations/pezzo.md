@@ -2,6 +2,7 @@
 
 **Repo:** [pezzolabs/pezzo](https://github.com/pezzolabs/pezzo)
 **Stars:** ~3,250 | **Last updated:** 2026-03-31 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect (LLMOps / prompt management / Outer Loop)
 **Layer:** Infrastructure
 

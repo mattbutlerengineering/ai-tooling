@@ -2,6 +2,7 @@
 
 **Repo:** [hashgraph-online/hol-guard](https://github.com/hashgraph-online/hol-guard)
 **Stars:** 362 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (runtime tool-call gating) + Ship (CI plugin gate via `plugin-scanner`)
 **Layer:** Infrastructure
 

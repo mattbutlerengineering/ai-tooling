@@ -2,6 +2,7 @@
 
 **Repo:** [automazeio/ccpm](https://github.com/automazeio/ccpm)
 **Stars:** 8,207 | **Last updated:** 2026-03-18 (pushed; created 2025-08-18) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Plan and Dev Workflow — a spec-driven pipeline that runs the full inner-to-outer arc: Plan (PRD → epic), Decompose (epic → task files), Ship-coordination (sync to GitHub Issues), and Implement (launch parallel agents per work stream), plus a Track/standup loop. It is a workflow, not a single-stage tool.
 **Layer:** Process (an Agent Skill — one `SKILL.md` plus markdown reference docs and bash helper scripts; no runtime daemon, no installed binary — that steers an existing harness through a PM discipline using `git` + `gh` as the only external dependencies)
 

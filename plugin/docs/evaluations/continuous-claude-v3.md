@@ -2,6 +2,7 @@
 
 **Repo:** [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3)
 **Stars:** 3,818 | **Last updated:** 2026-06-17 | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement / Observability
 **Layer:** Infrastructure
 

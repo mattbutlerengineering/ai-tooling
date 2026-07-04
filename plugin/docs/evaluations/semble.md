@@ -2,6 +2,7 @@
 
 **Repo:** [MinishLab/semble](https://github.com/MinishLab/semble)
 **Stars:** 5,307 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Language:** Python (PyPI: `semble`)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Code Understanding (semantic code search) — Implement
 **Layer:** Tooling (MCP server / CLI / sub-agent)
 

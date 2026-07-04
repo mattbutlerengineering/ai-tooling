@@ -2,6 +2,7 @@
 
 **Repo:** [langchain-ai/langgraphjs](https://github.com/langchain-ai/langgraphjs)
 **Stars:** 3,024 | **Last updated:** 2026-06-19 (pushed; created 2024-01-09) | **License:** MIT
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Adjacent to the loop, not inside it. LangGraph.js is a low-level orchestration framework for building *stateful agents and long-running workflows* — i.e. the runtime of an LLM application, not a tool that moves your own plan/implement/verify/review/ship loop. Its only dev-loop bridge is as the engine under a coding agent/harness someone builds.
 **Layer:** Tooling (an npm orchestration library you `import` and build on, not a process or infrastructure for the dev loop)
 

@@ -2,6 +2,7 @@
 
 **Repo:** [nizos/tdd-guard](https://github.com/nizos/tdd-guard)
 **Stars:** 2,205 | **Last updated:** 2026-06-16 (pushed) | **License:** MIT | **Language:** TypeScript (npm: `tdd-guard`; Claude Code plugin)
+**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Code Review & Quality / Verify — enforces TDD during Implement
 **Layer:** Tooling (Claude Code hook + test reporters)
 
