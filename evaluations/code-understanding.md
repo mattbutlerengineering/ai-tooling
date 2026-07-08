@@ -20,7 +20,7 @@ Evaluation date: 2026-06-15
 
 ### graphify
 
-**Repo:** [safishamsi/graphify](https://github.com/safishamsi/graphify)
+**Repo:** [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify)
 **Stars:** 67,715 | **Last updated:** 2026-06-16 | **License:** MIT | **Language:** Python
 **YC S26 company**
 

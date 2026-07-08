@@ -2,7 +2,7 @@
 
 **Repo:** [Portkey-AI/gateway](https://github.com/Portkey-AI/gateway)
 **Stars:** ~12,100 | **Last updated:** 2026-05-25 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Implement (AI gateway)
 **Layer:** Infrastructure
 

@@ -2,7 +2,7 @@
 
 **Repo:** [ciembor/agent-rules-books](https://github.com/ciembor/agent-rules-books)
 **Stars:** 1,902 | **Last updated:** 2026-05-22 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Plan, Implement
 **Layer:** Process
 
@@ -23,6 +23,20 @@ Method: repository and documentation inspection via the GitHub API. I did **not*
 ```bash
 gh api repos/ciembor/agent-rules-books --jq '{stars,license,description,pushed_at}'
 gh api repos/ciembor/agent-rules-books/readme --jq '.content' | base64 -d
+```
+
+## Test design
+
+### Test design — skills
+
+- **Triggering:** *not measured.* Should-fire: an architecture/modeling question that maps to one of the 13 books (e.g., a DDD/aggregate question → the Domain-Driven Design rule set). Shouldn't-fire: off-topic prompts, or tasks where the model's latent knowledge is already sufficient. No should/shouldn't-fire k/N set was run; the rule sets are context-injection (drop into `AGENTS.md`/`CLAUDE.md` or load on-demand), so triggering depends on the harness's always-on vs on-demand load pattern.
+- **Output A/B:** *not run.* The intended measurement is with-skill (a `mini` rule set loaded, on-demand) vs a baseline where the same book's rules are pasted wholesale as a `full` always-on block into `CLAUDE.md`, on ≥3 disclosed architecture prompts. Report context tokens consumed (the tiered-budget claim is the token-efficiency angle) and per-task accuracy — the hypothesis being "same guidance, fewer tokens because the rules surface on demand." The author's own single A/B (a refactor scored ~74/100 with `mini` rules vs ~46/100 for naming the book alone) is self-reported, not reproduced.
+- **Not run?** Yes — disclosed above ("I did not install the rule sets or run an agent task against them"). Author's validation numbers are flagged as the author's own experiment, not measured here.
+
+```
+# documented usage (not executed in this review)
+# drop a book's nano/mini/full rule sets into AGENTS.md / CLAUDE.md, or load on-demand
+gh api repos/ciembor/agent-rules-books/contents/USAGE.md --jq '.content' | base64 -d
 ```
 
 ## What worked

@@ -2,7 +2,7 @@
 
 **Repo:** [BerriAI/litellm](https://github.com/BerriAI/litellm)
 **Stars:** 50,931 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Language:** Python (PyPI: `litellm`; YC W23)
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Dev Workflow / infrastructure — LLM gateway/proxy (Implement)
 **Layer:** Infrastructure (Python SDK + self-hosted Proxy Server)
 

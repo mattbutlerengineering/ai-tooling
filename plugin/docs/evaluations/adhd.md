@@ -2,7 +2,7 @@
 
 **Repo:** [UditAkhourii/adhd](https://github.com/UditAkhourii/adhd)
 **Stars:** 852 | **Last updated:** 2026-06-04 (pushed; created 2026-05-25) | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Inner-loop **Plan / Architect** — a divergent-ideation skill you invoke at a decision point (architecture, API surface, naming, fuzzy-bug hypothesis generation) to widen the option space *before* committing to an approach. Not an implement/verify/ship tool.
 **Layer:** Process (a single `SKILL.md` prompt-program that orchestrates parallel `Agent`/`Task` calls), with an optional standalone Node CLI (`adhd-agent` on npm) that reimplements the same loop outside an agent harness.
 
@@ -30,6 +30,21 @@ gh api repos/UditAkhourii/adhd/contents/EVALS.md --jq '.content' | base64 -d    
 gh api repos/UditAkhourii/adhd/contents/.github/workflows/ci.yml --jq '.content' | base64 -d  # typecheck/build/CLI-smoke on Node 18/20/22
 gh api repos/UditAkhourii/adhd/commits --jq 'length'    # 30 (page-1 cap)
 gh api repos/UditAkhourii/adhd/releases --jq 'length'   # 1 tagged release
+```
+
+## Test design
+
+### Test design — skills
+
+- **Triggering:** *not measured.* Should-fire: creative/divergent decision points — architecture, public API surface, naming, fuzzy-bug hypothesis generation. Shouldn't-fire: canonical, closed, or low-stakes prompts (the skill self-aborts on "quick"/"standard"/"textbook"-flavored requests). A balanced should/shouldn't-fire k/N set was not run; the skill's own `bench/problems.json` (6 problems) and `EVALS.md` are the author's self-reported single-run figures, not reproduced here.
+- **Output A/B:** *not run.* The intended measurement is with-skill vs baseline on ≥3 disclosed tasks, reporting the thinking-tree's breadth × depth, where the prunes cut, tokens spent on the fanout (5–10× a normal answer per the README), and a divergent-quality judge against a linear-reasoning baseline (e.g., `sequential-thinking`). Falsifying the divergence-isolation claim quantitatively needs ≥3 tasks with the isolation enforced and relaxed; this was not executed.
+- **Not run?** Yes — disclosed above ("Source-grounded inspection — not installed, not run"). Eval numbers cited anywhere here are the author's self-reported single-run, self-judged figures, not measured by me.
+
+```
+# documented install (not executed in this review)
+npx skills add UditAkhourii/adhd      # or load skills/adhd/SKILL.md into an agent harness
+/adhd <decision prompt>               # not run
+npx adhd-agent <prompt>               # standalone Node CLI (not run)
 ```
 
 ## What worked

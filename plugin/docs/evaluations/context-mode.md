@@ -2,7 +2,7 @@
 
 **Repo:** [mksglu/context-mode](https://github.com/mksglu/context-mode)
 **Stars:** 17,768 | **Last updated:** 2026-06-19 | **License:** Elastic License 2.0 (source-available)
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** All stages (cross-cutting infrastructure)
 **Layer:** Infrastructure
 

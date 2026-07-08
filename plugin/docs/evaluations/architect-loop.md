@@ -2,7 +2,7 @@
 
 **Repo:** [DanMcInerney/architect-loop](https://github.com/DanMcInerney/architect-loop)
 **Stars:** 518 | **Last updated:** 2026-06-13 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Plan + Implement (also Review/Verify within the loop)
 **Layer:** Process
 
@@ -29,6 +29,21 @@ gh api "repos/DanMcInerney/architect-loop/git/trees/main?recursive=1" --jq '.tre
 gh api repos/DanMcInerney/architect-loop/contents/skills/architect/SKILL.md --jq '.content' | base64 -d
 gh api repos/DanMcInerney/architect-loop/contents/skills/architect/dispatch.md --jq '.content' | base64 -d
 gh api repos/DanMcInerney/architect-loop/contents/install.sh --jq '.content' | base64 -d
+```
+
+## Test design
+
+### Test design — skills
+
+- **Triggering:** *not measured.* Should-fire: a multi-step feature-build or research task whose plan-vs-execute split justifies the architect (Claude Fable, high effort) + builder (`codex exec` GPT-5.5, xhigh) ceremony and lane parallelism. Shouldn't-fire: trivial one-shot edits, a single import fix, or a task too small to warrant gating overhead. A balanced should/shouldn't-fire set was not run via `skill-creator/scripts/run_eval.py` or `claude -p`.
+- **Output A/B:** *not run.* The intended measurement is a with-skill vs baseline A/B on ≥3 disclosed small Plan+Implement tasks, reporting expensive-reasoning-model tokens (Claude Fable) consumed vs the same task done without the architect/builder split, end-to-end latency (including parallel lane wall-clock), and end-task accuracy as gate pass/fail (the frozen `docs/gates/<slice>.md` are the natural oracles). Cross-vendor freedom means the builder also spends Codex quota, so a full cost picture records both vendors' token/quota spend. None of this was executed here — an active ChatGPT/Codex subscription is required and was not spent in this review.
+- **Not run?** Yes — disclosed above ("Architecture review … Not hands-on installed/run"). The skill mechanics, gate rules, and dispatch commands were inspected in source; no loop was actually dispatched.
+
+```
+# documented install (not executed end-to-end in this review)
+bash install.sh                      # installs both skills into Claude Code
+/architect <slice>                   # build loop (not run)
+/architect-research <question>       # research loop (not run)
 ```
 
 ## What worked

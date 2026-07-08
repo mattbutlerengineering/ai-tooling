@@ -53,18 +53,18 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
 | repowise | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | discovery-log | REVIEW |
-| claude-context | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| claude-context | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | cocoindex-code | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sem | tool | ✓ | ✓ | discovery-log | REVIEW |
-| semble | tool | ✓ | ✓ | discovery-log | REVIEW |
+| semble | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | Understand-Anything | tool | | ✓ | discovery-log | REVIEW |
 | codebase-design | skill | | ✓ | discovery-log | REVIEW |
 | domain-modeling | skill | | ✓ | discovery-log | REVIEW |
 | plannotator | tool | | ✓ | discovery-log | REVIEW |
-| code-context-engine | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | SocratiCode | tool | ✓ | ✓ | discovery-log | REVIEW |
-| gortex | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | codebase-to-course | skill | | ✓ | SKIP | REVIEW |
 | sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
 
@@ -86,7 +86,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-harness | harness | | ✓ | discovery-log | REVIEW |
 | claude-code-router | tool | | ✓ | discovery-log | REVIEW |
 | CLIProxyAPI | tool | | ✓ | discovery-log | REVIEW |
-| litellm | tool | ✓ | ✓ | discovery-log | REVIEW |
+| litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
@@ -103,7 +103,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
 | commit-commands | plugin | | ✓ | SKIP | REVIEW |
 | compound-engineering | plugin | | ✓ | discovery-log | REVIEW |
-| context-mode | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| context-mode | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | Continuous-Claude-v3 | harness | ✓ | ✓ | discovery-log | REVIEW |
 | CowAgent | harness | | ✓ | SKIP | REVIEW |
 | deer-flow | harness | | ✓ | discovery-log | REVIEW |
@@ -181,7 +181,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Archon | platform | ✓ | ✓ | discovery-log | REVIEW |
 | sim | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | haystack | framework | ✓ | ✓ | discovery-log | REVIEW |
-| Portkey-gateway | tool | ✓ | ✓ | discovery-log | REVIEW |
+| Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | OmniRoute | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | baml | framework | ✓ | ✓ | discovery-log | REVIEW |
 | moai-adk | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -228,8 +228,8 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | txtai | framework | ✓ | ✓ | discovery-log | REVIEW |
 | UI-TARS-desktop | harness | ✓ | ✓ | discovery-log | REVIEW |
 | opensquilla | tool | | ✓ | SKIP | REVIEW |
-| architect-loop | skill | | ✓ | discovery-log | REVIEW |
-| adhd | skill | | ✓ | discovery-log | REVIEW |
+| architect-loop | skill |  | ✓ | CONDITIONAL | REVIEW |
+| adhd | skill |  | ✓ | CONDITIONAL | REVIEW |
 | sandboxd | tool | | ✓ | discovery-log | REVIEW |
 | vercel-sandbox | platform | | ✓/$ | discovery-log | REVIEW |
 | qwen-code | platform | | ✓ | discovery-log | REVIEW |
@@ -237,7 +237,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agents-cli | skill | | ✓ | discovery-log | REVIEW |
 | ralph-claude-code | harness | ✓ | ✓ | discovery-log | REVIEW |
 | ralph | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| rtk | tool | ✓ | ✓ | discovery-log | REVIEW |
+| rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
 | sandcastle | framework | | ✓ | discovery-log | REVIEW |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
@@ -359,7 +359,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
-| claude-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | vibe-log-cli | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agenta | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | codeburn | tool | | ✓ | ADOPT | MEASURED |
@@ -376,7 +376,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deepeval | framework | ✓ | ✓ | discovery-log | REVIEW |
 | phoenix | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| claude-devtools | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -397,7 +397,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | academic-research-skills | skill | | ✓ | discovery-log | REVIEW |
-| agent-rules-books | skill | | ✓ | discovery-log | REVIEW |
+| agent-rules-books | skill |  | ✓ | CONDITIONAL | REVIEW |
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
@@ -488,14 +488,14 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MineContext | platform | ✓ | ✓ | discovery-log | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
-| lean-ctx | tool | | ✓ | discovery-log | REVIEW |
+| lean-ctx | tool |  | ✓ | CONDITIONAL | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
 | claude-subconscious | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | cognee | platform | | ✓ | discovery-log | REVIEW |
 | MemOS | platform | | ✓ | discovery-log | REVIEW |
 | memind | platform | ✓ | ✓ | discovery-log | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
-| claw-compactor | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | evolver | tool | ✓ | ✓ | discovery-log | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
 | memory-os | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -555,7 +555,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | supabase | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| token-optimizer-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | figma-mcp-go | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -647,7 +647,7 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | 12-factor-agents | reference | | ✓ | discovery-log | REVIEW |
 | ag-ui | reference | | ✓ | discovery-log | REVIEW |
 | openui | reference | | ✓ | discovery-log | SOURCE-ONLY |
-| a2ui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| a2ui | reference | | ✓ | CONDITIONAL | REVIEW |
 | MCP Apps (ext-apps) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-generative-ai-guide | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -666,16 +666,16 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 54 | 17 | 6 | 31% |
-| Implement | 193 | 29 | 4 | 15% |
+| Plan | 54 | 21 | 6 | 39% |
+| Implement | 193 | 35 | 4 | 18% |
 | Verify | 21 | 5 | 2 | 24% |
 | Review | 32 | 9 | 3 | 28% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
-| Outer Loop | 40 | 7 | 2 | 18% |
-| Skills & Plugins | 77 | 11 | 4 | 14% |
-| Memory & Context | 47 | 7 | 2 | 15% |
-| MCP Servers | 39 | 7 | 2 | 18% |
+| Outer Loop | 40 | 9 | 2 | 22% |
+| Skills & Plugins | 77 | 12 | 4 | 16% |
+| Memory & Context | 47 | 9 | 2 | 19% |
+| MCP Servers | 39 | 8 | 2 | 21% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
-| Reference | 53 | 9 | 4 | 17% |
-| **Total** | **582** | **109** | **34** | **19%** |
+| Reference | 53 | 10 | 4 | 19% |
+| **Total** | **582** | **126** | **34** | **22%** |

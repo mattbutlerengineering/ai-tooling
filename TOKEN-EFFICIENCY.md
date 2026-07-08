@@ -14,11 +14,11 @@ A curated subset of [CATALOG.md](CATALOG.md) covering skills, agents, MCP server
 | [ccusage](https://github.com/ccusage/ccusage) | tool | ADOPT | MEASURED | Historical daily/monthly/session/model token & cost reports from local logs |
 | [codeburn](https://github.com/getagentseal/codeburn) | tool | ADOPT | MEASURED | Cross-tool spend attribution by task/model/tool/project + ranked waste fixes |
 | [tokencost](https://github.com/AgentOps-AI/tokencost) | tool | CONDITIONAL | RUN | Per-call cost estimation for 400+ models (Python lib) |
-| [claude-monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) | tool | discovery-log | SOURCE-ONLY | Real-time terminal monitor + burn-rate predictions |
+| [claude-monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) | tool | CONDITIONAL | REVIEW | Real-time terminal monitor + burn-rate predictions |
 | [agentsview](https://github.com/kenn-io/agentsview) | tool | discovery-log | REVIEW | Cross-agent browse/search + cost tracking, local SQLite |
 | [ccstatusline](https://github.com/sirmalloc/ccstatusline) | plugin | discovery-log | REVIEW | Inline token/spend status line in Claude Code |
 | [claude-hud](https://github.com/pesto-studios/claude-hud) | plugin | discovery-log | REVIEW | HUD overlay for token/cost |
-| [claude-devtools](https://github.com/matt1398/claude-devtools) | tool | discovery-log | REVIEW | Visual debugger over session transcripts — tool calls, tokens, subagents |
+| [claude-devtools](https://github.com/matt1398/claude-devtools) | tool | CONDITIONAL | REVIEW | Visual debugger over session transcripts — tool calls, tokens, subagents |
 | [langfuse](https://github.com/langfuse/langfuse) | platform | discovery-log | SOURCE-ONLY | Production LLM tracing, evals, cost tracking, latency |
 
 ---
@@ -36,11 +36,11 @@ A curated subset of [CATALOG.md](CATALOG.md) covering skills, agents, MCP server
 | Tool | Type | Verdict | Evidence | What it does |
 |------|------|---------|----------|--------------|
 | [headroom](https://github.com/headroomlabs-ai/headroom) | tool | CONDITIONAL | MEASURED | Compresses tool output/logs/files 60–95%, reversible via local cache |
-| [context-mode](https://github.com/mksglu/context-mode) | MCP server | discovery-log | REVIEW | Sandboxes tool output, 96% reduction across 15 platforms |
-| [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP server | discovery-log | REVIEW | 95%+ context reduction for tool outputs |
-| [claw-compactor](https://github.com/open-compress/claw-compactor) | tool | discovery-log | REVIEW | Deterministic reversible 14-stage compression, no LLM cost |
-| [lean-ctx](https://github.com/yvgude/lean-ctx) | tool | discovery-log | REVIEW | Rust binary: ~13-tok re-reads, persistent memory, signed savings ledger |
-| [rtk](https://github.com/rtk-ai/rtk) | tool | discovery-log | REVIEW | CLI proxy trimming dev-command output 60–90% |
+| [context-mode](https://github.com/mksglu/context-mode) | MCP server | CONDITIONAL | REVIEW | Sandboxes tool output, 96% reduction across 15 platforms |
+| [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP server | CONDITIONAL | REVIEW | 95%+ context reduction for tool outputs |
+| [claw-compactor](https://github.com/open-compress/claw-compactor) | tool | CONDITIONAL | REVIEW | Deterministic reversible 14-stage compression, no LLM cost |
+| [lean-ctx](https://github.com/yvgude/lean-ctx) | tool | CONDITIONAL | REVIEW | Rust binary: ~13-tok re-reads, persistent memory, signed savings ledger |
+| [rtk](https://github.com/rtk-ai/rtk) | tool | CONDITIONAL | REVIEW | CLI proxy trimming dev-command output 60–90% |
 
 > ⚠️ Every REVIEW-only compressor's headline % (60–96%) is **self-reported** — see `audit-evals.py --savings-claims`. Only `caveman` and `headroom` have measured savings in this repo.
 
@@ -62,12 +62,12 @@ A curated subset of [CATALOG.md](CATALOG.md) covering skills, agents, MCP server
 |------|------|---------|----------|--------------|
 | [codegraph](https://github.com/merajmehrath/codegraph) | tool | ADOPT | MEASURED | Code intelligence graph for agentic search |
 | [serena](https://github.com/oraios/serena) | MCP server | ADOPT | MEASURED | Semantic code tools, language-server-backed retrieval |
-| [code-context-engine](https://github.com/elara-labs/code-context-engine) | MCP server | discovery-log | REVIEW | Index once, search instead of reading — 94% savings (self-reported) |
+| [code-context-engine](https://github.com/elara-labs/code-context-engine) | MCP server | CONDITIONAL | REVIEW | Index once, search instead of reading — 94% savings (self-reported) |
 | [SocratiCode](https://github.com/giancarloerra/SocratiCode) | tool | discovery-log | REVIEW | Semantic search + dependency graphs — 61% fewer tokens (self-reported) |
-| [gortex](https://github.com/zzet/gortex) | MCP server | discovery-log | REVIEW | 257 languages, 50× token reduction (self-reported) |
+| [gortex](https://github.com/zzet/gortex) | MCP server | CONDITIONAL | REVIEW | 257 languages, 50× token reduction (self-reported) |
 | [cocoindex-code](https://github.com/cocoindex-io/cocoindex-code) | tool | discovery-log | REVIEW | Zero-config AST semantic search — ~70% savings (self-reported) |
-| [semble](https://github.com/MinishLab/semble) | tool | discovery-log | REVIEW | ~98% fewer tokens than grep+read (self-reported), CPU-only |
-| [claude-context](https://github.com/zilliztech/claude-context) | MCP server | discovery-log | REVIEW | Milvus vector semantic search over whole codebase |
+| [semble](https://github.com/MinishLab/semble) | tool | CONDITIONAL | REVIEW | ~98% fewer tokens than grep+read (self-reported), CPU-only |
+| [claude-context](https://github.com/zilliztech/claude-context) | MCP server | CONDITIONAL | REVIEW | Milvus vector semantic search over whole codebase |
 | [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | MCP server | discovery-log | REVIEW | Persistent code knowledge graph, 158 languages |
 
 ### 3b. Curate context before prompting (what files reach the model)
@@ -85,12 +85,12 @@ A curated subset of [CATALOG.md](CATALOG.md) covering skills, agents, MCP server
 
 | Tool | Type | Verdict | Evidence | What it does |
 |------|------|---------|----------|--------------|
-| [litellm](https://github.com/BerriAI/litellm) | tool | discovery-log | REVIEW | Multi-provider routing to pick cheapest capable model per call |
-| [Portkey-gateway](https://github.com/Portkey-AI/gateway) | tool | discovery-log | REVIEW | 1,600+ LLMs, retries/fallbacks/load balancing + caching |
+| [litellm](https://github.com/BerriAI/litellm) | tool | CONDITIONAL | REVIEW | Multi-provider routing to pick cheapest capable model per call |
+| [Portkey-gateway](https://github.com/Portkey-AI/gateway) | tool | CONDITIONAL | REVIEW | 1,600+ LLMs, retries/fallbacks/load balancing + caching |
 | [bifrost](https://github.com/centralmind/bifrost) | tool | discovery-log | REVIEW | Fast AI gateway with multi-provider routing |
 | [OmniRoute](https://github.com/diegosouzapw/OmniRoute) | tool | discovery-log | SOURCE-ONLY | 231+ providers with built-in RTK+Caveman compression |
 | [claude-code-router](https://github.com/musistudio/claude-code-router) | tool | discovery-log | REVIEW | Route Claude Code requests across providers |
-| [architect-loop](https://github.com/DanMcInerney/architect-loop) | skill | discovery-log | REVIEW | Reasoning model as architect, cheaper coder model as builder |
+| [architect-loop](https://github.com/DanMcInerney/architect-loop) | skill | CONDITIONAL | REVIEW | Reasoning model as architect, cheaper coder model as builder |
 | [shadcn/improve](https://github.com/shadcn/improve) | tool | discovery-log | REVIEW | Most capable model audits → cheaper models execute the plan |
 
 ### 3d. Remember instead of re-reading (long-horizon memory)
@@ -110,8 +110,8 @@ There is **no tool** in the catalog that picks reasoning-effort level; that is a
 | Tool | Type | Verdict | Evidence | What it does |
 |------|------|---------|----------|--------------|
 | [thinking-claude](https://github.com/richards199999/thinking-claude) | framework | discovery-log | SOURCE-ONLY | Structured deliberation before answering |
-| [adhd](https://github.com/UditAkhourii/adhd) | skill | discovery-log | REVIEW | Tree-of-thought with pruning — divergent ideas under a token budget |
-| [agent-rules-books](https://github.com/ciembor/agent-rules-books) | skill | discovery-log | REVIEW | Rule sets with tiered token budgets (DDD, Clean Arch, DDIA) |
+| [adhd](https://github.com/UditAkhourii/adhd) | skill | CONDITIONAL | REVIEW | Tree-of-thought with pruning — divergent ideas under a token budget |
+| [agent-rules-books](https://github.com/ciembor/agent-rules-books) | skill | CONDITIONAL | REVIEW | Rule sets with tiered token budgets (DDD, Clean Arch, DDIA) |
 
 ---
 

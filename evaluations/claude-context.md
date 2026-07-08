@@ -2,7 +2,7 @@
 
 **Repo:** [zilliztech/claude-context](https://github.com/zilliztech/claude-context)
 **Stars:** 11,897 | **Last updated:** 2026-06-08 (pushed; created 2025-06-06) | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Implement and Plan (inner loop) — it's a retrieval substrate that feeds the agent relevant code before it edits or reasons, replacing multi-round file discovery. Not a Review/Ship/Reflect tool.
 **Layer:** Tooling (an MCP server the agent calls), backed by Infrastructure (a Milvus/Zilliz vector DB + an external embedding API).
 

@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~25 tools worth installing on every project, distilled from 582 catalog entries and 490 evaluations. Each tool earned its slot by moving a quality signal in real testing.
+The ~25 tools worth installing on every project, distilled from 582 catalog entries and 492 evaluations. Each tool earned its slot by moving a quality signal in real testing.
 
 ## Quick Start — 5 Highest Impact
 
@@ -115,7 +115,7 @@ The table above covers outer-loop *observability*. The outer loop's *work* stage
 | Stage | Use | Where it lives on this page |
 |-------|-----|------------------------------|
 | Discover | [last30days](https://github.com/mvanhorn/last30days-skill) engagement-weighted research; [GSD](https://github.com/obra/superpowers) discovery discussion | Research; Plan |
-| Architect | [GSD](https://github.com/obra/superpowers) planning + [graphify](https://github.com/safishamsi/graphify) knowledge-graph views (CONDITIONAL/MEASURED — see [evaluations/](evaluations/)) | Plan (GSD); graphify is not in STACK — evaluations/ only |
+| Architect | [GSD](https://github.com/obra/superpowers) planning + [graphify](https://github.com/Graphify-Labs/graphify) knowledge-graph views (CONDITIONAL/MEASURED — see [evaluations/](evaluations/)) | Plan (GSD); graphify is not in STACK — evaluations/ only |
 | Decompose | [GSD](https://github.com/obra/superpowers) milestone/phase breakdown; [mattpocock/skills](https://github.com/mattpocock/skills) `to-issues` vertical slicing | Plan; Implement |
 | Integrate | [claude-squad](https://github.com/smtg-ai/claude-squad) parallel-session management (worktrunk is a candidate pending a hands-on eval — #188 Gap 4) | Implement |
 | Retrospect | [claude-mem](https://github.com/thedotmack/claude-mem) timeline + semantic recall across sessions | Memory |

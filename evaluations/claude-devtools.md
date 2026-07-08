@@ -2,7 +2,7 @@
 
 **Repo:** [matt1398/claude-devtools](https://github.com/matt1398/claude-devtools)
 **Stars:** ~3,600 | **Last updated:** 2026-05-13 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Reflect (observability for Claude Code)
 **Layer:** Tooling
 

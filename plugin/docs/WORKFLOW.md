@@ -44,7 +44,7 @@ Understand the codebase and task before writing a line of code. Break the work i
 | Layer | What | Signals |
 |-------|------|---------|
 | **Process** | Read the relevant code. State assumptions. Define what "done" means before starting. | Speed |
-| **Tooling** | [graphify](https://github.com/safishamsi/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/graphify.md)) | Correctness |
+| **Tooling** | [graphify](https://github.com/Graphify-Labs/graphify) — deep structural analysis into architecture diagrams ([eval](evaluations/graphify.md)) | Correctness |
 | | [codegraph](https://github.com/colbymchenry/codegraph) — always-on code knowledge graph, auto-syncs on changes ([eval](evaluations/codegraph.md)) | Speed, Cost Efficiency |
 | | [context7](https://github.com/upstash/context7) — live documentation lookup, current APIs not stale training data ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
 | | [markitdown](https://github.com/microsoft/markitdown) — converts PDF/Office/images/audio/HTML to clean Markdown so agents can actually read binary docs ([eval](evaluations/markitdown.md)) | Correctness, Cost Efficiency |

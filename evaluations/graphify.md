@@ -1,6 +1,6 @@
 # Evaluation: graphify
 
-**Repo:** [safishamsi/graphify](https://github.com/safishamsi/graphify)
+**Repo:** [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify)
 **Stars:** ~74,400 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-29
 **Dev loop stage:** Plan / Reflect
@@ -76,4 +76,4 @@ Adopt for **cross-document discovery and onboarding** — the measured run prove
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [graphify](https://github.com/safishamsi/graphify) | skill | Turns code, SQL, docs, images, or videos into queryable knowledge graphs | Need to convert diverse artifacts into navigable structure | codegraph, Understand-Anything |
+| [graphify](https://github.com/Graphify-Labs/graphify) | skill | Turns code, SQL, docs, images, or videos into queryable knowledge graphs | Need to convert diverse artifacts into navigable structure | codegraph, Understand-Anything |

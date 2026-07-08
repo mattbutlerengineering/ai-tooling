@@ -2,7 +2,7 @@
 
 **Repo:** [open-compress/claw-compactor](https://github.com/open-compress/claw-compactor)
 **Stars:** 2,198 | **Last updated:** 2026-04-01 (pushed) | **License:** MIT | **Language:** Python (PyPI: `claw-compactor`)
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Memory & Context (token compression) — Implement
 **Layer:** Tooling (CLI + library)
 

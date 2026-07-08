@@ -2,7 +2,7 @@
 
 **Repo:** [yvgude/lean-ctx](https://github.com/yvgude/lean-ctx)
 **Stars:** 2,795 | **Last updated:** 2026-06-19 (pushed; created 2026-03-23) | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-08  <!-- source-grounded re-check; not a hands-on re-verification -->
 **Dev loop stage:** Spans the inner loop as a *substrate*, not a stage — it sits between the agent and the repo/shell on every read and command (Implement-heavy), plus a memory layer that aids Plan and an impact-graph that aids Review. Closest single anchor: Implement.
 **Layer:** Tooling + Infrastructure (one local Rust binary that is both an MCP server and a transparent shell hook; holds local SQLite/graph state, optional HTTP serve, browser dashboard).
 
