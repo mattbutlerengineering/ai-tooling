@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 582 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 587 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -413,6 +413,11 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | excalidraw-diagram-skill | skill | | ✓ | discovery-log | REVIEW |
 | formkit | framework | | ✓ | SKIP | REVIEW |
 | frontend-slides | skill | | ✓ | discovery-log | REVIEW |
+| pitch-deck | skill | | ✓ | discovery-log | REVIEW |
+| powerpoint-ppt | skill | | ✓ | discovery-log | REVIEW |
+| presentation-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| lark-slides | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| giving-presentations | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | garden-skills | skill | | ✓ | discovery-log | REVIEW |
 | gemini-skills | skill | | ✓ | discovery-log | REVIEW |
 | google/skills | skill | | ✓ | discovery-log | REVIEW |
@@ -673,9 +678,9 @@ All 582 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 40 | 9 | 2 | 22% |
-| Skills & Plugins | 77 | 12 | 4 | 16% |
+| Skills & Plugins | 82 | 12 | 4 | 15% |
 | Memory & Context | 47 | 9 | 2 | 19% |
 | MCP Servers | 39 | 8 | 2 | 21% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 10 | 4 | 19% |
-| **Total** | **582** | **126** | **34** | **22%** |
+| **Total** | **587** | **126** | **34** | **21%** |

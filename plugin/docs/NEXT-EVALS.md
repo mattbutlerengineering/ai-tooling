@@ -4,7 +4,7 @@ The `discovery-log` leads most worth evaluating next, **derived** (not hand-main
 
 Score = `2*overlap_pressure + stage_gap_weight + evidence_bonus`, where `overlap_pressure` is how many other catalog rows cite the tool in "Overlaps with", `stage_gap_weight` is `10*(1 - Validated/Tools)` for the tool's [COMPARISON.md](COMPARISON.md) stage (hungriest stage highest), and `evidence_bonus` is +2 when some homework exists (Evidence `REVIEW`). The weights are a starting heuristic — see `next-evals.py`. The queue *selects*; a human or attended agent runs `/evaluate-tool` (unattended runs produce thin verdicts the fabrication gates exist to catch).
 
-_Showing the top 25 of 456 discovery-log candidates — 431 not shown (no silent cap: rerun and read the source for the tail)._
+_Showing the top 25 of 461 discovery-log candidates — 436 not shown (no silent cap: rerun and read the source for the tail)._
 
 <!-- NEXT-EVALS:START -->
 
@@ -20,8 +20,8 @@ _Showing the top 25 of 456 discovery-log candidates — 431 not shown (no silent
 | 8 | supermemory | Memory & Context | 36.1 | pressure 13, gap 8.1 | `/evaluate-tool supermemory` |
 | 9 | promptfoo | Outer Loop | 35.8 | pressure 13, gap 7.8 | `/evaluate-tool promptfoo` |
 | 10 | pydantic-ai | Implement | 34.2 | pressure 12, gap 8.2 | `/evaluate-tool pydantic-ai` |
-| 11 | tech-leads-club/agent-skills | Skills & Plugins | 32.4 | pressure 11, gap 8.4 | `/evaluate-tool tech-leads-club/agent-skills` |
-| 12 | vercel-labs/agent-skills | Skills & Plugins | 32.4 | pressure 11, gap 8.4 | `/evaluate-tool vercel-labs/agent-skills` |
+| 11 | tech-leads-club/agent-skills | Skills & Plugins | 32.5 | pressure 11, gap 8.5 | `/evaluate-tool tech-leads-club/agent-skills` |
+| 12 | vercel-labs/agent-skills | Skills & Plugins | 32.5 | pressure 11, gap 8.5 | `/evaluate-tool vercel-labs/agent-skills` |
 | 13 | awesome-claude-code | Reference | 32.1 | pressure 11, gap 8.1 | `/evaluate-tool awesome-claude-code` |
 | 14 | awesome-agent-skills | Reference | 30.1 | pressure 10, gap 8.1 | `/evaluate-tool awesome-agent-skills` |
 | 15 | awesome-agent-skills (libukai) | Reference | 30.1 | pressure 10, gap 8.1 | `/evaluate-tool awesome-agent-skills (libukai)` |
