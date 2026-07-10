@@ -3,6 +3,14 @@
 **Repo:** [{owner}/{repo}](https://github.com/{owner}/{repo})
 **Stars:** {count} | **Last updated:** {date} | **License:** {license}
 **Last verified:** {YYYY-MM-DD}  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
+<!-- OPTIONAL next line: **Last triaged:** {YYYY-MM-DD} — add it only for a lead the triage
+     lane actually looked at. Its ABSENCE is meaningful: this lead has never been examined.
+     Never backfill it; a date here asserts someone looked, which is the claim detector B
+     exists to catch. triage.py sinks stamped leads within their band so each pass surfaces
+     fresh ones. An unattended bulk pass also appends an HTML-comment marker reading
+     "triaged: bulk" to that line, after which detector Q forbids the eval any verdict
+     stronger than SKIP (eliminate-only). A human who exercises the tool removes the marker,
+     and says so under "How we tested it", before writing a stronger verdict. -->
 **Dev loop stage:** {Plan | Implement | Verify | Review | Ship | Reflect}
 **Layer:** {Process | Tooling | Infrastructure}
 

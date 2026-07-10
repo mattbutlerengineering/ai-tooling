@@ -162,7 +162,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | flue | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | moltworker | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | hermes-webui | platform | | ✓ | discovery-log | SOURCE-ONLY |
-| agentgpt | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| agentgpt | platform | | ✓ | SKIP | SOURCE-ONLY |
 | khoj | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mindsdb/minds | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | oh-my-claudecode | harness | | ✓ | discovery-log | REVIEW |
@@ -188,7 +188,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | TanStack-cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mastra | framework | ✓ | ✓ | discovery-log | REVIEW |
 | pydantic-deepagents | framework | ✓ | ✓ | discovery-log | REVIEW |
-| pi-subagents | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| pi-subagents | plugin | ✓ | ✓ | SKIP | REVIEW |
 | CopilotKit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | tambo | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-native | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -211,12 +211,12 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| gpt-engineer | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| gpt-engineer | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | SWE-agent | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | continue | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cline | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| Roo-Code | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| void | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Roo-Code | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| void | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | GenericAgent | harness | ✓ | ✓ | discovery-log | REVIEW |
 | gptme | harness | ✓ | ✓ | discovery-log | REVIEW |
 | zeroshot | harness | ✓ | ✓ | discovery-log | REVIEW |
@@ -314,7 +314,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
-| trailofbits/skills | skill | | ✓ | discovery-log | REVIEW |
+| trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | pentest-ai | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -402,7 +402,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | discovery-log | REVIEW |
-| andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
+| andrej-karpathy-skills | skill | | ✓ | SKIP | REVIEW |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | discovery-log | REVIEW |
 | anthropics/skills | reference | | ✓ | discovery-log | REVIEW |
 | antfu/skills | skill | | ✓ | discovery-log | REVIEW |
@@ -410,7 +410,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | book-to-skill | skill | | ✓ | discovery-log | REVIEW |
 | Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
 | claude-seo | skill | | ✓ | discovery-log | REVIEW |
-| excalidraw-diagram-skill | skill | | ✓ | discovery-log | REVIEW |
+| excalidraw-diagram-skill | skill | | ✓ | SKIP | REVIEW |
 | formkit | framework | | ✓ | SKIP | REVIEW |
 | frontend-slides | skill | | ✓ | discovery-log | REVIEW |
 | pitch-deck | skill | | ✓ | discovery-log | REVIEW |
@@ -422,7 +422,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gemini-skills | skill | | ✓ | discovery-log | REVIEW |
 | google/skills | skill | | ✓ | discovery-log | REVIEW |
 | googleworkspace/cli | tool | | ✓ | SKIP | REVIEW |
-| guizang-ppt-skill | skill | | ✓ | discovery-log | REVIEW |
+| guizang-ppt-skill | skill | | ✓ | SKIP | REVIEW |
 | html-anything | tool | | ✓ | SKIP | REVIEW |
 | humanizer | skill | | ✓ | discovery-log | REVIEW |
 | impeccable | skill | | ✓ | discovery-log | REVIEW |
@@ -437,7 +437,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-design | platform | | ✓ | SKIP | REVIEW |
 | open-slide | tool | | ✓ | discovery-log | REVIEW |
 | slidev | skill | | ✓ | discovery-log | REVIEW |
-| powerpoint | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| powerpoint | skill | | ✓ | SKIP | SOURCE-ONLY |
 | openskills | tool | | ✓ | discovery-log | REVIEW |
 | vercel-labs/skills | tool | | ✓ | discovery-log | REVIEW |
 | plugin-dev | plugin | | ✓ | discovery-log | REVIEW |
@@ -468,11 +468,11 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | baoyu-design | skill | | ✓ | discovery-log | REVIEW |
 | AlphaGBM/skills | skill | | ✓ | discovery-log | REVIEW |
 | himself65/finance-skills | skill | | ✓ | discovery-log | REVIEW |
-| web-access | skill | ✓ | ✓ | discovery-log | REVIEW |
+| web-access | skill | ✓ | ✓ | SKIP | REVIEW |
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
-| context-engineering-kit | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-skill-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -563,7 +563,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | token-optimizer-mcp | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| figma-mcp-go | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| figma-mcp-go | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | pg-aiguide | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp2cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mirage | tool | | ✓ | discovery-log | REVIEW |
@@ -672,15 +672,15 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 54 | 21 | 6 | 39% |
-| Implement | 193 | 35 | 4 | 18% |
+| Implement | 193 | 40 | 4 | 21% |
 | Verify | 21 | 5 | 2 | 24% |
-| Review | 32 | 9 | 3 | 28% |
+| Review | 32 | 10 | 3 | 31% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 40 | 9 | 2 | 22% |
-| Skills & Plugins | 82 | 12 | 4 | 15% |
+| Skills & Plugins | 82 | 18 | 4 | 22% |
 | Memory & Context | 47 | 9 | 2 | 19% |
-| MCP Servers | 39 | 8 | 2 | 21% |
+| MCP Servers | 39 | 9 | 2 | 23% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 10 | 4 | 19% |
-| **Total** | **587** | **126** | **34** | **21%** |
+| **Total** | **587** | **139** | **34** | **24%** |

@@ -3,6 +3,7 @@
 **Repo:** [trailofbits/skills](https://github.com/trailofbits/skills)
 **Stars:** 5,748 | **Last updated:** 2026-06-17 | **License:** CC-BY-SA-4.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -48,6 +49,10 @@ The inventory is **~39 plugins**, broader than "10+ security skills." Security/a
 | Cost Efficiency | + (claimed) | Structured methodology should mean fewer noisy passes than generic prompting. |
 
 ## Verdict
+
+**SKIP** — CC-BY-SA-4.0 ShareAlike. A skill/plugin is *vendored* into the consuming repo, so ShareAlike would attach to the repo that copies the skill text in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL** (review-based)
 

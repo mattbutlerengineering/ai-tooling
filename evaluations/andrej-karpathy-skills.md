@@ -3,6 +3,7 @@
 **Repo:** [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
 **Stars:** 178,312 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Process
 
@@ -53,6 +54,10 @@ gh api repos/multica-ai/andrej-karpathy-skills/contents/EXAMPLES.md --jq '.conte
 | Cost Efficiency | neutral | No token optimization; if anything, asking clarifying questions adds round-trips |
 
 ## Verdict
+
+**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL**
 

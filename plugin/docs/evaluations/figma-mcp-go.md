@@ -2,7 +2,8 @@
 
 **Repo:** [vkhanhqui/figma-mcp-go](https://github.com/vkhanhqui/figma-mcp-go)
 **Stars:** 1,158 | **Last updated:** 2026-04-30 (last push; latest release v0.1.3, 2026-04-12) | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last verified:** 2026-07-09
+**Last triaged:** 2026-07-09
 **Dev loop stage:** Implement (design-to-code grounding; also Plan when generating designs from text)
 **Layer:** Tooling (agent-facing bridge into a live Figma file — not infrastructure, no hosted service)
 
@@ -59,6 +60,12 @@ grep -inE "figma" /Users/mbutler/github/ai-tooling/CATALOG.md
 | Cost Efficiency | + (strong for free tier) | Eliminates Figma's metered tool-call cost for AI workflows — the entire reason the tool exists. Free, MIT, self-hosted, no API token. |
 
 ## Verdict
+
+**SKIP** — the repository has been taken down. `gh api repos/vkhanhqui/figma-mcp-go` returns HTTP 451 with `"reason": "dmca"` (takedown filed 2026-07-08). There is nothing left to install, and the takedown itself is a signal about the project's provenance. The MIT licence recorded above is moot: the source is unreachable.
+
+DMCA notice: https://github.com/github/dmca/blob/master/2026/07/2026-07-01-figma-mcp-bridge.md
+
+_Verified by hand on 2026-07-09 (not a bulk-lane disposal): the 451 was confirmed against the live API. Other Figma bridges in the catalog — `Figma-Context-MCP` and the official Figma MCP — remain reachable. Superseded the review-based read below._
 
 **CONDITIONAL**
 
