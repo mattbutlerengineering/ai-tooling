@@ -10,7 +10,7 @@
 
 ## What it does
 
-`software-factory-plugin` is the **open-source, MIT-licensed** packaging of [8090's](https://www.8090.ai/) AI-native SDLC methodology — the same "Software Factory" pipeline that the (proprietary, SKIP) [8090 Software Factory](./8090-software-factory.md) platform sells, but as a portable set of **skills, guides, and execution scripts** for coding agents, with no hosted service required.
+`software-factory-plugin` is the **open-source, MIT-licensed** packaging of [8090's](https://www.8090.ai/) AI-native SDLC methodology — the same "Software Factory" pipeline that the (proprietary, DEFER) [8090 Software Factory](./8090-software-factory.md) platform sells, but as a portable set of **skills, guides, and execution scripts** for coding agents, with no hosted service required.
 
 It ships a single top-level `software-factory` skill that routes into:
 
@@ -73,7 +73,7 @@ bash .agents/skills/software-factory/execution/scripts/init-wo-execution.sh \
 
 **CONDITIONAL**
 
-Adopt the **conventions and scaffolding** when you want 8090's structured, traceable SDLC discipline (typed requirements → blueprints → work orders → scope-bounded execution → multi-dimension review) inside your coding agent, without the commercial platform — it installs cleanly, is MIT, and the scripts genuinely work. **Condition:** the *automated* work-order-execution loop assumes an MCP backend the plugin doesn't ship (empty stub), so out of the box you're adopting a high-quality methodology + scaffolding, not a turnkey autonomous factory; budget for hand-authoring artifacts or standing up your own server. Best fit for larger, multi-artifact features where traceability earns its ceremony; overkill for small fixes. Distinct from the [8090 Software Factory platform](./8090-software-factory.md) eval, which stays **SKIP** (proprietary/closed).
+Adopt the **conventions and scaffolding** when you want 8090's structured, traceable SDLC discipline (typed requirements → blueprints → work orders → scope-bounded execution → multi-dimension review) inside your coding agent, without the commercial platform — it installs cleanly, is MIT, and the scripts genuinely work. **Condition:** the *automated* work-order-execution loop assumes an MCP backend the plugin doesn't ship (empty stub), so out of the box you're adopting a high-quality methodology + scaffolding, not a turnkey autonomous factory; budget for hand-authoring artifacts or standing up your own server. Best fit for larger, multi-artifact features where traceability earns its ceremony; overkill for small fixes. Distinct from the [8090 Software Factory platform](./8090-software-factory.md) eval, which is **DEFER** (proprietary; self-serve now exists at $200/user/mo, so the blocker is budget rather than access).
 
 Compared to neighbors: **BMAD-METHOD** and **spec-kit** are larger, more mature spec-driven frameworks (role-based agile; Specify→Plan→Tasks→Implement) with big communities; `software-factory-plugin` is younger and smaller but carries a sharper *traceability + audit* lineage (it's a commercial product's methodology open-sourced) and a distinctive blueprint-as-written-diagram model. Pick it when the requirement↔blueprint↔work-order linkage is the point.
 
