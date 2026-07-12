@@ -11,7 +11,7 @@ Evaluates tools against five quality signals: Correctness, Speed, Maintainabilit
 ## Structure
 
 - `PLAYBOOK.md` — the one-page front door: what to install / how to work / what to watch, routing to the depth docs (hand-maintained router, never a data mirror)
-- `CATALOG.md` — flat inventory of 587 tools, organized by 13 categories with overlap markers
+- `CATALOG.md` — flat inventory of 590 tools, organized by 13 categories with overlap markers
 - `WORKFLOW.md` — dev loop stages (inner + outer), tools per stage, quality signals, adoption guide
 - `STACK.md` — recommended stack (~25 tools to actually install, with commands)
 - `STACK-LEDGER.md` — machine-readable record of why each ADOPT/KEEP tool is/isn't in STACK (data foundation for the #70 drift gate)
