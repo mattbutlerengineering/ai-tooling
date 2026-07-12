@@ -19,7 +19,7 @@ Execute in the order below unless dependencies say otherwise. Each executor: rea
 | [009](009-measurement-protocols.md) | Per-signal measurement protocols + Test-design template block | P1 | M | — | DONE ([#219](https://github.com/mattbutlerengineering/ai-tooling/issues/219)) |
 | [010](010-skill-eval-enforcement.md) | Skill-eval protocol: required section + `--skill-design` detector | P2 | S | 009 | DONE 2026-07-03 ([#221](https://github.com/mattbutlerengineering/ai-tooling/issues/221)) |
 | [011](011-overlap-bakeoffs.md) | Bake-off protocol + Memory & Context pilot head-to-head | P2 | M | 009 | BLOCKED 2026-07-03 (pilot needs attended run — Steps 1-2 done) ([#222](https://github.com/mattbutlerengineering/ai-tooling/issues/222)) |
-| [012](012-software-factories.md) | Software-factory survey — six platforms, one methodology doc | P2 | M | — | TODO (planned 2026-07-11 via make-plan, [#272](https://github.com/mattbutlerengineering/ai-tooling/issues/272)) |
+| [012](012-software-factories.md) | Software-factory survey — six platforms, one methodology doc | P2 | M | — | DONE 2026-07-11 ([#272](https://github.com/mattbutlerengineering/ai-tooling/issues/272)) |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
 
