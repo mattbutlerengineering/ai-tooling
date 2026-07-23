@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 587 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 590 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -166,6 +166,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | khoj | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mindsdb/minds | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | oh-my-claudecode | harness | | ✓ | discovery-log | REVIEW |
+| oh-my-agent | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | oh-my-openagent | harness | | ✓ | SKIP | REVIEW |
 | lazycodex | harness | ✓ | ✓ | discovery-log | REVIEW |
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
@@ -314,6 +315,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
+| skill-scanner | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -421,6 +423,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | garden-skills | skill | | ✓ | discovery-log | REVIEW |
 | gemini-skills | skill | | ✓ | discovery-log | REVIEW |
 | google/skills | skill | | ✓ | discovery-log | REVIEW |
+| terraform-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | googleworkspace/cli | tool | | ✓ | SKIP | REVIEW |
 | guizang-ppt-skill | skill | | ✓ | SKIP | REVIEW |
 | html-anything | tool | | ✓ | SKIP | REVIEW |
@@ -672,15 +675,15 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 54 | 21 | 6 | 39% |
-| Implement | 193 | 40 | 4 | 21% |
+| Implement | 194 | 40 | 4 | 21% |
 | Verify | 21 | 5 | 2 | 24% |
-| Review | 32 | 10 | 3 | 31% |
+| Review | 33 | 10 | 3 | 30% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 40 | 9 | 2 | 22% |
-| Skills & Plugins | 82 | 18 | 4 | 22% |
+| Skills & Plugins | 83 | 18 | 4 | 22% |
 | Memory & Context | 47 | 9 | 2 | 19% |
 | MCP Servers | 39 | 9 | 2 | 23% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 10 | 4 | 19% |
-| **Total** | **587** | **139** | **34** | **24%** |
+| **Total** | **590** | **139** | **34** | **24%** |
