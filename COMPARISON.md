@@ -129,7 +129,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | happy | platform | | $ | discovery-log | REVIEW |
 | harness | skill | | ✓ | discovery-log | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
-| claude-context-optimizer | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-context-optimizer | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
 | humanlayer | harness | | ✓ | SKIP | REVIEW |
 | KARIMO | plugin | | ✓ | discovery-log | REVIEW |
@@ -672,7 +672,7 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 54 | 21 | 6 | 39% |
-| Implement | 193 | 40 | 4 | 21% |
+| Implement | 193 | 41 | 4 | 21% |
 | Verify | 21 | 5 | 2 | 24% |
 | Review | 32 | 10 | 3 | 31% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -683,4 +683,4 @@ All 587 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 39 | 9 | 2 | 23% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 10 | 4 | 19% |
-| **Total** | **587** | **139** | **34** | **24%** |
+| **Total** | **587** | **140** | **34** | **24%** |
