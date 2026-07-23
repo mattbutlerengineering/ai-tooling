@@ -4,12 +4,13 @@ Everything worth re-evaluating or watching, **derived** (not hand-maintained) fr
 
 <!-- WATCHLIST:START -->
 
-## 1. Deferred — re-evaluate when trigger fires (3)
+## 1. Deferred — re-evaluate when trigger fires (4)
 
 `DEFER` rows from [COMPARISON.md](COMPARISON.md): promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item.
 
 | Tool | Stage | Re-evaluate when |
 |------|-------|------------------|
+| 8090 Software Factory | Plan | a hands-on budget is authorized, or when the "Try for Free" entry point is confirmed to be a durable free tier rather than a time-limited trial |
 | Apache DevLake | Outer Loop | working in a team context or when managing multiple repos with CI/CD pipelines |
 | letta | Memory & Context | trigger not recorded — add one |
 | SkillOpt | Skills & Plugins | trigger not recorded — add one |
