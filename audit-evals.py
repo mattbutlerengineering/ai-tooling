@@ -87,8 +87,8 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      number (#198). Offline, gating, on by default.
 
 Usage:
-  python3 audit-evals.py              # A + B + D + G + J + K + O (all offline but A)
-  python3 audit-evals.py --offline    # B + D + G + J + K + O only (no network)
+  python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
+  python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
   python3 audit-evals.py --installs   # install resolver only
   python3 audit-evals.py --fabrication # fabrication classifier only
   python3 audit-evals.py --verdicts   # verdict-sync only (offline)
@@ -96,6 +96,7 @@ Usage:
   python3 audit-evals.py --drift      # STACK.md vs verdicts + exclusion ledger (offline)
   python3 audit-evals.py --verdict-evidence  # ADOPT/KEEP must be run-backed or disclaimered (offline)
   python3 audit-evals.py --rows       # malformed CATALOG/COMPARISON table rows (offline)
+  python3 audit-evals.py --bulk-triage  # bulk-marked evals may only SKIP (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -905,6 +906,36 @@ def _summary_cells(line):
     """Cells of a Summary table row, outer pipes dropped and bold markers stripped."""
     return [c.strip().replace("**", "") for c in line.strip().strip("|").split("|")]
 
+# ---------------------------------------------------------------- Q. eliminate-only bulk triage
+# An unattended bulk-triage pass (triage.py's bands) may REJECT a lead but never
+# promote one: it writes SKIP, or leaves the lead at discovery-log. A false SKIP is
+# cheap and reversible; a false ADOPT poisons STACK, and detector K's honesty-
+# disclaimer escape hatch would happily let a README skim carry an ADOPT.
+#
+# Policy is worthless unattended unless it is mechanical. An eval touched by the bulk
+# lane carries BULK_MARKER; this gate fails if such an eval claims anything stronger
+# than SKIP. Gating, offline. A human who genuinely exercises the tool drops the
+# marker (and says so in "How we tested it") before writing a stronger verdict.
+BULK_MARKER = "<!-- triaged: bulk -->"
+BULK_ALLOWED = frozenset({"SKIP"})
+
+def audit_bulk_triage(ctx):
+    """(eval name, verdict) for every bulk-marked eval whose verdict exceeds the
+    eliminate-only authority. A marked eval with no verdict is fine — it stayed at
+    discovery-log, which is the other permitted outcome.
+
+    Keys on the HEADLINE verdict, not verdict_set: the latter collects every verdict
+    word in the section, so a SKIP whose prose reads "not an ADOPT" would trip a
+    set-based check. The headline is what COMPARISON.md and detector D consume."""
+    flagged = []
+    for ev in ctx.evals:
+        if BULK_MARKER not in ev.text:
+            continue
+        if ev.verdict and ev.verdict not in BULK_ALLOWED:
+            flagged.append((ev.name, ev.verdict))
+    return flagged
+
+
 def audit_comparison(ctx):
     text = ctx.comparison
     body = catalog_lib.comparison_body_counts(text)          # shared with reconcile-counts.py
@@ -1019,7 +1050,7 @@ def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--skills", "--skill-design", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
+    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--bulk-triage", "--skills", "--skill-design", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
     explicit = [a for a in sel if a != "--offline"]
     do_inst = (not explicit) or "--installs" in sel
     do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
@@ -1028,6 +1059,7 @@ def main():
     do_drift = (not explicit) or "--drift" in sel or "--offline" in sel  # offline gate (#70)
     do_vev = (not explicit) or "--verdict-evidence" in sel or "--offline" in sel  # offline gate (#71)
     do_rows = (not explicit) or "--rows" in sel or "--offline" in sel  # offline gate (#198)
+    do_bulk = (not explicit) or "--bulk-triage" in sel or "--offline" in sel  # offline gate
     do_links = "--links" in sel   # opt-in: ~450 network requests, slow
     do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
     do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
@@ -1047,6 +1079,7 @@ def main():
         do_drift = "--drift" in sel
         do_vev = "--verdict-evidence" in sel
         do_rows = "--rows" in sel
+        do_bulk = "--bulk-triage" in sel
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1096,6 +1129,16 @@ def main():
                 print(f"  MALFORMED {p}")
         else:
             print("  OK — every table row parses as a well-formed entry row")
+    if do_bulk:
+        print("== Q. eliminate-only bulk triage ==")
+        bprob = audit_bulk_triage(ctx)
+        if bprob:
+            rc = 1
+            for name, verdict in bprob:
+                print(f"  OVERREACH {name}: bulk-triaged eval claims {verdict} — "
+                      f"the bulk lane may only SKIP or leave at discovery-log")
+        else:
+            print("  OK — every bulk-triaged eval stays within eliminate-only authority")
     if do_drift:
         print("== J. stack-derivation drift (STACK.md vs verdicts + ledger) ==")
         dprob = audit_stack_drift(ctx)

@@ -1,0 +1,3957 @@
+{
+  "0x0funky/agent-sprite-forge": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:25:25Z",
+    "resolved_name": "0x0funky/agent-sprite-forge",
+    "stars": 3203
+  },
+  "0xmassi/webclaw": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-02T13:36:23Z",
+    "resolved_name": "0xMassi/webclaw",
+    "stars": 1705
+  },
+  "0xnyk/council-of-high-intelligence": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T08:53:40Z",
+    "resolved_name": "0xNyk/council-of-high-intelligence",
+    "stars": 3440
+  },
+  "0xsteph/pentest-ai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T07:23:16Z",
+    "resolved_name": "0xSteph/pentest-ai",
+    "stars": 1264
+  },
+  "0xsteph/pentest-ai-agents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-22T14:06:59Z",
+    "resolved_name": "0xSteph/pentest-ai-agents",
+    "stars": 1975
+  },
+  "1jehuang/jcode": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:11:50Z",
+    "resolved_name": "1jehuang/jcode",
+    "stars": 8256
+  },
+  "1weiho/open-slide": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T08:59:30Z",
+    "resolved_name": "1weiho/open-slide",
+    "stars": 5696
+  },
+  "8090-inc/software-factory-harness": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-17T04:24:43Z",
+    "resolved_name": "8090-inc/software-factory-harness",
+    "stars": 6
+  },
+  "8090-inc/software-factory-plugin": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-08T20:29:14Z",
+    "resolved_name": "8090-inc/software-factory-plugin",
+    "stars": 6
+  },
+  "a2ui-project/a2ui": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:25:34Z",
+    "resolved_name": "a2ui-project/a2ui",
+    "stars": 15696
+  },
+  "a5c-ai/babysitter": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:08:14Z",
+    "resolved_name": "a5c-ai/babysitter",
+    "stars": 1494
+  },
+  "aaif-goose/goose": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:18:15Z",
+    "resolved_name": "aaif-goose/goose",
+    "stars": 50942
+  },
+  "activeloopai/hivemind": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:58:01Z",
+    "resolved_name": "activeloopai/hivemind",
+    "stars": 1463
+  },
+  "activepieces/activepieces": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T23:37:57Z",
+    "resolved_name": "activepieces/activepieces",
+    "stars": 23194
+  },
+  "addyosmani/agent-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:59:20Z",
+    "resolved_name": "addyosmani/agent-skills",
+    "stars": 76072
+  },
+  "addyosmani/web-quality-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-14T09:08:35Z",
+    "resolved_name": "addyosmani/web-quality-skills",
+    "stars": 2480
+  },
+  "aden-hive/hive": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-29T21:55:22Z",
+    "resolved_name": "aden-hive/hive",
+    "stars": 10662
+  },
+  "affaan-m/ecc": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T07:53:52Z",
+    "resolved_name": "affaan-m/ECC",
+    "stars": 227932
+  },
+  "ag-ui-protocol/ag-ui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T00:16:29Z",
+    "resolved_name": "ag-ui-protocol/ag-ui",
+    "stars": 14652
+  },
+  "agent-of-empires/agent-of-empires": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T05:49:10Z",
+    "resolved_name": "agent-of-empires/agent-of-empires",
+    "stars": 2784
+  },
+  "agent-sandbox/agent-sandbox": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:52:04Z",
+    "resolved_name": "agent-sandbox/agent-sandbox",
+    "stars": 164
+  },
+  "agent-sh/agnix": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-05T01:51:14Z",
+    "resolved_name": "agent-sh/agnix",
+    "stars": 335
+  },
+  "agenta-ai/agenta": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T02:09:26Z",
+    "resolved_name": "Agenta-AI/agenta",
+    "stars": 4279
+  },
+  "agentforce314/clawcodex": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T10:41:48Z",
+    "resolved_name": "agentforce314/clawcodex",
+    "stars": 776
+  },
+  "agentops-ai/tokencost": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-09-05T08:10:10Z",
+    "resolved_name": "AgentOps-AI/tokencost",
+    "stars": 1991
+  },
+  "agentscope-ai/agentscope": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T05:56:43Z",
+    "resolved_name": "agentscope-ai/agentscope",
+    "stars": 27700
+  },
+  "agentskills/agentskills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:11:48Z",
+    "resolved_name": "agentskills/agentskills",
+    "stars": 22775
+  },
+  "agentsmesh/agentsmesh": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-27T10:33:29Z",
+    "resolved_name": "AgentsMesh/AgentsMesh",
+    "stars": 2266
+  },
+  "agentwrapper/agent-orchestrator": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:58:51Z",
+    "resolved_name": "AgentWrapper/agent-orchestrator",
+    "stars": 8163
+  },
+  "agno-agi/agno": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:21:44Z",
+    "resolved_name": "agno-agi/agno",
+    "stars": 41079
+  },
+  "agricidaniel/claude-obsidian": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-28T00:42:43Z",
+    "resolved_name": "AgriciDaniel/claude-obsidian",
+    "stars": 9111
+  },
+  "agricidaniel/claude-seo": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T20:48:21Z",
+    "resolved_name": "AgriciDaniel/claude-seo",
+    "stars": 10901
+  },
+  "ahujasid/blender-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-11T13:20:04Z",
+    "resolved_name": "ahujasid/blender-mcp",
+    "stars": 23660
+  },
+  "aider-ai/aider": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-22T14:02:20Z",
+    "resolved_name": "Aider-AI/aider",
+    "stars": 47229
+  },
+  "ailabs-393/ai-labs-claude-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-11-11T07:22:14Z",
+    "resolved_name": "ailabs-393/ai-labs-claude-skills",
+    "stars": 422
+  },
+  "aiming-lab/autoresearchclaw": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-03T15:58:09Z",
+    "resolved_name": "aiming-lab/AutoResearchClaw",
+    "stars": 13752
+  },
+  "aiming-lab/simplemem": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-23T05:02:47Z",
+    "resolved_name": "aiming-lab/SimpleMem",
+    "stars": 3628
+  },
+  "aimino-tech/opendocswork-mcp": {
+    "archived": false,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2026-06-16T08:49:43Z",
+    "resolved_name": "Aimino-Tech/opendocswork-mcp",
+    "stars": 154
+  },
+  "aishwaryanr/awesome-generative-ai-guide": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-24T02:01:23Z",
+    "resolved_name": "aishwaryanr/awesome-generative-ai-guide",
+    "stars": 28190
+  },
+  "alan-thegentleman/gentleman-book-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-12-29T21:45:20Z",
+    "resolved_name": "Alan-TheGentleman/gentleman-book-mcp",
+    "stars": 105
+  },
+  "alchaincyf/huashu-design": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-02T03:49:28Z",
+    "resolved_name": "alchaincyf/huashu-design",
+    "stars": 21174
+  },
+  "alibaba/open-code-review": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:36:41Z",
+    "resolved_name": "alibaba/open-code-review",
+    "stars": 10289
+  },
+  "alibaba/page-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T08:05:48Z",
+    "resolved_name": "alibaba/page-agent",
+    "stars": 25561
+  },
+  "alirezarezvani/claude-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T06:41:33Z",
+    "resolved_name": "alirezarezvani/claude-skills",
+    "stars": 21874
+  },
+  "alphagbm/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T06:18:18Z",
+    "resolved_name": "AlphaGBM/skills",
+    "stars": 1301
+  },
+  "amelnagdy/guard-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T15:26:29Z",
+    "resolved_name": "amElnagdy/guard-skills",
+    "stars": 978
+  },
+  "andrewyng/aisuite": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-26T13:11:34Z",
+    "resolved_name": "andrewyng/aisuite",
+    "stars": 14912
+  },
+  "anomalyco/opencode": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:23:14Z",
+    "resolved_name": "anomalyco/opencode",
+    "stars": 184297
+  },
+  "antfu/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-23T00:14:36Z",
+    "resolved_name": "antfu/skills",
+    "stars": 5509
+  },
+  "anthropics/claude-code": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-10T01:45:25Z",
+    "resolved_name": "anthropics/claude-code",
+    "stars": 137107
+  },
+  "anthropics/claude-code-action": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:36:20Z",
+    "resolved_name": "anthropics/claude-code-action",
+    "stars": 8314
+  },
+  "anthropics/claude-cookbooks": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T19:52:00Z",
+    "resolved_name": "anthropics/claude-cookbooks",
+    "stars": 47241
+  },
+  "anthropics/claude-plugins-official": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:07:28Z",
+    "resolved_name": "anthropics/claude-plugins-official",
+    "stars": 31894
+  },
+  "anthropics/knowledge-work-plugins": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:09:17Z",
+    "resolved_name": "anthropics/knowledge-work-plugins",
+    "stars": 22502
+  },
+  "anthropics/skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-01T18:11:25Z",
+    "resolved_name": "anthropics/skills",
+    "stars": 159872
+  },
+  "antonosika/gpt-engineer": {
+    "archived": true,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-05-14T10:15:10Z",
+    "resolved_name": "AntonOsika/gpt-engineer",
+    "stars": 55192
+  },
+  "apache/devlake": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:40:27Z",
+    "resolved_name": "apache/devlake",
+    "stars": 3067
+  },
+  "ar9av/paperorchestra": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T18:49:14Z",
+    "resolved_name": "Ar9av/PaperOrchestra",
+    "stars": 605
+  },
+  "arize-ai/openinference": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T19:28:14Z",
+    "resolved_name": "Arize-ai/openinference",
+    "stars": 1077
+  },
+  "arize-ai/phoenix": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T02:39:52Z",
+    "resolved_name": "Arize-ai/phoenix",
+    "stars": 10483
+  },
+  "asgeirtj/system_prompts_leaks": {
+    "archived": false,
+    "license_spdx": "CC0-1.0",
+    "pushed_at": "2026-07-09T11:19:17Z",
+    "resolved_name": "asgeirtj/system_prompts_leaks",
+    "stars": 55273
+  },
+  "ashishpatel26/500-ai-agents-projects": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-06T11:58:47Z",
+    "resolved_name": "ashishpatel26/500-AI-Agents-Projects",
+    "stars": 34042
+  },
+  "assistant-ui/assistant-ui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:30:29Z",
+    "resolved_name": "assistant-ui/assistant-ui",
+    "stars": 11011
+  },
+  "astro-han/karpathy-llm-wiki": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-13T01:39:31Z",
+    "resolved_name": "Astro-Han/karpathy-llm-wiki",
+    "stars": 1462
+  },
+  "ataraxy-labs/sem": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T04:25:31Z",
+    "resolved_name": "Ataraxy-Labs/sem",
+    "stars": 3085
+  },
+  "ataraxy-labs/weave": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T01:38:03Z",
+    "resolved_name": "Ataraxy-Labs/weave",
+    "stars": 1217
+  },
+  "athola/claude-night-market": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T22:49:18Z",
+    "resolved_name": "athola/claude-night-market",
+    "stars": 324
+  },
+  "automazeio/ccpm": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-18T12:15:24Z",
+    "resolved_name": "automazeio/ccpm",
+    "stars": 8255
+  },
+  "aws/agent-toolkit-for-aws": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:15:08Z",
+    "resolved_name": "aws/agent-toolkit-for-aws",
+    "stars": 1805
+  },
+  "awslabs/aidlc-workflows": {
+    "archived": false,
+    "license_spdx": "MIT-0",
+    "pushed_at": "2026-07-10T03:39:04Z",
+    "resolved_name": "awslabs/aidlc-workflows",
+    "stars": 3405
+  },
+  "awslabs/mcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:00:17Z",
+    "resolved_name": "awslabs/mcp",
+    "stars": 9413
+  },
+  "backnotprop/plannotator": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:42:48Z",
+    "resolved_name": "backnotprop/plannotator",
+    "stars": 6927
+  },
+  "bayramannakov/claude-reflect": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-16T19:41:15Z",
+    "resolved_name": "BayramAnnakov/claude-reflect",
+    "stars": 1238
+  },
+  "beam-cloud/beta9": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-09T19:08:19Z",
+    "resolved_name": "beam-cloud/beta9",
+    "stars": 1695
+  },
+  "behisecc/awesome-claude-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-06-03T13:14:35Z",
+    "resolved_name": "BehiSecc/awesome-claude-skills",
+    "stars": 9750
+  },
+  "bergside/awesome-design-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-28T10:05:22Z",
+    "resolved_name": "bergside/awesome-design-skills",
+    "stars": 1701
+  },
+  "berriai/litellm": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:18:08Z",
+    "resolved_name": "BerriAI/litellm",
+    "stars": 53138
+  },
+  "blader/humanizer": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-29T20:43:06Z",
+    "resolved_name": "blader/humanizer",
+    "stars": 28484
+  },
+  "bloopai/vibe-kanban": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-04-24T09:17:34Z",
+    "resolved_name": "BloopAI/vibe-kanban",
+    "stars": 27322
+  },
+  "bmad-code-org/bmad-method": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-08T02:31:56Z",
+    "resolved_name": "bmad-code-org/BMAD-METHOD",
+    "stars": 50293
+  },
+  "boundaryml/baml": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:14:04Z",
+    "resolved_name": "BoundaryML/baml",
+    "stars": 8527
+  },
+  "browser-act/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T12:00:12Z",
+    "resolved_name": "browser-act/skills",
+    "stars": 4236
+  },
+  "browser-use/browser-use": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T18:17:15Z",
+    "resolved_name": "browser-use/browser-use",
+    "stars": 104005
+  },
+  "bug0inc/passmark": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T10:36:13Z",
+    "resolved_name": "bug0inc/passmark",
+    "stars": 1141
+  },
+  "builderio/agent-native": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-10T01:45:19Z",
+    "resolved_name": "BuilderIO/agent-native",
+    "stars": 3556
+  },
+  "bytedance/deer-flow": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:31:08Z",
+    "resolved_name": "bytedance/deer-flow",
+    "stars": 76663
+  },
+  "bytedance/ui-tars-desktop": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T03:03:19Z",
+    "resolved_name": "bytedance/UI-TARS-desktop",
+    "stars": 37879
+  },
+  "campfirein/byterover-cli": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-25T17:00:57Z",
+    "resolved_name": "campfirein/byterover-cli",
+    "stars": 4910
+  },
+  "can1357/oh-my-pi": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:14:15Z",
+    "resolved_name": "can1357/oh-my-pi",
+    "stars": 17056
+  },
+  "ccusage/ccusage": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:14:22Z",
+    "resolved_name": "ccusage/ccusage",
+    "stars": 17036
+  },
+  "chachamaru127/claude-code-harness": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T02:05:20Z",
+    "resolved_name": "Chachamaru127/claude-code-harness",
+    "stars": 2958
+  },
+  "cherryhq/cherry-studio": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-10T04:18:15Z",
+    "resolved_name": "CherryHQ/cherry-studio",
+    "stars": 48380
+  },
+  "chromedevtools/chrome-devtools-mcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T15:23:25Z",
+    "resolved_name": "ChromeDevTools/chrome-devtools-mcp",
+    "stars": 46513
+  },
+  "ciembor/agent-rules-books": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-22T11:00:37Z",
+    "resolved_name": "ciembor/agent-rules-books",
+    "stars": 2167
+  },
+  "claudiodrews/memory-os": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-10T10:40:43Z",
+    "resolved_name": "ClaudioDrews/memory-os",
+    "stars": 1249
+  },
+  "cline/cline": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:44:13Z",
+    "resolved_name": "cline/cline",
+    "stars": 64504
+  },
+  "cloakhq/cloakbrowser": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:22:05Z",
+    "resolved_name": "CloakHQ/CloakBrowser",
+    "stars": 27996
+  },
+  "cloudflare/agents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T20:34:42Z",
+    "resolved_name": "cloudflare/agents",
+    "stars": 5240
+  },
+  "cloudflare/mcp-server-cloudflare": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T13:36:20Z",
+    "resolved_name": "cloudflare/mcp-server-cloudflare",
+    "stars": 3933
+  },
+  "cloudflare/moltworker": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-09T02:37:13Z",
+    "resolved_name": "cloudflare/moltworker",
+    "stars": 9916
+  },
+  "cloudwego/eino": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T09:00:54Z",
+    "resolved_name": "cloudwego/eino",
+    "stars": 12234
+  },
+  "cocoindex-io/cocoindex-code": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-02T06:45:15Z",
+    "resolved_name": "cocoindex-io/cocoindex-code",
+    "stars": 2480
+  },
+  "code-yeongyu/lazycodex": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:17:53Z",
+    "resolved_name": "code-yeongyu/lazycodex",
+    "stars": 2596
+  },
+  "code-yeongyu/oh-my-openagent": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:22:47Z",
+    "resolved_name": "code-yeongyu/oh-my-openagent",
+    "stars": 65429
+  },
+  "codejunkie99/agentic-stack": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-25T19:17:19Z",
+    "resolved_name": "codejunkie99/agentic-stack",
+    "stars": 2167
+  },
+  "coderamp-labs/gitingest": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T13:46:04Z",
+    "resolved_name": "coderamp-labs/gitingest",
+    "stars": 15032
+  },
+  "coderluii/holyclaude": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T09:38:52Z",
+    "resolved_name": "CoderLuii/HolyClaude",
+    "stars": 2415
+  },
+  "colbymchenry/codegraph": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:59:55Z",
+    "resolved_name": "colbymchenry/codegraph",
+    "stars": 58934
+  },
+  "coleam00/archon": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T00:26:50Z",
+    "resolved_name": "coleam00/Archon",
+    "stars": 22821
+  },
+  "coleam00/excalidraw-diagram-skill": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-01T13:36:16Z",
+    "resolved_name": "coleam00/excalidraw-diagram-skill",
+    "stars": 4036
+  },
+  "comet-ml/opik": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:05:36Z",
+    "resolved_name": "comet-ml/opik",
+    "stars": 20507
+  },
+  "commandcodeai/command-code": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-06-26T14:28:35Z",
+    "resolved_name": "CommandCodeAI/command-code",
+    "stars": 3477
+  },
+  "composiohq/awesome-claude-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-05-22T03:17:49Z",
+    "resolved_name": "ComposioHQ/awesome-claude-skills",
+    "stars": 67335
+  },
+  "composiohq/awesome-codex-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-05-15T06:24:47Z",
+    "resolved_name": "ComposioHQ/awesome-codex-skills",
+    "stars": 14763
+  },
+  "composiohq/composio": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:14:41Z",
+    "resolved_name": "ComposioHQ/composio",
+    "stars": 29155
+  },
+  "conardli/garden-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-10T13:43:52Z",
+    "resolved_name": "ConardLi/garden-skills",
+    "stars": 9334
+  },
+  "conductor-oss/conductor": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:09:10Z",
+    "resolved_name": "conductor-oss/conductor",
+    "stars": 31993
+  },
+  "confident-ai/deepeval": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T08:52:44Z",
+    "resolved_name": "confident-ai/deepeval",
+    "stars": 16742
+  },
+  "continuedev/continue": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:16:23Z",
+    "resolved_name": "continuedev/continue",
+    "stars": 34771
+  },
+  "copilotkit/aimock": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T19:13:32Z",
+    "resolved_name": "CopilotKit/aimock",
+    "stars": 643
+  },
+  "copilotkit/copilotkit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:07:20Z",
+    "resolved_name": "CopilotKit/CopilotKit",
+    "stars": 35886
+  },
+  "copilotkit/opengenerativeui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-10T23:23:43Z",
+    "resolved_name": "CopilotKit/OpenGenerativeUI",
+    "stars": 1438
+  },
+  "coplaydev/unity-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T21:33:05Z",
+    "resolved_name": "CoplayDev/unity-mcp",
+    "stars": 12282
+  },
+  "coreyhaines31/marketingskills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T00:40:09Z",
+    "resolved_name": "coreyhaines31/marketingskills",
+    "stars": 37447
+  },
+  "crewaiinc/crewai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:13:27Z",
+    "resolved_name": "crewAIInc/crewAI",
+    "stars": 55259
+  },
+  "dair-ai/prompt-engineering-guide": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-11T20:09:13Z",
+    "resolved_name": "dair-ai/Prompt-Engineering-Guide",
+    "stars": 76327
+  },
+  "danielmiessler/fabric": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:34:13Z",
+    "resolved_name": "danielmiessler/Fabric",
+    "stars": 42911
+  },
+  "danmcinerney/architect-loop": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T19:23:47Z",
+    "resolved_name": "DanMcInerney/architect-loop",
+    "stars": 604
+  },
+  "data-privacy-stack/presidio": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T20:46:32Z",
+    "resolved_name": "data-privacy-stack/presidio",
+    "stars": 9929
+  },
+  "dave-london/pare": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T03:45:44Z",
+    "resolved_name": "Dave-London/Pare",
+    "stars": 132
+  },
+  "davepoon/buildwithclaude": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T06:05:38Z",
+    "resolved_name": "davepoon/buildwithclaude",
+    "stars": 3160
+  },
+  "davila7/claude-code-templates": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:23:37Z",
+    "resolved_name": "davila7/claude-code-templates",
+    "stars": 28552
+  },
+  "daytonaio/daytona": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-09T18:45:58Z",
+    "resolved_name": "daytonaio/daytona",
+    "stars": 72242
+  },
+  "deeplethe/forkd": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T03:32:24Z",
+    "resolved_name": "deeplethe/forkd",
+    "stars": 2711
+  },
+  "deepset-ai/haystack": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T18:52:57Z",
+    "resolved_name": "deepset-ai/haystack",
+    "stars": 25859
+  },
+  "denissergeevitch/agents-best-practices": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-29T21:15:14Z",
+    "resolved_name": "DenisSergeevitch/agents-best-practices",
+    "stars": 2104
+  },
+  "deusdata/codebase-memory-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:26:29Z",
+    "resolved_name": "DeusData/codebase-memory-mcp",
+    "stars": 29242
+  },
+  "diegosouzapw/omniroute": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:12:45Z",
+    "resolved_name": "diegosouzapw/OmniRoute",
+    "stars": 14412
+  },
+  "diet103/claude-code-infrastructure-showcase": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-17T04:22:53Z",
+    "resolved_name": "diet103/claude-code-infrastructure-showcase",
+    "stars": 9734
+  },
+  "dietrichgebert/ponytail": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:44:32Z",
+    "resolved_name": "DietrichGebert/ponytail",
+    "stars": 79367
+  },
+  "disler/claude-code-hooks-multi-agent-observability": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-02-08T23:59:13Z",
+    "resolved_name": "disler/claude-code-hooks-multi-agent-observability",
+    "stars": 1482
+  },
+  "docmd-io/docmd": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T16:23:44Z",
+    "resolved_name": "docmd-io/docmd",
+    "stars": 2147
+  },
+  "donchitos/claude-code-game-studios": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-21T23:33:07Z",
+    "resolved_name": "Donchitos/Claude-Code-Game-Studios",
+    "stars": 22799
+  },
+  "doorman11991/smallcode": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-20T04:11:30Z",
+    "resolved_name": "Doorman11991/smallcode",
+    "stars": 1980
+  },
+  "dsherret/ts-morph": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-12T18:25:32Z",
+    "resolved_name": "dsherret/ts-morph",
+    "stars": 6131
+  },
+  "duriantaco/skylos": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T08:12:29Z",
+    "resolved_name": "duriantaco/skylos",
+    "stars": 464
+  },
+  "e2b-dev/awesome-ai-agents": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T17:41:48Z",
+    "resolved_name": "e2b-dev/awesome-ai-agents",
+    "stars": 28671
+  },
+  "earendil-works/pi": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:17:06Z",
+    "resolved_name": "earendil-works/pi",
+    "stars": 69241
+  },
+  "editor-code-assistant/eca": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T15:16:42Z",
+    "resolved_name": "editor-code-assistant/eca",
+    "stars": 909
+  },
+  "egonex-ai/understand-anything": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T10:24:52Z",
+    "resolved_name": "Egonex-AI/Understand-Anything",
+    "stars": 72384
+  },
+  "egorfedorov/claude-context-optimizer": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T02:02:02Z",
+    "resolved_name": "egorfedorov/claude-context-optimizer",
+    "stars": 71
+  },
+  "eigent-ai/eigent": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T10:23:38Z",
+    "resolved_name": "eigent-ai/eigent",
+    "stars": 14526
+  },
+  "elara-labs/code-context-engine": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:11:30Z",
+    "resolved_name": "elara-labs/code-context-engine",
+    "stars": 342
+  },
+  "elder-plinius/cl4r1t4s": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-15T11:09:58Z",
+    "resolved_name": "elder-plinius/CL4R1T4S",
+    "stars": 45144
+  },
+  "elementalsouls/claude-bughunter": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-01T09:25:27Z",
+    "resolved_name": "elementalsouls/Claude-BugHunter",
+    "stars": 2927
+  },
+  "erha19/ping-island": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-07T17:43:14Z",
+    "resolved_name": "erha19/ping-island",
+    "stars": 956
+  },
+  "esengine/deepseek-reasonix": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:23:07Z",
+    "resolved_name": "esengine/DeepSeek-Reasonix",
+    "stars": 26556
+  },
+  "eshaan-nair/arcrift": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T12:52:48Z",
+    "resolved_name": "Eshaan-Nair/ArcRift",
+    "stars": 246
+  },
+  "eugeniughelbur/obsidian-second-brain": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T20:42:02Z",
+    "resolved_name": "eugeniughelbur/obsidian-second-brain",
+    "stars": 3065
+  },
+  "evalstate/fast-agent": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:01:18Z",
+    "resolved_name": "evalstate/fast-agent",
+    "stars": 3855
+  },
+  "everyinc/compound-engineering-plugin": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:12:05Z",
+    "resolved_name": "EveryInc/compound-engineering-plugin",
+    "stars": 22906
+  },
+  "evo-hq/evo": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T14:59:37Z",
+    "resolved_name": "evo-hq/evo",
+    "stars": 1288
+  },
+  "evomap/evolver": {
+    "archived": false,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2026-07-09T15:03:16Z",
+    "resolved_name": "EvoMap/evolver",
+    "stars": 8879
+  },
+  "exa-labs/exa-mcp-server": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T02:49:46Z",
+    "resolved_name": "exa-labs/exa-mcp-server",
+    "stars": 4688
+  },
+  "eyaltoledano/claude-task-master": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-04-28T13:27:12Z",
+    "resolved_name": "eyaltoledano/claude-task-master",
+    "stars": 27805
+  },
+  "eze-is/web-access": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-05-16T05:22:35Z",
+    "resolved_name": "eze-is/web-access",
+    "stars": 8167
+  },
+  "fareedkhan-dev/claude-code-staff-engineer": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-13T13:29:17Z",
+    "resolved_name": "FareedKhan-dev/claude-code-staff-engineer",
+    "stars": 74
+  },
+  "farion1231/cc-switch": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T18:39:52Z",
+    "resolved_name": "farion1231/cc-switch",
+    "stars": 115375
+  },
+  "firecrawl/firecrawl": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-10T04:03:00Z",
+    "resolved_name": "firecrawl/firecrawl",
+    "stars": 148503
+  },
+  "firecrawl/firecrawl-mcp-server": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T01:49:28Z",
+    "resolved_name": "firecrawl/firecrawl-mcp-server",
+    "stars": 6899
+  },
+  "fission-ai/openspec": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T15:04:16Z",
+    "resolved_name": "Fission-AI/OpenSpec",
+    "stars": 59633
+  },
+  "florianbruniaux/claude-code-ultimate-guide": {
+    "archived": false,
+    "license_spdx": "CC-BY-SA-4.0",
+    "pushed_at": "2026-07-09T15:02:53Z",
+    "resolved_name": "FlorianBruniaux/claude-code-ultimate-guide",
+    "stars": 5393
+  },
+  "flowiseai/flowise": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-06T04:30:06Z",
+    "resolved_name": "FlowiseAI/Flowise",
+    "stars": 54478
+  },
+  "formkit/formkit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-24T17:18:52Z",
+    "resolved_name": "formkit/formkit",
+    "stars": 4734
+  },
+  "forward-future/loopy": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T21:56:32Z",
+    "resolved_name": "Forward-Future/loopy",
+    "stars": 2615
+  },
+  "foundationagents/metagpt": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-01-21T10:12:33Z",
+    "resolved_name": "FoundationAgents/MetaGPT",
+    "stars": 69282
+  },
+  "francyjglisboa/agent-skill-creator": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-13T20:00:23Z",
+    "resolved_name": "FrancyJGLisboa/agent-skill-creator",
+    "stars": 1788
+  },
+  "frankbria/ralph-claude-code": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T02:33:21Z",
+    "resolved_name": "frankbria/ralph-claude-code",
+    "stars": 9521
+  },
+  "freestyle-voice/freestyle": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:11:15Z",
+    "resolved_name": "freestyle-voice/freestyle",
+    "stars": 458
+  },
+  "fujibee/agmsg": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:47:57Z",
+    "resolved_name": "fujibee/agmsg",
+    "stars": 981
+  },
+  "ganyuanran/aegis": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T08:38:07Z",
+    "resolved_name": "GanyuanRan/Aegis",
+    "stars": 627
+  },
+  "garrytan/gbrain": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:57:32Z",
+    "resolved_name": "garrytan/gbrain",
+    "stars": 25764
+  },
+  "garrytan/gstack": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:56:38Z",
+    "resolved_name": "garrytan/gstack",
+    "stars": 120842
+  },
+  "gastownhall/beads": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:21:07Z",
+    "resolved_name": "gastownhall/beads",
+    "stars": 25195
+  },
+  "gastownhall/gastown": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:01:05Z",
+    "resolved_name": "gastownhall/gastown",
+    "stars": 16928
+  },
+  "gentleman-programming/engram": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T16:31:00Z",
+    "resolved_name": "Gentleman-Programming/engram",
+    "stars": 4996
+  },
+  "gentleman-programming/gentle-ai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:20:05Z",
+    "resolved_name": "Gentleman-Programming/gentle-ai",
+    "stars": 4738
+  },
+  "getagentseal/codeburn": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T00:25:15Z",
+    "resolved_name": "getagentseal/codeburn",
+    "stars": 8562
+  },
+  "getsentry/sentry-mcp": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T21:03:41Z",
+    "resolved_name": "getsentry/sentry-mcp",
+    "stars": 767
+  },
+  "getsentry/skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-30T20:52:20Z",
+    "resolved_name": "getsentry/skills",
+    "stars": 850
+  },
+  "ghostsecurity/skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-03-11T12:01:35Z",
+    "resolved_name": "ghostsecurity/skills",
+    "stars": 396
+  },
+  "ghostwright/phantom": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-16T21:26:09Z",
+    "resolved_name": "ghostwright/phantom",
+    "stars": 1444
+  },
+  "giancarloerra/socraticode": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-28T20:24:41Z",
+    "resolved_name": "giancarloerra/SocratiCode",
+    "stars": 3110
+  },
+  "giskard-ai/giskard-oss": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T09:13:56Z",
+    "resolved_name": "Giskard-AI/giskard-oss",
+    "stars": 5502
+  },
+  "github/awesome-copilot": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:00:43Z",
+    "resolved_name": "github/awesome-copilot",
+    "stars": 36392
+  },
+  "github/gh-aw-mcpg": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:45:50Z",
+    "resolved_name": "github/gh-aw-mcpg",
+    "stars": 143
+  },
+  "github/github-mcp-server": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T22:16:11Z",
+    "resolved_name": "github/github-mcp-server",
+    "stars": 31331
+  },
+  "github/spec-kit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:54:02Z",
+    "resolved_name": "github/spec-kit",
+    "stars": 119137
+  },
+  "glips/figma-context-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T14:24:36Z",
+    "resolved_name": "GLips/Figma-Context-MCP",
+    "stars": 15358
+  },
+  "gmickel/flow-next": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:45:24Z",
+    "resolved_name": "gmickel/flow-next",
+    "stars": 656
+  },
+  "goldentrii/agentrecall-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T17:44:27Z",
+    "resolved_name": "Goldentrii/AgentRecall-MCP",
+    "stars": 307
+  },
+  "google-antigravity/antigravity-sdk-python": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T19:28:38Z",
+    "resolved_name": "google-antigravity/antigravity-sdk-python",
+    "stars": 2339
+  },
+  "google-gemini/gemini-cli": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:43:07Z",
+    "resolved_name": "google-gemini/gemini-cli",
+    "stars": 105879
+  },
+  "google-gemini/gemini-skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-30T16:18:04Z",
+    "resolved_name": "google-gemini/gemini-skills",
+    "stars": 3798
+  },
+  "google-labs-code/design.md": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T19:47:04Z",
+    "resolved_name": "google-labs-code/design.md",
+    "stars": 25534
+  },
+  "google/agents-cli": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T15:47:57Z",
+    "resolved_name": "google/agents-cli",
+    "stars": 4957
+  },
+  "google/skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T22:21:23Z",
+    "resolved_name": "google/skills",
+    "stars": 14489
+  },
+  "googleapis/mcp-toolbox": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:08:02Z",
+    "resolved_name": "googleapis/mcp-toolbox",
+    "stars": 15918
+  },
+  "googleworkspace/cli": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-01T03:10:20Z",
+    "resolved_name": "googleworkspace/cli",
+    "stars": 29558
+  },
+  "gptme/gptme": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:24:40Z",
+    "resolved_name": "gptme/gptme",
+    "stars": 4355
+  },
+  "grapeot/context-infrastructure": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-06T21:03:06Z",
+    "resolved_name": "grapeot/context-infrastructure",
+    "stars": 657
+  },
+  "graphify-labs/graphify": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:11:38Z",
+    "resolved_name": "Graphify-Labs/graphify",
+    "stars": 81384
+  },
+  "graykode/abtop": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T04:19:20Z",
+    "resolved_name": "graykode/abtop",
+    "stars": 3324
+  },
+  "h5i-dev/h5i": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:44:11Z",
+    "resolved_name": "h5i-dev/h5i",
+    "stars": 453
+  },
+  "harbor-framework/harbor": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:24:55Z",
+    "resolved_name": "harbor-framework/harbor",
+    "stars": 3075
+  },
+  "hardikpandya/stop-slop": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-17T18:50:39Z",
+    "resolved_name": "hardikpandya/stop-slop",
+    "stars": 13602
+  },
+  "hashgraph-online/hol-guard": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T02:23:16Z",
+    "resolved_name": "hashgraph-online/hol-guard",
+    "stars": 389
+  },
+  "headroomlabs-ai/headroom": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:20:57Z",
+    "resolved_name": "headroomlabs-ai/headroom",
+    "stars": 58212
+  },
+  "helicone/helicone": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-05T05:55:34Z",
+    "resolved_name": "Helicone/helicone",
+    "stars": 5929
+  },
+  "helvesec/rmux": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T06:33:25Z",
+    "resolved_name": "Helvesec/rmux",
+    "stars": 2372
+  },
+  "hesreallyhim/awesome-claude-code": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:23:11Z",
+    "resolved_name": "hesreallyhim/awesome-claude-code",
+    "stars": 49674
+  },
+  "heygen-com/hyperframes": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:52:20Z",
+    "resolved_name": "heygen-com/hyperframes",
+    "stars": 34025
+  },
+  "hidai25/eval-view": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-03T14:23:20Z",
+    "resolved_name": "hidai25/eval-view",
+    "stars": 122
+  },
+  "himself65/finance-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-14T20:00:07Z",
+    "resolved_name": "himself65/finance-skills",
+    "stars": 2977
+  },
+  "hkuds/cli-anything": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T13:06:01Z",
+    "resolved_name": "HKUDS/CLI-Anything",
+    "stars": 45070
+  },
+  "hkuds/lightrag": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T18:46:26Z",
+    "resolved_name": "HKUDS/LightRAG",
+    "stars": 37521
+  },
+  "hkuds/nanobot": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:44:45Z",
+    "resolved_name": "HKUDS/nanobot",
+    "stars": 45191
+  },
+  "hoangsonww/claude-code-agent-monitor": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:59:39Z",
+    "resolved_name": "hoangsonww/Claude-Code-Agent-Monitor",
+    "stars": 781
+  },
+  "huggingface/smolagents": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-23T18:34:53Z",
+    "resolved_name": "huggingface/smolagents",
+    "stars": 28268
+  },
+  "humanlayer/12-factor-agents": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2025-09-21T14:37:40Z",
+    "resolved_name": "humanlayer/12-factor-agents",
+    "stars": 24021
+  },
+  "humanlayer/humanlayer": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-19T03:27:53Z",
+    "resolved_name": "humanlayer/humanlayer",
+    "stars": 11099
+  },
+  "hyhmrright/brooks-lint": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-02T14:30:52Z",
+    "resolved_name": "hyhmrright/brooks-lint",
+    "stars": 1209
+  },
+  "iamzhihuix/skills-manage": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-02T14:01:06Z",
+    "resolved_name": "iamzhihuix/skills-manage",
+    "stars": 2076
+  },
+  "ibm/mcp-context-forge": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:31:31Z",
+    "resolved_name": "IBM/mcp-context-forge",
+    "stars": 4068
+  },
+  "idosal/git-mcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-08T14:21:24Z",
+    "resolved_name": "idosal/git-mcp",
+    "stars": 8243
+  },
+  "igorwarzocha/opencode-workflows": {
+    "archived": true,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-02-04T00:46:55Z",
+    "resolved_name": "IgorWarzocha/Opencode-Workflows",
+    "stars": 125
+  },
+  "imbad0202/academic-research-skills": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-08T14:40:54Z",
+    "resolved_name": "Imbad0202/academic-research-skills",
+    "stars": 37146
+  },
+  "imbue-ai/vet": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-10T04:06:18Z",
+    "resolved_name": "imbue-ai/vet",
+    "stars": 653
+  },
+  "infiniflow/ragflow": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:25:05Z",
+    "resolved_name": "infiniflow/ragflow",
+    "stars": 84718
+  },
+  "infisical/agent-vault": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-05T01:53:18Z",
+    "resolved_name": "Infisical/agent-vault",
+    "stars": 1851
+  },
+  "infracost/infracost": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-03T09:39:16Z",
+    "resolved_name": "infracost/infracost",
+    "stars": 12398
+  },
+  "infragate/capa": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-09T15:28:35Z",
+    "resolved_name": "infragate/capa",
+    "stars": 619
+  },
+  "inftyai/awesome-llmops": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:07:01Z",
+    "resolved_name": "InftyAI/Awesome-LLMOps",
+    "stars": 253
+  },
+  "inngest/agent-kit": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-04-29T18:37:00Z",
+    "resolved_name": "inngest/agent-kit",
+    "stars": 910
+  },
+  "inngest/inngest": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T00:57:27Z",
+    "resolved_name": "inngest/inngest",
+    "stars": 5580
+  },
+  "jackwener/opencli": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-04T17:35:15Z",
+    "resolved_name": "jackwener/OpenCLI",
+    "stars": 26389
+  },
+  "jarrodwatts/claude-hud": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T21:32:33Z",
+    "resolved_name": "jarrodwatts/claude-hud",
+    "stars": 26300
+  },
+  "jeffallan/claude-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-20T13:35:05Z",
+    "resolved_name": "Jeffallan/claude-skills",
+    "stars": 10501
+  },
+  "jimliu/baoyu-design": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T03:53:47Z",
+    "resolved_name": "JimLiu/baoyu-design",
+    "stars": 2513
+  },
+  "jimliu/baoyu-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T16:25:18Z",
+    "resolved_name": "JimLiu/baoyu-skills",
+    "stars": 23360
+  },
+  "juliusbrussee/caveman": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T11:10:42Z",
+    "resolved_name": "JuliusBrussee/caveman",
+    "stars": 87352
+  },
+  "k-dense-ai/scientific-agent-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T22:23:53Z",
+    "resolved_name": "K-Dense-AI/scientific-agent-skills",
+    "stars": 30597
+  },
+  "kaitranntt/ccs": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T14:22:56Z",
+    "resolved_name": "kaitranntt/ccs",
+    "stars": 2680
+  },
+  "karpathy/autoresearch": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-26T00:07:37Z",
+    "resolved_name": "karpathy/autoresearch",
+    "stars": 90618
+  },
+  "karpathy/llm-council": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2025-11-22T23:35:21Z",
+    "resolved_name": "karpathy/llm-council",
+    "stars": 22484
+  },
+  "kaushikb11/awesome-llm-agents": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-05T04:10:37Z",
+    "resolved_name": "kaushikb11/awesome-llm-agents",
+    "stars": 1527
+  },
+  "kayba-ai/agentic-context-engine": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T23:36:10Z",
+    "resolved_name": "kayba-ai/agentic-context-engine",
+    "stars": 2528
+  },
+  "kenn-io/agentsview": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:11:23Z",
+    "resolved_name": "kenn-io/agentsview",
+    "stars": 4160
+  },
+  "kenryu42/cc-safety-net": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-30T02:36:33Z",
+    "resolved_name": "kenryu42/cc-safety-net",
+    "stars": 1438
+  },
+  "kepano/obsidian-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-08T16:12:01Z",
+    "resolved_name": "kepano/obsidian-skills",
+    "stars": 40596
+  },
+  "keploy/keploy": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:01:12Z",
+    "resolved_name": "keploy/keploy",
+    "stars": 18051
+  },
+  "khazp/vibe-coding-prompt-template": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-19T22:22:18Z",
+    "resolved_name": "KhazP/vibe-coding-prompt-template",
+    "stars": 2623
+  },
+  "khoj-ai/khoj": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-24T21:17:20Z",
+    "resolved_name": "khoj-ai/khoj",
+    "stars": 35603
+  },
+  "kilo-org/kilocode": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:57:12Z",
+    "resolved_name": "Kilo-Org/kilocode",
+    "stars": 25939
+  },
+  "knowsuchagency/mcp2cli": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-30T22:45:28Z",
+    "resolved_name": "knowsuchagency/mcp2cli",
+    "stars": 2287
+  },
+  "kodustech/kodus-ai": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T21:28:46Z",
+    "resolved_name": "kodustech/kodus-ai",
+    "stars": 1228
+  },
+  "kuberwastaken/claurst": {
+    "archived": false,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2026-07-08T12:12:11Z",
+    "resolved_name": "Kuberwastaken/claurst",
+    "stars": 9983
+  },
+  "lackeyjb/playwright-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-12-19T16:23:38Z",
+    "resolved_name": "lackeyjb/playwright-skill",
+    "stars": 2885
+  },
+  "langchain-ai/langchain": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:18:52Z",
+    "resolved_name": "langchain-ai/langchain",
+    "stars": 141421
+  },
+  "langchain-ai/langchainjs": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:08:53Z",
+    "resolved_name": "langchain-ai/langchainjs",
+    "stars": 17920
+  },
+  "langchain-ai/langgraph": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:30:24Z",
+    "resolved_name": "langchain-ai/langgraph",
+    "stars": 36928
+  },
+  "langchain-ai/langgraphjs": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T04:04:15Z",
+    "resolved_name": "langchain-ai/langgraphjs",
+    "stars": 3103
+  },
+  "langflow-ai/langflow": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T00:47:12Z",
+    "resolved_name": "langflow-ai/langflow",
+    "stars": 151467
+  },
+  "langfuse/langfuse": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T23:02:38Z",
+    "resolved_name": "langfuse/langfuse",
+    "stars": 30836
+  },
+  "langgenius/dify": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:21:01Z",
+    "resolved_name": "langgenius/dify",
+    "stars": 148352
+  },
+  "langwatch/scenario": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:21:47Z",
+    "resolved_name": "langwatch/scenario",
+    "stars": 914
+  },
+  "larksuite/cli": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:13:42Z",
+    "resolved_name": "larksuite/cli",
+    "stars": 15368
+  },
+  "lec-ai/claude-devfleet": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-28T15:51:29Z",
+    "resolved_name": "LEC-AI/claude-devfleet",
+    "stars": 16
+  },
+  "leonxlnx/taste-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T22:02:55Z",
+    "resolved_name": "Leonxlnx/taste-skill",
+    "stars": 61345
+  },
+  "letta-ai/claude-subconscious": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-01T23:32:16Z",
+    "resolved_name": "letta-ai/claude-subconscious",
+    "stars": 2833
+  },
+  "letta-ai/letta": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-03T18:53:41Z",
+    "resolved_name": "letta-ai/letta",
+    "stars": 23722
+  },
+  "letta-ai/letta-code": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:53:47Z",
+    "resolved_name": "letta-ai/letta-code",
+    "stars": 2823
+  },
+  "libukai/awesome-agent-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-26T15:51:32Z",
+    "resolved_name": "libukai/awesome-agent-skills",
+    "stars": 4821
+  },
+  "liveloveapp/hashbrown": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T18:58:20Z",
+    "resolved_name": "liveloveapp/hashbrown",
+    "stars": 706
+  },
+  "ljagiello/ctf-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-01T18:40:38Z",
+    "resolved_name": "ljagiello/ctf-skills",
+    "stars": 2666
+  },
+  "lobehub/lobehub": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:24:13Z",
+    "resolved_name": "lobehub/lobehub",
+    "stars": 79682
+  },
+  "lsdefine/genericagent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:42:10Z",
+    "resolved_name": "lsdefine/GenericAgent",
+    "stars": 13348
+  },
+  "lucasrosati/claude-code-memory-setup": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-01T18:06:01Z",
+    "resolved_name": "lucasrosati/claude-code-memory-setup",
+    "stars": 836
+  },
+  "luminarylane/fal-mcp-server": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-04T07:32:30Z",
+    "resolved_name": "luminarylane/fal-mcp-server",
+    "stars": 52
+  },
+  "luongnv89/claude-howto": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-01T05:59:06Z",
+    "resolved_name": "luongnv89/claude-howto",
+    "stars": 39565
+  },
+  "maciek-roboblog/claude-code-usage-monitor": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T04:52:21Z",
+    "resolved_name": "Maciek-roboblog/Claude-Code-Usage-Monitor",
+    "stars": 8419
+  },
+  "mastra-ai/mastra": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T01:04:12Z",
+    "resolved_name": "mastra-ai/mastra",
+    "stars": 26003
+  },
+  "mathomhaus/guild": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-22T17:45:16Z",
+    "resolved_name": "mathomhaus/guild",
+    "stars": 317
+  },
+  "matt1398/claude-devtools": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-13T21:40:54Z",
+    "resolved_name": "matt1398/claude-devtools",
+    "stars": 3686
+  },
+  "mattpocock/dictionary-of-ai-coding": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-02T13:31:02Z",
+    "resolved_name": "mattpocock/dictionary-of-ai-coding",
+    "stars": 2577
+  },
+  "mattpocock/sandcastle": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-29T20:16:27Z",
+    "resolved_name": "mattpocock/sandcastle",
+    "stars": 6739
+  },
+  "mattpocock/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T13:57:49Z",
+    "resolved_name": "mattpocock/skills",
+    "stars": 163317
+  },
+  "mauhpr/agentlint": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T08:33:12Z",
+    "resolved_name": "mauhpr/agentlint",
+    "stars": 27
+  },
+  "max-sixty/worktrunk": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:24:44Z",
+    "resolved_name": "max-sixty/worktrunk",
+    "stars": 5780
+  },
+  "maxbogo/awesome-ai-tools-for-ui": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-06T20:21:13Z",
+    "resolved_name": "maxbogo/awesome-ai-tools-for-ui",
+    "stars": 736
+  },
+  "maximhq/bifrost": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:19:02Z",
+    "resolved_name": "maximhq/bifrost",
+    "stars": 6403
+  },
+  "mcp-ui-org/mcp-ui": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T04:21:59Z",
+    "resolved_name": "MCP-UI-Org/mcp-ui",
+    "stars": 4999
+  },
+  "mcp-use/mcp-use": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:54:46Z",
+    "resolved_name": "mcp-use/mcp-use",
+    "stars": 10272
+  },
+  "mdn/mcp": {
+    "archived": false,
+    "license_spdx": "MPL-2.0",
+    "pushed_at": "2026-07-06T12:01:20Z",
+    "resolved_name": "mdn/mcp",
+    "stars": 162
+  },
+  "mem0ai/mem0": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T20:15:46Z",
+    "resolved_name": "mem0ai/mem0",
+    "stars": 60506
+  },
+  "memodb-io/acontext": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-30T18:35:29Z",
+    "resolved_name": "memodb-io/Acontext",
+    "stars": 3571
+  },
+  "memorilabs/memori": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-15T23:18:56Z",
+    "resolved_name": "MemoriLabs/Memori",
+    "stars": 15556
+  },
+  "mempalace/mempalace": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T15:27:46Z",
+    "resolved_name": "MemPalace/mempalace",
+    "stars": 57179
+  },
+  "memtensor/memos": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T11:05:28Z",
+    "resolved_name": "MemTensor/MemOS",
+    "stars": 10153
+  },
+  "memvid/memvid": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-27T19:31:24Z",
+    "resolved_name": "memvid/memvid",
+    "stars": 15739
+  },
+  "mensfeld/code-on-incus": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:30:51Z",
+    "resolved_name": "mensfeld/code-on-incus",
+    "stars": 585
+  },
+  "mervinpraison/praisonai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T22:21:45Z",
+    "resolved_name": "MervinPraison/PraisonAI",
+    "stars": 8364
+  },
+  "metalbear-co/mirrord": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:16:21Z",
+    "resolved_name": "metalbear-co/mirrord",
+    "stars": 5205
+  },
+  "mex-memory/mex": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T20:30:43Z",
+    "resolved_name": "mex-memory/mex",
+    "stars": 1149
+  },
+  "michielhdoteth/squish": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-29T00:16:42Z",
+    "resolved_name": "michielhdoteth/squish",
+    "stars": 5
+  },
+  "microsoft/agent-framework": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:19:15Z",
+    "resolved_name": "microsoft/agent-framework",
+    "stars": 12001
+  },
+  "microsoft/agent-governance-toolkit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T08:16:29Z",
+    "resolved_name": "microsoft/agent-governance-toolkit",
+    "stars": 4733
+  },
+  "microsoft/ai-agents-for-beginners": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:01:19Z",
+    "resolved_name": "microsoft/ai-agents-for-beginners",
+    "stars": 68942
+  },
+  "microsoft/autogen": {
+    "archived": false,
+    "license_spdx": "CC-BY-4.0",
+    "pushed_at": "2026-04-15T11:59:09Z",
+    "resolved_name": "microsoft/autogen",
+    "stars": 59615
+  },
+  "microsoft/azure-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T16:17:36Z",
+    "resolved_name": "microsoft/azure-skills",
+    "stars": 1264
+  },
+  "microsoft/debugmcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T11:39:50Z",
+    "resolved_name": "microsoft/DebugMCP",
+    "stars": 415
+  },
+  "microsoft/markitdown": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-24T15:32:46Z",
+    "resolved_name": "microsoft/markitdown",
+    "stars": 164420
+  },
+  "microsoft/mcp-for-beginners": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T19:57:07Z",
+    "resolved_name": "microsoft/mcp-for-beginners",
+    "stars": 16724
+  },
+  "microsoft/playwright-mcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T19:12:14Z",
+    "resolved_name": "microsoft/playwright-mcp",
+    "stars": 34897
+  },
+  "microsoft/semantic-kernel": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:21:44Z",
+    "resolved_name": "microsoft/semantic-kernel",
+    "stars": 28289
+  },
+  "microsoft/skillopt": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-02T14:11:34Z",
+    "resolved_name": "microsoft/SkillOpt",
+    "stars": 11984
+  },
+  "microsoft/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T16:17:03Z",
+    "resolved_name": "microsoft/skills",
+    "stars": 2714
+  },
+  "microsoft/waza": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T15:20:14Z",
+    "resolved_name": "microsoft/waza",
+    "stars": 1078
+  },
+  "mindfold-ai/trellis": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-09T08:37:26Z",
+    "resolved_name": "mindfold-ai/Trellis",
+    "stars": 12192
+  },
+  "mindsdb/minds": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:23:05Z",
+    "resolved_name": "mindsdb/mindshub",
+    "stars": 39386
+  },
+  "minishlab/semble": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T08:59:00Z",
+    "resolved_name": "MinishLab/semble",
+    "stars": 5564
+  },
+  "mito-ds/mito": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-22T17:31:41Z",
+    "resolved_name": "mito-ds/mito",
+    "stars": 2641
+  },
+  "mksglu/context-mode": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T18:34:17Z",
+    "resolved_name": "mksglu/context-mode",
+    "stars": 18771
+  },
+  "modelcontextprotocol/ext-apps": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-08T01:00:19Z",
+    "resolved_name": "modelcontextprotocol/ext-apps",
+    "stars": 2552
+  },
+  "modelcontextprotocol/servers": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:30:19Z",
+    "resolved_name": "modelcontextprotocol/servers",
+    "stars": 88287
+  },
+  "modu-ai/moai-adk": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:43:02Z",
+    "resolved_name": "modu-ai/moai-adk",
+    "stars": 1120
+  },
+  "mohitagw15856/pm-claude-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T08:46:29Z",
+    "resolved_name": "mohitagw15856/pm-claude-skills",
+    "stars": 1170
+  },
+  "moonshotai/kimi-code": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:07:43Z",
+    "resolved_name": "MoonshotAI/kimi-code",
+    "stars": 3036
+  },
+  "mrexodia/ida-pro-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-22T12:50:18Z",
+    "resolved_name": "mrexodia/ida-pro-mcp",
+    "stars": 10004
+  },
+  "msitarzewski/agency-agents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T20:33:00Z",
+    "resolved_name": "msitarzewski/agency-agents",
+    "stars": 129818
+  },
+  "mudler/localai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:48:46Z",
+    "resolved_name": "mudler/LocalAI",
+    "stars": 47451
+  },
+  "mukul975/anthropic-cybersecurity-skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-26T14:37:50Z",
+    "resolved_name": "mukul975/Anthropic-Cybersecurity-Skills",
+    "stars": 25118
+  },
+  "mukul975/cve-mcp-server": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-22T16:51:49Z",
+    "resolved_name": "mukul975/cve-mcp-server",
+    "stars": 1073
+  },
+  "multica-ai/andrej-karpathy-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-04-20T10:05:04Z",
+    "resolved_name": "multica-ai/andrej-karpathy-skills",
+    "stars": 190160
+  },
+  "musistudio/claude-code-router": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:56:10Z",
+    "resolved_name": "musistudio/claude-code-router",
+    "stars": 35715
+  },
+  "mvanhorn/last30days-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:18:16Z",
+    "resolved_name": "mvanhorn/last30days-skill",
+    "stars": 51241
+  },
+  "nanobrowser/nanobrowser": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2025-11-24T11:10:03Z",
+    "resolved_name": "nanobrowser/nanobrowser",
+    "stars": 13442
+  },
+  "nanocoai/nanoclaw": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T15:40:08Z",
+    "resolved_name": "nanocoai/nanoclaw",
+    "stars": 30175
+  },
+  "neolabhq/context-engineering-kit": {
+    "archived": false,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2026-07-06T20:08:38Z",
+    "resolved_name": "NeoLabHQ/context-engineering-kit",
+    "stars": 1218
+  },
+  "nesquena/hermes-webui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:31:59Z",
+    "resolved_name": "nesquena/hermes-webui",
+    "stars": 15729
+  },
+  "neuml/txtai": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-02T14:44:53Z",
+    "resolved_name": "neuml/txtai",
+    "stars": 12712
+  },
+  "nevamind-ai/memu": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:42:52Z",
+    "resolved_name": "NevaMind-AI/memU",
+    "stars": 14007
+  },
+  "nextlevelbuilder/ui-ux-pro-max-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T15:33:37Z",
+    "resolved_name": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "stars": 103581
+  },
+  "nexu-io/html-anything": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-05T14:36:16Z",
+    "resolved_name": "nexu-io/html-anything",
+    "stars": 7659
+  },
+  "nexu-io/open-design": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:21:57Z",
+    "resolved_name": "nexu-io/open-design",
+    "stars": 76883
+  },
+  "nicobailon/pi-subagents": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-10T01:08:06Z",
+    "resolved_name": "nicobailon/pi-subagents",
+    "stars": 2480
+  },
+  "nikolai-vysotskyi/trace-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T09:15:13Z",
+    "resolved_name": "nikolai-vysotskyi/trace-mcp",
+    "stars": 92
+  },
+  "nimbalyst/nimbalyst": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:23:13Z",
+    "resolved_name": "nimbalyst/nimbalyst",
+    "stars": 1132
+  },
+  "nirdiamant/agents-towards-production": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-04T12:53:24Z",
+    "resolved_name": "NirDiamant/agents-towards-production",
+    "stars": 20949
+  },
+  "nirdiamant/genai_agents": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-04T12:53:21Z",
+    "resolved_name": "NirDiamant/GenAI_Agents",
+    "stars": 23057
+  },
+  "nizos/tdd-guard": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T08:27:24Z",
+    "resolved_name": "nizos/tdd-guard",
+    "stars": 2250
+  },
+  "nousresearch/hermes-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:22:18Z",
+    "resolved_name": "NousResearch/hermes-agent",
+    "stars": 212308
+  },
+  "numman-ali/openskills": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-01-18T13:09:50Z",
+    "resolved_name": "numman-ali/openskills",
+    "stars": 10580
+  },
+  "nvidia-nemo/guardrails": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T15:14:59Z",
+    "resolved_name": "NVIDIA-NeMo/Guardrails",
+    "stars": 6653
+  },
+  "nvidia/garak": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T19:58:42Z",
+    "resolved_name": "NVIDIA/garak",
+    "stars": 8383
+  },
+  "nvidia/skills": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T23:57:20Z",
+    "resolved_name": "NVIDIA/skills",
+    "stars": 2375
+  },
+  "nvidia/skillspector": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-07T00:55:27Z",
+    "resolved_name": "NVIDIA/SkillSpector",
+    "stars": 12644
+  },
+  "nyldn/claude-octopus": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T23:35:22Z",
+    "resolved_name": "nyldn/claude-octopus",
+    "stars": 3776
+  },
+  "obra/superpowers": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T21:53:36Z",
+    "resolved_name": "obra/superpowers",
+    "stars": 251029
+  },
+  "ogulcancelik/herdr": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T01:22:38Z",
+    "resolved_name": "ogulcancelik/herdr",
+    "stars": 14867
+  },
+  "omnigent-ai/omnigent": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:11:28Z",
+    "resolved_name": "omnigent-ai/omnigent",
+    "stars": 6934
+  },
+  "onyx-dot-app/onyx": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:24:22Z",
+    "resolved_name": "onyx-dot-app/onyx",
+    "stars": 30798
+  },
+  "ooples/token-optimizer-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-23T03:02:31Z",
+    "resolved_name": "ooples/token-optimizer-mcp",
+    "stars": 434
+  },
+  "op7418/guizang-ppt-skill": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-02T09:53:57Z",
+    "resolved_name": "op7418/guizang-ppt-skill",
+    "stars": 20832
+  },
+  "open-compress/claw-compactor": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-01T08:31:20Z",
+    "resolved_name": "open-compress/claw-compactor",
+    "stars": 2191
+  },
+  "open-gsd/gsd-core": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:51:01Z",
+    "resolved_name": "open-gsd/gsd-core",
+    "stars": 6275
+  },
+  "open-multi-agent/open-multi-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:14:14Z",
+    "resolved_name": "open-multi-agent/open-multi-agent",
+    "stars": 6549
+  },
+  "openai/codex": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:25:50Z",
+    "resolved_name": "openai/codex",
+    "stars": 96747
+  },
+  "openai/codex-plugin-cc": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T00:17:31Z",
+    "resolved_name": "openai/codex-plugin-cc",
+    "stars": 27197
+  },
+  "opendatalab/mineru": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:53:25Z",
+    "resolved_name": "opendatalab/MinerU",
+    "stars": 74101
+  },
+  "openhands/openhands": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T04:19:41Z",
+    "resolved_name": "OpenHands/OpenHands",
+    "stars": 80270
+  },
+  "openinterpreter/openinterpreter": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-07T00:59:25Z",
+    "resolved_name": "openinterpreter/openinterpreter",
+    "stars": 64320
+  },
+  "openmemind/memind": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-14T05:08:06Z",
+    "resolved_name": "openmemind/memind",
+    "stars": 903
+  },
+  "openosint/openosint": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T08:54:01Z",
+    "resolved_name": "OpenOSINT/OpenOSINT",
+    "stars": 946
+  },
+  "openrewrite/rewrite": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:05:25Z",
+    "resolved_name": "openrewrite/rewrite",
+    "stars": 3586
+  },
+  "opensesh/karimo": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-11T21:28:52Z",
+    "resolved_name": "opensesh/KARIMO",
+    "stars": 257
+  },
+  "opensquilla/opensquilla": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:01:16Z",
+    "resolved_name": "opensquilla/opensquilla",
+    "stars": 5571
+  },
+  "oraios/serena": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T10:29:29Z",
+    "resolved_name": "oraios/serena",
+    "stars": 26273
+  },
+  "orchestra-research/ai-research-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-16T01:36:46Z",
+    "resolved_name": "Orchestra-Research/AI-Research-SKILLs",
+    "stars": 10570
+  },
+  "osaurus-ai/osaurus": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:48:37Z",
+    "resolved_name": "osaurus-ai/osaurus",
+    "stars": 6894
+  },
+  "ossf/scorecard": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:16:52Z",
+    "resolved_name": "ossf/scorecard",
+    "stars": 5575
+  },
+  "othmanadi/planning-with-files": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T14:35:26Z",
+    "resolved_name": "OthmanAdi/planning-with-files",
+    "stars": 25132
+  },
+  "oxygen-fragment/claude-modular": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-07-16T10:27:32Z",
+    "resolved_name": "oxygen-fragment/claude-modular",
+    "stars": 286
+  },
+  "panniantong/agent-reach": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T06:57:59Z",
+    "resolved_name": "Panniantong/Agent-Reach",
+    "stars": 53973
+  },
+  "parcadei/continuous-claude-v3": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-01-26T15:27:49Z",
+    "resolved_name": "parcadei/Continuous-Claude-v3",
+    "stars": 3859
+  },
+  "pbakaus/impeccable": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T00:09:13Z",
+    "resolved_name": "pbakaus/impeccable",
+    "stars": 45121
+  },
+  "pedrohcgs/claude-code-my-workflow": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-10T18:20:30Z",
+    "resolved_name": "pedrohcgs/claude-code-my-workflow",
+    "stars": 1388
+  },
+  "pezzolabs/pezzo": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-03-31T02:03:01Z",
+    "resolved_name": "pezzolabs/pezzo",
+    "stars": 3253
+  },
+  "phuryn/pm-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T11:34:49Z",
+    "resolved_name": "phuryn/pm-skills",
+    "stars": 23273
+  },
+  "piebald-ai/claude-code-system-prompts": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T18:49:26Z",
+    "resolved_name": "Piebald-AI/claude-code-system-prompts",
+    "stars": 11727
+  },
+  "pimzino/claude-code-spec-workflow": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-09-07T14:14:52Z",
+    "resolved_name": "Pimzino/claude-code-spec-workflow",
+    "stars": 3790
+  },
+  "plandex-ai/plandex": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-10-03T21:49:58Z",
+    "resolved_name": "plandex-ai/plandex",
+    "stars": 15511
+  },
+  "plastic-labs/honcho": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-09T22:34:22Z",
+    "resolved_name": "plastic-labs/honcho",
+    "stars": 5880
+  },
+  "portkey-ai/gateway": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-25T13:54:51Z",
+    "resolved_name": "Portkey-AI/gateway",
+    "stars": 12383
+  },
+  "practicalswan/agent-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-23T18:30:07Z",
+    "resolved_name": "PracticalSwan/agent-skills",
+    "stars": 3
+  },
+  "prefecthq/fastmcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T20:33:36Z",
+    "resolved_name": "PrefectHQ/fastmcp",
+    "stars": 26068
+  },
+  "prisma/prisma": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T15:48:19Z",
+    "resolved_name": "prisma/prisma",
+    "stars": 46945
+  },
+  "promptfoo/promptfoo": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:03:27Z",
+    "resolved_name": "promptfoo/promptfoo",
+    "stars": 23099
+  },
+  "punkpeye/awesome-mcp-servers": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T12:53:14Z",
+    "resolved_name": "punkpeye/awesome-mcp-servers",
+    "stars": 90542
+  },
+  "pydantic/logfire": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T00:48:49Z",
+    "resolved_name": "pydantic/logfire",
+    "stars": 4357
+  },
+  "pydantic/pydantic-ai": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:30:39Z",
+    "resolved_name": "pydantic/pydantic-ai",
+    "stars": 18302
+  },
+  "qodo-ai/qodo-cover": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-04-05T12:27:16Z",
+    "resolved_name": "qodo-ai/qodo-cover",
+    "stars": 5548
+  },
+  "qualifire-dev/rogue": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-05-04T10:58:46Z",
+    "resolved_name": "qualifire-dev/rogue",
+    "stars": 1052
+  },
+  "qufei1993/skills-hub": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:21:47Z",
+    "resolved_name": "qufei1993/skills-hub",
+    "stars": 1113
+  },
+  "qwenlm/qwen-code": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:20:00Z",
+    "resolved_name": "QwenLM/qwen-code",
+    "stars": 25910
+  },
+  "ref-tools/ref-tools-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-26T22:26:07Z",
+    "resolved_name": "ref-tools/ref-tools-mcp",
+    "stars": 1137
+  },
+  "refactoringhq/tolaria": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-10T02:36:13Z",
+    "resolved_name": "refactoringhq/tolaria",
+    "stars": 18496
+  },
+  "refly-ai/refly": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-03-25T14:51:18Z",
+    "resolved_name": "refly-ai/refly",
+    "stars": 7424
+  },
+  "refoundai/lenny-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-01-31T02:13:03Z",
+    "resolved_name": "RefoundAI/lenny-skills",
+    "stars": 1134
+  },
+  "regent-vcs/re_gent": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-02T13:15:30Z",
+    "resolved_name": "regent-vcs/re_gent",
+    "stars": 776
+  },
+  "repoprompt/repoprompt-ce": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:54:11Z",
+    "resolved_name": "repoprompt/repoprompt-ce",
+    "stars": 780
+  },
+  "reporails/cli": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-27T23:24:23Z",
+    "resolved_name": "reporails/cli",
+    "stars": 63
+  },
+  "repowise-dev/repowise": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T09:55:25Z",
+    "resolved_name": "repowise-dev/repowise",
+    "stars": 3419
+  },
+  "revfactory/harness": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-10T05:30:36Z",
+    "resolved_name": "revfactory/harness",
+    "stars": 8275
+  },
+  "reworkd/agentgpt": {
+    "archived": true,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2025-04-29T01:19:32Z",
+    "resolved_name": "reworkd/AgentGPT",
+    "stars": 36260
+  },
+  "richards199999/thinking-claude": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-07T18:24:24Z",
+    "resolved_name": "richards199999/Thinking-Claude",
+    "stars": 17072
+  },
+  "rkiding/awesome-finance-skills": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-03-29T05:03:47Z",
+    "resolved_name": "RKiding/Awesome-finance-skills",
+    "stars": 2671
+  },
+  "rohitg00/agentmemory": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-06T06:13:34Z",
+    "resolved_name": "rohitg00/agentmemory",
+    "stars": 24916
+  },
+  "rohitg00/ai-engineering-from-scratch": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-25T19:43:11Z",
+    "resolved_name": "rohitg00/ai-engineering-from-scratch",
+    "stars": 37761
+  },
+  "rohitg00/pro-workflow": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-06T20:29:28Z",
+    "resolved_name": "rohitg00/pro-workflow",
+    "stars": 2603
+  },
+  "roocodeinc/roo-code": {
+    "archived": true,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-15T18:08:47Z",
+    "resolved_name": "RooCodeInc/Roo-Code",
+    "stars": 24311
+  },
+  "router-for-me/cliproxyapi": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:05:50Z",
+    "resolved_name": "router-for-me/CLIProxyAPI",
+    "stars": 39690
+  },
+  "rtk-ai/rtk": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T07:49:57Z",
+    "resolved_name": "rtk-ai/rtk",
+    "stars": 69887
+  },
+  "run-llama/llama_index": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T10:53:59Z",
+    "resolved_name": "run-llama/llama_index",
+    "stars": 50752
+  },
+  "ruvnet/ruflo": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:03:10Z",
+    "resolved_name": "ruvnet/ruflo",
+    "stars": 63744
+  },
+  "samber/cc-skills-golang": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T16:31:09Z",
+    "resolved_name": "samber/cc-skills-golang",
+    "stars": 2483
+  },
+  "samuraigpt/awesome-hermes-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-25T20:49:46Z",
+    "resolved_name": "SamurAIGPT/awesome-hermes-agent",
+    "stars": 1810
+  },
+  "samuraigpt/generative-media-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-22T09:38:26Z",
+    "resolved_name": "SamurAIGPT/Generative-Media-Skills",
+    "stars": 3754
+  },
+  "sandeco/reversa": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T17:40:45Z",
+    "resolved_name": "sandeco/reversa",
+    "stars": 1336
+  },
+  "sentrux/sentrux": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-19T02:23:12Z",
+    "resolved_name": "sentrux/sentrux",
+    "stars": 2598
+  },
+  "shadcn/improve": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-15T06:18:39Z",
+    "resolved_name": "shadcn/improve",
+    "stars": 7570
+  },
+  "shanraisshan/claude-code-best-practice": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:25:07Z",
+    "resolved_name": "shanraisshan/claude-code-best-practice",
+    "stars": 62366
+  },
+  "shareai-lab/learn-claude-code": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-26T19:36:35Z",
+    "resolved_name": "shareAI-lab/learn-claude-code",
+    "stars": 70505
+  },
+  "shubhamsaboo/awesome-llm-apps": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:38:53Z",
+    "resolved_name": "Shubhamsaboo/awesome-llm-apps",
+    "stars": 117152
+  },
+  "sickn33/antigravity-awesome-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:55:56Z",
+    "resolved_name": "sickn33/agentic-awesome-skills",
+    "stars": 42741
+  },
+  "sigoden/aichat": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-02-23T11:16:42Z",
+    "resolved_name": "sigoden/aichat",
+    "stars": 10223
+  },
+  "simstudioai/sim": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:57:04Z",
+    "resolved_name": "simstudioai/sim",
+    "stars": 28982
+  },
+  "sipyourdrink-ltd/bernstein": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:08:49Z",
+    "resolved_name": "sipyourdrink-ltd/bernstein",
+    "stars": 652
+  },
+  "sirmalloc/ccstatusline": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T05:29:47Z",
+    "resolved_name": "sirmalloc/ccstatusline",
+    "stars": 11620
+  },
+  "sjsyrek/design-council": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-28T02:44:31Z",
+    "resolved_name": "sjsyrek/design-council",
+    "stars": 171
+  },
+  "skyllwt/autosci": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T13:52:39Z",
+    "resolved_name": "skyllwt/AutoSci",
+    "stars": 1526
+  },
+  "slidevjs/slidev": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:25:08Z",
+    "resolved_name": "slidevjs/slidev",
+    "stars": 47599
+  },
+  "slopus/happy": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T06:22:49Z",
+    "resolved_name": "slopus/happy",
+    "stars": 22527
+  },
+  "smtg-ai/claude-squad": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-06-17T16:05:14Z",
+    "resolved_name": "smtg-ai/claude-squad",
+    "stars": 8068
+  },
+  "snarktank/ralph": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-02-02T01:46:21Z",
+    "resolved_name": "snarktank/ralph",
+    "stars": 20973
+  },
+  "softaworks/agent-toolkit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-03-05T16:46:24Z",
+    "resolved_name": "softaworks/agent-toolkit",
+    "stars": 2169
+  },
+  "sooperset/mcp-atlassian": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T13:41:08Z",
+    "resolved_name": "sooperset/mcp-atlassian",
+    "stars": 5529
+  },
+  "sopaco/deepwiki-rs": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-16T07:52:16Z",
+    "resolved_name": "sopaco/deepwiki-rs",
+    "stars": 1348
+  },
+  "sourcebot-dev/sourcebot": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:41:42Z",
+    "resolved_name": "sourcebot-dev/sourcebot",
+    "stars": 3567
+  },
+  "specstoryai/getspecstory": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T22:28:45Z",
+    "resolved_name": "specstoryai/getspecstory",
+    "stars": 1274
+  },
+  "stablyai/orca": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:22:06Z",
+    "resolved_name": "stablyai/orca",
+    "stars": 15269
+  },
+  "standardagents/arrow-js": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-01T16:52:04Z",
+    "resolved_name": "standardagents/arrow-js",
+    "stars": 3694
+  },
+  "standardagents/dmux": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T03:18:48Z",
+    "resolved_name": "standardagents/dmux",
+    "stars": 1691
+  },
+  "stanford-oval/storm": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-09-30T18:07:21Z",
+    "resolved_name": "stanford-oval/storm",
+    "stars": 29993
+  },
+  "stanfordnlp/dspy": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T22:12:20Z",
+    "resolved_name": "stanfordnlp/dspy",
+    "stars": 36010
+  },
+  "stevesolun/ctx": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T13:28:24Z",
+    "resolved_name": "stevesolun/ctx",
+    "stars": 547
+  },
+  "storybloq/storybloq": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-07T06:14:01Z",
+    "resolved_name": "Storybloq/storybloq",
+    "stars": 661
+  },
+  "strands-agents/harness-sdk": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T01:02:59Z",
+    "resolved_name": "strands-agents/harness-sdk",
+    "stars": 6504
+  },
+  "strukto-ai/mirage": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T03:22:03Z",
+    "resolved_name": "strukto-ai/mirage",
+    "stars": 3299
+  },
+  "stryker-mutator/stryker-js": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:39:04Z",
+    "resolved_name": "stryker-mutator/stryker-js",
+    "stars": 2940
+  },
+  "supabase/mcp": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T16:26:15Z",
+    "resolved_name": "supabase/mcp",
+    "stars": 2796
+  },
+  "superagent-ai/grok-cli": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-06T14:05:33Z",
+    "resolved_name": "superagent-ai/grok-cli",
+    "stars": 3225
+  },
+  "superagent-ai/superagent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-11T08:34:31Z",
+    "resolved_name": "superagent-ai/superagent",
+    "stars": 6668
+  },
+  "supermemoryai/supermemory": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T19:51:21Z",
+    "resolved_name": "supermemoryai/supermemory",
+    "stars": 28301
+  },
+  "superset-sh/superset": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T03:56:50Z",
+    "resolved_name": "superset-sh/superset",
+    "stars": 12356
+  },
+  "swe-agent/swe-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T15:57:40Z",
+    "resolved_name": "SWE-agent/SWE-agent",
+    "stars": 19757
+  },
+  "tabbyml/tabby": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-06-30T20:38:02Z",
+    "resolved_name": "TabbyML/tabby",
+    "stars": 33683
+  },
+  "tadata-org/fastapi_mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-11-24T14:51:54Z",
+    "resolved_name": "tadata-org/fastapi_mcp",
+    "stars": 11939
+  },
+  "tailcallhq/forgecode": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:16:31Z",
+    "resolved_name": "tailcallhq/forgecode",
+    "stars": 7450
+  },
+  "tambo-ai/tambo": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:32:30Z",
+    "resolved_name": "tambo-ai/tambo",
+    "stars": 11154
+  },
+  "tanstack/cli": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-22T22:36:10Z",
+    "resolved_name": "TanStack/cli",
+    "stars": 1281
+  },
+  "tastyeffectco/sandboxd": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T11:44:47Z",
+    "resolved_name": "tastyeffectco/sandboxd",
+    "stars": 714
+  },
+  "tathagat22/plumb-mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-03T22:32:14Z",
+    "resolved_name": "tathagat22/plumb-mcp",
+    "stars": 63
+  },
+  "taylorwilsdon/google_workspace_mcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T15:21:48Z",
+    "resolved_name": "taylorwilsdon/google_workspace_mcp",
+    "stars": 2819
+  },
+  "tech-leads-club/agent-skills": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-07T13:46:22Z",
+    "resolved_name": "tech-leads-club/agent-skills",
+    "stars": 4854
+  },
+  "teng-lin/notebooklm-py": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T09:17:41Z",
+    "resolved_name": "teng-lin/notebooklm-py",
+    "stars": 17498
+  },
+  "tensorchord/awesome-llmops": {
+    "archived": false,
+    "license_spdx": "CC0-1.0",
+    "pushed_at": "2026-05-21T09:12:50Z",
+    "resolved_name": "tensorchord/Awesome-LLMOps",
+    "stars": 5877
+  },
+  "the-open-engine/zeroshot": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:15:32Z",
+    "resolved_name": "the-open-engine/zeroshot",
+    "stars": 1633
+  },
+  "the-pocket/pocketflow-tutorial-codebase-knowledge": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-31T01:26:41Z",
+    "resolved_name": "The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge",
+    "stars": 12430
+  },
+  "the-pr-agent/pr-agent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T21:49:45Z",
+    "resolved_name": "The-PR-Agent/pr-agent",
+    "stars": 12037
+  },
+  "thedotmack/claude-mem": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:56:37Z",
+    "resolved_name": "thedotmack/claude-mem",
+    "stars": 86642
+  },
+  "thesysdev/openui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:53:24Z",
+    "resolved_name": "thesysdev/openui",
+    "stars": 7931
+  },
+  "tianyilt/claude-fleet": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T13:52:52Z",
+    "resolved_name": "tianyilt/claude-fleet",
+    "stars": 41
+  },
+  "timescale/pg-aiguide": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-26T19:47:09Z",
+    "resolved_name": "timescale/pg-aiguide",
+    "stars": 1784
+  },
+  "tirth8205/code-review-graph": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-14T17:20:41Z",
+    "resolved_name": "tirth8205/code-review-graph",
+    "stars": 19371
+  },
+  "topoteretes/cognee": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:22:36Z",
+    "resolved_name": "topoteretes/cognee",
+    "stars": 27437
+  },
+  "trailofbits/skills": {
+    "archived": false,
+    "license_spdx": "CC-BY-SA-4.0",
+    "pushed_at": "2026-07-07T13:36:35Z",
+    "resolved_name": "trailofbits/skills",
+    "stars": 6051
+  },
+  "travisvn/awesome-claude-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-04-28T19:30:24Z",
+    "resolved_name": "travisvn/awesome-claude-skills",
+    "stars": 14043
+  },
+  "triggerdotdev/trigger.dev": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:23:18Z",
+    "resolved_name": "triggerdotdev/trigger.dev",
+    "stars": 15616
+  },
+  "trycua/cua": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:19:39Z",
+    "resolved_name": "trycua/cua",
+    "stars": 19511
+  },
+  "tw93/kaku": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-10T02:18:33Z",
+    "resolved_name": "tw93/Kaku",
+    "stars": 5540
+  },
+  "tw93/waza": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T07:40:08Z",
+    "resolved_name": "tw93/Waza",
+    "stars": 6375
+  },
+  "twostraws/swiftui-agent-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-20T08:02:42Z",
+    "resolved_name": "twostraws/SwiftUI-Agent-Skill",
+    "stars": 4279
+  },
+  "uditakhourii/adhd": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-30T07:41:11Z",
+    "resolved_name": "UditAkhourii/adhd",
+    "stars": 926
+  },
+  "upstash/context7": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T09:50:45Z",
+    "resolved_name": "upstash/context7",
+    "stars": 58842
+  },
+  "usestrix/strix": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:23:27Z",
+    "resolved_name": "usestrix/strix",
+    "stars": 39682
+  },
+  "vectifyai/pageindex": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T03:17:24Z",
+    "resolved_name": "VectifyAI/PageIndex",
+    "stars": 33908
+  },
+  "vercel-labs/agent-browser": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T14:16:30Z",
+    "resolved_name": "vercel-labs/agent-browser",
+    "stars": 38196
+  },
+  "vercel-labs/agent-skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-07T14:05:22Z",
+    "resolved_name": "vercel-labs/agent-skills",
+    "stars": 28890
+  },
+  "vercel-labs/dev3000": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T05:00:29Z",
+    "resolved_name": "vercel-labs/dev3000",
+    "stars": 1548
+  },
+  "vercel-labs/json-render": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-08T23:20:55Z",
+    "resolved_name": "vercel-labs/json-render",
+    "stars": 15653
+  },
+  "vercel-labs/openreview": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-06T16:44:33Z",
+    "resolved_name": "vercel-labs/openreview",
+    "stars": 1452
+  },
+  "vercel-labs/opensrc": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-23T22:45:48Z",
+    "resolved_name": "vercel-labs/opensrc",
+    "stars": 2785
+  },
+  "vercel-labs/skills": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-08T20:55:32Z",
+    "resolved_name": "vercel-labs/skills",
+    "stars": 25671
+  },
+  "vercel/ai": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-09T23:11:39Z",
+    "resolved_name": "vercel/ai",
+    "stars": 25454
+  },
+  "vercel/eve": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T04:18:26Z",
+    "resolved_name": "vercel/eve",
+    "stars": 3366
+  },
+  "vercel/sandbox": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T15:38:57Z",
+    "resolved_name": "vercel/sandbox",
+    "stars": 162
+  },
+  "vercel/workflow": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-10T02:57:32Z",
+    "resolved_name": "vercel/workflow",
+    "stars": 2193
+  },
+  "vibe-log/vibe-log-cli": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-19T21:59:48Z",
+    "resolved_name": "vibe-log/vibe-log-cli",
+    "stars": 336
+  },
+  "vibrantlabsai/ragas": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-02-24T07:47:19Z",
+    "resolved_name": "vibrantlabsai/ragas",
+    "stars": 14771
+  },
+  "virgiliojr94/book-to-skill": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-04T03:58:25Z",
+    "resolved_name": "virgiliojr94/book-to-skill",
+    "stars": 8358
+  },
+  "vkhanhqui/figma-mcp-go": {
+    "archived": null,
+    "license_spdx": "404",
+    "pushed_at": null,
+    "resolved_name": null,
+    "stars": null
+  },
+  "voideditor/void": {
+    "archived": true,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-06-02T22:03:55Z",
+    "resolved_name": "voideditor/void",
+    "stars": 28817
+  },
+  "volcengine/minecontext": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-05-07T13:23:05Z",
+    "resolved_name": "volcengine/MineContext",
+    "stars": 5415
+  },
+  "volcengine/openviking": {
+    "archived": false,
+    "license_spdx": "AGPL-3.0",
+    "pushed_at": "2026-07-10T04:27:16Z",
+    "resolved_name": "volcengine/OpenViking",
+    "stars": 26504
+  },
+  "voltagent/awesome-agent-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-30T10:58:35Z",
+    "resolved_name": "VoltAgent/awesome-agent-skills",
+    "stars": 27716
+  },
+  "voltagent/awesome-claude-code-subagents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T20:00:06Z",
+    "resolved_name": "VoltAgent/awesome-claude-code-subagents",
+    "stars": 23127
+  },
+  "voltagent/awesome-openclaw-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-24T05:50:01Z",
+    "resolved_name": "VoltAgent/awesome-openclaw-skills",
+    "stars": 51076
+  },
+  "voltagent/voltagent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:25:15Z",
+    "resolved_name": "VoltAgent/voltagent",
+    "stars": 10004
+  },
+  "vstorm-co/pydantic-deepagents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T09:42:19Z",
+    "resolved_name": "vstorm-co/pydantic-deepagents",
+    "stars": 960
+  },
+  "walkinglabs/awesome-harness-engineering": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-05-22T16:17:33Z",
+    "resolved_name": "walkinglabs/awesome-harness-engineering",
+    "stars": 3558
+  },
+  "walkinglabs/learn-harness-engineering": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T18:36:27Z",
+    "resolved_name": "walkinglabs/learn-harness-engineering",
+    "stars": 10157
+  },
+  "wanshuiyin/auto-claude-code-research-in-sleep": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:10:34Z",
+    "resolved_name": "wanshuiyin/Auto-claude-code-research-in-sleep",
+    "stars": 13207
+  },
+  "web-infra-dev/midscene": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:25:52Z",
+    "resolved_name": "web-infra-dev/midscene",
+    "stars": 14031
+  },
+  "weizhena/deep-research-skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-07T16:08:07Z",
+    "resolved_name": "Weizhena/Deep-Research-skills",
+    "stars": 1583
+  },
+  "windy3f3f3f3f/how-claude-code-works": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-07T13:24:05Z",
+    "resolved_name": "Windy3f3f3f3f/how-claude-code-works",
+    "stars": 3111
+  },
+  "withastro/flue": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T22:36:09Z",
+    "resolved_name": "withastro/flue",
+    "stars": 7219
+  },
+  "withkynam/vibecode-pro-max-kit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-21T08:31:44Z",
+    "resolved_name": "withkynam/vibecode-pro-max-kit",
+    "stars": 1028
+  },
+  "wondelai/skills": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-05T14:28:44Z",
+    "resolved_name": "wondelai/skills",
+    "stars": 1589
+  },
+  "wonderwhy-er/desktopcommandermcp": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T20:00:08Z",
+    "resolved_name": "wonderwhy-er/DesktopCommanderMCP",
+    "stars": 6605
+  },
+  "workflowsio/company-os-starter-kit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-04-06T18:46:11Z",
+    "resolved_name": "Workflowsio/company-os-starter-kit",
+    "stars": 73
+  },
+  "wshobson/agents": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T14:32:16Z",
+    "resolved_name": "wshobson/agents",
+    "stars": 37720
+  },
+  "wynelson94/longhand": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T18:20:54Z",
+    "resolved_name": "Wynelson94/longhand",
+    "stars": 11
+  },
+  "x1xhlol/system-prompts-and-models-of-ai-tools": {
+    "archived": false,
+    "license_spdx": "GPL-3.0",
+    "pushed_at": "2026-07-08T15:55:32Z",
+    "resolved_name": "x1xhlol/system-prompts-and-models-of-ai-tools",
+    "stars": 141753
+  },
+  "xberg-io/xberg": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:21:21Z",
+    "resolved_name": "xberg-io/xberg",
+    "stars": 8605
+  },
+  "xiaomimimo/mimo-code": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T01:49:22Z",
+    "resolved_name": "XiaomiMiMo/MiMo-Code",
+    "stars": 11725
+  },
+  "xknight254-hub/align-dev": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-06-05T08:10:33Z",
+    "resolved_name": "xknight254-hub/align-dev",
+    "stars": 0
+  },
+  "yamadashy/repomix": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T16:14:42Z",
+    "resolved_name": "yamadashy/repomix",
+    "stars": 27023
+  },
+  "yeachan-heo/oh-my-claudecode": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T11:11:55Z",
+    "resolved_name": "Yeachan-Heo/oh-my-claudecode",
+    "stars": 37624
+  },
+  "yigitkonur/cli-continues": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-05-07T03:04:49Z",
+    "resolved_name": "yigitkonur/cli-continues",
+    "stars": 1330
+  },
+  "yishentu/claudian": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-08T11:58:43Z",
+    "resolved_name": "YishenTu/claudian",
+    "stars": 13798
+  },
+  "ykdojo/claude-code-tips": {
+    "archived": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-06T03:03:59Z",
+    "resolved_name": "ykdojo/claude-code-tips",
+    "stars": 9145
+  },
+  "yonatangross/orchestkit": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T04:27:31Z",
+    "resolved_name": "yonatangross/orchestkit",
+    "stars": 199
+  },
+  "yusufkaraaslan/skill_seekers": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-02T21:50:59Z",
+    "resolved_name": "yusufkaraaslan/Skill_Seekers",
+    "stars": 14415
+  },
+  "yvgude/lean-ctx": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T21:54:49Z",
+    "resolved_name": "yvgude/lean-ctx",
+    "stars": 3194
+  },
+  "zarazhangrui/codebase-to-course": {
+    "archived": false,
+    "license_spdx": "NONE",
+    "pushed_at": "2026-03-30T18:26:09Z",
+    "resolved_name": "zarazhangrui/codebase-to-course",
+    "stars": 5194
+  },
+  "zarazhangrui/frontend-slides": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-23T20:08:19Z",
+    "resolved_name": "zarazhangrui/frontend-slides",
+    "stars": 24998
+  },
+  "zaxbyhub/opencode-swarm": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T16:39:35Z",
+    "resolved_name": "ZaxbyHub/opencode-swarm",
+    "stars": 391
+  },
+  "zhayujie/cowagent": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T17:03:36Z",
+    "resolved_name": "zhayujie/CowAgent",
+    "stars": 45901
+  },
+  "zhu1090093659/spec_driven_develop": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-01T08:50:07Z",
+    "resolved_name": "zhu1090093659/spec_driven_develop",
+    "stars": 919
+  },
+  "zhukunpenglinyutong/jetbrains-cc-gui": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-09T13:02:58Z",
+    "resolved_name": "zhukunpenglinyutong/jetbrains-cc-gui",
+    "stars": 4447
+  },
+  "zilliztech/claude-context": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-06-22T09:35:11Z",
+    "resolved_name": "zilliztech/claude-context",
+    "stars": 12101
+  },
+  "zilliztech/memsearch": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-10T02:32:12Z",
+    "resolved_name": "zilliztech/memsearch",
+    "stars": 2225
+  },
+  "zou-group/textgrad": {
+    "archived": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2025-07-25T14:30:39Z",
+    "resolved_name": "zou-group/textgrad",
+    "stars": 3646
+  },
+  "zzet/gortex": {
+    "archived": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-07-09T23:02:05Z",
+    "resolved_name": "zzet/gortex",
+    "stars": 836
+  }
+}

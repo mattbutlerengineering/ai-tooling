@@ -3,6 +3,7 @@
 **Repo:** [NeoLabHQ/context-engineering-kit](https://github.com/NeoLabHQ/context-engineering-kit)
 **Stars:** ~1,150 | **Last updated:** 2026-06-16 | **License:** GPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement (context engineering)
 **Layer:** Process / Tooling
 
@@ -48,6 +49,10 @@ gh api repos/NeoLabHQ/context-engineering-kit/readme --jq '.content' | base64 -d
 | Cost Efficiency | + | Token-minimizing design reduces context spend |
 
 ## Verdict
+
+**SKIP** — GPL-3.0 copyleft. A skill/plugin is *vendored* into the consuming repo, so the copyleft terms would reach our own source; a CLI under the same license would not.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL**
 

@@ -3,6 +3,7 @@
 **Repo:** [op7418/guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill)
 **Stars:** 18,073 | **Last updated:** 2026-06-02 (pushed; created 2026-04-23) | **License:** AGPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Outer-loop *artifact production* — Ship/Communicate, not a code stage. It turns prose/Markdown into a presentation. Tangential to the inner dev loop; it produces a deliverable, not code that ships to users.
 **Layer:** Process — a single agent **Skill** (`SKILL.md` + HTML templates, reference docs, themes, a validation script) installed into Claude Code / Codex; no runtime service.
 
@@ -58,6 +59,10 @@ gh api repos/op7418/guizang-ppt-skill/contributors --jq 'length'   # 2 (effectiv
 | Cost Efficiency | neutral / − | Free skill, but rich WebGL templates + optional GPT-Image generation add token/compute cost per deck vs. a plain Markdown slide tool. |
 
 ## Verdict
+
+**SKIP** — AGPL-3.0 copyleft. A skill/plugin is *vendored* into the consuming repo, so the copyleft terms would reach our own source; a CLI under the same license would not.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL — adopt for talk/launch/personal-brand decks where its two styles fit and AGPL is acceptable; skip for corporate/.pptx/data-dense work.** guizang-ppt-skill is the most *design-opinionated* slide skill in the catalog: two named, internally-consistent visual systems plus an automated layout validator give an agent a genuine constraint set instead of a blank canvas, which is exactly what raises slide output above generic. The blockers are licensing (AGPL-3.0 on a skill that generates artifacts you ship) and fit — it deliberately excludes dense data, courseware, and collaborative editing, and it emits HTML, not `.pptx`.
 

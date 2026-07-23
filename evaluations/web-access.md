@@ -3,6 +3,7 @@
 **Repo:** [eze-is/web-access](https://github.com/eze-is/web-access)
 **Stars:** 7,739 | **Last updated:** 2026-05-16 (pushed) | **License:** ⚠️ none declared | **Language:** JavaScript (SKILL.md skill; primarily 中文 docs)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Skills & Plugins / Verify — gives agents full web access
 **Layer:** Tooling (agent skill, SKILL.md-compatible)
 
@@ -50,6 +51,10 @@ gh api repos/eze-is/web-access/readme --jq '.content' | base64 -d | sed -n '343,
 | Cost Efficiency | + | Smart tool selection avoids WebFetch's 20k-token dumps; reuse of site experience cuts re-discovery. |
 
 ## Verdict
+
+**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL** (with caveats) — web-access is a capable, popular **web-access skill** whose standout idea is driving the user's **real, logged-in Chrome/Edge via CDP** with a tool-selection strategy and **per-domain experience accumulation** — reaching authenticated/internal pages and dynamic content that built-in WebSearch/WebFetch and headless tools miss. Adopt it when an agent genuinely needs logged-in, interactive web access (internal dashboards, authenticated flows, video frame analysis) and you can navigate the setup. Two real caveats keep it CONDITIONAL: **no declared license** (resolve rights before any non-personal use) and the **high-trust nature of letting an agent act as you in your real browser** (permission carefully). Chinese-first docs add friction for others. For simpler, lower-trust automation, agent-browser/playwright are more conventional.
 

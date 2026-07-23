@@ -3,6 +3,7 @@
 **Repo:** [igorwarzocha/opencode-workflows](https://github.com/igorwarzocha/opencode-workflows)
 **Stars:** 125 | **Last updated:** 2026-06-18 | **License:** not listed
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (outer loop communication)
 **Layer:** Tooling
 
@@ -59,6 +60,10 @@ Reviewed `html2pptx.md` — it covers text rules, shape styling, icon and gradie
 | Cost Efficiency | + | Zero AI token cost for layout; token cost is only for HTML authoring assistance |
 
 ## Verdict
+
+**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL**
 
