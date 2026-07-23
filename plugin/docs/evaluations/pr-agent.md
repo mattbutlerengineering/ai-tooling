@@ -1,10 +1,20 @@
 # Evaluation: PR-Agent
 
 **Repo:** [The-PR-Agent/pr-agent](https://github.com/The-PR-Agent/pr-agent)
-**Stars:** 11,660 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Stars:** 12,053 | **Last updated:** 2026-07-10 | **License:** MIT (see license-history caveat below)
+**Last verified:** 2026-07-11
 **Dev loop stage:** Review (outer loop — per-PR automation)
 **Layer:** Infrastructure
+
+> **Org transfer & license history (verified 2026-07-11):** The repo was transferred out of
+> `qodo-ai` to the community org [The-PR-Agent/pr-agent](https://github.com/The-PR-Agent/pr-agent)
+> — `github.com/qodo-ai/pr-agent` now redirects there. Current `main` carries an **MIT** license
+> ("Copyright (c) 2026 The PR Agent"). The pre-transfer license is widely recorded as Apache-2.0
+> (under Codium-ai/qodo-ai), but the git history was **not audited** to confirm it or the exact
+> transfer/relicense date — anyone consuming or forking pr-agent code across the transfer boundary
+> should verify which license governs the revision they use. Docs moved to
+> [docs.pr-agent.ai](https://docs.pr-agent.ai); Docker images `0.34.2+` publish under
+> `pragent/pr-agent` (releases ≤ `v0.31` remain frozen at the legacy `codiumai/pr-agent` namespace).
 
 ---
 
@@ -44,6 +54,8 @@ Documentation analysis covered: README, `docs/tools/review.md`, and installation
 
 Feature comparison was done against the three catalog competitors using their respective evaluations and skill definitions.
 
+Re-verified 2026-07-11 (facts only, not a hands-on re-run): org transfer, MIT license text, star/fork counts, docs URL, and Docker namespace were confirmed directly via `gh api` against the live repo — see the transfer caveat in the header. The June architecture-review results below are kept as the historical record of the original evaluation.
+
 ## What worked
 
 - **CI-native trigger model is the key differentiator**: `code-review` and `pr-review-toolkit` are invoked manually inside a Claude Code session; PR-Agent fires automatically on every PR without human initiation — it's infrastructure, not tooling
@@ -53,7 +65,7 @@ Feature comparison was done against the three catalog competitors using their re
 - **Describe tool eliminates a recurring annoyance**: auto-generated PR descriptions with type labels and walkthrough summaries remove the "write a good PR description" tax from every PR author
 - **Single LLM call per tool**: low per-PR cost, ~30 seconds latency — fits in CI without blocking merge
 - **Community velocity is high**: v0.36.1 released with active commits including Claude model compatibility fixes (claude-opus-4-7 temperature support), showing the project tracks model API changes promptly
-- **Fully open-source, self-hostable**: the commercial Qodo 2.0 offering is a fork/superset; the OSS tool is independent and complete
+- **Fully open-source, self-hostable**: pr-agent is an explicitly community-maintained legacy project outside Qodo's org (Qodo is a Gold Sponsor; maintainer sponsorship via [github.com/sponsors/naorpeled](https://github.com/sponsors/naorpeled)); Qodo itself has repositioned as a review/governance platform (its codegen offering was deprecated 2026-04), so the OSS tool stands on its own rather than being a fork/superset relationship
 
 ## What didn't work or surprised us
 
@@ -84,4 +96,4 @@ Adopt for teams running CI on GitHub/GitLab where not everyone uses Claude Code 
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [PR-Agent](https://github.com/The-PR-Agent/pr-agent) | tool | CI bot that auto-describes, reviews, and improves every PR across GitHub, GitLab, Bitbucket, and Azure DevOps | Need automated PR review that fires for every team member, not just Claude Code users | code-review, pr-review-toolkit, shadcn/improve |
+| [PR-Agent](https://github.com/The-PR-Agent/pr-agent) | tool | Community-maintained AI PR reviewer (MIT, ex-Qodo legacy project) with auto-describe, review, improve, and custom prompts | Need automated PR review that adds descriptions, finds bugs, and suggests improvements | code-review, pr-review-toolkit, shadcn/improve |
