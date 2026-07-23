@@ -25,7 +25,7 @@ check:
 	python3 backfill-evidence.py --check
 	python3 backfill-lastverified.py --check
 	python3 tier-stack.py --check
-	python3 next-evals.py --check
+	python3 triage.py --check
 	python3 watchlist.py --check
 	./sync-plugin-docs.sh --check
 	python3 audit-evals.py --installs
@@ -36,7 +36,7 @@ fix:
 	python3 backfill-evidence.py
 	python3 backfill-lastverified.py
 	python3 tier-stack.py
-	python3 next-evals.py
+	python3 triage.py
 	python3 watchlist.py
 	./sync-plugin-docs.sh
 	@$(MAKE) check

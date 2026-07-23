@@ -14,7 +14,7 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
-import os, datetime, importlib.util, shutil, subprocess, tempfile, unittest
+import os, datetime, importlib.util, json, shutil, subprocess, tempfile, unittest
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -1614,7 +1614,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "backfill-evidence.py --check",
         "backfill-lastverified.py --check",
         "tier-stack.py --check",
-        "next-evals.py --check",
+        "triage.py --check",
         "watchlist.py --check",
         "sync-plugin-docs.sh --check",
         "audit-evals.py --installs",
@@ -1793,44 +1793,177 @@ class TestNextEvals(unittest.TestCase):
             for evaluated in ("picked", "kept", "dropped", "maybe"):
                 self.assertNotIn(evaluated, tools)
 
-    def _fixture_tree(self, d):
-        for fn in ("next-evals.py", "audit-evals.py", "catalog_lib.py"):
+
+# ----------------------------------------------------------------- triage bands (#plan-008)
+class TestTriage(unittest.TestCase):
+    """Pins triage.py's band assignment and --check gate. Fixture-based — never the
+    real files. Bands must partition the leads exactly once; the structural bands
+    (mechanical-skip, successor-check) rest on repo-metadata.json facts and outrank
+    the score-based ones, EXCEPT where an eval already reads ADOPT/KEEP."""
+
+    CATALOG = (
+        "## Plan\n"
+        "| Name | Type | One-liner | Problem | Overlaps with |\n"
+        "|------|------|-----------|---------|---------------|\n"
+        "| [plainlead](https://github.com/x/plainlead) | tool | one | two | none |\n"
+        "| [badskill](https://github.com/x/badskill) | skill | one | two | none |\n"
+        "| [runtool](https://github.com/x/runtool) | tool | one | two | none |\n"
+        "| [oldtool](https://github.com/x/oldtool) | tool | one | two | none |\n"
+        "| [rival](https://github.com/x/rival) | tool | one | two | incumbent |\n"
+    )
+    COMPARISON = (
+        "# Tool Comparison\n\n## Plan\n\n"
+        "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+        "|------|------|------|------|-----------|----------|\n"
+        "| plainlead | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        "| badskill | skill | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        "| runtool | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        "| oldtool | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        "| rival | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+    )
+    STACK = "| [incumbent](https://github.com/x/incumbent) | tool | install |\n"
+    # badskill: vendored + no license -> mechanical-skip. runtool: AGPL but EXECUTED,
+    # never vendored -> not disposed. oldtool: archived -> successor-check.
+    META = {
+        "x/plainlead": {"license_spdx": "MIT", "archived": False},
+        "x/badskill": {"license_spdx": "NONE", "archived": False},
+        "x/runtool": {"license_spdx": "AGPL-3.0", "archived": False},
+        "x/oldtool": {"license_spdx": "MIT", "archived": True},
+        "x/rival": {"license_spdx": "MIT", "archived": False},
+    }
+
+    def _fixture_tree(self, d, measure_head=0):
+        for fn in ("triage.py", "next-evals.py", "audit-evals.py", "catalog_lib.py"):
             shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+        _write(d, "CATALOG.md", self.CATALOG)
+        _write(d, "COMPARISON.md", self.COMPARISON)
+        _write(d, "STACK.md", self.STACK)
+        _write(d, "repo-metadata.json", json.dumps(self.META))
+        if measure_head is not None:  # shrink the head so the other bands are observable
+            p = os.path.join(d, "triage.py")
+            with open(p, encoding="utf-8") as f:
+                src = f.read()
+            with open(p, "w", encoding="utf-8") as f:
+                f.write(src.replace("MEASURE_HEAD = 25", f"MEASURE_HEAD = {measure_head}", 1))
+
+    def _bands(self, d):
+        triage = _load("triage_fixture", os.path.join(d, "triage.py"))
+        ctx = audit.DetectorContext(d)
+        ordered, ranked = triage.assign(ctx)
+        return {b: [r[1] for r in rows] for b, rows in ordered.items()}, ranked
+
+    def test_structural_bands_and_vendored_scope(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            bands, ranked = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], ["badskill"])
+            self.assertEqual(bands["P1 successor-check"], ["oldtool"])
+            # AGPL on a tool you RUN is not a disposal reason — only vendored types.
+            self.assertNotIn("runtool", bands["P4 mechanical-skip"])
+            self.assertIn("rival", bands["P2 challenger"])
+            self.assertIn("runtool", bands["P3 backlog"])
+            # Every lead lands in exactly one band.
+            allocated = [t for rows in bands.values() for t in rows]
+            self.assertEqual(sorted(allocated), sorted(r[1] for r in ranked))
+            self.assertEqual(len(allocated), len(set(allocated)))
+
+    def test_positive_read_shields_lead_from_bulk_lane(self):
+        # badskill would be mechanically SKIPped, but its eval already reads ADOPT.
+        # An unattended lane may not overrule a positive human read.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "evaluations/badskill.md",
+                   "# Evaluation: badskill\n\n## Verdict\n\n**ADOPT** — worth it.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], [])
+            self.assertIn("badskill", bands["P3 backlog"])
+
+    def test_headline_verdict_not_verdict_set_shields(self):
+        # "Held at CONDITIONAL rather than ADOPT" must NOT count as a positive read
+        # (verdict_set contains ADOPT; the headline verdict does not).
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "evaluations/badskill.md",
+                   "# Evaluation: badskill\n\n## Verdict\n\n"
+                   "**CONDITIONAL** — held at CONDITIONAL rather than ADOPT.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], ["badskill"])
 
     def _run(self, d, *args):
-        return subprocess.run(["python3", "next-evals.py", *args],
+        return subprocess.run(["python3", "triage.py", *args],
                               cwd=d, capture_output=True, text=True)
 
     def test_check_catches_drift(self):
-        catalog = (
-            "## Plan\n"
-            "| Name | Type | One-liner | Problem | Overlaps with |\n"
-            "|------|------|-----------|---------|---------------|\n"
-            "| [a](https://github.com/x/a) | tool | one | two | none |\n"
-            "| [b](https://github.com/x/b) | tool | one | two | a |\n"
-        )
-        comparison = (
-            "# Tool Comparison\n\n## Plan\n\n"
-            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
-            "|------|------|------|------|-----------|----------|\n"
-            "| a | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
-            "| b | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
-        )
         with tempfile.TemporaryDirectory() as d:
             self._fixture_tree(d)
-            _write(d, "CATALOG.md", catalog)
-            _write(d, "COMPARISON.md", comparison)
-            self.assertEqual(self._run(d).returncode, 0)          # generate
-            self.assertEqual(self._run(d, "--check").returncode, 0)  # fresh
-            # Corrupt a rank cell -> drift.
+            self.assertEqual(self._run(d).returncode, 0)              # generate
+            self.assertEqual(self._run(d, "--check").returncode, 0)   # fresh
             p = os.path.join(d, "NEXT-EVALS.md")
             with open(p, encoding="utf-8") as f:
                 text = f.read()
             with open(p, "w", encoding="utf-8") as f:
-                f.write(text.replace("| 1 | a ", "| 9 | a ", 1))
-            self.assertEqual(self._run(d, "--check").returncode, 1)  # drift caught
-            self.assertEqual(self._run(d).returncode, 0)             # regenerate repairs
+                f.write(text.replace("badskill", "ghostskill", 1))
+            self.assertEqual(self._run(d, "--check").returncode, 1)   # drift caught
+            self.assertEqual(self._run(d).returncode, 0)              # regenerate repairs
             self.assertEqual(self._run(d, "--check").returncode, 0)
+
+    def test_missing_metadata_cache_is_not_fatal(self):
+        # A fresh clone has no repo-metadata.json; the structural bands go empty
+        # rather than the gate exploding.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            os.remove(os.path.join(d, "repo-metadata.json"))
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], [])
+            self.assertEqual(bands["P1 successor-check"], [])
+
+
+class TestBulkTriageDetector(unittest.TestCase):
+    """Pins detector Q: a bulk-triaged eval may only SKIP or stay at discovery-log.
+    This is what makes eliminate-only mechanical rather than a promise."""
+
+    def _ctx(self, d, evals):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        for name, text in evals.items():
+            _write(d, f"evaluations/{name}.md", text)
+        _write(d, "CATALOG.md", "")
+        _write(d, "COMPARISON.md", "")
+        return audit.DetectorContext(d)
+
+    def _eval(self, verdict, marked=True):
+        marker = f"\n{audit.BULK_MARKER}\n" if marked else "\n"
+        return f"# Evaluation: t\n{marker}\n## Verdict\n\n**{verdict}** — because.\n"
+
+    def test_bulk_skip_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("SKIP")})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
+    def test_bulk_adopt_is_overreach(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("ADOPT")})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("t", "ADOPT")])
+
+    def test_bulk_conditional_is_overreach(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("CONDITIONAL")})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("t", "CONDITIONAL")])
+
+    def test_unmarked_adopt_is_untouched(self):
+        # The gate constrains the bulk lane only; a human ADOPT is none of its business.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("ADOPT", marked=False)})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
+    def test_bulk_skip_whose_prose_names_adopt_passes(self):
+        # verdict_set would contain ADOPT here; the headline verdict is SKIP.
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n{audit.BULK_MARKER}\n\n## Verdict\n\n"
+                    "**SKIP** — not an ADOPT candidate: no license.\n")
+            ctx = self._ctx(d, {"t": text})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
 
 
 class TestWatchlist(unittest.TestCase):

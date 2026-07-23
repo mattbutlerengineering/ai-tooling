@@ -3,6 +3,7 @@
 **Repo:** [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)
 **Stars:** ~2,260 | **Last updated:** 2026-06-20 | **License:** none specified
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (subagent orchestration for Pi)
 **Layer:** Tooling
 
@@ -48,6 +49,10 @@ gh api repos/nicobailon/pi-subagents/readme --jq '.content' | base64 -d
 | Cost Efficiency | - | Multiple child agents multiply token usage |
 
 ## Verdict
+
+**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL**
 

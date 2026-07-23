@@ -3,6 +3,7 @@
 **Repo:** [coleam00/excalidraw-diagram-skill](https://github.com/coleam00/excalidraw-diagram-skill)
 **Stars:** 3,783 | **Last updated:** 2026-03-01 (pushed; created 2026-03-01) | **License:** none declared
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Reflect (outer loop) — it produces architecture and concept diagrams for design docs, READMEs, ADRs, and explanations. Not an inner-loop coding tool; it generates an artifact *about* the system, not the system.
 **Layer:** Process (a single-file Claude/OpenCode skill: `SKILL.md` design methodology plus a `references/` bundle with JSON templates, a color palette, and a Python+Playwright render-and-validate pipeline)
 
@@ -56,6 +57,10 @@ gh api repos/coleam00/excalidraw-diagram-skill/releases --jq 'length'   # 0
 | Cost Efficiency | neutral / − | The see-and-fix render loop spends extra model turns per diagram; justified for a deliverable artifact but not free. |
 
 ## Verdict
+
+**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+
+_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
 
 **CONDITIONAL — adopt for diagram-heavy Plan/docs work once the license is resolved.** This is the most credible diagram-generation skill in the catalog because it does the one thing the others don't: closes a render-and-repair feedback loop so the agent sees and fixes its own output, backed by a genuinely opinionated "argue, don't display" methodology and a clean single-file brand seam. The blockers are the missing license (all-rights-reserved by default, despite "clone and go" instructions) and a two-commit, zero-release, single-day history with no maintenance signal — plus a heavier `uv`+Playwright+Chromium footprint than a markdown skill. Use it when architecture diagrams in design docs/READMEs/ADRs are a recurring need; skip it for projects that rarely produce diagrams.
 
