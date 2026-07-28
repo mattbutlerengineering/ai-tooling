@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 590 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 600 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -25,6 +25,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
+| optim-plans | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-coding-prompt-template | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | discovery-log | REVIEW |
@@ -74,6 +75,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | agency-agents | harness | | ✓ | discovery-log | REVIEW |
 | agent-orchestrator | tool | ✓ | ✓ | discovery-log | REVIEW |
+| sigbound | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
 | aidlc-workflows | framework | | ✓ | discovery-log | REVIEW |
 | arrow-js | framework | | ✓ | discovery-log | REVIEW |
@@ -93,12 +95,14 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
+| BossConsole | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Nimbalyst | platform | | ✓ | discovery-log | REVIEW |
 | agent-of-empires | tool | | ✓ | discovery-log | REVIEW |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
 | claude-task-master | tool | | ✓ | discovery-log | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
+| openhub | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | align-dev | tool | | ✓ | SKIP | REVIEW |
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
 | commit-commands | plugin | | ✓ | SKIP | REVIEW |
@@ -112,6 +116,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | activepieces | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | onyx | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | dmux | tool | | ✓ | discovery-log | REVIEW |
+| Vigla | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | ECC | harness | | ✓ | discovery-log | REVIEW |
 | fast-agent | framework | | ✓ | discovery-log | REVIEW |
 | Flowise | platform | | ✓ | SKIP | REVIEW |
@@ -240,6 +245,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ralph | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
+| better-harness | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | sandcastle | framework | | ✓ | discovery-log | REVIEW |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
 | orchestkit | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -306,6 +312,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | PR-Agent | tool | ✓ | ✓ | discovery-log | REVIEW |
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
+| hubo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -380,12 +387,14 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
+| VinvAI | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| cyvisguard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pezzo | platform | ✓ | ✓ | discovery-log | REVIEW |
 | ragas | tool | ✓ | ✓ | discovery-log | REVIEW |
 | Helicone | platform | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -475,6 +484,7 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
+| skill-view | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -674,16 +684,16 @@ All 590 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 54 | 21 | 6 | 39% |
-| Implement | 194 | 40 | 4 | 21% |
+| Plan | 55 | 21 | 6 | 38% |
+| Implement | 199 | 40 | 4 | 20% |
 | Verify | 21 | 5 | 2 | 24% |
-| Review | 33 | 10 | 3 | 30% |
+| Review | 34 | 10 | 3 | 29% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
-| Outer Loop | 40 | 9 | 2 | 22% |
-| Skills & Plugins | 83 | 18 | 4 | 22% |
+| Outer Loop | 42 | 9 | 2 | 21% |
+| Skills & Plugins | 84 | 18 | 4 | 21% |
 | Memory & Context | 47 | 9 | 2 | 19% |
 | MCP Servers | 39 | 9 | 2 | 23% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 10 | 4 | 19% |
-| **Total** | **590** | **139** | **34** | **24%** |
+| **Total** | **600** | **139** | **34** | **23%** |
