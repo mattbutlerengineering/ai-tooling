@@ -49,7 +49,7 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 | context-mode | REVIEW | no |
 | GenericAgent | REVIEW | no |
 | gortex | REVIEW | no |
-| h5i | (no eval) | no |
+| h5i | SOURCE-ONLY | no |
 | MemOS | REVIEW | no |
 | OmniRoute | (no eval) | yes |
 | rtk | REVIEW | no |
