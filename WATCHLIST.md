@@ -51,7 +51,7 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 | gortex | REVIEW | no |
 | h5i | SOURCE-ONLY | no |
 | MemOS | REVIEW | no |
-| OmniRoute | (no eval) | yes |
+| OmniRoute | SOURCE-ONLY | yes |
 | rtk | REVIEW | no |
 | semble | REVIEW | no |
 | SocratiCode | REVIEW | no |
