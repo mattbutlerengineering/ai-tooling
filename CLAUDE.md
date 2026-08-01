@@ -127,6 +127,10 @@ Default vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-
 
 Single-context layout. See `docs/agents/domain.md`.
 
+### Routines
+
+Scheduled cloud agents (the daily discovery pass). **A routine lands its own PR: it merges to `main` once CI is green rather than parking the PR for review.** Branch `routine/<lane>-<YYYY-MM-DD>` off fresh `main`, never two open PRs from one lane, then `gh pr merge --auto --squash --delete-branch` — `main` requires the `audit` check, so GitHub holds the merge until CI is green and the routine can exit instead of babysitting it. This is about how a pass *lands*, not what it may *conclude* — eliminate-only still holds. See `docs/agents/routines.md` for the sequence and the do-not-merge list.
+
 ## Adding entries
 
 - Use the `/add-catalog-entry` skill (`.claude/skills/add-catalog-entry/`) — it runs the full 8-file workflow (resolve slug, dedup, insert CATALOG + COMPARISON rows, propagate counts, sync, audit).
