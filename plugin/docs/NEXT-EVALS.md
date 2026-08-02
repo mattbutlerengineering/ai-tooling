@@ -1,6 +1,6 @@
 # Next evals — a banded promotion queue
 
-The 465 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 469 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
 Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score only has ~83 distinct values across these leads — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 151 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 289 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 153 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 291 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 
 <!-- NEXT-EVALS:START -->
@@ -34,8 +34,8 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | spec-kit | Plan | 34.1 | pressure 13, gap 6.1 | `/evaluate-tool spec-kit` |
 | pydantic-ai | Implement | 33.6 | pressure 12, gap 7.6 | `/evaluate-tool pydantic-ai` |
 | awesome-claude-code | Reference | 31.9 | pressure 11, gap 7.9 | `/evaluate-tool awesome-claude-code` |
-| tech-leads-club/agent-skills | Skills & Plugins | 31.7 | pressure 11, gap 7.7 | `/evaluate-tool tech-leads-club/agent-skills` |
-| vercel-labs/agent-skills | Skills & Plugins | 31.7 | pressure 11, gap 7.7 | `/evaluate-tool vercel-labs/agent-skills` |
+| tech-leads-club/agent-skills | Skills & Plugins | 31.8 | pressure 11, gap 7.8 | `/evaluate-tool tech-leads-club/agent-skills` |
+| vercel-labs/agent-skills | Skills & Plugins | 31.8 | pressure 11, gap 7.8 | `/evaluate-tool vercel-labs/agent-skills` |
 | awesome-agent-skills | Reference | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | MemOS | Memory & Context | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool MemOS` |
@@ -54,32 +54,32 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 151 leads
+## P2 challenger — 153 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 151 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 153 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | orca | Implement | 27.6 | pressure 9, gap 7.6 | `/triage-lead orca` |
 | ruflo | Implement | 27.6 | pressure 9, gap 7.6 | `/triage-lead ruflo` |
-| ghostsecurity/skills | Review | 26.9 | pressure 9, gap 6.9 | `/triage-lead ghostsecurity/skills` |
+| ghostsecurity/skills | Review | 27.0 | pressure 9, gap 7.0 | `/triage-lead ghostsecurity/skills` |
 | BMAD-METHOD | Plan | 26.1 | pressure 9, gap 6.1 | `/triage-lead BMAD-METHOD` |
 | agentmemory | Memory & Context | 25.9 | pressure 8, gap 7.9 | `/triage-lead agentmemory` |
 | chrome-devtools-mcp | Verify | 25.7 | pressure 8, gap 7.7 | `/triage-lead chrome-devtools-mcp` |
 | gastown | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead gastown` |
-| vet | Review | 24.9 | pressure 8, gap 6.9 | `/triage-lead vet` |
+| vet | Review | 25.0 | pressure 8, gap 7.0 | `/triage-lead vet` |
 | Understand-Anything | Plan | 24.1 | pressure 8, gap 6.1 | `/triage-lead Understand-Anything` |
 | ACE (agentic-context-engine) | Memory & Context | 23.9 | pressure 7, gap 7.9 | `/triage-lead ACE (agentic-context-engine)` |
 | memU | Memory & Context | 23.9 | pressure 7, gap 7.9 | `/triage-lead memU` |
 | compound-engineering | Implement | 23.6 | pressure 7, gap 7.6 | `/triage-lead compound-engineering` |
 
-## P3 backlog — 289 leads
+## P3 backlog — 291 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 289 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 291 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -89,8 +89,8 @@ _Listing 12 of 289 — rerun `python3 triage.py` and read the source for the tai
 | gemini-cli | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead gemini-cli` |
 | voltagent | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead voltagent` |
 | awesome-claude-skills (Composio) | Reference | 23.9 | pressure 7, gap 7.9 | `/triage-lead awesome-claude-skills (Composio)` |
-| slidev | Skills & Plugins | 23.7 | pressure 7, gap 7.7 | `/triage-lead slidev` |
-| ui-ux-pro-max | Skills & Plugins | 23.7 | pressure 7, gap 7.7 | `/triage-lead ui-ux-pro-max` |
+| slidev | Skills & Plugins | 23.8 | pressure 7, gap 7.8 | `/triage-lead slidev` |
+| ui-ux-pro-max | Skills & Plugins | 23.8 | pressure 7, gap 7.8 | `/triage-lead ui-ux-pro-max` |
 | CLIProxyAPI | Implement | 23.6 | pressure 7, gap 7.6 | `/triage-lead CLIProxyAPI` |
 | fast-agent | Implement | 23.6 | pressure 7, gap 7.6 | `/triage-lead fast-agent` |
 | ag-ui | Reference | 21.9 | pressure 6, gap 7.9 | `/triage-lead ag-ui` |
