@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 620 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 624 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -331,6 +331,7 @@ All 620 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
 | tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| ratchet | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -503,6 +504,8 @@ All 620 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
+| claude-code-plugins-plus-skills | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-hooks (karanb192) | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -578,6 +581,7 @@ All 620 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | confluence | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | devfleet | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
+| mcp-github-trending | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | hyperframes | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | fastmcp | framework | | ✓ | ADOPT | RUN |
@@ -707,13 +711,13 @@ All 620 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 59 | 23 | 6 | 39% |
 | Implement | 207 | 49 | 4 | 24% |
 | Verify | 22 | 5 | 2 | 23% |
-| Review | 39 | 12 | 3 | 31% |
+| Review | 40 | 12 | 3 | 30% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 9 | 2 | 21% |
-| Skills & Plugins | 84 | 19 | 4 | 23% |
+| Skills & Plugins | 86 | 19 | 4 | 22% |
 | Memory & Context | 48 | 10 | 2 | 21% |
-| MCP Servers | 40 | 9 | 2 | 22% |
+| MCP Servers | 41 | 9 | 2 | 22% |
 | Research & Discovery | 18 | 3 | 1 | 17% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **620** | **155** | **34** | **25%** |
+| **Total** | **624** | **155** | **34** | **25%** |
