@@ -61,6 +61,7 @@ MCP Servers, Observability, Research & Discovery, Security & Safety, Reference
 - `plugin/docs/` is a synced copy — never edit directly
 - `plugin/skills/` is authoritative for skills; `skills/` is derived (paths stripped)
 - Run `./sync-plugin-docs.sh` after any root doc or plugin skill change
+- `plugin/CLAUDE.md` is **hand-authored and stays that way** — it is the plugin's front door (skills list, hooks, `${CLAUDE_PLUGIN_ROOT}` paths), not a copy of root `CLAUDE.md`, so `sync-plugin-docs.sh` has nothing to mirror. The cost is that it drifts silently: its eval count sat 87 behind (#302) and its quality-signal list stayed at five for the whole life of the sixth signal (#313). The rule is therefore **gate the shared facts, not the file** — every fact it restates from root must have a generator or a test (counts → `reconcile-counts.py`'s `EVAL_PATTERNS`/`TOTAL_PATTERNS`; quality signals → `TestPluginFrontDoorSignals`). Restating a root fact here without one is the bug.
 
 ### Supported harnesses (Claude Code + opencode)
 

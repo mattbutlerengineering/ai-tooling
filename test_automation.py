@@ -14,7 +14,7 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
-import os, datetime, importlib.util, json, shutil, subprocess, tempfile, unittest
+import os, datetime, importlib.util, json, re, shutil, subprocess, tempfile, unittest
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -687,6 +687,48 @@ class TestValidateCountsHook(unittest.TestCase):
                            cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(r.stdout, "", msg="hook reported drift on a reconciled tree")
         self.assertEqual(r.returncode, 0, msg=r.stderr)
+
+
+# ----------------------------------------------------------------- plugin/CLAUDE.md drift
+class TestPluginFrontDoorSignals(unittest.TestCase):
+    """plugin/CLAUDE.md is HAND-maintained — unlike plugin/docs/, which
+    sync-plugin-docs.sh mirrors and gates — so it drifts from root CLAUDE.md in
+    silence. Its eval count sat 87 behind (#302) and its quality-signal list stayed
+    at five for the entire life of ADR-0004's sixth signal, so anyone installing the
+    marketplace package was told the framework has five and never met Verifiability
+    (#313). Reads the real tree on purpose: the drift is *between two real files*,
+    so a fixture would pin nothing. Derives the expected signals from root CLAUDE.md
+    rather than hardcoding them, so a seventh signal needs no test edit."""
+
+    # Anchored on a number word: root CLAUDE.md:7 also says "the quality signals they
+    # move", which a bare \w+ would match first.
+    _COUNT = re.compile(r"\b(four|five|six|seven|eight|nine)\s+quality signals\b", re.I)
+
+    def _text(self, rel):
+        with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
+            return f.read()
+
+    def _count_word(self, text, rel):
+        m = self._COUNT.search(text)
+        self.assertIsNotNone(m, msg=f"{rel} has no 'N quality signals' phrase")
+        return m.group(1).lower()
+
+    def test_signal_count_matches_root(self):
+        root = self._count_word(self._text("CLAUDE.md"), "CLAUDE.md")
+        plugin = self._count_word(self._text("plugin/CLAUDE.md"), "plugin/CLAUDE.md")
+        self.assertEqual(plugin, root,
+                         msg="plugin/CLAUDE.md quotes a different signal count than root")
+
+    def test_plugin_names_every_root_signal(self):
+        # Root lists them after a colon, up to the parenthetical gloss on the last one.
+        m = re.search(r"quality signals:\s*(.+?)\s*\(", self._text("CLAUDE.md"))
+        self.assertIsNotNone(m, msg="root CLAUDE.md no longer lists its signals after a colon")
+        # ", and X" splits on the comma first, so the optional "and " is consumed there too.
+        names = [s for s in re.split(r",\s*(?:and\s+)?|\s+and\s+", m.group(1)) if s]
+        self.assertGreaterEqual(len(names), 5, msg=f"parsed too few signals: {names}")
+        plugin = self._text("plugin/CLAUDE.md")
+        for n in names:
+            self.assertIn(n, plugin, msg=f"plugin/CLAUDE.md omits the {n} signal")
 
 
 # ----------------------------------------------------------------- detector G (audit_comparison)
