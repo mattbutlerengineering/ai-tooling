@@ -22,7 +22,7 @@ Execute in the order below unless dependencies say otherwise. Each executor: rea
 | [010](010-skill-eval-enforcement.md) | Skill-eval protocol: required section + `--skill-design` detector | P2 | S | 009 | DONE 2026-07-03 ([#221](https://github.com/mattbutlerengineering/ai-tooling/issues/221)) |
 | [011](011-overlap-bakeoffs.md) | Bake-off protocol + Memory & Context pilot head-to-head | P2 | M | 009 | BLOCKED 2026-07-03 (pilot needs attended run — Steps 1-2 done) ([#222](https://github.com/mattbutlerengineering/ai-tooling/issues/222)) |
 | [012](012-watchlist-staleness-timebomb.md) | Stop `make check` failing on a calendar date with zero commits | P1 | S | — | DONE 2026-08-03 ([#299](https://github.com/mattbutlerengineering/ai-tooling/issues/299)) |
-| [013](013-audit-flag-parsing.md) | Make `audit-evals.py` flags compose; reject typos instead of silently changing the gate set | P1 | M | — | TODO |
+| [013](013-audit-flag-parsing.md) | Make `audit-evals.py` flags compose; reject typos instead of silently changing the gate set | P1 | M | — | DONE 2026-08-03 ([#300](https://github.com/mattbutlerengineering/ai-tooling/issues/300)) |
 | [014](014-parallel-install-resolver.md) | Resolve installs in parallel; add `make check-offline` | P2 | S | — | TODO |
 | [015](015-derived-surface-numbers.md) | Stop hand-written numbers going stale inside derived surfaces | P2 | M | — | TODO |
 

@@ -1045,41 +1045,70 @@ def selftest():
     print(f"== selftest ==\n  OK — {len(cases)} evidence + {len(level_cases)} level + {n_eval_checks} eval-parsing cases pass")
     return 0
 
+# ---------------------------------------------------------------- CLI flag sets
+# The seven offline gates `--offline` selects — the set `make check`, the
+# `.claude/hooks/audit-gate.sh` pre-commit hook and the opencode commit-gate plugin all
+# run (all three invoke `--offline` bare, so they move together). This tuple is the
+# source of truth for what "offline" means; CLAUDE.md's prose list documents it and
+# must be updated alongside any change here.
+OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
+                 "--verdict-evidence", "--rows", "--bulk-triage")
+# With no flags at all: the offline gates plus the network install resolver.
+DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
+# Opt-in reports. Never in the default set; never affect the exit code.
+REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
+                "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
+                "--staleness")
+DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
+# Every argument main() accepts. Anything else is a typo, and a typo used to be silently
+# dropped from `sel` — which made the argument list read as empty and turned `--ofline`
+# into "run everything, including the ~26s network resolver", exit 0. Fail loudly instead.
+KNOWN_FLAGS = DETECTOR_FLAGS + ("--offline", "--selftest")
+
 # ---------------------------------------------------------------- main
 def main():
     args = sys.argv[1:]
     if "--selftest" in args:
         sys.exit(selftest())
-    sel = [a for a in args if a in ("--installs", "--fabrication", "--links", "--archived", "--verdicts", "--comparison", "--drift", "--verdict-evidence", "--rows", "--bulk-triage", "--skills", "--skill-design", "--overlaps", "--workflow-drift", "--clusters", "--savings-claims", "--evidence", "--staleness", "--offline")]
-    explicit = [a for a in sel if a != "--offline"]
-    do_inst = (not explicit) or "--installs" in sel
-    do_fab  = (not explicit) or "--fabrication" in sel or "--offline" in sel
-    do_verd = (not explicit) or "--verdicts" in sel  # offline, fast
-    do_comp = (not explicit) or "--comparison" in sel or "--offline" in sel  # offline gate
-    do_drift = (not explicit) or "--drift" in sel or "--offline" in sel  # offline gate (#70)
-    do_vev = (not explicit) or "--verdict-evidence" in sel or "--offline" in sel  # offline gate (#71)
-    do_rows = (not explicit) or "--rows" in sel or "--offline" in sel  # offline gate (#198)
-    do_bulk = (not explicit) or "--bulk-triage" in sel or "--offline" in sel  # offline gate
-    do_links = "--links" in sel   # opt-in: ~450 network requests, slow
-    do_archived = "--archived" in sel  # opt-in: ~450 gh-api calls; report-only
-    do_skills = "--skills" in sel  # opt-in report (does not affect exit code)
-    do_skill_design = "--skill-design" in sel  # opt-in report (does not affect exit code)
-    do_overlaps = "--overlaps" in sel  # opt-in report (does not affect exit code)
-    do_wf_drift = "--workflow-drift" in sel  # opt-in report (does not affect exit code)
-    do_clusters = "--clusters" in sel  # opt-in report (does not affect exit code)
-    do_savings = "--savings-claims" in sel  # opt-in report (does not affect exit code)
-    do_evidence = "--evidence" in sel  # opt-in report (does not affect exit code)
-    do_staleness = "--staleness" in sel  # opt-in report (does not affect exit code)
-    if "--offline" in sel: do_inst = False
-    if explicit:
-        do_inst = "--installs" in sel
-        do_fab  = "--fabrication" in sel
-        do_verd = "--verdicts" in sel
-        do_comp = "--comparison" in sel
-        do_drift = "--drift" in sel
-        do_vev = "--verdict-evidence" in sel
-        do_rows = "--rows" in sel
-        do_bulk = "--bulk-triage" in sel
+
+    unknown = [a for a in args if a not in KNOWN_FLAGS]
+    if unknown:
+        print(f"audit-evals: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
+        print(f"  known: {' '.join(sorted(KNOWN_FLAGS))}", file=sys.stderr)
+        sys.exit(2)
+
+    # Requested detectors are a UNION, so a flag can only ever ADD work. The old matrix
+    # ended in an `if explicit:` block that dropped the `or "--offline" in sel` clause,
+    # so `--offline --verdicts` ran 1 detector where `--offline` alone ran 7 — adding a
+    # flag silently deleted six gates and still exited 0.
+    # Every surviving arg is a detector flag or `--offline`: `--selftest` returned above
+    # and anything unrecognized exited 2, so no filtering is left to do here.
+    sel = set(args)
+    want = set()
+    if "--offline" in sel:
+        want |= set(OFFLINE_GATES)
+    want |= (sel - {"--offline"})
+    if not want:
+        want = set(DEFAULT_GATES)
+
+    do_inst = "--installs" in want
+    do_fab  = "--fabrication" in want
+    do_verd = "--verdicts" in want           # offline, fast
+    do_comp = "--comparison" in want         # offline gate
+    do_drift = "--drift" in want             # offline gate (#70)
+    do_vev = "--verdict-evidence" in want    # offline gate (#71)
+    do_rows = "--rows" in want               # offline gate (#198)
+    do_bulk = "--bulk-triage" in want        # offline gate
+    do_links = "--links" in want             # opt-in: ~450 network requests, slow
+    do_archived = "--archived" in want       # opt-in: ~450 gh-api calls; report-only
+    do_skills = "--skills" in want           # opt-in report (does not affect exit code)
+    do_skill_design = "--skill-design" in want  # opt-in report (does not affect exit code)
+    do_overlaps = "--overlaps" in want       # opt-in report (does not affect exit code)
+    do_wf_drift = "--workflow-drift" in want    # opt-in report (does not affect exit code)
+    do_clusters = "--clusters" in want       # opt-in report (does not affect exit code)
+    do_savings = "--savings-claims" in want  # opt-in report (does not affect exit code)
+    do_evidence = "--evidence" in want       # opt-in report (does not affect exit code)
+    do_staleness = "--staleness" in want     # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0

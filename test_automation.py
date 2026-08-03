@@ -1966,6 +1966,108 @@ class TestBulkTriageDetector(unittest.TestCase):
             self.assertEqual(audit.audit_bulk_triage(ctx), [])
 
 
+class TestAuditEvalsCLI(unittest.TestCase):
+    """Pins audit-evals.py's flag selection at the CLI level (#300). main() had zero
+    coverage — the other suites call the audit_* detectors directly and never invoke the
+    script — which let two fail-open bugs live: `--offline --verdicts` ran 1 detector
+    where `--offline` alone ran 7, and an unknown flag was silently dropped so `--ofline`
+    ran the full default set including the network resolver, exit 0.
+
+    Selection is now a UNION: a flag can only ADD work, and an unrecognized argument
+    exits 2. Every test here is OFFLINE — none may invoke `--installs` or the no-args
+    default, which hit the network and would make the suite flaky."""
+
+    OFFLINE_HEADERS = 7  # B, D, G, O, Q, J, K — the set `--offline` selects
+
+    def _fixture_tree(self, d):
+        for fn in ("audit-evals.py", "catalog_lib.py"):
+            shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md",
+               "## Plan\n\n| Name | Type | One-liner | Problem | Overlaps with |\n"
+               "|------|------|-----------|---------|---------------|\n")
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Plan\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n")
+        for name in ("STACK", "WORKFLOW", "STACK-LEDGER"):
+            _write(d, f"{name}.md", f"# {name}\n")
+
+    def _run(self, d, *args):
+        return subprocess.run(["python3", "audit-evals.py", *args],
+                              cwd=d, capture_output=True, text=True)
+
+    def _headers(self, res):
+        """The `== X. name ==` banner lines — one per detector that actually ran."""
+        return sorted(l for l in res.stdout.splitlines() if l.startswith("== "))
+
+    def test_offline_runs_all_seven_gates(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            res = self._run(d, "--offline")
+            self.assertEqual(res.returncode, 0, res.stderr)
+            heads = self._headers(res)
+            self.assertEqual(len(heads), self.OFFLINE_HEADERS, heads)
+            for letter in ("B.", "D.", "G.", "O.", "Q.", "J.", "K."):
+                self.assertTrue(any(letter in h for h in heads),
+                                msg=f"detector {letter} missing from --offline: {heads}")
+
+    def test_offline_composes_with_explicit_flag(self):
+        # THE regression test for bug 1: adding a flag must not remove gates.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            alone = self._headers(self._run(d, "--offline"))
+            plus = self._headers(self._run(d, "--offline", "--verdicts"))
+            self.assertEqual(alone, plus)  # set equality, not just the count
+
+    def test_single_flag_runs_only_that_detector(self):
+        # The fix must not turn every flag into "run everything".
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            heads = self._headers(self._run(d, "--verdicts"))
+            self.assertEqual(len(heads), 1, heads)
+            self.assertIn("D.", heads[0])
+
+    def test_unknown_flag_exits_2(self):
+        # THE regression test for bug 2.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            res = self._run(d, "--ofline")
+            self.assertEqual(res.returncode, 2)
+            self.assertIn("unknown argument", res.stderr)
+
+    def test_unknown_flag_does_not_run_detectors(self):
+        # Exiting 2 *after* running the network resolver would still be a bug.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            self.assertEqual(self._headers(self._run(d, "--ofline")), [])
+
+    def test_selftest_still_works(self):
+        # --selftest short-circuits above the unknown-flag check; it must not be rejected.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            res = self._run(d, "--selftest")
+            self.assertEqual(res.returncode, 0, res.stderr)
+            self.assertIn("selftest", res.stdout)
+
+    def test_report_flag_does_not_affect_exit_code(self):
+        # Opt-in reports stay non-gating.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            res = self._run(d, "--staleness")
+            self.assertEqual(res.returncode, 0, res.stderr)
+
+    def test_offline_gates_match_the_makefile_contract(self):
+        # OFFLINE_GATES is the single definition of "what --offline means"; a new gating
+        # detector must land there. Pins it against the count the Makefile line relies on.
+        self.assertEqual(len(audit.OFFLINE_GATES), self.OFFLINE_HEADERS)
+        self.assertNotIn("--installs", audit.OFFLINE_GATES)
+        self.assertIn("--installs", audit.DEFAULT_GATES)
+        for flag in audit.REPORT_FLAGS:
+            self.assertNotIn(flag, audit.DEFAULT_GATES,
+                             msg=f"{flag} is an opt-in report and must not run by default")
+
+
 class TestWatchlist(unittest.TestCase):
     """Pins watchlist.py's section derivation and --check gate. Fixture-based —
     never the real files. Section 1 pulls each DEFER row's re-evaluate trigger
