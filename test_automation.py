@@ -158,6 +158,15 @@ class TestReconcilePureFns(unittest.TestCase):
         s = "see issue 471 and 12 tools cataloged"
         self.assertEqual(reconcile.fix_eval_strings(s, 487), s)
 
+    def test_fix_eval_strings_plugin_phrasing(self):
+        # plugin/CLAUDE.md says "evaluation and comparison files", not "evaluations".
+        # It was in FILES_TOTAL all along, so it *looked* maintained while drifting 87
+        # behind the real count (#302). The specific phrase must win over the loose ones.
+        self.assertEqual(
+            reconcile.fix_eval_strings(
+                "- `evaluations/` — 469 evidence-based evaluation and comparison files", 556),
+            "- `evaluations/` — 556 evidence-based evaluation and comparison files")
+
 
 # ----------------------------------------------------------------- catalog_lib: github_repos
 class TestCatalogLibGithubRepos(unittest.TestCase):
@@ -641,6 +650,42 @@ class TestReconcileMain(unittest.TestCase):
             self.assertNotIn("999", readme)
             # idempotent: --check now clean
             self.assertEqual(self._run(d, "--check").returncode, 0)
+
+    def test_plugin_claudemd_eval_count_is_reconciled(self):
+        # The regression for #302: plugin/CLAUDE.md is in FILES_TOTAL but its wording
+        # matched no EVAL_PATTERN, so the eval count on line 18 sat frozen while the
+        # catalog count on line 17 was rewritten by the same run. End-to-end so the
+        # file-list membership and the pattern are pinned together, not just the regex.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d)
+            _write(d, "plugin/CLAUDE.md",
+                   "An inventory of 3 tools.\n"
+                   "- `evaluations/` — 999 evidence-based evaluation and comparison files\n")
+            for i in range(4):                                   # K = 4 real evals
+                _write(d, f"evaluations/e{i}.md", "# eval\n")
+            _write(d, "evaluations/TEMPLATE.md", "# template\n")  # excluded from the count
+            self.assertEqual(self._run(d, "--check").returncode, 1)
+            self.assertEqual(self._run(d).returncode, 0)
+            plugin = open(os.path.join(d, "plugin", "CLAUDE.md"), encoding="utf-8").read()
+            self.assertIn("4 evidence-based evaluation and comparison files", plugin)
+            self.assertEqual(self._run(d, "--check").returncode, 0)
+
+
+# ----------------------------------------------------------------- plugin/hooks/validate-counts.sh
+@unittest.skipUnless(shutil.which("bash") and shutil.which("git"),
+                     "validate-counts.sh needs bash and git")
+class TestValidateCountsHook(unittest.TestCase):
+    """The one test here that reads the REAL tree (read-only): the hook resolves its
+    own root with `git rev-parse --show-toplevel`, so it cannot be pointed at a
+    fixture. It counted evaluations/*.md including TEMPLATE.md while reconcile's
+    eval_count() excluded it, so it reported a phantom off-by-one on every run —
+    the worst state for a hook whose whole job is to be believed (#302)."""
+
+    def test_hook_is_silent_on_a_clean_tree(self):
+        r = subprocess.run(["bash", os.path.join(ROOT, "plugin", "hooks", "validate-counts.sh")],
+                           cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(r.stdout, "", msg="hook reported drift on a reconciled tree")
+        self.assertEqual(r.returncode, 0, msg=r.stderr)
 
 
 # ----------------------------------------------------------------- detector G (audit_comparison)

@@ -40,8 +40,10 @@ if [ -f "$PLUGIN_CLAUDEMD" ]; then
   fi
 fi
 
-# Count actual evaluation files
-actual_evals=$(ls "$REPO_ROOT/evaluations/"*.md 2>/dev/null | wc -l | tr -d ' ')
+# Count actual evaluation files. TEMPLATE.md is the eval *template*, not an eval —
+# reconcile-counts.py's eval_count() excludes it, so this must too, or the hook reports
+# a false off-by-one on a tree that is actually correct.
+actual_evals=$(ls "$REPO_ROOT/evaluations/"*.md 2>/dev/null | grep -v '/TEMPLATE\.md$' | wc -l | tr -d ' ')
 
 # Check README.md eval count
 readme_evals=$(num_before "evidence" "$README")

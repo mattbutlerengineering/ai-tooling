@@ -54,6 +54,11 @@ def fix_total_strings(text, C):
 # bare-"evaluations" pattern. Anchored on the word "evaluations" so unrelated
 # numbers (issue refs, dates) are never touched.
 EVAL_PATTERNS = [
+    # plugin/CLAUDE.md phrases the same count as "N evidence-based evaluation and
+    # comparison files". It has always been in FILES_TOTAL, but neither pattern below
+    # matched that wording, so the number drifted 87 behind while the catalog count on
+    # the line above it stayed correct — the most misleading kind of stale number.
+    (r"\b\d+( evidence-based evaluation and comparison files)", r"{E}\g<1>"),
     (r"\b\d+( evidence-based evaluations)", r"{E}\g<1>"),
     (r"\b\d+( evaluations)", r"{E}\g<1>"),
 ]
