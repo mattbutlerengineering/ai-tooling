@@ -2048,6 +2048,91 @@ class TestWatchlist(unittest.TestCase):
             self.assertEqual(self._run(d).returncode, 0)             # regenerate repairs
             self.assertEqual(self._run(d, "--check").returncode, 0)
 
+    # ---------------------------------------------------------- the staleness time bomb
+    # Section 3 is derived from datetime.date.today(), not from file content, so a
+    # calendar date changes the page with nothing committed — 184 evals cross a threshold
+    # on 2026-10-21 alone, which used to fail `watchlist.py --check` and therefore
+    # `make check` and CI, on every open PR and inside every unattended routine run.
+    # The section is wrapped in STALE_START/STALE_END and excluded from the comparison.
+    # These three pin both halves: the gate ignores it, and `make fix` still refreshes it.
+
+    def _stale_fixture(self, d):
+        """A fixture tree whose section 3 is non-empty: one eval dated far in the past.
+        Its Type resolves through the catalog row; an unresolved Type would still be
+        stale via DEFAULT_STALENESS_DAYS, so the test does not depend on that lookup."""
+        self._fixture_tree(d)
+        _write(d, "CATALOG.md",
+               "## Plan\n\n| Name | Type | One-liner | Problem | Overlaps with |\n"
+               "|------|------|-----------|---------|---------------|\n"
+               "| [oldtool](https://github.com/a/oldtool) | tool | x | y | — |\n")
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Plan\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n"
+               "| blocked | tool | | ✓ | DEFER | REVIEW |\n")
+        _write(d, "STACK.md", "# Stack\n")
+        _write(d, "STACK-LEDGER.md", "# Stack Ledger\n")
+        _write(d, "evaluations/oldtool.md",
+               "# Evaluation: oldtool\n\n**Last verified:** 2020-01-01\n"
+               "**Dev loop stage:** Plan\n")
+
+    def _read(self, d):
+        with open(os.path.join(d, "WATCHLIST.md"), encoding="utf-8") as f:
+            return f.read()
+
+    def test_check_ignores_stale_section_drift(self):
+        # THE regression test: a changed stale set must not fail the gate.
+        with tempfile.TemporaryDirectory() as d:
+            self._stale_fixture(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            text = self._read(d)
+            self.assertIn("| oldtool |", text)  # section 3 really is non-empty
+            i = text.find(watchlist.STALE_START)
+            j = text.find(watchlist.STALE_END)
+            self.assertNotEqual(i, -1)
+            self.assertNotEqual(j, -1)
+            # Rewrite the block as tomorrow's sweep would — different rows, different count.
+            mangled = (text[:i] + watchlist.STALE_START
+                       + "\n## 3. Stale / undated evals (184 stale)\n\nwholly different\n"
+                       + text[j:])
+            _write(d, "WATCHLIST.md", mangled)
+            self.assertEqual(self._run(d, "--check").returncode, 0)
+
+    def test_check_still_catches_drift_outside_stale_section(self):
+        # The elision must not disarm the gate wholesale.
+        with tempfile.TemporaryDirectory() as d:
+            self._stale_fixture(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            _write(d, "WATCHLIST.md",
+                   self._read(d).replace("what to revisit", "corrupted", 1))
+            self.assertEqual(self._run(d, "--check").returncode, 1)
+
+    def test_apply_refreshes_stale_section(self):
+        # `make fix` still rebuilds the section the gate ignores, so the report stays live.
+        with tempfile.TemporaryDirectory() as d:
+            self._stale_fixture(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            pristine = self._read(d)
+            i, j = pristine.find(watchlist.STALE_START), pristine.find(watchlist.STALE_END)
+            _write(d, "WATCHLIST.md",
+                   pristine[:i] + watchlist.STALE_START + "\nBOGUS\n" + pristine[j:])
+            self.assertNotIn("| oldtool |", self._read(d))
+            self.assertEqual(self._run(d).returncode, 0)
+            self.assertEqual(self._read(d), pristine)  # fully restored
+            self.assertEqual(self._run(d, "--check").returncode, 0)
+
+    def test_missing_markers_gate_the_whole_page(self):
+        # A page written before the markers existed must stay fully gated — a missing
+        # marker is not a licence to skip the comparison.
+        with tempfile.TemporaryDirectory() as d:
+            self._stale_fixture(d)
+            self.assertEqual(self._run(d).returncode, 0)
+            stripped = (self._read(d)
+                        .replace(watchlist.STALE_START, "")
+                        .replace(watchlist.STALE_END, ""))
+            _write(d, "WATCHLIST.md", stripped)
+            self.assertEqual(self._run(d, "--check").returncode, 1)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
