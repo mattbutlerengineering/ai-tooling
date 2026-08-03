@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 624 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 634 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
 
@@ -78,6 +78,9 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agency-agents | harness | | ✓ | discovery-log | REVIEW |
+| sol-skill | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| CoordClaw | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| opendot | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-orchestrator | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sigbound | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -333,6 +336,7 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | ratchet | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | pentest-ai-agents | skill | | ✓ | discovery-log | REVIEW |
@@ -427,6 +431,8 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | academic-research-skills | skill | | ✓ | discovery-log | REVIEW |
+| ponytail-improved | skill | | ✓ | SKIP | SOURCE-ONLY |
+| impeccable-lite | skill | | ✓ | SKIP | SOURCE-ONLY |
 | agent-rules-books | skill |  | ✓ | CONDITIONAL | REVIEW |
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
@@ -518,6 +524,7 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agentmemory | tool | | ✓ | discovery-log | REVIEW |
+| kaas | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | PageIndex | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | Acontext | tool | ✓ | ✓ | discovery-log | REVIEW |
 | byterover-cli | tool | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -571,6 +578,8 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | awslabs/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| nuphus-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mcp-remote | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | unity-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -617,6 +626,7 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | Agent-Reach | tool | | ✓ | discovery-log | REVIEW |
+| poirot | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | AutoResearchClaw | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aisuite | framework | | ✓ | SKIP | REVIEW |
 | webclaw | tool | | ✓ | SKIP | REVIEW |
@@ -709,15 +719,15 @@ All 624 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 23 | 6 | 39% |
-| Implement | 207 | 49 | 4 | 24% |
+| Implement | 210 | 50 | 4 | 24% |
 | Verify | 22 | 5 | 2 | 23% |
-| Review | 40 | 12 | 3 | 30% |
+| Review | 41 | 12 | 3 | 29% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 9 | 2 | 21% |
-| Skills & Plugins | 86 | 19 | 4 | 22% |
-| Memory & Context | 48 | 10 | 2 | 21% |
-| MCP Servers | 41 | 9 | 2 | 22% |
-| Research & Discovery | 18 | 3 | 1 | 17% |
+| Skills & Plugins | 88 | 21 | 4 | 24% |
+| Memory & Context | 49 | 10 | 2 | 20% |
+| MCP Servers | 43 | 9 | 2 | 21% |
+| Research & Discovery | 19 | 3 | 1 | 16% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **624** | **155** | **34** | **25%** |
+| **Total** | **634** | **158** | **34** | **25%** |
