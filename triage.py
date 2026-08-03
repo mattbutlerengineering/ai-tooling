@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-triage.py — band the 461 `discovery-log` leads and regenerate NEXT-EVALS.md.
+triage.py — band the `discovery-log` leads and regenerate NEXT-EVALS.md.
 
 `next-evals.py` scores leads; this decides what may be *done* with each one. The
-score alone cannot order the queue: 176 leads have zero overlap pressure and the
-whole set collapses into ~83 distinct scores (largest tie: 45 tools), so below
-roughly rank 100 a ranked table is alphabetical order wearing a costume. Bands are
-honest about the resolution the signal actually has.
+score alone cannot order the queue: a large minority of leads have zero overlap
+pressure and the scores collapse into far fewer distinct values than there are
+leads, so below roughly the head a ranked table is alphabetical order wearing a
+costume. Bands are honest about the resolution the signal actually has. The exact
+figures are computed by render() and printed in NEXT-EVALS.md — a docstring cannot
+self-update, so it must not assert any of them.
 
 Every band states the disposition an unattended agent may reach. The rule that
 makes bulk triage safe is ELIMINATE-ONLY: an agent may SKIP a lead or leave it at
@@ -30,7 +32,7 @@ they live nowhere in this repo's own files:
   ./triage.py          # apply: regenerate NEXT-EVALS.md
   ./triage.py --check  # verify only: exit 1 if stale; mutate nothing
 """
-import os, re, sys, json, importlib.util
+import os, re, sys, json, collections, importlib.util
 
 import catalog_lib
 
@@ -221,6 +223,14 @@ def render(ordered, ranked):
     prints its true size, and any band listing only a sample says so — the repo's
     no-silent-caps rule."""
     total = len(ranked)
+    # These three used to be typed into the sentence below and went stale by ~20% —
+    # a hand-written stat inside a page whose own header says "derived (not
+    # hand-maintained)". Any figure typed into a generator's output is wrong within
+    # days; compute it. `ranked` rows are (score, tool, stage, overlap_pressure, gap).
+    scores = collections.Counter(r[0] for r in ranked)
+    distinct = len(scores)
+    largest_tie = max(scores.values()) if scores else 0
+    zero_pressure = sum(1 for r in ranked if r[3] == 0)
     lines = [
         "# Next evals — a banded promotion queue",
         "",
@@ -230,9 +240,10 @@ def render(ordered, ranked):
         "",
         "Leads are grouped into **bands**, not a single ranked list. Within a band the order "
         "is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), "
-        "but that score only has ~83 distinct values across these leads — enough to pick a "
-        "head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within "
-        "their band so each pass surfaces un-examined ones.",
+        f"but that score has only {distinct} distinct values across these {total} leads "
+        f"({zero_pressure} have zero overlap pressure; largest tie: {largest_tie}) — enough "
+        "to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink "
+        "within their band so each pass surfaces un-examined ones.",
         "",
         "**Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or "
         "leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP "

@@ -35,6 +35,7 @@ backfill_lv = _load("backfill_lastverified", "backfill-lastverified.py")
 tier = _load("tier_stack", "tier-stack.py")
 nexteval = _load("next_evals", "next-evals.py")
 watchlist = _load("watchlist", "watchlist.py")
+triage = _load("triage", "triage.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -1987,6 +1988,29 @@ class TestTriage(unittest.TestCase):
             bands, _ = self._bands(d)
             self.assertEqual(bands["P4 mechanical-skip"], [])
             self.assertEqual(bands["P1 successor-check"], [])
+
+    def test_render_computes_score_stats(self):
+        # NEXT-EVALS.md's own header says "derived (not hand-maintained)", yet the
+        # score-distribution sentence was typed into render() and drifted (#303).
+        # Hand-built ranked rows with known statistics: 2 distinct scores, largest
+        # tie 2, 2 leads at zero pressure. If any of these were hardcoded again, the
+        # assertions below would read back the constant instead of the fixture.
+        ranked = [
+            (2.0, "a", "Plan", 3, 1.0),
+            (1.0, "b", "Plan", 0, 1.0),
+            (1.0, "c", "Plan", 0, 1.0),
+        ]
+        ordered = {name: [] for name, _, _ in triage.BANDS}
+        out = triage.render(ordered, ranked)
+        self.assertIn("only 2 distinct values across these 3 leads", out)
+        self.assertIn("2 have zero overlap pressure", out)
+        self.assertIn("largest tie: 2", out)
+
+    def test_render_survives_an_empty_queue(self):
+        # max() over no scores would raise; an exhausted queue must still render.
+        out = triage.render({name: [] for name, _, _ in triage.BANDS}, [])
+        self.assertIn("only 0 distinct values across these 0 leads", out)
+        self.assertIn("largest tie: 0", out)
 
 
 class TestBulkTriageDetector(unittest.TestCase):
