@@ -2,7 +2,7 @@
 
 An operating manual for AI-assisted development that produces high-quality code — and keeps getting better.
 
-Evaluates tools against five quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency) across the dev loop stages where they intervene.
+Evaluates tools against six quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency, Verifiability) across the dev loop stages where they intervene.
 
 ## Install
 
@@ -41,6 +41,6 @@ After installing, run `/setup-workflow` in any repo to bootstrap the recommended
 
 ## The Workflow
 
-Two loops, three layers, five signals — Plan → Implement → Verify → Review → Ship with Reflect feeding back, wrapped by an outer Discover → Architect → Decompose → Integrate → Retrospect loop.
+Two loops, three layers, six signals — Plan → Implement → Verify → Review → Ship with Reflect feeding back, wrapped by an outer Discover → Architect → Decompose → Integrate → Retrospect loop.
 
 New here? Read [PLAYBOOK.md](PLAYBOOK.md) — the one-page front door to what to install, how to work, and what to watch. For the full stage-by-stage map, see [WORKFLOW.md](WORKFLOW.md).

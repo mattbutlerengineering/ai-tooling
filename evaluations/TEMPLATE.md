@@ -76,6 +76,7 @@ A skill's value is a *change in agent behaviour*, not a CLI you can run — so m
 | Maintainability | {+/-/neutral} | {one sentence} |
 | Safety | {+/-/neutral} | {one sentence} |
 | Cost Efficiency | {+/-/neutral} | {one sentence} |
+| Verifiability | {+/-/neutral} | {one sentence — does this make its own output easier or harder to check?} |
 
 ## Verdict
 

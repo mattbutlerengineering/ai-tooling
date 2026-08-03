@@ -22,6 +22,17 @@ Every tool recommendation is justified by which of these signals it moves. If a 
 | **Maintainability** | Can someone else work with this code? | File size discipline, review simplification trends, no unnecessary abstraction |
 | **Safety** | Does it avoid breaking things — and recover fast when it does? | Security findings per PR, CI gate pass rate, rollback frequency, mean time to recovery |
 | **Cost Efficiency** | Does the workflow avoid wasting tokens and money? | Tokens per session, redundant tool calls, agent invocations per task |
+| **Verifiability** | Can a human confirm the output is right, at the rate it's produced? | Diff size per unit of reviewed intent, share of claims machine-checkable, review round-trips before merge |
+
+### Why Verifiability is its own signal
+
+Five of these six ask "is the output good?" Verifiability asks whether anyone can still tell.
+
+It is separate because the constraint moved. Implementation collapsed from weeks to hours while the stages around it — requirements up front, validation at the end — did not, which is why AI assistants can 10× an engineer's output without 10×ing the business's ([Cole Medin on Google's agentic-engineering material](https://www.youtube.com/watch?v=zbmuiaPuiNM), who calls specification quality "the new bottleneck"). [Kun Chen](https://www.youtube.com/watch?v=iQyg-KypKAA) names the reviewer side: if every piece of generated code requires your review, you have made yourself the bottleneck. [Overcut's SDLC→ADLC talk](https://www.youtube.com/watch?v=x61b6_lHWQw) says the same of review specifically — it is not one step but a loop of validate, fix, re-run.
+
+The consequence for this workflow: **a tool earns its slot on end-to-end cycle time, not on the stage it visibly accelerates.** Speed and Verifiability pull apart exactly where it matters. A tool that emits far more code at unchanged quality scores well on Speed — which treats review as latency to minimize — and badly on Verifiability, which asks whether the capacity to review was expanded or consumed. When the two disagree, Verifiability is the one that predicts whether the loop actually got faster.
+
+Existing evaluations record five signals. Verifiability is required for new evaluations and backfilled opportunistically — the back catalog is not retrofitted.
 
 ---
 
