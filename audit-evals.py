@@ -16,7 +16,12 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
 
   C. LINK ROT (opt-in, --links) — every github.com/owner/repo link in CATALOG.md
      should resolve to its canonical current name. Flags 404s (dead) and silent
-     renames (moved). ~450 network requests, so it is off by default.
+     renames (moved). ~450 network requests, so it is off by default. Reports
+     n/total CHECKED and says INCONCLUSIVE rather than OK when any link could not
+     be verified: only a 404 means "gone", and every other failure (429 rate limit,
+     5xx, timeout) is "could not check". Folding those into "ok" once made the
+     sweep print a clean bill of health for 612 links while GitHub 429'd all of
+     them (#319).
 
   D. VERDICT SYNC — each eval's "## Verdict" should agree with its COMPARISON.md
      row. Tolerates dual verdicts ("ADOPT for X — CONDITIONAL otherwise") and the
@@ -125,7 +130,7 @@ pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence fiel
 are report-only and never affect the exit code; --selftest exits non-zero on a
 failing assertion, so it can gate alone.
 """
-import os, re, sys, json, glob, functools, subprocess, datetime, urllib.request, urllib.error
+import os, re, sys, json, glob, collections, functools, subprocess, datetime, urllib.request, urllib.error
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -269,7 +274,15 @@ def audit_fabrication(ctx):
 
 # ---------------------------------------------------------------- C. link rot
 def check_repo(slug):
-    """Return 'ok', 'dead', or 'moved:<new>' for a github owner/repo slug."""
+    """Return 'ok', 'dead', 'moved:<new>', or 'unknown:<reason>' for a github
+    owner/repo slug.
+
+    'unknown' exists because this used to fold every non-404 into 'ok' (#319).
+    GitHub answers this detector's ~600-request unauthenticated burst with HTTP
+    429, so EVERY link — including live ones like torvalds/linux — came back
+    'ok' and the sweep printed a clean bill of health having verified nothing.
+    "Could not check" and "checked and fine" must not be the same value: silence
+    is not success."""
     url = f"https://github.com/{slug}"
     try:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "ai-tooling-audit"})
@@ -279,19 +292,26 @@ def check_repo(slug):
                 return f"moved:{final}"
             return "ok"
     except urllib.error.HTTPError as e:
-        return "dead" if e.code == 404 else "ok"
-    except Exception:
-        return "ok"  # network hiccup — don't false-flag
+        if e.code == 404:
+            return "dead"          # the one status that genuinely means "gone"
+        return f"unknown:HTTP {e.code}"   # 429 rate limit, 5xx, auth walls — not a verdict
+    except Exception as e:
+        return f"unknown:{type(e).__name__}"  # timeout / DNS / TLS — also not a verdict
 
 def audit_links(ctx):
+    """(problems, unknowns, total) — problems are dead/moved links, unknowns are
+    links this run could not verify. Callers MUST NOT report success while
+    unknowns is non-empty; an inconclusive sweep is not a passing one."""
     import concurrent.futures
     slugs = catalog_lib.github_repos(ctx.catalog)
-    problems = []
+    problems, unknowns = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
         for slug, res in zip(slugs, ex.map(check_repo, slugs)):
-            if res != "ok":
+            if res.startswith("unknown:"):
+                unknowns.append((slug, res[len("unknown:"):]))
+            elif res != "ok":
                 problems.append((slug, res))
-    return problems, len(slugs)
+    return problems, unknowns, len(slugs)
 
 # ---------------------------------------------------------------- L. staleness sweep
 def audit_staleness(ctx, today=None):
@@ -1266,13 +1286,23 @@ def main():
         else:
             print("  OK — every ADOPT/KEEP eval is run-backed (MEASURED/RUN) or carries a disclaimer")
     if do_links:
-        print("== C. link rot (CATALOG.md repo links) ==")
-        problems, total = audit_links(ctx)
+        problems, unknowns, total = audit_links(ctx)
+        checked = total - len(unknowns)
+        print(f"== C. link rot (CATALOG.md repo links) — {checked}/{total} checked ==")
         if problems:
             rc = 1
             for slug, res in problems:
                 print(f"  {'DEAD' if res=='dead' else 'MOVED'} {slug}" + (f" -> {res[6:]}" if res.startswith('moved:') else ""))
-        else:
+        if unknowns:
+            # Never "OK" on an inconclusive run: this detector once printed a clean
+            # sweep of 612 links while GitHub 429'd every single request (#319).
+            reasons = collections.Counter(r for _, r in unknowns)
+            summary = ", ".join(f"{n}x {r}" for r, n in reasons.most_common())
+            print(f"  INCONCLUSIVE — {len(unknowns)} link(s) could not be verified ({summary}).")
+            print("  Re-run later, or authenticate: an unauthenticated burst of ~600 HEAD "
+                  "requests is rate-limited. Findings above are still real; absence of "
+                  "findings is NOT a pass.")
+        elif not problems:
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
     if do_archived:
         print("== H. archived repos (report-only) ==")
