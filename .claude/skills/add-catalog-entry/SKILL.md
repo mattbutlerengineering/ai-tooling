@@ -34,13 +34,13 @@ judgement (category, one-liner, overlaps). Detector G then verifies the result.
 
 6. **Find the COMPARISON stage and insert the body row.** Do NOT guess the stage — locate where a same-category peer already lives:
    `awk '/^## /{s=$0} /^\| <peer> /{print s}' COMPARISON.md`
-   Insert `| <name> | <type> | <auto ✓/blank> | <free ✓/blank> | CONDITIONAL |` under that same `## section` (discovery-level adds are CONDITIONAL unless you ran a hands-on eval).
+   Insert `| <name> | <type> | <auto ✓/blank> | <free ✓/blank> | discovery-log | SOURCE-ONLY |` under that same `## section`. An add with no hands-on eval is a **lead, not a verdict** — `discovery-log` is the vocabulary for that (COMPARISON.md's legend), and `SOURCE-ONLY` is what `backfill-evidence.py` derives for a row with no eval file. Do **not** write `CONDITIONAL`: the legend reserves it for a tool actually exercised (`Evidence` MEASURED/RUN) or one carrying a genuine `adopt-if:` condition, and eliminate-only forbids an unattended pass from reaching any positive verdict. The Evidence cell is not optional — a 5-cell row fails gating detector O on row shape.
 
 7. **Propagate counts.** `python3 reconcile-counts.py` — rewrites the catalog total in README/CLAUDE/STACK/plugin/CLAUDE and rebuilds COMPARISON's summary + Total from the new body rows. Never hand-edit counts.
 
 8. **Sync the plugin copy.** `./sync-plugin-docs.sh`
 
-9. **Audit.** `python3 audit-evals.py` — detectors A/B/D/G must all say OK (G proves CATALOG == COMPARISON). Also `/bin/bash plugin/hooks/validate-counts.sh` should be silent.
+9. **Audit.** `make check` — the canonical gate, and exactly what CI enforces. It runs the gating detectors (A/B/D/G/J/K/O — G proves CATALOG == COMPARISON, O proves your new row is well-formed), the `--check` gates, and the unit suite. `python3 audit-evals.py` alone runs only the detectors. Also `/bin/bash plugin/hooks/validate-counts.sh` should be silent.
 
 10. **Report** the new total and the one-line entry; commit only if asked (`docs(catalog): add <name> (N->N+1)`).
 
