@@ -20,7 +20,11 @@ NEXT-EVALS.md is the sibling page for *first-time* evaluation priorities; this
 one is the *revisit* page.
 
   ./watchlist.py          # apply: regenerate WATCHLIST.md
-  ./watchlist.py --check  # verify only: exit 1 if stale; mutate nothing
+  ./watchlist.py --check  # verify only: exit 1 if the page is out of date; mutate nothing
+
+--check gates every section except 3. Section 3 (the staleness report) is derived from
+today's date rather than file content, so it is excluded — see render() and
+_without_stale_block. Apply mode always rewrites the whole page.
 """
 import os, re, sys, importlib.util
 import catalog_lib
@@ -34,6 +38,13 @@ ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 WATCHLIST = os.path.join(ROOT, "WATCHLIST.md")
 START, END = "<!-- WATCHLIST:START -->", "<!-- WATCHLIST:END -->"
+# Section 3 is the one part of this page derived from `datetime.date.today()` rather than
+# from file content, so it is wrapped in its own markers and excluded from `--check`'s
+# comparison. The staleness sweep is REPORT-ONLY (see CLAUDE.md and audit_staleness's
+# docstring, and the `-`-prefixed staleness line in the Makefile); gating on it turned a
+# calendar date into a red CI run with zero commits — 184 evals cross a threshold on
+# 2026-10-21 alone. `make fix` still refreshes the section.
+STALE_START, STALE_END = "<!-- WATCHLIST:STALE:START -->", "<!-- WATCHLIST:STALE:END -->"
 
 # Section 1: the text after "re-evaluate after/when" in a DEFER eval's Verdict is
 # its trigger sentence (TEMPLATE.md: "DEFER = ... re-evaluate after {trigger}").
@@ -115,12 +126,19 @@ def stack_flagged(ctx):
 
 
 def render(ctx):
-    """The full WATCHLIST.md text. Fully regenerated each run (markers wrap the body
-    so a future tool can locate the block). Deterministic: every value is derived from
-    file content. The one time-dependent input is section 3's stale *set* (which evals
-    have crossed their staleness threshold) — it changes only when a date crosses a
-    threshold, at which point `make fix` regenerates the page; the ages themselves are
-    not printed, so nothing drifts day-to-day."""
+    """The full WATCHLIST.md text. Fully regenerated each run (markers wrap the body so a
+    future tool can locate the block). Every section is derived from file content and
+    gated by `--check` — except section 3.
+
+    Section 3's stale *set* comes from `datetime.date.today()`, so it changes on a calendar
+    date with nothing committed (184 evals cross a threshold on 2026-10-21 alone). It is
+    wrapped in STALE_START/STALE_END and excluded from the `--check` comparison by
+    _without_stale_block — the staleness sweep is report-only, and gating on it would fail
+    CI on every open PR and inside every unattended routine run for reasons no diff could
+    explain. `make fix` still regenerates it, so the report stays current.
+
+    Any future section derived from wall-clock time needs the same treatment; the rule is
+    that `--check` gates only what is derived from file content."""
     defer_rows, defer_missing = deferred(ctx)
     flagged, _flag_lines = stack_flagged(ctx)
     stale, undated = ae.audit_staleness(ctx)
@@ -174,12 +192,14 @@ def render(ctx):
 
     L += [
         "",
+        STALE_START,
         f"## 3. Stale / undated evals ({len(stale)} stale)",
         "",
         "A point-in-time eval rots. The staleness sweep flags evals whose "
-        "`**Last verified:**` date is older than its category threshold; ages are not "
-        "printed so the page stays deterministic (`make fix` regenerates when a date "
-        "crosses a threshold).",
+        "`**Last verified:**` date is older than its category threshold. This section is a "
+        "**report**, refreshed by `make fix` — it is the one part of this page derived from "
+        "today's date rather than from file content, so `watchlist.py --check` does not gate "
+        "on it. Ages are not printed; only the crossing matters.",
         "",
         "| Eval | Type | Last verified | Threshold (days) |",
         "|------|------|---------------|------------------|",
@@ -193,6 +213,7 @@ def render(ctx):
         "",
         f"_{undated} eval(s) carry no `**Last verified:**` date "
         "(field presence is gated separately by `backfill-lastverified.py`)._",
+        STALE_END,
     ]
 
     L += [
@@ -227,6 +248,20 @@ def apply(ctx):
     return render(ctx)
 
 
+def _without_stale_block(text):
+    """The page with section 3 elided — the surface `--check` gates on. Everything else
+    here is derived purely from file content and stays gated; section 3 is derived from
+    today's date, so byte-comparing it would fail the gate on a calendar date with zero
+    commits. Markers absent (a page written before they existed) means gate the whole
+    text — a missing marker must not silently un-gate the page."""
+    if text is None:
+        return None
+    i, j = text.find(STALE_START), text.find(STALE_END)
+    if i == -1 or j == -1:
+        return text
+    return text[:i] + text[j + len(STALE_END):]
+
+
 def main():
     check = "--check" in sys.argv[1:]
     ctx = ae.DetectorContext(ROOT)
@@ -243,7 +278,9 @@ def main():
 
     current = open(WATCHLIST, encoding="utf-8").read() if os.path.exists(WATCHLIST) else None
     if check:
-        if new != current:
+        # Compare with section 3 elided; apply mode below still writes the full text, so
+        # `make fix` keeps the staleness report fresh even though the gate ignores it.
+        if _without_stale_block(new) != _without_stale_block(current):
             print("watchlist check: DRIFT — WATCHLIST.md is stale; run ./watchlist.py")
             sys.exit(1)
         print("watchlist check: OK — WATCHLIST.md matches the derived watchlist")
