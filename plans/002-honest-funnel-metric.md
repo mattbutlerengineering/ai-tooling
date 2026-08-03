@@ -37,7 +37,7 @@
   | **Total** | **582** | **582** | **100%** |
   ```
 
-- `COMPARISON.md` Legend (lines 5-10) — the verdict vocabulary (ADR 0001, `docs/decisions/0001-verdict-vocabulary.md`): ADOPT/KEEP/CONDITIONAL/SKIP/DEFER are real verdicts; **discovery-log** is "a catalogued *lead*, not a verdict … Excluded from verdict-sync (D) and verdict-evidence (K)."
+- `COMPARISON.md` Legend (lines 5-10) — the verdict vocabulary (then ADR 0001 at `docs/decisions/0001-verdict-vocabulary.md`; renumbered to ADR-0005 at `docs/adr/0005-verdict-vocabulary.md` by #309): ADOPT/KEEP/CONDITIONAL/SKIP/DEFER are real verdicts; **discovery-log** is "a catalogued *lead*, not a verdict … Excluded from verdict-sync (D) and verdict-evidence (K)."
 - Verdict distribution (verified 2026-07-03): ADOPT 25, KEEP 9, CONDITIONAL 14, SKIP 58, DEFER ~5, discovery-log ~473 (of 582 rows). ADOPT/KEEP per stage: Plan 6, Skills&Plugins 4, Reference 4, Implement 4, Review 3, Reflect 3, Verify 2, Outer Loop 2, Memory&Context 2, MCP Servers 2, Ship 1, Research&Discovery 1.
 - The Summary is **generated** by `reconcile-counts.py` → `fix_comparison(text, C)` at line 45 (with inner `fix_sec` at line 50) — never hand-edit it.
 - It is **gated** by detector G → `audit_comparison(ctx)` at `audit-evals.py:824`: the per-stage summary must sum to the body rows and Total must equal the CATALOG entry count.

@@ -2,7 +2,7 @@
 
 All 634 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
-**Verdict vocabulary** (per [ADR 0001](docs/decisions/0001-verdict-vocabulary.md), implemented in #69):
+**Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
 - **ADOPT** / **KEEP** — recommended (KEEP = already installed & validated); run-backed or disclaimered.
 - **CONDITIONAL** — a real conditional verdict on a tool we actually exercised (`Evidence` MEASURED/RUN), or one carrying a genuine `adopt-if:` condition.

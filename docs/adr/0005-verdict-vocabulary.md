@@ -1,8 +1,10 @@
-# ADR 0001 — Verdict vocabulary: collapse the CONDITIONAL bucket
+# ADR-0005: Verdict vocabulary — collapse the CONDITIONAL bucket
 
-- **Status:** Accepted (2026-06-22) · **Implemented** in #69 (2026-06-22)
+- **Status:** Accepted · **Implemented** in #69
+- **Date:** 2026-06-22
 - **Issue:** #63 (decision) · implemented by #69
 - **Deciders:** repo owner
+- **Renumbered:** lived at `docs/decisions/0001-verdict-vocabulary.md` until #309 consolidated every ADR into `docs/adr/`. Its old number collided with [ADR-0001 (plugin-docs sync allowlist)](0001-plugin-docs-sync-allowlist.md), so "ADR 0001" was ambiguous. Body below is the decision as accepted on 2026-06-22 and is not restated here.
 
 > **Implementation note (#69):** the bucket collapse is done. 404 unexercised
 > CONDITIONAL rows (`Evidence` REVIEW/SOURCE-ONLY) were demoted to **discovery-log**;
@@ -44,7 +46,7 @@ No genuine condition ⇒ it is **not** a CONDITIONAL. The condition is a single 
 ### 2. Recommend one tool over its alternatives (the key fix)
 Within each overlap cluster (tools sharing a "Problem it solves"), designate **exactly one** best-in-class `ADOPT` — the pick — and resolve the also-rans to `SKIP` (or `KEEP` if already installed) with a one-line "why not the pick" reason. A cluster that is all-CONDITIONAL with no pick is a smell, not a neutral state.
 
-"Best-in-class" is judged on: evidence strength (a MEASURED winner beats a source-only rival), fit to our five quality signals, maintenance/adoption, and **license** (non-permissive tools cannot be the pick — see ADR-adjacent governance below).
+"Best-in-class" is judged on: evidence strength (a MEASURED winner beats a source-only rival), fit to our five quality signals (six since [ADR-0004](0004-verifiability-signal.md) added Verifiability), maintenance/adoption, and **license** (non-permissive tools cannot be the pick — see ADR-adjacent governance below).
 
 ### 3. Demote the unexercised long tail to `discovery-log`
 Source-only rows that were never exercised and have no real `adopt-if:` condition are **leads, not verdicts**. Reclassify them to an explicit **`discovery-log`** status (backed by `Evidence: SOURCE-ONLY`). A real verdict (ADOPT/KEEP/SKIP/CONDITIONAL) now requires *either* the tool to have been exercised *or* a genuine `adopt-if:` condition.
