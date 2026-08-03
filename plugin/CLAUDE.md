@@ -1,6 +1,6 @@
 # ai-tooling Plugin
 
-AI workflow toolkit organized around inner/outer dev loop stages and five quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency).
+AI workflow toolkit organized around inner/outer dev loop stages and six quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency, Verifiability).
 
 ## Skills
 
