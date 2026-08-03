@@ -139,13 +139,23 @@ def http_ok(url):
     except Exception:
         return False
 
+def _run_ok(cmd):
+    """True if `cmd` exits 0. A missing binary or a hung process means 'cannot verify',
+    not 'broken' — detector A gates CI, so a false BROKEN is worse than an unchecked
+    target. Without the timeout a single wedged `npm view` blocks the whole gate
+    indefinitely; without the FileNotFoundError catch, a machine with no `npm` takes the
+    run down with a traceback. A real 404 still exits non-zero and is still reported."""
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True,
+                              timeout=TIMEOUT).returncode == 0
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return True
+
 def npm_exists(pkg):
-    return subprocess.run(["npm", "view", pkg, "version"],
-                          capture_output=True, text=True).returncode == 0
+    return _run_ok(["npm", "view", pkg, "version"])
 
 def gh_repo_exists(slug):
-    return subprocess.run(["gh", "api", f"repos/{slug}", "--jq", ".full_name"],
-                          capture_output=True, text=True).returncode == 0
+    return _run_ok(["gh", "api", f"repos/{slug}", "--jq", ".full_name"])
 
 def pypi_exists(pkg):   return http_ok(f"https://pypi.org/pypi/{pkg}/json")
 def crates_exists(pkg): return http_ok(f"https://crates.io/api/v1/crates/{pkg}")
@@ -184,20 +194,26 @@ def extract_installs(text):
                     yield kind, pkg
 
 def audit_installs(ctx):
+    """Detector A: every install command must point at a real artifact. Resolution runs
+    concurrently (86 unique targets, ~22s serial) — no two lookups depend on each other,
+    so this mirrors audit_links' ThreadPoolExecutor. Mentions are collected first and
+    filtered afterwards, which keeps the reported order and the per-occurrence shape
+    exactly as they were: lookups DEDUPE, findings do NOT, so a broken package cited in
+    three evals is still three findings."""
+    import concurrent.futures
     files = ["STACK.md", "CATALOG.md"] + sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))
-    seen, broken = {}, []
     checkers = {"pypi": pypi_exists, "crates": crates_exists, "npm": npm_exists, "gh": gh_repo_exists}
+    mentions = []  # (rel, kind, pkg) in file order — this IS the reported order
     for rel in files:
         if not os.path.exists(ctx.path(rel)): continue
         for kind, pkg in extract_installs(ctx.read(rel)):
-            key = (kind, pkg)
-            if key in seen:
-                ok = seen[key]
-            else:
-                ok = checkers[kind](pkg); seen[key] = ok
-            if not ok:
-                broken.append((rel, kind, pkg))
-    return broken
+            mentions.append((rel, kind, pkg))
+    targets = sorted({(kind, pkg) for _rel, kind, pkg in mentions})
+    # max_workers matches audit_links. Do NOT raise it: PyPI and the npm registry
+    # rate-limit, and a 429 would surface as a false BROKEN.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
+        seen = dict(zip(targets, ex.map(lambda t: checkers[t[0]](t[1]), targets)))
+    return [(rel, kind, pkg) for rel, kind, pkg in mentions if not seen[(kind, pkg)]]
 
 # ---------------------------------------------------------------- B. fabrication
 # Disclaimers / review verbs that mark an eval as an HONEST not-run review.
