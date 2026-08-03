@@ -15,6 +15,7 @@ Run:
 Exits non-zero on any failure (gates CI / pre-commit).
 """
 import os, datetime, importlib.util, json, re, shutil, subprocess, tempfile, unittest
+import urllib.error
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -1772,6 +1773,85 @@ class TestTierStack(unittest.TestCase):
 
 
 # ----------------------------------------------------------------- detector A: install resolver (#301)
+class TestLinkRotUnknowns(unittest.TestCase):
+    """Pins detector C's could-not-check state (#319). It used to fold every non-404
+    into 'ok', so GitHub's 429 on the ~600-request unauthenticated burst turned the
+    whole sweep into a silent no-op that still printed "OK — all 612 links resolve".
+    A clean bill of health and a total blackout must never render identically.
+    Network-free: urlopen is monkeypatched."""
+
+    CATALOG = (
+        "## Plan\n"
+        "| Name | Type | One-liner | Problem | Overlaps with |\n"
+        "|------|------|-----------|---------|---------------|\n"
+        "| [a](https://github.com/x/a) | tool | one | two | none |\n"
+        "| [b](https://github.com/x/b) | tool | one | two | none |\n"
+    )
+
+    def setUp(self):
+        self._real = audit.urllib.request.urlopen
+
+    def tearDown(self):
+        audit.urllib.request.urlopen = self._real  # never leak the fake into later tests
+
+    def _fake(self, behavior):
+        def fake_urlopen(req, timeout=None):
+            raise behavior(req.full_url)
+        audit.urllib.request.urlopen = fake_urlopen
+
+    def _run(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", self.CATALOG)
+            return audit.audit_links(audit.DetectorContext(d))
+
+    def test_rate_limit_is_unknown_not_ok(self):
+        # The exact #319 failure: 429 on every request.
+        self._fake(lambda url: urllib.error.HTTPError(url, 429, "Too Many Requests", {}, None))
+        problems, unknowns, total = self._run()
+        self.assertEqual(problems, [])
+        self.assertEqual(total, 2)
+        self.assertEqual(len(unknowns), 2, "a rate-limited link must not count as verified")
+        self.assertEqual({r for _, r in unknowns}, {"HTTP 429"})
+
+    def test_404_is_still_dead(self):
+        # Only a 404 genuinely means "gone" — that verdict must survive the change.
+        self._fake(lambda url: urllib.error.HTTPError(url, 404, "Not Found", {}, None))
+        problems, unknowns, _ = self._run()
+        self.assertEqual([r for _, r in problems], ["dead", "dead"])
+        self.assertEqual(unknowns, [])
+
+    def test_server_error_and_timeout_are_unknown(self):
+        for behavior, expected in (
+            (lambda url: urllib.error.HTTPError(url, 503, "Service Unavailable", {}, None), "HTTP 503"),
+            (lambda url: TimeoutError("timed out"), "TimeoutError"),
+        ):
+            self._fake(behavior)
+            problems, unknowns, _ = self._run()
+            self.assertEqual(problems, [], msg=f"{expected} must not be reported as a finding")
+            self.assertEqual({r for _, r in unknowns}, {expected})
+
+    def test_reporting_says_inconclusive_not_ok(self):
+        # End-to-end through main(): the output a maintainer actually reads must not
+        # claim success when nothing could be checked.
+        with tempfile.TemporaryDirectory() as d:
+            shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
+            shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))
+            _write(d, "CATALOG.md", self.CATALOG)
+            # Force the 429 path from inside the child process.
+            _write(d, "sitecustomize.py",
+                   "import urllib.request, urllib.error\n"
+                   "def _boom(req, timeout=None):\n"
+                   "    raise urllib.error.HTTPError(req.full_url, 429, 'Too Many Requests', {}, None)\n"
+                   "urllib.request.urlopen = _boom\n")
+            r = subprocess.run(["python3", "audit-evals.py", "--links"],
+                               cwd=d, capture_output=True, text=True,
+                               env={**os.environ, "PYTHONPATH": d})
+            self.assertIn("INCONCLUSIVE", r.stdout, msg=r.stdout + r.stderr)
+            self.assertIn("0/2 checked", r.stdout)
+            self.assertNotIn("OK — all", r.stdout,
+                             msg="a fully rate-limited sweep must never print an all-clear")
+
+
 class TestInstallResolver(unittest.TestCase):
     """Pins audit_installs' output shape across the serial -> concurrent rewrite (#301).
     The risk of that change is a silent detection change hiding inside a perf change, so
