@@ -1596,6 +1596,90 @@ class TestDetectorL(unittest.TestCase):
         self.assertEqual(stale, [])
 
 
+# ----------------------------------------------------------------- detector R (metadata staleness)
+class TestDetectorR(unittest.TestCase):
+    """Pins the repo-metadata.json age report (#260). The cache rots in ONE direction —
+    a repo archived after our last fetch keeps `archived: false` and never reaches the
+    P1 successor-check band — so the report exists to make that ageing visible. Age
+    comes only from the `fetched_at` stamp refresh-metadata.py writes; an unstamped
+    record is UNDATED, never assigned a floor, because a floor would assert a fetch
+    that never happened (the `**Last triaged:**` rule, not the `**Last verified:**` one)."""
+
+    TODAY = datetime.date(2026, 6, 22)
+
+    def _ago(self, days):
+        return (self.TODAY - datetime.timedelta(days=days)).isoformat()
+
+    def _run(self, records, write=True):
+        with tempfile.TemporaryDirectory() as d:
+            if write:
+                _write(d, "repo-metadata.json", json.dumps(records))
+            return audit.audit_metadata_staleness(audit.DetectorContext(d), today=self.TODAY)
+
+    def test_ages_records_by_fetched_at(self):
+        total, undated, stale, oldest = self._run({
+            "a/old":   {"archived": False, "fetched_at": self._ago(200)},
+            "a/older": {"archived": False, "fetched_at": self._ago(300)},
+            "a/fresh": {"archived": False, "fetched_at": self._ago(10)},
+        })
+        self.assertEqual((total, undated), (3, 0))
+        self.assertEqual([s[0] for s in stale], ["a/older", "a/old"])  # oldest first
+        self.assertEqual(oldest[0], "a/older")
+        self.assertEqual(oldest[2], 300)
+
+    def test_threshold_boundary_not_stale(self):
+        # exactly at the threshold is NOT past it — same boundary rule as detector L
+        _, _, stale, _ = self._run({"a/x": {"fetched_at": self._ago(audit.METADATA_STALE_DAYS)}})
+        self.assertEqual(stale, [])
+
+    def test_unstamped_records_are_undated_never_backfilled(self):
+        # The pre-#260 record shape. pushed_at is the REPO's push date, not our fetch
+        # date, so it must not be mistaken for one — a busy repo would look freshly
+        # checked no matter how old the snapshot is.
+        total, undated, stale, oldest = self._run({
+            "a/x": {"archived": False, "license_spdx": "MIT", "pushed_at": self._ago(1)},
+        })
+        self.assertEqual((total, undated, stale, oldest), (1, 1, [], None))
+
+    def test_unparseable_stamp_counts_as_undated(self):
+        _, undated, _, oldest = self._run({"a/x": {"fetched_at": "not-a-date"}})
+        self.assertEqual((undated, oldest), (1, None))
+
+    def test_missing_cache_is_not_fatal(self):
+        # A fresh clone has no cache; `make check` must still run. Same tolerance
+        # triage.py's load_metadata() has.
+        self.assertEqual(self._run({}, write=False), (0, 0, [], None))
+
+    def test_malformed_cache_is_not_fatal(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "repo-metadata.json", "[]")   # a list, not the slug->record map
+            self.assertEqual(
+                audit.audit_metadata_staleness(audit.DetectorContext(d)), (0, 0, [], None))
+
+    def test_report_never_affects_exit_code(self):
+        # The whole point of report-only: a maximally stale cache still exits 0.
+        with tempfile.TemporaryDirectory() as d:
+            shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
+            shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))
+            _write(d, "repo-metadata.json",
+                   json.dumps({"a/x": {"fetched_at": "2001-01-01"}}))
+            r = subprocess.run(["python3", "audit-evals.py", "--metadata-staleness"],
+                               cwd=d, capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+            self.assertIn("R. metadata staleness", r.stdout)
+
+    def test_refresh_metadata_stamps_records(self):
+        # The producer side: without this stamp the detector has nothing to age.
+        refresh = _load("refresh_metadata", "refresh-metadata.py")
+        rec = refresh.stamp({"license_spdx": "MIT", "archived": False}, today=self.TODAY)
+        self.assertEqual(rec["fetched_at"], self.TODAY.isoformat())
+        self.assertEqual(rec["license_spdx"], "MIT")  # original fields preserved
+        # Immutable: the caller's dict is not mutated.
+        original = {"license_spdx": "MIT"}
+        refresh.stamp(original, today=self.TODAY)
+        self.assertNotIn("fetched_at", original)
+
+
 # ----------------------------------------------------------------- detector N (savings claims)
 class TestSavingsClaims(unittest.TestCase):
     HEADER = "| Name | Type | One-liner | Problem | Overlaps |\n|---|---|---|---|---|\n"
@@ -1761,6 +1845,16 @@ class TestIntegrityMakefile(unittest.TestCase):
         "audit-evals.py --installs",
     )
 
+    # Report-only trailers. Deliberately NOT in GATES — they are not gates, and adding
+    # them there would assert the wrong thing. They must appear in BOTH targets and stay
+    # `-`-prefixed: L ages with the calendar and R's only fix (refresh-metadata.py) needs
+    # the network the offline-gate invariant forbids CI from depending on. Dropping the
+    # `-` would fail `make check` for a reason no code change caused.
+    TRAILERS = (
+        "audit-evals.py --staleness",
+        "audit-evals.py --metadata-staleness",
+    )
+
     def _target_body(self, target="check"):
         """The recipe lines of `target:`. Prefix-safe — `check-offline:` does not start
         with `check:`, so the two targets never capture each other's bodies."""
@@ -1797,6 +1891,17 @@ class TestIntegrityMakefile(unittest.TestCase):
             if gate == "audit-evals.py --installs":
                 continue
             self.assertIn(gate, joined, msg=f"`make check-offline` is missing gate: {gate}")
+
+    def test_report_only_trailers_run_in_both_targets(self):
+        for target in ("check", "check-offline"):
+            body = self._target_body(target)
+            self.assertTrue(body, f"Makefile has no `{target}:` target body")
+            for trailer in self.TRAILERS:
+                line = next((l for l in body if trailer in l), None)
+                self.assertIsNotNone(line, msg=f"`make {target}` is missing trailer: {trailer}")
+                self.assertTrue(line.startswith("-"),
+                                msg=f"`make {target}` trailer must stay `-`-prefixed "
+                                    f"(report-only, never gating): {line}")
 
     def test_ci_delegates_to_make_check(self):
         with open(os.path.join(ROOT, ".github/workflows/integrity.yml"), encoding="utf-8") as f:
