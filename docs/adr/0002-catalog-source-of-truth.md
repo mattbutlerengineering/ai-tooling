@@ -4,7 +4,7 @@
 - **Date:** 2026-06-26
 - **Issue:** #112
 - **Spike:** [spikes/catalog-source-of-truth.md](../../spikes/catalog-source-of-truth.md)
-- **Supersedes / relates to:** continues the #45 shared-parser seam; complements [ADR-0001 (verdict vocabulary)](../decisions/0001-verdict-vocabulary.md)
+- **Supersedes / relates to:** continues the #45 shared-parser seam; complements [ADR-0005 (verdict vocabulary)](0005-verdict-vocabulary.md)
 
 ## Context
 

@@ -18,7 +18,7 @@ All functions are pure (text/values in, value out) — callers read the files.
 import collections
 import re
 
-# The verdict vocabulary (ADR 0001, docs/decisions/0001-verdict-vocabulary.md).
+# The verdict vocabulary (ADR-0005, docs/adr/0005-verdict-vocabulary.md).
 # Defined once here; COMPARISON-row consumers reference this tuple. (The eval-file
 # ## Verdict parser in audit-evals deliberately keeps its own narrower inline set —
 # an eval can't carry discovery-log, which is a COMPARISON-only status.)
