@@ -1,6 +1,6 @@
 # Recipe: intent → production, assembled from open skills
 
-**What this is:** a runnable, end-to-end pipeline that reconstructs an [8090-style Software Factory](8090-software-factory-sdlc.md) from skills and tools we already have — no commercial platform required. Follow it top to bottom and a plain-language idea becomes a merged PR. Each step names the skill, the artifact it produces, a concrete invocation, and the [8090 stage](8090-software-factory-sdlc.md) it stands in for.
+**What this is:** a runnable, end-to-end pipeline that reconstructs an [8090-style Software Factory](8090-software-factory-sdlc.md) from skills and tools we already have — no commercial platform required. Follow it top to bottom and a plain-language idea becomes a merged PR. Each step names the skill, the artifact it produces, a concrete invocation, and the [8090 stage](8090-software-factory-sdlc.md) it stands in for — or, for step 4, records that 8090 no longer has one.
 
 ```
 intent ─▶ /to-prd ─▶ PRD
@@ -38,24 +38,24 @@ Cut the plan into independently-grabbable, codebase-tied tasks — 8090's Work O
 - **Invoke:** `/to-issues`; track dependencies with the `bd` CLI (`beads`)
 - **8090 stage:** Planner → codebase-tied tasks.
 
-## 4. Work order → implementation  ·  *8090 Development*
+## 4. Work order → implementation  ·  *no 8090 module — BYO agent*
 
 Take one issue from intent to merged PR. This is the inner loop itself — TDD, verification, review, and ship in one pipeline.
 
 - **Skill:** `implement-issue`
 - **Artifact:** a merged PR closing the issue (code, tests, docs)
 - **Invoke:** `/implement-issue <issue-number>` (reads the issue → branch → TDD → quality gates → review → PR → CI → merge)
-- **8090 stage:** Development (code, tests, docs, infra).
+- **8090 stage:** none — 8090 retired its **Development** module and hands execution to the agent you already run (*"IDE / Agent of choice … No lock-in"*). This step is that agent side. Its validation half stands in for 8090's **Tests** module (*"every feature is validated against its requirements"*): `implement-issue` composes `tdd` for the red-green loop and `code-review`'s **Spec** axis, which checks the change against the originating issue rather than the code's own conventions.
 - *Repeat for each work order, blockers first — exactly the loop that produced [#172](https://github.com/mattbutlerengineering/ai-tooling/issues/172)/[#173](https://github.com/mattbutlerengineering/ai-tooling/issues/173)/#174.*
 
-## 5. Feedback → tasks (Validator)  ·  *8090 Validator*
+## 5. Feedback → tasks  ·  *8090 Feedback*
 
 Convert what comes back — user feedback, bug reports, review findings — into new, agent-ready work. This is what closes the loop instead of letting feedback rot.
 
 - **Skill:** `triage`
 - **Artifact:** new triaged issues with the right labels, ready to re-enter step 4
 - **Invoke:** `/triage` (routes incoming feedback/bugs through the triage state machine)
-- **8090 stage:** Validator → new development tasks.
+- **8090 stage:** Feedback *(renamed from "Validator")* → any-source feedback becomes structured development work.
 
 ## 6. Knowledge graph (cross-cutting)  ·  *8090 Knowledge Graph*
 
