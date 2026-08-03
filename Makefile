@@ -16,8 +16,10 @@
 # `check`'s install resolver (audit-evals.py --installs) hits the network and uses
 # `gh`, so it needs gh auth / GH_TOKEN. `fix`'s fixers are offline, but its trailing
 # `check` re-run inherits that same network/gh requirement. The final `-`-prefixed
-# staleness line is a report-only trailer (offline) — its `-` prefix keeps a stale
-# eval from failing the gate; only **Last verified:** field presence is gated.
+# staleness lines are report-only trailers (both offline) — the `-` prefix keeps a
+# stale eval or a stale metadata cache from failing the gate. Only **Last verified:**
+# field presence is gated; L (evals) and R (repo-metadata.json) age on the calendar,
+# and their only fix needs the network CI must not depend on.
 
 .PHONY: check check-offline fix
 
@@ -34,6 +36,7 @@ check:
 	./sync-plugin-docs.sh --check
 	python3 audit-evals.py --installs
 	-python3 audit-evals.py --staleness
+	-python3 audit-evals.py --metadata-staleness
 
 # Everything in `check` except the network install resolver (A) — the fast local loop.
 # `check` remains the canonical gate; this is for iterating without paying ~22s of
@@ -51,6 +54,7 @@ check-offline:
 	python3 watchlist.py --check
 	./sync-plugin-docs.sh --check
 	-python3 audit-evals.py --staleness
+	-python3 audit-evals.py --metadata-staleness
 
 fix:
 	python3 reconcile-counts.py

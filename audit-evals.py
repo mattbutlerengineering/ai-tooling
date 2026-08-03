@@ -86,6 +86,15 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      COMPARISON row whose Evaluated cell isn't a verdict token, with file and line
      number (#198). Offline, gating, on by default.
 
+  R. METADATA STALENESS (opt-in, --metadata-staleness, REPORT-ONLY) — repo-metadata.json
+     is a committed snapshot the triage bands rest on, and it rots in one direction:
+     a repo archived after our last refresh keeps `archived: false`, so it never
+     reaches the P1 successor-check band and nobody is told. Ages the cache from the
+     per-record `fetched_at` stamp refresh-metadata.py writes (`pushed_at` is the
+     REPO's push date, not ours). Unstamped records report undated, never backfilled.
+     Offline (#260). Cannot become a gate: it would fail for a reason no code change
+     caused, and its only fix needs the network CI must not depend on.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -105,6 +114,7 @@ Usage:
   python3 audit-evals.py --savings-claims  # unverified token-savings headlines (offline)
   python3 audit-evals.py --evidence   # declared Evidence-field distribution (offline)
   python3 audit-evals.py --staleness  # flag evals past their last-verified threshold (offline)
+  python3 audit-evals.py --metadata-staleness  # age the repo-metadata.json cache (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
@@ -129,6 +139,13 @@ STALENESS_DAYS = {
     "reference": 365,                                                       # stable
 }
 DEFAULT_STALENESS_DAYS = 180
+
+# How old a repo-metadata.json record may get before detector R reports it (#260).
+# The cache answers "is this repo archived / what license" for the triage bands, and
+# a repo archived tomorrow keeps its stale record until someone refreshes. Archival
+# and relicensing move on a scale of months, so this sits with the fast-moving eval
+# categories rather than below them. A starting heuristic — tune here.
+METADATA_STALE_DAYS = 120
 
 # ---------------------------------------------------------------- helpers
 def http_ok(url):
@@ -295,6 +312,50 @@ def audit_staleness(ctx, today=None):
         if age > threshold:
             stale.append((ev.name, ev.type, d.isoformat(), age, threshold))
     return stale, undated
+
+# ---------------------------------------------------------------- R. metadata staleness
+# repo-metadata.json is a COMMITTED SNAPSHOT of GitHub facts (license, archived, stars)
+# that the triage bands rest on. It rots in silence and in one direction: a repo archived
+# tomorrow keeps its `archived: false` record, so it never reaches the P1 successor-check
+# band and nobody is told. Detector L covers evals rotting; nothing covered the cache.
+#
+# REPORT-ONLY on purpose, and this one cannot become a gate the way F/N might. Gating it
+# would fail `make check` for a reason no code change caused — the cache ages on the
+# calendar — and the only fix is `refresh-metadata.py`, which needs the network that the
+# offline-gate invariant forbids CI from depending on.
+#
+# Age comes from a per-record `fetched_at` stamp that refresh-metadata.py writes. Records
+# predating that stamp report as UNDATED rather than being backfilled: a floor date would
+# assert a fetch that never happened, the same reason `**Last triaged:**` is never
+# backfilled while `**Last verified:**` (which has an honest git-derived floor) is.
+def audit_metadata_staleness(ctx, today=None):
+    """Detector R (#260, REPORT-ONLY): age the repo-metadata.json cache. Returns
+    (total, undated, stale, oldest) — total records; count with no `fetched_at`;
+    a list of (slug, date, age) past METADATA_STALE_DAYS, oldest first; and the
+    oldest (slug, date, age) overall, or None when nothing carries a stamp.
+    A missing or unreadable cache is (0, 0, [], None), never an exception: a fresh
+    clone has no cache and `make check` must still run (same tolerance triage.py's
+    load_metadata() has)."""
+    today = today or datetime.date.today()
+    try:
+        records = json.loads(ctx.read("repo-metadata.json"))
+    except (OSError, ValueError):
+        return 0, 0, [], None
+    if not isinstance(records, dict):
+        return 0, 0, [], None
+    dated, undated = [], 0
+    for slug, meta in records.items():
+        stamp = meta.get("fetched_at") if isinstance(meta, dict) else None
+        try:
+            d = datetime.date.fromisoformat(stamp)
+        except (TypeError, ValueError):
+            undated += 1  # never stamped, or unparseable — both mean "age unknown"
+            continue
+        dated.append((slug, d, (today - d).days))
+    dated.sort(key=lambda r: -r[2])
+    stale = [(s, d.isoformat(), age) for s, d, age in dated if age > METADATA_STALE_DAYS]
+    oldest = (dated[0][0], dated[0][1].isoformat(), dated[0][2]) if dated else None
+    return len(records), undated, stale, oldest
 
 # ---------------------------------------------------------------- H. archived repos
 # A catalogued repo that GitHub has flagged `archived` is no longer maintained — the
@@ -1074,7 +1135,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 # Opt-in reports. Never in the default set; never affect the exit code.
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
-                "--staleness")
+                "--staleness", "--metadata-staleness")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1125,6 +1186,7 @@ def main():
     do_savings = "--savings-claims" in want  # opt-in report (does not affect exit code)
     do_evidence = "--evidence" in want       # opt-in report (does not affect exit code)
     do_staleness = "--staleness" in want     # opt-in report (does not affect exit code)
+    do_meta_stale = "--metadata-staleness" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1265,6 +1327,27 @@ def main():
             print("  OK — no dated eval is past its category staleness threshold")
         if undated:
             print(f"  ({undated} evals carry no **Last verified:** date yet — add one when you re-check them)")
+    if do_meta_stale:
+        total, undated, stale, oldest = audit_metadata_staleness(ctx)
+        print(f"== R. metadata staleness (report-only) — {total} record(s), "
+              f"{len(stale)} past {METADATA_STALE_DAYS}d, {undated} undated ==")
+        if not total:
+            print("  no repo-metadata.json — run `python3 refresh-metadata.py` to build it")
+        elif oldest is None:
+            print("  UNDATED — no record carries a fetch date, so the cache's age is unknown.")
+            print(f"  Run `python3 refresh-metadata.py` to stamp them (not backfilled: a "
+                  "floor date would assert a fetch that never happened).")
+        else:
+            slug, date, age = oldest
+            print(f"  oldest fetch {date} ({age}d ago, {slug})")
+            if stale:
+                print(f"  {len(stale)} record(s) past the {METADATA_STALE_DAYS}d threshold — "
+                      "an archived-since repo still reads as live to the triage bands.")
+                print("  Refresh: `python3 refresh-metadata.py`")
+            else:
+                print("  OK — every stamped record is within the threshold")
+            if undated:
+                print(f"  ({undated} record(s) carry no fetch date — refresh to stamp them)")
     if do_overlaps:
         gaps = audit_overlaps(ctx)
         strong = [(t, c) for t, c in gaps if c >= 2]
