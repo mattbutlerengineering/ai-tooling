@@ -1599,6 +1599,59 @@ class TestTierStack(unittest.TestCase):
         self.assertEqual(cm.exception.code, 2)
 
 
+# ----------------------------------------------------------------- detector A: install resolver (#301)
+class TestInstallResolver(unittest.TestCase):
+    """Pins audit_installs' output shape across the serial -> concurrent rewrite (#301).
+    The risk of that change is a silent detection change hiding inside a perf change, so
+    these assert the two properties the rewrite had to preserve: lookups are DEDUPED (each
+    unique target resolved once) but findings are reported PER OCCURRENCE (a broken package
+    cited in N files yields N findings). Network-free — the checker is monkeypatched."""
+
+    PKG = "aitoolingfixturepkg"
+
+    def setUp(self):
+        self._real_pypi = audit.pypi_exists
+
+    def tearDown(self):
+        audit.pypi_exists = self._real_pypi  # never leak the fake into later tests
+
+    def _ctx(self, d, *rels):
+        """A fixture repo where each named file cites the same pypi package exactly once."""
+        for rel in rels:
+            _write(d, rel, f"# {rel}\n\nRun `pip install {self.PKG}` to get it.\n")
+        return audit.DetectorContext(d)
+
+    def test_missing_binary_is_not_broken(self):
+        # A checker that cannot run at all ("npm isn't installed") must resolve to
+        # "cannot verify", never BROKEN — detector A gates CI, so a false BROKEN is worse
+        # than an unchecked target. Before #301 this raised FileNotFoundError and took
+        # down the whole run with a traceback.
+        self.assertTrue(audit._run_ok(["definitely-not-a-real-binary-ai-tooling"]))
+
+    def test_reports_every_occurrence(self):
+        # Lookups dedupe; FINDINGS do not. One broken package cited in two files is two
+        # findings, one per mention. The concurrent rewrite resolves unique targets, so
+        # this is the property most at risk of silently collapsing to a single finding.
+        audit.pypi_exists = lambda pkg: False
+        with tempfile.TemporaryDirectory() as d:
+            broken = audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md"))
+        self.assertEqual(broken, [("STACK.md", "pypi", self.PKG),
+                                  ("CATALOG.md", "pypi", self.PKG)])
+
+    def test_resolves_each_unique_target_once(self):
+        # The whole point of the `seen` dedupe: two mentions, one network round trip.
+        calls = []
+        audit.pypi_exists = lambda pkg: calls.append(pkg) or False
+        with tempfile.TemporaryDirectory() as d:
+            audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md"))
+        self.assertEqual(calls, [self.PKG])
+
+    def test_ok_target_is_not_reported(self):
+        audit.pypi_exists = lambda pkg: True
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md")), [])
+
+
 # ----------------------------------------------------------------- make check entrypoint (#114)
 class TestIntegrityMakefile(unittest.TestCase):
     """Pins the `make check` entrypoint: every gate CI enforces must live in the
@@ -1620,12 +1673,14 @@ class TestIntegrityMakefile(unittest.TestCase):
         "audit-evals.py --installs",
     )
 
-    def _check_target_body(self):
+    def _target_body(self, target="check"):
+        """The recipe lines of `target:`. Prefix-safe — `check-offline:` does not start
+        with `check:`, so the two targets never capture each other's bodies."""
         with open(os.path.join(ROOT, "Makefile"), encoding="utf-8") as f:
             lines = f.read().splitlines()
         body, capturing = [], False
         for l in lines:
-            if l.startswith("check:"):
+            if l.startswith(f"{target}:"):
                 capturing = True
                 continue
             if capturing:
@@ -1636,10 +1691,24 @@ class TestIntegrityMakefile(unittest.TestCase):
         return body
 
     def test_check_target_runs_every_gate(self):
-        body = "\n".join(self._check_target_body())
+        body = "\n".join(self._target_body())
         self.assertTrue(body, "Makefile has no `check:` target body")
         for gate in self.GATES:
             self.assertIn(gate, body, msg=f"`make check` is missing gate: {gate}")
+
+    def test_check_offline_omits_installs(self):
+        # `check-offline` is the fast local loop (#301): every gate `check` runs EXCEPT the
+        # network install resolver. Pins both halves — dropping a gate from it would make
+        # the local loop quietly weaker than CI, and adding --installs back would defeat it.
+        body = self._target_body("check-offline")
+        self.assertTrue(body, "Makefile has no `check-offline:` target body")
+        joined = "\n".join(body)
+        self.assertNotIn("audit-evals.py --installs", joined,
+                         "`check-offline` must not run the network install resolver")
+        for gate in self.GATES:
+            if gate == "audit-evals.py --installs":
+                continue
+            self.assertIn(gate, joined, msg=f"`make check-offline` is missing gate: {gate}")
 
     def test_ci_delegates_to_make_check(self):
         with open(os.path.join(ROOT, ".github/workflows/integrity.yml"), encoding="utf-8") as f:
@@ -1658,7 +1727,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         # The staleness sweep (#65) runs inside `make check` as a report — a `-`-prefixed
         # line so a stale eval can't fail the gate (only field presence, gated by
         # backfill-lastverified --check, is enforced). Pins that wiring.
-        body = self._check_target_body()
+        body = self._target_body()
         stale = [l for l in body if "audit-evals.py --staleness" in l]
         self.assertEqual(len(stale), 1, "`make check` must run the staleness report exactly once")
         self.assertTrue(stale[0].startswith("-"),
