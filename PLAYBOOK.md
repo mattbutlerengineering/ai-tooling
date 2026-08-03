@@ -16,7 +16,7 @@ Why a pick is (or isn't) in the stack: **[STACK-LEDGER.md](STACK-LEDGER.md)**.
 
 ## 2. How to work
 
-The loop is **Plan → Implement → Verify → Review → Ship**, with **Reflect** feeding back — two loops, three layers, five signals. The full stage map is **[WORKFLOW.md](WORKFLOW.md)**.
+The loop is **Plan → Implement → Verify → Review → Ship**, with **Reflect** feeding back — two loops, three layers, six signals. The full stage map is **[WORKFLOW.md](WORKFLOW.md)**.
 
 The runnable end-to-end recipe — a plain-language idea to a merged PR, assembled from skills we already have — is **[methodologies/intent-to-production-recipe.md](methodologies/intent-to-production-recipe.md)**:
 

@@ -5,7 +5,7 @@ description: Evaluate an AI tool, skill, or plugin against the catalog and dev l
 
 # Evaluate Tool
 
-Evaluate a new AI tool before adding it to your workflow. Prevents tool sprawl by checking for overlap and assessing fit against the five quality signals.
+Evaluate a new AI tool before adding it to your workflow. Prevents tool sprawl by checking for overlap and assessing fit against the six quality signals.
 
 ## Trigger
 
@@ -39,7 +39,8 @@ Read the catalog at `${CLAUDE_PLUGIN_ROOT}/docs/CATALOG.md` and find entries in 
 
 Read `${CLAUDE_PLUGIN_ROOT}/docs/WORKFLOW.md`. Determine:
 - Which dev loop stage does this tool serve? (Inner: Plan, Implement, Verify, Review, Ship, Reflect; Outer: Discover, Architect, Decompose, Integrate, Retrospect)
-- Which quality signals does it improve? (Correctness, Speed, Maintainability, Safety, Cost Efficiency)
+- Which quality signals does it improve? (Correctness, Speed, Maintainability, Safety, Cost Efficiency, Verifiability)
+- For Verifiability specifically: does the tool make its own output easier or harder to check? A tool that emits more code at unchanged quality is negative here even when it scores well on Speed.
 - Which layer does it operate at? (Process, Tooling, Infrastructure)
 
 Check: does the user's current setup already have strong coverage for this stage and signal? Adding a third code review tool when Review is already well-covered is lower value than filling a gap in Verify or Integrate.

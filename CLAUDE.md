@@ -6,7 +6,7 @@ Documentation-only repo. No build, test, or deploy commands.
 
 An operating manual for AI-assisted development that produces high-quality code and keeps improving. Inventory and evaluation of AI tools, skills, agents, frameworks, harnesses, workflows, and MCP servers — organized around the dev loop stages where tools intervene and the quality signals they move.
 
-Evaluates tools against five quality signals: Correctness, Speed, Maintainability, Safety, and Cost Efficiency. The workflow has three layers per stage (process, tooling, infrastructure) connected by feedback arcs that make each cycle better than the last.
+Evaluates tools against six quality signals: Correctness, Speed, Maintainability, Safety, Cost Efficiency, and Verifiability (can a human confirm the output is right, at the rate it's produced — see ADR-0004). Evals written before Verifiability existed record five; it is required for new evals, not retrofitted. The workflow has three layers per stage (process, tooling, infrastructure) connected by feedback arcs that make each cycle better than the last.
 
 ## Structure
 
