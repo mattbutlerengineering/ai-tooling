@@ -57,7 +57,7 @@ Note: the monorepo's NPM-published license resolves as `NOASSERTION` at repo lev
 
 ## Verdict
 
-**CONDITIONAL — adopt as a reference and as a minimal local backend; do not expect it to be a memory *system*.** server-memory is the official, MIT, beautifully minimal knowledge-graph specimen: the right thing to read before building or choosing memory tooling, and a fine zero-infra local store for small graphs where you control what gets written. But it deliberately stops at CRUD + substring search — no semantic recall, consolidation, learning, or relevance budgeting — so for real cross-session continuity you'll outgrow it.
+**discovery-log — tentative read: adopt as a reference and as a minimal local backend; do not expect it to be a memory *system*.** server-memory is the official, MIT, beautifully minimal knowledge-graph specimen: the right thing to read before building or choosing memory tooling, and a fine zero-infra local store for small graphs where you control what gets written. But it deliberately stops at CRUD + substring search — no semantic recall, consolidation, learning, or relevance budgeting — so for real cross-session continuity you'll outgrow it.
 
 Compared to neighbors: **OMEGA** (this user's installed stack) adds semantic search, coordination, checkpoints, and a protocol layer that decides *when* to read/write — capabilities server-memory leaves to the host. **claude-mem** adds semantic search and timeline views; **mem0** and **cognee** add relationship-aware vector backends. server-memory wins decisively on legibility, safety, and zero-dependency portability, and it is the conceptual ancestor most of those tools borrow from — but as a working memory layer it is the floor, not the ceiling.
 

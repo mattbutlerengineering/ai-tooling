@@ -63,7 +63,7 @@ Reviewed: the harness adapter set (`claude_sdk`, `claude_native`, `codex`, `code
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Omnigent clears the bar aisuite/oh-my-openagent did not: it is a harness you run *against your own repo* to orchestrate sandboxed coding agents that produce cross-reviewed PRs you merge — landing across Plan, Implement, Verify, Review, and Ship. Its meta-harness claim is real (ten+ executor adapters under `omnigent/inner/`, per-harness e2e tests), and its Claude Code integration is first-class on two paths (`claude-native` CLI wrap + `claude-sdk`, the default Polly brain on `claude-opus-4-8`). The governance subsystem (layered spend/tool/blast-radius policies) and per-session OS sandboxing are genuine differentiators, and it is Apache-2.0 — properly open source, unlike oh-my-openagent's SUL-1.0.
 

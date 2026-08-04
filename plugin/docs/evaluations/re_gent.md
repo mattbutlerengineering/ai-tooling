@@ -60,7 +60,7 @@ What the source tree confirms beyond the README: a real Go codebase under `inter
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt re_gent when you need an **audit trail and per-line provenance for agent-authored code** — specifically: teams running one or more coding agents where "which prompt wrote this, and why" must be answerable later, or where you want a tamper-evident record of what agents touched (compliance, post-incident review, debugging bad refactors). It is a well-engineered, git-literate, hook-driven tool that fills a real gap git does not cover, and it is mature enough (v1.1.0, real tests, multi-agent hooks, VSCode extension) to take seriously. It is not a default for everyone: a solo dev who reads diffs and trusts their agent gets modest marginal value, the destructive "manage/rewind" half of the pitch is still roadmap, and a second growing object store without GC is a real operational caveat. Re-evaluate toward ADOPT-for-teams once rewind/fork and garbage collection ship and the format stabilizes. **KEEP** in the catalog — the existing entry is accurate; consider softening the one-liner from "manage" to "track and inspect" to match shipped capability.
 

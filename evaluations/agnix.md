@@ -73,7 +73,7 @@ Example diagnostic output (from the project README, not run locally):
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 agnix is the most complete config linter in this catalog's space — 425 severity-tagged rules, a single Rust engine exposed as CLI + LSP + MCP + GitHub Action + browser playground, and confidence-tiered auto-fix, all actively maintained. Config-linting is a real recurring pain (silent skill/agent misfires), and agnix moves Maintainability and Correctness clearly, with a modest Safety lift. **Adopt it when you author agent configs regularly or run a multi-tool stack** (Claude Code + Cursor + Copilot + others) and want CI/editor enforcement; the `agnix-mcp` server lets an agent self-check its own configs. Hold off if you're a single-tool repo that touches its configs rarely — the payoff is thin and the single-author bus factor argues against a hard dependency. Not ADOPT-everywhere because the value is conditional on authoring volume and the one-maintainer risk; not SKIP because it cleanly fills a real gap. The catalog one-liner and overlap column should be refreshed to reflect multi-tool scope and the closer `reporails/cli` / `agentlint` overlaps.
 

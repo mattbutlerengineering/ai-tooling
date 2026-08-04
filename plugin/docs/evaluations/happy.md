@@ -63,7 +63,7 @@ curl -s https://api.npmjs.org/downloads/point/last-month/happy                # 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt happy when remote or asynchronous access to your coding agent is a real need — you run long autonomous sessions and want to monitor them or approve permission prompts from a phone, or you want to kick off/check work away from your desk. The encryption model is genuine and the self-host option means you can keep the security posture of a local-only setup while gaining remote control. It is non-invasive and low lock-in, which makes it a safe trial.
 

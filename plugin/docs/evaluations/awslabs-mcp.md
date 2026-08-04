@@ -57,7 +57,7 @@ Not hands-on installed (requires AWS account and configured credentials).
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when building on AWS. The collection is the definitive MCP integration for AWS services — 60+ servers with the strongest security model of any cloud-provider MCP in the catalog. The `aws-api-mcp-server` alone provides a validated bridge to every AWS CLI command with read-only and mutation-consent gates. Requires AWS account and Python/uv; the Agent Toolkit for AWS may supersede this collection for production use, but the open-source servers remain the best option for development workflows today.
 

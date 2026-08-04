@@ -54,7 +54,7 @@ gh api 'repos/VoltAgent/awesome-agent-skills/commits?per_page=10' --jq '.[].comm
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as the primary discovery source when searching for official vendor skills — the publisher-organized taxonomy makes it the fastest way to find "does Stripe/Supabase/HashiCorp have an agent skill?" When the answer matters for a specific platform integration, start here. For general Claude Code ecosystem discovery with editorial guidance, awesome-claude-code (also CONDITIONAL) has better signal-to-noise per entry despite fewer total entries and staler updates.
 

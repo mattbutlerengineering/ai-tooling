@@ -49,7 +49,7 @@ gh api repos/beam-cloud/beta9/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you need fast, scalable, scale-to-zero serverless execution for AI workloads — and, relevant here, sandboxes for running agent/AI-generated code at scale with a Pythonic DX. Weigh AGPL-3.0 for productized/networked use. For purpose-built agent code-execution sandboxes specifically, daytona/agent-sandbox/cua are more focused; beta9 fits when you also want a general serverless AI runtime.
 

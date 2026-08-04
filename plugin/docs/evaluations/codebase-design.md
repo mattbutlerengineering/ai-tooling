@@ -70,7 +70,7 @@ grep -inE "codebase-design|deep module|seam|improve-codebase-architecture|design
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 codebase-design is a high-quality, well-authored Plan-stage process skill that targets a real and specific agent failure mode named in the catalog — agents producing shallow modules with wide interfaces because that *looks* modular — and replaces it with a precise, enforceable vocabulary (depth-as-leverage, seam, locality) plus operational heuristics (the deletion test, dependency-category test strategies, "two adapters means a real seam," replace-don't-layer). Its strongest ideas — redefining depth as leverage and explicitly rejecting Ousterhout's gameable line-ratio, and the `DESIGN-IT-TWICE.md` parallel-sub-agent fan-out — make it genuinely additive: it improves Maintainability and Correctness by giving the agent a criterion for *good* abstraction, not just a habit of abstracting.
 

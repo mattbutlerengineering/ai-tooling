@@ -66,7 +66,7 @@ Also checked the 51 specialized plugin bundles — they're real Claude Code/Code
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need broad skill coverage across multiple domains or runtimes — the specialized plugin bundles (AAS Web App Builder, AAS Security Engineer, etc.) are the right entry point, not the full 1,595-skill install. For focused Claude Code work, curated collections like mattpocock/skills (ADOPT) or trailofbits/skills (ADOPT) offer higher signal-to-noise. Antigravity wins on breadth, cross-runtime support, and installable packaging — it's the best choice when onboarding a team that uses mixed editors.
 

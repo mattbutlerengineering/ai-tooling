@@ -54,7 +54,7 @@ gh api repos/EveryInc/compound-engineering-plugin/contents/CONCEPTS.md --jq '.co
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you want a complete, opinionated AI engineering methodology and are willing to commit to it as your primary workflow. The compounding knowledge mechanism is genuinely novel and the individual skill quality (especially ce-brainstorm and ce-code-review) is among the highest in the catalog. However, it substantially overlaps with superpowers (ADOPT) and requires full adoption to realize the compounding benefit — it's not a tool you add alongside other methodology plugins. Best for teams standardizing on one workflow across Claude Code, Codex, and Cursor.
 

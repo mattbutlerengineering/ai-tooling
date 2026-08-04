@@ -65,7 +65,7 @@ gh api repos/Astro-Han/karpathy-llm-wiki/releases --jq 'length'       # 0
 
 ## Verdict
 
-**CONDITIONAL** — adopt when you have a *recurring, evolving* knowledge domain the base model doesn't already know well (a specific codebase's history, a fast-moving library, an internal research corpus) and you want durable, citable, version-controlled knowledge in your own repo. Skip it for one-off questions or for knowledge frontier models already hold.
+**discovery-log — tentative read** — adopt when you have a *recurring, evolving* knowledge domain the base model doesn't already know well (a specific codebase's history, a fast-moving library, an internal research corpus) and you want durable, citable, version-controlled knowledge in your own repo. Skip it for one-off questions or for knowledge frontier models already hold.
 
 karpathy-llm-wiki is the strongest of this catalog's single-purpose knowledge-layer cluster precisely because it is *general*: it is a zero-infrastructure, portable Agent Skill that turns any sources you choose into a compounding, cited markdown wiki, rather than a server bolted to one fixed book. That generality, plus citations and a lint operation, is what lets it move Correctness and Maintainability on knowledge you actually lack. The caveats are that it is a *workflow, not a tool* — there is no code, so results depend entirely on the driving model following the spec — and that maturity is thin (single author, 14 commits, 0 releases, a ~1-week build) with self-reported production stats that can't be verified.
 

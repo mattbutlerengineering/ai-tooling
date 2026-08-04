@@ -49,7 +49,7 @@ gh api repos/harbor-framework/harbor/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you build, tune, or compare coding agents/harnesses and need rigorous, scaled, environment-based evaluation (and optionally RL rollouts) — the agent-level complement to promptfoo/deepeval's output evals. Requires sandbox-provider setup and environment authoring, so it's for agent builders/researchers, not casual users. Pairs naturally with daytona (one of its execution backends).
 

@@ -61,7 +61,7 @@ gh api repos/nyldn/claude-octopus/contributors --paginate --jq '.[].login' | wc 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when (1) you already have several model subscriptions (ChatGPT/Codex, Gemini, Copilot) so the marginal cost of fanning out is low, and (2) the work is genuinely high-stakes — architecture decisions, security-sensitive review, pre-merge validation, or research — where a single model's blindspot is expensive and cross-model disagreement is worth paying for. For that profile, octopus is the rare multi-model tool that implements the idea honestly: it dispatches real independent providers and enforces consensus/veto gates rather than role-playing personas inside one context, and it is a well-maintained native Claude Code plugin that lives in the Plan/Review stages this catalog rewards.
 

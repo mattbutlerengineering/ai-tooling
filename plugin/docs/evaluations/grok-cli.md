@@ -57,7 +57,7 @@ gh api repos/superagent-ai/grok-cli --jq '.forks_count'       # 393 forks, ~20 c
 
 ## Verdict
 
-**CONDITIONAL — adopt only if Grok is your model of record.** grok-cli is one of the more complete and better-maintained entries in the open coding-CLI category: a true agent loop, sub-agents on by default, MCP/Skills, headless JSON, a scheduler, `--verify`, and Telegram remote control, all with 30 releases and real tests. The disqualifier for general use is hard single-vendor lock-in plus the unaffiliated-community-vs-xAI governance risk — you are betting on xAI's API and Grok model quality, which this evaluation did not test.
+**discovery-log — tentative read: adopt only if Grok is your model of record.** grok-cli is one of the more complete and better-maintained entries in the open coding-CLI category: a true agent loop, sub-agents on by default, MCP/Skills, headless JSON, a scheduler, `--verify`, and Telegram remote control, all with 30 releases and real tests. The disqualifier for general use is hard single-vendor lock-in plus the unaffiliated-community-vs-xAI governance risk — you are betting on xAI's API and Grok model quality, which this evaluation did not test.
 
 Compared to neighbors: it is a direct peer of **gemini-cli**, **qwen-code**, **opencode**, and **goose** — all CONDITIONAL alternative coding CLIs. **gemini-cli** wins on first-party backing and a no-credit-card free tier; **opencode**/**goose** win on model-agnosticism; **qwen-code** matches it as a vendor-native CLI. grok-cli's differentiators are its autonomy stack (scheduler + batch + Telegram + `--verify`) and live X/web search — pick it specifically when you want a Grok-native agent and value drive-from-phone overnight runs, not as a default coding CLI.
 

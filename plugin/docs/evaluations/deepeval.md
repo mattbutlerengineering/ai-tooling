@@ -49,7 +49,7 @@ gh api repos/confident-ai/deepeval/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want LLM evals expressed as unit tests in CI — especially to validate model/prompt swaps and catch regressions on agents/RAG/chatbots. The pytest framing makes it the natural pick for test-driven teams; use the local/NLP metrics where possible to control cost, and pin judge models for stable signals. Overlaps existing eval tools (promptfoo, ragas, opik) — pick by ergonomics.
 

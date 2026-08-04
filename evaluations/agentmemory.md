@@ -57,7 +57,7 @@ Not hands-on tested (user already runs claude-mem + OMEGA). Evaluation is archit
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need the broadest agent platform support (15+ agents), published retrieval benchmarks for compliance/evaluation contexts, or the most comprehensive auto-capture hook coverage. claude-mem (ADOPT) remains the better choice for Claude Code-only users — it's simpler (20 vs 53 MCP tools), more battle-tested (82K stars, v13.4), and has a proven plugin ecosystem. agentmemory wins on benchmarks and cross-platform reach; claude-mem wins on ecosystem integration and context efficiency.
 

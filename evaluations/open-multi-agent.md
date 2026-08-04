@@ -49,7 +49,7 @@ gh api repos/open-multi-agent/open-multi-agent/readme --jq '.content' | base64 -
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for TypeScript backends where you want goal-first multi-agent orchestration — describe the outcome and let a coordinator build and parallelize the task DAG — rather than hand-wiring a graph. Best when adaptability matters more than strict reproducibility; for deterministic, code-controlled routing, agent-kit/Archon fit better. Coordinator decomposition quality is the key variable to validate.
 

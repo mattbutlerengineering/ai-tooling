@@ -81,7 +81,7 @@ These tools are complementary by language, not competitive. A shop building a Ty
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use this skill when building a TypeScript MCP server — it reliably steers the agent to current SDK patterns and avoids the most common first-timer mistakes (old transport, wrong return shape, ES module config). The value is real: without it, Claude frequently generates servers using deprecated `Server` + SSE patterns that fail with modern MCP clients. Skip it for Python projects (use fastmcp), for multi-tool servers that need module structure (add your own architecture guidance), or for any public-facing server that needs auth (supplement with auth patterns). Do not expect it to parse API specs — the "from API specs" framing is aspirational, not functional.
 

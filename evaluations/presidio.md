@@ -49,7 +49,7 @@ gh api repos/data-privacy-stack/presidio/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when your AI workflow handles PII and you need to detect/redact/anonymize it before prompts, logs, or training data leave a trusted boundary — the mature, customizable choice for the PII problem specifically. Pair it with runtime guardrails (NeMo-Guardrails/superagent) which handle prompt-injection/unsafe-output rather than PII. Budget for recognizer tuning in high-stakes contexts.
 

@@ -56,7 +56,7 @@ gh api repos/Ar9av/PaperOrchestra/releases --jq 'length'  # 2
 
 ## Verdict
 
-**CONDITIONAL** — adopt only when you actually produce research-paper-grade writeups (academic submissions, formal technical reports, security/whitepaper deliverables in LaTeX). It is the strongest of this catalog's research-writing cluster precisely because it is a *faithful implementation of one published, benchmarked method* with built-in citation verification and autoraters, rather than a loose "research assistant" persona. For everyday coding it is out of the loop, the cost per run is high, and the upstream benchmark margins are inherited, not reproduced.
+**discovery-log — tentative read** — adopt only when you actually produce research-paper-grade writeups (academic submissions, formal technical reports, security/whitepaper deliverables in LaTeX). It is the strongest of this catalog's research-writing cluster precisely because it is a *faithful implementation of one published, benchmarked method* with built-in citation verification and autoraters, rather than a loose "research assistant" persona. For everyday coding it is out of the loop, the cost per run is high, and the upstream benchmark margins are inherited, not reproduced.
 
 Compared to neighbors: **academic-research-skills** and **scientific-agent-skills** are broader skill collections covering literature search and analysis but without a single rigorous end-to-end pipeline or autoraters; **deep-research** (harness) does multi-source fact-checked *reports*, not submission-ready LaTeX papers. PaperOrchestra wins on rigor and verification within its narrow lane; it loses on breadth and on being relevant to non-research workflows.
 

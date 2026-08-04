@@ -50,7 +50,7 @@ gh api repos/eugeniughelbur/obsidian-second-brain/readme --jq '.content' | base6
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you live in Obsidian and want an AI second brain that compounds and reconciles itself (update-not-append) rather than an append-only note pile — the self-rewriting mechanic is its standout. Review its edits (lean on Obsidian version history) since auto-rewriting can remove wanted content. For a solo user already on claude-mem + OMEGA it overlaps existing memory; the draw is the coherent, user-owned Obsidian vault.
 

@@ -49,7 +49,7 @@ gh api repos/freestyle-voice/freestyle/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 A niche but genuinely novel addition: voice dictation for faster, hands-free prompt entry to coding agents, local-first with BYO-key and dev-aware cleanup/dictionary. It's a general-purpose dictation app (not a Claude Code integration), so its catalog relevance is specifically the prompt-entry modality — which nothing else here covers. Worth trying if you'd rather speak prompts than type them; manage expectations on STT accuracy for code-heavy dictation.
 

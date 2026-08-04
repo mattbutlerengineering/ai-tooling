@@ -64,7 +64,7 @@ Reviewed: the 7-phase generator command set (`/cli-anything`, `:refine`, `:test`
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 CLI-Anything is a well-built, actively-maintained, reputably-authored Claude Code plugin — and that real integration is what distinguishes it from aisuite (SKIP). But its purpose is general agent-enablement of *all* software, and the ~80 CLIs it ships are overwhelmingly creative/desktop/consumer apps rather than software-development tooling. It does not write, review, test, or ship your code; it makes other software agent-callable. **Adopt it when your agent work involves driving GUI/desktop or specialized software — image/audio/video editing, 3D/CAD, GIS, note-taking — or a dev-adjacent backend that already has a harness (lldb, n8n, pm2, chromadb, ollama, exa, wiremock).** For a standard code-centric dev loop it sits outside the workflow and is not part of the recommended stack. Re-evaluate if the coding-relevant subset of the registry grows substantially.
 

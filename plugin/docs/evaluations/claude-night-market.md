@@ -61,7 +61,7 @@ gh api "repos/athola/claude-night-market/commits?per_page=1" -i | grep -i '^link
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt selectively — install one or two plugins whose mechanics you actually want (most likely `imbue` for hard TDD enforcement, `sanctum` for git/PR, or `pensive` for review) rather than the full marketplace. The modular per-plugin install with declared dependencies makes this safe to do, and the engineering rigor (624 tests, 16 ADRs, mutation testing, security/trust-attestation CI) is genuinely high for the star count, so individual plugins are credible. It earns CONDITIONAL over SKIP because it lives natively inside the dev loop and its headline guards are real, deterministic hooks that move Correctness and Safety.
 

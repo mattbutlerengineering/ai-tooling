@@ -69,7 +69,7 @@ Findings cross-referenced against `evaluations/codegraph.md` (ADOPT, 51K stars) 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 SocratiCode is the most capable single Code Understanding tool in the catalog — it consolidates semantic search (CCE's strength), structural/dependency + symbol-level impact graphs (codegraph's strength), and non-code artifact knowledge into one mature (v1.8.17, 3K stars, tested, CI'd), local-first, host-agnostic engine with a published large-scale benchmark. On maturity and breadth it clears the bar that kept code-context-engine at CONDITIONAL. It is **additive in capability but a consolidation in practice** — it largely subsumes both codegraph and CCE, so the value is replacing them, not stacking on top.
 

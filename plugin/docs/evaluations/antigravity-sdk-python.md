@@ -48,7 +48,7 @@ gh api repos/google-antigravity/antigravity-sdk-python/readme --jq '.content' | 
 
 ## Verdict
 
-**CONDITIONAL** — the Google Antigravity SDK is the **official Python way to build stateful AI agents on Google Antigravity + Gemini**, Apache-2.0 on the SDK surface with a managed agentic-loop abstraction. Adopt it if you're committed to the Google/Gemini agent stack and want first-party, supported infrastructure. Weigh two caveats: the agentic-loop **runtime is a closed compiled binary** (not fully open/auditable/self-hostable), and it's **tangential to the AI-assisted coding loop** this catalog centers on — it's for building application agents, like vercel-ai or LangGraph, not improving how you code. Avoid if you need model-agnostic portability.
+**discovery-log — tentative read** — the Google Antigravity SDK is the **official Python way to build stateful AI agents on Google Antigravity + Gemini**, Apache-2.0 on the SDK surface with a managed agentic-loop abstraction. Adopt it if you're committed to the Google/Gemini agent stack and want first-party, supported infrastructure. Weigh two caveats: the agentic-loop **runtime is a closed compiled binary** (not fully open/auditable/self-hostable), and it's **tangential to the AI-assisted coding loop** this catalog centers on — it's for building application agents, like vercel-ai or LangGraph, not improving how you code. Avoid if you need model-agnostic portability.
 
 Compared to neighbors: **vercel-ai**, **LangGraph**, and **fast-agent** are agent-building frameworks (model/provider-flexible to varying degrees). The Antigravity SDK's distinguishing pitch is **first-party Google Antigravity/Gemini integration with a managed (closed-runtime) agentic loop**.
 

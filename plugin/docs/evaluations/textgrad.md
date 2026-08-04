@@ -49,7 +49,7 @@ gh api repos/zou-group/textgrad/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Reach for TextGrad when you have a measurable textual objective and want to optimize prompts, solutions, or code systematically rather than by hand — and you can absorb the token cost of the optimization loop. For routine prompt iteration, an eval harness (promptfoo) plus manual edits is cheaper; for runtime self-improvement, ACE/evolver fit better. Strong credibility (Nature) but watch the slow maintenance cadence.
 

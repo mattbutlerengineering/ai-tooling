@@ -63,7 +63,7 @@ grep -inE "taste-skill|humanizer|stop-slop" /Users/mbutler/github/ai-tooling/CAT
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 taste-skill is well-built and addresses a real gap — AI-generated frontends that look templated — which is a *different* gap from its catalog siblings stop-slop and humanizer (those fix prose; this fixes UI). Its dials, one-job specialization, and provenance (47K stars, MIT, Vercel-sponsored, active CHANGELOG) are genuine strengths. But its surface is narrow (greenfield/marketing-grade frontends), its quality signal is subjective and unverifiable, its default v2 skill is large and self-described as experimental, and its opinions (GSAP, em-dash ban) can fight an existing design system.
 

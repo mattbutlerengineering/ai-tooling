@@ -49,7 +49,7 @@ gh api repos/ag-ui-protocol/ag-ui/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Reach for AG-UI when you're building user-facing applications that embed agents and want a standard, event-based way to stream agent state to the frontend instead of bespoke wiring. As reference knowledge it rounds out the agent-protocol picture (MCP for tools, A2A for agents, AG-UI for UIs). Adoption breadth is the variable to watch; for in-IDE coding workflows it's architectural context, not a daily tool.
 

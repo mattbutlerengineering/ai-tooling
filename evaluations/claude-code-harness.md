@@ -63,7 +63,7 @@ Not hands-on installed — evaluation is architecture-review-based due to the he
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you want a maximally structured development methodology with enforced planning gates and review separation — and you're willing to accept the installation complexity and Japanese-primary documentation. The spec/plan/review separation is genuinely well-designed and the Go-native engine is more robust than bash-based alternatives. However, for most users, superpowers (ADOPT) provides 80% of the discipline with 20% of the complexity: it composes with existing tools, installs in one command, and its individual skills work independently. Choose claude-code-harness over superpowers when you need the non-trivial planning gate (multi-perspective validation), cross-session plan persistence, or the Breezing team execution mode.
 

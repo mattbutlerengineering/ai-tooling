@@ -57,7 +57,7 @@ Reviewed: the create → build → preview → sleep → wake → persist loop, 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 sandboxd is a clean, honest, MIT-licensed control plane for one specific job: standing up a multi-tenant AI app-builder / agent-platform backend with isolated per-user dev environments, headless coding agents, and instant preview URLs — on a single Docker host, in one command. The stop-on-idle/wake-on-request density model and self-registered preview routing are real value that genuinely is "well past a shell script." It lands a hair below forkd on dev-loop relevance: forkd at least ships an MCP server with `claude mcp add` registration, so it has a surface *inside* the dev loop; sandboxd *embeds* Claude Code in its sandboxes and is driven by your product backend over HTTP, so it has no Claude Code surface at all. It also openly markets itself as a startup backend ("the open-source engine for AI app-builder products"), pushing it toward the aisuite "build a product with it" end of the spectrum.
 

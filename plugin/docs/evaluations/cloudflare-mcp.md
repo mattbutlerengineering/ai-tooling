@@ -62,7 +62,7 @@ grep -inE "cloudflare" /Users/mbutler/github/ai-tooling/CATALOG.md
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The Cloudflare MCP servers are mature, official, and genuinely capable, but their value is entirely gated on being a Cloudflare user — so they cannot be ADOPT-everywhere. **Adopt conditionally when you operate apps on Cloudflare (Workers, Pages, DNS, R2/KV/D1) and want to deploy, debug, and inspect that infra from agent sessions.** In that case, wire up only the domain-specific servers you need (observability, bindings, builds, DNS analytics), scope tokens to least privilege, and prefer read-only tokens unless the agent genuinely needs to make changes. Consider the companion **Code Mode** server (`cloudflare/mcp`) when you want broad cross-API coverage at minimal context cost rather than a curated per-product tool set. Not SKIP — for Cloudflare shops this is the canonical, first-party way to give agents account access, and the Code Mode context-efficiency work is best-in-class. It overlaps with `awslabs/mcp` only as the analogous offering for a different cloud (complementary, not competing).
 

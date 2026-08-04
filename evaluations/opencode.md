@@ -54,7 +54,7 @@ v1.17.8 released 2026-06-17. 25 packages in the monorepo. 7,190 open issues, 21,
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need multi-provider flexibility (especially non-Anthropic models), want an open-source agent you can fork and modify, or need the plan agent's read-only exploration mode. For teams already invested in the Claude Code ecosystem (plugins, skills, hooks, marketplace), switching carries significant migration cost with no clear quality improvement — the underlying models matter more than the agent shell. The SKILL.md format is shared, so skills are portable between the two.
 

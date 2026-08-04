@@ -60,7 +60,7 @@ gh api repos/max-sixty/worktrunk --jq '{stars,language,pushed_at}'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt dmux when you (1) live in a tmux-based terminal workflow on macOS/Linux and (2) regularly run **multiple coding agents in parallel** and want an interactive dashboard to launch, watch, browse, and merge them. It is a mature (v5.9.0, 15 contributors), well-designed composition of tmux + git worktrees with strong merge-back ergonomics and broad agent support, and it's the right tool for the "I want to see and manage several agents at once" use case. It is not a default for everyone: if you work with a single agent at a time, don't use tmux, or want scriptable/composable worktree commands rather than a TUI, the lighter `worktrunk` (or plain `git worktree`) is a better fit. The README's stale issues link and lack of hands-on validation here are minor caveats, not blockers.
 

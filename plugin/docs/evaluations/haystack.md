@@ -49,7 +49,7 @@ gh api repos/deepset-ai/haystack/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for Python teams building production RAG/search/agent applications that want explicit, transparent, modular pipelines over opaque agent frameworks. For quick prototypes or TS stacks, lighter options fit better. Compare against LangChain/LlamaIndex for the orchestration slot; Haystack's transparency and production lineage are its selling points.
 

@@ -70,7 +70,7 @@ gh api repos/docmd-io/docmd-skills --jq '{stars:.stargazers_count, desc:.descrip
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 docmd is a credible, actively maintained, zero-config docs-site generator whose AI story is real but uneven: the `llms.txt`/`llms-full.txt` build-time output is the durable win (a clean, standard artifact agents and RAG pipelines can consume), while the MCP server's `search_docs` is a literal substring grep that adds little over Claude Code's native filesystem tools, and the `docmd-skills` add-on is niche. The "agents can query your docs" angle is mostly a benefit to *downstream consumers of your published site*, not a meaningful inner-loop win for the team writing the docs. **Adopt it when you actually need to publish a documentation site and want first-class `llms.txt`/AI-native output for free** — there it's a strong, lightweight choice versus Docusaurus/Mintlify. It is **not** an agent-capability tool to add to an arbitrary project, and its MCP search should not be mistaken for context7-style semantic doc retrieval. Not ADOPT-everywhere (most projects don't run a docs site, and the agent-query value is thin in-repo); not SKIP (as a docs generator with genuine `llms.txt` support it earns its catalog slot). The existing "unique: AI-native docs site" overlap marker holds — it's a publishing tool, distinct from the doc-*search* MCP servers (context7, mdn/mcp, git-mcp) and doc-*writing* skills already cataloged.
 

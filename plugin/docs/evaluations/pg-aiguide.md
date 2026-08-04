@@ -67,7 +67,7 @@ grep -inE "supabase|prisma|mcp-toolbox" /Users/mbutler/github/ai-tooling/CATALOG
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 pg-aiguide is a well-built, vendor-credible knowledge layer that targets a real and specific failure mode (LLMs writing non-idiomatic, under-constrained, version-blind Postgres) and moves Correctness clearly without touching the database. It is categorically different from its catalog "overlaps": **supabase, prisma, and mcp-toolbox are DB-operations MCP servers that act on a live database (migrations, queries, studio); pg-aiguide acts on the agent's knowledge so the SQL it writes is correct in the first place.** They are complementary, not competing — pg-aiguide pairs naturally with prisma/supabase (generate idiomatic schema → then operate on the DB). **Adopt it when a project does meaningful Postgres schema/SQL work** (especially with pgvector, PostGIS, or TimescaleDB), preferring the `npx skills` / plugin skill install for offline correctness and adding the hosted MCP server only when you want version-scoped manual search. Not ADOPT-everywhere because it is Postgres-specific dead weight on non-Postgres projects and carries a (commercially-tilted) TimescaleDB lean plus a third-party network dependency in the MCP path. Not SKIP because the general `design-postgres-tables` and hybrid-search skills are genuinely strong, vendor-neutral correctness wins.
 

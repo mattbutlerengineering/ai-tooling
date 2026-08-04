@@ -49,7 +49,7 @@ gh api repos/coleam00/Archon/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want AI coding to be deterministic and repeatable — encoding your plan→implement→validate→review→PR process as owned, version-controlled workflows with validation gates and parallel worktree runs. Best for teams standardizing a process across projects; overkill for ad-hoc single tasks. Compare against flow-next and spec-kit for the spec/workflow layer that fits your team.
 

@@ -52,7 +52,7 @@ gh api repos/XiaomiMiMo/MiMo-Code/releases --jq 'length'              # 2
 
 ## Verdict
 
-**CONDITIONAL** — a credible, easy-to-try vendor coding CLI with a genuinely low on-ramp (free channel + one-step Claude Code import) and first-class persistent memory. Worth a look if you want to sample another terminal agent or run a provider-agnostic harness with built-in memory. But it's days old with minimal release history, the free channel is temporary, and it doesn't yet show a clear advantage over the established CLIs or change the fact that model quality dominates outcomes. Try it; don't make it load-bearing until it matures, and check the anonymous channel's data terms before sending proprietary code.
+**discovery-log — tentative read** — a credible, easy-to-try vendor coding CLI with a genuinely low on-ramp (free channel + one-step Claude Code import) and first-class persistent memory. Worth a look if you want to sample another terminal agent or run a provider-agnostic harness with built-in memory. But it's days old with minimal release history, the free channel is temporary, and it doesn't yet show a clear advantage over the established CLIs or change the fact that model quality dominates outcomes. Try it; don't make it load-bearing until it matures, and check the anonymous channel's data terms before sending proprietary code.
 
 Compared to neighbors: it sits squarely with **gemini-cli** / **qwen-code** / **grok-cli** / **kimi-code** / **DeepSeek-Reasonix** as a vendor-native terminal agent. Its pitch is the **zero-config free channel + Claude Code auth import + persistent memory**; gemini-cli leads on context size/free tier and grok-cli on autonomy features. Pick by which model/ecosystem you want and how much the easy migration matters.
 

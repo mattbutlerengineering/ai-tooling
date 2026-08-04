@@ -2365,6 +2365,66 @@ class TestBulkTriageDetector(unittest.TestCase):
             ctx = self._ctx(d, {"t": text})
             self.assertEqual(audit.audit_bulk_triage(ctx), [])
 
+    def test_bulk_leave_headlining_discovery_log_passes(self):
+        # The lane's OTHER outcome. Before #324 a left lead borrowed a CONDITIONAL
+        # headline, so it could only be expressed as the absence of a verdict and the
+        # marker had to be omitted — which left the leave path unpoliced (#327). A lead
+        # now headlines its own status, so the leave outcome can sign its work.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("discovery-log — tentative read")})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
+    def test_bulk_leave_that_raises_the_verdict_is_overreach(self):
+        # The signed leave path is now gated: stamping the marker and promoting in the
+        # same pass is exactly what eliminate-only forbids.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": self._eval("KEEP")})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("t", "KEEP")])
+
+
+# ----------------------------------------------------------------- detector T (lead headlines, #324)
+class TestDetectorT(unittest.TestCase):
+    """Detector T (--lead-headlines, report-only): a `discovery-log` COMPARISON row says
+    the tool was never exercised, so its eval is notes. 324 of them headlined
+    **CONDITIONAL** anyway — a word ADR-0005 grants only to a tool we ran or one carrying
+    a real adopt-if gate. #324 relabelled them; this pins that they stay relabelled."""
+
+    COMPARISON = ("| Tool | Evaluated | Evidence |\n|---|---|---|\n"
+                  "| lead | discovery-log | REVIEW |\n"
+                  "| real | CONDITIONAL | MEASURED |\n")
+
+    def _run(self, name, verdict, evidence, row="lead"):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", "")
+            _write(d, "COMPARISON.md", self.COMPARISON)
+            _write(d, f"evaluations/{name}.md",
+                   f"# Evaluation: {row}\n\n**Evidence:** {evidence}\n\n"
+                   f"## Verdict\n\n**{verdict}** — because.\n")
+            return audit.audit_lead_headlines(audit.DetectorContext(d))
+
+    def test_conditional_headline_on_a_lead_is_overreach(self):
+        self.assertEqual(self._run("lead", "CONDITIONAL", "REVIEW"),
+                         [("lead", "CONDITIONAL", "REVIEW")])
+
+    def test_relabelled_lead_is_clean(self):
+        self.assertEqual(self._run("lead", "discovery-log — tentative read", "REVIEW"), [])
+
+    def test_skip_headline_on_a_lead_is_clean(self):
+        # SKIP is a disposal the eliminate-only lane may write; it claims nothing.
+        self.assertEqual(self._run("lead", "SKIP", "SOURCE-ONLY"), [])
+
+    def test_adopt_headline_on_a_lead_is_overreach(self):
+        # The #259 category: a positive read the row hasn't caught up to.
+        self.assertEqual(self._run("lead", "ADOPT", "SOURCE-ONLY"),
+                         [("lead", "ADOPT", "SOURCE-ONLY")])
+
+    def test_run_backed_conditional_is_not_a_headline_defect(self):
+        # It earned the word; the stale half is the row, which is a human's verdict call.
+        self.assertEqual(self._run("lead", "CONDITIONAL", "MEASURED"), [])
+
+    def test_non_lead_row_is_none_of_its_business(self):
+        self.assertEqual(self._run("real", "CONDITIONAL", "MEASURED", row="real"), [])
+
 
 class TestAuditEvalsCLI(unittest.TestCase):
     """Pins audit-evals.py's flag selection at the CLI level (#300). main() had zero

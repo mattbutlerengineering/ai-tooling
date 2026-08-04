@@ -49,7 +49,7 @@ gh api repos/TabbyML/tabby/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when privacy/compliance rules out cloud Copilot and you want self-hosted completion + chat grounded in your code, on hardware you control. Accept the model-quality tradeoff versus frontier cloud assistants, and pin the license terms for commercial use. It complements — rather than replaces — agentic coding CLIs.
 

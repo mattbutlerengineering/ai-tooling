@@ -66,7 +66,7 @@ Maturity signals: 1.4K stars, MIT, created 2025-12-25, pushed same day as evalua
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want bypass-resistant, semantic protection against destructive git/filesystem commands specifically — and you understand it is a *complement to*, not a replacement for, Claude Code's built-in permission system and sandboxing. Its genuine net-new value over the built-in classifier is the semantic option-grammar parsing (defeats flag-reordering, shell-wrapper, and interpreter-one-liner bypasses that string/wildcard matching misses) and its awareness of git footguns the sandbox treats as "safe within cwd" (`git reset --hard`, `git stash clear`). That increment is real but narrow, so it does not clear the ADOPT bar of "use everywhere by default" — the built-in permission prompts already cover the common case for most users.
 

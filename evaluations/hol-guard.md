@@ -70,7 +70,7 @@ python3 -c "import json;print(json.load(open('~/.claude/settings.json'))['hooks'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when supply-chain risk from untrusted agent extensions is a real concern — installing community skills/plugins/MCP servers, running agents with broad file/network access, or operating in a team/regulated setting that wants an auditable allow/block trail. The mechanism (static, in-line, pre-execution interception with native Claude hooks and tunable sensitivity) is the correct design for the Safety signal it targets, and the security-engineering provenance (OpenSSF Scorecard, CodeQL, fuzzing, Cisco scanners) is unusually strong for a 362-star project.
 

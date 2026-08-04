@@ -49,7 +49,7 @@ gh api repos/TanStack/cli/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you build with TanStack Start/Router and want your coding agent to scaffold and configure projects correctly via the official MCP server + skills rather than from memory. Not relevant outside the TanStack ecosystem. It's catalogued as a strong example of the framework-maintained-MCP/skills pattern (cf. pg-aiguide) — worth knowing as that pattern spreads to more frameworks.
 

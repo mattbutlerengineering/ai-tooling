@@ -51,7 +51,7 @@ gh api repos/HKUDS/nanobot/readme --jq '.content' | base64 -d | head -70   # Web
 
 ## Verdict
 
-**CONDITIONAL** — nanobot is a popular, MIT-licensed, ultra-lightweight **own-it personal AI agent** with an impressive batteries-included surface (WebUI workbench, chat channels, memory, MCP, model routing, automation) from a credible lab. Adopt it if you want a small, self-hostable agent you fully control across messaging channels for long-running personal/enterprise workflows. For the AI-assisted **coding** dev loop specifically, it's tangential and overlaps CowAgent and nanoclaw — pick it for the readable own-it core and multi-channel reach, not as a coding harness. Pre-1.0, so pilot before depending on it.
+**discovery-log — tentative read** — nanobot is a popular, MIT-licensed, ultra-lightweight **own-it personal AI agent** with an impressive batteries-included surface (WebUI workbench, chat channels, memory, MCP, model routing, automation) from a credible lab. Adopt it if you want a small, self-hostable agent you fully control across messaging channels for long-running personal/enterprise workflows. For the AI-assisted **coding** dev loop specifically, it's tangential and overlaps CowAgent and nanoclaw — pick it for the readable own-it core and multi-channel reach, not as a coding harness. Pre-1.0, so pilot before depending on it.
 
 Compared to neighbors: **CowAgent** is a self-evolving multi-channel "super assistant"; **nanoclaw** is a containerized agent runtime with WhatsApp/Telegram/Slack/Discord/Gmail. nanobot's distinguishing pitch is a **deliberately small, readable, truly-owned core** with a polished WebUI workbench and first-class MCP/model-routing.
 

@@ -54,7 +54,7 @@ gh api repos/google/skills/contents/skills/cloud/gemini-api/SKILL.md --jq '.cont
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when building on Google Cloud or Firebase. The 33 skills cover the most common GCP services with authoritative, up-to-date guidance that prevents deprecated SDK usage — a genuine quality signal for Correctness. The 6-pillar Well-Architected Framework is the most structured cloud architecture skill set in the catalog. Skip if you're not using Google Cloud services; the skills have no general-purpose engineering value outside the GCP ecosystem.
 

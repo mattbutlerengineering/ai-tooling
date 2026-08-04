@@ -56,7 +56,7 @@ The behavior described below is from the repo/README, not an observed unattended
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for well-scoped tasks where you genuinely want AFK execution and can tolerate 2-3x cost overhead. The Docker sandboxing is the real value — it makes autonomous execution safe to walk away from. Best for tasks with clear, verifiable success criteria (tests pass, endpoint returns expected response). Skip for tasks that benefit from human judgment mid-loop or where cost sensitivity is high. The 9K+ stars and active maintenance (updated today) indicate healthy community adoption.
 

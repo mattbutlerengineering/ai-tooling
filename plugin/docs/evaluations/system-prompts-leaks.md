@@ -53,7 +53,7 @@ gh api repos/asgeirtj/system_prompts_leaks/readme --jq '.content' | base64 -d | 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The broadest and most-starred system-prompt archive available, kept genuinely current across every major vendor, CC0-dedicated and WaPo-cited — a strong learning/discovery reference for prompt-engineering and competitive analysis. Adopt it as a *bookmark for breadth*, with two standing caveats: authenticity is uncertain (these are elicited leaks, sometimes paraphrased or already patched, with no version pinning), and there is ethical/ToS friction in republished hidden prompts — use it for study, not redistribution or adversarial purposes. Against its neighbors: it dominates `claude-code-system-prompts` (Piebald) on **breadth** but loses on Claude-Code **depth, provenance, and per-string token granularity** (Piebald extracts from compiled source; this elicits from chats). It overlaps `system-prompts-and-models` (x1xhlol) most directly — same cross-tool concept — but is larger, fresher, and broader. Recommended split: use this for cross-vendor comparison, Piebald's repo for authoritative Claude Code internals.
 

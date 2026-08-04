@@ -64,7 +64,7 @@ Evaluated against three practical questions:
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when developing SwiftUI applications targeting iOS 26+. The skill is the highest-quality domain-specific review skill in the catalog — authored by a recognized Swift authority, targeting real LLM failure modes rather than restating documentation, and structured for token-efficient progressive disclosure. The companion skills (SwiftData, Concurrency, Testing) round out a complete Apple development stack. Not relevant for non-Apple projects.
 

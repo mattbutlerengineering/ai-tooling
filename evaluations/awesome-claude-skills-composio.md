@@ -54,7 +54,7 @@ gh api repos/ComposioHQ/awesome-claude-skills/contents --jq '.[].name'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The clearest explainer and the cleanest use-case taxonomy in the awesome-Skills space, and the most recently maintained — worth pointing newcomers at to *understand* Skills and to browse by task domain. But the inflated "1000+" claim, pervasive Composio self-promotion, missing license, and heavy entry overlap with VoltAgent/travisvn/buildwithclaude keep it from ADOPT. Use it for its prose and taxonomy; rely on the editorial-quality lists (awesome-claude-code) and the existing siblings for breadth. Pick one general Skills list to track — this one earns its place mainly on freshness and explanation quality.
 

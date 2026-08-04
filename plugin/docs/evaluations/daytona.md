@@ -49,7 +49,7 @@ gh api repos/daytonaio/daytona/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you run untrusted or parallel AI-generated code and need real isolation with fast cold starts and persistent state — the canonical foundation for agent code-execution. Weigh AGPL-3.0 obligations for productized/networked use, and prefer it over running LLM code on the host. For lighter, E2B-protocol needs, agent-sandbox is a self-hosted alternative.
 

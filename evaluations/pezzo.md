@@ -49,7 +49,7 @@ gh api repos/pezzolabs/pezzo/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you want a developer-first LLMOps platform centered on **prompt management with instant delivery** plus observability and cost/latency control. It overlaps the already-catalogued langfuse/agenta/Helicone/opik substantially — choose pezzo specifically for the prompt-management-first, deploy-decoupled workflow, and weigh its slower maintenance cadence. Validate the cost/latency claim on your own traffic.
 

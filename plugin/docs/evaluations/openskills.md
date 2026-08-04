@@ -72,7 +72,7 @@ Maturity/overlap signals were pulled via the GitHub/npm APIs (10,446 stars, Apac
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 OpenSkills is the best-built and most-adopted of the catalog's three skill-portability tools, and it earns a clearly better verdict than the GUI skills-manage (SKIP) for a structural reason: it is the lightweight, headless, scriptable, version-controlled CLI that skills-manage's desktop binary is not — no unsigned binary, no SQLite store, no plaintext PAT, just `npx` against plain files in directories the tools already read. The calibration eval for skills-manage explicitly named openskills as the peer that "delivers the cross-editor portability without a native binary," and that holds up. Its one real differentiator over capa is the `read`-shim that brings genuine progressive disclosure to non-Claude-Code agents.
 

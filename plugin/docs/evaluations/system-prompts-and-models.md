@@ -56,7 +56,7 @@ Reviewed: top-level directory list (34 product folders), the Anthropic folder co
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The most comprehensive, most current, and most-starred leaked-prompt corpus available — high learning value for anyone designing agent prompts, skills, or tool schemas, and worth keeping as a Discover-stage reference. Use it conditionally: as a comparative study aid to learn prompt-engineering patterns across 34 products, not as authoritative documentation (the prompts are unverified leaks) and not as a source to copy text from verbatim (GPL-3.0 over leaked third-party content is legally murky). Within the leaked-prompt cluster it is the widest net: prefer it over [claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts) (Claude-Code-only, deeper single-product detail) when you want cross-product breadth, and it overlaps closely with [system-prompts-leaks](https://github.com/asgeirtj/system_prompts_leaks) (also broad and regularly updated, spanning more non-coding assistants) — keep both as complementary corpora rather than picking one.
 

@@ -56,7 +56,7 @@ Metadata: 312 stars, 47 forks, 26 open issues, Go, Apache-2.0, created 2026-04-2
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 guild is a well-designed, local-first MCP server that is genuinely *not* another claude-mem clone: its distinctive value is **multi-agent task coordination** — a shared quest board with atomic claims and dependency cascades that lets parallel agents across different MCP clients (Claude Code, Codex, Cursor) share one substrate — layered on top of a clean three-lifetime memory model (journal / lore / brief) and hybrid BM25+vector recall, all in a single Go binary with embedded SQLite, no account, and no API key. Adopt it **when you actually run multiple coding agents in parallel and want them coordinating over one shared, local task-and-memory board across editors** — that is its real differentiator and where it earns its keep. For this user's case (single-harness Claude Code, already on claude-mem ADOPT + OMEGA), it does **not** displace the existing memory stack: claude-mem is more battle-tested for single-agent recall, guild is two months old with no published benchmarks and an unproven autonomy loop, and running a second "agent memory" MCP server alongside claude-mem/OMEGA risks split-brain context. Like agentic-stack, memsearch, agentmemory, and SimpleMem (all CONDITIONAL), it wins on a specific axis — here, parallel multi-agent coordination — but loses to claude-mem on single-agent ecosystem fit and proven track record.
 

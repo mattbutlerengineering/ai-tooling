@@ -49,7 +49,7 @@ gh api repos/microsoft/agent-governance-toolkit/readme --jq '.content' | base64 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you're deploying autonomous agents to production and need real governance — policy enforcement, zero-trust identity, execution sandboxing, and reliability — mapped to the OWASP Agentic Top 10 rather than assembled ad hoc. It's an infrastructure commitment, best for teams shipping agents at scale. Complements runtime guardrails (NeMo-Guardrails/superagent) and sandboxes (daytona/agent-sandbox) as the governance umbrella over them.
 

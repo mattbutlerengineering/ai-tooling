@@ -19,9 +19,11 @@ import collections
 import re
 
 # The verdict vocabulary (ADR-0005, docs/adr/0005-verdict-vocabulary.md).
-# Defined once here; COMPARISON-row consumers reference this tuple. (The eval-file
-# ## Verdict parser in audit-evals deliberately keeps its own narrower inline set —
-# an eval can't carry discovery-log, which is a COMPARISON-only status.)
+# Defined once here; both the COMPARISON-row consumers and the eval-file ## Verdict
+# parser in audit-evals build from this tuple. discovery-log used to be treated as a
+# COMPARISON-only status, which left 324 lead evals headlining **CONDITIONAL** — a
+# word ADR-0005 reserves for tools we actually exercised (#324). A lead's eval now
+# headlines `discovery-log` and reads as the tentative note it is.
 VERDICTS = ("ADOPT", "CONDITIONAL", "SKIP", "DEFER", "KEEP", "discovery-log")
 _VERDICT_SET = frozenset(VERDICTS)
 

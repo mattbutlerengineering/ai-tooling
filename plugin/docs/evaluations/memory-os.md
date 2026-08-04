@@ -49,7 +49,7 @@ gh api repos/ClaudioDrews/memory-os/readme --jq '.content' | base64 -d | head -1
 
 ## Verdict
 
-**CONDITIONAL** — Memory OS is a thoughtfully-designed, MIT, **local-first 7-layer memory operating system specifically for Hermes Agent**: trust-scored structured facts, a self-curating wiki, and semantic search over all past conversations, on Qdrant + SQLite with any LLM provider and no subscription. Adopt it **if Hermes Agent is your agent** and you want disciplined, on-box long-term memory — it's the natural memory companion to the cataloged Hermes Agent. If you're on Claude Code/Codex, use this catalog's harness-native memory tools instead; Memory OS's value is its Hermes integration. Young, so pilot recall quality before depending on it.
+**discovery-log — tentative read** — Memory OS is a thoughtfully-designed, MIT, **local-first 7-layer memory operating system specifically for Hermes Agent**: trust-scored structured facts, a self-curating wiki, and semantic search over all past conversations, on Qdrant + SQLite with any LLM provider and no subscription. Adopt it **if Hermes Agent is your agent** and you want disciplined, on-box long-term memory — it's the natural memory companion to the cataloged Hermes Agent. If you're on Claude Code/Codex, use this catalog's harness-native memory tools instead; Memory OS's value is its Hermes integration. Young, so pilot recall quality before depending on it.
 
 Compared to neighbors: **MemOS** is a general self-evolving "memory OS"; **OMEGA** a cross-session memory MCP; **Hermes Agent** is the agent this serves. Memory OS's distinguishing pitch is being the **dedicated, local, trust-scored 7-layer memory layer for Hermes Agent**.
 

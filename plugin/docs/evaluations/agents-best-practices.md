@@ -53,7 +53,7 @@ gh api repos/DenisSergeevitch/agents-best-practices/contents/references --jq '.[
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when designing or auditing an agentic harness — especially for non-coding domains (operations, finance, legal, healthcare) where the agent has less built-in architecture knowledge. The MVP Builder Mode and coding-agent specialization are genuinely useful for teams building production harnesses. For simple Claude Code / Codex usage within established patterns, the skill adds context cost without proportional benefit. At 2K stars with active maintenance, it's the most substantive agent architecture reference skill in the catalog.
 

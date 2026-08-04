@@ -63,7 +63,7 @@ gh api repos/awslabs/aidlc-workflows/contents/aidlc-rules/aws-aidlc-rule-details
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need a formal, auditable development methodology across a mixed-editor team (especially if the team includes Kiro/Amazon Q/Cursor users alongside Claude Code). The overconfidence prevention and compliance extension system provide real value for enterprise contexts. For Claude Code-only users, superpowers (ADOPT) provides a tighter inner loop with TDD, debugging, and review workflows that AI-DLC lacks. AI-DLC is complementary to superpowers at the project/epic level (Inception for requirements) but redundant at the task level (Construction vs. superpowers' inner loop).
 

@@ -49,7 +49,7 @@ gh api repos/qualifire-dev/rogue/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt to harden an agent before deployment when you need both business-policy compliance evaluation and adversarial red-teaming in one scenario-driven platform. Pin the license terms. Overlaps garak (LLM red-team), promptfoo (eval+red-team), and superagent (runtime guard) — choose Rogue for the agent-level compliance-plus-adversarial bundle, or compose best-of-breed.
 

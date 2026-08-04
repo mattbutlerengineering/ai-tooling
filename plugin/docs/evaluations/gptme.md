@@ -49,7 +49,7 @@ gh api repos/gptme/gptme/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you want a minimal, hackable, local-first terminal agent you fully control and can extend into custom persistent agents — rather than a heavyweight or cloud-locked harness. For maximal capability out of the box, flagship harnesses (Claude Code/Codex/opencode) do more; gptme's appeal is transparency and ownership. A good base for tinkerers building bespoke agents.
 

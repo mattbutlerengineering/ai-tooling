@@ -111,6 +111,15 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      (Was a second "Q" until #317 — Q belongs to eliminate-only, which is referenced by
      letter in CLAUDE.md, triage.py, TEMPLATE.md, routines.md and the triage-lead skill.)
 
+  T. LEAD HEADLINE OVERREACH (opt-in, --lead-headlines, REPORT-ONLY) — a COMPARISON row
+     reading `discovery-log` says the tool was never exercised, so its eval is notes,
+     not a recommendation. 324 of them nonetheless opened `## Verdict` with **CONDITIONAL**,
+     a word ADR-0005 grants only to a tool we ran or one carrying a real adopt-if gate.
+     #324 relabelled them to `discovery-log — tentative read`; this keeps them relabelled.
+     Scoped to REVIEW/SOURCE-ONLY: a run-backed CONDITIONAL has earned the word, and
+     there the row is the stale half — a human's verdict call, not a headline defect.
+     Report-only; the survivors are escalations awaiting a human (#259). Offline.
+
   R. METADATA STALENESS (opt-in, --metadata-staleness, REPORT-ONLY) — repo-metadata.json
      is a committed snapshot the triage bands rest on, and it rots in one direction:
      a repo archived after our last refresh keeps `archived: false`, so it never
@@ -140,6 +149,7 @@ Usage:
   python3 audit-evals.py --evidence   # declared Evidence-field distribution (offline)
   python3 audit-evals.py --staleness  # flag evals past their last-verified threshold (offline)
   python3 audit-evals.py --metadata-staleness  # age the repo-metadata.json cache (offline)
+  python3 audit-evals.py --lead-headlines  # discovery-log leads claiming a verdict (offline)
   python3 audit-evals.py --selftest   # unit-test the evidence classifier (offline)
 
 Exit code is non-zero if any gating detector finds a problem — a BROKEN install
@@ -665,9 +675,18 @@ class Evaluation:
         except ValueError:
             return None
 
+    # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
+    # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
+    # is — a tentative read — instead of borrowing CONDITIONAL, a word ADR-0005 reserves
+    # for tools we actually exercised. Longest-first alternation so a token that is a
+    # prefix of another can never win the shorter match.
+    _VERDICT_HEAD = re.compile(
+        r"##\s*Verdict\s*\n+\s*\*\*(" +
+        "|".join(re.escape(v) for v in sorted(catalog_lib.VERDICTS, key=len, reverse=True)) + ")")
+
     @property
     def verdict(self):
-        m = re.search(r"##\s*Verdict\s*\n+\s*\*\*(ADOPT|CONDITIONAL|SKIP|DEFER|KEEP)", self.text)
+        m = self._VERDICT_HEAD.search(self.text)
         return m.group(1) if m else None
 
     @property
@@ -1034,7 +1053,11 @@ def _summary_cells(line):
 # than SKIP. Gating, offline. A human who genuinely exercises the tool drops the
 # marker (and says so in "How we tested it") before writing a stronger verdict.
 BULK_MARKER = "<!-- triaged: bulk -->"
-BULK_ALLOWED = frozenset({"SKIP"})
+# SKIP is the disposal; `discovery-log` is the leave. The latter used to be expressible
+# only as the ABSENCE of a headline, because a left lead borrowed CONDITIONAL and this
+# gate would have failed the build for prose the lane never wrote. Since #324 a lead
+# headlines `discovery-log`, so the leave outcome is a token the gate can recognize.
+BULK_ALLOWED = frozenset({"SKIP", "discovery-log"})
 
 def audit_bulk_triage(ctx):
     """(eval name, verdict) for every bulk-marked eval whose verdict exceeds the
@@ -1050,6 +1073,37 @@ def audit_bulk_triage(ctx):
             continue
         if ev.verdict and ev.verdict not in BULK_ALLOWED:
             flagged.append((ev.name, ev.verdict))
+    return flagged
+
+# ---------------------------------------------------------------- T. lead headline overreach
+# A COMPARISON row reading `discovery-log` says the tool was never exercised — its eval
+# is notes, not a recommendation. 324 such evals nonetheless opened `## Verdict` with
+# **CONDITIONAL**, a word ADR-0005 grants only to a tool we ran or one carrying a real
+# `adopt-if:` gate (#324). That is not cosmetic: the /triage-lead protocol escalates any
+# lead whose headline reads CONDITIONAL, so the mislabel shielded 11 of 13 leads in one
+# band and nearly made the pass a no-op. #324 relabelled them; this keeps them relabelled.
+#
+# Scoped to REVIEW/SOURCE-ONLY evidence deliberately. A run-backed eval that headlines
+# CONDITIONAL has earned the word — there the *row* is what's stale, which is a verdict
+# decision for a human, not a headline this detector can call wrong.
+LEAD_ALLOWED_HEADLINES = frozenset({"discovery-log", "SKIP"})  # "it's a lead" / "we rejected it"
+
+def audit_lead_headlines(ctx):
+    """(eval name, headline verdict, evidence level) for every `discovery-log` row whose
+    unexercised eval headlines a verdict word it is not entitled to. Report-only: the
+    survivors are escalations awaiting a human verdict (#259), not build breakers."""
+    comp = ctx.comparison_verdict_map
+    flagged = []
+    for ev in ctx.evals:
+        if not ev.verdict or ev.verdict in LEAD_ALLOWED_HEADLINES:
+            continue
+        cv = next((comp[c] for c in ev.name_aliases if c in comp), None)
+        if cv != "discovery-log":
+            continue
+        level = ev.effective_evidence
+        if level in ("MEASURED", "RUN"):
+            continue  # earned the word; the row is the stale half — a human call
+        flagged.append((ev.name, ev.verdict, level))
     return flagged
 
 
@@ -1147,13 +1201,16 @@ def selftest():
     expect(dual.verdict_set == {"ADOPT", "CONDITIONAL"}, f"dual verdict_set {dual.verdict_set}")
     none = Evaluation("qux", "## Overview\n\nNo verdict here.\n")
     expect(none.verdict is None and none.verdict_set == set(), "missing verdict not handled")
+    # A lead headlines its own status rather than borrowing CONDITIONAL (#324).
+    lead = Evaluation("lead", "## Verdict\n\n**discovery-log — tentative read** — notes only.\n")
+    expect(lead.verdict == "discovery-log", f"lead verdict {lead.verdict!r} != discovery-log")
     # declared Evidence field (issue #62)
     eviz = Evaluation("ev", "## How we tested it\n\n**Evidence:** MEASURED\n\nran it live.\n")
     expect(eviz.evidence_level == "MEASURED", f"evidence_level {eviz.evidence_level!r} != MEASURED")
     src = Evaluation("sv", "**Evidence:** SOURCE-ONLY\n")
     expect(src.evidence_level == "SOURCE-ONLY", f"hyphenated level {src.evidence_level!r} != SOURCE-ONLY")
     expect(none.evidence_level is None, "absent Evidence field not None")
-    n_eval_checks = 9
+    n_eval_checks = 10
 
     if fails:
         print("== selftest ==")
@@ -1175,7 +1232,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 # Opt-in reports. Never in the default set; never affect the exit code.
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
-                "--staleness", "--metadata-staleness")
+                "--staleness", "--metadata-staleness", "--lead-headlines")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1227,6 +1284,7 @@ def main():
     do_evidence = "--evidence" in want       # opt-in report (does not affect exit code)
     do_staleness = "--staleness" in want     # opt-in report (does not affect exit code)
     do_meta_stale = "--metadata-staleness" in want  # opt-in report (does not affect exit code)
+    do_lead_head = "--lead-headlines" in want   # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1434,6 +1492,15 @@ def main():
             tag = "  [self-reported — honest, but verify]" if disclosed else \
                   "  (run the token-savings protocol to graduate to MEASURED)"
             print(f"  UNVERIFIED {name}  ({lvl}){tag}")
+    if do_lead_head:
+        leads = audit_lead_headlines(ctx)
+        print(f"== T. lead headline overreach (report-only) — {len(leads)} lead(s) "
+              f"headlining a verdict they are not entitled to ==")
+        if not leads:
+            print("  OK — every discovery-log lead headlines discovery-log or SKIP")
+        for name, verd, lvl in leads:
+            print(f"  OVERREACH {name}: row=discovery-log but eval headlines {verd} at {lvl} evidence "
+                  f"(relabel it a tentative read, or promote the row with a run behind it)")
     sys.exit(rc)
 
 if __name__ == "__main__":

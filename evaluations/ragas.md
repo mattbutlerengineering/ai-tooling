@@ -51,7 +51,7 @@ gh api repos/vibrantlabsai/ragas/readme --jq '.content' | base64 -d | head -45  
 
 ## Verdict
 
-**CONDITIONAL** — Ragas is the **standard open-source RAG/LLM evaluation toolkit**: reference-free, model-graded metrics (faithfulness, relevancy, context precision/recall) plus synthetic test-set generation, CI-ready and integrated with LangChain/LlamaIndex. Adopt it whenever you ship a RAG or retrieval-augmented pipeline and want objective, reproducible quality scores instead of eyeballing answers. For this catalog it's CONDITIONAL because it evaluates the AI product you build, not the coding agent — and it's narrower (RAG-focused) than promptfoo/giskard, so pair it with those for broad prompt/model/red-team coverage. Watch judge-model cost/bias.
+**discovery-log — tentative read** — Ragas is the **standard open-source RAG/LLM evaluation toolkit**: reference-free, model-graded metrics (faithfulness, relevancy, context precision/recall) plus synthetic test-set generation, CI-ready and integrated with LangChain/LlamaIndex. Adopt it whenever you ship a RAG or retrieval-augmented pipeline and want objective, reproducible quality scores instead of eyeballing answers. For this catalog it's CONDITIONAL because it evaluates the AI product you build, not the coding agent — and it's narrower (RAG-focused) than promptfoo/giskard, so pair it with those for broad prompt/model/red-team coverage. Watch judge-model cost/bias.
 
 Compared to neighbors: **promptfoo** is declarative eval + red-teaming; **giskard-oss** is agent scenario testing + red-team; **opik** is tracing + eval + optimization; **langfuse** is observability. Ragas' distinguishing pitch is **the reference-free RAG metric standard plus synthetic test-set generation.**
 

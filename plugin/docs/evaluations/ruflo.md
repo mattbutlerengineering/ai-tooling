@@ -68,7 +68,7 @@ Reviewed: the README capability matrix and "With vs Without Ruflo" table; STATUS
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 ruflo (formerly claude-flow) clears the bar that oh-my-openagent did not, and lands like omnigent: it is a Claude-Code-integrated orchestration layer you run *with* and *against* your own repo — installable as real CC plugins (Path A) or a full MCP/hooks loop (Path B) — spanning Plan, Implement, Verify, Review, and Reflect. Crucially for a prolific high-claim author, the substance checks out where it counts: the cited audit and benchmark artifacts exist, there's an ADR-governed plugin with a CI removability gate, green test suites, and genuinely first-class Claude Code integration. It is MIT-licensed and among the most-used projects in the catalog (60k stars, ~278k downloads/month).
 

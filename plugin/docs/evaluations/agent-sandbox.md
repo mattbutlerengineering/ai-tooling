@@ -49,7 +49,7 @@ gh api repos/agent-sandbox/agent-sandbox/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you specifically want a self-hosted, E2B-compatible sandbox to escape hosted-E2B lock-in and run untrusted agent code with per-user isolation — and you already operate Kubernetes. For broader, more proven execution infra, Daytona is the heavier-but-mature option. Given the small footprint, pilot it and harden defaults (admin token) before production.
 

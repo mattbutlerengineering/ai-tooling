@@ -53,7 +53,7 @@ gh api repos/metalbear-co/mirrord/releases --jq 'length'   # 30
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you develop services that run on Kubernetes and want your agent (and you) to write and verify against live cluster reality instead of mocks; it's mature, multi-surface, and genuinely improves Correctness and Speed for that workflow. The blockers are scope (K8s-only) and a real Safety surface — an agent wielding your kubeconfig and live traffic needs scoped, read-mostly RBAC and human-gated steal mode. Out of scope for non-cloud-native projects.
+**discovery-log — tentative read** — adopt if you develop services that run on Kubernetes and want your agent (and you) to write and verify against live cluster reality instead of mocks; it's mature, multi-surface, and genuinely improves Correctness and Speed for that workflow. The blockers are scope (K8s-only) and a real Safety surface — an agent wielding your kubeconfig and live traffic needs scoped, read-mostly RBAC and human-gated steal mode. Out of scope for non-cloud-native projects.
 
 Compared to neighbors: it's unlike the coding-agent harnesses (opencode/goose/jcode) — those *are* the agent; mirrord is the **live-environment bridge** they run inside, closest in spirit to the sandbox tools (sandboxd, vercel-sandbox) but inverted: instead of isolating agent code in a fresh sandbox, it connects local code into a *real* cluster. No current catalog entry covers live-cluster grounding, so it fills a distinct gap for the K8s niche.
 

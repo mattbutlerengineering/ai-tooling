@@ -63,7 +63,7 @@ We did not generate a deck or measure render fidelity. Claims about inspector, p
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when an agent must *produce* a polished, web-based deck from a prompt — and especially when you will iterate on it visually (the inspector → `/apply-comments` loop is the reason to pick this over the neighbors). Among slide tools in the catalog it occupies a distinct slot: **slidev** and **powerpoint** are syntax/design references the human drives; **frontend-slides** and **guizang-ppt-skill** are HTML-deck generation skills with no runtime or feedback loop. open-slide is the only one that pairs an agent-authoring skill with a present-mode runtime and a visual-comment edit loop. The conditions: you are comfortable running a Vite/React workspace, you want to maintain decks over time (not one-and-done), and you can pin to a young, fast-moving package. If you just need a single `.pptx` for a business audience, reach for `powerpoint`/`wowerpoint` instead; if you want a quick dev talk in Markdown, slidev.
 

@@ -60,7 +60,7 @@ Checked: skill quality, attribution practices, agent design, cross-editor suppor
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need **cross-domain coverage beyond engineering** (marketing, C-level advisory, research operations, compliance) or when working across **multiple AI editors** (13 supported). The engineering skills overlap significantly with mattpocock/skills (ADOPT) and agent-skills (ADOPT), which are better choices for pure engineering work due to tighter quality control. The marketing and C-level skills have no equivalent in the catalog — if you're a founder using Claude Code for business strategy alongside coding, this is the only collection that covers both.
 

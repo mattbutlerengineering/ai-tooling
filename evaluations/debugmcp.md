@@ -50,7 +50,7 @@ gh api repos/microsoft/DebugMCP/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you use a VS Code-based AI assistant and want it to debug with a real debugger — breakpoints, stepping, variable inspection, and test-level launches — instead of print statements. The `/really-debug` skill makes the agent use it systematically. Less relevant for terminal-only CLI harnesses without VS Code; for those, systematic-debugging discipline plus logs remains the path.
 

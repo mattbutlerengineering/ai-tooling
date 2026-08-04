@@ -49,7 +49,7 @@ gh api repos/web-infra-dev/midscene/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you need cross-platform (web + mobile) UI automation/testing in natural language and want resilience to selector/DOM churn — its standout over Playwright/Selenium. Accept the per-step vision cost and nondeterminism, and pin prompts for stable CI. For web-only, high-volume testing, a selector engine is cheaper; reach for Midscene when mobile coverage or selector-free robustness matters.
 

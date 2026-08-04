@@ -69,7 +69,7 @@ gh api repos/openai/codex-plugin-cc/contributors --paginate --jq '.[].login' | w
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you (1) already have Codex set up on the machine (ChatGPT subscription, incl. Free tier, or an OpenAI API key) and (2) want a genuine cross-model second opinion — especially the adversarial design review — before shipping high-stakes changes, all without leaving Claude Code. For that profile this is the cleanest option in its niche: it is **OpenAI-official**, a thin well-tested wrapper over your existing local Codex install (no second runtime, no extra account, predictable config), and narrowly scoped to review/delegation with read-only review commands and good background-job ergonomics. The first-party authorship materially de-risks the CLI-churn problem that plagues third-party cross-vendor tools.
 

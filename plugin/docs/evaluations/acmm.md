@@ -53,7 +53,7 @@ Read /Users/mbutler/github/ai-tooling/WORKFLOW.md
 
 ## Verdict
 
-**CONDITIONAL** (as a reference, not a tool — KEEP in catalog)
+**discovery-log — tentative read** (as a reference, not a tool — KEEP in catalog)
 
 ACMM is a conceptual framework that independently arrives at this repo's own core thesis: maturity in AI-assisted development is defined by feedback-loop topology, and testing is the highest-leverage investment. Keep it in the Maturity Frameworks category as a citable external reference for the maturity discussion in WORKFLOW.md. Do not treat it as an installable tool (there is nothing to install) and do not adopt its level vocabulary as the repo's primary model — CLAUDE.md already standardizes on inner/outer loop terms. Useful as corroboration and as an optional scoring axis; not a workflow change.
 

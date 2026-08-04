@@ -68,7 +68,7 @@ Cross-referenced against `evaluations/codegraph.md` (the catalog's ADOPT auto-sy
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Understand-Anything is a mature, well-tested, high-traction (63.9K-star, v2.7.3, MIT) code-comprehension plugin with a genuinely distinctive output: an interactive visual dashboard plus guided tours, domain mapping, diff-impact, and onboarding-guide generation across ~17 platforms. It clears the maturity bar easily — this is not a SKIP-for-thinness case.
 

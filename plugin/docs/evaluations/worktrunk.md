@@ -54,7 +54,7 @@ The create/list/switch/cleanup flow below is from the documented command surface
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if running 3+ parallel agent sessions regularly — the worktree lifecycle management saves meaningful time and prevents the git state tangles that plague raw `git worktree` usage. Skip for solo sequential work where `git worktree add/remove` suffices. The proprietary license is a risk factor; if an open-source alternative emerges with similar UX, prefer that.
 

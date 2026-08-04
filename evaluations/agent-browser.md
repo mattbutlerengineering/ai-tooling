@@ -57,7 +57,7 @@ They're complementary: agent-browser for exploratory verification during develop
 
 ## Verdict
 
-**CONDITIONAL** (review-based; promote to ADOPT after a hands-on run)
+**discovery-log — tentative read** (review-based; promote to ADOPT after a hands-on run)
 
 On its design, agent-browser targets a real gap — intent-based UI verification that closes the distance between "tests pass" and "feature works," with no per-check selector authoring. That's a strong fit for exploratory verification during development, with Playwright MCP (measured in this catalog) as the precise scripted-checks counterpart. Held at CONDITIONAL rather than ADOPT only because this evaluation is a surface review, not a recorded live run; the open questions above (per-action overhead, dynamic content, conditional flows) should be confirmed before treating it as a default.
 

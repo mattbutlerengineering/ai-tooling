@@ -75,7 +75,7 @@ grep -inE "jira|confluence|atlassian|sooperset" /Users/mbutler/github/ai-tooling
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 mcp-atlassian is the right, well-maintained implementation behind the catalog "confluence" entry, and it cleanly solves the stated problem — read/write access to team documentation during Plan and Reflect. But the value is entirely conditional on **the team actually using Confluence**, and it carries a real safety cost: write tools mutate shared team docs and require a broad API token. **Adopt it for teams whose source of truth lives in Confluence** (especially enterprise Server/Data Center shops, where mcp-atlassian's deployment coverage beats every alternative), and prefer wiring it **read-first** — start with `confluence_search` / `confluence_get_page` and only enable page-write tools once you trust the agent's behavior and have a way to review its edits. Teams that want the vendor-supported path with managed OAuth should evaluate **atlassian/atlassian-mcp-server** (official, Apache-2.0) instead, accepting its much smaller adoption and hosted-remote model. **Not ADOPT-everywhere** because it is dead weight for non-Confluence teams and adds a write surface to a shared system. **Not SKIP** because for a Confluence-centric team it is a genuine, low-friction context win.
 

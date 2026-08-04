@@ -53,7 +53,7 @@ gh api repos/1jehuang/jcode/releases --jq 'length'   # 30
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you specifically want a fast, low-footprint, Rust-native, cross-platform terminal coding agent and you run multi-session workflows where resource efficiency compounds; otherwise it sits in a deep field of equally-capable harnesses. It is well-built and actively released, but its differentiator (performance at scale) is narrow and its benchmarks are self-reported, so it doesn't displace the vendor-backed or already-adopted options for most users.
+**discovery-log — tentative read** — adopt if you specifically want a fast, low-footprint, Rust-native, cross-platform terminal coding agent and you run multi-session workflows where resource efficiency compounds; otherwise it sits in a deep field of equally-capable harnesses. It is well-built and actively released, but its differentiator (performance at scale) is narrow and its benchmarks are self-reported, so it doesn't displace the vendor-backed or already-adopted options for most users.
 
 Compared to neighbors: **opencode / goose / qwen-code / gemini-cli / grok-cli** are its direct peers — jcode's pitch is "lighter and faster for many sessions" rather than a unique capability. Against **claude-squad** (which *manages* parallel sessions of other agents), jcode is the agent itself, optimized to be cheap to run many of. Pick it on the performance axis; otherwise the incumbent in your stack is fine.
 

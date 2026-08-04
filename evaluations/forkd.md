@@ -59,7 +59,7 @@ Reviewed: the fork/BRANCH mechanism and CoW design, the benchmark table (forkd 1
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 forkd clears the bar aisuite did not: it ships a real MCP server with documented `claude mcp add forkd` registration, so it has an actual surface inside the dev loop rather than being a pure build-a-product library. Its BRANCH-mid-execution capability is genuinely differentiated for parallel/speculative agent exploration and code-interpreter fan-out, and its benchmarking discipline (published RESULTS files, self-reported regressions, fair-comparison corrections) is unusually credible. But it remains low-level infrastructure with a narrow trigger and hard prerequisites — Linux/KVM-only, a vendored Firecracker fork to build, root for the daemon, and zero value unless your workflow actually fans out many short-lived isolated sandboxes.
 

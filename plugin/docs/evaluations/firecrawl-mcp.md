@@ -66,7 +66,7 @@ grep -niE "exa-mcp|firecrawl|playwright|web scrap|crawl" /Users/mbutler/github/a
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Firecrawl MCP is a mature, well-maintained, official MCP server that solves a real dev-loop problem — getting clean, agent-ready content out of modern JS-heavy web pages — with unusually broad coverage (scrape, crawl, map, batch, schema extraction, search, deep-research agent) and genuine operational polish (retries, rate limiting, credit monitoring). The decisive trade-off is cost: the default path is a paid, metered cloud API where every operation spends credits, which is real friction next to zero-cost grounding tools. **Adopt it per-project when the task genuinely needs robust extraction from JS-rendered or anti-scraping sites and simpler/free tools fall short — and seriously consider the self-host path (`FIRECRAWL_API_URL`) for teams doing this at volume, which removes both the per-credit cost and the third-party dependency.** Versus [exa-mcp-server](https://github.com/exa-labs/exa-mcp-server) the two are complementary, not redundant: Exa is search-first (find current information across the web); Firecrawl is extraction-first (turn specific known pages/sites into clean data), with web search as a secondary feature. For "ground the agent in *this* documentation site or scrape *this* data," reach for Firecrawl; for "search the web for current info," reach for Exa. Not ADOPT-everywhere because of the paid-API friction and overlap with both search and browser-automation tools; not SKIP because the clean-extraction value and maturity are concrete and unmatched on the extraction axis in the catalog.
 

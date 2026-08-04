@@ -56,7 +56,7 @@ For simpler workflows, Composio is overhead — you don't need 500 integrations 
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you need cross-app automation across 5+ external services in the outer loop, AND individual MCP servers aren't covering your needs.
+**discovery-log — tentative read** — adopt if you need cross-app automation across 5+ external services in the outer loop, AND individual MCP servers aren't covering your needs.
 
 **Reasons to skip for now:**
 1. Individual MCP servers (GitHub, Sentry, Jira, Playwright, Prisma) already cover the most critical integrations in the recommended stack

@@ -59,7 +59,7 @@ gh api repos/anthropics/claude-code/issues --jq '.[0:5] | .[] | "\(.number) \(.t
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as the primary reference for tracking Claude Code bugs, releases, and known issues — the daily release notes and label-filtered issue search are genuinely useful. Not a general-purpose reference because the issue volume is overwhelming without filters, there's no roadmap visibility, and the real documentation lives at code.claude.com rather than in the repo. ADOPT the release notes feed; treat the issue tracker as a search-when-needed resource rather than something to browse.
 

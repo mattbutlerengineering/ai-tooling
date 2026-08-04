@@ -55,7 +55,7 @@ We read the full README tutorial index and confirmed the notebook count and cate
 
 ## Verdict
 
-**CONDITIONAL** (leaning DEFER)
+**discovery-log — tentative read** (leaning DEFER)
 
 Useful as a *browsable gallery of agent recipes* when you want to see how a particular pattern (multi-agent research, contract analysis, self-improving loop) is wired in LangGraph/LangChain. But it sits further from this catalog's center of gravity than its neighbor `ai-agents-for-beginners`: no structured curriculum, a marketing-forward README, an ambiguous license, and content that is general GenAI-agent ML rather than AI-assisted software development. Compared to neighbors: broader but shallower and noisier than the Microsoft course; far less dev-loop-relevant than `claude-howto`, `claude-code-best-practice`, or `dictionary-of-ai-coding`. Catalog it under Reference for completeness and cross-link to `ai-agents-for-beginners`, but treat the Microsoft course as the primary agent-learning reference and reach for this one only for specific worked examples.
 

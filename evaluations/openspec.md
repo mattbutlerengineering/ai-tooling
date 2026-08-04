@@ -63,7 +63,7 @@ gh api "repos/Fission-AI/OpenSpec/contributors?per_page=100" --jq 'length'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt OpenSpec when you do non-trivial, multi-step, or brownfield feature work where pinning requirements before implementation pays for itself — and especially if you want SDD that is genuinely portable across Claude Code, Cursor, Codex, and 20+ other assistants rather than locked to one IDE. It is the lighter, npm-based, brownfield-first alternative to GitHub Spec Kit, and that distinction (delta-based specs, no enforced phase gates, first-class Claude Code skills + commands) justifies keeping it as a separate catalog entry rather than collapsing it into spec-kit. Two caveats temper a full ADOPT: the "validation gates" are structural linting plus LLM verification, not executable CI gates (don't expect architect-loop-style enforcement), and the project is mid-migration to its `opsx` workflow with a beta workspaces layer. Skip it for trivial fixes, throwaway scripts, or solo prompting where the spec folder is pure overhead. Recommend the existing catalog entry stay, with the one-liner softened from "validation gates" to "alignment artifacts / spec layer."
 

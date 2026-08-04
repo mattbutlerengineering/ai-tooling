@@ -49,7 +49,7 @@ gh api repos/memvid/memvid/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want agent long-term memory without operating a vector database and value portability/versioning — the single-file model is its standout. Verify the self-reported LoCoMo/multi-hop/temporal gains on your own data before relying on them, and check scaling behavior for your concurrency needs. For a user already on claude-mem + OMEGA, it overlaps existing memory; the draw is the database-free portability.
 

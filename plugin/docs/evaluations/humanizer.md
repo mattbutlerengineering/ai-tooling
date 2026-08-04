@@ -64,7 +64,7 @@ grep -inE "humanizer|taste-skill|stop-slop" /Users/mbutler/github/ai-tooling/CAT
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 humanizer is the most comprehensive and best-sourced of the three "de-AI the prose" skills — 33 Wikipedia-grounded patterns, each with worked Before/After rewrites, plus a voice-calibration mode and (crucially) an explicit `What NOT to flag` carve-out and technical-text gating that stop-slop lacks. That carve-out is what makes it safer than its siblings to point at engineering prose. But its surface is narrow for a code-focused catalog (PRs, docs, commits, release notes — not code), it ships as one 34 KB file with no progressive disclosure (heavier per-invocation cost than stop-slop), and a few mechanical style absolutes (hard em-dash ban, emoji/curly-quote rules) still over-edit.
 

@@ -62,7 +62,7 @@ gh api 'repos/garrytan/gstack/commits?per_page=1' -i | grep -i '^link:'         
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt selectively, on a project where you want a turnkey role-based sprint process — `/office-hours` → `/autoplan` → implement → `/review` → `/qa` → `/ship` — and are not already invested in an overlapping skills stack. gstack is the rare celebrity bundle whose substance holds up: the skills are real methodology (OWASP+STRIDE security, SQL/LLM-trust-boundary diff review, investigate-before-fix, real-browser QA with regression tests), the engineering is unusually mature for a 3-month-old repo (Docker E2E eval CI, ~574 test paths, ADR-style design docs, weekly versioned releases), and it lives natively inside the dev loop. The `--prefix` / `--no-prefix` and `--host` options plus opt-in safety guards make a scoped trial feasible.
 

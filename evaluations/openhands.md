@@ -56,7 +56,7 @@ Assessed release cadence (v1.6.0 → v1.7.0 → v1.8.0 over 3 months), community
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use OpenHands when you need a self-hosted agent orchestration platform with multi-backend support, automation triggers (scheduled/webhook), or ACP-compatible multi-agent management — especially for team environments where agents need to run on shared infrastructure. Choose Claude Code directly when you want the deepest ecosystem (skills, plugins, marketplace, hooks), structured methodology (superpowers, agent-skills), and the simplest setup (single CLI, no Docker required). Like goose and opencode, this is a platform choice, not a complement. Skills (SKILL.md format) are portable between platforms.
 

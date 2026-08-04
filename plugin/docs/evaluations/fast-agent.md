@@ -58,7 +58,7 @@ Reviewed: the coding-agent invocation paths (`-x` shell mode, `--smart`, `--pack
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 fast-agent clears the bar that aisuite and LangGraph did not: it is not merely a library for building AI products — it ships a runnable, MCP-native, SKILL.md/ACP-aware **coding agent and evaluation toolkit** you drive from the terminal (`fast-agent --model opus -x --smart`), which lands directly in the Implement and Verify stages of the dev loop. That is a real dev-loop surface, so it does not get the SKIP that the pure frameworks received.
 

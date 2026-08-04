@@ -61,7 +61,7 @@ grep -niE "reporails|openskills|skills-manage|agentic-stack|capa" CATALOG.md
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 capa is a well-engineered, actively maintained config-as-code package manager for AI agents, with deeper per-editor integration (especially Claude Code) and more thoughtful primitives (marker blocks, lockfile, per-sub-agent MCP filtering, lazy tool loading) than the other multi-editor config tools in the catalog. The decisive question is multi-editor scope: its core pain — keeping `.cursor/rules/`, `CLAUDE.md`, and `AGENTS.md` in sync — barely exists for someone working primarily in Claude Code, where `.claude/` and `CLAUDE.md` are read natively. **Adopt when** you (a) run agents across two or more editors (Cursor + Claude Code + Codex, etc.) or maintain a shared agent config for a team, and (b) are comfortable depending on a 284-star tool's yaml format, local server, and DB. **Skip if** you're a single-editor Claude Code user — it adds an indirection layer over files the agent already consumes directly. Re-evaluate the maturity caveat as the star/contributor base grows.
 

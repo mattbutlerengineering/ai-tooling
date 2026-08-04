@@ -49,7 +49,7 @@ gh api repos/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge/readme --jq '.con
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt to accelerate onboarding onto an unfamiliar codebase — it generates a beginner-friendly, abstraction-level tutorial with visualizations rather than dumping a search index. It's a one-shot doc generator, so pair it with a continuous code-intelligence layer (repowise/sourcebot/serena) for ongoing agent context. Verify the generated tutorial's accuracy on large or unconventional repos.
 

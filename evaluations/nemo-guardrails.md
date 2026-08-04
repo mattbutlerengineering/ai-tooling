@@ -49,7 +49,7 @@ gh api repos/NVIDIA-NeMo/Guardrails/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you ship an LLM-backed conversational application and need a programmable, auditable runtime guardrail layer (topics, jailbreaks, dialog flow, output format). Weigh added latency and Colang complexity. For PII specifically use presidio; for agent-tool-call safety + red-teaming, superagent; NeMo's strength is conversational dialog control.
 

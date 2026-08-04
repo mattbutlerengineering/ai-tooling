@@ -77,7 +77,7 @@ npm view evalview --json
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you build, ship, or maintain a real tool-calling or multi-turn AI agent and need a merge-time regression gate — that is exactly the Verify-stage gap EvalView fills, and its free offline tool/sequence diff is cheap enough to run per-commit. For a documentation-only repo like this one there is no agent to baseline, so it is not part of the recommended STACK here; this evaluation establishes the catalog entry's identity and scope. EvalView and langfuse are complementary, not competing: langfuse for production observability/eval, EvalView for the pre-merge behavior gate — many teams run both. The verdict is CONDITIONAL rather than ADOPT primarily on maturity (117 stars, v0.8.0, single maintainer) and because the value is contingent on owning an agent worth regression-testing; the MCP server specifically is a convenience layer over a stronger CLI/pytest/GitHub-Action core. Re-evaluate hands-on if a coding-agent project in scope acquires a stable tool-calling spec.
 

@@ -49,7 +49,7 @@ gh api repos/modu-ai/moai-adk/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you want a turnkey SPEC-First + TDD/DDD workflow for Claude Code and prefer an opinionated kit over assembling spec-kit + TDD hooks + agents yourself — especially for multi-language teams. Audit the 24-agent/52-skill bundle against your conventions first. Compare with flow-next/Archon (workflow engines) and spec-kit (spec layer) for the spec-driven slot.
 

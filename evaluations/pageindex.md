@@ -50,7 +50,7 @@ gh api repos/VectifyAI/PageIndex/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for retrieval over long, high-stakes professional documents where relevance and explainability matter more than per-query latency/cost. For high-volume, low-stakes retrieval, classic vector RAG is cheaper. Pilot the self-host repo first; reach for the cloud pipeline when OCR quality and peak accuracy justify it.
 

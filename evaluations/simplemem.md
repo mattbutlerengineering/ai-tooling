@@ -66,7 +66,7 @@ Repo identity confirmed: the catalog name "SimpleMem" disambiguates against many
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 SimpleMem is a credible, papers-backed memory system whose real, unique value is *token-efficient compression* and *multimodal + self-evolving retrieval* — axes no other catalog memory entry covers. Use it when those specifically matter: you need image/audio/video memory, you want a benchmarked compression-first memory layer for a Python agent, or you're building a multi-tenant memory service (the MCP server is genuinely built for that). For this user's case — Claude Code, local-first, already on claude-mem (ADOPT) — it does **not** displace claude-mem: SimpleMem's shipped Claude surface is the weakest of its three channels (text-only MCP aimed at Claude Desktop, or a manual no-hooks CLI skill), it mandates a paid LLM API key with no local fallback (a regression vs claude-mem/memsearch/agentmemory's free local embeddings), and its "+64% vs Claude-Mem" headline is a self-reported, mislabeled benchmark. Like memsearch and agentmemory (both CONDITIONAL), it wins on a specific axis (here: compression efficiency + multimodality) but loses to claude-mem on Claude Code ecosystem fit, auto-capture, and zero-key local operation. It is **not** a thinner duplicate of those CONDITIONALs — it attacks a different problem (compression/token-cost, plus multimodal) rather than competing on hybrid-search recall — which earns the CONDITIONAL over a SKIP. KEEP the catalog entry; do not adopt over claude-mem.
 

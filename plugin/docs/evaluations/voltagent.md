@@ -48,7 +48,7 @@ gh api repos/VoltAgent/voltagent/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you're building production agents in TypeScript and want a typed framework with built-in workflow orchestration and an optional ops console. For Python-centric or Claude-Code-harness workflows, pydantic-ai or the existing harness path is a closer fit. Re-evaluate hands-on if a TS agent project comes up.
 

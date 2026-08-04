@@ -88,7 +88,7 @@ Re-verified 2026-07-11 (facts only, not a hands-on re-run): org transfer, MIT li
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for teams running CI on GitHub/GitLab where not everyone uses Claude Code — it catches bugs and enforces PR hygiene across the whole team automatically, not just for individual Claude Code users. Skip if your entire team uses Claude Code and runs `code-review` before every PR push; the marginal value over `code-review --comment` is thin, and the CI bot adds maintenance overhead. The strongest case for adopting alongside Claude Code: the `describe` tool for auto-generating PR descriptions, and the `review` tool's ticket compliance check — both operate on CI triggers that don't depend on developer workflow. Do not adopt as a replacement for `code-review` or `pr-review-toolkit`; those run inside the agent session where they can fix code directly.
 

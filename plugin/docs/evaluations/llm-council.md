@@ -55,7 +55,7 @@ gh api repos/karpathy/llm-council/contents/backend/config.py --jq '.content' | b
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use the *pattern* (multi-model deliberation with anonymized cross-review) for high-stakes research questions, but not this specific implementation. The tool is a standalone web app with no agent integration, no license, and an explicit no-maintenance commitment from its author. The architectural pattern is sound — design-council (in-catalog) applies the same multi-perspective approach within Claude Code's agent framework. Use llm-council as inspiration or a weekend research tool, not as production infrastructure.
 

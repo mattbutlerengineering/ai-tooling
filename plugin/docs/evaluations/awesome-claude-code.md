@@ -53,7 +53,7 @@ gh api repos/hesreallyhim/awesome-claude-code/contents/THE_RESOURCES_TABLE.csv -
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as a discovery source when scanning for Claude Code-specific resources, especially slash-commands, hooks, CLAUDE.md patterns, and status lines — categories our catalog doesn't deeply cover. The editorial quality is the highest of any awesome list in the catalog, and the structured CSV is uniquely useful for programmatic querying. However, the 2-month content freeze and gutted README drop it from ADOPT — it's not the live, always-current source it was. Re-evaluate if the reorganization completes and regular updates resume.
 

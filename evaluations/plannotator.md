@@ -63,7 +63,7 @@ grep -inE "plannotator|planning-with-files|plan review|ExitPlanMode" /Users/mbut
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Plannotator is a well-built, actively maintained, security-conscious tool that intervenes at the highest-leverage point in the dev loop: the Plan→Implement gate. Visual plan review is a genuine lever, not a nice-to-have — its blocking `ExitPlanMode` hook plus *structured* deny-feedback (annotations routed back to the agent, with a plan diff on resubmission) turns plan approval from a rubber-stamp into a real quality gate, and catching a bad plan there is the cheapest correction available anywhere in the loop. Maturity is strong (v0.20.3, dual-licensed, SLSA provenance, client-side-encrypted sharing, tests, nine agent integrations with a first-class Claude Code plugin).
 

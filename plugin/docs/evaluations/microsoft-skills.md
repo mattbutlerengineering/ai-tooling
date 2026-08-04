@@ -58,7 +58,7 @@ Not hands-on tested (no Azure project available). Evaluation based on SKILL.md q
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when building on Azure or Microsoft AI Foundry — the SDK skills encode genuine production patterns that prevent real security and architecture mistakes. The cloud-solution-architect and mcp-builder skills have standalone value outside Azure projects. Skip if your stack doesn't touch Microsoft services — the 155 Azure-specific skills provide no value and the 20 general skills are covered better by mattpocock/skills (ADOPT) and agent-skills (ADOPT).
 

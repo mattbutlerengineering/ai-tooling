@@ -53,7 +53,7 @@ gh api repos/mito-ds/mito/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for Jupyter/data-science work where you want an in-notebook AI copilot (chat + error debugging, no copy-paste) and spreadsheet-to-Python codegen — it underserves a niche that terminal/IDE assistants miss. Confirm the open-core/license boundary. Not relevant to general software development outside notebooks; for that, tabby/aichat or an IDE assistant fit better.
 

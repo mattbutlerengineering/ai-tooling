@@ -49,7 +49,7 @@ gh api repos/superagent-ai/superagent/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you ship an agent with tool access and want bundled runtime protection (prompt-injection + unsafe-tool-call blocking + PII/secret redaction) plus red-teaming in one SDK. If you prefer best-of-breed, compose NeMo-Guardrails (dialog rails) + presidio (PII) + garak (red-team) instead. Tune detection thresholds and verify the compliance evidence fits your needs.
 

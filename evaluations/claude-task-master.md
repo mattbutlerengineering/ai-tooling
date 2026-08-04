@@ -64,7 +64,7 @@ gh api 'repos/eyaltoledano/claude-task-master/commits?per_page=8' --jq '.[] | {d
 
 ## Verdict
 
-**CONDITIONAL** (for the general catalog) — leaning **SKIP for this specific user** due to GSD overlap and the stalled OSS core.
+**discovery-log — tentative read** (for the general catalog) — leaning **SKIP for this specific user** due to GSD overlap and the stalled OSS core.
 
 Taskmaster is a genuinely well-built, deeply-integrated tool: the PRD→tasks→dependency-graph→`next` loop is the real product (Zod-typed, dependency-aware, not persona theater), Claude Code is a first-class citizen across MCP, a plugin marketplace, *and* a keyless model provider, and the autopilot TDD-on-rails subsystem extends it credibly into supervised execution. For a team that wants cross-editor, durable, dependency-aware task tracking shared between Cursor/Windsurf/VS Code/Claude Code — especially mixed-IDE teams — it earns **CONDITIONAL: adopt when you need editor-portable structured task management backed by a committed `tasks.json`**, with the caveat that the OSS core looks frozen at v0.43.1 so treat it as a stable-but-static dependency.
 

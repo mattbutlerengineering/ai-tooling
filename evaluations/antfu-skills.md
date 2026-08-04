@@ -60,7 +60,7 @@ gh api "repos/antfu/skills/git/trees/main?recursive=1" --jq '.tree[].path'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when working on Vue/Vite/Nuxt projects — it's the most comprehensive one-stop skill collection for that ecosystem, with 17 skills covering framework, tooling, testing, and conventions. The generation pipeline is independently valuable as a template for creating your own doc-sourced skill collections. Not useful outside the Vue ecosystem; general engineering skills are better served by mattpocock/skills (ADOPT) or agent-skills.
 

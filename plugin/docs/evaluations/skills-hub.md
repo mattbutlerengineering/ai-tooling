@@ -49,7 +49,7 @@ gh api repos/qufei1993/skills-hub/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you maintain a sizable skill library across multiple coding agents and want one place to curate, tag, and sync it — the symlink-based "install once, sync everywhere" model fits multi-tool users. CLI-preferring users may want a scriptable alternative; verify cross-OS symlink behavior first. Note the manager doesn't vet skill *content* — audit skills you install (pairs with waza for quality, security-reviewer for safety).
 

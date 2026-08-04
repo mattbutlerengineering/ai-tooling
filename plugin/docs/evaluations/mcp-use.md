@@ -55,7 +55,7 @@ gh api repos/mcp-use/mcp-use/releases --jq 'length'   # 30 (page-1 cap — frequ
 
 ## Verdict
 
-**CONDITIONAL — adopt if you are building MCP servers or (especially) MCP Apps/widgets; otherwise it's infrastructure you don't need.** mcp-use is a legitimate, actively maintained, fullstack MCP framework whose standout is the MCP Apps widget layer that pure server frameworks lack. The caveats are scope sprawl and a deliberate funnel toward the maintainer's commercial cloud for deploy/observability — fine if you self-host the MIT SDK, a lock-in vector if you lean on Manufact.
+**discovery-log — tentative read: adopt if you are building MCP servers or (especially) MCP Apps/widgets; otherwise it's infrastructure you don't need.** mcp-use is a legitimate, actively maintained, fullstack MCP framework whose standout is the MCP Apps widget layer that pure server frameworks lack. The caveats are scope sprawl and a deliberate funnel toward the maintainer's commercial cloud for deploy/observability — fine if you self-host the MIT SDK, a lock-in vector if you lean on Manufact.
 
 Compared to neighbors: **fastmcp** is the narrower, more battle-tested *server-only* builder — pick it if all you need is a Pythonic MCP server with no UI/widgets. **fast-agent** is the narrower *client/agent* framework — pick it if you only need to build and evaluate an agent over MCP. mcp-use's claim to the slot is that it does both *plus* interactive widgets in one package; that breadth is its advantage over either neighbor and its main risk. Use mcp-use when "interactive MCP app across Claude/ChatGPT" is the goal; use fastmcp/fast-agent when you want one focused half.
 

@@ -68,7 +68,7 @@ Confirmed: first-class agent wrapping (`cmd/run.go` `run -- <agent>` with admin 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when an agent runs somewhere you do not fully trust — remote coding agents, ephemeral/sandboxed agents, CI runners, or any multi-tenant/team setup where a credential leak via prompt injection is a real and consequential risk. In those settings Agent Vault is the strongest fit in the catalog: it removes raw secrets from the agent's reach (not merely its prompt) and adds egress filtering plus audit logging at the proxy choke point, with Infisical's credibility and genuinely good supply-chain hygiene (attested, cosigned binaries) behind it. It does not clear the ADOPT ("use everywhere") bar because the value depends on a two-host deployment, requires CA-trust/MITM setup in every agent runtime, and is "Preview"/pre-1.0 with a fast-changing API — disproportionate for a solo developer running Claude Code locally with their own keys.
 

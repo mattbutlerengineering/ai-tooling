@@ -49,7 +49,7 @@ gh api repos/NVIDIA/garak/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you ship an LLM-backed feature and need a real, repeatable security assessment (prompt injection, jailbreaks, data leakage) rather than spot checks — ideally gated in CI before model/prompt changes go live. For lighter needs, promptfoo's red-team mode may suffice; reach for garak when you want NVIDIA's specialist probe depth.
 

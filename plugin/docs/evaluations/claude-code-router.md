@@ -61,7 +61,7 @@ Reviewed: the `Router` category model (default/background/think/longContext/webS
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 claude-code-router is the dominant, mature (35K stars, MIT, just hit 2.0.0) way to make Claude Code talk to models other than Claude, and its category-aware routing (`background`/`think`/`longContext` with a token threshold) is a genuinely good Cost-Efficiency lever — the strongest in its catalog cluster for *keeping the Claude Code UX while paying less per token*. That earns it a real place in the dev loop as an Infrastructure layer.
 

@@ -60,7 +60,7 @@ gh api 'repos/wshobson/agents/commits?per_page=1' -i | grep -i '^link:'         
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt selectively — add the marketplace and install only the one or two plugins whose content is genuinely additive (most likely a language/domain stack the user lacks, e.g. a specific backend/data/ML plugin, or the multi-harness packaging if the user works across Codex/Cursor/Gemini/Copilot). The per-plugin install loads only that plugin's components, so a scoped trial is safe. It earns CONDITIONAL over SKIP on real merits the solo bundles lack: honest counts that match the tree exactly, a genuine 64-contributor community (vs 2 for claude-night-market, 9 for gstack), a built-in `plugin-eval` quality framework with CI enforcement, an explicit cost-aware model-tier strategy, and a multi-harness adapter design that is the most distinctive thing in this niche.
 

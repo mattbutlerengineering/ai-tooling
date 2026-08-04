@@ -51,7 +51,7 @@ gh api repos/code-yeongyu/lazycodex/readme --jq '.content' | base64 -d | head -2
 
 ## Verdict
 
-**CONDITIONAL** — LazyCodex brings the **OmO quality bar — project memory, planning, execution, and verified completion — to Codex**, MIT-licensed with a one-line install, from the credible oh-my-* author. Adopt it if Codex is your harness and you want structured, drift-resistant workflows on complex codebases without the OmO setup ceremony. The main trade-off is cost: the OmO lineage is openly a "token burner," exchanging spend for thoroughness — fine for high-stakes work, expensive for routine tasks. If you're on Claude Code, use the sibling oh-my-claudecode instead; the choice here is host-driven.
+**discovery-log — tentative read** — LazyCodex brings the **OmO quality bar — project memory, planning, execution, and verified completion — to Codex**, MIT-licensed with a one-line install, from the credible oh-my-* author. Adopt it if Codex is your harness and you want structured, drift-resistant workflows on complex codebases without the OmO setup ceremony. The main trade-off is cost: the OmO lineage is openly a "token burner," exchanging spend for thoroughness — fine for high-stakes work, expensive for routine tasks. If you're on Claude Code, use the sibling oh-my-claudecode instead; the choice here is host-driven.
 
 Compared to neighbors: **oh-my-openagent** and **oh-my-claudecode** are the same family for other hosts; **codex-plugin-cc** bridges Codex and Claude Code config. LazyCodex's distinguishing pitch is **OmO-grade memory/planning/verified-completion specifically inside Codex**, one-line installed.
 
