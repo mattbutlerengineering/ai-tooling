@@ -3,6 +3,7 @@
 **Repo:** [ruvnet/ruflo](https://github.com/ruvnet/ruflo)
 **Stars:** 60,327 | **Last updated:** 2026-06-19 (v3.12.4, released 2026-06-18) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan + Implement + Verify + Review + Reflect (an orchestration + memory + learning layer over Claude Code)
 **Layer:** Infrastructure (MCP server, hooks daemon, WASM kernels, vector DB) + Tooling (45 CLI commands, 35 plugins, 98 agents)
 
@@ -76,6 +77,17 @@ It is CONDITIONAL rather than ADOPT because (a) the full install is a heavy, opi
 **Differentiation:** vs **omnigent** (CONDITIONAL) — both are large multi-agent orchestration layers, but omnigent is a *parallel* Python server/UI that *invokes* Claude Code (and Codex/Cursor/Pi) as one of several swappable harnesses with a governance/policy engine, whereas ruflo installs *into* the Claude Code session itself (MCP + hooks + `CLAUDE.md` routing) and centers on persistent vector memory + self-learning + federation rather than harness-swapping. omnigent is alpha/days-old; ruflo is v3.x with years of releases. vs **oh-my-openagent** (SKIP) — OmO replaces the front-end (runs on OpenCode/Codex, SUL-licensed); ruflo augments Claude Code directly and is MIT. vs **superpowers / oh-my-claudecode** (focused CC skill/plugin collections) — those are lean, in-loop skill libraries; ruflo is a far heavier full platform (memory DB, daemon, federation, WASM) with overlapping swarm/agent functionality but an order of magnitude more surface. vs the **MetaHarness** component specifically — its setup-grading + MCP-security-scan role overlaps with this catalog's own evaluate-tool/audit-workflow skills, but as a runnable scorer rather than a manual rubric.
 
 Re-evaluate toward ADOPT if the rename stabilizes to a single name, the open-issue count and churn settle, and an independent (non-author) benchmark confirms the swarm/memory/self-improvement wins — or down to a narrower recommendation if hands-on install reveals the background daemon to be fragile or noisy.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
+verdict; this bulk pass has no authority to promote it. `superpowers` is the STACK harness
+incumbent, but ruflo's swarm/memory/federation surface is an order of magnitude broader than
+superpowers covers, so "redundant" would understate it — the existing cherry-pick-or-skip
+posture stands. Left for the P0/eval-runner lane.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
 
 ## Catalog entry
 

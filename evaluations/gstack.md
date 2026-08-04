@@ -3,6 +3,7 @@
 **Repo:** [garrytan/gstack](https://github.com/garrytan/gstack)
 **Stars:** 111,392 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-sprint workflow)
 **Layer:** Process (with a Tooling browser/eval substrate underneath)
 
@@ -66,6 +67,18 @@ gh api 'repos/garrytan/gstack/commits?per_page=1' -i | grep -i '^link:'         
 Adopt selectively, on a project where you want a turnkey role-based sprint process — `/office-hours` → `/autoplan` → implement → `/review` → `/qa` → `/ship` — and are not already invested in an overlapping skills stack. gstack is the rare celebrity bundle whose substance holds up: the skills are real methodology (OWASP+STRIDE security, SQL/LLM-trust-boundary diff review, investigate-before-fix, real-browser QA with regression tests), the engineering is unusually mature for a 3-month-old repo (Docker E2E eval CI, ~574 test paths, ADR-style design docs, weekly versioned releases), and it lives natively inside the dev loop. The `--prefix` / `--no-prefix` and `--host` options plus opt-in safety guards make a scoped trial feasible.
 
 It is **not** ADOPT for this user because (1) the 111K stars are celebrity- and marketing-driven, not a community-quality signal (9 contributors, 705 open issues, self-reported "810×" claims) — assess on substance, which earns CONDITIONAL, not on the number; and (2) it heavily duplicates tools the user already runs — superpowers (TDD/review/debug/verification), OMEGA and `/learn`/GBrain (memory), and the user's own commit/review skills — while owning `~/.claude/skills/` with an auto-updating preamble that risks conflicts. Installing the whole pack would be redundant and invasive; the sensible path is a namespaced (`--prefix`) trial on one project, cherry-picking the genuinely additive skills (`/cso` security audit, `/qa` real-browser QA, `/design-shotgun`→`/design-html` design pipeline, `/codex` cross-model second opinion) that superpowers/OMEGA don't already cover. Re-evaluate toward ADOPT if a hands-on run on a real project shows the QA/security skills outperform the user's existing stack, or if it grows genuine multi-contributor validation. It is more substantive than persona-only bundles (agency-agents, claude-code-staff-engineer) and comparable in rigor to claude-night-market / oh-my-claudecode — same CONDITIONAL/cherry-pick posture as those.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL read at Evidence REVIEW — per the triage-lead protocol that is a tentative
+lead-level read, not a promotable verdict, and this bulk pass has no authority to promote it
+to KEEP/ADOPT. Nothing in this pass's scope changes the underlying analysis (redundant with
+`superpowers`, the STACK harness incumbent, for the core skill-pack role, but differentiated
+enough — real methodology, mature CI — to be worth a scoped hands-on trial per the existing
+verdict). Left for the P0/eval-runner lane to actually run it.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
 
 ## Catalog entry
 

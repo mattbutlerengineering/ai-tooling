@@ -3,6 +3,7 @@
 **Repo:** [ghostsecurity/skills](https://github.com/ghostsecurity/skills)
 **Stars:** 393 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -59,6 +60,18 @@ Not hands-on tested (requires a project with security-relevant code to scan mean
 **CONDITIONAL**
 
 Use when your project needs structured security scanning beyond what trailofbits/skills provides. trailofbits/skills (ADOPT) gives you audit methodology — how to systematically review code for security issues. ghostsecurity/skills gives you automated scanning pipelines — SAST, SCA, secrets, and DAST validation with 103 vulnerability vectors and independent verification. They're complementary: trailofbits for manual security review discipline, ghostsecurity for automated scanning coverage. The closed-source scanner binaries (wraith, poltergeist) are a trust tradeoff — you get deeper SCA/secrets scanning but can't audit the scanner itself.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
+verdict; this bulk pass has no authority to promote it. `security-guidance` (ADOPT/STACK)
+is in-loop diff-time security review; ghostsecurity/skills is a separate, deeper AppSec
+scanning pipeline (SAST/SCA/secrets/DAST) the existing eval already marks complementary
+rather than redundant, so a mechanical SKIP isn't defensible here. Left for the
+P0/eval-runner lane.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
 
 ## Catalog entry
 

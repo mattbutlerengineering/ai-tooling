@@ -3,6 +3,7 @@
 **Repo:** [stablyai/orca](https://github.com/stablyai/orca)
 **Stars:** 5,540 | **Last updated:** 2026-06-20 (pushed; created 2026-03-17) | **License:** MIT | **Platforms:** desktop + iOS/Android
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Agent Orchestration (an "ADE" — agent development environment)
 **Layer:** Harness / platform (GUI app that hosts many coding agents)
 
@@ -58,6 +59,17 @@ gh api repos/stablyai/orca/readme --jq '.content' | base64 -d | head -25   # ADE
 **CONDITIONAL** — Orca is an ambitious, MIT, agent-agnostic **ADE for running a fleet of coding agents in parallel** — its worktree fan-out ("five agents, compare, merge the winner"), mobile steering, Design Mode, and native GitHub/Linear are genuinely differentiated. Adopt it if you regularly run several agents at once and want one workspace (desktop + phone) to launch, isolate, compare, and merge their work. The trade-off is weight: it's a GUI environment you commit to, overlapping a stack of lighter catalog tools (claude-squad, worktrunk, dmux, claude-fleet, happy) bundled together, and fan-out multiplies token cost. Pilot it as your workspace on a real multi-agent day before switching.
 
 Compared to neighbors: **claude-squad** is a TUI for parallel sessions; **worktrunk** manages worktrees; **dmux** multiplexes; **claude-fleet** monitors; **happy** adds mobile. Orca's distinguishing pitch is the **all-in-one ADE** that unifies fan-out worktrees, multi-agent hosting, Design Mode, and mobile in one app.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
+verdict; this bulk pass has no authority to promote it. `claude-squad` is the STACK
+incumbent for parallel-agent sessions, but Orca's differentiators (worktree fan-out +
+merge-the-winner, mobile steering, Design Mode) aren't things claude-squad does, so the
+existing "pilot it, don't auto-adopt" read stands. Left for the P0/eval-runner lane.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
 
 ## Catalog entry
 
