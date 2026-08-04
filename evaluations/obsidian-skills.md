@@ -3,6 +3,7 @@
 **Repo:** [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills)
 **Stars:** 36,142 | **Last updated:** 2026-06-08 (pushed; created 2026-01-02) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Mostly *out of the code dev loop* — it teaches an agent to read/write a personal knowledge base (Obsidian vaults). The one stage-relevant member is `defuddle` (web → clean markdown), which touches Research/Discover and Plan by cutting ingestion token cost.
 **Layer:** Process (five Agent-Skills-spec `SKILL.md` files plus reference docs; no runtime — the only executable dependency is the external Obsidian CLI / Defuddle CLI the skills shell out to)
 
@@ -66,6 +67,18 @@ gh api repos/kepano/obsidian-skills/contributors --jq '[.[].login]'  # ~15, kepa
 **discovery-log — tentative read: install `defuddle` for any agent; install the rest only if you live in Obsidian.** This is a small, first-party, exemplary-quality skill pack with the best Agent-Skills hygiene in the catalog. But four of its five skills are personal-knowledge-management tooling that sits outside the software dev loop — they are excellent *if and only if* your workflow runs through an Obsidian vault. The portable, broadly-useful piece is `defuddle` (web → clean markdown, token-saving), which is worth lifting on its own. Treat the markdown/bases/canvas skills as best-in-class *reference examples* of skill authoring even if you never keep a vault.
 
 Compared to neighbors: it is the spiritual companion to **tolaria** (an Obsidian-class local-first markdown KB app whose vaults double as agent context) — tolaria gives you the *vault*, obsidian-skills teaches the agent to *write* it. Against the catalog's documentation cluster (**documentation-writer**, **documentation-and-adrs**) it is narrower and format-specific rather than process-driven. Unlike the sprawling research-skill packs, its discipline is its strength: five skills, no theater, first-party. It earns CONDITIONAL purely on audience narrowness, not quality.
+
+## Triage note
+
+Left at `discovery-log`. Checked whether the documentation cluster (`documentation-writer`,
+`documentation-and-adrs`) subsumes it — it does not: those are process-driven, this is format-specific
+(Obsidian markdown/bases/canvas). Five skills, first-party, no theater.
+
+The eval flags one genuinely portable piece, `defuddle` (web → clean markdown, token-saving), which is
+useful to any agent regardless of whether you keep a vault. That is a cherry-pick worth preserving and
+another reason not to eliminate the row wholesale.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

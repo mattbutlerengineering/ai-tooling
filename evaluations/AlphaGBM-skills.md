@@ -3,6 +3,7 @@
 **Repo:** [AlphaGBM/skills](https://github.com/AlphaGBM/skills)
 **Stars:** 951 | **Last updated:** 2026-05-27 (pushed; created 2026-04-06) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** None of the software dev loop. This is a *domain* skill pack for options/equities trading and market research — it sits outside Plan/Implement/Verify/Review/Ship/Reflect entirely. The only loop-adjacent piece is `cli/` (a thin Python client you could read as a reference for skill→API wiring).
 **Layer:** Process (29 single-file `SKILL.md` instruction packs that teach an agent to call the hosted AlphaGBM options-data API, plus mock JSON and a pip-installable CLI; no orchestration runtime)
 
@@ -58,9 +59,34 @@ gh api repos/AlphaGBM/skills/releases --jq 'length'   # 0
 
 ## Verdict
 
-**discovery-log — tentative read (finance-only): keep in catalog as a domain pack; irrelevant to software development.** AlphaGBM/skills is a tidy, real-data options-intelligence layer for traders, with the genuinely sound instinct of routing quantitative questions to an API instead of the model. But it is a free funnel to a paid single-vendor SaaS, its "battle-tested / 10K users" claims are unverifiable vendor copy, and it has **no bearing on the AI-for-software-development loop**. Adopt only if options/market analysis is part of your actual work; otherwise SKIP. Keep the catalog row flagged domain-specific.
+**SKIP** — redundant with [`himself65/finance-skills`](./himself65-finance-skills.md), the catalog's
+other finance domain pack, which is broader on every axis that matters and less locked in.
 
-Compared to neighbors: like **pm-skills** and **marketingskills**, this is a non-software *domain* collection that belongs in the catalog only as an "if you do this work" reference. It is **narrower and more commercial** than either — pm-skills (100+) and marketingskills are broad, vendor-neutral, free skill packs, whereas AlphaGBM gates its real value behind a paid API for one narrow vertical (options). Versus the *other* finance pack [himself65/finance-skills](./himself65-finance-skills.md), AlphaGBM is single-vendor and options-centric; himself65 is multi-provider (yfinance, opencli, MCP) and broader, making AlphaGBM the more locked-in of the two.
+The two sibling evals reach this ordering **independently and in agreement**: this one records that
+"himself65 is multi-provider (yfinance, opencli, MCP) and broader, making AlphaGBM the more locked-in
+of the two", and its counterpart records that "for anyone doing finance work, himself65 is the better
+default; AlphaGBM is the narrower options-specialist alternative". This row's own `Overlaps with` cell
+in `CATALOG.md` already says as much — "himself65/finance-skills (broader, vendor-neutral)". The
+catalog does not need two entries for one non-dev domain when one of them is a strict narrowing of the
+other.
+
+The disposal turns on structure rather than quality. Routing quantitative questions to a real-data API
+instead of letting the model invent numbers is a sound instinct and this pack has it. But the API is a
+single vendor's paid product, the free skills are a funnel to it, and the "battle-tested / 10K users"
+framing is unverifiable vendor copy — so what is left after removing the paid dependency is a subset
+of what the vendor-neutral sibling does for free. Star counts point the same way (★1,692 vs ★3,115,
+re-checked 2026-08-04).
+
+Both are MIT and neither touches the software dev loop; scope is not the ground here, and would not
+have been available — the Skills & Plugins blurb ("Extensions that add domain-specific capabilities to
+coding agents") deliberately holds domain packs, which is why every other domain pack in this slice
+was left alone.
+
+Re-open if the options API becomes free or self-hostable, if `himself65/finance-skills` is retired, or
+if a measured eval shows the options-specific skills outperforming the general finance ones on a task
+the broader pack cannot do.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [google/skills](https://github.com/google/skills)
 **Stars:** 13,918 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -57,6 +58,19 @@ gh api repos/google/skills/contents/skills/cloud/gemini-api/SKILL.md --jq '.cont
 **discovery-log — tentative read**
 
 Use when building on Google Cloud or Firebase. The 33 skills cover the most common GCP services with authoritative, up-to-date guidance that prevents deprecated SDK usage — a genuine quality signal for Correctness. The 6-pillar Well-Architected Framework is the most structured cloud architecture skill set in the catalog. Skip if you're not using Google Cloud services; the skills have no general-purpose engineering value outside the GCP ecosystem.
+
+## Triage note
+
+Left at `discovery-log`. First-party GCP/Workspace/Firebase pack; in scope under the broad Skills &
+Plugins blurb, and its 6-pillar Well-Architected content has no catalogued equivalent to be redundant
+with. See the `gemini-skills` note for the one open question that touches this row — whether the
+Gemini pack is a subset of this one — which needs a read of both trees rather than a triage guess.
+
+Noted in passing: this eval's embedded `## Catalog entry` row names `microsoft/skills` as the overlap
+while `CATALOG.md` says "— (domain-specific)". That mirror drift is not unique to this row and is
+filed separately; the authoritative file is `CATALOG.md`.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

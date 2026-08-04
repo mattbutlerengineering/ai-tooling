@@ -3,6 +3,7 @@
 **Repo:** [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)
 **Stars:** 28,756 | **Last updated:** 2026-06-15 (pushed; created 2025-10-19) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (domain research, data access, literature) → Implement (writing analysis code against scientific libraries/databases); a research-domain analogue, not the code dev loop
 **Layer:** Tooling (147 Agent Skills — curated `SKILL.md` + references + a few deterministic Python scripts per skill; cross-tool via the open Agent Skills standard)
 
@@ -59,6 +60,19 @@ gh api repos/K-Dense-AI/scientific-agent-skills/releases --jq '.[0].tag_name'   
 **discovery-log — tentative read** — adopt if you do scientific/research computing (bio, chem, med, materials, geospatial, physics) and want your agent to reliably reach a large, pre-documented library and database surface. It is mature, MIT-licensed, well-distributed, and security-scans its own contributions. Skip it for general software work: it is a domain-research enabler that does not touch the code dev loop, and for libraries a frontier model already knows well the marginal lift is small — the real value is the long-tail libraries and the 78-database catalog.
 
 Compared to neighbors: this is the **breadth** complement to **academic-research-skills (CONDITIONAL)**, which is a *depth* play on the single paper-writing workflow with hard integrity gates and citation verification — but a NonCommercial license. scientific-agent-skills wins on license (MIT), distribution, and domain coverage; ARS wins on rigor-per-workflow. They are genuinely complementary: use scientific-agent-skills to *do* the science (data access, analysis libraries) and ARS to *write it up*. Against **AI-Research-SKILLs** (the generic "turn agents into researchers" library), this is the science-specialized, far larger, better-maintained instance. Among the three evaluated here it ties academic-research-skills as the strongest, separated mainly by which problem you have.
+
+## Triage note
+
+Left at `discovery-log`. This and `academic-research-skills` are the obvious redundancy pair in this
+slice and they are complements, not duplicates: breadth (147 domain skills, ~78 databases, all of
+science) versus depth (one paper-writing workflow with hard integrity gates). Their own two evals
+agree on the split — "use scientific-agent-skills to *do* the science and ARS to *write it up*".
+
+The material difference for this catalog is license: **MIT here, CC BY-NC 4.0 there.** That is the
+axis on which the pair separates for any commercial reader, and it is why the sibling carries a
+license note and this row does not.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

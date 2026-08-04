@@ -3,6 +3,7 @@
 **Repo:** [twostraws/SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill)
 **Stars:** 4,134 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -67,6 +68,18 @@ Evaluated against three practical questions:
 **discovery-log — tentative read**
 
 Use when developing SwiftUI applications targeting iOS 26+. The skill is the highest-quality domain-specific review skill in the catalog — authored by a recognized Swift authority, targeting real LLM failure modes rather than restating documentation, and structured for token-efficient progressive disclosure. The companion skills (SwiftData, Concurrency, Testing) round out a complete Apple development stack. Not relevant for non-Apple projects.
+
+## Triage note
+
+Left at `discovery-log`. Domain pack (Apple/SwiftUI), in scope under the broad Skills & Plugins blurb,
+with no catalogued competitor to be redundant with.
+
+Its differentiator is worth keeping findable: the eval's read is that it targets real LLM failure
+modes on iOS 26+ rather than restating Apple's documentation, which is the difference between a skill
+that changes agent output and one that spends tokens repeating what the model knows. That claim is
+exactly what a triggering / with-skill-vs-baseline A/B would settle, and it is P0 work.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

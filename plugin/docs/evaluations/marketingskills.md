@@ -3,6 +3,7 @@
 **Repo:** [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
 **Stars:** 34,093 | **Last updated:** 2026-06-17 (pushed; created 2026-01-15) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outside the software dev loop — it targets a *marketing* workflow (CRO, copy, SEO, ads, lifecycle, GTM), not Plan/Implement/Verify/Review/Ship/Reflect on code. The closest overlap with our loop is "growth engineering" tasks (programmatic SEO pages, schema markup, free-tool builds) where a marketer-developer writes code, but the skills themselves coach *marketing decisions*, not code quality.
 **Layer:** Process (a portable collection of `SKILL.md` instruction files installed into any Agent-Skills-compatible tool; no runtime, no executing code)
 
@@ -59,6 +60,23 @@ gh api repos/coreyhaines31/marketingskills/contributors --jq '[.[].login]|length
 **SKIP for the core software-dev workflow — CONDITIONAL if you do your own marketing.** marketingskills is a well-architected, eval-backed, genuinely useful skill pack — but for *marketing*, not software development. It does not intervene at any dev-loop stage and moves none of our code-quality signals. The right audience is the solo founder / technical marketer who already lives in Claude Code and wants the same agent to also draft a landing page or audit SEO. For that person it's a strong CONDITIONAL adopt (the eval discipline and `product-marketing` foundation make it better than most domain packs). For a software team optimizing the dev loop, SKIP — it's adjacent, not in scope.
 
 Compared to neighbors: it is the **best-authored domain collection in this row** (43 eval files vs. zero for baoyu-design, obsidian-skills, AlphaGBM/skills), but like all of them it's domain-specific and outside core dev. **claude-seo** overlaps directly on the SEO subset and is similarly out-of-scope; **pm-skills** is the closest sibling (a marketplace of business-function skills) and is more dev-relevant only because of its `pm-ai-shipping` plugin. marketingskills has no such bridge into code.
+
+## Triage note
+
+Left at `discovery-log` — **deliberately not flipped to SKIP**, even though this eval's own headline
+opens "SKIP for the core software-dev workflow". Taking only that clause would be selective reading:
+the same sentence continues "CONDITIONAL if you do your own marketing", and the Skills & Plugins
+category blurb is "Extensions that add domain-specific capabilities to coding agents" — domain packs
+are what this section holds, so the CONDITIONAL clause is the one the catalog's own scope protects.
+
+This is the same reversal made in the previous slice over the design/presentation packs: the narrow
+Security & Safety blurb licensed six scope SKIPs there, and this blurb licenses none. A SKIP here
+would be re-litigating the section's definition under the guise of triaging one lead.
+
+Worth recording for whoever does measure it: at 43 eval files this is the best-instrumented domain
+pack in the section, which makes it the cheapest one to verify rather than the first to cut.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

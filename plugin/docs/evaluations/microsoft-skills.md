@@ -3,6 +3,7 @@
 **Repo:** [microsoft/skills](https://github.com/microsoft/skills)
 **Stars:** 2,592 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -61,6 +62,18 @@ Not hands-on tested (no Azure project available). Evaluation based on SKILL.md q
 **discovery-log — tentative read**
 
 Use when building on Azure or Microsoft AI Foundry — the SDK skills encode genuine production patterns that prevent real security and architecture mistakes. The cloud-solution-architect and mcp-builder skills have standalone value outside Azure projects. Skip if your stack doesn't touch Microsoft services — the 155 Azure-specific skills provide no value and the 20 general skills are covered better by mattpocock/skills (ADOPT) and agent-skills (ADOPT).
+
+## Triage note
+
+Left at `discovery-log`. See the `azure-skills` note — the two first-party Microsoft packs are
+complements (SDK coding patterns here, cloud operations there), not duplicates.
+
+The one clause that reads like a disposal ground is this eval's "the 20 general skills are covered
+better by mattpocock/skills (ADOPT) and agent-skills (ADOPT)". That disposes the *general* fifth of
+the pack, not the 155 Azure-specific skills that are the reason to install it, so it is not a
+redundancy SKIP for the row.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

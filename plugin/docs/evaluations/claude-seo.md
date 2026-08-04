@@ -3,6 +3,7 @@
 **Repo:** [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)
 **Stars:** 9,262 | **Last updated:** 2026-06-13 (pushed; created 2026-02-07) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify / Review — a domain audit layer that scores a shipped site against primary-source SEO/GEO guidance and produces a prioritized action plan; runs outside the code-change loop on a deployed surface
 **Layer:** Process / Tooling (a Claude Code plugin: 25 sub-skills + 18 sub-agents orchestrated in parallel; optional MCP/API extensions add infrastructure)
 
@@ -62,6 +63,16 @@ gh api repos/AgriciDaniel/claude-seo/contributors --jq '[.[].login]'  # 12, incl
 **discovery-log — tentative read** — adopt when SEO/GEO is an actual deliverable for you or your clients (agencies running multiple sites, in-house SEO leads, freelance consultants doing audits). For a general engineering team that ships a product and occasionally wants a sanity check on meta tags and schema, this is overkill — reach for the lighter SEO pass in `web-quality-skills` instead. It is a domain tool that earns its place in the catalog's skills section, but it is not a dev-loop default.
 
 Compared to neighbors: the catalog marks claude-seo's overlap as "— (domain-specific: SEO)" and that's accurate — nothing else in the catalog covers SEO at this depth. The closest neighbor is **web-quality-skills (addyosmani)**, whose SEO is one slice of a broader accessibility/performance/Core-Web-Vitals audit suite; web-quality-skills is the better pick when SEO is a *secondary* concern bundled with general web quality, while claude-seo wins decisively when SEO/GEO is the primary job and you need backlinks, clustering, local, and AI-search depth. **security-best-practices** overlaps only on the narrow "security headers" sliver. claude-seo's real competition is commercial SEO platforms (Ahrefs, Semrush, Screaming Frog), against which its differentiator is the agentic, falsifiability-checked, in-your-terminal workflow — and, candidly, its weakness is that the strongest data still flows through those same paid APIs as extensions.
+
+## Triage note
+
+Left at `discovery-log`. Checked its nearest catalogued neighbor, `web-quality-skills` (addyosmani),
+where SEO is one slice of a broader accessibility/performance/Core-Web-Vitals suite. That is a real
+overlap but not a subsuming one and the direction depends on the job: web-quality-skills wins when SEO
+is secondary, this wins when SEO/GEO is the deliverable (backlinks, clustering, local, AI-search).
+Neither is in STACK, so there is no incumbent to be redundant with.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

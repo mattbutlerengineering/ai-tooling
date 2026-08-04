@@ -3,6 +3,7 @@
 **Repo:** [phuryn/pm-skills](https://github.com/phuryn/pm-skills)
 **Stars:** 19,769 | **Last updated:** 2026-06-06 (pushed; created 2026-03-01) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Mostly *outside* the software dev loop — it targets the product-management workflow (discovery → strategy → execution → launch → growth). The exception is the `pm-ai-shipping` plugin, which lands squarely in our **Verify/Review** stages: it audits AI-built code for the gap between documented intent and actual implementation (`intended-vs-implemented`, `ship-check`, static security/performance audits).
 **Layer:** Process (a Claude Code plugin *marketplace* of `SKILL.md` files + `/slash` command workflows; no runtime, no executing code)
 
@@ -61,6 +62,18 @@ gh api repos/phuryn/pm-skills/contributors --jq '[.[].login]|length'   # 2
 **discovery-log — tentative read: install `pm-ai-shipping` only if you ship AI-built code; SKIP the rest unless you also do PM.** pm-skills is a well-structured plugin marketplace with composed command workflows, which puts it a notch above flat persona/skill dumps. But 8 of its 9 plugins are product-management work that doesn't intervene in the software dev loop. The lone bridge into our catalog is `pm-ai-shipping` — `intended-vs-implemented` is a sharp, genuinely useful Verify/Review method for auditing generated code against documented intent, and worth cherry-picking. The two-author maintenance profile and absence of eval files temper confidence; install the one plugin, skip the bulk.
 
 Compared to neighbors: **marketingskills** (sibling business-function pack) is better-authored on rigor (43 eval files vs. none here) but has *no* dev bridge — pm-skills' `pm-ai-shipping` makes it marginally more relevant to a software team. Versus **harness** (revfactory), which *generates* a tailored team, pm-skills is a fixed curated marketplace; versus **agency-agents**, its chained commands are real composition rather than hand-activated personas. For pure code work, the dedicated review/audit tools elsewhere in the catalog beat a PM marketplace's one shipping plugin.
+
+## Triage note
+
+Left at `discovery-log`. Domain pack, in scope under the broad Skills & Plugins blurb — the same
+reasoning recorded at length on `marketingskills`.
+
+Distinct from its sibling business packs on one point worth keeping findable: `pm-ai-shipping`'s
+`intended-vs-implemented` is an actual Verify/Review method for auditing generated code against
+documented intent. That is a dev-loop bridge the other domain packs in this section do not have, and
+it is the piece a future measured eval should test rather than the marketplace as a whole.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
