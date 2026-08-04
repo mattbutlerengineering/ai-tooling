@@ -588,7 +588,7 @@ All 634 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cloudflare-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | agent-toolkit-for-aws | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | confluence | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| devfleet | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| devfleet | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | mcp-github-trending | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | fal-ai-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -614,10 +614,10 @@ All 634 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mirage | tool | | ✓ | discovery-log | REVIEW |
 | Pare | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | warden | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| ref-tools-mcp | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
-| DesktopCommanderMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| ref-tools-mcp | MCP server | ✓ | ✓/$ | SKIP | REVIEW |
+| DesktopCommanderMCP | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | DebugMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| google-workspace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| google-workspace-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | mcp-context-forge | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | gh-aw-mcpg | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -727,7 +727,7 @@ All 634 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 42 | 9 | 2 | 21% |
 | Skills & Plugins | 88 | 21 | 4 | 24% |
 | Memory & Context | 49 | 10 | 2 | 20% |
-| MCP Servers | 43 | 9 | 2 | 21% |
+| MCP Servers | 43 | 13 | 2 | 30% |
 | Research & Discovery | 19 | 3 | 1 | 16% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **634** | **158** | **34** | **25%** |
+| **Total** | **634** | **162** | **34** | **26%** |

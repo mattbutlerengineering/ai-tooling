@@ -3,6 +3,7 @@
 **Repo:** [wonderwhy-er/DesktopCommanderMCP](https://github.com/wonderwhy-er/DesktopCommanderMCP)
 **Stars:** ~6,200 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (agent execution / MCP server)
 **Layer:** Infrastructure
 
@@ -49,9 +50,11 @@ gh api repos/wonderwhy-er/DesktopCommanderMCP/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`serena`](https://github.com/oraios/serena) plus the harness's own tools. Desktop Commander sells three capabilities: shell execution, filesystem search, and diff-based file editing. This repo's supported harnesses are Claude Code and opencode (see `CLAUDE.md`), and both ship the first two natively as Bash/Glob/Grep; serena — a STACK pick, Tier 1, `ADOPT`/`MEASURED` — already covers the third at the level that matters, symbol-aware editing rather than whole-file diffs. This eval's own earlier read reached the same conclusion in passing: *"For Claude Code users it's largely redundant with the native Bash/Edit tools."*
 
-Adopt if you primarily work inside Claude Desktop or another chat MCP client and want real terminal + file-editing power on a subscription cost model — paired with command-safety guards (cc-safety-net/agentlint) and run only in trusted directories. For Claude Code users it's largely redundant with the native Bash/Edit tools. Treat the shell-access safety implications deliberately before enabling.
+Its distinguishing pitch is the cost model — route agent work through a chat client's subscription instead of paying per API token. That is a workaround for *not* having an agentic CLI, and it buys nothing for a stack built on two of them. It also asks for the largest safety concession in this category (unsandboxed shell + filesystem write from a chat client) in exchange.
+
+Re-open only if the harness assumption changes — an operator working primarily inside Claude Desktop is exactly the reader this tool is for, and this skip does not claim otherwise.
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [taylorwilsdon/google_workspace_mcp](https://github.com/taylorwilsdon/google_workspace_mcp)
 **Stars:** ~2,700 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (MCP server)
 **Layer:** Infrastructure
 
@@ -49,9 +50,11 @@ gh api repos/taylorwilsdon/google_workspace_mcp/readme --jq '.content' | base64 
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — same capability, same scope call, as [`googleworkspace/cli`](https://github.com/googleworkspace/cli), which this catalog already SKIPped: *"an adjacent capability tool, out of core scope … a side-channel for reading/writing Google Workspace … not a tool to install for building software."* This server is that same capability delivered over MCP instead of a CLI, so it inherits the decision rather than reopening it. This catalog is an operating manual for AI-assisted *development*, organized around dev-loop stages and code-quality signals; Workspace access moves none of them.
 
-Adopt when you want agents to act on Google Workspace (Gmail/Calendar/Drive/Docs/etc.) with fine-grained editing and need secure, org-hostable, multi-user OAuth — the most complete Workspace MCP available, with CLI/Code Mode for Claude Code/Codex. Budget OAuth setup and treat the write-access surface as high-trust (scope credentials, review actions). For single-user read-only needs, a lighter Gmail/Calendar MCP may suffice.
+Nothing here is a criticism of the tool. On its own terms it is the most complete Workspace MCP available — 10 apps, remote OAuth 2.1, multi-user, stateless mode — and if your agent workflow legitimately needs Workspace (specs in Docs, calendar ops, status reporting), it is the one to reach for. It is simply not a *dev-loop* tool, which is what this catalog stocks.
+
+Re-open only if the scope boundary itself is revisited — and then as one decision covering both this and `googleworkspace/cli`, not as a one-off.
 
 ## Catalog entry
 

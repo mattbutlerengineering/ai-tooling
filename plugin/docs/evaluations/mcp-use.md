@@ -3,6 +3,7 @@
 **Repo:** [mcp-use/mcp-use](https://github.com/mcp-use/mcp-use)
 **Stars:** 10,123 | **Last updated:** 2026-06-19 (pushed; created 2025-03-28) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Implement (build MCP servers/apps) + a thin slice of Verify (the Inspector for testing/debugging servers). It is infrastructure you build *with*, not a tool that intervenes in your project's dev loop — relevant only when the thing you ship *is* an MCP server or MCP app.
 **Layer:** Tooling/Infrastructure — an SDK + scaffolder (`create-mcp-use-app`) + web Inspector + CLI, plus a managed cloud (Manufact) for deploy/observability. Maintained by manufact.com, the commercial host behind it.
 
@@ -57,6 +58,21 @@ gh api repos/mcp-use/mcp-use/releases --jq 'length'   # 30 (page-1 cap — frequ
 **CONDITIONAL — adopt if you are building MCP servers or (especially) MCP Apps/widgets; otherwise it's infrastructure you don't need.** mcp-use is a legitimate, actively maintained, fullstack MCP framework whose standout is the MCP Apps widget layer that pure server frameworks lack. The caveats are scope sprawl and a deliberate funnel toward the maintainer's commercial cloud for deploy/observability — fine if you self-host the MIT SDK, a lock-in vector if you lean on Manufact.
 
 Compared to neighbors: **fastmcp** is the narrower, more battle-tested *server-only* builder — pick it if all you need is a Pythonic MCP server with no UI/widgets. **fast-agent** is the narrower *client/agent* framework — pick it if you only need to build and evaluate an agent over MCP. mcp-use's claim to the slot is that it does both *plus* interactive widgets in one package; that breadth is its advantage over either neighbor and its main risk. Use mcp-use when "interactive MCP app across Claude/ChatGPT" is the goal; use fastmcp/fast-agent when you want one focused half.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The STACK pick it overlaps is
+[`fastmcp`](https://github.com/PrefectHQ/fastmcp), which builds MCP **servers** — mcp-use's
+standout is the layer fastmcp has no answer for: MCP Apps/widgets, plus the client/agent side
+of the protocol. That is additive, not redundant. At 10.3K stars, MIT, and actively pushed it
+is also exactly the kind of major tool the eliminate-only protocol says not to dismiss as
+"redundant with X" from a README read. Left for the P0/eval-runner lane.
+
+Watch item for whoever runs it: the deliberate funnel toward the maintainer's commercial cloud
+for deploy/observability. Self-hosting the MIT SDK is fine; leaning on the hosted side is a
+lock-in vector, and that distinction is what a real evaluation should settle.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

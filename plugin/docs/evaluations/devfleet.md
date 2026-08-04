@@ -3,6 +3,7 @@
 **Repo:** [LEC-AI/claude-devfleet](https://github.com/LEC-AI/claude-devfleet)
 **Stars:** 16 | **Last updated:** 2026-05-28 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (also Plan — AI project planner; Ship — auto-merge of worktree branches)
 **Layer:** Infrastructure (a coordination service, not a single tool)
 
@@ -70,9 +71,11 @@ grep -inE "claude-squad|gastown|devfleet" /Users/mbutler/github/ai-tooling/CATAL
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`claude-squad`](https://github.com/smtg-ai/claude-squad), the installed STACK pick for running agents in parallel. Both fill the "coordinate several agents at once" slot; claude-squad holds it already (STACK, Tier 1, `RUN`) and asks for nothing but a `go install`.
 
-Consider Claude DevFleet when you specifically want **MCP to be the orchestration bus** — i.e., you want to drive a small fleet of Claude Code agents *from inside* another MCP client (Claude Code, Cursor, Cline) via `plan_project`/`dispatch_mission`/`wait_for_mission`, and you want the agents themselves to coordinate over MCP (context server + sub-mission/report tools) rather than over a bespoke CLI. That MCP-native design is the genuine reason this entry earns a slot distinct from the worktree-cockpit cluster. It is **not** a default adoption: it is a single-maintainer, 16-star, no-tagged-release platform that requires standing up a stateful self-hosted service, caps at 3 agents by default, and has no described auth on its control endpoint. Adopt only if the MCP-orchestration angle is the point and you accept early-stage, single-author risk; otherwise prefer the more mature peers below. Re-evaluate after it gains tagged releases, additional contributors, and an auth story for the `/mcp` endpoint.
+DevFleet's genuine differentiator is that **MCP is the orchestration bus** — the fleet is drivable from inside another MCP client. That is a real design distinction, but it is not one this pass can price, and everything around it is dominated: a single maintainer, 16 stars, no tagged release, a default cap of 3 agents (below claude-squad's practical range), and a stateful self-hosted FastAPI service with **no described auth on its `/mcp` control endpoint** — an unauthenticated endpoint that dispatches agents against your repos. The maturity gap alone decides the challenge; the missing auth story makes adopting it now a safety regression against the incumbent.
+
+Re-open if it gains tagged releases, more than one contributor, and auth on the control endpoint — at which point "MCP as the orchestration substrate" is worth a real head-to-head against claude-squad and gastown in the P0 measure band.
 
 **vs. claude-squad / dmux / gastown (the parallel-agent cluster).** All four isolate agents (worktrees or terminal sessions), but they differ on the *coordination substrate*:
 - **claude-squad** — a TUI that runs multiple Claude/Codex/Amp terminal sessions in parallel for visibility. Lightweight, agent-agnostic, no programmatic control plane.

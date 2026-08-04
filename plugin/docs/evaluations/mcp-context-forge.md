@@ -3,6 +3,7 @@
 **Repo:** [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge)
 **Stars:** ~3,930 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Implement (MCP infrastructure / gateway)
 **Layer:** Infrastructure
 
@@ -52,6 +53,20 @@ gh api repos/IBM/mcp-context-forge/readme --jq '.content' | base64 -d
 **CONDITIONAL**
 
 Adopt at team/org scale when you run many MCP/A2A/REST endpoints and need a central registry + proxy with governance, discovery, access control, and observability — the "API gateway for agent tools." It's infrastructure to operate, so it's overkill for a couple of personal MCP servers. Distinct from LLM gateways (bifrost/Portkey): ContextForge federates *tools/agents/APIs*, not LLM providers. Strong, IBM-backed option for MCP at scale.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — there is no incumbent for it to
+lose to. Its overlaps (bifrost, Portkey-gateway, mcp-use) are all themselves un-adopted, and
+`fastmcp` is a server framework, not a gateway: nothing in STACK federates or governs a fleet
+of MCP/A2A/REST endpoints. A redundancy SKIP is simply not available here.
+
+What it plainly is: org-scale. Federation over Redis, K8s deployment, RBAC, OpenTelemetry, and
+40+ plugins are built for a platform team governing many teams' endpoints, against a
+single-operator stack that wires up a handful of servers by hand. That makes it low priority,
+and low priority is not elimination — the honest disposition is to leave it queued.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

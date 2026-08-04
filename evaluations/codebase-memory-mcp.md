@@ -3,6 +3,7 @@
 **Repo:** [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
 **Stars:** 8,056 | **Created:** 2026-02-24 | **Last commit:** 2026-06-19 | **Latest release:** v0.8.1 (2026-06-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Plan / Implement (inner loop) — code understanding
 **Layer:** Tooling
 
@@ -57,6 +58,20 @@ gh api repos/DeusData/codebase-memory-mcp/releases --jq '.[0:3][] | {tag:.tag_na
 **CONDITIONAL**
 
 The most security-hardened and best-documented entry in our code-intelligence-graph cluster, and the only one with a published preprint and benchmark methodology — that combination is the reason to look at it over `gortex` (more languages: 257, but thinner trust signals) or `code-context-engine` (simpler, search-only). Adopt it when you need a local, zero-dependency, broad-language structural index and you value the supply-chain provenance. It stays CONDITIONAL rather than ADOPT for two reasons: it is pre-1.0 and only four months old (no stability track record, three same-day releases), and its installer auto-writes agent config and pre-tool hooks across 11 agents — a high-trust action you should audit before running. The conflicting token-savings figures (10x/99%/120x) also argue for measuring on your own repo before believing the headline. Re-evaluate at a 1.0 release.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. This is a true challenger to
+[`codegraph`](https://github.com/colbymchenry/codegraph) (STACK, Tier 1, `ADOPT`/`MEASURED`) —
+both build a persistent structural index of a codebase for agents to query. But it is not
+*dominated*: 29K stars, a static signed binary with SLSA 3 provenance, 158 languages, and
+sub-ms query claims are all differentiators codegraph does not obviously match, and the
+protocol is explicit that a major tool must not be SKIPped as redundant on a source read.
+
+The right disposition is a head-to-head against codegraph in the P0 measure band — index the
+same repo with both, compare coverage and query latency — not a mechanical skip.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

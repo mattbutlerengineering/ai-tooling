@@ -3,6 +3,7 @@
 **Repo:** [microsoft/DebugMCP](https://github.com/microsoft/DebugMCP)
 **Stars:** ~390 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Verify (interactive debugging / MCP server)
 **Layer:** Infrastructure
 
@@ -52,6 +53,21 @@ gh api repos/microsoft/DebugMCP/readme --jq '.content' | base64 -d
 **CONDITIONAL**
 
 Adopt when you use a VS Code-based AI assistant and want it to debug with a real debugger — breakpoints, stepping, variable inspection, and test-level launches — instead of print statements. The `/really-debug` skill makes the agent use it systematically. Less relevant for terminal-only CLI harnesses without VS Code; for those, systematic-debugging discipline plus logs remains the path.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — no STACK pick covers what it does.
+[`serena`](https://github.com/oraios/serena) appears in its overlaps, but the two only meet at
+"code-aware MCP server": serena does *static* symbol navigation and editing, DebugMCP does
+*runtime* debugging — breakpoints, stepping, variable inspection, expression evaluation via the
+VS Code debug and Testing APIs. Nothing in STACK gives an agent a real debugger, so there is no
+incumbent for it to be redundant with.
+
+It is also first-party Microsoft and MIT, and it attacks a genuine failure mode this catalog
+cares about (agents debugging by adding print statements and guessing). A capability with no
+incumbent and a plausible Correctness claim belongs in the P0 measure band, not a skip list.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 
