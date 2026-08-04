@@ -3,6 +3,7 @@
 **Repo:** [NVIDIA-NeMo/Guardrails](https://github.com/NVIDIA-NeMo/Guardrails)
 **Stars:** ~6,500 | **Last updated:** 2026-06-19 | **License:** Apache-2.0 (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (runtime guardrails / Outer Loop)
 **Layer:** Infrastructure
 
@@ -52,6 +53,27 @@ gh api repos/NVIDIA-NeMo/Guardrails/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you ship an LLM-backed conversational application and need a programmable, auditable runtime guardrail layer (topics, jailbreaks, dialog flow, output format). Weigh added latency and Colang complexity. For PII specifically use presidio; for agent-tool-call safety + red-teaming, superagent; NeMo's strength is conversational dialog control.
+
+## Triage note
+
+Left at `discovery-log`. Programmable runtime rails for conversational LLM applications — topics,
+jailbreaks, dialog flow, output format — with Colang as the policy language. NVIDIA behind it, ★6.7K,
+pushed this week.
+
+The licence needs a note, not a disposition. `repo-metadata.json` records **`NOASSERTION`**, which per
+CLAUDE.md means GitHub could not parse the LICENSE file and never that a grant is absent. NVIDIA ships
+this under Apache-2.0; `Memori` in the previous slice was the same misread. A bulk lane must not guess
+either way, and the check is cheap for whoever picks this up.
+
+Not disposed as redundant, because the safety cluster is genuinely differentiated and the eval maps it
+cleanly: NeMo for conversational dialog control, `presidio` for PII specifically, `superagent` for
+agent-tool-call safety plus red-teaming, `garak` for adversarial probing. Four tools, four failure
+modes. Composing best-of-breed versus taking a bundle is the real decision, and `superagent`'s eval
+frames it the same way from the other side.
+
+Weigh at promotion: added latency, and Colang is a language your team has to learn.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

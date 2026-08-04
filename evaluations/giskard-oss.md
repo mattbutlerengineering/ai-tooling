@@ -3,6 +3,7 @@
 **Repo:** [Giskard-AI/giskard-oss](https://github.com/Giskard-AI/giskard-oss)
 **Stars:** 5,438 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (PyPI: `giskard`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Observability / Verify — eval, red-teaming, test generation for agents
 **Layer:** Tooling (Python library)
 
@@ -53,6 +54,25 @@ gh api repos/Giskard-AI/giskard-oss/readme --jq '.content' | base64 -d | sed -n 
 **discovery-log — tentative read** — Giskard (v3, `giskard-oss`) is a credible, Apache-2.0 **agent testing + red-teaming library** whose distinctive angle is **dynamic, multi-turn scenario testing** plus a vulnerability scanner and RAG eval/synthetic-data generation. Adopt it when you're shipping agentic/RAG systems and want multi-turn behavioral tests and red-teaming as code — especially as a complement to promptfoo (Giskard for scenario/agent depth, promptfoo for declarative breadth + CI). It's CONDITIONAL because v3 is mid-migration (scan/RAG still on v2), it needs Python 3.12+, and like all eval tools its object is the AI system you build rather than the coding agent. Pilot `giskard-checks` now; watch the v3 scan/RAG ports before relying on them.
 
 Compared to neighbors: **promptfoo** is the declarative, CI-native eval + red-team standard; **langfuse** is tracing-first observability + evals; **evalview** is MCP-based agent regression testing. Giskard's distinguishing pitch is **multi-turn agent scenario testing with LLM-as-judge plus a vulnerability scanner and RAG synthetic-data generation.**
+
+## Triage note
+
+Left at `discovery-log`. Its distinct angle is **multi-turn scenario testing** — behaviour across a
+conversation rather than a single response — plus a vulnerability scanner and RAG synthetic-data
+generation. Against `promptfoo`'s declarative breadth that is a complement, and the eval says so.
+
+Not disposed. The eval cluster here is large but each member has a real axis: `promptfoo` is the
+CI-native declarative standard, `deepeval` expresses evals as pytest tests, `ragas` is the reference-free
+RAG metric set, `giskard-oss` does multi-turn agent scenarios. Choosing between them is an ergonomics
+decision a measured run informs and a bulk pass cannot.
+
+The concrete flag to check before relying on it: v3 is mid-migration and the scan and RAG pieces still
+run on v2. The eval's advice — pilot `giskard-checks` now, wait on the v3 ports — is a re-evaluate
+trigger, and one worth confirming has moved since the 2026-06 read.
+
+Apache-2.0, ★5.5K, pushed this week. Needs Python 3.12+.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

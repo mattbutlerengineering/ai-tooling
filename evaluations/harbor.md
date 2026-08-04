@@ -3,6 +3,7 @@
 **Repo:** [harbor-framework/harbor](https://github.com/harbor-framework/harbor)
 **Stars:** ~2,600 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (agent evaluation / Outer Loop)
 **Layer:** Infrastructure
 
@@ -52,6 +53,28 @@ gh api repos/harbor-framework/harbor/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you build, tune, or compare coding agents/harnesses and need rigorous, scaled, environment-based evaluation (and optionally RL rollouts) — the agent-level complement to promptfoo/deepeval's output evals. Requires sandbox-provider setup and environment authoring, so it's for agent builders/researchers, not casual users. Pairs naturally with daytona (one of its execution backends).
+
+## Triage note
+
+Left at `discovery-log`, and it is the row in this section most directly relevant to what this repo does.
+
+Nearly everything else in the Outer Loop cluster evaluates *the AI product you build*. harbor evaluates
+**coding agents and harnesses themselves** — rigorous, scaled, environment-based evaluation with optional
+RL rollouts. That is the agent-level complement to `promptfoo` and `deepeval`'s output evals, and it is
+the closest thing in the catalog to infrastructure for the measured comparisons `evaluations/measurement-protocols.md`
+asks for.
+
+Which makes it a genuinely interesting P0 candidate rather than a backlog row: a catalog whose weakest
+point is the number of SOURCE-ONLY verdicts has an obvious use for a harness that runs agents against
+environments and reports numbers.
+
+The cost is real and the eval states it: sandbox-provider setup plus environment authoring, so this is for
+agent builders and researchers, not casual use. `daytona` is one of its execution backends and pairs
+naturally.
+
+Apache-2.0, ★3.1K, pushed 2026-07-10.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

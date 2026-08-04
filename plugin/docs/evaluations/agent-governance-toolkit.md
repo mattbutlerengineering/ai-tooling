@@ -3,6 +3,7 @@
 **Repo:** [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit)
 **Stars:** ~4,430 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (agent governance / Outer Loop)
 **Layer:** Infrastructure
 
@@ -52,6 +53,26 @@ gh api repos/microsoft/agent-governance-toolkit/readme --jq '.content' | base64 
 **discovery-log — tentative read**
 
 Adopt when you're deploying autonomous agents to production and need real governance — policy enforcement, zero-trust identity, execution sandboxing, and reliability — mapped to the OWASP Agentic Top 10 rather than assembled ad hoc. It's an infrastructure commitment, best for teams shipping agents at scale. Complements runtime guardrails (NeMo-Guardrails/superagent) and sandboxes (daytona/agent-sandbox) as the governance umbrella over them.
+
+## Triage note
+
+Left at `discovery-log`. Microsoft, MIT, ★4.7K, pushed this week — policy enforcement, zero-trust identity,
+execution sandboxing and reliability, mapped to the **OWASP Agentic Top 10** rather than assembled ad hoc.
+
+The mapping is the part that makes it more than another safety row. A named external threat model turns a
+governance story into something a reviewer can check off, which is a Verifiability property — the sixth
+quality signal this catalog added — and it is rare in this category.
+
+Not disposed, because it sits *above* the tools it overlaps rather than beside them: `NeMo-Guardrails` and
+`superagent` are runtime rails, `daytona` and `agent-sandbox` are isolation, and this is the governance
+umbrella over both. Umbrella-versus-component is not a redundancy relation.
+
+The honest scope note is that it is an infrastructure commitment aimed at teams shipping autonomous agents
+to production. For a developer running a coding agent locally it is heavy machinery for a threat model they
+do not have — which is a condition on the reader, not a defect in the tool, and exactly why it is neither
+ADOPT-everywhere nor SKIP.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

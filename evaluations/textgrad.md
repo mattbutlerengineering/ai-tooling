@@ -3,6 +3,7 @@
 **Repo:** [zou-group/textgrad](https://github.com/zou-group/textgrad)
 **Stars:** ~3,600 | **Last updated:** 2025-07-25 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (optimization / Outer Loop)
 **Layer:** Tooling
 
@@ -49,9 +50,25 @@ gh api repos/zou-group/textgrad/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — unmaintained. Last pushed **2025-07-25**: over twelve months, more than three times the
+120-day staleness threshold this catalog sets for `framework`-Type entries. The tentative read above
+had already flagged the *"slow maintenance cadence"*; a year later that reads as stopped rather than
+slow.
 
-Reach for TextGrad when you have a measurable textual objective and want to optimize prompts, solutions, or code systematically rather than by hand — and you can absorb the token cost of the optimization loop. For routine prompt iteration, an eval harness (promptfoo) plus manual edits is cheaper; for runtime self-improvement, ACE/evolver fit better. Strong credibility (Nature) but watch the slow maintenance cadence.
+Dormancy matters more here than it would for a stable utility. TextGrad's whole premise is
+backpropagating natural-language feedback through a system of LLM calls, and both halves of that —
+model behaviour and the surrounding SDK surface — have moved substantially since mid-2025. A framework
+that automates prompt optimization against models it has never seen is the kind of thing that stops
+working quietly.
+
+The credibility is real and is why this needs stating explicitly rather than waving through: the work
+is Nature-published and the idea — treat text as a differentiable medium with a measurable objective —
+is one of the better ones in this catalog. The idea outlives the implementation, and this repo already
+tracks it through permissively-licensed, actively-maintained neighbours: `ACE` for runtime
+self-improvement, `promptfoo` plus manual iteration for the routine case its own eval recommends.
+
+Re-open if maintenance resumes.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

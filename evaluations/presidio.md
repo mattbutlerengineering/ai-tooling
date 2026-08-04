@@ -3,6 +3,7 @@
 **Repo:** [data-privacy-stack/presidio](https://github.com/data-privacy-stack/presidio) (formerly microsoft/presidio; repo moved)
 **Stars:** ~9,250 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (data protection / Outer Loop)
 **Layer:** Infrastructure
 
@@ -52,6 +53,26 @@ gh api repos/data-privacy-stack/presidio/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when your AI workflow handles PII and you need to detect/redact/anonymize it before prompts, logs, or training data leave a trusted boundary — the mature, customizable choice for the PII problem specifically. Pair it with runtime guardrails (NeMo-Guardrails/superagent) which handle prompt-injection/unsafe-output rather than PII. Budget for recognizer tuning in high-stakes contexts.
+
+## Triage note
+
+Left at `discovery-log`. The mature, customizable answer to one narrow problem — detect, redact and
+anonymize PII before prompts, logs or training data cross a trust boundary — and narrowness is exactly why
+it is not disposable as redundant with the guardrail rows around it.
+
+The division of labour in the safety cluster is clean and this pass preserved all of it: `presidio` for
+PII, `NeMo-Guardrails` for dialog control, `superagent` for tool-call safety, `garak` for adversarial
+probing. Each catches a failure the others do not.
+
+Worth noting where this touches the dev loop rather than the product: an agent that reads logs, pastes
+stack traces, or summarises support tickets is moving PII into a model context, and that is a coding-loop
+concern rather than an application-security one. Most of this cluster observes the AI product you build;
+this row also has a use on the way in.
+
+MIT, ★9.9K, pushed this week. Budget for recognizer tuning — the default recognizers are a starting point,
+not a compliance posture.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [disler/claude-code-hooks-multi-agent-observability](https://github.com/disler/claude-code-hooks-multi-agent-observability)
 **Stars:** ~1,470 | **Last updated:** 2026-02-08 | **License:** none specified
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (observability for Claude Code)
 **Layer:** Infrastructure
 
@@ -49,9 +50,25 @@ gh api repos/disler/claude-code-hooks-multi-agent-observability/readme --jq '.co
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — no licence, and dormant. GitHub reports **NONE** for
+[`disler/claude-code-hooks-multi-agent-observability`](https://github.com/disler/claude-code-hooks-multi-agent-observability):
+the repo is live and declares no grant, so the default is exclusive copyright. The tentative read
+above already flags it — *"clarify the missing license before relying on it"* — and this pass is
+recording that the flag was never cleared.
 
-Useful when you run multi-agent Claude Code swarms and want live tracing of tool calls, handoffs, and lifecycle via native hooks — and as a clean reference architecture for building your own. Treat it as a reference/demo: clarify the missing license before relying on it, and expect to self-host the stack. For single-session post-hoc inspection, claude-devtools is lighter; this one's value is the live, multi-agent view.
+Dormancy is the second half. Last pushed 2026-02-08, close to six months, which for a hooks
+integration against a harness that ships changes weekly is a working-or-not question rather than a
+maintenance-taste one.
+
+Same disposition `llm-council` and `autoresearch` got, on the same ground.
+
+The value it does have survives the SKIP, and the eval names it correctly: this is a **reference
+architecture**. Live tracing of tool calls, handoffs and lifecycle events through native hooks is a
+good demonstration of what the hook surface can do, and reading it costs nothing. For single-session
+post-hoc inspection `claude-devtools` is the lighter catalogued option.
+
+Re-open if a licence is added.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

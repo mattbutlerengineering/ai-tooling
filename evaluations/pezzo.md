@@ -3,6 +3,7 @@
 **Repo:** [pezzolabs/pezzo](https://github.com/pezzolabs/pezzo)
 **Stars:** ~3,250 | **Last updated:** 2026-03-31 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (LLMOps / prompt management / Outer Loop)
 **Layer:** Infrastructure
 
@@ -49,9 +50,25 @@ gh api repos/pezzolabs/pezzo/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — superseded inside a cluster this catalog is already over-supplied on. Its own tentative read
+says it *"overlaps the already-catalogued langfuse/agenta/Helicone/opik substantially"*, and the
+differentiator it offers — prompt management first, deploy-decoupled — is a workflow preference rather
+than a capability the others lack.
 
-Adopt if you want a developer-first LLMOps platform centered on **prompt management with instant delivery** plus observability and cost/latency control. It overlaps the already-catalogued langfuse/agenta/Helicone/opik substantially — choose pezzo specifically for the prompt-management-first, deploy-decoupled workflow, and weigh its slower maintenance cadence. Validate the cost/latency claim on your own traffic.
+The cluster context is what makes this a disposition rather than a shrug. `langfuse` and `opik` are
+both **P0 leads** with permissive licences, `Helicone` bundles the gateway alongside observability, and
+`agenta` covers the same prompt-experimentation ground. Five rows for one job means four of them are
+never reached, and pezzo is not the one to reach for on any axis it claims.
+
+Maintenance settles it: pushed 2026-03-31, over four months, which the eval had already noted as a
+slower cadence. In a category where the leaders ship weekly that is the wrong direction.
+
+Apache-2.0 and ★3.3K, so this is a supersession call, not a quality one.
+
+Re-open if it develops something the observability leaders do not do — instant prompt delivery
+decoupled from deploys is the closest candidate, and it would need a measured demonstration rather
+than a positioning claim.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

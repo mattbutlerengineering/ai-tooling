@@ -3,6 +3,7 @@
 **Repo:** [sentrux/sentrux](https://github.com/sentrux/sentrux)
 **Stars:** 2,480 | **Last updated:** 2026-03-19 (release v0.5.7, 2026-03-18) | **License:** MIT (free core); Pro tier is BSL/commercial
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (structural quality gate) — also Review (architecture inspection) and Reflect (cross-session degradation tracking)
 **Layer:** Tooling
 
@@ -92,6 +93,28 @@ Agent: session_end()    → { pass: false, signal_before: 7342, signal_after: 68
 sentrux is a real, thoughtfully-designed architectural quality sensor, not vaporware — the 5 root-cause metrics rest on named algorithms (Newman's Q, Tarjan, Gini, Lakos), the anti-gaming rationale is the best-articulated in this catalog's quality space, and it ships genuine Claude Code/MCP integration with a `session_start`/`session_end` degradation gate that fits the inner-loop Verify stage exactly. The "recursive self-improvement" framing oversells a standard human/agent-in-the-loop feedback cycle, and the `evolution` tool is git-history analysis, not self-modification — but the underlying substance holds up.
 
 What keeps it from ADOPT is **maturity, not concept**: a ~5-week-old, pre-1.0, effectively single-author project whose stars vastly outrun its commit base, with a commercial open-core paid tier and no commits in the months since its March burst. **Adopt it conditionally when** (a) you run multi-session agent work on a codebase whose architecture you care about, (b) you can use the CLI/MCP paths headlessly (the GUI is secondary for agent loops), and (c) you treat the score as a *relative* before/after gate rather than an absolute target. Pin a known release, keep the free MIT core, and re-evaluate continuity (commits resuming, 1.0, broader contributor base) before depending on it in CI. Not SKIP — it fills a real and under-served niche (architecture-level feedback for agent-written code) with credible engineering.
+
+## Triage note
+
+Left at `discovery-log`. Of everything in this section it is the row aimed most squarely at *code an agent
+wrote* rather than at an AI product: five root-cause architecture metrics resting on named algorithms
+(Newman's Q, Tarjan, Gini, Lakos), with a `session_start`/`session_end` degradation gate that fits the inner
+loop directly.
+
+The eval's separation of substance from framing is worth preserving. It calls the "recursive
+self-improvement" language oversold and the `evolution` tool git-history analysis rather than
+self-modification — while holding that the underlying metrics are real. That is the right way to read a
+project whose README outruns its implementation, and it is a discipline this repo applies to its own evals
+through detector B.
+
+What keeps it out of promotion is maturity, and this pass can add one fact to the 2026-06 read: still no
+activity since the March burst. Pushed **2026-03-19**, now four and a half months, against an eval that
+already named resuming commits as its re-evaluate trigger. That trigger has not fired.
+
+MIT free core with a BSL/commercial Pro tier — open-core, so pin a known release and stay on the MIT core.
+Not SKIPped: architecture-level feedback on agent-written code is a real and under-served niche.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

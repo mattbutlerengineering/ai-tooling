@@ -411,21 +411,21 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | NeMo-Guardrails | tool | ✓ | ✓ | discovery-log | REVIEW |
 | superagent | tool | ✓ | ✓ | discovery-log | REVIEW |
 | deepeval | framework | ✓ | ✓ | discovery-log | REVIEW |
-| phoenix | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| phoenix | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
-| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | discovery-log | REVIEW |
+| claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | SKIP | REVIEW |
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
-| pezzo | platform | ✓ | ✓ | discovery-log | REVIEW |
+| pezzo | platform | ✓ | ✓ | SKIP | REVIEW |
 | ragas | tool | ✓ | ✓ | discovery-log | REVIEW |
 | Helicone | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | logfire | platform | ✓ | ✓/$ | discovery-log | REVIEW |
-| textgrad | framework | ✓ | ✓ | discovery-log | REVIEW |
+| textgrad | framework | ✓ | ✓ | SKIP | REVIEW |
 | ping-island | tool | ✓ | ✓ | SKIP | REVIEW |
 | tokencost | tool | | ✓ | CONDITIONAL | RUN |
 
@@ -732,10 +732,10 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
-| Outer Loop | 42 | 12 | 2 | 29% |
+| Outer Loop | 42 | 16 | 2 | 38% |
 | Skills & Plugins | 90 | 30 | 4 | 33% |
 | Memory & Context | 50 | 19 | 2 | 38% |
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **230** | **34** | **36%** |
+| **Total** | **642** | **234** | **34** | **36%** |
