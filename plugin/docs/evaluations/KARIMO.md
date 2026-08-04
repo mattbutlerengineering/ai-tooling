@@ -3,6 +3,7 @@
 **Repo:** [opensesh/KARIMO](https://github.com/opensesh/KARIMO)
 **Stars:** 225 | **Last updated:** 2026-05-11 (pushed; created 2026-02-15) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the loop as a workflow — Plan (research → PRD interview → task briefs → brief review), Implement/Verify (wave-ordered parallel agent execution with implementer/tester roles), Review (Greptile or Claude Code Review), Ship (merge to main), Reflect (`/karimo:feedback` captures learnings). A PRD-to-merge pipeline, not a single-stage tool.
 **Layer:** Process + Tooling — a Claude Code marketplace plugin (~206 files, mostly markdown agent/command/skill definitions plus bash hooks/scripts) that adds a coordination layer on top of Claude Code's native worktrees, sub-agents, and hooks.
 
@@ -61,9 +62,23 @@ gh api repos/opensesh/KARIMO/contributors --jq '[.[].login]'  # ["opensesh"] —
 
 ## Verdict
 
-**discovery-log — tentative read: strong fit for Claude Code users who want PRD-to-merge structure on real features, with single-maintainer risk noted.** KARIMO's PRD-first, wave-ordered, brief-reviewed pipeline is a coherent and well-framed methodology that maps the whole dev loop onto Claude Code's native primitives, and it is refreshingly honest about which capabilities are native versus its own. The reservations are that its headline differentiators (loop detection, git reconciliation, branch verification) are README claims over markdown/bash rather than verified tested logic, and that it has exactly one contributor on a fast-churning v9.x. Adopt it if you do substantial features (not one-off fixes), live in Claude Code, and want enforced planning before code; pilot on a low-stakes feature first to validate the recovery and loop-detection claims.
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`). PRD-first, wave-ordered, brief-reviewed delivery is the
+milestone-and-phase discipline the incumbent already enforces, and this catalog does not carry two
+methodology packs: they contend for the same turns rather than composing.
 
-Compared to neighbors: against **claude-squad** and **gastown** (parallel-agent shells with no planning or dependency awareness), KARIMO adds the entire PRD→brief→wave→review→merge spine they lack. **agent-orchestrator** is the closest in ambition (plans, spawns parallel agents, handles CI/merge) but is less explicit about PRD discipline and wave dependencies. The sharpest comparison is **opencode-swarm**: both are gated PRD/plan-driven multi-agent harnesses, but Swarm is an OpenCode-only ~2,000-file TypeScript plugin with deep safety guardrails, while KARIMO is Claude-Code-native, markdown-based, and lighter-weight — pick by host (Claude Code → KARIMO, OpenCode → Swarm) and by whether you need Swarm's compiled guardrail engine or KARIMO's leaner PRD methodology.
+The evaluation is complimentary about the framing and equally clear about what is unverified: the
+headline differentiators — *"loop detection, git reconciliation, branch verification"* — are
+*"README claims over markdown/bash rather than verified tested logic."* A challenger displaces an
+incumbent on demonstrated behaviour, not on described behaviour, and those three are precisely the
+claims that would need a run behind them.
+
+★257 with exactly one contributor on a fast-churning v9.x is the other half. Single-maintainer risk
+is acceptable in a leaf tool and is not acceptable in the layer that shapes every turn.
+
+Re-open if the loop-detection and branch-verification claims are demonstrated, which would make it a
+real P0 head-to-head against GSD.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

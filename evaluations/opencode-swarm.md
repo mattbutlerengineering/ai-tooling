@@ -3,6 +3,7 @@
 **Repo:** [ZaxbyHub/opencode-swarm](https://github.com/ZaxbyHub/opencode-swarm)
 **Stars:** 356 | **Last updated:** 2026-06-19 (pushed; created 2026-01-27) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the inner loop end-to-end — Plan (architect + critic gate), Implement (coder), Verify (test_engineer + automated checks + regression sweep), Review (reviewer + critic), and into Ship (PR monitor, CI-fix). It is a gated pipeline, not a single-stage tool.
 **Layer:** Tooling + Infrastructure — an installable OpenCode plugin (npm package, ~2,000 TypeScript files) that injects a hub-and-spoke agent team, scope-enforcement guardrails, shell-write static analysis, and persistent `.swarm/` state into a coding session.
 
@@ -64,6 +65,28 @@ gh api repos/ZaxbyHub/opencode-swarm/contributors --jq '[.[].login]'  # human + 
 **discovery-log — tentative read: adopt if you live in OpenCode and do substantial, multi-phase work; otherwise it does not apply.** opencode-swarm is the most seriously engineered multi-agent orchestrator we have inspected: a real ~2,000-file TypeScript npm package whose gated coder/reviewer/tester separation and AST-grade scope/shell guardrails directly target the failure modes that make single-loop AI coding untrustworthy. The blockers are scope and weight — it is OpenCode-only, the install is invasive (disabling native agents), and the council-plus-critics ceremony is overkill for small changes. The conditions: you are on OpenCode, you have multi-phase features (not one-line fixes), and you accept the token overhead in exchange for gated QA.
 
 Compared to neighbors: **claude-squad** and **gastown** just run multiple agents in parallel with visibility — they have no gates, no QA pipeline, and no safety surface, so they are coordination shells where Swarm is a coordination *and verification* engine. **agent-orchestrator** automates spawn + CI-fix + merge but is far thinner on adversarial review and guardrails. **KARIMO** is the closest peer in ambition (PRD-driven, wave-orchestrated, gated review) but is Claude-Code-native and markdown-based rather than a compiled TypeScript plugin — choose by which host you run. For OpenCode users wanting real QA gates, Swarm is the strongest option in the catalog; for everyone else it is simply out of host.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, and flagged as a P0 candidate for the *other* supported
+harness.
+
+The banding against [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K) misses the point twice. It is not a session manager — it is a gated
+multi-agent pipeline with coder/reviewer/tester separation and AST-grade scope and shell guardrails
+— and it is OpenCode-only, which in this repo is not a disqualifier: opencode is a supported harness
+alongside Claude Code by policy (ADR-0002), and the catalog carries almost nothing that strengthens
+that side.
+
+The evaluation's read is unusually strong for a source-grounded one: *"the most seriously engineered
+multi-agent orchestrator we have inspected"* — a real ~2,000-file TypeScript package whose gating
+targets the failure modes that make single-loop AI coding untrustworthy.
+
+The blockers it names are weight and ceremony: the install is invasive (it disables native agents),
+and the council-plus-critics flow is overkill for small changes. Both are questions about *when* it
+pays, which is exactly a with/without measurement on multi-phase work — P0 work, and the natural
+place to start building an opencode-side story.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

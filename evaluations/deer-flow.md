@@ -3,6 +3,7 @@
 **Repo:** [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 **Stars:** 71,529 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -54,9 +55,23 @@ Examined: setup wizard flow (`make setup`), config.yaml model provider system (8
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — off-scope. The evaluation draws the line itself: *"it's a standalone platform that runs
+alongside Claude Code rather than enhancing it … Choose superpowers or compound-engineering if you
+want to enhance Claude Code directly."*
 
-Use when you need a self-hosted, model-agnostic super-agent platform for long-horizon tasks (research, report generation, multi-step analysis) that span minutes to hours. DeerFlow is genuinely impressive infrastructure — sandboxed execution, sub-agent orchestration, persistent memory, and 71K-star community support. However, it's a standalone platform that runs alongside Claude Code rather than enhancing it, and the deployment overhead (Docker + Python + Node + LangGraph) is substantial compared to plugin-based alternatives. Choose superpowers (ADOPT) or compound-engineering (CONDITIONAL) if you want to enhance Claude Code directly; choose DeerFlow if you need a full autonomous agent runtime with execution sandboxes.
+DeerFlow is a self-hosted long-horizon agent platform for research, report generation and
+multi-step analysis. That is impressive infrastructure — sandboxed execution, sub-agent
+orchestration, persistent memory, ★76.7K — and it is a different product category from the tools
+this catalog stocks, which intervene in a *coding* loop. The dev-loop job it was banded against
+belongs to [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`), which it does not touch.
+
+Deployment cost confirms the category: Docker + Python + Node + LangGraph, standing infrastructure
+rather than a plugin. Nothing in that stack is wrong; none of it lands in the inner loop.
+
+Re-open if this catalog widens to cover long-horizon research platforms, where DeerFlow would be a
+leading entry rather than a marginal one.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

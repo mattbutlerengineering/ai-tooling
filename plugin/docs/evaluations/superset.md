@@ -3,6 +3,7 @@
 **Repo:** [superset-sh/superset](https://github.com/superset-sh/superset)
 **Stars:** 11,948 | **Last updated:** 2026-06-18 | **License:** Elastic License 2.0 (ELv2 — source-available, not OSI-open)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (also Ship — branch/worktree/diff/merge handoff)
 **Layer:** Tooling
 
@@ -59,13 +60,27 @@ grep -inE "superset|dmux|claude-squad|worktree|parallel agent|cc-switch|oh-my-op
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`), and licensed outside this catalog's bar.
 
-Adopt Superset when you (1) work on **macOS**, (2) regularly run **multiple coding agents in parallel** and want a polished **desktop GUI** — embedded terminal, diff viewer, editor handoff, status monitoring — rather than a terminal UI, and (3) are comfortable with the **Elastic License 2.0**. It is a mature (11.9K stars, 69 contributors, active dual-track releases), agent-agnostic cockpit that *orchestrates* Claude Code (and Codex/Cursor/Gemini/etc.) rather than replacing it, so it is additive to the Claude Code dev loop — not a "switch-to" front-end.
+The evaluation contains the line *"It is **not a SKIP**"*, and it is worth being precise about what
+that answered: it rejects the *switch-away-from-Claude-Code* SKIP that `cc-switch` and
+`oh-my-openagent` got, on the correct ground that Superset orchestrates Claude Code rather than
+replacing it. That is a different question from the one this band asks. Neither the overlap with
+the incumbent session manager nor the licence was weighed there, so this is a call on grounds the
+evaluation did not consider rather than a reversal of one it did.
 
-It is **not a SKIP**: unlike cc-switch or oh-my-openagent (config switchers / vendor front-ends you adopt instead of Claude Code), Superset runs your existing agent CLIs unchanged and adds genuine parallel-worktree + review value to the Implement/Ship stages. But it is not an unconditional ADOPT: macOS-only, an Electron-heavy footprint, a non-OSI license, and a high open-issue count make it a poor default for Linux/Windows users, terminal-native developers, single-agent workflows, or anyone needing permissive licensing.
+On those grounds it does not survive. The job — run multiple coding agents in parallel, watch them,
+diff and hand off — is claude-squad's, with a macOS desktop GUI in place of a TUI. And Elastic
+License 2.0 is source-available with use restrictions, not open source; this catalog's adoption bar
+is permissive licensing, the same gate that disposed `passmark` (FSL-1.1) in the long-tail pass.
 
-**vs. dmux / claude-squad** (both in catalog, both MIT): all three implement the same core — worktree-per-task isolation, parallel agent execution, and merge/review back to main. The axis that separates them is the *surface*. claude-squad and dmux are **terminal UIs** (tmux/Ink), cross-platform, scriptable-adjacent, and lightweight. Superset is a **native macOS Electron desktop app** with a graphical diff viewer, embedded multi-pane terminal, editor handoff, and workspace presets — heavier, GUI-first, macOS-only, ELv2-licensed. Pick dmux/claude-squad for a terminal-native, cross-platform, permissively-licensed multiplexer; pick Superset for a desktop cockpit if you want a real GUI and a built-in editor/diff experience and you're on macOS. They occupy the same niche (parallel-agent managers) but at opposite ends of the TUI-vs-desktop-app spectrum — the catalog's "overlaps with claude-squad, dmux" is accurate, with desktop-app delivery as the differentiator.
+Its ★12.4K does exceed the incumbent's ★8.1K, which in the abstract is the profile of a replacement
+candidate — but a macOS-only, non-OSS front end cannot be the head-to-head that `herdr`
+(Apache-2.0, ★24K) can, and this pass left that one open instead.
+
+Re-open if the licence changes, or for a macOS-only shop that has accepted ELv2 elsewhere.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)
 **Stars:** 36,643 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review (a full-loop orchestration layer)
 **Layer:** Tooling
 
@@ -69,6 +70,25 @@ curl -s https://api.npmjs.org/downloads/point/last-month/oh-my-claude-sisyphus  
 Adopt when you (1) regularly do large, parallelizable, PR-sized work and want a turnkey multi-agent + model-routing layer rather than hand-rolling sub-agent prompts, and (2) are willing to take on a heavy, fast-moving plugin with its own vocabulary that substantially modifies `~/.claude`. Unlike most multi-agent tools in the catalog, this one is genuinely a native Claude Code plugin, exceptionally well-maintained (233 releases, 110 contributors, ~31k npm downloads/month), and integrates real cost-routing and verify-fix discipline — all of which can move quality signals inside the dev loop. It does *not* hard-depend on a second paid subscription (cross-model is optional), which makes it a softer commitment than architect-loop.
 
 It is not an unconditional ADOPT because the headline "beats vanilla / zero learning curve" claims are unproven (the committed benchmark scaffold actually shows OMC failing the harness), the install footprint and overlapping-mode complexity are large, and the canonical Team surface rides an experimental Claude Code flag amid a very high breaking-change cadence. Solo users doing small/inline changes get mostly ceremony; teams doing heavy autonomous build loops get the most value. Re-evaluate to ADOPT if a credible vanilla-vs-OMC coding benchmark materializes and the mode surface consolidates.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K) manages *OS-level
+sessions*: separate agents in separate worktrees, side by side. oh-my-claudecode works one level
+down, inside a single Claude Code session, orchestrating sub-agents and routing them across models
+by cost. Neither substitutes for the other; you could plausibly run both.
+
+It is also the strongest maintenance profile in this cluster by a distance: a genuinely native
+Claude Code plugin at ★37.6K, 233 releases, 110 contributors, ~31K npm downloads a month — and, per
+its evaluation, it does *not* hard-depend on a second paid subscription, which is the gate most
+cross-model tools fail.
+
+The reservations are real and are about weight rather than duplication: it substantially modifies
+`~/.claude`, moves fast, and brings its own vocabulary. That is a P0 question — does the
+cost-routing plus verify-fix discipline pay for the footprint on a disclosed task set — not a bulk
+call.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

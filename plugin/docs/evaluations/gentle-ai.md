@@ -3,6 +3,7 @@
 **Repo:** [Gentleman-Programming/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai)
 **Stars:** 4,100 | **Last updated:** 2026-06-19 (pushed; created 2026-02-27) | **License:** MIT | **Releases:** 30
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Cross-cutting (configures the whole inner loop — Plan→Implement→Review — across many agents)
 **Layer:** Tooling (Go CLI/installer; pure-Markdown skills + config it injects)
 
@@ -57,6 +58,28 @@ gh api repos/Gentleman-Programming/agent-teams-lite/readme --jq '.content' | bas
 **discovery-log — tentative read** — adopt if you want a **single, opinionated, cross-agent configuration** that gives any of 15 coding agents persistent memory, a spec-driven workflow, curated skills, MCP tools, and — best of all — **codified delegation/review triggers**, with reversible install. It's mature, active, MIT, and the breadth + delegation-rules combo is genuinely differentiated. Hold off if you already have a workflow you like (it's heavy and opinionated) or are uneasy letting one tool write across many agents' config dirs (use the backup/rollback and review the injected config). Strongest for someone standardizing a team across multiple agents, or a solo dev who wants gstack-style structure but agent-agnostic.
 
 Compared to neighbors: **superpowers**/**gstack**/**ECC** are opinionated Claude Code-centric harnesses; **omnigent** is a meta-harness that swaps agent backends. Gentle-AI is the **cross-agent ecosystem configurator** — it doesn't replace your agent, it standardizes SDD + memory + skills + delegation rules *across* 15 of them, with the most explicit delegation-trigger discipline of the group. (Catalogued under its live name; `agent-teams-lite` is the archived predecessor.)
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The overlap with `superpowers`/GSD (STACK) is partial: the
+SDD workflow half duplicates the incumbent, but the pack's actual product is *cross-agent
+configuration* — one opinionated setup injected into 15 coding agents, with persistent memory
+(Engram), curated skills, MCP servers, per-phase model routing and codified delegation/review
+triggers.
+
+That breadth is not decorative here. This repo supports two harnesses by policy (ADR-0002) and pays
+a standing cost keeping their configurations from drifting; a tool whose entire job is writing one
+configuration across many agents addresses that directly. The evaluation singles out the same thing
+— *"best of all, **codified delegation/review triggers**"* — which is the piece with no STACK
+equivalent.
+
+The reservations are proportionate to what it does: it is heavy and opinionated, and it writes into
+many agents' config directories. Its evaluation notes the install is reversible with backup and
+rollback, which is the mitigation that makes it testable at all. MIT, ★4.7K, pushed today. The P0
+question is whether one injected configuration genuinely holds two harnesses in sync, or just moves
+the drift somewhere less visible.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

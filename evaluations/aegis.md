@@ -3,6 +3,7 @@
 **Repo:** [GanyuanRan/Aegis](https://github.com/GanyuanRan/Aegis)
 **Stars:** 542 | **Last updated:** 2026-06-17 (pushed; created 2026-04-30) | **License:** MIT | **Install:** natural-language, host-detected method-pack
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Dev Workflow (workflow-discipline guardrails)
 **Layer:** Skill pack (portable "method-pack" skills across multiple agent hosts)
 
@@ -57,9 +58,24 @@ gh api repos/GanyuanRan/Aegis/readme --jq '.content' | base64 -d | head -40   # 
 
 ## Verdict
 
-**discovery-log — tentative read** — Aegis packages the highest-leverage agent disciplines — **baseline-first** and **evidence-before-completion**, plus repair/retirement tracking and risk-scaled workflow — as portable method-pack skills, MIT-licensed. The principles are exactly the ones that curb confident-but-wrong agent work, so it's worth a look for teams wanting that discipline as installable guardrails. The catch is heavy overlap with **superpowers** (it bills itself as a Superpowers upgrade): evaluate whether it beats Superpowers + a verification-before-completion skill for your hosts. The self-installing paragraph and Chinese-first docs warrant a careful read before global install.
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`) by its own self-description: it bills itself as a *"Superpowers
+upgrade"*. A pack defined as an increment on the incumbent is the clearest case this band has.
 
-Compared to neighbors: **superpowers** is the composable-skills harness it builds on; **GSD** and **compound-engineering** impose phased/structured discipline; **sentrux** gives architectural feedback. Aegis's distinguishing pitch is **baseline-first + evidence-before-completion guardrails** layered onto the Superpowers skill model.
+The principles it packages — baseline-before-risky-changes, evidence-before-completion, risk-scaled
+guardrails — are genuinely the right ones, and the evaluation says so. That is an argument for
+wanting them *in* the installed methodology, not for layering a second method pack on top of it;
+methodology packs contend for the same turns, and the evaluation frames the choice as exactly that:
+*"evaluate whether it beats Superpowers + a verification-before-completion skill."*
+
+The supporting facts do not carry a challenger through that comparison: ★627 against the
+incumbent's ★251K, Chinese-first docs, and a self-installing paragraph the evaluation flags as
+warranting a careful read before any global install. Self-installing instructions inside a skill
+body are a supply-chain surface, not a convenience.
+
+Re-open if evidence-before-completion lands as a standalone skill that composes with GSD rather
+than a pack that replaces it.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

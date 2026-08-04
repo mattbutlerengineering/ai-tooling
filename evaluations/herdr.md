@@ -3,6 +3,7 @@
 **Repo:** [ogulcancelik/herdr](https://github.com/ogulcancelik/herdr)
 **Stars:** 6,412 | **Last updated:** 2026-06-20 (pushed) | **License:** see repo (no SPDX detected) | **Language:** Go/Rust (terminal app)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration — multi-agent terminal multiplexer
 **Layer:** Tooling (terminal multiplexer, `curl | sh` install)
 
@@ -53,6 +54,30 @@ gh api repos/ogulcancelik/herdr/readme --jq '.content' | base64 -d | head -30   
 **discovery-log — tentative read** — herdr is a sharp, fast-growing **terminal multiplexer purpose-built for supervising many coding agents**: workspaces/tabs/panes, mouse-native, real terminals (no Electron), detach/reattach with agents alive. Adopt it if you routinely run several agents at once and want tmux-grade control with agent-aware status and pane ergonomics, in your terminal rather than a GUI. It's CONDITIONAL because the license is undeclared (resolve before team/redistribution use) and it's *supervision*, not *orchestration* — it shows and arranges agents but doesn't coordinate their work. Against claude-squad/dmux/rmux, its edge is mouse-native panes and the "see the real terminal" philosophy.
 
 Compared to neighbors: **claude-squad** is a TUI for parallel agent sessions; **dmux**/**rmux** are tmux-based agent runners; **orca** is a worktree-isolated multi-agent ADE; **claude-fleet** is a read-only dashboard. herdr's distinguishing pitch is **a mouse-native, Electron-free terminal multiplexer that shows each agent's real terminal at a glance.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — and escalated as the one genuine head-to-head in this
+cluster.
+
+Its overlap with [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K) is as direct as this band ever sees: supervise many coding agents from a
+terminal, detach and reattach with them still running. Its evaluation is precise about the delta —
+*"it's supervision, not orchestration"*, with mouse-native panes and a see-the-real-terminal
+philosophy as the edge.
+
+The reason that is an escalation rather than a SKIP is the comparison, which changed materially
+during this pass. herdr reached the band with **no metadata record** (`license=None, stars=None`),
+and the evaluation was written when the licence read as undeclared — the fact it treated as the
+main blocker. A live fetch shows **Apache-2.0, ★24.4K, pushed today**, against an incumbent that is
+AGPL-3.0, ★8.1K and last pushed 2026-06-17. The challenger is three times the adoption, more
+permissively licensed, and more actively maintained than the tool it would replace. Those records
+are now written to `repo-metadata.json`.
+
+That is a replacement candidate, and a bulk lane may not conclude either way — a SKIP would dispose
+the strongest entry in the cluster on stale facts. What a P0 read must settle: whether supervision
+without orchestration is enough, and whether the pane ergonomics survive contact with a real fleet.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows)
 **Stars:** 2,984 | **Last updated:** 2026-06-18 | **License:** MIT-0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (cross-cutting: all stages)
 **Layer:** Process
 
@@ -63,9 +64,23 @@ gh api repos/awslabs/aidlc-workflows/contents/aidlc-rules/aws-aidlc-rule-details
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`) where it matters, on the evaluation's own split: *"AI-DLC is
+complementary to superpowers at the project/epic level (Inception for requirements) but **redundant
+at the task level** (Construction vs. superpowers' inner loop)."*
 
-Use when you need a formal, auditable development methodology across a mixed-editor team (especially if the team includes Kiro/Amazon Q/Cursor users alongside Claude Code). The overconfidence prevention and compliance extension system provide real value for enterprise contexts. For Claude Code-only users, superpowers (ADOPT) provides a tighter inner loop with TDD, debugging, and review workflows that AI-DLC lacks. AI-DLC is complementary to superpowers at the project/epic level (Inception for requirements) but redundant at the task level (Construction vs. superpowers' inner loop).
+The task level is the level this catalog's inner loop lives at, so the redundant half is the half
+that would actually run. The complementary half — formal, auditable epic-level requirements across
+a mixed-editor team including Kiro and Amazon Q — is an enterprise governance want, not a dev-loop
+one, and the evaluation says as much: *"For Claude Code-only users, superpowers provides a tighter
+inner loop with TDD, debugging, and review workflows that AI-DLC lacks."*
+
+AWS Labs provenance, MIT-0 and ★3.4K make this a well-built piece of work; none of that changes
+which layer it duplicates.
+
+Re-open for a mixed-editor team that needs an auditable lifecycle across six agents, where the
+epic-level half is the point.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

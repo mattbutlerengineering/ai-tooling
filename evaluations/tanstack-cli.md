@@ -3,6 +3,7 @@
 **Repo:** [TanStack/cli](https://github.com/TanStack/cli)
 **Stars:** ~1,300 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (scaffolding + agent integration)
 **Layer:** Tooling
 
@@ -52,6 +53,26 @@ gh api repos/TanStack/cli/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you build with TanStack Start/Router and want your coding agent to scaffold and configure projects correctly via the official MCP server + skills rather than from memory. Not relevant outside the TanStack ecosystem. It's catalogued as a strong example of the framework-maintained-MCP/skills pattern (cf. pg-aiguide) — worth knowing as that pattern spreads to more frameworks.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `context7` (STACK, `RUN`)
+fetches current library documentation into the agent's context; TanStack CLI *scaffolds and
+configures projects*, shipping an MCP server and Agent Skills so the agent gets framework-correct
+structure rather than framework-correct prose. Reading the docs and generating the app are different
+jobs.
+
+Its evaluation scopes the applicability honestly — *"Not relevant outside the TanStack ecosystem"* —
+and identifies the reason the row earns its place regardless: it is *"a strong example of the
+framework-maintained-MCP/skills pattern (cf. `pg-aiguide`) — worth knowing as that pattern spreads
+to more frameworks."*
+
+That pattern is the durable point. A framework shipping official agent skills alongside its CLI is
+how the "agent writes plausible but outdated framework code" problem gets solved at the source, and
+tracking which frameworks do it is catalog work rather than install work. MIT, ★1.3K, pushed
+2026-06-22.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

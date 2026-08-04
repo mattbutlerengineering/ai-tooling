@@ -3,6 +3,7 @@
 **Repo:** [eigent-ai/eigent](https://github.com/eigent-ai/eigent)
 **Stars:** 14,333 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** TS/Python (desktop app; built on CAMEL-AI)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration — multi-agent workforce desktop
 **Layer:** Tooling/Platform (local desktop app)
 
@@ -50,9 +51,22 @@ gh api repos/eigent-ai/eigent/readme --jq '.content' | base64 -d | head -40     
 
 ## Verdict
 
-**discovery-log — tentative read** — Eigent is a polished, Apache-2.0 **open-source multi-agent "workforce" desktop** built on CAMEL-AI, with parallel agent execution, local deployment, MCP integration, and enterprise access control. Adopt it when you want a **local, private, multi-agent automation desktop** for complex multi-step (often non-coding) workflows and prefer a zero-setup app over wiring a framework yourself. For this catalog it's CONDITIONAL because it's a general knowledge-work cowork product rather than a coding harness, and it's a desktop app to run. Against lobehub/OpenHands/cherry-studio, its edge is the CAMEL-based parallel workforce with local + enterprise focus.
+**SKIP** — off-scope, on the evaluation's own finding: *"it's a general knowledge-work cowork
+product rather than a coding harness."*
 
-Compared to neighbors: **orca** is a multi-agent ADE for coding agents; **claude-squad** manages parallel terminal agents; **OpenHands** is a full AI dev platform; **lobehub** is an agent-ops platform. Eigent's distinguishing pitch is **a zero-setup, local-first multi-agent workforce desktop on CAMEL-AI with enterprise controls.**
+Eigent is a CAMEL-AI "Multi-Agent Workforce" desktop for complex multi-step workflows, most of them
+not code. This catalog maps tools that move a quality signal in the *dev loop*; a general
+automation desktop is the same scope call `pm-claude-skills`, `company-os-starter-kit` and
+`page-agent` already got. What is left after the scope cut — running parallel agents from a desktop
+app — is [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`)'s job.
+
+The product is well made (Apache-2.0, ★14.5K, local deployment, MCP integration, SSO), which is
+exactly why the scope line matters: this is a capable tool pointed somewhere other than the loop,
+not a weak one.
+
+Re-open if this catalog widens past the dev loop.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

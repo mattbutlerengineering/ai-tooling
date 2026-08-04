@@ -71,10 +71,11 @@
   },
   "a5c-ai/babysitter": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:08:14Z",
+    "pushed_at": "2026-08-04T07:40:05Z",
     "resolved_name": "a5c-ai/babysitter",
-    "stars": 1494
+    "stars": 1643
   },
   "aaif-goose/goose": {
     "archived": false,
@@ -1277,10 +1278,11 @@
   },
   "garrytan/gbrain": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T01:57:32Z",
+    "pushed_at": "2026-08-04T21:21:39Z",
     "resolved_name": "garrytan/gbrain",
-    "stars": 25764
+    "stars": 27746
   },
   "garrytan/gstack": {
     "archived": false,
@@ -1547,6 +1549,14 @@
     "pushed_at": "2026-07-09T06:33:25Z",
     "resolved_name": "Helvesec/rmux",
     "stars": 2372
+  },
+  "herdrdev/herdr": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-04T22:40:28Z",
+    "resolved_name": "herdrdev/herdr",
+    "stars": 24375
   },
   "hesreallyhim/awesome-claude-code": {
     "archived": false,
@@ -3000,6 +3010,14 @@
     "resolved_name": "rimio-ai/rimz",
     "stars": 22
   },
+  "risa-labs-inc/bossconsole": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-04T22:42:23Z",
+    "resolved_name": "risa-labs-inc/BossConsole",
+    "stars": 215
+  },
   "rkiding/awesome-finance-skills": {
     "archived": false,
     "license_spdx": "Apache-2.0",
@@ -3346,10 +3364,11 @@
   },
   "swe-agent/swe-agent": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-07T15:57:40Z",
+    "pushed_at": "2026-08-03T22:06:16Z",
     "resolved_name": "SWE-agent/SWE-agent",
-    "stars": 19757
+    "stars": 19995
   },
   "tabbyml/tabby": {
     "archived": false,
@@ -3546,6 +3565,14 @@
     "pushed_at": "2026-06-30T07:41:11Z",
     "resolved_name": "UditAkhourii/adhd",
     "stars": 926
+  },
+  "untrivial-ai/agent-orchestrator": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-04T22:43:44Z",
+    "resolved_name": "Untrivial-ai/agent-orchestrator",
+    "stars": 8799
   },
   "upstash/context7": {
     "archived": false,

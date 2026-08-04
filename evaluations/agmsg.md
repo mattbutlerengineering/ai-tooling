@@ -3,6 +3,7 @@
 **Repo:** [fujibee/agmsg](https://github.com/fujibee/agmsg)
 **Stars:** 757 | **Last updated:** 2026-06-19 (pushed; created 2026-04-02) | **License:** MIT | **Requires:** `bash` + `sqlite3`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (peer-to-peer messaging across CLI agents)
 **Layer:** Tooling (a shared local SQLite file + a skill/command per agent)
 
@@ -59,6 +60,25 @@ gh api repos/fujibee/agmsg/readme --jq '.content' | base64 -d | head -40   # SQL
 **discovery-log — tentative read** — agmsg is a clever, MIT, near-zero-infrastructure way to let **CLI agents from different vendors message each other as peers** through a shared local SQLite file — no daemon, no MCP, no broker. Adopt it for cross-model collaboration patterns (e.g. Claude Code asking Codex for a review, or splitting work across peer sessions) where you want them to coordinate without you as the courier. Treat the autonomy seriously: keep a human checkpoint or `monitor` mode on important exchanges, since peer agents acting on each other's unverified output is the main risk. It's a transport, not a work-coordination model — pair with beads/guild if you need to track the *work* itself.
 
 Compared to neighbors: **beads** is a work-coordination ledger; **guild** shares context/memory/task coordination across agents. agmsg's distinguishing pitch is the **cross-vendor peer message channel itself** — the dumb-simple SQLite bus that lets different CLI agents talk directly.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `beads` (STACK, `MEASURED`)
+is a dependency-aware issue store: what work exists and what blocks what. agmsg is a message bus:
+agents from different vendors talking to each other as peers through a shared local SQLite file,
+with no daemon, network, broker or MCP involved. Shared work state and peer messaging are different
+primitives, and a tool built on `bash` + `sqlite3` is about as composable as an addition to this
+stack can be.
+
+The cross-vendor angle is the on-topic part — Claude Code asking Codex for a review is exactly the
+kind of exchange a two-harness setup (ADR-0002) would want, and it needs no infrastructure to try.
+
+Its evaluation attaches the right caution and it should be carried forward rather than lost in a
+bulk pass: *"keep a human checkpoint or `monitor` mode on important exchanges, since peer agents
+acting on each other's unverified output is the main risk."* That is a Verifiability concern, and
+it is the thing a hands-on read would need to test first. MIT, ★981, pushed today.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

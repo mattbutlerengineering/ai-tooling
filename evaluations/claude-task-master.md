@@ -3,6 +3,7 @@
 **Repo:** [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)
 **Stars:** 27,612 | **Last updated:** 2026-04-28 (last *code* release `task-master-ai@0.43.1`, 2026-03-31; commits since are URL/branding chores) | **License:** MIT with Commons Clause
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (primary: PRD→tasks breakdown + tracking); spans Implement/Verify via the autopilot TDD loop
 **Layer:** Tooling (an installable MCP server + CLI, with a Process workflow layered on top)
 
@@ -64,11 +65,23 @@ gh api 'repos/eyaltoledano/claude-task-master/commits?per_page=8' --jq '.[] | {d
 
 ## Verdict
 
-**discovery-log — tentative read** (for the general catalog) — leaning **SKIP for this specific user** due to GSD overlap and the stalled OSS core.
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`) and [`beads`](https://github.com/gastownhall/beads) (STACK,
+`MEASURED`), which split its job between them: GSD decomposes work into milestones and phases,
+beads tracks the resulting units as a dependency-aware issue store the agent reads and writes.
 
-Taskmaster is a genuinely well-built, deeply-integrated tool: the PRD→tasks→dependency-graph→`next` loop is the real product (Zod-typed, dependency-aware, not persona theater), Claude Code is a first-class citizen across MCP, a plugin marketplace, *and* a keyless model provider, and the autopilot TDD-on-rails subsystem extends it credibly into supervised execution. For a team that wants cross-editor, durable, dependency-aware task tracking shared between Cursor/Windsurf/VS Code/Claude Code — especially mixed-IDE teams — it earns **CONDITIONAL: adopt when you need editor-portable structured task management backed by a committed `tasks.json`**, with the caveat that the OSS core looks frozen at v0.43.1 so treat it as a stable-but-static dependency.
+Task management for AI editors is a real category and this is one of its best-known entries at
+★27.8K. It is also aimed elsewhere — Cursor, Windsurf and Roo are its named hosts — and the value
+of an agent task tracker is almost entirely in how tightly it binds to the harness that consumes it.
+Ours is bound already.
 
-For **this user**, who already runs **GSD**, it is largely **redundant**: GSD covers the same Plan→Implement→Verify loop (roadmap/phases/dependency-aware planning/parallel executors/atomic commits/persistent state/TDD verification) natively inside the Claude Code session with no extra API key or model budget. Adopting Taskmaster would mean two competing task/state frameworks; prefer it over GSD only if cross-editor portability or a shared `tasks.json` artifact for non-Claude-Code teammates is a hard requirement. Versus **spec-kit** (also CONDITIONAL): spec-kit produces durable *spec* artifacts (what/why → how → tasks) as a process; Taskmaster produces a durable *task-tracking* artifact with scheduling and an execution engine. They are complementary in principle (spec-kit plans, Taskmaster tracks), but both overlap GSD, so stacking all three on this user's setup is not warranted. Note the **Commons Clause** license caveat versus the plain-MIT alternatives.
+Two facts push the same way: the licence resolves to `NOASSERTION`, meaning GitHub cannot parse the
+LICENSE file and the grant is unclear rather than absent, and the last push was 2026-04-28 — three
+months in a category that moves with harness releases.
+
+Re-open if the stack picks up Cursor or Windsurf as a primary host, or if the licence and cadence
+both clear up alongside a capability beads lacks.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

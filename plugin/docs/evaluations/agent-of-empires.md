@@ -3,6 +3,7 @@
 **Repo:** [agent-of-empires/agent-of-empires](https://github.com/agent-of-empires/agent-of-empires)
 **Stars:** 2,613 | **Last updated:** 2026-06-19 (pushed; created 2026-01-09) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a session manager that runs/monitors multiple coding-agent sessions; touches Review via in-TUI diff view)
 **Layer:** Tooling (Rust TUI + web dashboard, tmux-backed)
 
@@ -53,9 +54,22 @@ gh api repos/agent-of-empires/agent-of-empires/releases --jq 'length'           
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt if you run several coding agents in parallel from a terminal-centric Linux/macOS setup and want tmux-grade session durability, broad multi-agent support, and real phone/tablet remote access. It's actively developed, MIT-licensed, and the tmux-backed persistence + remote tunnel combo is genuinely differentiated. Hold off if you want a stable GUI today (web dashboard is beta), need Windows, or are already happy in claude-squad — AoE is the more feature-dense, more remote-capable cousin of the same TUI session-manager idea.
+**SKIP** — redundant with [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`), on the evaluation's own reading: *"AoE is the more feature-dense,
+more remote-capable cousin of the same TUI session-manager idea … Hold off if … you are already
+happy in claude-squad."*
 
-Compared to neighbors: **claude-squad** is the minimal TUI session manager; **Nimbalyst** is the maximal visual Electron workspace; **AgentsMesh** scales horizontally to a fleet of machines. AoE sits between claude-squad and Nimbalyst — terminal-native like the former, but with web/mobile reach and the widest agent-CLI support.
+Same idea, same stage, same tmux-backed mechanism. The additions — a 13-agent roster, Docker
+sandboxing, and remote phone/tablet access through a tunnel — are breadth on a covered job rather
+than a new one, and the web dashboard that carries the marquee remote feature is still beta.
+
+Remote access is also the addition with the largest safety surface: a tunnel that reaches a running
+coding agent from a phone is a capability worth deliberately choosing, not one to acquire as a side
+effect of swapping session managers.
+
+★2.8K against the incumbent's ★8.1K. Re-open if remote supervision becomes a real requirement, at
+which point it is the strongest option in the cluster for that specific want.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

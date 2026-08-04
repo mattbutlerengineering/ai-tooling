@@ -3,6 +3,7 @@
 **Repo:** [AgentWrapper/agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator) (ComposioHQ)
 **Stars:** 7,600 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -56,6 +57,25 @@ gh api "repos/AgentWrapper/agent-orchestrator/contents/packages/core/src/lifecyc
 **discovery-log — tentative read**
 
 Use when you have 5+ parallel issues to work on and want automated CI-fix and review-routing feedback loops. The reaction system is the genuine differentiator — no other tool in the catalog closes the CI-fail → agent-fix → re-run loop automatically. Choose claude-squad (KEEP) for simpler parallel session management without the reaction system overhead. Choose superpowers (ADOPT) if you work one task at a time and want methodology, not fleet management.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its evaluation names a capability nothing else in the catalog
+has: *"The reaction system is the genuine differentiator — no other tool in the catalog closes the
+CI-fail → agent-fix → re-run loop automatically."* That is a distinct job from [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K)'s session
+management, which the evaluation itself separates — *"Choose claude-squad for simpler parallel
+session management without the reaction system overhead."*
+
+The automated feedback loop is also the piece this repo's own routines approximate by hand: a
+routine currently waits on CI and reacts to the result through an agent turn. A tool that closes
+that loop deterministically is on-topic rather than adjacent.
+
+The facts improved materially during this pass. It reached the band with **no metadata record at
+all** — the cache had `license=None, stars=None` — and a live fetch shows Apache-2.0, ★8.8K and a
+push today. Those are now recorded. What a real read must answer is whether the reaction system
+distinguishes a genuine test failure from a flaky one before it spends an agent turn on a fix.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

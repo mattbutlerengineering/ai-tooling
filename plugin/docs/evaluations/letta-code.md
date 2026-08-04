@@ -3,6 +3,7 @@
 **Repo:** [letta-ai/letta-code](https://github.com/letta-ai/letta-code)
 **Stars:** 2,750 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (npm: `@letta-ai/letta-code`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Harnesses (stateful, self-improving coding agent)
 **Layer:** Tooling/Infrastructure (CLI + desktop app + browser + messaging channels)
 
@@ -55,6 +56,25 @@ gh api repos/letta-ai/letta-code/readme --jq '.content' | base64 -d | head -90  
 **discovery-log — tentative read** — Letta Code is the most credible **memory-first agent harness** in the catalog: an Apache-2.0 CLI/desktop/browser agent from the MemGPT team where memory, identity, and self-improvement (memory blocks, MemFS, skill learning, dreaming) are the core architecture rather than an afterthought. Adopt it if you want a **standing, self-evolving agent** you interact with across CLI/desktop/chat and value git-tracked, auditable memory — and you're willing to run a separate harness (not Claude Code) and govern a self-modifying agent. The deepest "always-on" features (remote multi-env, secrets) require the hosted Constellation login. For Claude-Code-native persistence, `claude-mem`/`claude-subconscious`/OMEGA stay lighter; Letta Code is the choice when the *agent itself* should own and evolve its memory.
 
 Compared to neighbors: **letta** is the platform/SDK for building stateful application agents; **phantom** gives an agent its own VM + durable memory; **ruflo** is a meta-harness with adaptive memory. Letta Code's distinguishing pitch is **a coding agent whose memory, skills, and prompts are git-tracked and self-rewritten over long horizons.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `claude-mem` (STACK,
+`MEASURED`) is a memory plugin *for* Claude Code; Letta Code is a separate harness in which memory,
+identity and self-improvement are the architecture — memory blocks, git-tracked MemFS, skill
+learning, sleeptime "dreaming". You do not choose between a plugin and the harness it plugs into.
+
+Its evaluation calls it *"the most credible memory-first agent harness in the catalog"*, and the
+provenance supports that: Apache-2.0, from the MemGPT team, ★2.8K, pushed today. The idea worth
+tracking regardless of adoption is git-tracked auditable memory — this catalog cares about
+Verifiability, and "you can diff what the agent believes" is the strongest answer to that anyone in
+the memory cluster has offered.
+
+What it is not is an incremental install: it means running a second harness alongside Claude Code
+and governing a self-modifying agent. That is a deliberate decision, not a bulk-pass disposition in
+either direction.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

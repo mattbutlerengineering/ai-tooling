@@ -3,6 +3,7 @@
 **Repo:** [frankbria/ralph-claude-code](https://github.com/frankbria/ralph-claude-code)
 **Stars:** 9,368 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (autonomous)
 **Layer:** Tooling
 
@@ -59,6 +60,25 @@ The behavior described below is from the repo/README, not an observed unattended
 **discovery-log — tentative read**
 
 Adopt for well-scoped tasks where you genuinely want AFK execution and can tolerate 2-3x cost overhead. The Docker sandboxing is the real value — it makes autonomous execution safe to walk away from. Best for tasks with clear, verifiable success criteria (tests pass, endpoint returns expected response). Skip for tasks that benefit from human judgment mid-loop or where cost sensitivity is high. The 9K+ stars and active maintenance (updated today) indicate healthy community adoption.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `superpowers`/GSD (STACK)
+is a *discipline* layer that shapes how an agent works while you watch; Ralph is an *autonomy*
+layer that runs the loop while you do not, with intelligent exit detection deciding when to stop.
+Different jobs, and plausibly complementary — a disciplined agent is exactly what you would want
+running unattended.
+
+The genuine differentiator its evaluation identifies is the safety envelope rather than the loop:
+*"The Docker sandboxing is the real value — it makes autonomous execution safe to walk away from."*
+That is the precondition for AFK execution, and it is not something the incumbent provides.
+
+The costs are stated and honest: 2-3× token overhead, and it is the wrong shape for work that
+benefits from human judgement mid-loop. MIT, ★9.5K, actively maintained. What a real read has to
+establish is whether exit detection actually fires correctly on a task that *cannot* succeed —
+autonomous loops fail expensively in exactly that case.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

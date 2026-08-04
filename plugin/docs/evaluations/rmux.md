@@ -3,6 +3,7 @@
 **Repo:** [Helvesec/rmux](https://github.com/Helvesec/rmux)
 **Stars:** 1,799 | **Last updated:** 2026-06-19 (pushed; created 2026-05-15) | **License:** MIT OR Apache-2.0 (dual; GitHub reports NOASSERTION because of the dual SPDX) | **Releases:** 10
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Agent Orchestration (a programmable multiplexer for driving agents and CLIs)
 **Layer:** Infrastructure (Rust multiplexer + typed Rust/Python SDKs)
 
@@ -56,6 +57,25 @@ gh api repos/Helvesec/rmux/releases --jq 'length'             # 10
 **discovery-log — tentative read** — adopt if you're **building** multi-agent or terminal automation and want to drive sessions from typed Rust/Python code rather than scripting tmux, especially if you need native Windows support or secure browser-shared terminals. The typed SDK + cross-platform (no-WSL) + post-quantum web-share + OpenSSF posture make it a standout *substrate* for agent orchestration. Hold off if you just want to *use* a multiplexer interactively (tmux/zellij already do that and are battle-tested) or need a stable 1.0 API — it's young and pre-1.0. This is a builder's tool: its payoff is in the automation you write on top of it.
 
 Compared to neighbors: **dmux** is a lightweight worktree-based agent multiplexer (use-focused); **claude-squad** manages parallel agent sessions in a TUI; **sandcastle** orchestrates sandboxed agents programmatically in TypeScript. RMUX is the **language-native, typed multiplexer SDK** — the programmable terminal substrate you'd build a sandcastle-like or claude-squad-like orchestrator *on*, with first-class Windows and secure web sharing.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a level error. [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K) is something you *use*;
+rmux is something you *build on*: an async Rust multiplexer with typed Rust/Python SDKs for driving
+any CLI or TUI from code. Its evaluation is explicit — *"This is a builder's tool: its payoff is in
+the automation you write on top of it"*, and *"Hold off if you just want to use a multiplexer
+interactively (tmux/zellij already do that and are battle-tested)."*
+
+That makes it a potential substrate for the tools in this cluster rather than a competitor to them,
+which is not something to dispose as redundant.
+
+It is also not close to installable here: pre-1.0 with an unstable API, and the licence resolves to
+`NOASSERTION` — GitHub cannot parse the LICENSE file, which per this repo's rule means unclear
+rather than absent, and is a thing to settle before any dependency. Native Windows support with no
+WSL and post-quantum browser session sharing are genuinely unusual; neither is a want this stack
+currently has.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

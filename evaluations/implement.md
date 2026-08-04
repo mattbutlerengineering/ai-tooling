@@ -3,6 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
 **Stars:** 136,535 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Process
 
@@ -72,6 +73,27 @@ grep -inE "implement|GSD|superpowers|test-driven|executing-plans|subagent-driven
 **discovery-log — tentative read**
 
 `implement` is a clean, well-authored, intentionally minimal Implement-stage orchestrator whose two best ideas — TDD at *pre-agreed seams* (not blanket TDD) and a graded test cadence (single files often, full suite once) capped by a mandatory review-then-commit tail — are genuinely good defaults. But it carries almost no method of its own: it is a 6-line conductor for `/tdd` and `/review`, so its value is **conditional on adopting the mattpocock family**, and it is additive only for someone *not* already running an implement loop. The user runs **two** richer ones (GSD's execute-phase and superpowers' executing-plans/test-driven-development/requesting-code-review), both of which already provide TDD + review + verify/commit gates with state persistence the thin `implement` lacks. Adopt it **only if you standardize on the mattpocock skill set** (so `/tdd` and `/review` are present and the issue-tracker plumbing is set up) — in which case it's the natural `/implement` entry point. Otherwise it is redundant with the user's existing GSD/superpowers stack; do not add it as a third competing implement loop.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, on a structural ground worth recording: **this row is a skill
+inside a pack that is already a STACK pick**. `implement` ships in
+[`mattpocock/skills`](https://github.com/mattpocock/skills), which STACK carries at `MEASURED`. The
+challenger frame does not apply to a component of an adopted tool — there is nothing to eliminate,
+because it is already installed.
+
+The banding against `feature-dev` (STACK) is the same confusion at the stage level: `implement` is,
+per its evaluation, *"a 6-line conductor for `/tdd` and `/review`"* whose value is *"conditional on
+adopting the mattpocock family"* — a condition this stack already meets.
+
+The genuinely good ideas the evaluation isolates are worth naming because they are transferable
+whatever happens to the row: TDD at *pre-agreed seams* rather than blanket TDD, and a graded test
+cadence (single files often, full suite once) capped by a mandatory review-then-commit tail.
+
+The right follow-up is not an eval but a catalog correction: a row whose parent pack is adopted
+should not sit in the lead queue at all. Filing that is cheap; guessing at it in a bulk pass is not.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

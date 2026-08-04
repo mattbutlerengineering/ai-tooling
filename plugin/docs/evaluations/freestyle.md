@@ -3,6 +3,7 @@
 **Repo:** [freestyle-voice/freestyle](https://github.com/freestyle-voice/freestyle)
 **Stars:** ~390 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (voice input)
 **Layer:** Tooling
 
@@ -52,6 +53,24 @@ gh api repos/freestyle-voice/freestyle/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 A niche but genuinely novel addition: voice dictation for faster, hands-free prompt entry to coding agents, local-first with BYO-key and dev-aware cleanup/dictionary. It's a general-purpose dictation app (not a Claude Code integration), so its catalog relevance is specifically the prompt-entry modality — which nothing else here covers. Worth trying if you'd rather speak prompts than type them; manage expectations on STT accuracy for code-heavy dictation.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error, and an unusually clean one.
+`caveman` (STACK, `MEASURED`) compresses the agent's *output* to save tokens. freestyle is voice
+dictation for the human's *input*. The two share the word "tokens" and nothing else.
+
+Its evaluation is realistic about what the row is for: *"a general-purpose dictation app (not a
+Claude Code integration), so its catalog relevance is specifically the prompt-entry modality —
+which nothing else here covers."* A modality with exactly one entry is not a redundancy candidate;
+disposing it would leave the category empty rather than consolidated.
+
+The dev-aware touches are what make it more than a generic dictation tool — transcription cleanup, a
+custom dictionary mapping spoken forms to identifiers (`"type script"` → `TypeScript`), and
+contextual reformatting. MIT, local-first, BYO-key across six providers or a local model, ★458. The
+open question is the obvious one and needs a hands-on read: STT accuracy on code-heavy dictation.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 
