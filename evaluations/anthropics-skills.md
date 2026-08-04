@@ -3,6 +3,7 @@
 **Repo:** [anthropics/skills](https://github.com/anthropics/skills)
 **Stars:** 152,538 | **Last updated:** 2026-06-09 | **License:** Apache-2.0 (example skills), source-available (document skills)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Reflect
 **Layer:** Tooling
 
@@ -58,6 +59,26 @@ gh api repos/anthropics/skills/contents/.claude-plugin/marketplace.json --jq '.c
 **discovery-log — tentative read**
 
 Use the document-skills plugin when working with Office documents — these are the official engines behind Claude's document features and the best reference for script-backed skills. Use claude-api when building LLM applications. Use skill-creator when authoring new skills and needing the eval harness. Skip the example-skills for general engineering work — mattpocock/skills (ADOPT) and agent-skills (ADOPT) cover that territory with more depth and breadth. The repo's highest value is as a canonical reference for _how to build skills_, not as a skill collection to install wholesale.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It is the first-party Anthropic skills repository — the
+canonical `SKILL.md` reference, catalogued as Type `reference` rather than as something to install.
+Its overlap cell names `agentskills`, a registry; a registry and the reference implementation it
+indexes are not substitutes.
+
+The eval already scopes what to take from it: use `document-skills` and `claude-api`, use
+`skill-creator` for authoring, and "skip the example-skills for general engineering work" because
+mattpocock/skills and agent-skills cover that. That is a partial-redundancy read on one directory
+inside the repo, not a verdict on the repo, and its stated highest value — "a canonical reference
+for *how to build skills*" — is untouched by anything in STACK.
+
+Note for a later pass: `license: NONE` on the metadata record. On a Type `reference` that reads
+rather than vendors, an absent license does not dispose the lead (the P4 band is scoped to
+*vendored* skill/plugin artifacts), but copying example skills out of it would be a different
+question.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

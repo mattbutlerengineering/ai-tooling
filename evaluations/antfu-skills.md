@@ -3,6 +3,7 @@
 **Repo:** [antfu/skills](https://github.com/antfu/skills)
 **Stars:** 5,339 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -60,9 +61,23 @@ gh api "repos/antfu/skills/git/trees/main?recursive=1" --jq '.tree[].path'
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`mattpocock/skills`](https://github.com/mattpocock/skills) and
+[`agent-skills`](https://github.com/addyosmani/agent-skills) (both STACK, `ADOPT`) on everything
+except a framework vertical this stack does not use. The evaluation's own conclusion: *"Not useful
+outside the Vue ecosystem; general engineering skills are better served by mattpocock/skills
+(ADOPT) or agent-skills."*
 
-Use when working on Vue/Vite/Nuxt projects — it's the most comprehensive one-stop skill collection for that ecosystem, with 17 skills covering framework, tooling, testing, and conventions. The generation pipeline is independently valuable as a template for creating your own doc-sourced skill collections. Not useful outside the Vue ecosystem; general engineering skills are better served by mattpocock/skills (ADOPT) or agent-skills.
+The Vue/Vite/Nuxt depth is the whole differentiator, and a React/Next stack collects none of it.
+Everything that would transfer — the general engineering skills — is the part two installed
+incumbents already cover with tighter curation.
+
+The generation pipeline (doc-sourced skills via `meta.ts` + submodules) is the one durable idea
+here, but as a *pattern to copy*, not a package to install; `Skill_Seekers` is the catalogued lead
+that productizes that job and it stays open.
+
+Re-open on a Vue/Nuxt project, where this becomes the obvious first install.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

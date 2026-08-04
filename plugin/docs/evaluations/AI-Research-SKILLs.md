@@ -3,6 +3,7 @@
 **Repo:** [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs)
 **Stars:** 9,862 | **Last updated:** 2026-06-16 (pushed; created 2025-11-03) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer loop — Research/Discover, Plan, and a domain-specific Implement/Verify for *ML research engineering* (training, fine-tuning, eval, serving), capped by Reflect (paper writing). Not the general software dev loop.
 **Layer:** Process (98 Agent-Skills-spec `SKILL.md` files across 23 categories) + a thin Tooling layer (`@orchestra-research/ai-research-skills` npx installer that symlinks skills into detected agents)
 
@@ -64,6 +65,24 @@ gh api repos/Orchestra-Research/AI-Research-SKILLs/contributors --jq '[.[].login
 **discovery-log — tentative read: adopt the per-category engineering skills if you do ML research/training; treat `autoresearch`'s autonomy as opt-in and sandboxed.** This is the strongest-distributed and most engineering-substantive member of the research-skills cluster: 98 MIT-licensed, framework-deep skills behind a serious two-loop orchestration layer, with real release discipline. But its "autonomous research, idea to paper" headline overstates what is fundamentally an *ML-engineering* library for GPU-equipped researchers — almost none of it touches the application-software dev loop, and the unattended autonomy posture is a genuine safety/cost concern. Install by category (vLLM, fine-tuning, distributed-training) for the targeted lift; do not bulk-install, and gate the autoresearch loop behind explicit, budgeted, sandboxed runs.
 
 Compared to neighbors: **scientific-agent-skills (CONDITIONAL)** is the broader *science* breadth play (147 skills + 100 databases across bio/chem/med) — AI-Research-SKILLs is the narrower, deeper *ML-engineering* vertical, and the two barely overlap in domain. **academic-research-skills (CONDITIONAL)** is the paper-*writing* depth play with hard citation-integrity gates but a NonCommercial license; AI-Research-SKILLs wins on license (MIT) and on actually *doing* the experiments, but its paper-writing layer (category 20) is thinner on integrity verification. **PaperOrchestra (CONDITIONAL)** is a single benchmarked paper-writing pipeline that this library could route into. Against the standalone **karpathy/autoresearch (CONDITIONAL)** eval, this repo generalizes that two-loop methodology and packages it with a real engineering skill library beneath it — more complete, more maintained, but carrying the same "autonomy overstates verified capability" caveat. Among the cluster it has the best engineering substance and distribution; it is held back by audience narrowness and the unverified autonomy claim.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the overlap that put it in the challenger band is spurious.
+The STACK pick it cites is [`last30days`](https://github.com/mvanhorn/last30days-skill), which does
+engagement-weighted *social* discovery across Reddit/X/HN. AI-Research-SKILLs is 98 MIT skills for
+GPU-side ML engineering: vLLM, fine-tuning, distributed training. The two share the word "research"
+and nothing else, so "redundant with last30days" would be false.
+
+What it is instead is *off the dev loop* — the eval's own read is that "almost none of it touches
+the application-software dev loop". Off-scope is a weaker claim than redundant, and this repo holds
+domain packs as leads rather than SKIPping them on scope alone.
+
+Its one live concern is the `autoresearch` autonomy loop, which the eval says to gate behind
+budgeted sandboxed runs. That is a Safety judgement about behaviour, and behaviour is what a bulk
+pass has not observed.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

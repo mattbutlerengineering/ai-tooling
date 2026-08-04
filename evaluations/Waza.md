@@ -3,6 +3,7 @@
 **Repo:** [tw93/Waza](https://github.com/tw93/Waza)
 **Stars:** 5,945 | **Last updated:** 2026-06-19 (pushed; created 2026-03-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the inner loop by *habit* — Plan (`/think`), Implement/Design (`/design`), Verify (`/hunt` debugging), Review (`/check`), plus Reflect/knowledge (`/learn`, `/read`, `/health`). It is a curated skill suite, not a single-stage tool.
 **Layer:** Process / Tooling (eight installed Agent Skills — `SKILL.md` + reference docs + helper scripts per skill; cross-tool via the `skills` installer and Claude Code / Codex plugin marketplaces)
 
@@ -56,9 +57,24 @@ gh api repos/tw93/Waza/releases --jq 'length'  # 30
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt selectively if you are *not* already running an equivalent discipline suite. Waza is one of the highest-quality skill packs in this catalog: curated to eight loop-aligned habits, genuinely maintained (30 releases, CI, plugin marketplaces), cross-tool, and bilingual. The blocker to a blanket ADOPT is overlap — for a setup already running superpowers (brainstorming, systematic-debugging, verification, frontend-design), most of Waza is duplicative, and running two routing layers adds friction. Cherry-pick the skills that fill genuine gaps (e.g. `/write` for bilingual prose, `/health` for agent-config audits) rather than installing the full pack on top of existing coverage.
+**SKIP** — redundant with [`GSD`/superpowers](https://github.com/obra/superpowers) and
+[`agent-skills`](https://github.com/addyosmani/agent-skills) (both STACK). The evaluation states
+the condition and this stack fails it: *"adopt selectively if you are **not** already running an
+equivalent discipline suite … for a setup already running superpowers (brainstorming,
+systematic-debugging, verification, frontend-design), most of Waza is duplicative, and running two
+routing layers adds friction."*
 
-Compared to neighbors: **agency-agents** is a 271-file uncoordinated persona menu (CONDITIONAL, cherry-pick); Waza is the opposite design — a small, curated, version-released suite. Against **superpowers**, Waza is comparable in philosophy but narrower and largely overlapping; superpowers is the broader, more battle-tested base, so Waza is best treated as a *supplement* for its few distinctive skills, not a replacement.
+Waza is genuinely one of the better-built packs here — eight curated loop-aligned habits, 30
+releases, CI, cross-tool, bilingual. None of that is in dispute; it is simply the second copy. The
+same evaluation lands on *"superpowers is the broader, more battle-tested base, so Waza is best
+treated as a supplement for its few distinctive skills, not a replacement"*, and a supplement whose
+distinctive residue is `/write` (bilingual prose) and `/health` (agent-config audits) does not earn
+a second routing layer over three installed skill packs.
+
+Re-open if a Waza skill turns out to fill a gap superpowers/agent-skills/mattpocock genuinely
+leave — cherry-picking one skill was always the sane path, and it needs no catalog verdict.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

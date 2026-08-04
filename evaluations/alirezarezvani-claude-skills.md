@@ -3,6 +3,7 @@
 **Repo:** [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)
 **Stars:** 18,480 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** All stages (cross-domain)
 **Layer:** Tooling
 
@@ -60,9 +61,22 @@ Checked: skill quality, attribution practices, agent design, cross-editor suppor
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`mattpocock/skills`](https://github.com/mattpocock/skills) and
+[`agent-skills`](https://github.com/addyosmani/agent-skills) (both STACK, `ADOPT`) on the half that
+belongs in this catalog. The evaluation says so directly: *"The engineering skills overlap
+significantly with mattpocock/skills (ADOPT) and agent-skills (ADOPT), which are better choices for
+pure engineering work due to tighter quality control."*
 
-Use when you need **cross-domain coverage beyond engineering** (marketing, C-level advisory, research operations, compliance) or when working across **multiple AI editors** (13 supported). The engineering skills overlap significantly with mattpocock/skills (ADOPT) and agent-skills (ADOPT), which are better choices for pure engineering work due to tighter quality control. The marketing and C-level skills have no equivalent in the catalog — if you're a founder using Claude Code for business strategy alongside coding, this is the only collection that covers both.
+The half that is *not* redundant — 337 skills spanning marketing, C-level advisory, research ops
+and compliance — is outside the dev loop this catalog maps. That is the same scope call
+`MineContext` got in the Memory & Context band: a real capability, aimed somewhere else. A
+founder-operator running business strategy beside their coding agent is a genuine audience; it is
+not the audience a dev-loop tool catalog recommends for.
+
+So both halves resolve: the engineering slice loses to two installed incumbents, and the business
+slice is off-scope. Re-open if this catalog ever widens past the dev loop.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

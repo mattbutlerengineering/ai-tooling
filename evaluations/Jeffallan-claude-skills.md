@@ -3,6 +3,7 @@
 **Repo:** [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)
 **Stars:** 10,050 | **Last updated:** 2026-05-20 (pushed; created 2025-10-20) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans Implement and Verify/Review by *technology*, not by stage — most of the 66 skills are framework/language "experts" (react-expert, nestjs-expert, golang-pro, postgres-pro) that fire during Implement; a thinner band (code-reviewer, secure-code-guardian, test-master, debugging-wizard) covers Review/Verify. A 9-command outer-loop layer (`common-ground`, Jira/Confluence workflow commands) touches Plan and Ship.
 **Layer:** Process + Tooling (installable Claude Code plugin: 66 `SKILL.md` files with bundled `references/`, plus slash commands; no runtime beyond Claude Code's skill loader, though workflow commands require an Atlassian MCP server)
 
@@ -62,6 +63,24 @@ gh api repos/Jeffallan/claude-skills/contents/skills/code-reviewer/SKILL.md --jq
 **discovery-log — tentative read: install the cross-cutting process skills + common-ground; skip the framework-expert long tail unless you use those stacks.** Jeffallan/claude-skills is one of the better-engineered skill packs in this catalog: real progressive disclosure (369 references behind 66 lean skills), least-privilege `allowed-tools`, and product-grade maintenance (20 releases, CHANGELOG, CI) that lets you pin a known bundle. The weakness is the same as every framework-expert pack — most of the 66 are language/framework wrappers that add little over a frontier model and bloat the skill-selection surface. The durable value is the process layer (code-reviewer, debugging-wizard, secure-code-guardian, test-master) and the `/common-ground` assumption-surfacing command; the workflow commands are useful only if you live in Jira/Confluence via an Atlassian MCP.
 
 Compared to neighbors: against **mattpocock/skills** (17 practical, composable skills from a working dev) and **antfu/skills** (a known OSS dev's curated set), Jeffallan trades curation for breadth and beats both on release discipline and reference depth. Against **alirezarezvani/claude-skills** (337 cross-domain skills + agents) it is far more focused and engineering-coherent. Against **ECC/gstack** (full harnesses with memory and guardrails) it is just a skill library — no orchestration, memory, or runtime. Pick it over the broad packs when you want maintained, well-structured full-stack skills; cherry-pick rather than bulk-install.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the eval's head-to-head puts it *ahead* of the STACK pick on
+two named axes: against [`mattpocock/skills`](https://github.com/mattpocock/skills) and
+`antfu/skills` it "trades curation for breadth and beats both on release discipline and reference
+depth" (20 releases, CHANGELOG, CI, so you can pin a known bundle; 369 references behind 66 lean
+skills with least-privilege `allowed-tools`).
+
+The redundant part is the framework-expert long tail, which the eval says to skip. The part it
+recommends — the process layer (code-reviewer, debugging-wizard, secure-code-guardian, test-master)
+and the `/common-ground` assumption-surfacing command — is where it competes, and "beats the
+incumbent on release discipline" is a claim this lane may not act on in either direction.
+
+Real progressive disclosure at that scale is also worth measuring rather than guessing at, which
+makes this P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

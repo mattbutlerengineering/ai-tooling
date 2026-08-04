@@ -2556,10 +2556,11 @@
   },
   "nvidia/skills": {
     "archived": false,
-    "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-09T23:57:20Z",
+    "fetched_at": "2026-08-04",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-04T21:29:31Z",
     "resolved_name": "NVIDIA/skills",
-    "stars": 2375
+    "stars": 2790
   },
   "nvidia/skillspector": {
     "archived": false,

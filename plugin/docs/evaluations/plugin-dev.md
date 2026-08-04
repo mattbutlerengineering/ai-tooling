@@ -3,6 +3,7 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 **Stars:** 30,444 (monorepo) | **Last updated:** 2025-12-18 (plugin author: Daisy Hollman, daisy@anthropic.com) | **License:** MIT (per plugin README); monorepo is Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (meta: building the tools you implement *with*)
 **Layer:** Tooling
 
@@ -73,6 +74,26 @@ Repo verification: confirmed. The catalog entry was UNLINKED; the plugin ships f
 For anyone authoring Claude Code plugins, skills, agents, hooks, or MCP integrations, this is the default tool — adopt it. It is the only first-party, comprehensive, auto-triggering authoring toolkit, it ships deterministic validators, and its provenance means it tracks the spec it documents better than any third-party alternative. This repo specifically maintains a `plugin/` marketplace package, so plugin-dev is directly applicable here for validating that package's structure and authoring new components.
 
 It is CONDITIONAL rather than blanket-ADOPT only because the value is fully audience-gated: it does nothing for consumers who never author plugins, and it is v0.1.0 with a spec-lag risk. Versus **skill-creator**: keep both in the catalog and treat them as complementary, not duplicate — plugin-dev is the broader meta-toolkit (commands/agents/hooks/MCP + a guided scaffolder + validators), while skill-creator is the focused choice for standalone skill authoring with eval/benchmark/variance tooling that plugin-dev lacks. Reach for plugin-dev when building a multi-component plugin; reach for skill-creator when you only need one skill and want to measure its trigger accuracy. It is already installed/active in this environment, so the practical recommendation is KEEP.
+
+## Triage note
+
+**Escalated, not disposed.** Left at `discovery-log` for a human, because the eval substantively
+reads ADOPT/KEEP even though its headline token does not: "**ADOPT for plugin authors;
+KEEP/installed already**", and the body says "It is already installed/active in this environment,
+so the practical recommendation is KEEP."
+
+That is a positive read, and no bulk lane may overrule one. It is the same shape as
+[#259](https://github.com/mattbutlerengineering/ai-tooling/issues/259) — an eval that concluded
+something the `discovery-log` row never caught up to — with an extra wrinkle: the tool is
+*installed*, so `KEEP` (the validated-installed status) is the verdict the row is missing, and a
+missing KEEP is what detector J's STACK-derivation drift exists to catch.
+
+Note that detector T does not flag this one: after [#324](https://github.com/mattbutlerengineering/ai-tooling/issues/324)
+the headline *token* is `discovery-log` and the ADOPT/KEEP sits in the parenthetical, so a
+headline-keyed check reads it as a clean lead. Filed separately rather than widened into the
+detector, since "verdict word inside a tentative read" is prose, not structure.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

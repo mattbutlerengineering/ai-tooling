@@ -3,6 +3,7 @@
 **Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot)
 **Stars:** N/A (skill within a collection) | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -84,6 +85,24 @@ These tools are complementary by language, not competitive. A shop building a Ty
 **discovery-log — tentative read**
 
 Use this skill when building a TypeScript MCP server — it reliably steers the agent to current SDK patterns and avoids the most common first-timer mistakes (old transport, wrong return shape, ES module config). The value is real: without it, Claude frequently generates servers using deprecated `Server` + SSE patterns that fail with modern MCP clients. Skip it for Python projects (use fastmcp), for multi-tool servers that need module structure (add your own architecture guidance), or for any public-facing server that needs auth (supplement with auth patterns). Do not expect it to parse API specs — the "from API specs" framing is aspirational, not functional.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the incumbent it was banded against is in a different
+language. Its only overlap token is [`fastmcp`](https://github.com/PrefectHQ/fastmcp), the STACK
+pick for building MCP servers **in Python**; this skill steers TypeScript SDK work. The eval says
+as much in its own routing advice: "Skip it for Python projects (use fastmcp)."
+
+Complementary, not redundant — and the gap it covers is the one this stack would actually hit,
+since the servers written here would be TypeScript. The eval reports a concrete failure it
+prevents: without it, agents "frequently generate servers using deprecated `Server` + SSE patterns
+that fail with modern MCP clients".
+
+That is a testable claim (does the generated server run against a current client, with and without
+the skill?) and testing it is P0 work. Discount the row's "from API specs" framing, which the eval
+calls aspirational.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

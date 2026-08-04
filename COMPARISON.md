@@ -440,11 +440,11 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
-| alirezarezvani/claude-skills | plugin | | ✓ | discovery-log | REVIEW |
+| alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
 | andrej-karpathy-skills | skill | | ✓ | SKIP | REVIEW |
-| Anthropic-Cybersecurity-Skills | skill | | ✓ | discovery-log | REVIEW |
+| Anthropic-Cybersecurity-Skills | skill | | ✓ | SKIP | REVIEW |
 | anthropics/skills | reference | | ✓ | discovery-log | REVIEW |
-| antfu/skills | skill | | ✓ | discovery-log | REVIEW |
+| antfu/skills | skill | | ✓ | SKIP | REVIEW |
 | azure-skills | plugin | | ✓ | discovery-log | REVIEW |
 | book-to-skill | skill | | ✓ | discovery-log | REVIEW |
 | Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
@@ -469,9 +469,9 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
-| pm-claude-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| pm-claude-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
-| claude-code-infrastructure-showcase | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-infrastructure-showcase | reference | | ✓ | SKIP | SOURCE-ONLY |
 | microsoft/skills | skill | | ✓ | discovery-log | REVIEW |
 | obsidian-skills | skill | | ✓ | discovery-log | REVIEW |
 | open-design | platform | | ✓ | SKIP | REVIEW |
@@ -496,12 +496,12 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | softaworks/agent-toolkit | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | NVIDIA/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | loopy | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| company-os-starter-kit | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| company-os-starter-kit | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | council-of-high-intelligence | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | typescript-mcp-server-generator | skill | | ✓ | discovery-log | REVIEW |
 | attention-control | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ui-ux-pro-max | skill | | ✓ | discovery-log | REVIEW |
-| Waza | skill | | ✓ | discovery-log | REVIEW |
+| Waza | skill | | ✓ | SKIP | REVIEW |
 | agents (wshobson) | plugin | | ✓ | discovery-log | REVIEW |
 | agent-sprite-forge | skill | | ✓ | SKIP | REVIEW |
 | SwiftUI-Agent-Skill | skill | | ✓ | discovery-log | REVIEW |
@@ -520,8 +520,8 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| agent-skill-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| wondelai/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-skill-creator | skill | | ✓ | SKIP | SOURCE-ONLY |
+| wondelai/skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-design-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Memory & Context
@@ -733,9 +733,9 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 9 | 2 | 21% |
-| Skills & Plugins | 90 | 21 | 4 | 23% |
+| Skills & Plugins | 90 | 30 | 4 | 33% |
 | Memory & Context | 50 | 15 | 2 | 30% |
 | MCP Servers | 44 | 13 | 2 | 30% |
 | Research & Discovery | 20 | 3 | 1 | 15% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **642** | **170** | **34** | **26%** |
+| **Total** | **642** | **179** | **34** | **28%** |

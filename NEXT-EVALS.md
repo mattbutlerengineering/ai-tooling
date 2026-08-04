@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 472 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 463 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 102 distinct values across these 472 leads (186 have zero overlap pressure; largest tie: 37) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 100 distinct values across these 463 leads (178 have zero overlap pressure; largest tie: 37) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -10,7 +10,7 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 143 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P2 challenger** | overlaps a tool already in STACK | 134 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
 | **P3 backlog** | everything else | 304 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 
@@ -34,10 +34,10 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | pydantic-ai | Implement | 33.6 | pressure 12, gap 7.6 | `/evaluate-tool pydantic-ai` |
 | spec-kit | Plan | 33.6 | pressure 13, gap 5.6 | `/evaluate-tool spec-kit` |
 | awesome-claude-code | Reference | 31.9 | pressure 11, gap 7.9 | `/evaluate-tool awesome-claude-code` |
-| tech-leads-club/agent-skills | Skills & Plugins | 31.7 | pressure 11, gap 7.7 | `/evaluate-tool tech-leads-club/agent-skills` |
-| vercel-labs/agent-skills | Skills & Plugins | 31.7 | pressure 11, gap 7.7 | `/evaluate-tool vercel-labs/agent-skills` |
 | MemOS | Memory & Context | 31.0 | pressure 11, gap 7.0 | `/evaluate-tool MemOS` |
 | mem0 | Memory & Context | 31.0 | pressure 11, gap 7.0 | `/evaluate-tool mem0` |
+| tech-leads-club/agent-skills | Skills & Plugins | 30.7 | pressure 11, gap 6.7 | `/evaluate-tool tech-leads-club/agent-skills` |
+| vercel-labs/agent-skills | Skills & Plugins | 30.7 | pressure 11, gap 6.7 | `/evaluate-tool vercel-labs/agent-skills` |
 | awesome-agent-skills | Reference | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | opik | Outer Loop | 29.9 | pressure 10, gap 7.9 | `/evaluate-tool opik` |
@@ -54,11 +54,11 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 143 leads
+## P2 challenger — 134 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 143 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 134 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -86,15 +86,15 @@ _Listing 12 of 304 — rerun `python3 triage.py` and read the source for the tai
 | qwen-code | Implement | 27.6 | pressure 9, gap 7.6 | `/triage-lead qwen-code` |
 | OpenSpec | Plan | 27.6 | pressure 10, gap 5.6 | `/triage-lead OpenSpec` |
 | claude-hud | Plan | 27.6 | pressure 10, gap 5.6 | `/triage-lead claude-hud` |
-| ui-ux-pro-max | Skills & Plugins | 25.7 | pressure 8, gap 7.7 | `/triage-lead ui-ux-pro-max` |
 | CopilotKit | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead CopilotKit` |
 | daytona | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead daytona` |
 | gemini-cli | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead gemini-cli` |
 | voltagent | Implement | 25.6 | pressure 8, gap 7.6 | `/triage-lead voltagent` |
+| ui-ux-pro-max | Skills & Plugins | 24.7 | pressure 8, gap 6.7 | `/triage-lead ui-ux-pro-max` |
 | awesome-claude-skills (Composio) | Reference | 23.9 | pressure 7, gap 7.9 | `/triage-lead awesome-claude-skills (Composio)` |
-| impeccable | Skills & Plugins | 23.7 | pressure 7, gap 7.7 | `/triage-lead impeccable` |
-| slidev | Skills & Plugins | 23.7 | pressure 7, gap 7.7 | `/triage-lead slidev` |
 | CLIProxyAPI | Implement | 23.6 | pressure 7, gap 7.6 | `/triage-lead CLIProxyAPI` |
+| fast-agent | Implement | 23.6 | pressure 7, gap 7.6 | `/triage-lead fast-agent` |
+| impeccable | Skills & Plugins | 22.7 | pressure 7, gap 6.7 | `/triage-lead impeccable` |
 
 ## P4 mechanical-skip — 0 leads
 
