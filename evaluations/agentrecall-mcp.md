@@ -3,6 +3,7 @@
 **Repo:** [Goldentrii/AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-MCP)
 **Stars:** 303 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -67,6 +68,25 @@ gh api repos/Goldentrii/AgentRecall-MCP/contents/benchmark/replay-results.json -
 AgentRecall is a credible, MIT-licensed, local-first memory MCP whose real differentiator is **correction-first compounding memory** with a measurable precision KPI and a deliberately minimal 5-tool surface — axes that make it *additive*, not a thin duplicate of the existing memory CONDITIONALs. agentmemory competes on benchmarked hybrid-search recall and 15+ platform breadth; SimpleMem competes on token-efficient compression and multimodality; AgentRecall competes on *learning from human corrections* and tool-surface frugality, which neither of them centers. Use it when the pain you're solving is **"my agent keeps making the same mistake I already corrected"** and you want a zero-cloud, low-tool-count memory you can grep in markdown.
 
 For this user's case — Claude Code, local-first, already on claude-mem (ADOPT) + OMEGA — it does **not** displace claude-mem: it's far younger (303 stars vs claude-mem's mature plugin ecosystem), its "measurable learning loop" is so far validated only on a 3–6-item internal benchmark, and adopting a second session-hook + on-disk store layer risks colliding with the live claude-mem/OMEGA setup. Like agentmemory and SimpleMem (both CONDITIONAL), it wins on a specific axis (correction-first compounding + minimal tool surface) and loses to claude-mem on battle-testing and ecosystem fit. KEEP the catalog entry; CONDITIONAL, not ADOPT, not SKIP.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, but with a **gap in its own evaluation
+worth flagging before anyone acts on it**. The eval positions AgentRecall's unique axis as
+*correction-first compounding memory* — "my agent keeps making the same mistake I already
+corrected" — and defends that against agentmemory and SimpleMem. It never compares against
+[`claude-reflect`](https://github.com/BayramAnnakov/claude-reflect), a STACK pick (Tier 1,
+`MEASURED`) whose entire job is *"turns session corrections into persistent CLAUDE.md rules"*.
+
+That is the first comparison a real evaluation should run, and it is not one this lane may run —
+weighing two tools on the axis both claim needs them exercised. Its CATALOG "Overlaps with" cell
+should probably name `claude-reflect` too.
+
+Two housekeeping notes: the repo has been renamed to `AgentRecall-X`, and `repo-metadata.json`
+carries **no record for it** — the cache is keyed on the current slug and this one is missing, so
+license/stars/archived are unknown to the triage bands.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

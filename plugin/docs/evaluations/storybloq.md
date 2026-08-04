@@ -3,6 +3,7 @@
 **Repo:** [Storybloq/storybloq](https://github.com/Storybloq/storybloq)
 **Stars:** 618 | **Last updated:** 2026-06-18 | **License:** PolyForm-Noncommercial-1.0.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Reflect
 **Layer:** Tooling
 
@@ -59,9 +60,26 @@ Not hands-on tested (no project bootstrap performed). Assessment is architecture
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`claude-mem`](https://github.com/thedotmack/claude-mem)
+(STACK, `ADOPT`/`MEASURED`) on cross-session memory, and disqualified on licensing besides. Its own
+evaluation gates use on *"your project is non-commercial or you have a commercial license"* and
+concludes that *"for solo Claude Code users who need cross-session memory, claude-mem (ADOPT) is
+simpler and permissively licensed."*
 
-Use when: (1) your project is non-commercial or you have a commercial license, (2) the whole team can adopt the `.story/` convention, and (3) you need structured project management (tickets, roadmap, federation) integrated into agent sessions — not just memory. For solo Claude Code users who need cross-session memory, claude-mem (ADOPT) is simpler and permissively licensed. For multi-agent teams on commercial projects, engram (CONDITIONAL) is a better fit. Storybloq's federation and autonomous mode are genuinely unique, but the license narrows the audience significantly.
+The licensing point is the decisive one, and it is worth being precise about why it counts here.
+`repo-metadata.json` records `NOASSERTION`, which on its own **never** disposes of a lead — it means
+GitHub could not parse the LICENSE file, not that terms are bad. But this eval read the actual
+license and found a non-commercial restriction, and the Type is `plugin`: a *vendored* artifact
+whose text is copied into the consuming repo, where license terms bind directly. A human read
+established what the metadata could not.
+
+Its differentiated features — federation, autonomous mode, `.story/` ticket and roadmap tracking —
+are real, and the eval calls them genuinely unique. They are project-management capability sitting
+behind a license bar this catalog does not clear, on top of a memory layer already covered.
+
+Re-open if it relicenses permissively.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

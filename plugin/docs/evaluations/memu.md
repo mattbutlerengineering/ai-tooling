@@ -3,6 +3,7 @@
 **Repo:** [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU)
 **Stars:** 13,890 | **Last updated:** 2026-06-19 (pushed) | **License:** see repo (no SPDX detected) | **Language:** Python
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Memory & Context — file-structured agent memory
 **Layer:** Infrastructure (memory framework/service)
 
@@ -53,6 +54,17 @@ gh api repos/NevaMind-AI/memU/readme --jq '.content' | base64 -d | head -40     
 **CONDITIONAL** — memU is a popular, well-conceived **file-structured memory framework** whose strength is making agent memory a **human-readable, navigable Markdown tree** (MEMORY/SKILL/INDEX) with INDEX-guided, retrieve-only-what-matters access — inspectable and auditable where vector stores are opaque. Adopt it if you want transparent, file-based agent memory (and like the skills-as-memory angle) and can confirm the (currently undeclared) license. It's CONDITIONAL because memory is heavily saturated, the Markdown-FS model overlaps patterns you may already run (OMEGA-style file memory, Letta MemFS), and large-scale retrieval quality vs. embeddings is unproven here. Strong fit for "I want to read my agent's memory"; less differentiated if you already have a file-based memory system.
 
 Compared to neighbors: **cognee** is knowledge-graph memory; **MemOS**/**memind** crystallize experience into policy; **supermemory** is a benchmark-forward context engine; **claude-mem** is Claude-Code-native recall. memU's distinguishing pitch is **memory as a navigable, human-readable Markdown file system (MEMORY/SKILL/INDEX) with memorize()/retrieve().**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its pitch against
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK) is a structural one no STACK
+pick offers: memory as a **human-readable, navigable Markdown tree** (MEMORY/SKILL/INDEX) you can
+open and audit, where a vector store is opaque. Transparency is a real axis, not a duplicate
+feature. Watch item: the license is **not a standard SPDX identifier** (`NOASSERTION`), which the
+eval already flags as a precondition to adoption.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

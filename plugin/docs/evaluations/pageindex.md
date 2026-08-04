@@ -3,6 +3,7 @@
 **Repo:** [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex)
 **Stars:** ~33,200 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Implement (retrieval / Memory & Context)
 **Layer:** Infrastructure
 
@@ -52,6 +53,18 @@ gh api repos/VectifyAI/PageIndex/readme --jq '.content' | base64 -d
 **CONDITIONAL**
 
 Adopt for retrieval over long, high-stakes professional documents where relevance and explainability matter more than per-query latency/cost. For high-volume, low-stakes retrieval, classic vector RAG is cheaper. Pilot the self-host repo first; reach for the cloud pipeline when OCR quality and peak accuracy justify it.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — and arguably mis-banded. PageIndex is
+reasoning-based retrieval over long professional documents, not agent session memory; the STACK
+picks it is measured against here (`claude-mem`, and `context7` via its overlaps cell) answer a
+different question. Nothing in STACK does explainable retrieval over a 300-page contract.
+
+The real decision is scope, and it is a live one: whether document-retrieval infrastructure belongs
+in a catalog organized around dev-loop stages. That is a human call, not a bulk SKIP.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

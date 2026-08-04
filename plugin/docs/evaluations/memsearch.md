@@ -3,6 +3,7 @@
 **Repo:** [zilliztech/memsearch](https://github.com/zilliztech/memsearch)
 **Stars:** 2,076 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -64,6 +65,18 @@ Reviewed: 4 Claude Code hooks, 3 plugin skills, 4-platform plugin layer, CLI ver
 **CONDITIONAL**
 
 Use memsearch when you genuinely work across multiple agent harnesses (Claude Code + Codex CLI + OpenClaw + OpenCode) and want one shared, portable project memory — that cross-agent unification is its real, unique value, and the Markdown-source-of-truth design is sound. For a Claude Code-only user (this user), it does not beat claude-mem (ADOPT): claude-mem is more battle-tested, has a mature plugin ecosystem, and delivers comparable hybrid recall from SQLite + local embeddings with **no vector-DB dependency**, whereas memsearch's Milvus backing is overhead that only pays off at team/multi-user scale and comes with Zilliz Cloud upsell steering. Like agentmemory (CONDITIONAL), it is a credible memory tool that wins on a specific axis (cross-agent reach) but loses to claude-mem on Claude Code ecosystem fit and simplicity. KEEP the catalog entry; do not adopt over claude-mem.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its evaluation ends with **"KEEP the catalog
+entry; do not adopt over claude-mem"** — which is a fit conclusion, not an elimination. Its unique
+axis is cross-agent unification (one shared project memory across Claude Code, Codex CLI, OpenClaw,
+OpenCode), and the eval is candid that this pays off at team/multi-user scale where the Milvus
+dependency stops being overhead.
+
+Watch item recorded in the eval: Zilliz Cloud upsell steering.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [eugeniughelbur/obsidian-second-brain](https://github.com/eugeniughelbur/obsidian-second-brain)
 **Stars:** ~2,570 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect (knowledge management / Memory & Context)
 **Layer:** Process / Tooling
 
@@ -52,6 +53,19 @@ gh api repos/eugeniughelbur/obsidian-second-brain/readme --jq '.content' | base6
 **CONDITIONAL**
 
 Adopt if you live in Obsidian and want an AI second brain that compounds and reconciles itself (update-not-append) rather than an append-only note pile — the self-rewriting mechanic is its standout. Review its edits (lean on Obsidian version history) since auto-rewriting can remove wanted content. For a solo user already on claude-mem + OMEGA it overlaps existing memory; the draw is the coherent, user-owned Obsidian vault.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its eval notes that for a solo
+user already on claude-mem this overlaps existing memory — but its draw is stated in the same
+breath: a coherent, **user-owned Obsidian vault** that reconciles itself (update-not-append) rather
+than accumulating an append-only note pile. That is a knowledge-base question, not an agent-memory
+one, and no STACK pick answers it.
+
+Relevant here specifically: an Obsidian vault is already part of this operator's setup. The eval's
+own caution stands — review its edits, since auto-rewriting can remove wanted content.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

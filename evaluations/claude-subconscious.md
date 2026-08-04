@@ -3,6 +3,7 @@
 **Repo:** [letta-ai/claude-subconscious](https://github.com/letta-ai/claude-subconscious)
 **Stars:** 2,796 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -57,9 +58,22 @@ gh api 'repos/letta-ai/claude-subconscious/contents/package.json' --jq '.content
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with
+[`claude-mem`](https://github.com/thedotmack/claude-mem), on this evaluation's own reading: *"For
+everyone else, claude-mem (ADOPT) covers the memory need with local-first simplicity."* The
+"everyone else" it excludes is teams already invested in Letta, which is not this stack.
 
-Use when you want a persistent, cross-session memory agent that actively explores your codebase — and you're comfortable with a Letta Cloud dependency. The background agent model is genuinely differentiated from file-based memory (claude-mem) and key-value stores (server-memory), but the "not for production" banner and cloud dependency limit the audience. If Letta Code (the full product) ships a stable equivalent, re-evaluate. For teams already using Letta, this is a natural extension. For everyone else, claude-mem (ADOPT) covers the memory need with local-first simplicity.
+The background-agent model — a memory agent that actively explores your codebase between sessions —
+is genuinely differentiated from file-based memory, and the skip does not dispute that. What it
+costs is what decides it: a **Letta Cloud dependency** for something claude-mem does locally, plus
+the project's own **"not for production"** banner. Trading local-first operation for a cloud
+dependency, to get a capability the incumbent already covers, is a regression in Safety and Cost
+Efficiency for no Correctness gain.
+
+Re-open if Letta ships a stable equivalent inside Letta Code, which the eval names as the trigger,
+or if the cloud dependency becomes optional.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

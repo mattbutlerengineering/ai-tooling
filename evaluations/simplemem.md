@@ -3,6 +3,7 @@
 **Repo:** [aiming-lab/SimpleMem](https://github.com/aiming-lab/SimpleMem)
 **Stars:** 3,521 | **Last updated:** 2026-05-21 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -68,6 +69,21 @@ Repo identity confirmed: the catalog name "SimpleMem" disambiguates against many
 **CONDITIONAL**
 
 SimpleMem is a credible, papers-backed memory system whose real, unique value is *token-efficient compression* and *multimodal + self-evolving retrieval* — axes no other catalog memory entry covers. Use it when those specifically matter: you need image/audio/video memory, you want a benchmarked compression-first memory layer for a Python agent, or you're building a multi-tenant memory service (the MCP server is genuinely built for that). For this user's case — Claude Code, local-first, already on claude-mem (ADOPT) — it does **not** displace claude-mem: SimpleMem's shipped Claude surface is the weakest of its three channels (text-only MCP aimed at Claude Desktop, or a manual no-hooks CLI skill), it mandates a paid LLM API key with no local fallback (a regression vs claude-mem/memsearch/agentmemory's free local embeddings), and its "+64% vs Claude-Mem" headline is a self-reported, mislabeled benchmark. Like memsearch and agentmemory (both CONDITIONAL), it wins on a specific axis (here: compression efficiency + multimodality) but loses to claude-mem on Claude Code ecosystem fit, auto-capture, and zero-key local operation. It is **not** a thinner duplicate of those CONDITIONALs — it attacks a different problem (compression/token-cost, plus multimodal) rather than competing on hybrid-search recall — which earns the CONDITIONAL over a SKIP. KEEP the catalog entry; do not adopt over claude-mem.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — and its evaluation argues the point
+directly: SimpleMem "is **not** a thinner duplicate of those CONDITIONALs — it attacks a different
+problem (compression/token-cost, plus multimodal) … **which earns the CONDITIONAL over a SKIP**."
+Token-efficient compression and image/audio/video memory are axes no other memory entry covers.
+
+The eval is equally clear it does not displace [`claude-mem`](https://github.com/thedotmack/claude-mem)
+(STACK) for this profile: its Claude surface is the weakest of its three channels, it mandates a
+paid LLM API key with no local fallback, and the "+64% vs Claude-Mem" headline is self-reported and
+mislabeled. "Do not adopt over claude-mem" and "SKIP" are different conclusions; the eval reached
+the first.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

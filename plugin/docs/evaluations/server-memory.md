@@ -3,6 +3,7 @@
 **Repo:** [modelcontextprotocol/servers — src/memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
 **Stars:** 87,453 (monorepo) | **Last updated:** 2026-06-17 (pushed; monorepo created 2024-11-19) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Outer-loop **Reflect** / cross-session continuity — it is the persistence substrate an agent reads at task start and writes at task end, not a stage that produces code.
 **Layer:** Infrastructure (a stdio MCP server process holding a knowledge graph; the agent is the only client and decides what to store)
 
@@ -59,6 +60,20 @@ Note: the monorepo's NPM-published license resolves as `NOASSERTION` at repo lev
 **CONDITIONAL — adopt as a reference and as a minimal local backend; do not expect it to be a memory *system*.** server-memory is the official, MIT, beautifully minimal knowledge-graph specimen: the right thing to read before building or choosing memory tooling, and a fine zero-infra local store for small graphs where you control what gets written. But it deliberately stops at CRUD + substring search — no semantic recall, consolidation, learning, or relevance budgeting — so for real cross-session continuity you'll outgrow it.
 
 Compared to neighbors: **OMEGA** (this user's installed stack) adds semantic search, coordination, checkpoints, and a protocol layer that decides *when* to read/write — capabilities server-memory leaves to the host. **claude-mem** adds semantic search and timeline views; **mem0** and **cognee** add relationship-aware vector backends. server-memory wins decisively on legibility, safety, and zero-dependency portability, and it is the conceptual ancestor most of those tools borrow from — but as a working memory layer it is the floor, not the ceiling.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. This is the official
+`modelcontextprotocol/servers` knowledge-graph specimen, and its evaluation values it as a
+*reference* — "the right thing to read before building or choosing memory tooling" — rather than as
+a competitor to [`claude-mem`](https://github.com/thedotmack/claude-mem). It deliberately stops at
+CRUD plus substring search.
+
+SKIPping the reference implementation that most tools in this band borrow from would remove the
+baseline the rest are judged against. It wins on legibility, safety, and zero-dependency
+portability; it is the floor, not the ceiling, and the floor is worth keeping.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

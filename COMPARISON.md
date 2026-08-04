@@ -532,20 +532,20 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | kaas | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | PageIndex | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | Acontext | tool | ✓ | ✓ | discovery-log | REVIEW |
-| byterover-cli | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| byterover-cli | tool | ✓ | ✓/$ | SKIP | REVIEW |
 | LightRAG | tool | ✓ | ✓ | discovery-log | REVIEW |
 | memvid | tool | ✓ | ✓ | discovery-log | REVIEW |
 | kreuzberg | tool | ✓ | ✓ | discovery-log | REVIEW |
-| MineContext | platform | ✓ | ✓ | discovery-log | REVIEW |
+| MineContext | platform | ✓ | ✓ | SKIP | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
 | lean-ctx | tool |  | ✓ | CONDITIONAL | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
-| claude-subconscious | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| claude-subconscious | plugin | ✓ | ✓ | SKIP | REVIEW |
 | cognee | platform | | ✓ | discovery-log | REVIEW |
 | MemOS | platform | | ✓ | discovery-log | REVIEW |
 | memind | platform | ✓ | ✓ | discovery-log | REVIEW |
-| ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
+| ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | evolver | tool | ✓ | ✓ | discovery-log | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -561,7 +561,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | SimpleMem | tool | | ✓ | discovery-log | REVIEW |
 | squish-memory | MCP server | | ✓ | SKIP | REVIEW |
 | longhand | MCP server | | ✓ | discovery-log | REVIEW |
-| storybloq | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| storybloq | plugin | ✓ | ✓ | SKIP | REVIEW |
 | handoff-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-memory-setup | reference | | ✓ | discovery-log | REVIEW |
 | claude-obsidian | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -574,7 +574,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | honcho | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | MemPalace | tool | ✓ | ✓ | discovery-log | REVIEW |
 | pro-workflow | plugin | ✓ | ✓ | SKIP | REVIEW |
-| hivemind | tool | ✓ | ✓ | discovery-log | REVIEW |
+| hivemind | tool | ✓ | ✓ | SKIP | REVIEW |
 | AgentRecall-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -734,8 +734,8 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 9 | 2 | 21% |
 | Skills & Plugins | 90 | 21 | 4 | 23% |
-| Memory & Context | 50 | 10 | 2 | 20% |
+| Memory & Context | 50 | 15 | 2 | 30% |
 | MCP Servers | 44 | 13 | 2 | 30% |
 | Research & Discovery | 20 | 3 | 1 | 15% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **642** | **165** | **34** | **26%** |
+| **Total** | **642** | **170** | **34** | **26%** |

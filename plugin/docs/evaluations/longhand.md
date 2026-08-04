@@ -3,6 +3,7 @@
 **Repo:** [Wynelson94/longhand](https://github.com/Wynelson94/longhand)
 **Stars:** 10 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -72,6 +73,18 @@ Verified in source: `MAX_OUTPUT_CHARS = 200000` and a `_truncate_output(text, ma
 longhand is a credible, well-secured tool with a genuinely differentiated thesis — lossless, verbatim, zero-API session memory with deterministic problem→fix recall and file-state replay — that the summary-based tools (claude-mem, OMEGA, mem0, memsearch) structurally cannot replicate. It is **additive rather than duplicative**: it reads the same JSONL claude-mem does, without interfering, and offers forensic "give me the exact diff" recall that complements claude-mem's semantic-observation timeline and OMEGA's cross-session decision graph. That is its real, unique value.
 
 It falls short of ADOPT on maturity and trust, not concept: 10 stars, a single author, pre-1.0 with inconsistent version signals and only self-reported benchmarks, ingesting the user's entire dev history. Adopt it when you specifically need **forensic, lossless recall of past Claude Code work** (exact diffs, verbatim thinking blocks, deterministic replay) and you are protecting against Claude Code's transcript rotation — and run it alongside, not instead of, claude-mem (ADOPT). For users content with semantic summaries, claude-mem + OMEGA already cover the recall need without ChromaDB or the bus-factor risk. KEEP the catalog entry; re-evaluate toward ADOPT if it gains contributors, a stable 1.0, and independent retrieval benchmarks.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the evaluation says so in as many words: it
+is **"additive rather than duplicative"**. It reads the same JSONL
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK) reads, without interfering, and
+provides lossless verbatim recall with file-state replay — forensic "give me the exact diff"
+retrieval that summary-based tools "structurally cannot replicate".
+
+Eleven stars, so this is early and unproven; that argues for measuring it, not for skipping it.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 
