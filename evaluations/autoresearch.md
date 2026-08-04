@@ -3,6 +3,7 @@
 **Repo:** [karpathy/autoresearch](https://github.com/karpathy/autoresearch)
 **Stars:** 87,570 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Discover (outer loop — automated experimentation)
 **Layer:** Tooling
 
@@ -51,9 +52,27 @@ gh api repos/karpathy/autoresearch/contents/program.md --jq '.content' | base64 
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — off-scope. The evaluation says it plainly: *"Not applicable to general software
+development research (last30days covers that) … the 87K stars overstate its breadth of
+applicability."* This is an autonomous ML-experiment runner for a single-GPU training setup, not a
+tool that moves a quality signal in the software dev loop, and
+[`last30days`](https://github.com/mvanhorn/last30days-skill) (STACK, `MEASURED`) already owns the
+Research slot for the work this catalog maps.
 
-Use when you have a single-GPU ML training setup and want autonomous overnight experimentation. The `program.md` is a masterclass in agent instruction design — study it even if you never train a model. Not applicable to general software development research (last30days covers that), and the 87K stars overstate its breadth of applicability. The methodology (fixed budget, single metric, git-based tracking, simplicity criterion) is transferable to other domains even if the specific implementation is ML-only.
+The licensing is the second half and it is not a technicality: GitHub reports **no license** on the
+repo. Absent a grant, the default is exclusive copyright — nothing here is adoptable, whatever the
+star count says.
+
+What is genuinely valuable survives the SKIP intact. The evaluation calls `program.md` *"a
+masterclass in agent instruction design — study it even if you never train a model"*, and the
+methodology it encodes (fixed budget, single metric, git-based tracking, an explicit simplicity
+criterion) transfers to any autonomous loop. SKIP is a statement about the install list, not the
+catalog: the row stays, and reading `program.md` costs nothing and needs no license grant.
+
+Re-open if the repo adopts a license *and* the work involves ML training — or, more likely, harvest
+the instruction-design pattern into our own agent docs and leave the tool where it is.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [agent-sh/agnix](https://github.com/agent-sh/agnix)
 **Stars:** 293 | **Last updated:** 2026-06-19 (release v0.33.2, 2026-06-18) | **License:** MIT OR Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (lints config artifacts) — also Ship (CI gate) and Implement (in-editor LSP)
 **Layer:** Tooling
 
@@ -76,6 +77,26 @@ Example diagnostic output (from the project README, not run locally):
 **discovery-log — tentative read**
 
 agnix is the most complete config linter in this catalog's space — 425 severity-tagged rules, a single Rust engine exposed as CLI + LSP + MCP + GitHub Action + browser playground, and confidence-tiered auto-fix, all actively maintained. Config-linting is a real recurring pain (silent skill/agent misfires), and agnix moves Maintainability and Correctness clearly, with a modest Safety lift. **Adopt it when you author agent configs regularly or run a multi-tool stack** (Claude Code + Cursor + Copilot + others) and want CI/editor enforcement; the `agnix-mcp` server lets an agent self-check its own configs. Hold off if you're a single-tool repo that touches its configs rarely — the payoff is thin and the single-author bus factor argues against a hard dependency. Not ADOPT-everywhere because the value is conditional on authoring volume and the one-maintainer risk; not SKIP because it cleanly fills a real gap. The catalog one-liner and overlap column should be refreshed to reflect multi-tool scope and the closer `reporails/cli` / `agentlint` overlaps.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The CATALOG row's own "Overlaps with" cell already says it —
+*"SkillSpector (complementary: SkillSpector scans for malice)"*. SkillSpector (STACK) asks whether
+a third-party skill is *hostile*; agnix asks whether a config is *correct*, across 425
+severity-tagged rules and 9+ tool families. Different failure modes, different stages, no
+redundancy to eliminate.
+
+It is a plausible P0 candidate specifically for this repo, which is an unusually good fit for its
+premise: this codebase authors agent configs continuously (skills, agents, hooks, plugin manifests,
+MCP entries) across both supported harnesses, and silent skill/agent misfires are exactly the
+failure it catches. The `agnix-mcp` server letting an agent lint its own configs is the shape that
+matters here.
+
+Against it: a single-author project at ★335, which is a real bus-factor argument against a hard CI
+dependency. A measured read would run it over `.claude/` and `.opencode/` and count true findings
+versus noise.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

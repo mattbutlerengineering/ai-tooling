@@ -3,6 +3,7 @@
 **Repo:** [alibaba/page-agent](https://github.com/alibaba/page-agent)
 **Stars:** 18,673 | **Last updated:** 2026-06-17 (pushed) | **License:** MIT | **Package:** npm `page-agent` (TypeScript)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify / browser automation (also an in-product copilot SDK — partly out of dev-loop scope)
 **Layer:** Tooling (in-page JS library; optional Chrome extension + MCP server)
 
@@ -57,9 +58,25 @@ gh api repos/alibaba/page-agent/readme --jq '.content' | base64 -d | head -45   
 
 ## Verdict
 
-**discovery-log — tentative read** — page-agent is a well-made, MIT, Alibaba-backed library for **embedding a natural-language GUI agent inside your own web app** via text-based DOM manipulation, no extension/headless/vision required. For the AI-assisted **coding** dev loop it's tangential: adopt it when you want to *ship* an in-product copilot or NL form-filling, or use its **Beta MCP server** to let your agent drive a specific page for in-app verification. For general browser automation / QA across arbitrary sites, the external drivers (playwright, agent-browser, browser-use) remain the right tools. Validate the MCP server's maturity before relying on the agent-facing path.
+**SKIP** — off-scope for this catalog, and redundant with
+[`playwright`](https://github.com/microsoft/playwright-mcp) (STACK, `RUN`) on the one dev-loop
+slice it claims. The evaluation says so itself: *"For the AI-assisted **coding** dev loop it's
+tangential."*
 
-Compared to neighbors: **agent-browser** and **browser-use** drive a browser from outside for autonomous interaction/testing; **playwright** automates/tests via MCP. page-agent's distinguishing pitch is the **inverse** — an in-page, screenshot-free agent embedded in your product, with an optional MCP server to expose it outward.
+page-agent is a library you *ship inside your product* — an embedded natural-language GUI agent
+that drives your own web app via text-based DOM manipulation. That is a product feature, not a tool
+that moves a quality signal in the dev loop, and this catalog does not map it. The same scope call
+`pm-claude-skills` and `company-os-starter-kit` got in the Skills pass: a real capability aimed
+somewhere other than the loop.
+
+The dev-loop slice that remains is its Beta MCP server, which would let an agent drive a page for
+in-app verification. That is what `playwright` already does across arbitrary sites, from outside,
+with accessibility snapshots that are cheaper per action than screenshots — and it is not in beta.
+
+Re-open if you are building an in-product copilot, where page-agent is a strong first look, or if
+the MCP server matures into something `playwright` cannot reach (in-page state a driver can't see).
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [erha19/ping-island](https://github.com/erha19/ping-island)
 **Stars:** 899 | **Last updated:** 2026-06-14 (pushed; created 2026-04-03) | **License:** Apache-2.0 | **Install:** `brew install --cask ping-island`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Observability (Reflect / outer loop — live agent session status)
 **Layer:** Tooling (native macOS app; Swift)
 
@@ -48,9 +49,24 @@ gh api repos/erha19/ping-island/readme --jq '.content' | base64 -d | head -30   
 
 ## Verdict
 
-**discovery-log — tentative read** — Ping Island is a polished, Apache-2.0, **native-macOS notch/Dynamic-Island status surface for AI coding agents** that pops up with context and action controls exactly when an agent needs attention. Adopt it if you're on a notch-era MacBook running several agents and want an ambient "who's waiting / who's done" indicator without a separate dashboard. It overlaps claude-fleet/abtop/claude-hud — pick it for the native macOS ergonomics; pick claude-fleet/agentsview if you need transcript search/analytics, or abtop for a cross-platform TUI. macOS-only by design.
+**SKIP** — redundant with [`abtop`](https://github.com/graykode/abtop) (STACK, `MEASURED`): it
+carries the same information on a different surface.
 
-Compared to neighbors: **claude-fleet** is a read-only multi-window triage dashboard with ripgrep transcript search; **abtop** a real-time TUI monitor; **claude-hud** an in-Claude HUD; **agentsview** a cross-agent session browser. Ping Island's distinguishing pitch is the **ambient macOS notch/Dynamic-Island attention surface**.
+"Which agent is working, waiting, or done" is precisely what the incumbent reports, and the
+evaluation frames Ping Island as a *choice among* the monitors rather than an addition to them —
+*"pick it for the native macOS ergonomics; pick claude-fleet/agentsview if you need transcript
+search/analytics, or abtop for a cross-platform TUI."* Alternatives you pick between are the
+definition of the redundancy this band eliminates.
+
+Ambient presentation is a genuine ergonomic idea — the notch surfaces status without you going to
+look — but form factor is not capability, and it is bought at the cost of being macOS-notch-only in
+a stack that also runs on a desktop. Apache-2.0 and ★956 make it a well-built member of a crowded
+cluster, not a second monitor worth installing.
+
+Re-open if a measured read shows ambient notification actually shortens agent idle time versus a
+TUI you check — that would be a capability claim, and it would be P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

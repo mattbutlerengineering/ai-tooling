@@ -3,6 +3,7 @@
 **Repo:** [nyldn/claude-octopus](https://github.com/nyldn/claude-octopus)
 **Stars:** 3,646 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Review (primary) — also spans Implement/Verify/Ship via lifecycle commands
 **Layer:** Tooling
 
@@ -68,6 +69,22 @@ Adopt when (1) you already have several model subscriptions (ChatGPT/Codex, Gemi
 It is not an unconditional ADOPT because the differentiating value is unproven by benchmark, gated behind multiple paid providers, and carries a large fast-moving install footprint from an essentially single maintainer — and for routine work it is expensive ceremony the tool itself tells you to skip in favor of Claude-native review.
 
 Differentiation from overlaps: **PR-Agent** does single-model PR review bound to git platforms; octopus's edge is *cross-model* adversarial review with consensus gating, plus full-lifecycle and research commands. It overlaps in spirit with **oh-my-claudecode** (also a heavy native CC orchestration plugin), but OMC is teams-of-Claude orchestration with cost-routing where octopus's thesis is specifically *multiple independent vendors checking each other*.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It was banded against
+[`code-review`](https://github.com/anthropics/claude-plugins-official) (STACK), but the two answer
+different questions: `code-review` runs four review agents inside one model's head, while octopus
+dispatches *genuinely independent providers* (Codex/Gemini/Copilot/Qwen/Ollama/…) and gates on a
+75% consensus. Cross-model disagreement is information a single-model reviewer cannot produce by
+construction, so this is not the redundancy this band eliminates.
+
+The open question is whether that information is worth its price — multiple paid subscriptions, a
+large fast-moving install footprint, and an essentially single maintainer at ★3.8K. That is a
+with/without read on a disclosed set of review tasks (does the council catch defects the four-agent
+review misses?), which is P0 work, not a bulk call.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

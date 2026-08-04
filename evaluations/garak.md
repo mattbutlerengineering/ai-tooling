@@ -3,6 +3,7 @@
 **Repo:** [NVIDIA/garak](https://github.com/NVIDIA/garak)
 **Stars:** ~8,150 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (security red-teaming)
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/NVIDIA/garak/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you ship an LLM-backed feature and need a real, repeatable security assessment (prompt injection, jailbreaks, data leakage) rather than spot checks — ideally gated in CI before model/prompt changes go live. For lighter needs, promptfoo's red-team mode may suffice; reach for garak when you want NVIDIA's specialist probe depth.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `SkillSpector` (STACK)
+scans third-party *skill packages* for prompt injection before you install them. garak red-teams a
+*model endpoint* you ship — jailbreaks, data leakage, hallucination, toxicity — with a specialist
+probe suite. One protects the agent from what it installs; the other protects users from what you
+deploy. Neither substitutes for the other.
+
+It is not a P0 candidate for this stack for a scope reason rather than a quality one: garak earns
+its keep when you ship an LLM-backed feature and gate model/prompt changes in CI. This catalog's
+loop is AI-assisted *development*, where that endpoint does not exist.
+
+Apache-2.0, NVIDIA-maintained, ★8.4K, actively pushed. The right row to keep and the right tool to
+reach for the moment an LLM feature ships; `promptfoo`'s red-team mode is the lighter first step.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

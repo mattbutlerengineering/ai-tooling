@@ -3,6 +3,7 @@
 **Repo:** [Windy3f3f3f3f/how-claude-code-works](https://github.com/Windy3f3f3f3f/how-claude-code-works)
 **Stars:** 2,680 | **Last updated:** 2026-05-05 (pushed; created 2026-03-31) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Reference (understanding the tool you build with; not part of the edit-test loop)
 **Layer:** Reference (documentation — 15 chapters + online docs site, bilingual 中文/English)
 
@@ -55,6 +56,23 @@ gh api repos/Windy3f3f3f3f/how-claude-code-works/readme --jq '.content' | base64
 **discovery-log — tentative read** (reference) — an excellent, scarce resource if you want to understand Claude Code's *internals* — to build your own agent, debug odd behavior, or make informed context/permission/cost decisions. The source-derived design insights (tool pre-execution, streaming pipeline, Bash-AST permissions, compaction) are real and transferable, and the "from scratch" companion makes it actionable. Caveats are inherent to the genre: it's community reverse-engineering of an evolving codebase (treat specifics as point-in-time), it's primarily Chinese, and it's a learning artifact, not a tool. Pair specifics with official docs before relying on them.
 
 Compared to neighbors: it sits in the Reference section alongside other learning resources (e.g. karpathy-llm-wiki). Within Claude Code material, it's the **internals/architecture** complement to *usage* guides (the deferred claude-code-ultimate-guide) — read this to understand how it works, those to learn how to drive it. Its companion **claude-code-from-scratch** is the build-it variant.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `claude-plugins-official`
+(STACK) is a registry of installable plugins; this is a 15-chapter source-derived study of the
+harness's internals. A directory and a book about how the thing works are not substitutes, and a
+Reference row's job is to be findable, not to be installed.
+
+Its value is scarcity: the agent loop, context engineering, the tool system, and the Bash-AST
+permission model are documented almost nowhere else, and they inform real decisions this repo makes
+about context budget, permissions, and cost.
+
+The caveats are inherent to the genre rather than defects: it is community reverse-engineering of a
+codebase that keeps moving (treat specifics as point-in-time), and it is primarily in Chinese. Pair
+specifics with official docs before relying on them.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

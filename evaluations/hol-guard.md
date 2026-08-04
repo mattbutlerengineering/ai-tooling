@@ -3,6 +3,7 @@
 **Repo:** [hashgraph-online/hol-guard](https://github.com/hashgraph-online/hol-guard)
 **Stars:** 362 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (runtime tool-call gating) + Ship (CI plugin gate via `plugin-scanner`)
 **Layer:** Infrastructure
 
@@ -70,13 +71,26 @@ python3 -c "import json;print(json.load(open('~/.claude/settings.json'))['hooks'
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`SkillSpector`](https://github.com/NVIDIA/SkillSpector) (STACK,
+`MEASURED`) on the job they share, and the delta collides with the hooks already installed.
 
-Adopt when supply-chain risk from untrusted agent extensions is a real concern — installing community skills/plugins/MCP servers, running agents with broad file/network access, or operating in a team/regulated setting that wants an auditable allow/block trail. The mechanism (static, in-line, pre-execution interception with native Claude hooks and tunable sensitivity) is the correct design for the Safety signal it targets, and the security-engineering provenance (OpenSSF Scorecard, CodeQL, fuzzing, Cisco scanners) is unusually strong for a 362-star project.
+Both statically inspect third-party skills/plugins/MCP servers for prompt injection and
+exfiltration before you trust them; that half is a straight duplicate of an incumbent that has been
+run. Guard's differentiator is *pre-execution interception* — claiming managed `PreToolUse` slots
+so a scan runs in-line on every tool call — and the evaluation already named why that is a cost
+rather than a bonus here: the environment's `~/.claude/settings.json` carries OMEGA + GSD hooks and
+Guard ships no documented coexistence contract. A security tool that can silently break the hook
+chain it shares is a worse trade than the scan-on-install it improves upon.
 
-Hold off for the default solo-dev-on-trusted-extensions case, and specifically in *this* environment: the user's `~/.claude/settings.json` already carries OMEGA + GSD hooks, and Guard claiming managed `PreToolUse` slots introduces real hook-collision risk with no documented coexistence contract. The tool is also under 3 months old and releasing many times per day, so pin a version and re-test the hook wiring before trusting it on the hot path. If you only publish plugins/skills, prefer the lighter `plugin-scanner` CI gate alone and skip the runtime guard.
+The supporting facts point the same way: `NOASSERTION` (GitHub cannot parse the LICENSE), 389
+stars, under three months old, releasing many times a day. Strong security-engineering provenance
+(OpenSSF Scorecard, CodeQL, fuzzing) makes it a repo worth watching — not one to wire into the
+critical path of every tool call.
 
-**vs. overlaps:** SkillSpector and agentlint are *static, on-demand* scanners you point at an artifact — they audit a skill/config before you install it. hol-guard's distinct niche is the **runtime gate**: it sits in the live tool-call path and blocks actions as they happen across many harnesses. Use a static scanner (SkillSpector/agentlint, or hol-guard's own `plugin-scanner`) at install/CI time; reach for hol-guard's runtime guard only when you want continuous, in-session enforcement and can absorb the hook + latency cost.
+Re-open if Guard documents hook coexistence, or if in-line interception becomes the thing
+SkillSpector's install-time scan is demonstrably missing.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

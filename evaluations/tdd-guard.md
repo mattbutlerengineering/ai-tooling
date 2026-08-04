@@ -3,6 +3,7 @@
 **Repo:** [nizos/tdd-guard](https://github.com/nizos/tdd-guard)
 **Stars:** 2,205 | **Last updated:** 2026-06-16 (pushed) | **License:** MIT | **Language:** TypeScript (npm: `tdd-guard`; Claude Code plugin)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Code Review & Quality / Verify — enforces TDD during Implement
 **Layer:** Tooling (Claude Code hook + test reporters)
 
@@ -53,6 +54,25 @@ gh api repos/nizos/tdd-guard/readme --jq '.content' | base64 -d | head -75      
 **discovery-log — tentative read** — TDD Guard is the rare tool that turns "please write tests first" from a *request* into an *enforced guardrail*: a Claude Code hook that blocks implementation without a failing test and blocks over-implementation, across 9 test frameworks. Adopt it if your team genuinely practices TDD and wants the agent held to red-green-refactor mechanically rather than by hope — it's the enforcement layer the `tdd`/`test-driven-development` skills only advise. Accept that it's Claude-Code-specific, adds a small per-action validation cost, and (today) can be bypassed via MCP/shell paths. For teams that don't do strict TDD, it's friction by design.
 
 Compared to neighbors: **stryker-js** is mutation testing (are your tests *good*?); **superpowers**' TDD skill *advises* test-first; **pr-review-toolkit** reviews after the fact. TDD Guard's distinguishing pitch is **blocking the agent in real time when it violates test-first/minimal-implementation discipline.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — and flagged as a P0 candidate.
+
+All three tools it was banded against do adjacent jobs, not the same one: `stryker-js` (STACK)
+mutation-tests whether your tests are *good*, `pr-review-toolkit` (STACK) reviews after the fact,
+and the `superpowers` TDD skill *advises* test-first. TDD Guard is the only one that **blocks the
+agent in real time** when it writes implementation without a failing test or over-implements past
+the current test. Advice and enforcement are not substitutes — the entire premise of a hook is that
+the model does not reliably follow the instruction.
+
+That makes it a challenger that plausibly beats what it overlaps rather than duplicating it, which
+is the case this band escalates instead of disposing. The measurement is unusually clean, too: run
+a task set with and without the hook and count test-first violations. Documented caveats to test
+against — Claude-Code-specific, a small per-action validation cost, and bypassable today via
+MCP/shell paths.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [openrewrite/rewrite](https://github.com/openrewrite/rewrite)
 **Stars:** 3,555 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 (framework; some recipes differently licensed) | **Language:** Java (recipes run via Gradle/Maven plugins or Moderne CLI)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Code Review & Quality / Dev Workflow — deterministic refactoring
 **Layer:** Tooling/Infrastructure (auto-refactoring engine + recipe catalog; agent tool calls via Moderne MCP)
 
@@ -52,6 +53,23 @@ gh api repos/openrewrite/rewrite/readme --jq '.content' | base64 -d | sed -n '17
 **discovery-log — tentative read** — OpenRewrite is the mature, Apache-2.0 standard for **deterministic, type-aware automated refactoring**, and it's increasingly agent-relevant: its Lossless Semantic Tree gives coding agents pre-computed structural context and exposes recipes as **deterministic tool calls** (via Moderne's MCP), which is more accurate and token-frugal than file-by-file LLM refactoring. Adopt it for **mechanical, large-scale transformations** — framework migrations, security fixes, style — especially in Java/JVM stacks, and pair it with agents so the agent *invokes* recipes rather than hand-rolling stochastic edits. It's CONDITIONAL because it's JVM-centric, the richest agent + multi-language/multi-repo capabilities live in the commercial Moderne platform, and bespoke refactors require authoring recipes.
 
 Compared to neighbors: **code-review** finds issues to fix; **sem** gives entity-level diffs; **serena** does LSP symbol-level edits. OpenRewrite's distinguishing pitch is **deterministic, type-aware, recipe-driven code transformation that agents can call as a tool.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The banding is a category error: `code-review` (STACK) finds
+issues and `serena` (STACK) navigates code semantically, while OpenRewrite *executes* type-aware
+transformations against a Lossless Semantic Tree. Nothing in STACK does deterministic refactoring,
+so there is no incumbent for it to be redundant with.
+
+The reason it is not a P0 candidate either is reach, not quality: the engine is JVM-centric, the
+multi-language and multi-repo agent capabilities live in the commercial Moderne platform, and
+bespoke refactors require authoring recipes. For a TypeScript-first stack the payoff is thin today.
+
+Worth revisiting for the idea rather than the tool — recipes exposed as *deterministic tool calls*
+is the right shape for large mechanical migrations, and it is the answer to file-by-file LLM
+refactoring being both stochastic and token-expensive.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

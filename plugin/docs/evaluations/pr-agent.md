@@ -3,6 +3,7 @@
 **Repo:** [The-PR-Agent/pr-agent](https://github.com/The-PR-Agent/pr-agent)
 **Stars:** 12,053 | **Last updated:** 2026-07-10 | **License:** MIT (see license-history caveat below)
 **Last verified:** 2026-07-11
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (outer loop — per-PR automation)
 **Layer:** Infrastructure
 
@@ -88,9 +89,26 @@ Re-verified 2026-07-11 (facts only, not a hands-on re-run): org transfer, MIT li
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`code-review`](https://github.com/anthropics/claude-plugins-official)
+(STACK, `MEASURED`) in the session and with
+[`claude-code-action`](https://github.com/anthropics/claude-code-action) (STACK, `RUN`) in CI. This
+is the conclusion the evaluation already reached for a Claude-Code-native stack and the row had not
+caught up to: *"Skip if your entire team uses Claude Code and runs `code-review` before every PR
+push; the marginal value over `code-review --comment` is thin, and the CI bot adds maintenance
+overhead."*
 
-Adopt for teams running CI on GitHub/GitLab where not everyone uses Claude Code — it catches bugs and enforces PR hygiene across the whole team automatically, not just for individual Claude Code users. Skip if your entire team uses Claude Code and runs `code-review` before every PR push; the marginal value over `code-review --comment` is thin, and the CI bot adds maintenance overhead. The strongest case for adopting alongside Claude Code: the `describe` tool for auto-generating PR descriptions, and the `review` tool's ticket compliance check — both operate on CI triggers that don't depend on developer workflow. Do not adopt as a replacement for `code-review` or `pr-review-toolkit`; those run inside the agent session where they can fix code directly.
+The CI-side slot the eval reserves for it is the one STACK already fills. `claude-code-action` puts
+@claude on the PR for async review and fixes without a second bot, a second config, or a second
+model bill — so the "not everyone uses Claude Code" case PR-Agent is adopted for is a team-shape
+argument, not a capability gap.
+
+What survives is `describe` (auto-generated PR descriptions) and the ticket-compliance check. Those
+are worth wanting, but they are features to ask of the incumbent, not grounds for a second reviewer
+in the loop.
+
+Re-open for a mixed-harness team on GitLab/Bitbucket, where `claude-code-action` does not reach.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 
