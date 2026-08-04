@@ -3,6 +3,7 @@
 **Repo:** [vibrantlabsai/ragas](https://github.com/vibrantlabsai/ragas)
 **Stars:** 14,439 | **Last updated:** 2026-02-24 (pushed) | **License:** Apache-2.0 | **Language:** Python (PyPI: `ragas`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Observability / Verify — LLM/RAG application evaluation
 **Layer:** Tooling (Python library)
 
@@ -54,6 +55,25 @@ gh api repos/vibrantlabsai/ragas/readme --jq '.content' | base64 -d | head -45  
 **discovery-log — tentative read** — Ragas is the **standard open-source RAG/LLM evaluation toolkit**: reference-free, model-graded metrics (faithfulness, relevancy, context precision/recall) plus synthetic test-set generation, CI-ready and integrated with LangChain/LlamaIndex. Adopt it whenever you ship a RAG or retrieval-augmented pipeline and want objective, reproducible quality scores instead of eyeballing answers. For this catalog it's CONDITIONAL because it evaluates the AI product you build, not the coding agent — and it's narrower (RAG-focused) than promptfoo/giskard, so pair it with those for broad prompt/model/red-team coverage. Watch judge-model cost/bias.
 
 Compared to neighbors: **promptfoo** is declarative eval + red-teaming; **giskard-oss** is agent scenario testing + red-team; **opik** is tracing + eval + optimization; **langfuse** is observability. Ragas' distinguishing pitch is **the reference-free RAG metric standard plus synthetic test-set generation.**
+
+## Triage note
+
+Left at `discovery-log`. Described in its own read as the standard open-source RAG evaluation toolkit —
+reference-free metrics (faithfulness, answer relevancy, context precision and recall) plus synthetic
+test-set generation. Being the standard is a reason to keep a row, not to promote it unexamined.
+
+Narrower than its neighbours by design: `promptfoo` and `giskard-oss` cover prompts, models and
+red-teaming; ragas covers retrieval quality. That makes them complements, and this pass left all of them.
+
+Two facts to verify before a promotion, both of which a 2026-06 read would not have caught. The repo now
+resolves to **`vibrantlabsai/ragas`**, not the original org — a rename or transfer, and ownership changes
+are worth confirming when a project is described as the standard. And it was last pushed **2026-02-24**,
+around five months, which is the slowest cadence of anything left standing in this cluster.
+
+Neither is disqualifying. Both are the kind of thing that decides whether "the standard" is still the
+right word.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [superagent-ai/superagent](https://github.com/superagent-ai/superagent)
 **Stars:** ~6,600 | **Last updated:** 2026-04-11 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (agent safety / Outer Loop)
 **Layer:** Tooling
 
@@ -52,6 +53,24 @@ gh api repos/superagent-ai/superagent/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you ship an agent with tool access and want bundled runtime protection (prompt-injection + unsafe-tool-call blocking + PII/secret redaction) plus red-teaming in one SDK. If you prefer best-of-breed, compose NeMo-Guardrails (dialog rails) + presidio (PII) + garak (red-team) instead. Tune detection thresholds and verify the compliance evidence fits your needs.
+
+## Triage note
+
+Left at `discovery-log`. The bundle is the pitch: prompt-injection blocking, unsafe-tool-call
+interception, and PII/secret redaction in one SDK, with red-teaming alongside. MIT, ★6.7K.
+
+Its own eval names the alternative honestly — compose `NeMo-Guardrails` for dialog rails, `presidio` for
+PII, `garak` for red-teaming — which is the bundle-versus-best-of-breed choice, and neither answer is
+this lane's to write. All four rows were left standing in this pass for that reason.
+
+The one thing that would settle it is a measurement rather than an argument: detection thresholds are
+tunable, and a guardrail is only worth its latency if the false-positive rate is low enough that people
+leave it on. That is a with/without run on a disclosed set of injection attempts and benign prompts,
+which `evaluations/measurement-protocols.md` already describes how to do.
+
+Pushed 2026-04-11 — nearly four months, worth a freshness check but not yet a concern for a security SDK.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

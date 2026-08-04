@@ -3,6 +3,7 @@
 **Repo:** [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix)
 **Stars:** ~10,200 | **Last updated:** 2026-06-20 | **License:** Elastic License 2.0 (source-available)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Outer Loop / observability + evaluation)
 **Layer:** Infrastructure
 
@@ -50,9 +51,28 @@ gh api repos/Arize-ai/phoenix/contents/LICENSE --jq '.content' | base64 -d | hea
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — permissively-licensed equivalents cover the same job. The tentative read above puts the
+question precisely: *"Weigh the Elastic License 2.0 terms versus the Apache/MIT alternatives (langfuse,
+opik) if license purity or offering-as-a-service matters."* Weighed, the alternatives win.
 
-Strong pick when you want one self-hostable, OTel-native tool covering tracing, evals, datasets, and prompt experimentation — especially across multiple agent frameworks. Weigh the Elastic License 2.0 terms versus the Apache/MIT alternatives (langfuse, opik) if license purity or offering-as-a-service matters. Re-evaluate hands-on against logfire and langfuse for an observability-stack decision.
+ELv2 is source-available, not open source: it forbids offering the software as a managed service and
+permits the licensor to change terms. That is a live constraint rather than a theoretical one for
+anything self-hosted, and this catalog's adoption bar is permissive OSS. GitHub's `NOASSERTION` on the
+record is consistent with a licence its parser does not recognise, and — per CLAUDE.md — is *not*
+itself the ground here; the eval's own reading of the terms is.
+
+What makes it a disposition instead of a caveat is that the substitutes are not hypothetical.
+`langfuse` and `opik` are both **P0 leads**, both permissively licensed, and both cover
+tracing, evals, datasets and prompt experimentation. `logfire` (MIT) is the OTel-native option for
+Python stacks and stays. There is no capability here that requires accepting the licence.
+
+Nothing against the software: OTel-native, self-hostable, broad framework coverage, ★10.5K behind it,
+and Arize is a serious shop. The row stays catalogued so anyone who does not share the licence
+constraint finds it.
+
+Re-open if it relicenses permissively, or if a measured comparison shows it doing something langfuse
+and opik cannot.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

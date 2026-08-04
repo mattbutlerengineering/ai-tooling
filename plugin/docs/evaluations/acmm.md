@@ -3,6 +3,7 @@
 **Repo:** [arXiv:2604.09388](https://arxiv.org/abs/2604.09388) (paper, not a repo)
 **Stars:** N/A (academic paper) | **Last updated:** v2 — Apr 27, 2026 | **License:** arXiv (author: Andy Anderson)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Retrospect (used to assess and direct workflow maturity)
 **Layer:** Process (a conceptual model, not tooling or infrastructure)
 
@@ -56,6 +57,26 @@ Read /Users/mbutler/github/ai-tooling/WORKFLOW.md
 **discovery-log — tentative read** (as a reference, not a tool — KEEP in catalog)
 
 ACMM is a conceptual framework that independently arrives at this repo's own core thesis: maturity in AI-assisted development is defined by feedback-loop topology, and testing is the highest-leverage investment. Keep it in the Maturity Frameworks category as a citable external reference for the maturity discussion in WORKFLOW.md. Do not treat it as an installable tool (there is nothing to install) and do not adopt its level vocabulary as the repo's primary model — CLAUDE.md already standardizes on inner/outer loop terms. Useful as corroboration and as an optional scoring axis; not a workflow change.
+
+## Triage note
+
+Left at `discovery-log`, and it is the one lead in this pass that is not software at all — an arXiv paper,
+nothing to install, with no repo, licence or star count for the bands to key on.
+
+That is worth recording as a lead-queue observation: `triage.py` derives its structural bands from
+`repo-metadata.json`, and a `reference`-Type row with no GitHub slug falls through every one of them into
+P3 by default. It is not mis-banded so much as un-bandable, and the same is true of any citation-style
+entry. A handful of rows like this is fine; it is only a problem if a future pass mistakes "reached P3" for
+"was assessed and found unremarkable".
+
+On substance the read above is already conclusive and needs nothing from this lane: keep it in Maturity
+Frameworks as a citable external reference — it independently reaches this repo's own thesis that maturity
+is feedback-loop topology and that testing is the highest-leverage investment — and do **not** adopt its
+level vocabulary, since CLAUDE.md standardizes on inner/outer loop terms.
+
+Corroboration, not a workflow change. No promotion is pending here; the row is doing its job as it stands.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

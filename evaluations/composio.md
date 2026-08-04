@@ -2,6 +2,7 @@
 
 **Evidence:** SOURCE-ONLY
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 
 ## What it does
 
@@ -72,3 +73,28 @@ For simpler workflows, Composio is overhead — you don't need 500 integrations 
 ## If adopting, where in WORKFLOW.md
 
 L4 stack, as a **replacement for individual MCP servers** (not alongside them — that's the worst of both worlds). The adoption trigger would be: "I'm spending more time configuring and authenticating individual MCP servers than using them."
+
+## Triage note
+
+Left at `discovery-log`, and this one deserves an explicit note because it is the closest call in the pass.
+
+The verdict above contains a section headed *"Reasons to skip for now"*, and its two reasons are exactly the
+arguments this band is built to make: the individual MCP servers already catalogued (GitHub, Sentry, Jira,
+Playwright, Prisma) cover the integrations that matter, and Composio adds a SaaS dependency with an API key,
+against a local-first preference.
+
+It is still left at `discovery-log`, on two grounds. The headline is conditional rather than negative —
+*"adopt if you need cross-app automation across 5+ external services"* — and converting a conditional
+headline into a SKIP on the strength of its own caveats section would be this lane over-reading a human's
+tentative read. And ★29K with MIT behind it is a scale where "we did not need it" and "it is redundant" are
+different claims; only the first is supported.
+
+The information is preserved rather than acted on: if a promotion happens, the skip-for-now reasoning is
+the case to answer, and the threshold the eval itself names — five or more external services, beyond what
+per-service MCP servers cover — is the concrete condition to test against.
+
+Note also that `sentry` and `jira`, two of the five servers cited as covering the ground, were themselves
+examined in the previous slice and left at `discovery-log`. The argument leans on rows that are not yet
+adopted.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._

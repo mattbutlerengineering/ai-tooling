@@ -3,6 +3,7 @@
 **Repo:** [pydantic/logfire](https://github.com/pydantic/logfire)
 **Stars:** ~4,300 | **Last updated:** 2026-06-20 | **License:** MIT (SDK); server is closed source
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Outer Loop / observability)
 **Layer:** Infrastructure
 
@@ -51,6 +52,26 @@ gh api repos/pydantic/logfire/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Strong pick for Python/Pydantic LLM and agent stacks that want OTel-standard observability with a SQL query surface and minimal lock-in. If you require a fully self-hosted OSS backend, prefer langfuse or opik. Pairs especially well with pydantic-ai and FastAPI services.
+
+## Triage note
+
+Left at `discovery-log`. MIT, Pydantic behind it, OTel-native with a SQL query surface — and it is the
+permissively-licensed row that a reader arrives at after this pass SKIPped `phoenix` over Elastic License
+2.0 terms, so it now carries more weight in the observability cluster than it did before.
+
+The fit is specific rather than general and the eval is right to scope it: Python and Pydantic stacks,
+pairing naturally with `pydantic-ai` (a P0 lead) and FastAPI. Teams needing a fully self-hosted
+open-source backend are pointed at `langfuse` or `opik`, both also P0 leads. That triangle —
+langfuse/opik for self-hosted, logfire for Python-native, phoenix disposed — is the shape of the cluster
+after this pass.
+
+Minimal lock-in through OTel is the durable argument for it: instrument once against a standard and the
+backend becomes replaceable. That is a Maintainability property, and one of the few in this category that
+does not need a benchmark to believe.
+
+Pushed 2026-07-10.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

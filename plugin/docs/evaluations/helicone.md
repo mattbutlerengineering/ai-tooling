@@ -3,6 +3,7 @@
 **Repo:** [Helicone/helicone](https://github.com/Helicone/helicone)
 **Stars:** 5,841 | **Last updated:** 2026-06-11 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (self-hostable + hosted)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Observability — AI gateway + LLM observability
 **Layer:** Infrastructure (gateway + observability platform)
 
@@ -53,6 +54,25 @@ gh api repos/Helicone/helicone/readme --jq '.content' | base64 -d | head -40    
 **discovery-log — tentative read** — Helicone is a strong, Apache-2.0 **all-in-one AI gateway + LLM observability** platform: one OpenAI-format key for 100+ models with routing/fallbacks, plus one-line request logging, agent/session tracing, cost analytics, and prompt management. Adopt it when you want **both** multi-provider routing *and* observability/prompt-management in a single tool with a famously easy integration, and you're shipping LLM-powered apps/agents. For this catalog it's CONDITIONAL because it observes the AI product you build rather than the coding agent, and it overlaps litellm (gateway) and langfuse/opik (obs) — choose Helicone for the unified experience, or the specialists for depth. The free tier makes trial cheap; self-host for data control.
 
 Compared to neighbors: **litellm** is the gateway specialist; **langfuse** is tracing/observability + prompt management; **opik** is tracing + eval + optimization; **promptfoo** is eval/red-team. Helicone's distinguishing pitch is **gateway + one-line observability + prompt management unified, with a generous free tier.**
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★5.9K, and the one row in the LLMOps cluster that bundles two jobs
+— a multi-provider gateway *and* one-line observability with prompt management — which is a real
+position rather than a repositioning.
+
+That distinction is why it survived a pass that SKIPped `pezzo` from the same neighbourhood. pezzo
+overlaps `langfuse`/`opik` on observability and prompt management without adding an axis; Helicone adds
+the gateway, where its only true peer is `litellm`. Unified-versus-specialist is a genuine choice, and
+this lane cannot make it for a reader.
+
+The scope caveat is the standing one for this whole cluster and the eval states it: these tools observe
+*the AI product you build*, not the coding agent. That is a category-wide boundary question — it applies
+equally to `langfuse` and `opik`, both P0 leads — and answering it per-row would be the wrong shape.
+
+Free tier makes a trial cheap; self-host for data control.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

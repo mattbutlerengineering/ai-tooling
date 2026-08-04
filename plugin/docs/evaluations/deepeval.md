@@ -3,6 +3,7 @@
 **Repo:** [confident-ai/deepeval](https://github.com/confident-ai/deepeval)
 **Stars:** ~16,300 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify / Reflect (LLM evaluation)
 **Layer:** Tooling
 
@@ -52,6 +53,25 @@ gh api repos/confident-ai/deepeval/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you want LLM evals expressed as unit tests in CI — especially to validate model/prompt swaps and catch regressions on agents/RAG/chatbots. The pytest framing makes it the natural pick for test-driven teams; use the local/NLP metrics where possible to control cost, and pin judge models for stable signals. Overlaps existing eval tools (promptfoo, ragas, opik) — pick by ergonomics.
+
+## Triage note
+
+Left at `discovery-log`. ★16.7K and Apache-2.0 — the largest eval framework in the cluster, and the one
+whose framing is most likely to matter for a team that already has a test culture: evals expressed as
+**pytest tests**, so LLM quality regressions fail in the same place unit tests do.
+
+That is an ergonomics differentiator rather than a capability one, which the eval is honest about
+(*"overlaps existing eval tools — pick by ergonomics"*). Ergonomics is a legitimate reason to prefer a
+tool and an illegitimate reason to dispose one, so nothing here is SKIP-able.
+
+Two operational notes worth carrying to a promotion: prefer the local and NLP metrics where they suffice,
+since LLM-as-judge metrics are the cost centre; and pin judge models, or the signal moves under you. Both
+are the same discipline `scenario` needed in the previous slice — LLM-graded testing is only useful when
+the grader is held still.
+
+The standing cluster caveat applies: this evaluates the AI product you build, not the coding agent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
