@@ -3,6 +3,7 @@
 **Repo:** [microsoft/waza](https://github.com/microsoft/waza)
 **Stars:** ~1,000 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (skill quality evaluation)
 **Layer:** Tooling
 
@@ -54,6 +55,28 @@ gh api repos/microsoft/waza/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you author or maintain agent skills seriously and want to benchmark their effectiveness across models rather than trusting vibes — the skills equivalent of an eval harness. For one-off personal skills it's overkill; the value is in regression-testing a skill library. Overlaps skill-creator's eval features — pick by whether you want a standalone cross-model benchmarker (this) or integrated authoring+eval (skill-creator).
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The eval frames it as a genuine pick-one against
+[`skill-creator`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator)
+(STACK) — "a standalone cross-model benchmarker (this) or integrated authoring+eval
+(skill-creator)" — and on this repo's own terms the standalone side is not obviously the loser.
+
+The differentiator is *cross-model*: skill-creator's harness measures a skill against Claude, while
+this benchmarks the same skill across models and compares. That is precisely the instrument the
+[#38](https://github.com/mattbutlerengineering/ai-tooling/issues/38) skill-measurement backlog and
+`evaluations/measurement-protocols.md` are asking for, in a repo that gates on
+`--skills`/`--skill-design` counts and authors its own skills.
+
+"Overkill for one-off personal skills" is the eval's own caveat and it is fair; this repo maintains
+a skill library, which is the case the eval says the value is in. Worth exercising, which is P0
+work — not a bulk SKIP.
+
+Not to be confused with `Waza` (tw93), the engineering-habits skill suite, which this pass SKIPped
+as redundant with superpowers.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

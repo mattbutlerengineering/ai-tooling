@@ -3,6 +3,7 @@
 **Repo:** [yusufkaraaslan/Skill_Seekers](https://github.com/yusufkaraaslan/Skill_Seekers)
 **Stars:** 14,197 | **Last updated:** 2026-06-16 (pushed; created 2025-10-17) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer-loop **Reflect / setup** — a one-time ingestion step that converts external knowledge (docs sites, repos, PDFs, videos) into a reusable skill/RAG asset *before* the inner loop runs. Not invoked per task; you run it to provision a skill, then the inner loop consumes it.
 **Layer:** Tooling (a Python CLI + MCP server with a scraping/chunking/packaging pipeline; produces artifacts, does not run inside your dev session)
 
@@ -59,6 +60,22 @@ gh api repos/yusufkaraaslan/Skill_Seekers/commits --jq 'length'   # 30 (page-1 c
 **discovery-log — tentative read: adopt as a one-time provisioning tool for library/framework skills, with mandatory output review and trimming.** Skill Seekers is the most mature tool in its niche: a maintained, semver-released, multi-target source-to-skill *compiler* that legitimately separates ingestion from packaging. The catch is that it generates *volume* and leaves *precision* to a downstream agent — exactly inverse to where skill quality actually lives. Use it to bootstrap a skill from a big docs set, then hand the output to skill-creator-style evals/trimming before shipping. Do not treat its 500+ line outputs as production skills.
 
 Compared to neighbors: **skill-creator** (anthropics) authors *one* skill with a draft→eval→trigger-optimization loop — it optimizes quality, not breadth, and is the natural finisher for Skill Seekers' raw output. **SkillOpt** (Microsoft) *trains* a compact skill against held-out scores — the rigorous opposite of scrape-and-synthesize. **openskills**/**capa** install/wire skills but don't generate them; Skill Seekers fills the *authoring-from-sources* gap none of those cover. It wins on breadth and ingestion; it loses on the one thing that matters most (concise, verified skill text), so it's a front-end to the quality tools, not a replacement.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — its evaluation names a gap the incumbent does not cover:
+"Skill Seekers fills the *authoring-from-sources* gap none of those cover". The STACK pick it
+challenges,
+[`skill-creator`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator),
+authors and optimizes *one* skill with a draft→eval→trigger loop; Skill Seekers compiles a docs
+site, repo, PDF or video into a skill in the first place. Different ends of the same pipeline.
+
+The eval is equally clear it does not displace the incumbent — it "generates *volume* and leaves
+*precision* to a downstream agent, exactly inverse to where skill quality actually lives", and
+recommends handing its output to skill-creator before shipping. "Front-end to the quality tools"
+and "redundant with them" are different conclusions; the eval reached the first.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills)
 **Stars:** 16,444 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -59,9 +60,24 @@ Did not install the full 754-skill collection — this is a content/architecture
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`trailofbits/skills`](https://github.com/trailofbits/skills) (STACK,
+`ADOPT`) for the security work this catalog is stocked for. This is the conclusion the evaluation
+already reached and the row had not caught up to: *"Not recommended for general development where
+only the occasional security review is needed — the 754-skill collection adds weight without
+benefit outside security contexts, and trailofbits/skills covers that use case better."*
 
-Use when doing dedicated security work — incident response, threat hunting, forensics, penetration testing, or compliance mapping. The five-framework coverage and practitioner-level depth per skill set this apart from both trailofbits/skills (code-review security, ADOPT) and Claude-BugHunter (external bug bounty, CONDITIONAL). Not recommended for general development where only the occasional security review is needed — the 754-skill collection adds weight without benefit outside security contexts, and trailofbits/skills covers that use case better.
+The differentiator is real but has no audience here. Five-framework coverage (MITRE ATT&CK, NIST
+CSF, D3FEND, ATLAS) at practitioner depth is what a dedicated security practice needs — incident
+response, threat hunting, forensics, red-teaming. This catalog covers the *developer's* security
+touchpoint, which is the in-loop review that `trailofbits/skills` and the STACK
+`security-guidance` plugin already own.
+
+754 skills is also a cost, not a neutral: skill-selection surface is the scarce resource in an
+agent's context, and paying that for a discipline you don't practise is the wrong trade.
+
+Re-open for a security-engineering context, where the framework mapping is exactly the right idea.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

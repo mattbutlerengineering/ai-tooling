@@ -3,6 +3,7 @@
 **Repo:** [athola/claude-night-market](https://github.com/athola/claude-night-market)
 **Stars:** 311 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-loop marketplace)
 **Layer:** Tooling
 
@@ -66,6 +67,25 @@ gh api "repos/athola/claude-night-market/commits?per_page=1" -i | grep -i '^link
 Adopt selectively — install one or two plugins whose mechanics you actually want (most likely `imbue` for hard TDD enforcement, `sanctum` for git/PR, or `pensive` for review) rather than the full marketplace. The modular per-plugin install with declared dependencies makes this safe to do, and the engineering rigor (624 tests, 16 ADRs, mutation testing, security/trust-attestation CI) is genuinely high for the star count, so individual plugins are credible. It earns CONDITIONAL over SKIP because it lives natively inside the dev loop and its headline guards are real, deterministic hooks that move Correctness and Safety.
 
 It is not ADOPT because it is effectively a solo project (2 contributors, 311 stars) with a huge idiosyncratic surface that substantially overlaps tools the user already runs (superpowers, compound-engineering, commit-commands), and its PreToolUse hooks (TDD gate, scope-ramp, opinionated commit-policy vows) carry real conflict risk against an existing hook stack including OMEGA. Installing the whole bundle would be redundant/noisy; cherry-picking is the only sensible path. Re-evaluate toward ADOPT if it grows a real contributor base / external validation, or if a single plugin proves its worth in a hands-on run. Verify hook interaction with the user's existing `~/.claude` setup before installing anything.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, because its evaluation weighed exactly this call and came
+down the other way: "It earns CONDITIONAL over SKIP because it lives natively inside the dev loop
+and its headline guards are real, deterministic hooks that move Correctness and Safety."
+
+The redundancy is real and the eval says so — a "huge idiosyncratic surface that substantially
+overlaps tools the user already runs (superpowers, compound-engineering, commit-commands)", with
+PreToolUse hooks carrying genuine conflict risk against the existing stack. But its conclusion is
+*cherry-pick one or two plugins*, which the modular per-plugin install makes safe, and the
+engineering behind it is unusually strong for 324 stars (624 tests, 16 ADRs, mutation testing,
+trust-attestation CI).
+
+Overriding a considered "not a SKIP" is re-litigating a judgement, which is not what an
+eliminate-only pass is for. The band disposes what is *clearly* redundant; this was argued and
+isn't.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
 **Stars:** 39,695 | **Last updated:** 2026-06-19 (pushed; created 2026-06-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a behavioral skill that gates *how much* code the agent writes before it writes it); touches Review (the `ponytail-audit` / `ponytail-debt` skills flag over-build after the fact)
 **Layer:** Process / Tooling (a behavioral skill distributed for 14 agents, with two small Node.js lifecycle hooks for always-on activation)
 
@@ -72,6 +73,24 @@ gh api repos/DietrichGebert/ponytail/contributors --jq '[.[].login]'  # 27 contr
 **discovery-log — tentative read** — adopt when your agent's habitual failure mode is *overbuild*: speculative abstractions, unrequested dependencies, wrapper components for things the platform already does. Its self-correcting, adversarially-safety-tested benchmark and explicit non-negligence carve-outs make it the most credible of the "write-less-code" persona skills. Skip or down-weight it on a terse reasoning model (the author's own data shows it can backfire on token cost there), and watch that "fewest files" doesn't fight a codebase that genuinely wants explicit, well-separated modules.
 
 Compared to neighbors: **caveman** compresses the agent's *prose output* for token savings (a communication-style control) — ponytail's own benchmark uses caveman as the terse-prose baseline and beats it on every code metric, because ponytail changes *what gets built*, not just how it's described. **andrej-karpathy-skills** is a static CLAUDE.md of pitfall-derived guidelines; ponytail is narrower and sharper — a single pre-write decision ladder with measurement behind it rather than a broad rule list. Of the three, ponytail is the one with a published, peer-challenged-and-corrected benchmark, which is why it rates a confident CONDITIONAL rather than a speculative one.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — it beats the incumbent it was banded against, on that
+incumbent's own ground. The STACK pick it cites is
+[`caveman`](https://github.com/JuliusBrussee/caveman), and the eval reports that "ponytail's own
+benchmark uses caveman as the terse-prose baseline and beats it on every code metric, because
+ponytail changes *what gets built*, not just how it's described".
+
+Those are two different axes — caveman compresses the agent's prose output for token savings;
+ponytail intervenes before the code is written. A tool that measurably outperforms a STACK pick is
+the opposite of a redundancy SKIP, and promoting it on that basis is out of this lane's authority:
+the benchmark is the author's, and "published, peer-challenged-and-corrected" is still not *our*
+measurement.
+
+P0 candidate. If its numbers reproduce here, this is a STACK conversation.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

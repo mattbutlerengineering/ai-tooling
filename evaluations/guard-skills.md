@@ -3,6 +3,7 @@
 **Repo:** [amElnagdy/guard-skills](https://github.com/amElnagdy/guard-skills)
 **Stars:** 827 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -58,6 +59,24 @@ gh api repos/amElnagdy/guard-skills/contents/skills/clean-code-guard/references/
 **discovery-log — tentative read**
 
 Use `clean-code-guard`, `test-guard`, and `docs-guard` on projects where AI-generated code quality is a concern and existing review tooling doesn't catch AI-specific failure modes. The AI failure modes reference (imperatives 15-22) is the unique value — the standard Clean Code rules overlap with what code-review plugin and pr-review-toolkit already do. Skip `wp-guard` and `woo-guard` unless working on WordPress/WooCommerce projects. Best paired with code-review plugin (catches correctness bugs) while guard-skills focuses on the AI-specific quality layer.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, despite citing three STACK picks — the densest overlap in
+this band. The eval separates the two halves: "The standard Clean Code rules overlap with what
+code-review plugin and pr-review-toolkit already do. The AI failure modes reference (imperatives
+15-22) is the unique value."
+
+That unique half is this repo's whole subject. A quality gate aimed specifically at *AI-generated*
+failure modes is not a second copy of a general reviewer, and the eval frames the relationship as
+complementary — "best paired with code-review plugin (catches correctness bugs) while guard-skills
+focuses on the AI-specific quality layer" — rather than competitive.
+
+Small (978 stars) and unverified, so whether those imperatives actually change review output is
+exactly the with-skill-vs-baseline A/B that [#38](https://github.com/mattbutlerengineering/ai-tooling/issues/38)
+is about. P0 work, not a bulk SKIP.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [numman-ali/openskills](https://github.com/numman-ali/openskills)
 **Stars:** 10,446 | **Last updated:** 2026-01-18 (v1.5.0) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (sits beside the inner loop — installs/distributes skills agents load while working; does not change how a skill behaves)
 **Layer:** Infrastructure (skill installation + a load shim around the agent CLI)
 
@@ -79,6 +80,27 @@ OpenSkills is the best-built and most-adopted of the catalog's three skill-porta
 It lands at CONDITIONAL rather than ADOPT for the same scope reason capa did: **the core pain it solves is multi-editor.** For a Claude-Code-primary user, Claude Code already installs and natively loads skills via the `Skill` tool with the identical `<available_skills>` block — so openskills mostly adds a git-sourced installer and an AGENTS.md table you don't strictly need, and the `read`-shim is redundant where the native skills runtime runs. **Adopt when** you drive two or more agents (Claude Code + Cursor/Codex/Aider/Windsurf) from one shared set of SKILL.md skills and want a single, versionable, CI-friendly installer + cross-agent load shim. **Skip if** you're single-editor Claude Code: the native skills system covers it, and openskills is an indirection over files the agent already consumes directly. Note the maturity caveat — strong adoption (10.4K stars, ~19K npm downloads/mo) but ~5 months since the last commit with only 2 contributors; re-check activity before standardizing a team pipeline on it.
 
 Versus neighbors: **skills-manage** is the GUI install side (SKIP — desktop binary, weaker posture); **capa** is broader (skills + rules + sub-agents + hooks + MCP from one yaml, CONDITIONAL) but moves more machinery; **openskills** is the narrow, file-and-CLI, skills-only middle ground with the strongest adoption and the unique non-CC `read`-shim. For *authoring* skills (the actual quality lever it does not touch), pair with **skill-creator** / **write-a-skill**.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the adopt-when condition its eval names is one this repo
+plausibly meets. The eval holds it below ADOPT "for the same scope reason capa did: **the core pain
+it solves is multi-editor** … Adopt when you drive two or more agents from one shared set of
+SKILL.md skills."
+
+This repo drives exactly two: Claude Code and opencode are both supported harnesses (ADR-0002), and
+`.claude/skills/` ↔ `.agents/skills/` is currently kept in step by a hand-made symlink and a sync
+script. A versionable CLI installer for that is the shape of a real answer, not a duplicate of
+[`skill-creator`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator),
+which authors skills and never installs them.
+
+So this one is a P0 candidate rather than a challenger: whether it actually beats the symlink is a
+question you answer by running it.
+
+Note: `license: NOASSERTION` on the metadata record — GitHub could not parse the LICENSE, which
+never disposes a lead on its own. Read the actual file before installing.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 
