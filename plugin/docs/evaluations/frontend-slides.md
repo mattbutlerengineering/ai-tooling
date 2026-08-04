@@ -3,6 +3,7 @@
 **Repo:** [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides)
 **Stars:** 22,282 | **Last commit:** 2026-06-13 | **Created:** 2026-01-28 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (outer loop)
 **Layer:** Tooling
 
@@ -60,6 +61,26 @@ This tool is already a catalog entry (skill, line 188). This evaluation upgrades
 **discovery-log — tentative read**
 
 Reach for frontend-slides when you want an AI to *generate* a polished, distinctive web deck from a brief — especially for a non-designer who can pick a look but can't specify one — or to convert an existing `.pptx` into web slides. Its visual-preview loop is the strongest reason to pick it over guizang-ppt-skill, its closest neighbor. Skip it when you need an editable `.pptx` (use the powerpoint skill or slidev's PPTX export) or a code-heavy technical talk with magic-move animations and an embedded editor (use slidev). Within the already-crowded HTML-deck cluster it earns its slot on the strength of the selection UX and active maintenance, but it is not a clear winner over guizang-ppt-skill — choose by whether you value the preview loop (frontend-slides) or pre-baked editorial layouts (guizang-ppt-skill).
+
+## Triage note
+
+Left at `discovery-log`, and the eval is refreshingly unwilling to declare a winner: it says plainly that
+this row *"is not a clear winner over guizang-ppt-skill"*, and that the choice comes down to whether you
+value the visual preview loop or pre-baked editorial layouts.
+
+That honesty is the reason it is left rather than disposed. A bulk lane's job is to remove leads that are
+clearly redundant; two rows that a careful human read could not separate are precisely the case where
+elimination would be a guess dressed as a decision.
+
+The preview loop is the same property that kept `open-slide` and `plumb-mcp` standing elsewhere in this
+triage — an agent that can *see* its output is doing a different job from one that cannot.
+
+The boundaries are clean: reach elsewhere for an editable `.pptx` (the `powerpoint` skill, or slidev's PPTX
+export) or a code-heavy technical talk with magic-move animations.
+
+MIT, ★25K, pushed 2026-06-23.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

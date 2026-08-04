@@ -3,6 +3,7 @@
 **Repo:** [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
 **Stars:** 93,883 | **Last updated:** 2026-04-03 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (build/refine frontend UI) + Review (UI quality/a11y audit)
 **Layer:** Process (design knowledge + rules) with a Tooling component (Python search/reasoning engine + validators)
 
@@ -70,6 +71,30 @@ Adopt it **when the project has a real frontend** — and especially when you wa
 **Additive vs redundant (cluster keep decision):** Against **impeccable** (strongest of the cluster — concrete refusable rules + a deterministic 44-rule detector + edit-time hook closing the inner/outer loop), ui-ux-pro-max is **partially additive, not a replacement**. impeccable wins on enforcement/verification (no-LLM detector + hook); ui-ux-pro-max wins on **recommendation breadth and mobile/native reach**. Against **taste-skill** (greenfield/marketing-grade web aesthetics, GSAP-coupled, v2 experimental), ui-ux-pro-max is **largely redundant and broader** — both are model-applied design guidance with no deterministic detector, and ui-ux-pro-max covers more product types, stacks, and platforms while being less opinionated about a specific motion library.
 
 **Recommended keep:** if consolidating to one, keep **impeccable** for the verification loop; keep **ui-ux-pro-max** as the second pick when you need curated design-system recommendations or native-mobile coverage. taste-skill is the most droppable of the three (narrowest scope, experimental default, weakest distinct value once these two are present). Not a universal-default-stack pick — most repos aren't frontend-heavy — but default-grade for frontend-focused work. The existing CATALOG.md entry (line 145) is accurate and needs no change.
+
+## Triage note
+
+Left at `discovery-log`. ★103.6K and MIT — the most-starred entry in the frontend-design cluster and, by
+some distance, one of the largest rows in the catalog. Nothing a bulk lane should touch.
+
+The cluster it heads is the densest in this stage: `impeccable`, `taste-skill`, `huashu-design`,
+`baoyu-design`, `garden-skills`, `open-design` and the `frontend-design` plugin all answer "make the AI
+design well". This pass left every one of them, because the sibling evals do something better than a
+redundancy test could — they separate the cluster by *kind*. This row and `impeccable` are lean
+taste/design-language guidance with no toolchain; `huashu-design` and `baoyu-design` are full
+produce-and-export pipelines with executable benches; `taste-skill` is a narrow anti-templating dial set.
+Those are different risk and cost profiles, not competing implementations.
+
+What distinguishes this row specifically is *breadth of knowledge* rather than enforcement: a curated
+design database (styles, palettes, font pairings, product types) plus a Design System Generator, an
+impact-ranked rule taxonomy, and unusually good accessibility and **native-mobile** coverage — the last
+being genuinely rare here.
+
+The measurable claim, if it is ever run, is the one the whole cluster shares and none has evidenced: does
+a design skill change what the agent produces, measured as a with-skill-vs-baseline A/B? That is the
+`TEMPLATE.md` skill-dimension requirement detector S tracks, and it is P0 work.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

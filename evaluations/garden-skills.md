@@ -3,6 +3,7 @@
 **Repo:** [ConardLi/garden-skills](https://github.com/ConardLi/garden-skills)
 **Stars:** 8,369 | **Last updated:** 2026-06-10 (pushed; created 2026-04-21) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans outer-loop *output/communication* work, not the core coding loop — Plan/Reflect (diagrams via web-design, knowledge retrieval) and Ship/communicate (presentations, articles, images). These are skills for producing polished deliverables *about* or *alongside* code, plus one retrieval skill that touches context.
 **Layer:** Process (a multi-skill collection: each skill is a `SKILL.md` + `references/` + scaffold templates; the repo adds a Claude Code plugin marketplace, a `skills` CLI installer, per-skill release `.zip`s, and CI validation)
 
@@ -66,6 +67,31 @@ gh api repos/ConardLi/garden-skills/releases --jq 'length'   # 19
 **discovery-log — tentative read: adopt kb-retriever and (in design-heavy contexts) web-design-engineer; treat the rest as on-demand deliverable tools.** garden-skills is one of the best-*packaged* skill collections in the catalog — curated to five focused skills, per-skill versioned releases, a CLI, a marketplace, CI, and trilingual docs — and the design/video/article skills carry genuine anti-slop craft. But four of five skills produce *outputs about* work (presentations, essays, web artifacts, images) rather than moving code through the loop, and they pull in heavy React/Vite scaffolds and paid TTS/image APIs. The clear dev-loop pick is **kb-retriever** (bounded, source-cited local retrieval). web-design-engineer is worth installing where polished web artifacts matter, but it lands in an already-saturated design cluster.
 
 Compared to neighbors: its catalog "overlaps with" lists **impeccable** and **ui-ux-pro-max**, accurate only for the web-design-engineer slice — and there it also overlaps **taste-skill, huashu-design, baoyu-design, open-design**. As a *collection*, the closer analogue is a curated set like **vercel-labs/agent-skills** (9 focused, test-backed skills) — garden-skills matches the curation and packaging discipline but, unlike Vercel's, is not build/test-validated and skews toward output/communication rather than coding guidance. It is the inverse of bloated menus like agency-agents/antigravity-awesome-skills: small, opinionated, and individually installable.
+
+## Triage note
+
+Left at `discovery-log`, and the eval already does the disaggregation this lane would otherwise attempt:
+of five skills, **kb-retriever** (bounded, source-cited local retrieval) is the clear dev-loop pick,
+`web-design-engineer` lands in the saturated design cluster, and the other three produce *outputs about*
+work — presentations, essays, images — rather than moving code through the loop.
+
+That per-skill verdict is why the row stays whole. A pack whose value concentrates in one component is not
+redundant with the design cluster its overlap cell names; the overlap is accurate for one-fifth of it. This
+is the inverse of the `codebase-design` problem recorded in the Plan slice — there, a single skill was
+catalogued apart from its pack; here a pack is catalogued whose parts want separate verdicts. Both are
+row-granularity problems, and the catalog has no vocabulary for either.
+
+The packaging is genuinely good and worth noting as a model: five focused skills, per-skill versioned
+releases, a CLI, a marketplace, CI, trilingual docs. The eval's comparison is apt — it matches
+`vercel-labs/agent-skills` on curation discipline while skewing toward output and communication rather than
+coding guidance, and it is the opposite of the bloated menus (`agency-agents`, `antigravity-awesome-skills`)
+that pad a count.
+
+Costs to weigh: heavy React/Vite scaffolds and paid TTS/image APIs behind several of the skills.
+
+MIT, ★9.3K, pushed 2026-06-10.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

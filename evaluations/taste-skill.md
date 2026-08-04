@@ -3,6 +3,7 @@
 **Repo:** [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
 **Stars:** 47,011 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (frontend UI code generation); touches Plan when used for image-reference boards
 **Layer:** Process
 
@@ -68,6 +69,25 @@ grep -inE "taste-skill|humanizer|stop-slop" /Users/mbutler/github/ai-tooling/CAT
 taste-skill is well-built and addresses a real gap — AI-generated frontends that look templated — which is a *different* gap from its catalog siblings stop-slop and humanizer (those fix prose; this fixes UI). Its dials, one-job specialization, and provenance (47K stars, MIT, Vercel-sponsored, active CHANGELOG) are genuine strengths. But its surface is narrow (greenfield/marketing-grade frontends), its quality signal is subjective and unverifiable, its default v2 skill is large and self-described as experimental, and its opinions (GSAP, em-dash ban) can fight an existing design system.
 
 Adopt it **when the deliverable is a new, polish-grade frontend an agent is building from scratch** — landing pages, portfolios, marketing sites — and pick a single style variant (`minimalist`, `soft`, `brutalist`) rather than the experimental v2 default if predictability matters. Skip it for dashboards, internal tools, back-end work, or any repo with an established design system. The standout member for general code-gen agents is the small `output-skill` (anti-truncation), which is worth lifting independently of the design bundle. It does not belong in the default code stack; it belongs in a frontend-engineer's toolkit reached for at Implement time. Note for catalog hygiene: the "Overlaps with" pairing (stop-slop, humanizer) is weak — this is a UI-taste tool, not a prose tool.
+
+## Triage note
+
+Left at `discovery-log`. ★61.3K, MIT, Vercel-sponsored — one of the largest skills in the catalog, and its
+own eval is notably more skeptical than that number suggests, which is the right instinct.
+
+The important correction it makes is one a redundancy pass would get wrong: the catalog lists `stop-slop`
+and `humanizer` as siblings, and they are **not**. Those fix prose; this fixes UI. Same anti-slop framing,
+entirely different object.
+
+The reservations are worth carrying because they generalize to the whole design cluster. The quality signal
+is subjective and unverifiable — nobody has demonstrated that any of these skills changes output measurably.
+The default v2 skill is large and self-described as experimental, which is a context cost paid every
+invocation. And its opinions (GSAP, an em-dash ban) can fight an existing design system, which is the
+failure mode of any strongly-opinionated skill dropped into a codebase that already has opinions.
+
+Narrow surface: greenfield and marketing-grade frontends.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

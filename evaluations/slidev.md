@@ -3,6 +3,7 @@
 **Repo:** [slidevjs/slidev](https://github.com/slidevjs/slidev)
 **Stars:** 47,257 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Tooling
 
@@ -61,6 +62,28 @@ Mental dry-run for the 15-slide tech talk: the workflow requires `pnpm create sl
 **discovery-log — tentative read**
 
 Use when building code-heavy technical presentations: conference talks, live coding sessions, developer workshops. Slidev is the best tool in this category — nothing else handles magic-move code animations, embedded Monaco, and Mermaid diagrams in a single coherent authoring experience. Skip it for business decks, status updates, or any presentation where you want AI to do the writing work — wowerpoint handles that case. The Claude Code skill adds value as a complete syntax reference; the underlying framework is the real asset.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★47.6K, pushed 2026-07-10 — a mature presentation framework rather than a
+skill, and the row in the slides cluster with the clearest dev-loop claim: code-heavy technical talks, with
+magic-move code animations, embedded Monaco and Mermaid in one authoring experience.
+
+The eval's boundary is the useful part and this pass preserved it: reach for slidev for a conference talk or
+live coding session; reach for `powerpoint`/`wowerpoint` when a business audience needs a `.pptx` and you
+want the AI to do the writing. Those are different jobs, and the presentation cluster is only over-supplied
+where several rows answer the *same* one.
+
+Three rows in that cluster were disposed in this pass — `pitch-deck`, `powerpoint-ppt` and
+`giving-presentations` — and it is worth being explicit that none of them was disposed for being about
+slides. They went for a dormant low-star source collection, a ★3 source collection superseded by the
+catalogued `powerpoint`, and delivery coaching that adds nothing to a coding agent. This row shares none of
+those problems.
+
+The eval's own framing is the right one to keep: the Claude Code skill is a syntax reference; the underlying
+framework is the real asset.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

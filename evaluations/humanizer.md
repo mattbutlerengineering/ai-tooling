@@ -3,6 +3,7 @@
 **Repo:** [blader/humanizer](https://github.com/blader/humanizer)
 **Stars:** 25,042 | **Last updated:** 2026-06-07 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Ship (prose artifacts — docs, PRs, commit messages, release notes, blog posts); touches Review when the artifact under review is prose
 **Layer:** Process
 
@@ -71,6 +72,31 @@ humanizer is the most comprehensive and best-sourced of the three "de-AI the pro
 Adopt it **when prose quality is a real deliverable** — public-facing READMEs, release notes, external docs, or blog posts an agent drafts — and lean on its cluster-not-isolated and preserve-human-writing guidance rather than applying every rule mechanically. It does not belong in the default code stack.
 
 **Consolidation recommendation:** of the three overlapping prose skills, keep at most one or two. humanizer wins on **comprehensiveness, provenance (25K stars), and its over-editing carve-out**; stop-slop wins on **conciseness and progressive disclosure (lean footprint)**. taste-skill is the clear drop — its abstract "good taste" framing is the least actionable. If keeping one: humanizer for breadth-plus-safety, stop-slop for a lean footprint. If keeping two: humanizer + stop-slop, and retire taste-skill.
+
+## Triage note
+
+Left at `discovery-log`, and this row and `stop-slop` together produced the most interesting finding of the
+pass — recorded on both.
+
+**The two sibling evals contradict each other.** This one calls humanizer *"the most comprehensive and
+best-sourced of the three"*; `stop-slop`'s calls stop-slop *"the strongest of the three"*. Both were written
+against the same cluster, and only one can be right. Neither was disposed as redundant with the other for
+exactly that reason: a supersession SKIP would have to pick a winner the record does not support, and this
+lane's authority to eliminate does not extend to breaking a tie between two human reads.
+
+It is also the class of drift `verdict-change-is-cross-file` describes and no detector can see — detector D
+checks an eval against its own COMPARISON row, never against a sibling's superlative. Worth a grep-style
+check when a cluster gets its next hands-on read.
+
+On substance, the differentiator claimed here is real and checkable: 33 Wikipedia-grounded patterns with
+worked Before/After rewrites, plus an explicit `What NOT to flag` carve-out and technical-text gating that
+stop-slop lacks. That carve-out is what makes it safer to point at engineering prose.
+
+Costs: one 34 KB file with no progressive disclosure, so heavier per invocation than stop-slop; and a few
+mechanical absolutes (hard em-dash ban, emoji and curly-quote rules) that over-edit. Narrow surface for a
+code-focused catalog — PRs, docs, commits, release notes, not code.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

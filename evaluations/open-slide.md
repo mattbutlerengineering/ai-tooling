@@ -3,6 +3,7 @@
 **Repo:** [1weiho/open-slide](https://github.com/1weiho/open-slide)
 **Stars:** 5,441 | **Created:** 2026-04-26 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (outer loop — communicating results)
 **Layer:** Tooling
 
@@ -66,6 +67,27 @@ We did not generate a deck or measure render fidelity. Claims about inspector, p
 **discovery-log — tentative read**
 
 Adopt when an agent must *produce* a polished, web-based deck from a prompt — and especially when you will iterate on it visually (the inspector → `/apply-comments` loop is the reason to pick this over the neighbors). Among slide tools in the catalog it occupies a distinct slot: **slidev** and **powerpoint** are syntax/design references the human drives; **frontend-slides** and **guizang-ppt-skill** are HTML-deck generation skills with no runtime or feedback loop. open-slide is the only one that pairs an agent-authoring skill with a present-mode runtime and a visual-comment edit loop. The conditions: you are comfortable running a Vite/React workspace, you want to maintain decks over time (not one-and-done), and you can pin to a young, fast-moving package. If you just need a single `.pptx` for a business audience, reach for `powerpoint`/`wowerpoint` instead; if you want a quick dev talk in Markdown, slidev.
+
+## Triage note
+
+Left at `discovery-log`. Within a crowded cluster it holds a slot nothing else does, and the eval maps it
+precisely: `slidev` and `powerpoint` are references a human drives, `frontend-slides` and
+`guizang-ppt-skill` generate HTML decks with no runtime — open-slide is the only one pairing an
+agent-authoring skill with a present-mode runtime **and a visual-comment edit loop** (inspector →
+`/apply-comments`).
+
+That feedback loop is the reason it stays. A generate-and-hope tool and a generate-inspect-correct tool are
+different categories, and the same distinction is what kept `plumb-mcp` standing against the larger Figma
+servers two slices ago. Verification beats generation, consistently, across every cluster this triage has
+touched.
+
+The conditions are real and worth carrying: you must be comfortable running a Vite/React workspace, you want
+decks maintained over time rather than one-and-done, and the package is young and fast-moving enough that
+pinning matters.
+
+MIT, ★5.7K, pushed 2026-07-07.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

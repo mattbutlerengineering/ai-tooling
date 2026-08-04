@@ -3,6 +3,7 @@
 **Repo:** [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)
 **Stars:** 11,386 | **Last updated:** 2026-03-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Ship (prose artifacts — docs, PRs, commit messages, release notes); touches Review when the artifact under review is prose
 **Layer:** Process
 
@@ -69,6 +70,34 @@ grep -inE "taste-skill|humanizer|stop-slop|AI tells" /Users/mbutler/github/ai-to
 stop-slop is the strongest of the three "de-AI the prose" skills in the catalog — its concrete deny-lists and substitution tables are exactly the format an LLM can apply, where taste-skill's abstract framing is not, and its progressive-disclosure structure and scoring rubric are well built. But for a code-focused dev-loop catalog its surface is narrow (it touches PRs, docs, commit messages, and review comments — not code), and several rules are dogmatic absolutes (no em dashes, kill all adverbs, ban "always/never") that will over-edit technical writing where those constructions are correct.
 
 Adopt it **when prose quality is a real deliverable** — public-facing READMEs, release notes, blog posts, external-facing docs an agent drafts — and treat its absolutes as defaults to override, not laws, on technical text. If the catalog consolidates the three overlapping entries (taste-skill, humanizer, stop-slop), stop-slop is the one to keep on implementation quality. It does not earn a place in the default code stack; it earns a place in a writer's toolkit that an engineering agent reaches for at Ship time.
+
+## Triage note
+
+Left at `discovery-log`. The obvious call was supersession — `humanizer` is larger (★28.5K against ★13.6K)
+and more recently pushed (2026-06-29 against 2026-03-17) — and it does not survive contact with the record.
+
+**The two sibling evals contradict each other.** This one calls stop-slop *"the strongest of the three
+'de-AI the prose' skills in the catalog"*; humanizer's calls humanizer *"the most comprehensive and
+best-sourced of the three"*. Both cannot hold. Eliminating either would mean this lane silently picking a
+winner between two human reads, which is beyond what an eliminate-only pass may do — a false SKIP is
+cheap and reversible, but a SKIP that resolves a documented disagreement by fiat is not the kind of cheap
+this catalog means.
+
+Recorded on both rows so the contradiction survives to whoever runs the cluster hands-on. It is also
+invisible to tooling: detector D compares an eval to its own COMPARISON row, never to a sibling's
+superlative claim.
+
+On substance, the argument here is a good one and specific: concrete deny-lists and substitution tables are
+a format an LLM can actually apply, where abstract framing is not, and the progressive-disclosure structure
+keeps per-invocation cost below humanizer's single 34 KB file.
+
+The shared caveat applies to both: narrow surface for a code-focused catalog (PRs, docs, commit messages,
+review comments — not code), and dogmatic absolutes (no em dashes, kill all adverbs, ban "always/never")
+that over-edit technical writing where those constructions are correct.
+
+Pushed 2026-03-17 — four and a half months, the quieter of the pair, and worth a freshness check.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

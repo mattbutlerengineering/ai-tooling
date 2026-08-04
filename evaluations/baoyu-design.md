@@ -3,6 +3,7 @@
 **Repo:** [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design)
 **Stars:** 1,622 | **Last updated:** 2026-06-19 (pushed; created 2026-06-07) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement on the *design* track — it drives a clarify → context → produce-HTML → preview → verify loop that yields UI mockups, prototypes, decks, and wireframes before (or instead of) production code. Outer-loop-adjacent for pitch/deck artifacts.
 **Layer:** Process + Tooling — the design methodology is markdown (`SKILL.md` + `system-prompt.md` + built-in skills), but it ships a real **67-file Node/TypeScript toolchain** (PPTX pipeline, offline Figma `.fig` decoder, design-system compiler/checker) that executes.
 
@@ -62,6 +63,29 @@ gh api repos/JimLiu/baoyu-design/releases --jq 'length'   # 0
 **discovery-log — tentative read: strong design capability, but vet the toolchain and pin a commit first.** baoyu-design is one of the most complete HTML-native design skills available: broad workflow coverage, owned/versionable output, a genuinely clever localhost point-and-edit loop, and real tooling (offline Figma decode, editable PPTX, design-system compiler). The reasons to hold short of full ADOPT are concrete: it is days old with zero releases (install a pinned commit, not `main`), its "most of claude.ai/design" claim is unverified, and — unlike the pure-markdown design skills it sits beside — it executes a 67-file Node/TS toolchain that deserves dependency-grade review before you trust it on a real repo. Best paired with Opus 4.8, accepting the cost.
 
 Compared to neighbors: **huashu-design** (19.2K stars) is the closest analog — also HTML-native hi-fi/slides/animation with MP4 export and a design-philosophy framework; it is far more battle-tested by star count, while baoyu-design's differentiators are the explicit `claude.ai/design`-parity goal, the harness-agnostic per-tool references, and the live point-and-edit loop. **impeccable** and **ui-ux-pro-max** are leaner *taste/design-language* skills (pure guidance, no toolchain, lower cost/risk) — pick those if you want aesthetic steering without an executable bench; pick baoyu-design (or huashu-design) when you want the full produce-and-export design pipeline. **open-design** is the heavier platform-scale alternative.
+
+## Triage note
+
+Left at `discovery-log`, and the eval's caution is the substance here: *"vet the toolchain and pin a commit
+first."*
+
+That reservation is specific and unusual in this cluster. Unlike the pure-markdown design skills it sits
+beside, this one executes a **67-file Node/TS toolchain**. A skill that ships executable code is a dependency,
+and deserves dependency-grade review before it runs on a real repo — a Safety point that applies to any
+skill in the catalog that ships more than text, and one worth generalizing.
+
+It was days old with zero releases at the time of the read, which is why the advice is to install a pinned
+commit rather than `main`. That advice has not aged: ★2.5K and pushed 2026-07-09, so it is active, but a
+project this young still moves under you.
+
+Not disposed, because the capability is genuinely complete — offline Figma decode, editable PPTX, a
+design-system compiler, and a localhost point-and-edit loop. The closest analog is `huashu-design`, which is
+far more battle-tested by star count; both were left, since "less proven" and "redundant" are different
+claims.
+
+The `claude.ai/design`-parity claim is unverified and should be treated as marketing until measured.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
