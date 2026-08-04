@@ -3,6 +3,7 @@
 **Repo:** [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)
 **Stars:** 10,981 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (situational awareness across all stages)
 **Layer:** Infrastructure
 
@@ -60,9 +61,27 @@ gh api repos/sirmalloc/ccstatusline/readme --jq '.content' | base64 -d   # full 
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — the slot is single-occupancy and already filled. Claude Code exposes exactly one
+`statusLine`, and this environment's is provided by **GSD** ([`obra/superpowers`](https://github.com/obra/superpowers)),
+a STACK pick. The tentative read above reaches the same place in its own words: *"evaluated, not
+adopted because the slot is taken."*
 
-Adopt when you want a polished, visual statusline (Powerline, themes, gradients, deep git widgets) and you don't already run a statusline you prefer — it occupies the single `statusLine` slot, so it's an either/or choice with claude-hud or a custom statusline. A statusline is more than cosmetic here: the context %/bar, compaction counter, session cost, and usage/reset-timer widgets deliver real outer-loop situational awareness that reduces command round-trips and prevents working in degraded context or hitting surprise rate limits. ccstatusline is the most mature, widely adopted (~185K downloads/month) tool in this niche, but its value is roughly equivalent to claude-hud's (both read the same native data); pick by aesthetic preference (ccstatusline = Powerline/visual polish; claude-hud = denser multi-line HUD). It is complementary to abtop (ADOPT), which monitors sessions from *outside* the agent — ccstatusline lives inside the single CC session's prompt. The user's existing GSD statusline already fills this slot, so for this environment it is a "evaluated, not adopted because the slot is taken" CONDITIONAL.
+That is a cleaner redundancy than most in this queue. Usually "overlaps an incumbent" leaves room for
+running both; here the harness does not, so adopting this means removing something already installed —
+and the eval is explicit that its value is *roughly equivalent* to `claude-hud`'s, since both read the
+same native data, with the choice coming down to aesthetics.
+
+What the eval gets right and is worth keeping is that a statusline is not cosmetic: context percentage,
+compaction counter, session cost and reset timers are genuine outer-loop situational awareness, and they
+prevent working in degraded context or hitting a surprise rate limit. That argument belongs to the slot,
+not to any particular occupant of it.
+
+The most mature entry in its niche — ~185K downloads a month, MIT, ★11.6K. Complementary to `abtop`
+(ADOPT), which watches sessions from outside the agent rather than inside one.
+
+Re-open if the GSD statusline is dropped, or if a measured comparison shows a widget here that changes
+behaviour rather than appearance.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

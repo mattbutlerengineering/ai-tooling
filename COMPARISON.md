@@ -13,10 +13,10 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| CLI-Anything | tool | | ✓ | discovery-log | REVIEW |
+| CLI-Anything | tool | | ✓ | SKIP | REVIEW |
 | claude-code-templates | tool | | ✓ | SKIP | REVIEW |
 | claude-hud | plugin | ✓ | ✓ | discovery-log | REVIEW |
-| ccstatusline | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| ccstatusline | plugin | ✓ | ✓ | SKIP | REVIEW |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
 | code-review-graph | tool | | ✓ | discovery-log | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
@@ -31,7 +31,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | discovery-log | REVIEW |
 | Finn-loop | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| pm-manager | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| pm-manager | skill | | ✓ | SKIP | SOURCE-ONLY |
 | claude-code-spec-workflow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-my-workflow | tool | | ✓ | SKIP | SOURCE-ONLY |
 | design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
@@ -726,7 +726,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 59 | 26 | 6 | 44% |
+| Plan | 59 | 29 | 6 | 49% |
 | Implement | 212 | 68 | 4 | 32% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **234** | **34** | **36%** |
+| **Total** | **642** | **237** | **34** | **37%** |

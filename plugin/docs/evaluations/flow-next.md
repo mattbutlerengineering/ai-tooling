@@ -3,6 +3,7 @@
 **Repo:** [gmickel/flow-next](https://github.com/gmickel/flow-next)
 **Stars:** 635 | **Last updated:** 2026-06-18 (pushed) | **License:** MIT | **Language:** Python (pure-stdlib `flowctl` CLI) + agent skills
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Dev Workflow (spec-driven engineering) — Plan → Implement → Review → Ship
 **Layer:** Process + Tooling (plugin: 28 skills layered on a deterministic CLI)
 
@@ -54,6 +55,29 @@ gh api repos/gmickel/flow-next/readme --jq '.content' | base64 -d | sed -n '369,
 **discovery-log — tentative read** — Flow-Next is one of the more thoughtfully designed **spec-driven workflow plugins**: it diagnoses agentic engineering's real failure (drift, forgotten requirements, unreviewable mega-diffs) and answers with durable specs, context-fit task slices, re-anchored workers, and — its strongest feature — **different-model adversarial review of every plan and implementation**, all as in-repo, reversible `.flow/` artifacts with receipts. Adopt it for **large, multi-session work** on Claude Code/Codex/Factory Droid when you want enforced specs and cross-model verification and will wire up a second model for the gates. For quick fixes or minimal SDD, OpenSpec is lighter; Flow-Next earns its ceremony when the spec genuinely has to carry the weight. Smaller/younger than spec-kit/BMAD — pilot before standardizing a team on it.
 
 Compared to neighbors: **spec-kit** is GitHub's Specify→Plan→Tasks→Implement with human checkpoints; **OpenSpec** is lightweight agent-agnostic SDD; **BMAD-METHOD** is role-based agile; **ccpm** uses GitHub Issues as the spec DB; **reversa** generates specs backward from legacy code. Flow-Next's distinguishing pitch is **six frozen handover objects, each verified by a different model, with receipts — zero-dep and in-repo.**
+
+## Triage note
+
+Left at `discovery-log`. Its strongest feature is one nothing else in the SDD cluster has:
+**different-model adversarial review of every plan and implementation**, with the artifacts frozen in-repo
+under `.flow/` and receipts attached.
+
+That matters beyond this row. Cross-model review — no model checks its own work — is the same pattern
+`ARIS` was kept for in an earlier slice and the same one `claude-octopus` implements as a consensus gate.
+Three independent entries converging on it is the closest thing to a signal a source-only pass can
+observe, and it is worth a measured read on its own terms rather than as a feature of any one tool.
+
+Not disposed. At ★656 it is the smallest of the SDD group and the most likely to be swept up by a
+size-based redundancy call, which would be the `plumb-mcp` error from an earlier slice: the differentiator
+is a capability, not a position.
+
+The costs are stated honestly by the eval — you must wire up a second model for the gates, and the ceremony
+only pays on large multi-session work where the spec genuinely carries weight. For quick fixes `OpenSpec`
+is lighter.
+
+MIT, zero-dependency Python CLI, pushed 2026-07-10.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

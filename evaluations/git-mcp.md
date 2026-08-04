@@ -3,6 +3,7 @@
 **Repo:** [idosal/git-mcp](https://github.com/idosal/git-mcp)
 **Stars:** 8,183 | **Last updated:** 2026-05-08 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (grounding code generation in real APIs) — touches Plan when researching an unfamiliar library
 **Layer:** Tooling (knowledge/retrieval layer; the hosted variant is Infrastructure-adjacent — it's a remote service)
 
@@ -73,6 +74,29 @@ grep -inE "context7|git-mcp|gitmcp|opensrc|code-context-engine|Pare" /Users/mbut
 **discovery-log — tentative read**
 
 GitMCP is a well-built, popular, genuinely open MCP server that targets a real failure mode — agents hallucinating APIs from stale training data — with a uniquely broad reach: it grounds the agent in **any** public GitHub repo, including the long tail of niche and brand-new libraries that curated docs services don't index. That breadth is its decisive advantage over [context7](https://github.com/upstash/context7) (already in the catalog, KEEP), which serves a curated set of well-known libraries' docs. The two are **complementary, not competing** — context7 gives polished, curated docs for mainstream libraries; GitMCP gives raw-but-current docs *and code search* for arbitrary repos. Reach for GitMCP when working against a specific GitHub project (a dependency you're integrating, a library too new/niche for context7, or one where you need to read its actual source). **Adopt it per-project, preferring the per-repo endpoint (`gitmcp.io/{owner}/{repo}`) over the dynamic one, and self-host if a third-party service in the correctness path is unacceptable.** Not ADOPT-everywhere because it's a targeted, per-repo grounding tool with a hosted-service dependency, no release versioning, and quality bounded by each repo's own docs — not a universal default. Not SKIP because the anti-hallucination value for real-repo grounding is concrete and the breadth is unmatched in the catalog.
+
+## Triage note
+
+Left at `discovery-log`. Its decisive property is **breadth**: grounding against any public GitHub repo,
+including the long tail of niche and brand-new libraries no curated docs service indexes. Nothing else in
+the catalog reaches that far.
+
+The relationship to `context7` (KEEP, installed) is complementary and the eval has it right — curated,
+polished docs for mainstream libraries versus raw-but-current docs *and code search* for arbitrary repos.
+Overlapping an installed incumbent on part of a job is a CONDITIONAL shape here, not a SKIP one; the same
+call `storm` and `acontext` got in earlier slices.
+
+Two operational points worth carrying to any promotion, both from the eval: prefer the per-repo endpoint
+(`gitmcp.io/{owner}/{repo}`) over the dynamic one, and self-host if a third-party service sitting in the
+correctness path is unacceptable. That second point is the real reservation — an anti-hallucination tool
+that depends on someone else's uptime has an awkward failure mode.
+
+Quality is also bounded by each repo's own documentation, which is honest and worth stating: the tool cannot
+be better than what it reads.
+
+Apache-2.0, ★8.2K, pushed 2026-05-08.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
 **Stars:** 136,535 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (interface/module design; touches Implement when restructuring code and Reflect when deepening existing modules)
 **Layer:** Process
 
@@ -75,6 +76,30 @@ grep -inE "codebase-design|deep module|seam|improve-codebase-architecture|design
 codebase-design is a high-quality, well-authored Plan-stage process skill that targets a real and specific agent failure mode named in the catalog — agents producing shallow modules with wide interfaces because that *looks* modular — and replaces it with a precise, enforceable vocabulary (depth-as-leverage, seam, locality) plus operational heuristics (the deletion test, dependency-category test strategies, "two adapters means a real seam," replace-don't-layer). Its strongest ideas — redefining depth as leverage and explicitly rejecting Ousterhout's gameable line-ratio, and the `DESIGN-IT-TWICE.md` parallel-sub-agent fan-out — make it genuinely additive: it improves Maintainability and Correctness by giving the agent a criterion for *good* abstraction, not just a habit of abstracting.
 
 It is CONDITIONAL rather than ADOPT for the same two reasons as its sibling domain-modeling. First, its payoff scales with codebase size and longevity — on scripts and small CRUD apps the deep-module machinery is overkill, and it earns its keep on architecturally non-trivial, long-lived projects. Second, it couples best as a set, not a singleton: it is the *how-modules-are-shaped* half that complements domain-modeling's *what-things-are* half, and it is the substrate `improve-codebase-architecture` builds on. Versus its sibling, the relationship is **additive, best-as-family** — not redundant. Adopt it on design-heavy, long-lived projects, ideally alongside domain-modeling and the rest of the mattpocock engineering family, and reserve the token-expensive design-it-twice fan-out for high-leverage interfaces. (Contrast with `resolving-merge-conflicts` from the same repo, ADOPT precisely because it is self-contained and unconditionally better than the agent default; codebase-design's payoff is real but project-dependent.)
+
+## Triage note
+
+Left at `discovery-log`, and it is the **third** row this triage lane has found whose parent is already a
+STACK pick — [`mattpocock/skills`](https://github.com/mattpocock/skills), after `implement` in the Implement
+pass and `diagnosing-bugs` in the Verify slice.
+
+The pattern is now established enough to act on rather than re-observe: a skill that ships inside an
+installed pack cannot be adopted or skipped independently, because installing the pack gets you all of it.
+Counting each such skill as its own lead overstates the queue and invites a redundancy verdict that has no
+meaning. That is a `triage.py` change, not a per-row one, and this pass has now supplied three instances of
+it.
+
+On substance the read above is unusually good and needs nothing added: the skill replaces "looks modular"
+with an enforceable vocabulary (depth-as-leverage, seam, locality) plus operational heuristics — the
+deletion test, "two adapters means a real seam", replace-don't-layer — and explicitly rejects Ousterhout's
+gameable line-ratio. It is conditional on codebase size and longevity, and it couples as a family with
+`domain-modeling` rather than standing alone.
+
+Its own contrast is the useful one to keep: `resolving-merge-conflicts` from the same repo is ADOPT precisely
+because it is self-contained and unconditionally better than the agent default. This one's payoff is real
+but project-dependent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
