@@ -3,6 +3,7 @@
 **Repo:** [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)
 **Stars:** 75,755 | **Last updated:** 2026-03-11 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (cross-cutting — prompt/context-engineering knowledge base)
 **Layer:** Reference (guides, papers, lessons, notebooks)
 
@@ -49,6 +50,18 @@ gh api repos/dair-ai/Prompt-Engineering-Guide --jq '{stars,license:.license.spdx
 **discovery-log — tentative read (reference)** — the Prompt Engineering Guide is the **canonical foundations reference** for prompt/context engineering, RAG, and agents: MIT, comprehensive, and widely used. Keep it as the go-to grounding for *how to prompt*, distinct from the catalog's Claude-Code-specific guides (which cover skills, CLAUDE.md, and the agentic dev loop). It's background knowledge, not a tool that changes your loop.
 
 Compared to neighbors: **ai-agents-for-beginners** / **genai-agents** teach agent building; **awesome-claude-code** indexes Claude-Code-specific configs. This guide's distinguishing role is **provider-agnostic prompt/context-engineering fundamentals** with a linked paper trail.
+
+## Triage note
+
+Left at `discovery-log`. ★76K, MIT — the canonical prompt- and context-engineering knowledge base,
+spanning techniques, papers, notebooks, RAG and agents.
+
+Last pushed 2026-03-11, which is the fact to watch: five months is long for a field this fast, and
+the sections most likely to have aged (agents, context engineering) are exactly the ones this
+catalog would cite. Still the standard reference; increasingly worth checking a claim's date before
+repeating it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

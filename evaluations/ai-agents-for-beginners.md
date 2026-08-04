@@ -3,6 +3,7 @@
 **Repo:** [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners)
 **Stars:** 67,572 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover / Plan (outer loop)
 **Layer:** Process
 
@@ -58,6 +59,17 @@ We read the full README lesson index and confirmed the lesson directory structur
 **discovery-log — tentative read**
 
 Adopt as a *conceptual* reference for understanding agent design patterns, multi-agent orchestration, and agent safety — it's the highest-production-value agent course in this space and stays current. Hold it at CONDITIONAL rather than ADOPT for two reasons: (1) the hands-on track is Azure/Microsoft-locked, and (2) it teaches building autonomous agents, not AI-assisted *software development*, which is this catalog's actual focus. Compared to neighbors: deeper and far more polished than `ai-engineering-from-scratch` (rohitg00), but less directly relevant to the dev loop than Claude-Code-specific references like `claude-howto` or `claude-code-best-practice`. Closest in spirit to `karpathy-llm-wiki` (general LLM/agent theory) — use it where you need to *reason about* how coding agents work, not to drive day-to-day coding.
+
+## Triage note
+
+Left at `discovery-log`. Microsoft's 16-lesson course, ★69K, MIT, pushed 2026-07-09 — actively
+maintained, which for a course matters more than for a list.
+
+Agent *building* rather than agent-assisted coding, the same adjacency as `genai-agents` and
+`agents-towards-production`. All three stay because the Reference section's job is findability, and
+a maintained first-party course is the thing a newcomer should hit first.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

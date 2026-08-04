@@ -3,6 +3,7 @@
 **Repo:** [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)
 **Stars:** 5,106 | **Last updated:** 2026-06-19 (pushed; created 2026-01-09) | **License:** CC-BY-SA-4.0 (content license — attribution + share-alike)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Reference (learning to design agentic workflows; spans the whole loop conceptually)
 **Layer:** Reference (documentation — role-based paths, 48 diagrams, quizzes, templates)
 
@@ -63,6 +64,18 @@ gh api repos/FlorianBruniaux/claude-code-ultimate-guide/readme --jq '.content' |
 **discovery-log — tentative read** (reference) — one of the strongest *educational* Claude Code resources available, and the clear pick if you want to understand **trade-offs and methodology** (agents vs skills vs commands, TDD/SDD/BDD with AI) rather than copy configs, or need **AI-specific security depth** (its CVE/malicious-skill threat database is unique here) and **team-rollout** guidance (role-based paths). The quiz + 48 diagrams make it genuinely pedagogical. Caveats are inherent to a broad, fast-aging guide: self-reported metrics, point-in-time specifics to cross-check, and a share-alike content license if you reuse it. For configs use everything-claude-code; for internals use how-claude-code-works; for *designing your own workflows with a security mindset*, this is the one.
 
 Compared to neighbors: **how-claude-code-works** explains the *source/internals*; **everything-claude-code** ships *configs*; **awesome-claude-code** is *discovery/curation*. Claude Code Ultimate Guide is the **educational-depth + methodology + security** end — teaching the *why* and decision-making, with the only AI-threat database in the set.
+
+## Triage note
+
+Left at `discovery-log`. ★5.4K, pushed 2026-07-09. CC-BY-SA-4.0, which does not dispose it: the
+copyleft band (P4) is scoped to *vendored* types — skills and plugins whose text is copied into a
+consuming repo — and a guide you read imposes nothing.
+
+The distinctive content is the part worth flagging: a 28-CVE / 655-malicious-skill security
+database, which is a dataset this catalog's Safety signal has no other source for, and which is
+directly relevant to the skill-scanning cluster (`SkillSpector`, `skill-scanner`, `hol-guard`).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

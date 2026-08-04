@@ -3,6 +3,7 @@
 **Repo:** [Astro-Han/karpathy-llm-wiki](https://github.com/Astro-Han/karpathy-llm-wiki)
 **Stars:** 1,164 | **Last updated:** 2026-04-13 (pushed; created 2026-04-05; updated 2026-06-19) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (knowledge layer — feeds research/design with a durable, citable knowledge base); touches Reflect (compounding knowledge over time)
 **Layer:** Process / Tooling (a portable Agent Skill that drives an agent-maintained markdown knowledge base; no server, no infrastructure)
 
@@ -70,6 +71,19 @@ gh api repos/Astro-Han/karpathy-llm-wiki/releases --jq 'length'       # 0
 karpathy-llm-wiki is the strongest of this catalog's single-purpose knowledge-layer cluster precisely because it is *general*: it is a zero-infrastructure, portable Agent Skill that turns any sources you choose into a compounding, cited markdown wiki, rather than a server bolted to one fixed book. That generality, plus citations and a lint operation, is what lets it move Correctness and Maintainability on knowledge you actually lack. The caveats are that it is a *workflow, not a tool* — there is no code, so results depend entirely on the driving model following the spec — and that maturity is thin (single author, 14 commits, 0 releases, a ~1-week build) with self-reported production stats that can't be verified.
 
 Compared to neighbors: **gentleman-book-mcp (SKIP)** serves one author's book and earns SKIP because that content is mainstream and already in training data; **book-to-skill** and **andrej-karpathy-skills** are likewise narrower (turn a specific book into a skill / a fixed set of Karpathy-derived skills). karpathy-llm-wiki sits above them because the corpus is *yours*. But it is not an ADOPT-everywhere: it competes with existing memory systems and plain `docs/` conventions, and for many projects the base model plus a couple of pinned reference docs is enough. Adopt deliberately for the evolving-corpus case; otherwise the lighter-weight option wins.
+
+## Triage note
+
+Left at `discovery-log`. It is typed `skill`, not `reference`, and that is the more useful reading:
+it builds citation-backed knowledge bases from raw sources, which is a capability rather than a
+document.
+
+★1.5K, MIT, but last pushed 2026-04-13 — four months, which for an Agent-Skills-compatible artifact
+is long enough that its skill frontmatter and tool expectations are worth re-checking before use.
+The citation discipline is the interesting part and the reason it is not disposable: sourcing is
+exactly what a generated knowledge base usually lacks.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

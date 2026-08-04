@@ -3,6 +3,7 @@
 **Repo:** [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)
 **Stars:** 58,305 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** All (reference)
 **Layer:** Process
 
@@ -55,6 +56,17 @@ gh api "repos/shanraisshan/claude-code-best-practice/git/trees/main?recursive=1"
 **discovery-log — tentative read**
 
 Use as the primary reference when learning a new Claude Code feature (subagents, hooks, skills, MCP, settings) or when comparing development workflow frameworks. The three-layer pattern (best practice + implementation + source) and the 12-framework comparison table are uniquely valuable — no other catalog entry covers this breadth. Skip for daily use — once you've internalized a concept, the official docs are faster for lookups. The lack of an installable component means this competes with bookmarks, not tools.
+
+## Triage note
+
+Left at `discovery-log`. ★62K, MIT, pushed 2026-07-10 — the most comprehensive Claude Code guide in
+the catalog and the incumbent against which `claude-code-tips` was disposed in this pass.
+
+"From vibe coding to agentic engineering" is the arc this repo's own PLAYBOOK covers, so it is the
+closest external analogue to what is being built here — worth reading as a source to reconcile
+against rather than only as a resource to point newcomers at.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

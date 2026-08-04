@@ -3,6 +3,7 @@
 **Repo:** [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills)
 **Stars:** 50,368 | **Last updated:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** N/A (discovery reference)
 **Layer:** N/A
 
@@ -59,6 +60,19 @@ gh api repos/VoltAgent/awesome-openclaw-skills/commits --jq '.[0:3] | .[] | .com
 **discovery-log — tentative read**
 
 Use for broad skill discovery across domains — especially non-engineering categories (transportation, health, smart home, media) where no other catalog has coverage. The malicious-skill filtering and VirusTotal partnership make it the safest large catalog. For Claude Code-specific engineering skills, prefer awesome-agent-skills (CONDITIONAL, editorial by publisher) or antigravity-awesome-skills (CONDITIONAL, installable bundles with CLI). The OpenClaw-native install flow limits direct utility for Claude Code users.
+
+## Triage note
+
+Left at `discovery-log`. ★51K, MIT, pushed 2026-06-24 — 5,400+ skills filtered and categorized from
+the official OpenClaw Skills Registry.
+
+OpenClaw is not a harness this stack runs, which is the ground on which `gbrain` was disposed in the
+Implement pass — but the cases differ. gbrain is a *configuration* whose entire substance is files
+written into another harness's directories; this is an *index*, and a filtered, categorized view of
+a 5,400-entry registry is readable regardless of which harness you run. Reference rows are judged on
+findability, not on installability.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

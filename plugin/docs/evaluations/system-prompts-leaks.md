@@ -3,6 +3,7 @@
 **Repo:** [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks)
 **Stars:** 43,512 | **Last updated:** 2026-06-19 | **License:** CC0-1.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover, Reflect (outer loop)
 **Layer:** Infrastructure
 
@@ -56,6 +57,18 @@ gh api repos/asgeirtj/system_prompts_leaks/readme --jq '.content' | base64 -d | 
 **discovery-log — tentative read**
 
 The broadest and most-starred system-prompt archive available, kept genuinely current across every major vendor, CC0-dedicated and WaPo-cited — a strong learning/discovery reference for prompt-engineering and competitive analysis. Adopt it as a *bookmark for breadth*, with two standing caveats: authenticity is uncertain (these are elicited leaks, sometimes paraphrased or already patched, with no version pinning), and there is ethical/ToS friction in republished hidden prompts — use it for study, not redistribution or adversarial purposes. Against its neighbors: it dominates `claude-code-system-prompts` (Piebald) on **breadth** but loses on Claude-Code **depth, provenance, and per-string token granularity** (Piebald extracts from compiled source; this elicits from chats). It overlaps `system-prompts-and-models` (x1xhlol) most directly — same cross-tool concept — but is larger, fresher, and broader. Recommended split: use this for cross-vendor comparison, Piebald's repo for authoritative Claude Code internals.
+
+## Triage note
+
+Left at `discovery-log`. ★55.3K, CC0-1.0 — the most permissively licensed of the three prompt-leak
+rows, and the most frequently updated, spanning Anthropic, OpenAI, Google and xAI tools including
+Claude Code and Codex. Pushed 2026-07-09.
+
+Those two properties are why it absorbed `CL4R1T4S` in this pass rather than the reverse: CC0 and a
+weekly cadence beat AGPL-3.0 and a two-month gap, on a resource whose entire value is being current
+and quotable.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

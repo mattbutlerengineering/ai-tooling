@@ -3,6 +3,7 @@
 **Repo:** [shareAI-lab/learn-claude-code](https://github.com/shareAI-lab/learn-claude-code)
 **Stars:** 67,447 | **Last updated:** 2026-06-07 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reference
 **Layer:** Process
 
@@ -56,6 +57,18 @@ gh api repos/shareAI-lab/learn-claude-code/git/trees/main?recursive=1 --jq '.tre
 **discovery-log — tentative read**
 
 Use as the first resource when learning how agent harnesses work or when onboarding engineers who will build custom agents. The progressive 12-stage structure is unmatched for building understanding from zero. Skip if you're already experienced with Claude Code internals — the conceptual framework is valuable but the code is deliberately simplified. The closest comparables in the catalog are `claude-code-system-prompts` (shows the real implementation) and `claude-code-best-practice` (practical tips) — learn-claude-code is the "how it works from first principles" resource between those two.
+
+## Triage note
+
+Left at `discovery-log`. ★70.5K, MIT, an educational deep dive into building a Claude-Code-like
+harness from scratch — the companion genre to `how-claude-code-works` (which reverse-engineers the
+real thing) and `claude-code-system-prompts` (which publishes its actual prompts).
+
+Those three together are the catalog's best answer to "how does this harness actually work", and
+they answer it three different ways: build one, read one, read its prompts. None supersedes another.
+Pushed 2026-06-26.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

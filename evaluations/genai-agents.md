@@ -3,6 +3,7 @@
 **Repo:** [NirDiamant/GenAI_Agents](https://github.com/NirDiamant/GenAI_Agents)
 **Stars:** 22,730 | **Last updated:** 2026-06-17 | **License:** NOASSERTION ("Other")
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover / Plan (outer loop)
 **Layer:** Process
 
@@ -58,6 +59,18 @@ We read the full README tutorial index and confirmed the notebook count and cate
 **discovery-log — tentative read** (leaning DEFER)
 
 Useful as a *browsable gallery of agent recipes* when you want to see how a particular pattern (multi-agent research, contract analysis, self-improving loop) is wired in LangGraph/LangChain. But it sits further from this catalog's center of gravity than its neighbor `ai-agents-for-beginners`: no structured curriculum, a marketing-forward README, an ambiguous license, and content that is general GenAI-agent ML rather than AI-assisted software development. Compared to neighbors: broader but shallower and noisier than the Microsoft course; far less dev-loop-relevant than `claude-howto`, `claude-code-best-practice`, or `dictionary-of-ai-coding`. Catalog it under Reference for completeness and cross-link to `ai-agents-for-beginners`, but treat the Microsoft course as the primary agent-learning reference and reach for this one only for specific worked examples.
+
+## Triage note
+
+Left at `discovery-log`. 55+ hands-on Jupyter tutorials at ★23K is a teaching artifact, not a tool,
+and the Reference section's job is to make those findable.
+
+Its centre of gravity is LangGraph/LangChain, which is agent *building* rather than agent-assisted
+*coding* — the same adjacency as `ai-agents-for-beginners` and `agents-towards-production`, both
+catalogued. The licence resolves to `NOASSERTION`, meaning GitHub cannot parse the LICENSE file
+rather than that none exists.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
