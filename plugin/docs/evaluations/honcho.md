@@ -3,6 +3,7 @@
 **Repo:** [plastic-labs/honcho](https://github.com/plastic-labs/honcho)
 **Stars:** 5,297 | **Last updated:** 2026-06-19 (pushed) | **License:** AGPL-3.0 | **Language:** Python (FastAPI; Python + TS SDKs)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (memory infrastructure)
 **Layer:** Infrastructure (FastAPI server; managed at api.honcho.dev or self-hosted)
 
@@ -53,6 +54,27 @@ gh api repos/plastic-labs/honcho/readme --jq '.content' | base64 -d | sed -n '10
 **discovery-log — tentative read** — Honcho is a benchmark-forward, **reasoning-first** memory layer whose distinctive idea is building queryable **per-peer representations** (users, agents, groups, projects, ideas) that change over time, exposed via a Chat endpoint and MCP. Adopt it when your product or multi-agent system needs memory that models *people and relationships* — not just a transcript vector store — and you can either accept AGPL-3.0 for self-hosting or use the managed api.honcho.dev. For a coding agent that just needs cross-session recall, lighter MIT/Apache options (claude-mem, OMEGA, supermemory) are simpler; Honcho earns its place when the reasoning-first, multi-peer model is the point. Treat the "Pareto frontier" claims as vendor-run and pilot on your data.
 
 Compared to neighbors: **mem0** stores relationships as a memory layer; **cognee** is a knowledge-graph memory; **supermemory**/**Memori** are benchmark-forward/production memory engines; **MemOS** crystallizes experience into policy/skills. Honcho's distinguishing pitch is **reasoning-first per-peer representations of changing entities, queried in natural language.**
+
+## Triage note
+
+Left at `discovery-log`. Its distinctive claim is reasoning-first **per-peer representations** — modelling
+users, agents, groups and projects as entities that change over time, queried in natural language —
+rather than storing and retrieving a transcript. That is a different data model from every other row in
+the cluster, so it is not disposable as redundant.
+
+It is also, by the eval's own account, aimed at products and multi-agent systems that need to model
+people. A coding agent that just needs cross-session recall is better served by the lighter MIT/Apache
+options, `claude-mem` and `OMEGA` among them.
+
+The licence deserves a note rather than a disposition. **AGPL-3.0** on a self-hosted memory service does
+not restrict the code you write against it, so P4's vendored-copyleft rule does not apply — the same
+reasoning that left `firecrawl` standing in the previous slice. Where AGPL would bite is offering the
+service onward to third parties, which is not this catalog's use; a managed endpoint exists for anyone
+who wants to avoid the question entirely.
+
+Pareto-frontier benchmark claims are vendor-run and unverified here.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

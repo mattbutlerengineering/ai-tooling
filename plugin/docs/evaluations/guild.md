@@ -3,6 +3,7 @@
 **Repo:** [mathomhaus/guild](https://github.com/mathomhaus/guild)
 **Stars:** 312 | **Last updated:** 2026-06-15 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (memory/recall) + Plan/Ship (task coordination across sessions)
 **Layer:** Infrastructure
 
@@ -61,6 +62,26 @@ Metadata: 312 stars, 47 forks, 26 open issues, Go, Apache-2.0, created 2026-04-2
 guild is a well-designed, local-first MCP server that is genuinely *not* another claude-mem clone: its distinctive value is **multi-agent task coordination** — a shared quest board with atomic claims and dependency cascades that lets parallel agents across different MCP clients (Claude Code, Codex, Cursor) share one substrate — layered on top of a clean three-lifetime memory model (journal / lore / brief) and hybrid BM25+vector recall, all in a single Go binary with embedded SQLite, no account, and no API key. Adopt it **when you actually run multiple coding agents in parallel and want them coordinating over one shared, local task-and-memory board across editors** — that is its real differentiator and where it earns its keep. For this user's case (single-harness Claude Code, already on claude-mem ADOPT + OMEGA), it does **not** displace the existing memory stack: claude-mem is more battle-tested for single-agent recall, guild is two months old with no published benchmarks and an unproven autonomy loop, and running a second "agent memory" MCP server alongside claude-mem/OMEGA risks split-brain context. Like agentic-stack, memsearch, agentmemory, and SimpleMem (all CONDITIONAL), it wins on a specific axis — here, parallel multi-agent coordination — but loses to claude-mem on single-agent ecosystem fit and proven track record.
 
 **vs. claude-mem (ADOPT), beads, dmux:** guild overlaps *complementarily*, not competitively. **claude-mem** owns single-agent auto-capture → recall in Claude Code (passive, battle-tested); guild's memory is more manual/agent-driven but adds coordination claude-mem lacks. **beads** is the closest cousin — an issue/dependency graph for agents — and guild's quest board with cascading unblock covers similar ground but bundles memory (lore/brief) and ships as a local MCP server; they are complementary (beads as the richer issue tracker, guild as the lighter in-substrate task+memory layer). **dmux** (CONDITIONAL) solves parallel-agent *filesystem* isolation via tmux + git worktrees but adds no shared memory or task board; guild + dmux would be genuinely complementary — dmux isolates the worktrees, guild shares the context and coordinates the quests across them.
+
+## Triage note
+
+Left at `discovery-log`. Its differentiator is not memory at all — it is **multi-agent coordination**: a
+shared quest board with atomic claims and dependency cascades that parallel agents across different MCP
+clients can work from. That is a capability no other Memory & Context row has, which is why a
+redundancy pass over this crowded category must not sweep it up.
+
+The read above is honest about fit rather than quality: for a single-harness Claude Code user already
+on `claude-mem` and `OMEGA`, the coordination is unused and a second memory MCP is a liability. The
+value appears only when several agents genuinely run in parallel.
+
+The complement worth noting is `dmux`, which isolates parallel agents' *filesystems* through tmux and
+worktrees but shares no context between them. dmux plus guild covers both halves; neither covers the
+other's.
+
+Two months old, no published benchmarks, unproven autonomy loop. Single Go binary with embedded SQLite,
+no account, no API key — a low-cost pilot when the parallel-agent condition is actually met.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

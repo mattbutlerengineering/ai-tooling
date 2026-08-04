@@ -3,6 +3,7 @@
 **Repo:** [strukto-ai/mirage](https://github.com/strukto-ai/mirage)
 **Stars:** 3,197 | **Last updated:** 2026-06-20 (pushed; created 2026-05-06) | **License:** Apache-2.0 | **Releases:** 2
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / cross-cutting (a tool/data-access layer agents use during execution)
 **Layer:** Infrastructure (Python + TypeScript SDKs + CLI/daemon; FUSE-based mounts)
 
@@ -74,6 +75,27 @@ gh api repos/strukto-ai/mirage/releases --jq 'length'             # 2
 **discovery-log — tentative read** — adopt if you want agents to read/compose across many services through a single bash-native filesystem (and like that it sidesteps per-tool MCP/SDK schemas), and you can scope credentials and sandbox the mounts. The unified-VFS paradigm is genuinely elegant, the cross-service `grep`/`cp`/pipe composition is a real capability, and the breadth + Apache-2.0 + agent-SDK integrations are strong. Hold off where maturity matters: it's two releases old with ~50 backends of unverified per-backend depth, FUSE-limits it to macOS/Linux, and — most importantly — bash over 50 live services is a serious blast radius that demands tight permissioning and isolation (pair with something like code-on-incus). Pilot on read-only/non-prod mounts first.
 
 Compared to neighbors: **mcp2cli** turns MCP/OpenAPI/GraphQL endpoints into a CLI (tool-call angle); MCP servers expose one service each as typed tools. Mirage is the **unified-filesystem alternative to MCP** — every service as a mountable path the LLM drives with bash, optimized for *cross-service composition* rather than per-tool calls. The most "treat all your data/services as one disk" option, with a correspondingly large safety surface.
+
+## Triage note
+
+Left at `discovery-log`. It is the most conceptually interesting row in the MCP section and the one
+whose blast radius most deserves a hands-on read before anyone recommends it.
+
+The premise is a genuine alternative to MCP rather than an instance of it: mount ~50 services as a
+unified filesystem and let the agent compose across them with ordinary bash — `grep`, `cp`, pipes —
+instead of per-tool typed schemas. Nothing else here does that. `mcp2cli` turns endpoints into a CLI,
+which is the tool-call angle; MCP servers expose one service each.
+
+The safety surface scales with the elegance, and the eval is right to name it plainly: bash over 50
+live services is a large amount of reach for a single misinterpreted instruction. Its own advice — pilot
+on read-only, non-production mounts, and pair with isolation such as `code-on-incus` — is the correct
+posture and, note, points at a tool this pass left standing in the previous slice for exactly this kind
+of job.
+
+Two releases old, ~50 backends of unverified per-backend depth, FUSE so macOS/Linux only. Young, not
+redundant.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

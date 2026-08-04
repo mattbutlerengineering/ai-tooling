@@ -3,6 +3,7 @@
 **Repo:** [tathagat22/plumb-mcp](https://github.com/tathagat22/plumb-mcp)
 **Stars:** 57 | **Last updated:** 2026-06-18 (last push; latest tag v0.12.0) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (Figma design→code grounding) + Verify (`plumb_verify` / `plumb_fit` diff rendered code against the design)
 **Layer:** Tooling (agent-facing MCP bridge + verification CLI — not hosted infrastructure)
 
@@ -67,6 +68,27 @@ gh api "repos/tathagat22/plumb-mcp/git/trees/HEAD?recursive=1" --jq '.tree[].pat
 Plumb is the only Figma-MCP in the catalog cluster that **closes the loop on the generated code** — `plumb_verify` diffs your rendered DOM against the design (ΔE2000 colour + flex/shadow/rotation deltas via headless Chrome) and `plumb_fit` turns that into a self-healing 0–100 convergence loop. Combined with a plugin-bridge that removes Figma's REST quota/plan wall (works on Free, reads Variables) and a PDS normalizer that collapses Figma's giant JSON into a token-budget-friendly spec, it targets the two things that make naive Figma MCPs fail in an agent loop: context blowup and unverified output. **Adopt it when your project does meaningful Figma→code work, you want the agent to verify (not just guess) that the build matches the design, and you can run Figma desktop with the plugin paired** — confirming verify fidelity on a sample run first.
 
 It is not ADOPT-everywhere: it's niche to Figma-using teams; the rate-limit-free path demands a manual desktop + plugin pairing that rules out pure headless/CI (the REST/`.fig` fallbacks lose Variables and inherit rate limits); the terminal `fit` loop spends Anthropic tokens; and it's a very young (v0.12.0, ~1 month old, 57 stars, single maintainer) project whose verify/PDS fidelity is unverified here. Not SKIP because the verification loop is a real, differentiated Verify-stage capability none of its peers offer, the token-economy and plan-bypass premises are structurally sound, and the engineering (CI, Docker, docs, transport design) looks legitimate. Among the cluster: choose **Figma-Context-MCP** for plain read-only design→code; **figma-mcp-go** when the agent must *write/generate* inside Figma; **design-extract** when the source of truth is a live website rather than a Figma file; and **plumb-mcp** when you want compact Figma reads plus a closed design→code→verify loop.
+
+## Triage note
+
+Left at `discovery-log` — and it is the row in this pass most at risk of a lazy SKIP, which is worth
+recording. At ★63 against `Figma-Context-MCP`'s ★15.4K, a size-based redundancy call writes itself.
+It would be wrong.
+
+The differentiator is a *capability*, not positioning: `plumb_verify` diffs the rendered DOM against
+the design (ΔE2000 colour plus flex/shadow/rotation deltas through headless Chrome) and `plumb_fit`
+turns that into a convergence loop. Nothing else in the Figma cluster verifies its own output. That is
+a Verify-stage capability sitting in an Implement-stage cluster, which is exactly the kind of thing the
+overlap column cannot express.
+
+The honest counterweights are equally concrete and the eval lists them: v0.12.0, roughly a month old,
+single maintainer, and the rate-limit-free path needs Figma desktop with a paired plugin — which rules
+out headless CI, where a verify loop would be most valuable. Verify fidelity is unmeasured.
+
+So: young and unproven, not redundant. Those are different dispositions and only the second is this
+lane's to write.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

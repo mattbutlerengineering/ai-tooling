@@ -3,6 +3,7 @@
 **Repo:** [memvid/memvid](https://github.com/memvid/memvid)
 **Stars:** ~15,700 | **Last updated:** 2026-05-27 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 
@@ -52,6 +53,26 @@ gh api repos/memvid/memvid/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you want agent long-term memory without operating a vector database and value portability/versioning — the single-file model is its standout. Verify the self-reported LoCoMo/multi-hop/temporal gains on your own data before relying on them, and check scaling behavior for your concurrency needs. For a user already on claude-mem + OMEGA, it overlaps existing memory; the draw is the database-free portability.
+
+## Triage note
+
+Left at `discovery-log`. The standout is the single-file model: long-term memory you can copy, version
+and commit like any other artifact, with no vector database to operate. In a category where nearly every
+alternative asks you to run a service, "no infrastructure" is a real differentiator and a Maintainability
+argument rather than a recall one.
+
+Not disposed as redundant with the installed stack for the usual reason — it overlaps `claude-mem` and
+`OMEGA` on the job while differing on the substrate, and overlap-with-an-incumbent is a CONDITIONAL
+shape here, not a SKIP one.
+
+Two caveats the read above records and this pass has no way to resolve: the LoCoMo, multi-hop and
+temporal gains are **self-reported**, and scaling behaviour under concurrency is unverified. The first is
+exactly what `audit-evals.py --savings-claims` exists to track for the Optimize cluster, and the same
+discipline applies to benchmark headlines — a number in a README is a claim, not evidence.
+
+Apache-2.0, ★15.7K, pushed 2026-05-27.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -544,15 +544,15 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-subconscious | plugin | ✓ | ✓ | SKIP | REVIEW |
 | cognee | platform | | ✓ | discovery-log | REVIEW |
 | MemOS | platform | | ✓ | discovery-log | REVIEW |
-| memind | platform | ✓ | ✓ | discovery-log | REVIEW |
+| memind | platform | ✓ | ✓ | SKIP | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| evolver | tool | ✓ | ✓ | discovery-log | REVIEW |
+| evolver | tool | ✓ | ✓ | SKIP | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
-| memory-os | tool | ✓ | ✓ | discovery-log | REVIEW |
+| memory-os | tool | ✓ | ✓ | SKIP | REVIEW |
 | Memori | platform | | ✓ | discovery-log | REVIEW |
 | OpenViking | platform | | ✓ | SKIP | REVIEW |
-| RAGFlow | platform | ✓ | ✓ | discovery-log | REVIEW |
+| RAGFlow | platform | ✓ | ✓ | SKIP | REVIEW |
 | engram | tool | | ✓ | discovery-log | REVIEW |
 | mem0 | MCP server | | ✓ | discovery-log | REVIEW |
 | hypotree | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -597,8 +597,8 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | devfleet | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | mcp-github-trending | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
-| hyperframes | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| fal-ai-mcp-server | MCP server | ✓ | ✓/$ | SKIP | REVIEW |
+| hyperframes | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | fastmcp | framework | | ✓ | ADOPT | RUN |
 | Figma-Context-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -734,8 +734,8 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 12 | 2 | 29% |
 | Skills & Plugins | 90 | 30 | 4 | 33% |
-| Memory & Context | 50 | 15 | 2 | 30% |
-| MCP Servers | 44 | 13 | 2 | 30% |
+| Memory & Context | 50 | 19 | 2 | 38% |
+| MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **224** | **34** | **35%** |
+| **Total** | **642** | **230** | **34** | **36%** |

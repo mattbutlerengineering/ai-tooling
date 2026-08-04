@@ -3,6 +3,7 @@
 **Repo:** [memodb-io/Acontext](https://github.com/memodb-io/Acontext)
 **Stars:** ~3,500 | **Last updated:** 2026-06-16 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 
@@ -52,6 +53,24 @@ gh api repos/memodb-io/Acontext/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt for agents that run repeated tasks and benefit from compounding, inspectable learnings — especially in skill-file-native ecosystems (Claude Code, AI SDK). For a solo user already on claude-mem + OMEGA, it overlaps existing memory; the draw is the skill-file representation if you want portable, hand-editable learnings. Re-evaluate hands-on against memU and ACE for a memory-layer decision.
+
+## Triage note
+
+Left at `discovery-log`. The distinctive bet is the *representation*: learnings stored as skill files —
+portable, hand-editable, diffable — rather than opaque rows in a vector store. For a repo whose whole
+premise is that agent behaviour should be inspectable, that is the interesting property, not the recall
+numbers.
+
+Not disposed, and the honest reason is in the read above: against the installed `claude-mem` (ADOPT)
+plus `OMEGA` it is overlapping rather than additive, and running a second memory layer alongside them
+invites the split-brain context both `guild` and `agentic-stack` warn about. "Overlaps what is already
+installed" is a CONDITIONAL shape, not a SKIP one — the same call `storm` got in the previous slice.
+
+The comparison the eval asks for is specific and worth queueing as written: hands-on against `memU` and
+`ACE`, since all three are variations on compounding, inspectable learnings. That is one measured
+session covering three rows, which is a better use of a P0 slot than any of them alone.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

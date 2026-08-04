@@ -3,6 +3,7 @@
 **Repo:** [timescale/pg-aiguide](https://github.com/timescale/pg-aiguide)
 **Stars:** 1,768 | **Last updated:** 2026-06-10 (latest release v0.5.0, 2026-04-28) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (writing schema/SQL) — touches Plan when modeling a data model up front
 **Layer:** Tooling (knowledge layer, not infrastructure — it does not touch a live DB)
 
@@ -70,6 +71,27 @@ grep -inE "supabase|prisma|mcp-toolbox" /Users/mbutler/github/ai-tooling/CATALOG
 **discovery-log — tentative read**
 
 pg-aiguide is a well-built, vendor-credible knowledge layer that targets a real and specific failure mode (LLMs writing non-idiomatic, under-constrained, version-blind Postgres) and moves Correctness clearly without touching the database. It is categorically different from its catalog "overlaps": **supabase, prisma, and mcp-toolbox are DB-operations MCP servers that act on a live database (migrations, queries, studio); pg-aiguide acts on the agent's knowledge so the SQL it writes is correct in the first place.** They are complementary, not competing — pg-aiguide pairs naturally with prisma/supabase (generate idiomatic schema → then operate on the DB). **Adopt it when a project does meaningful Postgres schema/SQL work** (especially with pgvector, PostGIS, or TimescaleDB), preferring the `npx skills` / plugin skill install for offline correctness and adding the hosted MCP server only when you want version-scoped manual search. Not ADOPT-everywhere because it is Postgres-specific dead weight on non-Postgres projects and carries a (commercially-tilted) TimescaleDB lean plus a third-party network dependency in the MCP path. Not SKIP because the general `design-postgres-tables` and hybrid-search skills are genuinely strong, vendor-neutral correctness wins.
+
+## Triage note
+
+Left at `discovery-log`, and it is a good illustration of why the "Overlaps with" column needs reading
+rather than pattern-matching. Its three listed neighbours — `supabase`, `prisma`, `mcp-toolbox` — all
+*operate a live database*. pg-aiguide touches no database at all: it improves the SQL the agent writes
+before anything runs. The eval calls that out and it is right; a redundancy pass keying on the overlap
+cell alone would have disposed it wrongly.
+
+That makes it complementary to the whole DB cluster (generate idiomatic schema, then operate on it),
+and this pass left every member of that cluster standing.
+
+The promotion case is unusually clean for a Correctness claim: non-idiomatic, under-constrained,
+version-blind Postgres is a *checkable* failure mode, so a with/without run on a schema task would
+produce a real number rather than an impression.
+
+Weigh at promotion time: it is Postgres-specific dead weight elsewhere, it carries a TimescaleDB lean
+from its vendor, and the offline `npx skills` install avoids the third-party network path the MCP
+route adds.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

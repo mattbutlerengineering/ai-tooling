@@ -3,6 +3,7 @@
 **Repo:** [luminarylane/fal-mcp-server](https://github.com/luminarylane/fal-mcp-server) (formerly `raveenb/fal-mcp-server`, which now redirects here)
 **Stars:** 50 | **Last updated:** 2026-05-04 (pushed; created 2025-08-28) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (generating media assets — images/video/audio — as build artifacts)
 **Layer:** Tooling (an MCP server wrapping the fal.ai generative-media API)
 
@@ -63,9 +64,30 @@ gh api repos/luminarylane/fal-mcp-server/contributors --jq '[.[].login]'  # 5 (r
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt when your workflow genuinely needs programmatic media generation inside an agent session (design mockups, marketing/social assets, demo content) AND you accept fal.ai's metered cloud billing and data egress; use `get_pricing`/`get_usage` and prefer local stdio transport to contain cost and exposure. If you only occasionally need an image, the fal.ai web UI or a one-off API call is simpler and lower-risk than standing up an always-on MCP server.
+**SKIP** — off-scope, on the ground its own tentative read already names: *"out-of-core-dev-loop
+relevance."*
 
-This is the right pick for the catalog's `fal-ai-mcp-server` stub precisely because the field is fragmented: among 20+ near-identical wrappers, `raveenb/fal-mcp-server` is the only one with real release discipline (30 releases, PyPI, Docker, CI), the broadest tool surface (image/edit/video/audio + cost tooling), and dynamic model discovery. It has no direct functional neighbor in the catalog's MCP Servers list — the closest analogues (**blender-mcp** for 3D, **playwright** for browser control) are also "agent controls an external creative/runtime system" servers, but none generate 2D/video/audio media. It stays CONDITIONAL rather than ADOPT because it is a thin, paid-API wrapper with a weak moat and out-of-core-dev-loop relevance: valuable for teams that produce media, irrelevant for those that don't.
+Generating images, video and audio is asset production. Nothing in the inner or outer loop this
+catalog maps — Plan, Implement, Verify, Review, Ship, Reflect — is waiting on a generated image, and
+a metered third-party media API is a permanent cost and data-egress surface for a capability that
+never fires while writing software.
+
+The scope line is worth stating precisely, because the MCP Servers category blurb is broad
+("connect AI agents to external services and capabilities") and several neighbours look superficially
+similar but survive it. `Figma-Context-MCP` and `plumb-mcp` read a *design that must be implemented in
+code*. `unity-mcp` drives an editor in which software is *built*. `blender-mcp` sits closer to the
+line and is a separate call. This row is on the far side of it: the output is the artifact, not an
+input to code.
+
+★52 is the corroborating detail rather than the reason — a thin wrapper over a paid API in a field
+the eval itself describes as 20+ near-identical alternatives.
+
+Re-open if this catalog widens to cover product asset pipelines.
+
+_Note: the repo was renamed `raveenb/fal-mcp-server` → `luminarylane/fal-mcp-server`; the header and
+CATALOG link already point at the current name, while the body's prose predates the move._
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

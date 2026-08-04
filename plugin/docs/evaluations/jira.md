@@ -3,6 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (active) | **License:** MIT (not an official Atlassian product)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (read tickets → scope work) and Ship (update status / close tickets); touches Reflect when summarizing what shipped
 **Layer:** Tooling (team-workflow integration; connects the agent to a live Jira instance)
 
@@ -66,6 +67,25 @@ gh api repos/sooperset/mcp-atlassian/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 A Jira MCP server is a genuine dev-loop aid — for teams that use Jira. Reading a ticket's description and acceptance criteria into the agent at Plan, and transitioning the ticket at Ship, is real work-tracking integration that tightens the loop and keeps the agent coding against the source of truth rather than a lossy prompt. But it is **niche by definition**: utility is entirely contingent on the team running Jira, so it cannot be ADOPT-everywhere, and it is not SKIP because for Jira teams the value is concrete and the tooling is mature. **Adopt it when your team tracks work in Jira and you want the agent ticket-aware** — pair it with github-mcp-server (Jira = issues, GitHub = code) for full Plan→Ship coverage. Use the recommended community repo `sooperset/mcp-atlassian` for the broadest deployment/auth coverage (especially Server/Data Center); choose `atlassian/atlassian-mcp-server` if you require an Atlassian-official, OAuth-only hosted server. Scope the API token to least privilege given the live write access to a shared system of record.
+
+## Triage note
+
+Left at `discovery-log`. Reading a ticket's acceptance criteria into the agent at Plan and
+transitioning it at Ship is real dev-loop work, and equally real is that it is worth nothing to a team
+that does not run Jira. Neither ADOPT-everywhere nor SKIP, which is where the read above lands.
+
+Same structural finding as its sibling: **`jira` and `confluence` are two rows for one repo**
+(`sooperset/mcp-atlassian`, 72 tools across both facets). One install, one promotion decision, two
+entries in the lead queue.
+
+The pairing the eval recommends is worth keeping — Jira for issues, `github-mcp-server` for code, which
+together cover Plan→Ship — and so is the safety note: this is live write access to a shared system of
+record, so the token should be least-privilege regardless of how much you trust the agent.
+
+If a hands-on eval happens, `atlassian/atlassian-mcp-server` (official, Apache-2.0, OAuth-only hosted)
+is the alternative to weigh against the community repo's much broader deployment coverage.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

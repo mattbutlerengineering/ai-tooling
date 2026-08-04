@@ -3,6 +3,7 @@
 **Repo:** [ClaudioDrews/memory-os](https://github.com/ClaudioDrews/memory-os)
 **Stars:** 1,170 | **Last updated:** 2026-06-10 (pushed; created 2026-05-31) | **License:** MIT | **Install:** one-command `setup.sh`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (memory infrastructure for a specific agent)
 **Layer:** Infrastructure (local Docker + Qdrant + SQLite, as a Hermes Agent plugin)
 
@@ -49,9 +50,22 @@ gh api repos/ClaudioDrews/memory-os/readme --jq '.content' | base64 -d | head -1
 
 ## Verdict
 
-**discovery-log — tentative read** — Memory OS is a thoughtfully-designed, MIT, **local-first 7-layer memory operating system specifically for Hermes Agent**: trust-scored structured facts, a self-curating wiki, and semantic search over all past conversations, on Qdrant + SQLite with any LLM provider and no subscription. Adopt it **if Hermes Agent is your agent** and you want disciplined, on-box long-term memory — it's the natural memory companion to the cataloged Hermes Agent. If you're on Claude Code/Codex, use this catalog's harness-native memory tools instead; Memory OS's value is its Hermes integration. Young, so pilot recall quality before depending on it.
+**SKIP** — built for a harness this catalog does not run. The tentative read above states the
+condition exactly: *"Adopt it **if Hermes Agent is your agent**"*, and *"If you're on Claude
+Code/Codex, use this catalog's harness-native memory tools instead."*
 
-Compared to neighbors: **MemOS** is a general self-evolving "memory OS"; **OMEGA** a cross-session memory MCP; **Hermes Agent** is the agent this serves. Memory OS's distinguishing pitch is being the **dedicated, local, trust-scored 7-layer memory layer for Hermes Agent**.
+That is a disposition, not a caveat. The supported harnesses here are Claude Code and opencode
+(ADR-0002), memory for those is held by `claude-mem` (ADOPT, installed) and `OMEGA`, and a seven-layer
+memory OS wired into a different agent's internals is dead weight next to them — worse than neutral,
+because a second memory MCP alongside claude-mem risks the split-brain context the `guild` and
+`agentic-stack` evals both warn about.
+
+Nothing here is a quality judgement. MIT, local-first, trust-scored facts on Qdrant + SQLite with no
+subscription is a sound design, and Hermes Agent users should find this row — which is what keeping
+it catalogued does.
+
+Re-open if Hermes Agent enters the supported-harness set.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

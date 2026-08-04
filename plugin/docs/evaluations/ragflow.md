@@ -3,6 +3,7 @@
 **Repo:** [infiniflow/ragflow](https://github.com/infiniflow/ragflow)
 **Stars:** 83,201 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Deploy:** self-hosted (Docker; Elasticsearch or Infinity doc engine)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — RAG/context infrastructure; tangential to the coding dev loop)
 **Layer:** Infrastructure (self-hosted RAG engine + agentic workflow platform)
 
@@ -55,9 +56,24 @@ gh api repos/infiniflow/ragflow/readme --jq '.content' | base64 -d | grep -iE 'R
 
 ## Verdict
 
-**discovery-log — tentative read** — RAGFlow is a top-tier, Apache-2.0, self-hostable **RAG + agent context engine** whose real strength is **deep document understanding (DeepDoc), explainable chunking, and grounded citations** — exactly what naive RAG gets wrong. Adopt it when you're **building a production knowledge/RAG application or a document-grounded copilot** and need high-fidelity ingestion with traceable answers. It is *not* a Claude Code dev-loop tool and is heavy overkill as agent session memory — for that, stay with the catalog's lightweight memory layers. Treat it as context *infrastructure* you'd build a product on, and pilot ingestion quality on your own documents before committing.
+**SKIP** — product infrastructure, not a dev-loop tool, and the tentative read above says so without
+hedging: *"It is not a Claude Code dev-loop tool and is heavy overkill as agent session memory — for
+that, stay with the catalog's lightweight memory layers."*
 
-Compared to neighbors: **cognee** is a self-hosted knowledge-graph memory; **supermemory** a benchmark-leading memory+context engine; **OpenViking** a filesystem-paradigm context database. RAGFlow's distinguishing pitch is **document-understanding-first RAG at app-platform scale** with grounded citations and an increasingly agentic workflow.
+The Memory & Context category is scoped to *"persistent memory across sessions, context compression,
+and learning from past interactions."* RAGFlow is a self-hosted RAG platform for building
+document-grounded applications: DeepDoc ingestion, explainable chunking, grounded citations, an
+agentic workflow builder. That is something you *ship to users*, not something that makes an agent
+better at writing your code.
+
+★84.7K and Apache-2.0 make this the largest row disposed in this pass, and the size is worth being
+explicit about: the SKIP says nothing against the software. It is excellent at what it does, its
+document-understanding-first approach is genuinely the right answer to what naive RAG gets wrong, and
+the row stays catalogued precisely so anyone building a knowledge product finds it.
+
+Re-open if this catalog widens to cover the applications you build with agents rather than the loop
+you build them in — a boundary question that also governs `awesome-llm-apps`, `openui` and `ag-ui`.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

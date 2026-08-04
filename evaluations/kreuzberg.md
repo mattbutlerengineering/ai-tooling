@@ -3,6 +3,7 @@
 **Repo:** [xberg-io/xberg](https://github.com/xberg-io/xberg) (formerly kreuzberg-dev/kreuzberg; repo renamed)
 **Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (document ingestion for RAG / Memory & Context)
 **Layer:** Infrastructure
 
@@ -52,6 +53,24 @@ gh api repos/xberg-io/xberg/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt as the document-ingestion layer when you need clean text, metadata, and structure (including code intelligence) from many formats to feed RAG or agents — fast and locally, without a GPU. Pin the license terms first, and validate OCR/VLM output quality on your document mix. Pair with a retrieval/index tool (LightRAG/PageIndex); kreuzberg is the extraction front-end, not end-to-end RAG.
+
+## Triage note
+
+Left at `discovery-log`. It is the extraction front-end rather than a retrieval system — clean text,
+metadata and structure out of many formats, fast, locally, without a GPU — which makes it complementary
+to `LightRAG` and `PageIndex` rather than a competitor to either. Both of those were also left in this
+pass; the trio is a pipeline, not a duplicate set.
+
+Two things this pass verified. The repo was **renamed** `kreuzberg-dev/kreuzberg` → `xberg-io/xberg`,
+and the header already records it with the rename note added in #280 — no drift to fix. And the eval's
+own instruction to *"pin the license terms first"* still stands: metadata reads MIT, but a rename that
+also changes the owning org is precisely when a licence is worth re-reading rather than assumed.
+
+The code-intelligence extraction is the part most relevant to this catalog — a document pipeline that
+understands source files is closer to the dev loop than a general-purpose one. Validating OCR/VLM quality
+on a real document mix is the measurement the eval asks for, and it is P0 work.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
