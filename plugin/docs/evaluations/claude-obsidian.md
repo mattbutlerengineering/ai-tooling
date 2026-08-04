@@ -3,6 +3,7 @@
 **Repo:** [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian)
 **Stars:** 7,151 | **Last updated:** 2026-05-28 (pushed; created 2026-04-07) | **License:** MIT | **Latest:** v1.9.2
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Memory & Context (persistent knowledge base for Claude Code)
 **Layer:** Skill pack / plugin (15 Claude Code skills over an Obsidian vault)
 
@@ -59,6 +60,20 @@ gh api repos/AgriciDaniel/claude-obsidian/readme --jq '.content' | base64 -d | h
 **CONDITIONAL** — claude-obsidian is a mature (v1.9.x), MIT **self-organizing second brain for Obsidian + Claude Code**: 15 skills, a compounding wiki, genuinely strong hybrid retrieval (contextual prefix + BM25 + rerank), PKM methodology modes, and multi-writer safety. Adopt it if Obsidian is (or could be) your knowledge base and you want human-inspectable, compounding persistent memory grounded in Karpathy's LLM Wiki pattern. It overlaps the cataloged claude-code-memory-setup recipe (this is the full tool to that how-to) and claude-mem — pick by whether you want an Obsidian-centric compounding vault vs. a turnkey harness plugin. Install from the official MIT repo.
 
 Compared to neighbors: **claude-code-memory-setup** is the Obsidian+Graphify setup *recipe*; **claude-mem** a turnkey memory plugin; **storybloq** tracks `.story/` context. claude-obsidian's distinguishing pitch is a **mature, retrieval-engineered, self-organizing Obsidian second brain** with PKM methodology modes.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It overlaps
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK) on persistence but not on shape:
+this is an Obsidian-centric compounding vault with hybrid retrieval (contextual prefix + BM25 +
+rerank), PKM methodology modes, and multi-writer safety — human-inspectable knowledge you own,
+versus a turnkey harness plugin. The eval frames the choice as exactly that pick, not as one
+dominating the other.
+
+Worth noting for whoever evaluates it: an Obsidian vault is already part of this operator's setup,
+so the integration cost that would sink this for most users is near zero here.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [rohitg00/agentmemory](https://github.com/rohitg00/agentmemory)
 **Stars:** 23,426 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -59,6 +60,17 @@ Not hands-on tested (user already runs claude-mem + OMEGA). Evaluation is archit
 **CONDITIONAL**
 
 Use when you need the broadest agent platform support (15+ agents), published retrieval benchmarks for compliance/evaluation contexts, or the most comprehensive auto-capture hook coverage. claude-mem (ADOPT) remains the better choice for Claude Code-only users — it's simpler (20 vs 53 MCP tools), more battle-tested (82K stars, v13.4), and has a proven plugin ecosystem. agentmemory wins on benchmarks and cross-platform reach; claude-mem wins on ecosystem integration and context efficiency.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its evaluation already ran the comparison
+against [`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK, `ADOPT`/`MEASURED`) and
+found a real split rather than a loss: agentmemory wins on published retrieval benchmarks and
+15+ agent-platform reach, claude-mem wins on Claude Code ecosystem fit, simplicity (20 vs 53 MCP
+tools), and battle-testing. A challenger that leads the incumbent on a named, measurable axis is
+not redundant — it is unmeasured, which is a different problem and a different band.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [campfirein/byterover-cli](https://github.com/campfirein/byterover-cli)
 **Stars:** ~4,900 | **Last updated:** 2026-06-17 | **License:** source-available (repo SPDX returns NOASSERTION); formerly Cipher
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 
@@ -49,9 +50,22 @@ gh api repos/campfirein/byterover-cli/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`claude-mem`](https://github.com/thedotmack/claude-mem)
+for this profile, which is what its evaluation found: *"For a solo user already on claude-mem +
+OMEGA it overlaps existing memory; the draw is the git-like curation and cross-tool sharing."*
 
-Adopt when a team wants shared, versioned, reviewable project memory that travels across coding agents and teammates — the git-for-context model is its standout. Confirm the license terms and weigh the cloud dependency for the sharing features. For a solo user already on claude-mem + OMEGA it overlaps existing memory; the draw is the git-like curation and cross-tool sharing.
+Both halves of that draw are team features. A git-like context tree (branch/commit/merge/push/pull)
+with an approve/reject review workflow is curation infrastructure for *multiple people editing
+shared project knowledge* — genuinely clever, and idle for one operator, who is both the only writer
+and the only reviewer. Cross-tool sharing has the same shape.
+
+Two further reservations the eval raises and this lane cannot resolve: the license is **not a
+standard SPDX identifier** (`NOASSERTION`), and the sharing features are cloud-dependent. Neither
+alone would decide it; together with the redundancy they settle it.
+
+Re-open for a team with shared project memory to curate, where the review workflow is the point.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

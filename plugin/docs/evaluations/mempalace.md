@@ -3,6 +3,7 @@
 **Repo:** [MemPalace/mempalace](https://github.com/MemPalace/mempalace)
 **Stars:** ~56,000 (very high for a ~2-month repo; ~7.3K forks, reported as-is) | **Last updated:** 2026-06-19 (pushed; created 2026-04-05) | **License:** MIT | **Package:** PyPI `mempalace`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Memory & Context (local-first memory layer)
 **Layer:** Infrastructure (local store + pluggable backend)
 
@@ -54,6 +55,20 @@ gh api repos/MemPalace/mempalace/readme --jq '.content' | base64 -d | head -25  
 **CONDITIONAL** — MemPalace is a local-first, MIT, **verbatim** memory layer (no summarize/extract) with a strong claimed LongMemEval recall and zero API calls — a genuinely different, privacy-friendly trade-off from the summarizing memory tools, and well-suited to Claude Code session retention. Adopt it if you want lossless, on-box memory and value the benchmark posture, but: install **only** from the official GitHub/PyPI (the project warns of malware-bearing impostor sites), treat the ~56K-star count as hype rather than proof, and plan for unbounded verbatim growth. Pilot recall on your own data before relying on it.
 
 Compared to neighbors: **supermemory** is a benchmark-leading full context stack; **mem0** a relationship-aware layer; **cognee** a knowledge-graph memory; **claude-mem** a turnkey CC plugin. MemPalace's distinguishing pitch is **verbatim, local-first, zero-API memory** with a recall benchmark.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Against
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK) its differentiator is a genuine
+trade-off, not a feature overlap: **verbatim** memory with no summarize/extract step, local-first,
+zero API calls. Every summarizing memory tool in this band loses information by design; MemPalace
+is the one that doesn't, at the cost of unbounded growth.
+
+Two cautions carried forward from the eval rather than acted on: install **only** from the official
+GitHub/PyPI (the project warns of malware-bearing impostor sites), and treat the ~56K-star count as
+hype rather than evidence.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

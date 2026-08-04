@@ -3,6 +3,7 @@
 **Repo:** [Eshaan-Nair/ArcRift](https://github.com/Eshaan-Nair/ArcRift)
 **Stars:** 234 | **Last updated:** 2026-06-07 (created 2026-04-21) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -65,6 +66,19 @@ gh api repos/Eshaan-Nair/ArcRift/contributors --jq '.[].login'      # Eshaan-Nai
 ArcRift is a credible, MIT-licensed, local-first memory tool whose real differentiator is the **browser-chat ↔ IDE-agent bridge** — syncing memory between web AI UIs and coding agents over one shared SQLite store, an axis no other catalog memory entry covers. That makes it *additive*, not a thin duplicate: agentmemory competes on benchmarked recall and platform breadth, memsearch on cross-IDE portability, AgentRecall on correction-first compounding, and ArcRift on web-to-IDE unification. Use it when your real pain is **"I plan and decide in ChatGPT/Claude.ai web chats, then lose all that context when I switch to my coding agent"** — and you're willing to run Ollama and a persistent local backend.
 
 For this user's case — Claude Code, local-first, already on claude-mem (ADOPT) + OMEGA — it does **not** displace claude-mem. It is far younger (234 stars, single-author, created Apr 2026), its recall is validated only on a 10–20-fact self-run benchmark, its hard Ollama dependency and persistent-backend footprint exceed claude-mem's file-only model, the desktop install is Windows-first, and adopting a second MCP recall layer risks colliding with the live claude-mem/OMEGA setup. Like agentrecall-mcp and memsearch (both CONDITIONAL), it wins on a specific axis (web↔IDE bridge) but loses to claude-mem on battle-testing and Claude Code ecosystem fit. ADD the catalog entry as CONDITIONAL — not ADOPT, not SKIP.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its evaluation names an axis no other catalog
+memory entry covers: the **browser-chat ↔ IDE-agent bridge** — one shared SQLite store syncing
+context between web AI UIs and coding agents. "I plan and decide in a web chat, then lose it when I
+switch to my coding agent" is a real failure mode that
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK) does not address at all.
+
+At 246 stars it is small and the eval notes it wants Ollama plus a persistent local backend — both
+reasons to measure before adopting, neither a reason to eliminate.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

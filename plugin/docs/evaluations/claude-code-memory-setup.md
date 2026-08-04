@@ -3,6 +3,7 @@
 **Repo:** [lucasrosati/claude-code-memory-setup](https://github.com/lucasrosati/claude-code-memory-setup)
 **Stars:** 785 | **Last updated:** 2026-06-01 (pushed; created 2026-04-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Memory & Context (a *setup recipe*, not an installable tool)
 **Layer:** Reference (guide wiring existing tools together)
 
@@ -58,6 +59,19 @@ gh api repos/lucasrosati/claude-code-memory-setup/readme --jq '.content' | base6
 **CONDITIONAL (reference / setup recipe)** — a well-documented, MIT recipe for **persistent Claude Code memory + token savings** by composing **Obsidian Zettelkasten + a chat-import pipeline + Graphify**. Its value is the integration blueprint: if you want human-inspectable, file-based memory plus a codebase graph and are willing to run/maintain the stack, it's a credible alternative to a turnkey memory plugin. Treat the "71.5×" headline as one setup's self-reported result, and weigh the multi-component maintenance against a single plugin like claude-mem. Best read as a *how-to* that leans on the already-cataloged Graphify, not a drop-in product.
 
 Compared to neighbors: **claude-mem** is a turnkey memory plugin; **storybloq** tracks cross-session context in `.story/`; **Graphify** is the codebase-graph component this recipe builds on. claude-code-memory-setup's distinguishing pitch is the **Obsidian-Zettelkasten + Graphify integration blueprint** for memory *and* token savings.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Type `reference`: this is a
+*how-to* composing Obsidian Zettelkasten + a chat-import pipeline + Graphify, not a product
+competing with [`claude-mem`](https://github.com/thedotmack/claude-mem) (STACK). A recipe and a
+plugin are not substitutes — the eval's own framing is "best read as a how-to that leans on the
+already-cataloged Graphify".
+
+Its "71.5×" headline is one setup's self-reported result and should be treated as such; that is a
+measurement backlog item, not a triage verdict.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

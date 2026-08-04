@@ -3,6 +3,7 @@
 **Repo:** [volcengine/MineContext](https://github.com/volcengine/MineContext)
 **Stars:** ~5,400 | **Last updated:** 2026-05-07 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (ambient context / Memory & Context)
 **Layer:** Infrastructure
 
@@ -49,9 +50,25 @@ gh api repos/volcengine/MineContext/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — out of dev-loop scope, and redundant with
+[`claude-mem`](https://github.com/thedotmack/claude-mem) for the part that isn't. Its own
+evaluation says both: *"It's more a **personal-productivity partner than a coding-dev-loop tool**
+… for agent memory specifically, claude-mem/supermemory/memU are closer fits."*
 
-Interesting as an ambient, proactive context layer for knowledge work — capturing your context and resurfacing it Pulse-style rather than waiting for queries. It's more a personal-productivity partner than a coding-dev-loop tool, and the continuous-capture privacy surface deserves scrutiny before adopting. Catalogued for the proactive-ambient-memory pattern; for agent memory specifically, claude-mem/supermemory/memU are closer fits.
+MineContext is a ChatGPT-Pulse-style **desktop app** that continuously captures your work and study
+context and proactively resurfaces it. That is an ambient knowledge-work assistant, not a tool that
+intervenes at a dev-loop stage — the same scope call already recorded for `googleworkspace/cli`
+("an adjacent capability tool, out of core scope"). This catalog is an operating manual for building
+software, and continuous desktop capture moves none of its quality signals.
+
+The privacy surface deserves its own sentence: continuous capture of everything you do is the
+largest Safety concession in this band, and it is being asked in exchange for a capability outside
+what we stock.
+
+Re-open only if the catalog's scope widens to ambient personal-knowledge tooling — and then as one
+decision covering this whole category, not a one-off.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

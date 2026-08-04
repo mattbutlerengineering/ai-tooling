@@ -3,6 +3,7 @@
 **Repo:** [Gentleman-Programming/engram](https://github.com/Gentleman-Programming/engram)
 **Stars:** 4,493 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -59,6 +60,16 @@ gh api repos/Gentleman-Programming/engram --jq '.description, .stargazers_count'
 **CONDITIONAL**
 
 Use when you work across multiple AI coding agents (Claude Code + Codex + Gemini CLI) and need shared memory, or when conflict surfacing for evolving architectural decisions matters. For Claude Code-only users, claude-mem (ADOPT) remains simpler and production-proven. Engram's unique strengths — agent-agnostic portability, topic-key upserts, and conflict surfacing — justify adoption when those capabilities are needed.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its recorded strengths — agent-agnostic
+portability across Claude Code + Codex + Gemini CLI, topic-key upserts, and **conflict surfacing**
+when architectural decisions evolve — are things [`claude-mem`](https://github.com/thedotmack/claude-mem)
+(STACK) does not do. The eval is explicit that claude-mem stays simpler for Claude-Code-only work,
+which is a fit statement, not a redundancy finding.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 

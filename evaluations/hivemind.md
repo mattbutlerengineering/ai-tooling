@@ -3,6 +3,7 @@
 **Repo:** [activeloopai/hivemind](https://github.com/activeloopai/hivemind)
 **Stars:** 1,313 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (capture/codify) + Plan/Implement (recall at inference time)
 **Layer:** Infrastructure
 
@@ -59,9 +60,24 @@ Verified: real `claude-code-plugin` + `claude-skills` topics; marketplace instal
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`claude-mem`](https://github.com/thedotmack/claude-mem)
+for the memory half, and the half that isn't redundant has no audience here. This is the
+conclusion this evaluation already reached and the row had not caught up to: *"For a solo Claude
+Code user already running claude-mem + OMEGA (this user's setup), the memory slice is redundant
+and the team-skill slice has no audience — **for that profile it leans SKIP**."*
 
-Use Hivemind if you run coding agents across a **team** and want successful runs automatically codified into shared SKILL.md files that propagate to every teammate's agent — that "mine traces → codify → propagate" loop is a genuine niche no other catalog entry fills, and it is a real Claude Code plugin, not building-block infra (so it is not a SKIP like aisuite). The conditions: (1) you are comfortable with full session data (prompts, tool inputs, tool outputs) captured to Activeloop's cloud and readable workspace-wide, or you set up BYOC; (2) you are a team, since the compounding value barely exists for a solo dev; (3) you accept auto-mined skill quality without a shipped human-review gate. For a solo Claude Code user already running claude-mem + OMEGA (this user's setup), the memory slice is redundant and the team-skill slice has no audience — for that profile it leans SKIP. CONDITIONAL on "you are a team that accepts cloud trace capture."
+Hivemind's genuine niche — mining successful runs into shared `SKILL.md` files that propagate to
+every teammate's agent — is a compounding loop that only compounds across a team. Its value is
+close to zero for one operator, which is what this catalog is stocked for.
+
+There is also a cost, not merely an absence of benefit: adopting it means full session data
+(prompts, tool inputs, **tool outputs**) captured to Activeloop's cloud and readable
+workspace-wide, unless you stand up BYOC. Paying a Safety price for a benefit that requires
+colleagues you don't have is not a close call.
+
+Re-open for a team context, where the propagate-skills loop is exactly the right idea.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
 
 ## Catalog entry
 
