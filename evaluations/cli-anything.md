@@ -3,6 +3,7 @@
 **Repo:** [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)
 **Stars:** 43,466 | **Last updated:** 2026-06-14 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (occasionally Verify) — but primarily for *non-coding* software domains
 **Layer:** Infrastructure (Claude Code plugin that generates tooling)
 
@@ -64,9 +65,23 @@ Reviewed: the 7-phase generator command set (`/cli-anything`, `:refine`, `:test`
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — off-scope, on the conclusion its own tentative read already reaches: *"For a standard
+code-centric dev loop it sits outside the workflow and is not part of the recommended stack."*
 
-CLI-Anything is a well-built, actively-maintained, reputably-authored Claude Code plugin — and that real integration is what distinguishes it from aisuite (SKIP). But its purpose is general agent-enablement of *all* software, and the ~80 CLIs it ships are overwhelmingly creative/desktop/consumer apps rather than software-development tooling. It does not write, review, test, or ship your code; it makes other software agent-callable. **Adopt it when your agent work involves driving GUI/desktop or specialized software — image/audio/video editing, 3D/CAD, GIS, note-taking — or a dev-adjacent backend that already has a harness (lldb, n8n, pm2, chromadb, ollama, exa, wiremock).** For a standard code-centric dev loop it sits outside the workflow and is not part of the recommended stack. Re-evaluate if the coding-relevant subset of the registry grows substantially.
+The ~80 CLIs it ships are overwhelmingly creative, desktop and consumer software — image, audio and
+video editing, 3D and CAD, GIS, note-taking. Making that software agent-callable is a real and
+well-executed capability, and none of it writes, reviews, tests or ships code. The dev-adjacent subset
+it does carry (`lldb`, `n8n`, `pm2`, `chromadb`, `ollama`, `exa`, `wiremock`) mostly already has a
+harness of its own.
+
+★45K and Apache-2.0 from HKUDS, actively maintained, with genuine Claude Code plugin integration —
+which is exactly what distinguished it from `aisuite` (SKIP) in the original read. This is a scope
+call and not a quality one, and it lands the same way `RAGFlow` and `hyperframes` did earlier in this
+issue: excellent software pointed at a use this catalog does not map.
+
+Re-open on the trigger the eval already names: if the coding-relevant subset of the registry grows
+substantially, the calculation changes.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

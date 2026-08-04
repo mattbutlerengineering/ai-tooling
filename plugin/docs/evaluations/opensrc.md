@@ -3,6 +3,7 @@
 **Repo:** [vercel-labs/opensrc](https://github.com/vercel-labs/opensrc)
 **Stars:** 2,590 | **Last updated:** 2026-05-01 (latest release v0.7.2, 2026-04-18) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (reading dependency internals while writing code) — touches Plan when modeling against a library's API and Review when verifying agent-written usage against real source
 **Layer:** Tooling (a CLI the agent composes with `rg`/`cat`/`find`; not infrastructure, not a hosted service)
 
@@ -74,6 +75,27 @@ grep -inE "opensrc|git-mcp|context7|deepwiki|npm.*source" /Users/mbutler/github/
 **discovery-log — tentative read**
 
 opensrc targets a real, high-value failure mode — agents inventing dependency behavior from stale training data — and addresses it with the strongest grounding there is: reading the dependency's actual source, pinned to the version the project resolves. That is categorically deeper than docs lookup (context7) or generic repo browsing (git-mcp), and the version-from-lockfile detection is the feature that makes it more than `git clone` in a wrapper. It is well-engineered (Rust, multi-registry, sane global cache), Vercel-authored, and Apache-2.0. **Adopt it when you work in a dependency-heavy npm/PyPI/crates project and routinely hit "the agent doesn't actually know how this library works,"** wiring the `AGENTS.md` block or bundled skill so the agent reaches for it. It is **CONDITIONAL rather than ADOPT** because (1) it's a pre-1.0 `vercel-labs` project with a still-moving cache/API surface, (2) integration is manual prompt-scaffolding rather than a one-command setup, and (3) the value only lands when the agent searches source efficiently and the package's repo/tag metadata resolves cleanly. Not SKIP — for the right project this is a meaningfully better grounding lever than the doc-based alternatives.
+
+## Triage note
+
+Left at `discovery-log`. The premise is the strongest grounding available for a real failure mode: agents
+inventing dependency behaviour from stale training data, answered by reading the dependency's **actual
+source at the version the lockfile resolves**.
+
+The version-from-lockfile detection is what makes it more than `git clone` in a wrapper, and it places the
+row cleanly against its neighbours rather than in competition with them: `context7` serves curated docs for
+mainstream libraries, `git-mcp` browses arbitrary public repos, opensrc reads the exact code your build
+will run. Three depths of the same grounding question, all left standing in this pass.
+
+What holds it back is integration rather than concept, and both reasons in the eval are still checkable:
+it is pre-1.0 `vercel-labs` with a moving cache/API surface, and wiring it up is manual prompt scaffolding
+rather than one command. The second is the kind of friction that decides whether a good tool actually gets
+reached for.
+
+Apache-2.0, ★2.8K, pushed 2026-06-23 — around six weeks, worth a freshness check on a pre-1.0 project
+before relying on it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -1179,6 +1179,14 @@
     "resolved_name": "farion1231/cc-switch",
     "stars": 115375
   },
+  "finna/finn-loop": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-23T00:54:26Z",
+    "resolved_name": "finna/Finn-loop",
+    "stars": 290
+  },
   "firecrawl/firecrawl": {
     "archived": false,
     "license_spdx": "AGPL-3.0",
@@ -2951,17 +2959,19 @@
   },
   "repoprompt/repoprompt-ce": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:54:11Z",
+    "pushed_at": "2026-08-04T22:37:26Z",
     "resolved_name": "repoprompt/repoprompt-ce",
-    "stars": 780
+    "stars": 850
   },
   "reporails/cli": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
     "pushed_at": "2026-06-27T23:24:23Z",
     "resolved_name": "reporails/cli",
-    "stars": 63
+    "stars": 68
   },
   "repowise-dev/repowise": {
     "archived": false,
@@ -3235,10 +3245,11 @@
   },
   "sopaco/deepwiki-rs": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-05-16T07:52:16Z",
+    "pushed_at": "2026-07-24T17:27:49Z",
     "resolved_name": "sopaco/deepwiki-rs",
-    "stars": 1348
+    "stars": 1382
   },
   "sourcebot-dev/sourcebot": {
     "archived": false,
@@ -3789,6 +3800,14 @@
     "pushed_at": "2026-07-10T04:25:52Z",
     "resolved_name": "web-infra-dev/midscene",
     "stars": 14031
+  },
+  "wei63w/pm-manager": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T13:28:44Z",
+    "resolved_name": "wei63w/pm-manager",
+    "stars": 69
   },
   "weizhena/deep-research-skills": {
     "archived": false,

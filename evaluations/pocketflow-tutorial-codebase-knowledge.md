@@ -3,6 +3,7 @@
 **Repo:** [The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge)
 **Stars:** ~12,400 | **Last updated:** 2026-05-31 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (code understanding / onboarding)
 **Layer:** Tooling
 
@@ -52,6 +53,27 @@ gh api repos/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge/readme --jq '.con
 **discovery-log — tentative read**
 
 Adopt to accelerate onboarding onto an unfamiliar codebase — it generates a beginner-friendly, abstraction-level tutorial with visualizations rather than dumping a search index. It's a one-shot doc generator, so pair it with a continuous code-intelligence layer (repowise/sourcebot/serena) for ongoing agent context. Verify the generated tutorial's accuracy on large or unconventional repos.
+
+## Triage note
+
+Left at `discovery-log`. A one-shot generator that turns an unfamiliar codebase into a beginner-friendly,
+abstraction-level tutorial with visualizations — which is a different artifact from a search index, and the
+reason it is not redundant with the code-intelligence layer it sits beside.
+
+The pairing the eval recommends is the right frame and this pass preserved both halves: a generated tutorial
+for onboarding, plus a continuous layer (`repowise`, `sourcebot`, `serena`) for ongoing agent context. One is
+a document you read once; the other is a service the agent queries. Overlap in subject matter, none in role.
+
+`deepwiki-rs` was examined alongside it in this pass and also left standing, on a genuine differentiator
+rather than politeness: it runs entirely locally in Rust with no cloud service, where this one drives an LLM
+API. Local-first versus model-generated is a real axis for anyone whose code cannot leave the building.
+
+The caveat is the one that applies to every generated document: verify accuracy on large or unconventional
+repos before trusting it. A confidently wrong tutorial about someone else's code is hard to detect.
+
+MIT, ★12.4K, pushed 2026-05-31.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

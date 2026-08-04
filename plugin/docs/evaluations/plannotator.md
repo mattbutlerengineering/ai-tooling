@@ -3,6 +3,7 @@
 **Repo:** [backnotprop/plannotator](https://github.com/backnotprop/plannotator)
 **Stars:** 6,338 | **Last updated:** 2026-06-19 | **License:** Apache-2.0 (dual-licensed Apache-2.0 / MIT)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (plan review at the Plan→Implement gate; diff/PR review at the Implement→Ship gate)
 **Layer:** Tooling
 
@@ -68,6 +69,29 @@ grep -inE "plannotator|planning-with-files|plan review|ExitPlanMode" /Users/mbut
 Plannotator is a well-built, actively maintained, security-conscious tool that intervenes at the highest-leverage point in the dev loop: the Plan→Implement gate. Visual plan review is a genuine lever, not a nice-to-have — its blocking `ExitPlanMode` hook plus *structured* deny-feedback (annotations routed back to the agent, with a plan diff on resubmission) turns plan approval from a rubber-stamp into a real quality gate, and catching a bad plan there is the cheapest correction available anywhere in the loop. Maturity is strong (v0.20.3, dual-licensed, SLSA provenance, client-side-encrypted sharing, tests, nine agent integrations with a first-class Claude Code plugin).
 
 It is CONDITIONAL rather than ADOPT because its value is structurally tied to a human being in the loop. Adopt it for interactive, human-supervised agent sessions — especially where plans are non-trivial, where a teammate should weigh in on a plan or diff before execution, or where an annotated decision trail has value. Skip it for autonomous/AFK or fleet workflows, where a multi-day blocking review hook on every plan is an anti-pattern, and weigh the browser context switch for terminal-native developers against Claude Code's lighter built-in plan-mode prompt. It complements `planning-with-files` (plan durability) rather than overlapping it: one persists the plan, the other gates and annotates it.
+
+## Triage note
+
+Left at `discovery-log`, and it intervenes at the single highest-leverage point in the loop: the
+Plan→Implement gate. Catching a bad plan there is the cheapest correction available anywhere, and a blocking
+`ExitPlanMode` hook with *structured* deny-feedback — annotations routed back to the agent, plan diff on
+resubmission — turns approval from a rubber-stamp into an actual gate.
+
+Maturity is unusually strong for this queue: v0.20.3, dual-licensed Apache-2.0/MIT, SLSA provenance,
+client-side-encrypted sharing, tests, nine agent integrations with a first-class Claude Code plugin. Very
+little in the P3 backlog is built to that standard.
+
+What keeps it from promotion is a structural condition rather than a defect, and the eval states it
+precisely: the value is tied to a human being in the loop. For interactive supervised sessions it is a real
+quality gate; for autonomous or fleet workflows a multi-day blocking review hook on every plan is an
+anti-pattern. That is a fact about how you work, not about the tool.
+
+Complementary to `planning-with-files` rather than overlapping it — one persists the plan, the other gates
+and annotates it. Both left standing.
+
+★6.9K, pushed 2026-07-09.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

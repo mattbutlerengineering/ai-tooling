@@ -3,6 +3,7 @@
 **Repo:** [sandeco/reversa](https://github.com/sandeco/reversa)
 **Stars:** 1,242 | **Last updated:** 2026-05-24 (pushed; created 2026-04-26) | **License:** MIT | **Install:** `npx reversa install`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Dev Workflow (spec generation — but *reverse*, from legacy code)
 **Layer:** Tooling (multi-agent installer that writes specs into a legacy project)
 
@@ -54,6 +55,26 @@ gh api repos/sandeco/reversa/readme --jq '.content' | base64 -d | head -40   # r
 **discovery-log — tentative read** — Reversa targets a real, underserved problem — **extracting executable specifications backward out of legacy / vibe-coded systems** so coding agents can evolve them safely — with a sharp "operational contracts, not docs" framing, MIT license, paper backing, and multi-engine install. Adopt it to bootstrap a spec for an undocumented system, but **treat the generated contracts as a high-value draft to verify, not ground truth**: the failure mode (confidently hallucinated business rules) is the dangerous kind. Pilot on a module you understand to calibrate fidelity before trusting it on the parts "nobody wants to touch."
 
 Compared to neighbors: **spec-kit**, **OpenSpec**, and **BMAD-METHOD** generate specs *forward* for new/continuing work; **Understand-Anything** builds a queryable graph for comprehension. Reversa's distinguishing pitch is **reverse spec-engineering** — turning existing legacy code into agent-ready operational contracts.
+
+## Triage note
+
+Left at `discovery-log`. It is the only entry in the SDD cluster that runs **backward** — extracting
+executable specifications *out of* legacy and vibe-coded systems, rather than generating them forward for
+new work. `spec-kit`, `OpenSpec`, `BMAD-METHOD`, `ccpm` and `flow-next` all point the other direction, so
+the redundancy test that governs the rest of the cluster does not apply here at all.
+
+That direction is also underserved in a way worth naming: the code an agent will be asked to change is
+mostly code nobody specified, and "make the undocumented thing safe to evolve" is a harder and more common
+problem than "specify the new thing well".
+
+The risk is the dangerous kind and the eval flags it correctly — **confidently hallucinated business
+rules**. A generated contract that is 95% right is worse than no contract, because the wrong 5% now has
+authority. Its advice is the right protocol: pilot on a module you already understand, calibrate fidelity,
+and treat output as a high-value draft rather than ground truth.
+
+MIT, paper-backed, ★1.3K, pushed 2026-07-03. `npx reversa install` across multiple engines.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

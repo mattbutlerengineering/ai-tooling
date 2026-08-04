@@ -3,6 +3,7 @@
 **Repo:** [zhu1090093659/spec_driven_develop](https://github.com/zhu1090093659/spec_driven_develop)
 **Stars:** 905 | **Last updated:** 2026-06-09 (pushed; created 2026-03-21) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (architecture-first spec workflow feeding Implement; tracks via GitHub Issues/PRs into Ship)
 **Layer:** Process (pure-Markdown skills — no SDK, no runtime)
 
@@ -57,6 +58,33 @@ gh api repos/zhu1090093659/spec_driven_develop/readme --jq '.content' | base64 -
 **discovery-log — tentative read** — a solid, dependency-free spec-driven workflow whose distinguishing features are the paired **Deep Discuss** thinking skill and cybernetics-inspired adaptive control, plus first-class GitHub Issue/PR tracking and cross-session continuity. Adopt if you want a Markdown SDD framework for large, multi-session changes and value the explicit design-discussion phase. But it's one of several strong SDD options — if you're not already invested, compare against spec-kit (largest ecosystem), OpenSpec, and BMAD-METHOD first; pick this one specifically for the Deep Discuss workflow or if its S.U.P.E.R structure resonates. Quality is model-dependent and unverified.
 
 Compared to neighbors: same family as **spec-kit** / **OpenSpec** / **BMAD-METHOD** / **ccpm** / **aidlc-workflows**. Its edge is the **Deep Discuss design-phase skill** and cybernetics-framed adaptive control bundled with the execution pipeline — a "discuss then decompose then track" loop rather than decomposition alone.
+
+## Triage note
+
+Left at `discovery-log`, and this row is where the pass records the cluster observation for the whole Plan
+stage.
+
+**The SDD cluster is the largest redundancy pocket in this catalog.** `spec-kit` and `OpenSpec` are P0 leads;
+`BMAD-METHOD`, `ccpm`, `flow-next`, `reversa`, `aidlc-workflows`, `Finn-loop`, `pm-manager` and this row are
+all catalogued alongside them. Nine-plus entries answer one question — how does an agent turn intent into a
+verified change — and picking among them is **one measured comparison, not nine triage calls**. That is the
+same shape as the LLMOps cluster recorded on `agenta` in the Outer Loop slice, and this lane should not try
+to resolve either by elimination.
+
+One member of the cluster *was* disposed here, and the ground is worth contrasting: `pm-manager` describes
+itself as Spec Kit-inspired at ★69, which is derivative of a P0 lead with nothing named that the lead lacks.
+That is a different situation from being a small independent design.
+
+On this row specifically: its named edge is the **Deep Discuss** design-phase skill — an explicit
+discuss-then-decompose-then-track loop rather than decomposition alone — plus cybernetics-framed adaptive
+control and first-class GitHub Issue/PR tracking. Dependency-free Markdown, MIT, ★919, pushed 2026-07-01.
+The eval's own advice stands: compare against spec-kit, OpenSpec and BMAD-METHOD first, and pick this one
+specifically for Deep Discuss.
+
+Quality is model-dependent and unverified — which is true of every member of the cluster and is exactly why
+the comparison has to be measured.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [automazeio/ccpm](https://github.com/automazeio/ccpm)
 **Stars:** 8,207 | **Last updated:** 2026-03-18 (pushed; created 2025-08-18) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan and Dev Workflow — a spec-driven pipeline that runs the full inner-to-outer arc: Plan (PRD → epic), Decompose (epic → task files), Ship-coordination (sync to GitHub Issues), and Implement (launch parallel agents per work stream), plus a Track/standup loop. It is a workflow, not a single-stage tool.
 **Layer:** Process (an Agent Skill — one `SKILL.md` plus markdown reference docs and bash helper scripts; no runtime daemon, no installed binary — that steers an existing harness through a PM discipline using `git` + `gh` as the only external dependencies)
 
@@ -63,6 +64,29 @@ gh api repos/automazeio/ccpm/releases --jq 'length'   # 0
 **discovery-log — tentative read: adopt the spec-as-GitHub-Issues discipline; treat the "proven" numbers and the parallel-velocity math as marketing.** CCPM is a well-built, genuinely portable Agent Skill with one strong idea (issue state = project state, durable across sessions), disciplined token usage (script-first), and a tightly-scoped trigger description. It earns "conditional" rather than "adopt" because its headline benefits — 3× velocity, 75% fewer bugs, conflict-free 5-agent parallelism — are unsubstantiated and assume best-case decomposition, and because the core workflow couples your PM state to GitHub and unleashes concurrent agents on a shared worktree. Good fit for teams already on GitHub Issues who want enforced spec-first traceability; overkill for solo throwaway work.
 
 Compared to neighbors: **spec-kit** and **OpenSpec** are spec-first too but stay local/file-based — CCPM's differentiator is making the *tracker* the database and adding parallel-agent execution. **GSD** is a heavier, opinionated milestone/phase planning system with its own state dir; CCPM is lighter and leans on infra you already have. **beads** is a dependency-aware issue *graph/DB* primitive (it could back a workflow), where CCPM is the workflow itself. **BMAD-METHOD** ships a multi-persona "agile agency"; CCPM is leaner and avoids persona theater. CCPM wins on portability and the GitHub-native single-source-of-truth model; it loses to local-first tools when you don't want vendor coupling.
+
+## Triage note
+
+Left at `discovery-log`. The differentiator is real and structural: **the tracker is the database.** Where
+`spec-kit` and `OpenSpec` keep spec state in local files, ccpm keeps it in GitHub Issues, so project state
+survives not just the session but the machine. That is a genuine architectural choice, not a repositioning.
+
+Not disposed, and the SDD cluster around it was left intact for a reason recorded on `spec_driven_develop`
+in this same pass: this catalog carries eight or more spec-driven workflow entries, and picking among them
+is one measured decision rather than eight triage calls.
+
+Two things a promotion must confront, both already in the read above. The headline claims — 3× velocity,
+75% fewer bugs, conflict-free five-agent parallelism — are unsubstantiated marketing, and this repo has a
+detector class (`--savings-claims`) for exactly that species of unverified numeric headline. And the
+parallel-execution model runs concurrent agents against **a shared worktree**, which is the hazard
+`dmux` and `worktrunk` exist to remove; that is a Safety consideration, not a throughput one.
+
+Pushed 2026-03-18 — four and a half months, worth noting as the slowest cadence of anything left standing
+in the Plan cluster.
+
+MIT, ★8.3K.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
