@@ -1,7 +1,8 @@
 # Evaluation: AgentRecall-MCP
 
-**Repo:** [Goldentrii/AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-MCP)
-**Stars:** 303 | **Last updated:** 2026-06-19 | **License:** MIT
+**Repo:** [Goldentrii/AgentRecall-X](https://github.com/Goldentrii/AgentRecall-X) (renamed from `Goldentrii/AgentRecall-MCP`; now MCP server + SDK + CLI)
+**Stars:** 362 | **Last updated:** 2026-08-04 (pushed) | **License:** MIT
+<!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04
 **Dev loop stage:** Reflect
@@ -92,4 +93,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-MCP) | MCP server | Correction-first, compounding local-markdown memory for AI agents; 5 MCP tools by default, zero-cloud | Agents repeat already-corrected mistakes; need a measurable, low-overhead memory that learns from human corrections across sessions | claude-mem, agentmemory, SimpleMem, OMEGA, memsearch |
+| [AgentRecall-MCP](https://github.com/Goldentrii/AgentRecall-X) | MCP server | Correction-driven memory — learns from mistakes, compresses context, consolidates overnight (repo renamed to AgentRecall-X; now MCP server + SDK + CLI) | Memory systems store facts but don't learn from corrections | claude-mem, OMEGA, claude-subconscious |

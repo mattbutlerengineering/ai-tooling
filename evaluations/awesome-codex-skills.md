@@ -1,7 +1,8 @@
 # Evaluation: awesome-codex-skills
 
-**Repo:** [ComposioHQ/awesome-codex-skills](https://github.com/ComposioHQ/awesome-codex-skills)
-**Stars:** 13,932 | **Created:** 2026-01-12 | **Last updated:** 2026-05-15 | **License:** none (no LICENSE file)
+**Repo:** [composio-community/awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) (moved from the `ComposioHQ` org)
+**Stars:** 15,598 | **Created:** 2026-01-12 | **Last updated:** 2026-07-26 (pushed) | **License:** none (no LICENSE file)
+<!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
@@ -67,4 +68,4 @@ The single best entry point for Codex-specific skills, and the only Codex-scoped
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [awesome-codex-skills](https://github.com/ComposioHQ/awesome-codex-skills) | reference | Curated ~69 Codex CLI/API skills in 5 categories with per-entry installers (13.9K stars, Composio-run, no license) | Need a Codex-scoped catalog of skills to discover and install | awesome-claude-skills (Composio), awesome-agent-skills, antigravity-awesome-skills |
+| [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) | reference | Curated list of practical Codex skills for automating workflows | Need a catalog of Codex-specific skills to evaluate | awesome-claude-skills, awesome-agent-skills |

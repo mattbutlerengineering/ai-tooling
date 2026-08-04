@@ -1,7 +1,8 @@
 # Evaluation: Agent Orchestrator
 
-**Repo:** [AgentWrapper/agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator) (ComposioHQ)
-**Stars:** 7,600 | **Last updated:** 2026-06-18 | **License:** MIT
+**Repo:** [Untrivial-ai/agent-orchestrator](https://github.com/Untrivial-ai/agent-orchestrator) (renamed from `AgentWrapper/agent-orchestrator`; originally forked from ComposioHQ)
+**Stars:** 8,799 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0
+<!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
@@ -81,4 +82,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [agent-orchestrator](https://github.com/AgentWrapper/agent-orchestrator) | tool | Plans tasks, spawns parallel coding agents, handles CI fixes and merge conflicts autonomously | Need automated orchestration of multiple agents with conflict resolution | claude-squad, gastown |
+| [agent-orchestrator](https://github.com/Untrivial-ai/agent-orchestrator) | tool | Plans tasks, spawns parallel coding agents, handles CI fixes and merge conflicts autonomously | Need automated orchestration of multiple agents with conflict resolution | claude-squad, gastown |

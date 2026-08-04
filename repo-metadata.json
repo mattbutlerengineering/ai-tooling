@@ -196,13 +196,6 @@
     "resolved_name": "AgentsMesh/AgentsMesh",
     "stars": 2266
   },
-  "agentwrapper/agent-orchestrator": {
-    "archived": false,
-    "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:58:51Z",
-    "resolved_name": "AgentWrapper/agent-orchestrator",
-    "stars": 8163
-  },
   "agno-agi/agno": {
     "archived": false,
     "license_spdx": "Apache-2.0",
@@ -793,19 +786,20 @@
     "resolved_name": "CommandCodeAI/command-code",
     "stars": 3477
   },
+  "composio-community/awesome-codex-skills": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "NONE",
+    "pushed_at": "2026-07-26T01:14:54Z",
+    "resolved_name": "composio-community/awesome-codex-skills",
+    "stars": 15598
+  },
   "composiohq/awesome-claude-skills": {
     "archived": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-05-22T03:17:49Z",
     "resolved_name": "ComposioHQ/awesome-claude-skills",
     "stars": 67335
-  },
-  "composiohq/awesome-codex-skills": {
-    "archived": false,
-    "license_spdx": "NONE",
-    "pushed_at": "2026-05-15T06:24:47Z",
-    "resolved_name": "ComposioHQ/awesome-codex-skills",
-    "stars": 14763
   },
   "composiohq/composio": {
     "archived": false,
@@ -1410,12 +1404,13 @@
     "resolved_name": "gmickel/flow-next",
     "stars": 656
   },
-  "goldentrii/agentrecall-mcp": {
+  "goldentrii/agentrecall-x": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-05T17:44:27Z",
-    "resolved_name": "Goldentrii/AgentRecall-MCP",
-    "stars": 307
+    "pushed_at": "2026-08-04T13:33:51Z",
+    "resolved_name": "Goldentrii/AgentRecall-X",
+    "stars": 362
   },
   "google-antigravity/antigravity-sdk-python": {
     "archived": false,
@@ -2321,12 +2316,13 @@
     "resolved_name": "mindfold-ai/Trellis",
     "stars": 12192
   },
-  "mindsdb/minds": {
+  "mindsdb/mindshub": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:23:05Z",
+    "pushed_at": "2026-07-10T16:53:47Z",
     "resolved_name": "mindsdb/mindshub",
-    "stars": 39386
+    "stars": 39515
   },
   "minishlab/semble": {
     "archived": false,
@@ -2601,13 +2597,6 @@
     "pushed_at": "2026-07-06T21:53:36Z",
     "resolved_name": "obra/superpowers",
     "stars": 251029
-  },
-  "ogulcancelik/herdr": {
-    "archived": false,
-    "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-10T01:22:38Z",
-    "resolved_name": "ogulcancelik/herdr",
-    "stars": 14867
   },
   "omnigent-ai/omnigent": {
     "archived": false,
