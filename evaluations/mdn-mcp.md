@@ -1,8 +1,9 @@
-# Evaluation: MDN MCP Server
+# Evaluation: mdn/mcp
 
 **Repo:** [mdn/mcp](https://github.com/mdn/mcp)
-**Stars:** 71 | **Last updated:** 2026-06-17 | **License:** MPL-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Stars:** 162 | **Last updated:** 2026-07-06 (pushed) | **License:** MPL-2.0
+**Last verified:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 
@@ -10,52 +11,31 @@
 
 ## What it does
 
-Mozilla's official MCP server that brings MDN Web Docs and browser compatibility data directly into AI agents. Agents query for web platform documentation (HTML elements, CSS properties, JavaScript APIs) and get accurate, current browser support tables showing exact version support across Chrome, Firefox, Safari, and Edge.
+First-party MDN Web Docs lookup over MCP: current browser-compatibility data and web-platform
+documentation, served to an agent instead of recalled from training data.
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** SOURCE-ONLY
 
-**README/endpoint review — not connected/run.** The server is a hosted MCP endpoint; wiring it into this session and issuing live queries was not done here, so the example queries below are documented usage, not observed results.
+We did **not** install or run this server. This evaluation is source-grounded only: repo metadata
+plus the CATALOG one-liner and "Overlaps with" cell (`context7`). That is enough to place the lead
+against the STACK incumbent it names — the question this band asks — and nothing more. It would
+not support an ADOPT, and this eval offers none.
 
-```bash
-claude mcp add --transport http mdn https://mcp.mdn.mozilla.net/
-```
+## Triage note
 
-Typical use is web-platform lookups (CSS properties + browser support, Web APIs, HTML element specs). For a *measured* docs-MCP eval in this catalog, see context7.md, where a live query was actually run.
+Left at `discovery-log`, not SKIPped, and deliberately *not* treated the same as
+`ref-tools-mcp`, which this band SKIPped the day before as redundant with
+[`context7`](https://github.com/upstash/context7). The difference is the content, not the
+mechanism. Ref is a general documentation-retrieval MCP competing for the exact slot context7
+holds. mdn/mcp serves one corpus context7 does not index: **browser compatibility data** — the
+BCD support tables — which is a different fact type from library documentation, and the thing an
+agent is most reliably stale about. That distinction was already recorded in `ref-tools-mcp.md`
+as neighbor placement ("mdn/mcp covers browser-platform docs"), and it holds here.
 
-## What worked
+It is also first-party MDN and MPL-2.0, so provenance is not in question. The open question is
+narrow and measurable — does context7 already answer web-platform compatibility questions well
+enough to make a second server unnecessary? — which is a P0 measurement, not a triage call.
 
-- Browser compatibility data is excellent — shows exact version numbers where each feature shipped, with partial support annotations
-- More detailed than context7 for web platform specifics: compat tables include mobile browsers, flags/prefixes, and spec status (standard, experimental, deprecated)
-- Responds with authoritative MDN content, not training-data approximations
-- Complementary with context7 — context7 covers React/Express/Django/etc., MDN covers the web platform itself
-
-## What didn't work or surprised us
-
-- Experimental/prototype status — occasional timeouts on the hosted endpoint (~5% of queries)
-- Narrow scope — only web platform docs. Useless for Node.js APIs, frameworks, or non-web libraries
-- Low star count (71) — early stage, unclear long-term maintenance commitment despite Mozilla backing
-- No offline/self-hosted option — depends on Mozilla's hosted endpoint
-
-## Quality signals affected
-
-| Signal | Impact | Evidence |
-|--------|--------|----------|
-| Correctness | + | Accurate browser compat data prevents writing code for unsupported features |
-| Speed | + | Faster than manually checking MDN or caniuse |
-| Maintainability | neutral | No impact on code structure |
-| Safety | neutral | Read-only documentation lookup |
-| Cost Efficiency | neutral | Lightweight queries, minimal token overhead |
-
-## Verdict
-
-**CONDITIONAL**
-
-Adopt for web frontend work where browser compatibility matters — the compat tables are more detailed than anything context7 provides for web platform APIs. Skip for backend-only or non-web projects. Use alongside context7, not instead of it: context7 for framework docs, MDN MCP for web standards and browser support. The experimental status and low stars are risks, but Mozilla backing provides some confidence.
-
-## Catalog entry
-
-| Name | Type | One-liner | Problem it solves | Overlaps with |
-|------|------|-----------|-------------------|---------------|
-| [mdn/mcp](https://github.com/mdn/mcp) | MCP server | MDN Web Docs lookup — current browser compatibility data and web platform documentation | Agent's training data has outdated web API info; needs accurate browser support tables | context7 |
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._

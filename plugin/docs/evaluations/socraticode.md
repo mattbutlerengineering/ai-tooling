@@ -3,6 +3,7 @@
 **Repo:** [giancarloerra/SocratiCode](https://github.com/giancarloerra/SocratiCode)
 **Stars:** 3,014 | **Last updated:** 2026-06-18 | **License:** AGPL-3.0 (commercial license also offered)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan (codebase exploration before/during implementation)
 **Layer:** Tooling
 
@@ -75,6 +76,22 @@ SocratiCode is the most capable single Code Understanding tool in the catalog �
 It lands at CONDITIONAL rather than ADOPT for two concrete reasons that codegraph (the ADOPT incumbent) doesn't have: (1) a **mandatory Docker + Qdrant + Ollama footprint** that is heavier to set up and run, with GPU caveats on macOS/Windows; and (2) an **AGPL-3.0 license** that is a genuine blocker for many commercial teams. codegraph stays the lighter, MIT, frictionless default.
 
 **Use SocratiCode when:** you work on large/enterprise polyglot codebases or monorepos (its checkpointed indexing and shared multi-agent index shine where CCE's recall was brittle), you want one index across multiple IDEs/agents, you need symbol-level impact/blast-radius analysis and non-code (schema/API/infra) knowledge that codegraph doesn't offer, you're comfortable running Docker, and AGPL-3.0 (or the commercial license) is acceptable for your repo. **Prefer codegraph instead when** you want a lightweight, MIT, zero-Docker MCP for structural navigation on small-to-medium projects. Re-evaluate for ADOPT if a third party reproduces the benchmark and the Docker/GPU friction is removed (e.g. a no-Docker mode).
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. On the redundancy question this
+evaluation points the *other* way: SocratiCode "largely subsumes both codegraph and CCE" and is
+"the most capable single Code Understanding tool in the catalog". A challenger that its own eval
+says would *replace* the incumbent is not one a bulk lane may dispose — deciding that is exactly
+the P0 measure band's job.
+
+Two recorded conditions stand and neither is a bulk SKIP: a mandatory Docker + Qdrant + Ollama
+footprint, and **AGPL-3.0**. The license is worth flagging for whoever picks this up — it does
+not trip the P4 mechanical band (that is scoped to *vendored* skill/plugin types, and this is a
+tool you run) but it is a real blocker for commercial use and the eval already records it as one
+of the two reasons this is not an ADOPT.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

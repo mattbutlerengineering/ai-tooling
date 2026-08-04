@@ -3,6 +3,7 @@
 **Repo:** [cocoindex-io/cocoindex-code](https://github.com/cocoindex-io/cocoindex-code)
 **Stars:** 2,175 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (built on the Rust CocoIndex engine)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Code Understanding (semantic code search) — Implement
 **Layer:** Tooling (CLI + Claude Code skill / plugin + MCP server)
 
@@ -53,6 +54,20 @@ gh api repos/cocoindex-io/cocoindex-code/readme --jq '.content' | base64 -d | se
 **CONDITIONAL** — cocoindex-code is a well-packaged, Apache-2.0 **AST-based semantic code search** that competes in a crowded field on two real strengths: **genuinely zero-config** (the skill self-initializes and auto-maintains the index) and **local embeddings with no API key**. Adopt it if you want agent-driven semantic search that "just works" without a setup ceremony or a mandatory cloud embedder, and you can absorb the `[full]` install size (or use the slim cloud variant). Against serena (LSP symbol-level edits) and claude-context (Milvus-backed), cocoindex-code's pitch is friction and privacy, not breadth of language tooling. Measure the 70% claim on your repo and watch index freshness before trusting it on fast-moving code.
 
 Compared to neighbors: **serena** does IDE-grade symbol find/refactor over LSP; **claude-context** uses Milvus + embeddings with AST chunking; **code-context-engine**/**SocratiCode**/**gortex** are indexed code-intelligence engines. cocoindex-code's distinguishing pitch is **zero-config AST search with optional fully-local embeddings, delivered as a self-maintaining skill.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Its STACK overlap is
+[`serena`](https://github.com/oraios/serena), but the two compete on different axes — serena is
+LSP symbol-level find/refactor, cocoindex-code is AST-based semantic *search* whose stated pitch
+is "friction and privacy, not breadth": genuinely zero-config, with local embeddings and no API
+key. Neither substitutes for the other.
+
+The claim that would decide it is measurable and unmeasured (a 70% figure this eval explicitly
+says to verify on your own repo), plus index freshness on fast-moving code. Both need the tool
+run — P0, not a bulk pass.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

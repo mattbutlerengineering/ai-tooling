@@ -3,6 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
 **Stars:** 136,514 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan (design; touches Reflect when ADRs are recorded after a decision)
 **Layer:** Process
 
@@ -71,6 +72,21 @@ grep -inE "domain-model|CONTEXT.md|ubiquitous|codebase-design|ADR|documentation-
 domain-modeling is a high-quality, well-authored Plan-stage process skill whose load-bearing contributions — the three-part ADR gate, the "glossary and nothing else" invariant, and the `_Avoid_`-synonym mechanism that lets an agent *enforce* language rather than merely define it — are genuinely better-specified than the catalog's incumbent `documentation-and-adrs`. Shared-vocabulary modeling is a real dev-loop lever: it improves Maintainability and Correctness by grounding every later session in consistent terms and recorded rationale, and it is the substrate that makes the sibling skills (`grill-with-docs`, `improve-codebase-architecture`) work.
 
 It is CONDITIONAL rather than ADOPT for two reasons. First, its value is entirely contingent on the artifacts being *maintained* — an abandoned or drifting `CONTEXT.md` is worse than none — so it earns its keep only on projects with enough domain complexity and longevity to justify the upkeep (multi-context systems, long-lived products, multi-agent teams), not scripts or short-lived CRUD apps. Second, it couples best as a set, not a singleton. Adopt it on domain-rich, long-lived projects — ideally alongside its mattpocock siblings — and run its ADR discipline *instead of*, not in addition to, `documentation-and-adrs`. (Contrast with `resolving-merge-conflicts` from the same repo, which is ADOPT precisely because it is self-contained and unconditionally better than the agent default; domain-modeling's payoff is real but project-dependent.)
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — and worth flagging as a challenger
+that may *beat* its incumbent rather than lose to it. This evaluation finds its ADR gate,
+"glossary and nothing else" invariant, and `_Avoid_`-synonym enforcement **"genuinely
+better-specified than the catalog's incumbent `documentation-and-adrs`"** (a STACK pick), and
+recommends running its ADR discipline *instead of* it.
+
+That direction of travel is precisely what eliminate-only puts out of bounds for this lane: a
+bulk pass may lower a verdict, never raise one. Escalating rather than disposing. Note it ships
+in `mattpocock/skills`, already installed for `resolving-merge-conflicts`, so the marginal cost
+of testing the claim is near zero — a strong P0 candidate.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

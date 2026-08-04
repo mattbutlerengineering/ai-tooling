@@ -3,6 +3,7 @@
 **Repo:** [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph)
 **Stars:** 18,696 | **Last updated:** 2026-06-14 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Review (primary); Plan (codebase navigation)
 **Layer:** Tooling
 
@@ -73,6 +74,20 @@ code-review-graph is a mature (18.7K stars, v2.3.6), local-first, honestly-bench
 **vs codegraph (the key comparison): additive and complementary, not redundant, and not strictly better.** Both build a local structural graph from Tree-sitter ASTs and serve it over MCP, so they overlap on the navigation primitive (callers/callees/imports). But they aim at different dev-loop stages: **codegraph is a tight, auto-syncing always-on graph for the Plan stage** (structural awareness during implementation, invisible integration, minimal tool surface) — the safer daily default. **code-review-graph is a review-stage specialist** (blast-radius impact sets, risk scoring, test-gap detection, a CI PR-review gate) with a much larger optional toolbox. A team that does heavy AI-assisted code review — especially with the GitHub Action as a merge gate — gets capabilities codegraph doesn't offer. Running both is reasonable; running CRG *instead of* codegraph trades a leaner Plan-stage experience for a richer Review-stage one.
 
 **Adopt when:** code review (local or in CI) is a real bottleneck and you want blast-radius/risk analysis on diffs; you're willing to scope the MCP tool surface via `--tools`; and you value local-first privacy. Re-evaluate for ADOPT once co-change recall is published (proving impact accuracy beyond the circular metric), and if the default tool surface is trimmed or auto-scoped per task. **Stick with codegraph alone** if you only need always-on structural navigation during implementation and want the lightest possible footprint.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. This evaluation already ran the
+comparison against [`codegraph`](https://github.com/colbymchenry/codegraph) (STACK,
+`ADOPT`/`MEASURED`) and concluded **"additive and complementary, not redundant, and not strictly
+better"**: they share the navigation primitive but aim at different stages — codegraph is the
+always-on Plan-stage graph, code-review-graph is a Review-stage specialist (blast-radius impact
+sets, risk scoring, test-gap detection, a CI PR-review gate).
+
+The eval names its own ADOPT trigger — published co-change recall, replacing the admittedly
+circular "recall 1.0" headline. That is a measurement, so this belongs in P0.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

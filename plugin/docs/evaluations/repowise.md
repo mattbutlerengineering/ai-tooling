@@ -3,6 +3,7 @@
 **Repo:** [repowise-dev/repowise](https://github.com/repowise-dev/repowise)
 **Stars:** ~2,460 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan (codebase intelligence)
 **Layer:** Tooling
 
@@ -52,6 +53,20 @@ gh api repos/repowise-dev/repowise/readme --jq '.content' | base64 -d
 **CONDITIONAL**
 
 Adopt when you want one MCP layer that both grounds AI agents in your codebase and gives the team trustworthy health/risk/ownership/ADR signals — its dual purpose is the differentiator over context-only tools. Confirm the license and OSS-vs-hosted boundary, and validate the heuristic signals on your repo. Overlaps sourcebot/codebase-memory-mcp for the agent-context half.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It overlaps
+[`serena`](https://github.com/oraios/serena) (STACK) on the agent-context half only; its stated
+differentiator is being dual-purpose — the same MCP layer also emits team-facing health, risk,
+ownership, and ADR signals, which no STACK pick produces. A redundancy SKIP would have to ignore
+that half.
+
+Two open items this lane cannot close, both already named in the eval: the license is **not a
+standard SPDX identifier** (`NOASSERTION`), and the OSS-vs-hosted boundary needs confirming
+before adoption. Those are read-the-terms questions for a real evaluation, not triage.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

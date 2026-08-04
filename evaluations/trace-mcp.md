@@ -3,6 +3,7 @@
 **Repo:** [nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp)
 **Stars:** 88 | **Last updated:** 2026-06-18 (pushed); latest release v1.43.1 (2026-06-16) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan / Implement (code understanding before and during a change); touches Review (CI change-impact reports) and Reflect (decision memory)
 **Layer:** Tooling (a queryable code-graph index served over MCP)
 
@@ -70,6 +71,21 @@ sed -n '1,15p' src/analytics/benchmark.ts   # "SYNTHETIC ESTIMATOR, not a real m
 trace-mcp is a surprisingly mature, well-engineered, local-first code-graph MCP server whose core thesis — serve a precomputed framework-aware graph instead of letting the agent re-read the repo every turn — is exactly right and well-targeted at the Plan/Implement bottleneck. Its real differentiator over [codegraph](https://github.com/colbymchenry/codegraph) (ADOPT) and [code-context-engine](https://github.com/elara-labs/code-context-engine) is **framework-aware cross-language edges** (PHP↔Vue via Inertia, DI graphs, ORM→migration schema reconstruction) plus code-linked decision memory and deep Claude Code integration. **Adopt it conditionally on framework-heavy, multi-language stacks it explicitly supports** (Laravel/Vue/Inertia, NestJS, Django, Rails, etc.) where those edges pay off — and run `npx trace-mcp benchmark .` on your own repo to see real numbers before committing.
 
 It is **not** an unconditional ADOPT like codegraph because: (1) the headline "~42 minutes" metric is unverified marketing prose with no derivation in the code; (2) it's young (88 stars, 4 contributors, 2 months old) with enormous, unproven scope (~170 tools, 81 integrations); and (3) the strict guard hook is an aggressive harness change that can hard-block native tools — keep it in `advisory` mode. It is **not SKIP**: the repo is substantial, honestly documented (the benchmark code self-labels as a synthetic estimator), MIT-licensed, and the framework-edge capability genuinely extends the catalog. Re-evaluate toward ADOPT once it has broader adoption and a hands-on benchmark on a real polyglot project confirms the framework edges and impact accuracy.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — this evaluation says so directly:
+**"It is *not* SKIP"**, on the grounds that the repo is substantial, honestly documented
+(its own benchmark code self-labels as a synthetic estimator), MIT-licensed, and that
+framework-aware cross-language edges genuinely extend what
+[`codegraph`](https://github.com/colbymchenry/codegraph) (STACK) offers.
+
+The honest caveats stand and none is a redundancy: 92 stars, two months old, ~170 tools of
+unproven scope, and an unverified "~42 minutes" headline. The eval also names a cheap way to
+settle it — `npx trace-mcp benchmark .` on a real polyglot repo — which makes this P0 work, not
+a bulk skip.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 
