@@ -3,6 +3,7 @@
 **Repo:** [knowsuchagency/mcp2cli](https://github.com/knowsuchagency/mcp2cli)
 **Stars:** 2,240 | **Last updated:** 2026-06-17 (pushed; created 2026-03-09) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Implement (a tool-access layer that changes how agents reach MCP/HTTP tools; cross-cutting)
 **Layer:** Infrastructure (Python CLI, `uvx`/`uv tool install`)
 
@@ -64,6 +65,22 @@ gh api repos/knowsuchagency/mcp2cli/readme --jq '.content' | base64 -d   # usage
 **CONDITIONAL** — adopt if you wire several MCP servers (or large OpenAPI/GraphQL APIs) into your agents and feel the per-turn tool-schema tax, or if you want any HTTP API callable from an agent without writing an MCP server. The on-demand-discovery pattern is well-reasoned, the multi-protocol + OAuth coverage is strong, and the bundled skill makes agent adoption easy. Hold off if you connect only one or two frequently-used tools (direct MCP wiring is simpler) or need release-tagged stability (none yet). Treat the "96–99%" number as best-case, not a guarantee.
 
 Compared to neighbors: most catalog MCP entries are *servers that expose a capability*; mcp2cli is the inverse — **meta-infrastructure that makes any MCP/API agent-callable from a CLI while keeping schemas out of context**, conceptually adjacent to the token-efficiency tools (opensquilla, headroom, context-mode) but aimed at *tool access* rather than reasoning context.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, on the precedent already set for `warden`
+in this same band: [`headroom`](https://github.com/headroomlabs-ai/headroom) is a STACK pick
+but solves a different half of the context budget. headroom compresses tool **output** after a
+call; mcp2cli attacks tool **schema** load at the front of every turn. Same budget, different
+mechanism — not redundancy, and treating it as such would be inconsistent with how warden was
+left three days earlier.
+
+Note for whoever evaluates it: the harnesses have since started deferring tool schemas natively
+(Claude Code's tool search), which shrinks the problem mcp2cli exists to solve. Whether it
+shrinks it to nothing is a measurement, not a triage call — and the "96–99%" headline needs the
+token-savings protocol run against it either way.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

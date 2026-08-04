@@ -3,6 +3,7 @@
 **Repo:** [Dave-London/Pare](https://github.com/Dave-London/Pare)
 **Stars:** 129 | **Last updated:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Implement / Verify (intervenes on every git/test/build/package tool call across the inner loop)
 **Layer:** Tooling
 
@@ -68,6 +69,22 @@ grep -niE 'git-mcp|token-optimizer|headroom|pare|paretools' /Users/mbutler/githu
 Adopt Pare when you run AI coding agents that lean heavily on git, test runners, builds, installs, and container/infra tooling, and you want **reliable typed tool output** rather than agents regex-parsing fragile terminal text — that reliability angle, not the token savings, is the real reason to choose it. It is the only tool in its catalog cluster that attacks the *source* of verbose/fragile CLI output (a structured MCP replacement) instead of compressing the output after the fact, which makes it complementary to rtk/headroom rather than redundant: Pare cleans up the git/test/build path, a compression layer can still mop up the remaining raw Bash and file-read context. Install only the 2-4 servers your stack needs and use `PARE_TOOLS` to keep the tool surface small. Security hygiene is unusually strong for the size (documented trust model, flag-injection guards, OpenSSF badges).
 
 It stops short of ADOPT for three reasons. First, **enforcement**: the benefit only lands if the agent actually calls Pare tools over its default Bash reflex, and the only lever is a `CLAUDE.md` rules file — there is no transparent hook like rtk's that guarantees interception. Second, **coverage**: 240 wrapped tools still leaves most CLI flags unwrapped, so sessions remain a mix of clean structured calls and raw shell output. Third, **maturity**: at 129 stars and v0.20.0 (created four months before evaluation) the schemas may still churn and real-world battle-testing is thin versus the 37K-63K-star compression peers. Skip it if your agent's context is dominated by file reads rather than dev-tool output (the compression tools reach those; Pare does not), or if you can't reliably steer tool selection. Note the catalog "overlaps with git-mcp" is misleading — git-mcp is remote-repo-source-as-resource and solves an unrelated problem; Pare's true neighbors are the token-compression tools, which it complements.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Pare cites
+[`headroom`](https://github.com/headroomlabs-ai/headroom) (STACK, Tier 1, `MEASURED`) in its
+overlaps, but both the CATALOG cell and this evaluation record the relationship as
+**complementary**: headroom compresses tool output after the call, Pare replaces the CLI path
+with typed structured output so the fragile text is never produced. Its primary claim is
+correctness (no more regex-parsing terminal prose), with token savings explicitly a bonus.
+SKIPping it as redundant would contradict our own recorded analysis.
+
+The open questions are the ones this eval already names — enforcement (a `CLAUDE.md` rules file
+is the only lever making an agent prefer Pare over its Bash reflex) and maturity at 129 stars.
+Both need the tool run, which is the P0 lane.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

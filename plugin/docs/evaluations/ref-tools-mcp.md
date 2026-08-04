@@ -3,6 +3,7 @@
 **Repo:** [ref-tools/ref-tools-mcp](https://github.com/ref-tools/ref-tools-mcp)
 **Stars:** 1,132 | **Last updated:** 2026-05-06 (pushed) | **License:** MIT | **Language:** TypeScript (npm: `ref-tools-mcp`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** MCP Servers (documentation retrieval) — Implement/Verify
 **Layer:** Tooling (MCP server; streamable-HTTP recommended, stdio legacy)
 
@@ -49,9 +50,13 @@ gh api repos/ref-tools/ref-tools-mcp/readme --jq '.content' | base64 -d | sed -n
 
 ## Verdict
 
-**CONDITIONAL** — Ref MCP is a focused, MIT-licensed **documentation-retrieval MCP** whose real contribution is *efficiency mechanics*: session-aware result dedup and returning only the most relevant ~5k tokens of a page to fight context rot. Adopt it if your agents burn context pulling large doc pages and you want a token-frugal docs layer — and you're fine with a Ref API key and a hosted backend. It competes directly with context7; choose Ref when token efficiency per doc read is the priority and context7 when you want the most established coverage. Verify the token savings on your own workloads before relying on the headline economics.
+**SKIP** — redundant with [`context7`](https://github.com/upstash/context7), the installed STACK pick for the same job. Both are MCP servers that put current library documentation into an agent's context behind a hosted API key; they occupy one slot, and context7 already holds it (STACK, Tier 1, `KEEP`/`RUN`).
 
-Compared to neighbors: **context7** is the incumbent live library-docs MCP; **git-mcp** serves live repo source; **pg-aiguide** is a Postgres-specific knowledge layer; **mdn/mcp** covers browser-platform docs. Ref's distinguishing pitch is **session-aware, ~5k-token-capped documentation retrieval built specifically to minimize context.**
+Ref's whole claim to that slot is *efficiency mechanics* — session-aware result dedup and a ~5k-token cap per page — and this evaluation measured none of it (`Evidence: REVIEW`, no server connected, no searches issued). A challenger that ties the incumbent on capability and leads only on an unverified number does not earn a second documentation MCP.
+
+Re-open if context7's page sizes become a measured bottleneck: Ref's per-read cap is the specific fix for that specific problem, and the comparison is then a with/without token delta on a disclosed task set (`evaluations/measurement-protocols.md`) in the P0 measure band — not a bulk pass.
+
+Neighbor placement, unchanged by the skip: **git-mcp** serves live repo source, **pg-aiguide** is a Postgres-specific knowledge layer, **mdn/mcp** covers browser-platform docs. Only context7 competes for the same slot.
 
 ## Catalog entry
 

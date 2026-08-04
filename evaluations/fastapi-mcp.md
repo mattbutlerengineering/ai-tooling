@@ -3,6 +3,7 @@
 **Repo:** [tadata-org/fastapi_mcp](https://github.com/tadata-org/fastapi_mcp)
 **Stars:** 11,920 | **Last updated:** 2025-11-24 (pushed; created 2025-03-08) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-03
 **Dev loop stage:** Outer-loop Ship/Infrastructure — it is a build-time library for *producing* an MCP server from an existing FastAPI app, not a tool you run inside the dev loop. Its output (the MCP endpoint) is then consumed by agents during Plan/Implement.
 **Layer:** Tooling — a Python package (`pip install fastapi-mcp` / `uv add`) that mounts an MCP server onto a FastAPI application. It generates infrastructure; it is not itself a workflow step or agent.
 
@@ -59,6 +60,21 @@ gh api repos/tadata-org/fastapi_mcp/commits  --jq 'length'   # 30 (page-1 cap)
 **CONDITIONAL — adopt if you have a FastAPI service you want agents to call; otherwise skip.** Within its niche it is excellent: the FastAPI-native approach (reusing `Depends()` auth, preserving Pydantic schemas, ASGI transport) is genuinely better than a dumb OpenAPI→MCP converter, and the two-line mount is the lowest-friction way to make an existing FastAPI app agent-callable. The conditions are scope and safety: it only helps FastAPI users, and the zero-config default exposes every endpoint — you must allow-list and rely on auth before pointing an agent at it. The slower push cadence is a minor watch-item, not a blocker.
 
 Compared to its catalog peer **fastmcp** (PrefectHQ): fastmcp is the general-purpose, framework-agnostic way to build MCP servers *from scratch* in Python — more flexible, more work. fastapi_mcp is the opposite trade: zero flexibility on framework, near-zero work *if* you are already on FastAPI, and it brings auth/schema reuse that a from-scratch builder makes you wire yourself. They are complements, not competitors — choose fastapi_mcp when the API already exists in FastAPI, fastmcp when you are building an MCP server independent of any web framework.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The STACK overlap is
+[`fastmcp`](https://github.com/PrefectHQ/fastmcp), but this evaluation's own analysis records
+the two as **complements, not competitors**: fastmcp builds an MCP server from scratch,
+fastapi_mcp adapts an API that already exists. SKIPping it as "redundant with fastmcp" would
+contradict our own recorded reading of it.
+
+What would actually decide this tool is fit, not redundancy — it earns its keep only for an
+existing FastAPI service, and this stack has none. That is a scoping question for whoever
+picks it up, not grounds for elimination. Watch item: last pushed 2025-11-24, roughly eight
+months quiet as of this triage.
+
+_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
 
 ## Catalog entry
 

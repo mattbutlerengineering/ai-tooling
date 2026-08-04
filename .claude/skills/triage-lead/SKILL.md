@@ -41,18 +41,27 @@ The marker is your signature that this was a bulk disposition, not a hands-on ev
    every verdict word in the section: `trailofbits/skills` reads "Held at CONDITIONAL
    rather than ADOPT", so a set-based check would misread it as an ADOPT.
 
-3. **Guard — never overrule a substantive human read.** If the headline verdict is
-   `ADOPT`, `KEEP`, `CONDITIONAL`, or `DEFER`, the bulk lane cannot improve on it and
-   must not touch it:
-   - `ADOPT`/`KEEP` → **stop and escalate.** A positive read is out of bounds for this
-     lane. (`triage.py` already excludes these from the bulk bands.)
-   - `CONDITIONAL`/`DEFER` with a `discovery-log` COMPARISON row → this is the
-     detector-D mismatch: the eval already carries a real verdict the row hasn't caught
-     up to. Promoting the row to match is a **human/non-bulk** action — **escalate**
-     (leave a note; do not SKIP and do not promote). This is the `#259` category.
+3. **Guard — never overrule a substantive human read.** Read the headline **together with
+   the eval's `**Evidence:**` field**; the verdict word alone does not tell you whether a
+   real read happened.
+   - `ADOPT`/`KEEP` → **stop and escalate**, at any Evidence level. A positive read is out
+     of bounds for this lane. (`triage.py` already excludes these from the bulk bands.)
+   - `CONDITIONAL`/`DEFER` at Evidence **`MEASURED`/`RUN`** → someone exercised the tool and
+     reached a real verdict the `discovery-log` row hasn't caught up to. Promoting the row
+     to match is a **human/non-bulk** action — **escalate** (leave a note; do not SKIP and
+     do not promote). This is the `#259` category.
+   - `CONDITIONAL`/`DEFER` at Evidence **`REVIEW`/`SOURCE-ONLY`** → **proceed.** This is not
+     a verdict. Per [ADR-0005](../../../docs/adr/0005-verdict-vocabulary.md) and
+     `COMPARISON.md`'s legend, a real CONDITIONAL requires a tool we *actually exercised*
+     (MEASURED/RUN) or a genuine `adopt-if:` condition; on an unexercised lead the same word
+     is the "tentative read … notes, not a recommendation" that `discovery-log` denotes.
+     Treating it as untouchable is not caution — it is a no-op: **304** `discovery-log` rows
+     carry a CONDITIONAL headline, so that reading would freeze the entire bulk-triage
+     program. Detector D excludes `discovery-log` rows precisely because this is the normal
+     state, not a mismatch.
 
    Proceed only when there is **no eval**, or the eval's headline is itself `SKIP` /
-   genuinely tentative (`discovery-log`).
+   genuinely tentative in the sense just defined.
 
 4. **Decide the disposition** (judgement, inside eliminate-only authority):
    - **SKIP** when the lead is clearly not worth a first-time hands-on eval —
@@ -76,12 +85,24 @@ The marker is your signature that this was a bulk disposition, not a hands-on ev
      (leave the trailing Evidence cell alone — `backfill-evidence.py` regenerates it).
 
 6. **Apply — leave at `discovery-log`.**
-   - *Eval exists:* add only `**Last triaged:** <today>  <!-- triaged: bulk -->` to the
-     header. Change nothing else; the row stays `discovery-log`.
    - *No eval:* write a minimal stub (template below) with **no `## Verdict`** (or an
      explicit `discovery-log`), a "Triage note" saying why it was left, `Evidence:
-     SOURCE-ONLY`, the honesty disclaimer, and the stamped header. The row stays
-     `discovery-log`.
+     SOURCE-ONLY`, the honesty disclaimer, and the stamped header — marker included. The
+     row stays `discovery-log`.
+   - *Eval exists, no `## Verdict`:* same — stamp
+     `**Last triaged:** <today>  <!-- triaged: bulk -->` and add a `## Triage note`.
+   - *Eval exists **with** a headline verdict (the step-3 `REVIEW`/`SOURCE-ONLY`
+     CONDITIONAL case):* stamp the **date only — omit the `<!-- triaged: bulk -->`
+     marker** — and add a `## Triage note` saying why it was left. Leave the existing
+     `## Verdict` untouched; the row stays `discovery-log`.
+
+     The marker is not decoration: detector Q reads it as *"this lane disposed this lead"*
+     and allows nothing above `SKIP` (`BULK_ALLOWED = {"SKIP"}`). Stamping it beside a
+     CONDITIONAL headline this pass did not write fails `make check` for a claim nobody
+     made. Leaving a lead is not a disposition, so there is nothing to sign — the date
+     alone records that the lane looked, which is all `**Last triaged:**` ever asserts.
+     Every one of the 72 marker-bearing evals is a `SKIP` or a verdict-less stub; keep it
+     that way.
 
 7. **Regenerate and gate.** Run `make fix` — it reconciles counts, regenerates the
    derived files (Evidence, tiers, `NEXT-EVALS.md`, `WATCHLIST.md`), syncs `plugin/docs/`,
