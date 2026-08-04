@@ -3,6 +3,7 @@
 **Repo:** [mrexodia/ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp)
 **Stars:** 9,501 | **Last updated:** 2026-06-06 (pushed; created 2025-03-25) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** None of the standard inner/outer loop — this is **domain-specific tooling for reverse engineering / malware analysis**, not software-build work. It belongs to a security analyst's loop (triage a binary → decompile → annotate → report), which the AI-tooling dev loop doesn't model. In-scope only as a Security & Safety capability.
 **Layer:** Tooling/Infrastructure — an MCP server (GUI plugin + headless `idalib-mcp` supervisor) that bridges an installed IDA Pro into any MCP client. Requires a licensed IDA Pro 8.3+ (IDA Free unsupported); maintained by mrexodia (x64dbg author).
 
@@ -55,9 +56,18 @@ gh api repos/mrexodia/ida-pro-mcp/releases --jq 'length'  # 3 tagged releases
 
 ## Verdict
 
-**discovery-log — tentative read: adopt for reverse-engineering / malware-analysis work, with read-only or triage profiles by default and host sandboxing mandatory; out of scope for general development.** This is a well-engineered, credibly maintained RE bridge with genuinely thoughtful safety affordances (curated profiles, default-hidden debugger). Its limits are structural: it needs a paid IDA Pro license, it carries the highest host/process reach of any MCP server in this catalog when the debugger extension is on, and it only matters to security analysts. The right posture is `--profile profiles/readonly.txt` for analysis, enabling mutation/`?ext=dbg` only deliberately and only inside an isolated VM.
+**SKIP** — off-scope, and the clearest case in this cluster. The Security & Safety category defines itself narrowly — *"Tools for scanning agent-generated code and skills for vulnerabilities"* — and that is the line this disposition applies. Bridging IDA Pro to an MCP client
+for decompilation, xrefs, type reconstruction and binary patching is *reverse engineering* — it
+operates on compiled binaries you did not write, which is the opposite end of the pipeline from
+agent-generated source.
 
-Compared to neighbors: **cve-mcp-server** and **pentest-ai** are *network/API-facing* security MCPs (vulnerability intel, offensive tooling) that touch remote services, not local binaries or a debugger; ida-pro-mcp is the opposite — deep *local* static/dynamic binary analysis with read/write reach into a target process. It is the most specialized and the most privileged of the security MCP entries: narrower audience than cve-mcp-server, sharper teeth than pentest-ai's remote probes. Within RE it is best-in-class; outside it, irrelevant.
+Nothing about it is weak: MIT, ★10K, and it ships read-only and triage safety profiles, which is
+more care than most MCP servers take with a debugger attached. It is simply a different craft.
+
+Re-open for malware analysis, vulnerability research, or any context where the artifact under study
+is a binary. As a row it stays findable, which is what a catalog is for.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

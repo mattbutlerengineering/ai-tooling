@@ -3,6 +3,7 @@
 **Repo:** [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep)
 **Stars:** 12,350 | **Last updated:** 2026-06-19 (pushed; created 2026-03-10) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Research & Discovery (a research-automation methodology; the cross-model adversarial-review and self-evolution patterns also touch Review and Reflect)
 **Layer:** Process + Tooling (a portable skill-based workflow *plus* an optional standalone Rust CLI, "ARIS-Code")
 
@@ -61,6 +62,25 @@ gh api repos/wanshuiyin/Auto-claude-code-research-in-sleep/releases --jq 'length
 **discovery-log — tentative read** — adopt the *methodology* broadly and the *tool* narrowly. The cross-model adversarial-review pattern (no model reviews its own work) and the persistent Research Wiki are excellent, transferable ideas that any high-stakes agent loop should steal. As a turnkey tool it's strongest for **autonomous academic/ML research** (its native domain); for general software work the built-in paper-centric workflows are a partial fit and the two-model cost is real. Adopt if you do research-heavy autonomous work and want adversarial review + durable memory out of the box; otherwise mine it for the patterns. MIT-licensed, actively and seriously developed.
 
 Compared to neighbors: **autoresearch** (Karpathy) runs automated experiments but without the cross-model review/persistent-wiki scaffolding; **llm-council** convenes a multi-model committee for one-shot answers rather than a persistent iterate-and-persist loop; **deer-flow** is a research harness. ARIS is the most complete **autonomous, adversarially-reviewed, memory-backed research loop** of the set — at the cost of breadth and token spend.
+
+## Triage note
+
+Left at `discovery-log`, and deliberately not caught up in this pass's Research & Discovery pruning.
+
+Only three rows in that cluster were SKIPped — `PaperOrchestra` (★605, `NOASSERTION`, weakest of five),
+`llm-council` (no licence, dormant) and the duplicate `Awesome-LLMOps` — precisely because the category
+blurb scopes itself broadly ("AI-assisted research, information gathering, and multi-model reasoning")
+and this row sits inside it with ★12.4K and MIT behind it.
+
+The verdict's own framing is why it survives a challenger read: it recommends adopting the *methodology*
+broadly and the *tool* narrowly. Cross-model adversarial review — no model reviews its own work — is a
+pattern this repo's own review lane could steal without installing anything, and a pattern is not
+something the redundancy test can eliminate.
+
+The open question is scope, not quality: its native domain is autonomous academic/ML research, and the
+built-in paper-centric workflows are a partial fit for software work. Resolving that needs a run.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

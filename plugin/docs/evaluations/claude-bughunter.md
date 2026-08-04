@@ -3,6 +3,7 @@
 **Repo:** [elementalsouls/Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter)
 **Stars:** 2,556 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (external security testing)
 **Layer:** Tooling
 
@@ -61,9 +62,22 @@ Did not install or run against live targets — this is an architecture/content 
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — off-scope. The Security & Safety category defines itself narrowly — *"Tools for scanning agent-generated code and skills for vulnerabilities"* — and that is the line this disposition applies. 71 skills, 15 slash commands and 681 disclosed-report patterns is a
+bug-bounty and red-team practice bundle — the patterns are mined from *public disclosure reports*,
+which is a hunting methodology, not a review of code you just wrote.
 
-Use when conducting authorized external security testing — bug bounty programs, penetration tests, or red-team engagements. The report-derived hunt skills and the 7-Question Gate triage methodology are significantly more rigorous than generic security scanning prompts. Not a replacement for trailofbits/skills (defensive code review) or ghostsecurity/skills (AppSec during development) — those operate at the Review stage on code you're writing, while Claude-BugHunter operates at the external testing stage against running applications you're authorized to test.
+Same disposition as `pentest-ai` and `pentest-ai-agents` in this pass, and as
+`Anthropic-Cybersecurity-Skills` before them. The in-loop security question stays with
+[`trailofbits/skills`](https://github.com/trailofbits/skills) and STACK's `security-guidance`.
+
+The licence is a second reason not to carry it: `NOASSERTION` on a **skill** pack matters more than
+on a CLI, because skills are *vendored* — their text is copied into the consuming repo — and an
+unparsed grant is exactly the case the copyleft band exists to catch.
+
+Re-open for a security-research context, where 681 disclosure patterns is a genuinely valuable
+corpus.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

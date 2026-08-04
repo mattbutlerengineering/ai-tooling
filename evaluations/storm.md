@@ -3,6 +3,7 @@
 **Repo:** [stanford-oval/storm](https://github.com/stanford-oval/storm)
 **Stars:** ~28,800 | **Last updated:** 2025-09-30 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Research & Discovery)
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/stanford-oval/storm/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Reach for STORM when you need a grounded, cited long-form draft on a topic — documentation, literature surveys, internal research briefs — and will edit the output. The multi-perspective outline and academic grounding set it apart from generic research agents. For the project's own deep-research workflow it overlaps the installed deep-research skill; STORM shines for Wikipedia-style synthesis with citations.
+
+## Triage note
+
+Left at `discovery-log`. Stanford OVAL, MIT, and the largest entry in the research cluster — a bulk lane
+has no business disposing it, and the redundancy it does have is with an *installed* capability rather
+than a catalog row: the deep-research skill already covers the project's own research workflow.
+
+That is the honest tension and the eval states it. STORM's distinct value is Wikipedia-style synthesis
+with citations and a multi-perspective outline stage; the overlap is real but partial, and "partially
+overlaps something already installed" is a CONDITIONAL shape, not a SKIP one.
+
+The fact this pass would flag for whoever picks it up: **last pushed 2025-09-30**, over ten months. That
+is the longest dormancy of anything left standing in this cluster, and for a tool that depends on search
+and model APIs, dormancy is a working-or-not question rather than a maintenance-taste one. A promotion
+should start by confirming it still runs.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

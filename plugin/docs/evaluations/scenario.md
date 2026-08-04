@@ -3,6 +3,7 @@
 **Repo:** [langwatch/scenario](https://github.com/langwatch/scenario)
 **Stars:** ~900 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (agent testing)
 **Layer:** Tooling
 
@@ -52,6 +53,22 @@ gh api repos/langwatch/scenario/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt for testing multi-turn agents where behavior and tool usage — not just a single answer — are what matter, and pair it with metric evals (deepeval/promptfoo) for output quality. Pin judge/simulator models and seed scenarios for stable CI signals. The simulation token cost is the price for catching trajectory-level bugs that single-response evals miss.
+
+## Triage note
+
+Left at `discovery-log`. Checked in this pass as the incumbent that made `evalview` (★122) a SKIP:
+LangWatch's simulation-based multi-turn agent testing, Apache-2.0, pushed today, is the better-populated
+answer to the same question, and it is named in evalview's own overlaps cell.
+
+Being the reason another row was disposed is not itself a reason to promote this one. What it does mean
+is that this row now carries more weight in the Verify stage than it did before the pass, and the
+dependency runs both ways — if scenario turns out not to work, the evalview SKIP deserves a second look.
+
+The eval's operational advice is the part worth keeping: pin judge and simulator models and seed
+scenarios, or CI signals will not be stable. That is the standard hazard of LLM-judged testing, and it
+is the thing a hands-on run would need to show is manageable before this reaches ADOPT.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

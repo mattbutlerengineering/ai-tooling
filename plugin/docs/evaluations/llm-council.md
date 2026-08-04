@@ -3,6 +3,7 @@
 **Repo:** [karpathy/llm-council](https://github.com/karpathy/llm-council)
 **Stars:** 21,052 | **Last updated:** 2026-06-19 | **License:** None (unlicensed)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Research & Discovery
 **Layer:** Tooling
 
@@ -55,9 +56,24 @@ gh api repos/karpathy/llm-council/contents/backend/config.py --jq '.content' | b
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — no licence, and dormant. GitHub reports **NONE** for
+[`karpathy/llm-council`](https://github.com/karpathy/llm-council): the repo is live and declares no
+grant, so the default is exclusive copyright and nothing here is adoptable whatever the ★22.5K says.
+That is the same disposition `autoresearch` got in the long-tail pass — also karpathy, also
+unlicensed.
 
-Use the *pattern* (multi-model deliberation with anonymized cross-review) for high-stakes research questions, but not this specific implementation. The tool is a standalone web app with no agent integration, no license, and an explicit no-maintenance commitment from its author. The architectural pattern is sound — design-council (in-catalog) applies the same multi-perspective approach within Claude Code's agent framework. Use llm-council as inspiration or a weekend research tool, not as production infrastructure.
+Dormancy is the second half. Last pushed 2025-11-22, over eight months, which is consistent with
+what the repo is: a demonstration of an idea rather than a maintained tool.
+
+The idea does survive the SKIP, and it is a good one — several models answering independently, then
+ranking each other's answers. This catalog already carries it in maintained, licensed form:
+`design-council` (MIT) runs role-specialized peer agents over technical decisions, and
+`claude-octopus` (MIT) enforces a real cross-provider consensus gate. Both are the way to reach the
+pattern.
+
+Re-open if a licence is added.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

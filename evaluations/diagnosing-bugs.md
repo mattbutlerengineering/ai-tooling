@@ -3,6 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
 **Stars:** 136,415 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (debug)
 **Layer:** Process
 
@@ -76,6 +77,28 @@ gh api repos/mattpocock/skills/contents/skills/engineering/diagnosing-bugs/scrip
 diagnosing-bugs is a high-quality, well-maintained debug-stage process skill with one genuinely better idea than the catalog's incumbent (a *red-capable artifact* gate and a concrete 10-option feedback-loop menu, plus multi-hypothesis anti-anchoring and agent-grade cleanup hygiene). But it overlaps ~70% with superpowers' `systematic-debugging`, which the user already runs as a plugin, and it is actually *thinner* on root-cause tracing, pattern analysis, and the failed-fix-count escalation that systematic-debugging does well. Running both invites two competing phase-gates on the same "debug this" trigger.
 
 Adopt it **as a replacement for, not an addition to, systematic-debugging** if you value the loop-first / artifact-gated framing (strongest fit for agent-driven debugging, where the failure mode is hypothesising before reproducing) — or stay on systematic-debugging if you value root-cause tracing and the rationalization-catching guardrails. Do not run both. It does not earn a second seat in the stack; it earns the right to compete for the one debug-skill seat.
+
+## Triage note
+
+Left at `discovery-log`, and it is the second instance this session of a structural finding worth naming
+explicitly.
+
+**Its parent is already a STACK pick.** The repo is [`mattpocock/skills`](https://github.com/mattpocock/skills),
+and `diagnosing-bugs` is one skill inside that pack — the same relationship `implement` has, which the
+Implement-stage pass flagged for the same reason. The challenger frame does not apply to a row that
+ships inside an incumbent: you do not adopt or skip it independently, you get it when you install the
+pack. Rows like this arguably should not enter the lead queue at all, which is a `triage.py` question
+rather than a per-row one.
+
+The competition the eval describes is real and orthogonal to that: it overlaps roughly 70% with
+superpowers' `systematic-debugging`, which is also installed, and the verdict's advice is to run one or
+the other and never both. Two phase-gates on the same "debug this" trigger is a worse outcome than
+either alone.
+
+So there are two incumbents here, not zero, and neither makes this a SKIP — they make it a head-to-head
+that only a measured A/B on real debugging tasks can settle.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

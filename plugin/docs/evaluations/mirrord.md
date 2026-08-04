@@ -3,6 +3,7 @@
 **Repo:** [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord)
 **Stars:** 5,142 | **Last updated:** 2026-06-19 (pushed; created 2022-02-01) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement + Verify — gives the agent live cluster context while writing, then runs the change against real services to confirm it end-to-end
 **Layer:** Infrastructure (Rust CLI + VS Code extension + IntelliJ plugin; bridges a local process into a Kubernetes pod)
 
@@ -56,6 +57,25 @@ gh api repos/metalbear-co/mirrord/releases --jq 'length'   # 30
 **discovery-log — tentative read** — adopt if you develop services that run on Kubernetes and want your agent (and you) to write and verify against live cluster reality instead of mocks; it's mature, multi-surface, and genuinely improves Correctness and Speed for that workflow. The blockers are scope (K8s-only) and a real Safety surface — an agent wielding your kubeconfig and live traffic needs scoped, read-mostly RBAC and human-gated steal mode. Out of scope for non-cloud-native projects.
 
 Compared to neighbors: it's unlike the coding-agent harnesses (opencode/goose/jcode) — those *are* the agent; mirrord is the **live-environment bridge** they run inside, closest in spirit to the sandbox tools (sandboxd, vercel-sandbox) but inverted: instead of isolating agent code in a fresh sandbox, it connects local code into a *real* cluster. No current catalog entry covers live-cluster grounding, so it fills a distinct gap for the K8s niche.
+
+## Triage note
+
+Left at `discovery-log`. Checked against the sandbox rows it superficially resembles and found to be
+their inverse, which is the observation the eval already makes and this pass confirms: `sandboxd` and
+`vercel-sandbox` isolate agent code in a fresh environment; mirrord connects local code *into a real
+cluster*. Opposite directions, so no redundancy to act on.
+
+The gap it fills — live-cluster grounding, so an agent writes and verifies against real services instead
+of mocks — is covered by nothing else in the catalog. Mature too: created 2022, ★5.1K, MIT, with CLI,
+VS Code and IntelliJ surfaces.
+
+Two things keep it from being a general recommendation, and both are scope rather than quality.
+Kubernetes-only, which excludes most projects here outright. And a real Safety surface the eval is right
+to flag: an agent holding your kubeconfig with the ability to steal live traffic needs scoped
+read-mostly RBAC and a human gate on steal mode. That is a deployment design, not a checkbox, and it is
+what a promotion would have to demonstrate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

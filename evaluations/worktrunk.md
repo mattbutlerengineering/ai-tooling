@@ -3,6 +3,7 @@
 **Repo:** [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
 **Stars:** 5,495 | **Last updated:** 2026-06-17 | **License:** proprietary
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -57,6 +58,23 @@ The create/list/switch/cleanup flow below is from the documented command surface
 **discovery-log — tentative read**
 
 Adopt if running 3+ parallel agent sessions regularly — the worktree lifecycle management saves meaningful time and prevents the git state tangles that plague raw `git worktree` usage. Skip for solo sequential work where `git worktree add/remove` suffices. The proprietary license is a risk factor; if an open-source alternative emerges with similar UX, prefer that.
+
+## Triage note
+
+Left at `discovery-log`, examined and not disposed. The tentative read above already does the hard
+part — parallel-agent worktree lifecycle management, worth it at 3+ concurrent sessions, `git worktree
+add/remove` sufficient below that — so there is nothing this lane can add by way of elimination.
+
+The one thing worth re-stating from the header rather than the prose: the licence is **proprietary**.
+That is the single fact most likely to decide this row, and per the adoption bar it forecloses ADOPT
+regardless of how well the tool works. The verdict names an open-source alternative as the preferred
+outcome if one appears; nothing in this pass found one.
+
+Not SKIPped, because the capability is real and there is no catalogued incumbent to be redundant with.
+Promotion would need a hands-on run *and* a licence the bar accepts — the second is not ours to fix,
+which makes this a watch rather than a queue item.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

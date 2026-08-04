@@ -307,7 +307,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | keploy | tool | ✓ | ✓ | discovery-log | REVIEW |
 | midscene | tool | ✓ | ✓ | discovery-log | REVIEW |
 | SceneProof | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| evalview | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
 | playwright-skill | skill | | ✓ | SKIP | REVIEW |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL | RUN |
@@ -315,7 +315,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | passmark | tool | ✓ | ✓ | SKIP | REVIEW |
 | diagnosing-bugs | skill | | ✓ | discovery-log | REVIEW |
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
-| browser-act/skills | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| browser-act/skills | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 
 ## Review
 
@@ -342,18 +342,18 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
-| pentest-ai-agents | skill | | ✓ | discovery-log | REVIEW |
+| pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
 | pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
 | skill-scanner | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
-| cve-mcp-server | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| ida-pro-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| pentest-ai | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| pentest-ai | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | strix | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| Claude-BugHunter | skill | | ✓ | discovery-log | REVIEW |
+| Claude-BugHunter | skill | | ✓ | SKIP | REVIEW |
 | hol-guard | tool | ✓ | ✓ | SKIP | REVIEW |
 | OpenOSINT | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | agnix | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -362,7 +362,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
-| ctf-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| ctf-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 
 ## Ship
 
@@ -642,14 +642,14 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | autoresearch | tool | ✓ | ✓ | SKIP | REVIEW |
 | ARIS | skill | ✓ | ✓ | discovery-log | REVIEW |
 | last30days-skill | skill | | ✓ | ADOPT | MEASURED |
-| llm-council | tool | | ✓ | discovery-log | REVIEW |
-| PaperOrchestra | skill | | ✓ | discovery-log | REVIEW |
+| llm-council | tool | | ✓ | SKIP | REVIEW |
+| PaperOrchestra | skill | | ✓ | SKIP | REVIEW |
 | storm | tool | ✓ | ✓ | discovery-log | REVIEW |
 | AutoSci | harness | ✓ | ✓ | discovery-log | REVIEW |
 | notebooklm-py | tool | ✓ | ✓ | discovery-log | REVIEW |
 | evo | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | awesome-llm-apps | reference | | ✓ | discovery-log | SOURCE-ONLY |
-| Awesome-LLMOps (InftyAI) | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| Awesome-LLMOps (InftyAI) | reference | | ✓ | SKIP | SOURCE-ONLY |
 | Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -728,14 +728,14 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 26 | 6 | 44% |
 | Implement | 212 | 68 | 4 | 32% |
-| Verify | 22 | 8 | 2 | 36% |
-| Review | 42 | 15 | 3 | 36% |
+| Verify | 22 | 10 | 2 | 45% |
+| Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 12 | 2 | 29% |
 | Skills & Plugins | 90 | 30 | 4 | 33% |
 | Memory & Context | 50 | 15 | 2 | 30% |
 | MCP Servers | 44 | 13 | 2 | 30% |
-| Research & Discovery | 20 | 5 | 1 | 25% |
+| Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **213** | **34** | **33%** |
+| **Total** | **642** | **224** | **34** | **35%** |
