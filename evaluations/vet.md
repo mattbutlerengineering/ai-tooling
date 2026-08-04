@@ -3,6 +3,7 @@
 **Repo:** [imbue-ai/vet](https://github.com/imbue-ai/vet)
 **Stars:** 476 | **Last updated:** 2026-06-10 (pushed) | **License:** AGPL-3.0 | **Language:** Python (PyPI: `verify-everything`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Code Review & Quality / Verify
 **Layer:** Tooling (CLI + agent skill + CI)
 
@@ -54,6 +55,18 @@ gh api repos/imbue-ai/vet/readme --jq '.content' | base64 -d | head -60         
 **CONDITIONAL** — Vet is a principled, Imbue-built **independent verifier** whose distinctive value is checking **both** the diff for correctness **and** the agent conversation for goal adherence — catching the "confidently did the wrong thing" failure that code-only review misses. Adopt it as an auto-running agent skill (or CI step) when you want an outside check on agent behavior, not just its output, and you're comfortable with AGPL-3.0 and BYO-model inference. It's CONDITIONAL given lower traction (476 stars), the AGPL license, and model-dependent judgment quality. It complements rather than replaces diff-reviewers: pair it with code-review/pr-review-toolkit for code rigor and let Vet own intent-adherence.
 
 Compared to neighbors: **code-review**/**pr-review-toolkit** review the diff across dimensions; **brooks-lint** reviews for design decay. Vet's distinguishing pitch is **verifying coding-agent behavior (goal adherence) alongside code correctness, runnable as a terminal/CI/skill, BYO-model.**
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
+verdict; this bulk pass has no authority to promote it. `code-review`/`pr-review-toolkit`
+are the STACK incumbents for diff review, but vet's distinct wedge — verifying agent
+*intent-adherence* alongside code correctness — isn't something either does, so this isn't a
+clean redundancy SKIP despite the AGPL-3.0 license (a real cost for embedding, not for
+running it as a dev-time check). Left for the P0/eval-runner lane.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
 
 ## Catalog entry
 
