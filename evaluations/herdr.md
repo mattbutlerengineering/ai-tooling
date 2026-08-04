@@ -1,7 +1,8 @@
 # Evaluation: herdr
 
-**Repo:** [ogulcancelik/herdr](https://github.com/ogulcancelik/herdr)
-**Stars:** 6,412 | **Last updated:** 2026-06-20 (pushed) | **License:** see repo (no SPDX detected) | **Language:** Go/Rust (terminal app)
+**Repo:** [herdrdev/herdr](https://github.com/herdrdev/herdr) (moved from `ogulcancelik/herdr`)
+**Stars:** 24,375 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0 | **Language:** Go/Rust (terminal app)
+<!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration — multi-agent terminal multiplexer
@@ -83,4 +84,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [herdr](https://github.com/ogulcancelik/herdr) | tool | Terminal agent multiplexer — workspaces/tabs/panes, mouse-native (click/drag/split), every agent's real terminal at a glance (blocked/working/done), detach/reattach with agents still running; no GUI/Electron | Running many coding agents at once, you can't see who's blocked or done without an Electron wrapper hiding the real terminal | claude-squad, dmux, rmux, orca, agent-of-empires |
+| [herdr](https://github.com/herdrdev/herdr) | tool | Terminal agent multiplexer — workspaces/tabs/panes, mouse-native (click/drag/split), every agent's real terminal at a glance (blocked/working/done), detach/reattach with agents still running; no GUI/Electron | Running many coding agents at once, you can't see who's blocked or done without an Electron wrapper hiding the real terminal | claude-squad, dmux, rmux, orca, agent-of-empires |
