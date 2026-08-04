@@ -3,6 +3,7 @@
 **Repo:** [kodustech/kodus-ai](https://github.com/kodustech/kodus-ai)
 **Stars:** ~1,200 | **Last updated:** 2026-06-19 | **License:** open-core (repo LICENSE returns NOASSERTION; Open Source / Teams / Enterprise tiers)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -55,9 +56,27 @@ gh api repos/kodustech/kodus-ai/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`code-review`](https://github.com/anthropics/claude-plugins-official)
+(STACK, `MEASURED`) and [`claude-code-action`](https://github.com/anthropics/claude-code-action)
+(STACK, `RUN`), which between them already cover in-session review and async PR review. The
+evaluation reached the same place for this profile: *"For a solo dev or quick local checks, the
+built-in /code-review or a single-binary tool (skylos) is lighter."*
 
-Adopt when a team wants a self-hosted PR reviewer with full model choice, direct provider billing, and org-specific rules — and can run a multi-service deployment. For a solo dev or quick local checks, the built-in /code-review or a single-binary tool (skylos) is lighter. Confirm the OSS/paid feature boundary before standardizing.
+Its real differentiators are org-scale concerns — model choice with direct provider billing,
+plain-language custom rules, native GitLab/Bitbucket/Azure — and each is bought with a
+multi-service self-hosted deployment. That is the correct trade for a platform team standardizing
+review across an organization; it is the wrong one for the dev loop this catalog stocks, where the
+reviewer that runs *inside the session and can fix the code* is worth more than the one that
+comments from outside it.
+
+Open-core is the second half of the call. The evaluation flags an unconfirmed OSS/paid feature
+boundary, and adopting a review gate whose feature set can move behind a paywall is a maintenance
+commitment nobody asked for.
+
+Re-open for a team standardizing self-hosted review across non-GitHub forges, or once the OSS
+boundary is documented.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

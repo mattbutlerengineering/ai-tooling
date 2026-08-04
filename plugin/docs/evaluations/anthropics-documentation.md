@@ -3,6 +3,7 @@
 **Repo:** [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins)
 **Stars:** N/A (official Anthropic plugin) | **Last updated:** 2026 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (README, API docs, runbooks), Reflect (architecture docs, onboarding guides)
 **Layer:** Process
 
@@ -68,6 +69,25 @@ The skill's brevity is both its strength and its limitation. There's no workflow
 **discovery-log — tentative read**
 
 Use when you need fast, low-ceremony documentation for well-understood document types (READMEs, runbooks, onboarding guides). Skip for ADRs (use `documentation-and-adrs` instead) and skip for complex documentation requiring Diátaxis discipline (use `documentation-writer`). This skill fills the gap for quick operational documentation where a three-step workflow would be overkill. Worth keeping installed for its lightweight trigger coverage; not worth relying on as the primary documentation skill.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. The evaluation already weighed the overlap against
+`documentation-and-adrs` (STACK) and resolved it as a division of labour rather than a duplication:
+*"Skip for ADRs (use `documentation-and-adrs` instead) … This skill fills the gap for quick
+operational documentation where a three-step workflow would be overkill. Worth keeping installed
+for its lightweight trigger coverage."*
+
+Overruling an explicit, argued non-redundancy finding is re-litigating a judgement, which is not
+what this lane is for — and the finding leans *positive*, which a bulk pass may not act on in
+either direction.
+
+The right next step is the promotion this lane cannot make: if it is genuinely worth keeping
+installed, that is a `KEEP` backed by a triggering test showing the lightweight skill fires on
+READMEs/runbooks without stealing turns from `documentation-and-adrs` on ADRs. Apache-2.0, part of
+Anthropic's ★22.5K knowledge-work plugin set.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

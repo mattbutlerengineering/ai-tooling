@@ -3,6 +3,7 @@
 **Repo:** [shadcn/improve](https://github.com/shadcn/improve)
 **Stars:** 5,185 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (outer loop — periodic audits)
 **Layer:** Tooling
 
@@ -51,6 +52,22 @@ Once installed, you invoke it as a skill inside Claude Code (you pick which mode
 **discovery-log — tentative read** (review-based)
 
 On its design, shadcn/improve fits periodic codebase-health audits (monthly/quarterly) rather than per-PR use — that's the code-review plugin's job — and the plan-file + dual-model approach is a sensible way to make a proactive audit cheaper and reviewable. Held at CONDITIONAL because this is a README review, not a run: the signal-to-noise ratio and real cost are the open questions, and the install is `npx skills add shadcn/improve` (a skill), not a `npx shadcn-improve` CLI. Complementary with code-review (reactive, per-PR), not redundant.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, on the evaluation's own reading: *"Complementary with
+code-review (reactive, per-PR), not redundant."*
+
+The two run on different clocks. `code-review` (STACK) is reactive and per-PR; shadcn/improve is a
+periodic codebase-health audit where the expensive model writes a plan file that cheaper models
+execute. Overruling an explicit, argued non-redundancy finding is re-litigating a judgement, which
+is not what this lane is for.
+
+What is unresolved is the same thing the evaluation flagged: signal-to-noise and real cost are
+unknown because this was a README read, not a run. Also note the install is `npx skills add
+shadcn/improve` (a skill), not a CLI.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

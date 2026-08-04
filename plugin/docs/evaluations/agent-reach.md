@@ -3,6 +3,7 @@
 **Repo:** [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach)
 **Stars:** 34,975 | **Last updated:** 2026-06-16 (latest release v1.5.0, 2026-06-11) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Plan (research & discovery) — and largely outside the dev loop (general internet access)
 **Layer:** Tooling (capability router / installer over upstream CLIs)
 
@@ -74,9 +75,27 @@ grep -inE "exa-mcp|firecrawl|last30days|agent-reach" /Users/mbutler/github/ai-to
 
 ## Verdict
 
-**discovery-log — tentative read** (leaning SKIP for a focused dev-loop stack)
+**SKIP** — redundant with [`last30days`](https://github.com/mvanhorn/last30days-skill) (STACK,
+`MEASURED`) and the `gh` CLI on the dev-relevant slice; the rest is social listening this catalog
+does not map. The evaluation was already leaning here: *"For a coding-focused stack, prefer the
+narrower, lower-surface-area options: `exa-mcp-server` for web/research search (same engine,
+direct, no cookie sprawl) and the `gh` CLI you already have for GitHub."*
 
-Agent-Reach is a well-built, genuinely popular, honestly-architected internet-capability router with a real Claude-Code-native SKILL.md surface. But measured against this catalog's frame — tools that move quality signals *in the dev loop* — most of its surface area is general agent automation and social listening, much of it tilted to Chinese platforms. The only dev-relevant channels are a thin `gh`-CLI wrapper and a web/code search that is Exa-under-the-hood. **Adopt it only when your work genuinely needs broad multi-platform internet reach from the agent** — competitive/social research, monitoring discussions across Twitter/Reddit/YouTube, or working across Chinese platforms. For a coding-focused stack, prefer the narrower, lower-surface-area options: `exa-mcp-server` for web/research search (same engine, direct, no cookie sprawl) and the `gh` CLI you already have for GitHub. Not ADOPT because it is not dev-loop-shaped and carries a real credential/dependency surface; not SKIP outright because for research-and-discovery work the multi-backend routing and free-tier breadth are a legitimate, maintained win. Differentiation from `exa-mcp-server`: exa-mcp-server *is a search engine* (one engine, web search/research, direct MCP); Agent-Reach *is a router/installer* across 13 platforms that, for web search, delegates to that very Exa engine — broader reach, more setup, more attack surface, and far less dev-loop focus.
+Its own architecture makes the case. The web/code search is Exa underneath, so the incumbent path
+reaches the same index without the router in front of it; the GitHub channel is a thin `gh`
+wrapper around a CLI already installed and already authenticated. What is left — Twitter, Reddit,
+YouTube, and a set of Chinese platforms — is competitive and social research, a real capability
+pointed away from the dev loop.
+
+Surface area is the cost that decides it. Multi-platform reach means cookie/session handling for
+each platform, and that is a standing credential-exposure surface accepted for capability that
+mostly never fires in a coding session. ★54K says the general-agent audience is large; it does not
+say this stack should carry it.
+
+Re-open if the work genuinely needs broad multi-platform monitoring, or if this catalog widens past
+the dev loop.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

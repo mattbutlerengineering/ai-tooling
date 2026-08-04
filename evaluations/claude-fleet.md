@@ -3,6 +3,7 @@
 **Repo:** [tianyilt/claude-fleet](https://github.com/tianyilt/claude-fleet)
 **Stars:** 34 | **Last updated:** 2026-06-16 (pushed; created 2026-05-30) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer loop / Observability (monitoring parallel agent sessions; touches Implement by helping you triage which session to attend to)
 **Layer:** Tooling (local Python web dashboard + optional signed macOS app)
 
@@ -57,9 +58,24 @@ gh api repos/tianyilt/claude-fleet/readme --jq '.content' | base64 -d   # triage
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt if you routinely run 5+ Claude Code/Codex windows and want a lightweight, read-only command center to see who's waiting/stalled/done plus fast cross-transcript search, *on top of* whatever runs your sessions. The triage state machine and skill/memory analytics are genuinely well thought out and the read-only design makes it safe to bolt on. Hold off if you run one or two agents (the dashboard is overkill), want one tool that both runs *and* monitors sessions (use agent-of-empires/claude-squad), or need maturity — it's brand new and small.
+**SKIP** — redundant with [`abtop`](https://github.com/graykode/abtop) (STACK, `MEASURED`) on the
+job they share, and too young to carry the difference.
 
-Compared to neighbors: **abtop** is the closest — a real-time TUI monitor of agent sessions (tokens/context/rate-limits) — where Claude Fleet is a web dashboard centered on *triage + transcript search + skill/memory analytics*; **codeburn** focuses on *cost* attribution; the session *managers* drive agents rather than observe them. Claude Fleet is the read-only **triage + search** layer of the multi-session stack.
+Both answer "what are my agent sessions doing right now"; abtop does it as a live cross-platform
+TUI that has been measured, Fleet as a web dashboard with a working/waiting/stalled triage state
+machine. The delta is real — ~50ms ripgrep transcript search and skill/memory usage analytics are
+things abtop does not do — but it is a *convenience* delta on top of a duplicated core, and the
+evaluation already priced it: *"Hold off if you run one or two agents (the dashboard is overkill)
+… or need maturity — it's brand new and small."*
+
+41 stars is the deciding fact. A monitoring layer earns its place by being there when something
+goes wrong, and a single-maintainer project at that adoption level is a dependency whose upkeep is
+a coin flip.
+
+Re-open if transcript search becomes the bottleneck the incumbent can't relieve, or if Fleet grows
+the adoption to be trusted in the loop.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

@@ -288,10 +288,11 @@
   },
   "alibaba/open-code-review": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:36:41Z",
+    "pushed_at": "2026-08-04T13:07:31Z",
     "resolved_name": "alibaba/open-code-review",
-    "stars": 10289
+    "stars": 18770
   },
   "alibaba/page-agent": {
     "archived": false,
@@ -656,6 +657,14 @@
     "pushed_at": "2026-05-22T11:00:37Z",
     "resolved_name": "ciembor/agent-rules-books",
     "stars": 2167
+  },
+  "cisco-ai-defense/skill-scanner": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-08-04T04:50:35Z",
+    "resolved_name": "cisco-ai-defense/skill-scanner",
+    "stars": 2399
   },
   "claudiodrews/memory-os": {
     "archived": false,
@@ -2858,10 +2867,11 @@
   },
   "punkpeye/awesome-mcp-servers": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-04T12:53:14Z",
+    "pushed_at": "2026-08-03T03:09:55Z",
     "resolved_name": "punkpeye/awesome-mcp-servers",
-    "stars": 90542
+    "stars": 91824
   },
   "pydantic/logfire": {
     "archived": false,
@@ -2981,6 +2991,14 @@
     "pushed_at": "2026-04-07T18:24:24Z",
     "resolved_name": "richards199999/Thinking-Claude",
     "stars": 17072
+  },
+  "rimio-ai/rimz": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T18:05:17Z",
+    "resolved_name": "rimio-ai/rimz",
+    "stars": 22
   },
   "rkiding/awesome-finance-skills": {
     "archived": false,
@@ -3131,10 +3149,11 @@
   },
   "sipyourdrink-ltd/bernstein": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T01:08:49Z",
+    "pushed_at": "2026-08-04T20:51:47Z",
     "resolved_name": "sipyourdrink-ltd/bernstein",
-    "stars": 652
+    "stars": 788
   },
   "sirmalloc/ccstatusline": {
     "archived": false,
@@ -3628,10 +3647,11 @@
   },
   "vibe-log/vibe-log-cli": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-04-19T21:59:48Z",
     "resolved_name": "vibe-log/vibe-log-cli",
-    "stars": 336
+    "stars": 338
   },
   "vibrantlabsai/ragas": {
     "archived": false,
@@ -3740,10 +3760,11 @@
   },
   "weizhena/deep-research-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-05-07T16:08:07Z",
     "resolved_name": "Weizhena/Deep-Research-skills",
-    "stars": 1583
+    "stars": 1860
   },
   "windy3f3f3f3f/how-claude-code-works": {
     "archived": false,

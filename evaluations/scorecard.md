@@ -3,6 +3,7 @@
 **Repo:** [ossf/scorecard](https://github.com/ossf/scorecard)
 **Stars:** 5,532 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer Loop
 **Layer:** Infrastructure
 
@@ -64,6 +65,24 @@ Also attempted CLI install (`brew install scorecard` — formula confirmed to ex
 **discovery-log — tentative read**
 
 Use when evaluating dependencies or assessing the security posture of upstream projects before adoption. The GitHub Action is valuable for your own repos if you need a security health dashboard. Skip for day-to-day coding workflows — it's an outer-loop assessment tool, not an inner-loop quality gate. Complements SkillSpector (which scans skills for malicious patterns) and hol-guard (which scans before execution); scorecard assesses the project-level health that those tools can't see.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error, and the evaluation says so
+directly: *"Complements SkillSpector (which scans skills for malicious patterns) and hol-guard
+(which scans before execution); scorecard assesses the project-level health that those tools can't
+see."*
+
+SkillSpector (STACK) reads a skill's text for hostile instructions. Scorecard reads a *project's*
+practices — branch protection, signed releases, dependency update hygiene, maintenance activity —
+and none of that is visible in the artifact SkillSpector inspects.
+
+It is outer-loop by nature, which is why it is not a P0 candidate: it does not gate a coding turn.
+It is, however, directly applicable to this catalog's own recurring job — deciding whether an
+upstream repo is safe to adopt — and OpenSSF/Apache-2.0/★5.6K makes it the standard answer there.
+Worth considering as an input to the triage bands themselves rather than as a dev-loop install.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

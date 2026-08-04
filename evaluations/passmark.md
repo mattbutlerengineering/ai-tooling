@@ -3,6 +3,7 @@
 **Repo:** [bug0inc/passmark](https://github.com/bug0inc/passmark)
 **Stars:** 1,023 | **Last updated:** 2026-06-16 | **License:** FSL-1.1-Apache-2.0 (Functional Source License; GitHub reports NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -66,11 +67,24 @@ Key facts established from inspection: created 2026-03-29 (~3 months old at eval
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — it is a paid-AI layer on top of [`playwright`](https://github.com/microsoft/playwright-mcp)
+(STACK, `RUN`), the incumbent it depends on, and its license is not open source.
 
-Adopt only for projects with rapidly-changing UIs where selector maintenance is a real, recurring cost and where the FSL-1.1 non-compete license is acceptable (i.e., you are not building a competing test/QA product). The auto-healing + consensus design is genuinely novel for the Verify stage, but it trades determinism for resilience — the same healing that absorbs legitimate refactors can absorb bugs, so it complements rather than replaces deterministic Playwright assertions on critical paths. Given its ~3-month age, self-acknowledged thin test coverage, restrictive license, and Redis + dual-provider-key setup cost, it is not a default-install tool.
+Passmark runs *on* Playwright, adding auto-healing selectors and consensus caching. The evaluation
+is explicit that the addition is a trade, not a strict gain — *"the same healing that absorbs
+legitimate refactors can absorb bugs, so it complements rather than replaces deterministic
+Playwright assertions on critical paths."* A verification tool whose failure mode is silently
+passing a broken build is the wrong thing to put between an agent and its regression net.
 
-Comparison: vs **playwright** (deterministic, free, Apache-2.0) — Passmark adds resilience to UI churn at the cost of determinism and AI spend; use Playwright for stable critical-path gates and Passmark for high-churn flows. vs **agent-browser** (ADOPT, Apache-2.0) — agent-browser is for live exploratory verification during development with zero per-test maintenance; Passmark is for persistent, cached, repeatable regression *suites*. They occupy different slots: agent-browser for ad-hoc dogfooding, Passmark for a standing AI regression suite. vs **stryker-js** (CONDITIONAL) — both are CONDITIONAL Verify tools whose value is gated by cost/runtime; stryker audits test *quality*, Passmark provides resilient browser tests — non-overlapping in practice despite the catalog overlap marker.
+FSL-1.1 is the second half. It is a source-available non-compete license, not OSS, and this
+catalog's adoption bar is permissive licensing — a gate that exists precisely so an install list
+never quietly carries a use restriction. Redis plus two provider keys is the standing cost on top.
+
+Re-open for a rapidly-churning UI where selector maintenance is a measured, recurring cost *and*
+the non-compete terms are acceptable — and only alongside deterministic Playwright assertions on
+the critical paths, never instead of them.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

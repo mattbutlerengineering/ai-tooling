@@ -3,6 +3,7 @@
 **Repo:** [keploy/keploy](https://github.com/keploy/keploy)
 **Stars:** ~17,600 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (test generation)
 **Layer:** Tooling
 
@@ -52,6 +53,24 @@ gh api repos/keploy/keploy/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt to bootstrap integration/API test coverage from real traffic with zero code changes — especially valuable as a regression net over code an agent generated. Mind that captured tests encode current behavior (curate them) and that eBPF capture has platform requirements. Pairs well with aimock (deterministic AI-dependency mocks) and unit-level TDD (tdd-guard).
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `stryker-js` (STACK)
+mutation-tests existing tests to ask whether they would catch a bug; keploy uses eBPF to record
+real API calls, DB queries and queue traffic at the network layer and replay them as tests. One
+grades a suite you already wrote; the other *creates* the suite from traffic, with no code changes
+and no SDK. They compose — mutation-test what keploy captured — rather than compete.
+
+The reason it is worth a real look is the framing in its own evaluation: a regression net over code
+an agent generated. Agent-written code is exactly where a from-traffic behavioural snapshot is most
+valuable, because nobody hand-wrote the invariants.
+
+Open questions a bulk pass cannot settle: captured tests encode *current* behaviour including its
+bugs, so they need curating, and eBPF capture has platform requirements worth confirming before it
+goes in a loop. Apache-2.0, ★18K, actively pushed.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

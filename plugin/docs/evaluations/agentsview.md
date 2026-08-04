@@ -3,6 +3,7 @@
 **Repo:** [kenn-io/agentsview](https://github.com/kenn-io/agentsview)
 **Stars:** 2,946 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Distribution:** install script, Homebrew cask, desktop app, Docker
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Observability (Reflect / outer loop — see what your agents did and what they cost)
 **Layer:** Tooling (single local binary + local SQLite + web UI)
 
@@ -63,6 +64,23 @@ gh api repos/kenn-io/agentsview/readme --jq '.content' | base64 -d | head -55   
 **discovery-log — tentative read** — agentsview is a clean, local-first way to **browse, search, and cost-track sessions across 20+ coding agents from one dashboard**, MIT-licensed with easy install (Homebrew/desktop/Docker). Adopt it if you run many *different* agents (not just Claude Code) and want unified retrospective history + spend without a cloud service. If you're Claude/Codex-only, it overlaps heavily with codeburn (cost + waste fixes) and claude-fleet (live triage + transcript search) — pick by whether you need cross-agent breadth + browse UI (agentsview) vs. waste-finding cost analysis (codeburn) vs. live multi-window orchestration (claude-fleet). Verify its cost numbers against a provider bill before trusting them.
 
 Compared to neighbors: **codeburn** attributes spend and emits ranked waste fixes; **claude-fleet** is a live working/waiting/stalled dashboard with ripgrep transcript search; **abtop** is a real-time TUI monitor. agentsview's distinguishing pitch is **broadest agent coverage (20+) with a search-first web/desktop browse UI plus cost**, oriented to retrospective analysis rather than live monitoring.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, unlike its cluster-mates `claude-fleet` and `ping-island`.
+
+Two things separate it from the `abtop` (STACK) overlap. First, direction: abtop is a *live* TUI of
+what is running now, agentsview is a *retrospective* browser and search over completed sessions
+with cost attribution — you reach for them at different moments. Second, breadth: 20+ agents in one
+local SQLite. That is not hypothetical here — this repo supports Claude Code *and* opencode by
+policy (ADR-0002), so cross-agent history is a real want rather than a feature list item.
+
+MIT, ★4.2K, actively pushed, local-first with no cloud service, easy install. The unresolved
+question is the one the evaluation named: verify its cost numbers against a provider bill before
+trusting them — `ccusage` (STACK) is the reference for that, and where the two disagree is the
+whole finding. That is a measurement, so it is P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 

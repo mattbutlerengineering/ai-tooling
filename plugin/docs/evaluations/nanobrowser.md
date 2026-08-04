@@ -3,6 +3,7 @@
 **Repo:** [nanobrowser/nanobrowser](https://github.com/nanobrowser/nanobrowser)
 **Stars:** 13,329 | **Last updated:** 2025-11-24 (pushed) | **License:** Apache-2.0 | **Language:** TypeScript (Chrome extension)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify — AI web automation in the browser
 **Layer:** Tooling (Chrome extension)
 
@@ -50,9 +51,24 @@ gh api repos/nanobrowser/nanobrowser/readme --jq '.content' | base64 -d | head -
 
 ## Verdict
 
-**discovery-log — tentative read** — Nanobrowser is a popular, Apache-2.0 **free, local, multi-agent web-automation Chrome extension** — a privacy-preserving OpenAI-Operator alternative where everything runs in your browser with your own keys. Adopt it for **hands-on, interactive web automation and verification** (authenticated flows, repetitive web tasks) when you want to avoid Operator's subscription and cloud credential handling. It's CONDITIONAL because the project's last push is ~7 months old (verify current behavior), it's an interactive in-browser agent rather than headless/CI automation, and driving your logged-in browser is a high-trust capability. For scripted/CI browser testing in the dev loop, agent-browser/playwright fit better; Nanobrowser is for interactive, local, free web tasks.
+**SKIP** — redundant with [`playwright`](https://github.com/microsoft/playwright-mcp) (STACK,
+`RUN`) on the dev-loop half, and unmaintained. The evaluation routes the same way: *"For
+scripted/CI browser testing in the dev loop, agent-browser/playwright fit better; Nanobrowser is
+for interactive, local, free web tasks."*
 
-Compared to neighbors: **browser-use** is an autonomous web agent (framework); **agent-browser** is a CLI for agent browser automation; **page-agent** is in-page NL control of your own web app; **playwright** automates a controlled browser. Nanobrowser's distinguishing pitch is **a free, local, multi-agent Chrome extension that replaces paid web Operators.**
+Verification in this loop has to be repeatable and headless — the same run, in CI, producing the
+same answer. Nanobrowser is deliberately the opposite: an interactive multi-agent Chrome extension
+you watch and steer in a side panel. The part that overlaps the incumbent it does worse for this
+purpose; the part that doesn't is personal web automation, which is off-scope.
+
+Staleness settles it. The last push is 2025-11-24 — over eight months in a category where the
+extension APIs, the model APIs, and the harness all moved. The evaluation flagged "verify current
+behavior" at ~7 months; it has only aged since.
+
+Re-open if the project resumes releases *and* you specifically want a free, local, BYO-key
+alternative to a hosted browser operator — which is a personal-automation want, not a dev-loop one.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 
