@@ -3,6 +3,7 @@
 **Repo:** [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)
 **Stars:** 63,945 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Plan (codebase understanding / onboarding before and during implementation)
 **Layer:** Tooling
 
@@ -74,6 +75,21 @@ Understand-Anything is a mature, well-tested, high-traction (63.9K-star, v2.7.3,
 **vs codegraph (the key comparison): additive, different shape, not a replacement.** Codegraph is an always-on, auto-syncing **MCP server** agents query live for structural facts during a task (definitions, callers, callees) — invisible, cheap, agent-loop-native, which is why it's ADOPT. Understand-Anything is a **batch pipeline producing a human-facing visual graph** plus on-demand comprehension commands; it has incremental updates and an optional post-commit hook, but no live MCP query surface and a real first-run token cost. They serve different jobs: codegraph makes the *agent* navigate better mid-loop; Understand-Anything helps a *human* (and on-demand the agent) comprehend an unfamiliar codebase and onboard. You could run both.
 
 **Use Understand-Anything when:** you're onboarding to a large/unfamiliar codebase (its stated 200K-LOC use case), you want a shareable committed visual graph for team onboarding/PR review/docs-as-code, or you want guided tours / domain mapping / diff-impact that a search index doesn't produce — and you can absorb the first-run token cost (or point it at a local model). For transparent, always-on, low-cost structural awareness *inside the agent loop*, codegraph remains the default. Re-evaluate toward ADOPT if it adds a live MCP query interface or publishes reproducible cost/quality benchmarks.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It cites
+[`codegraph`](https://github.com/colbymchenry/codegraph) (STACK, `ADOPT`/`MEASURED`), but this
+evaluation already worked that comparison and concluded **"additive, different shape, not a
+replacement … You could run both"**: codegraph is a live MCP surface the agent queries mid-loop,
+Understand-Anything is a batch pipeline producing a human-facing visual graph, tours, and
+onboarding guides. Different consumer, different moment. The eval also states outright that
+"this is not a SKIP-for-thinness case" at 63.9K stars and v2.7.3.
+
+Re-evaluating it toward ADOPT needs the thing this lane cannot do — the eval names the trigger
+(a live MCP query interface, or reproducible cost/quality benchmarks). P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [Ataraxy-Labs/sem](https://github.com/Ataraxy-Labs/sem)
 **Stars:** 2,948 | **Last updated:** 2026-06-17 (pushed) | **License:** MIT | **Language:** Rust
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Code Understanding — Implement/Review
 **Layer:** Tooling (CLI + MCP server for agents)
 
@@ -53,6 +54,20 @@ gh api repos/Ataraxy-Labs/sem/readme --jq '.content' | base64 -d | head -75     
 **CONDITIONAL** — sem is a sharp, MIT-licensed, zero-setup tool that gives Git an **entity-level semantic layer**: diff, blame, and impact analysis over functions/classes/methods via tree-sitter, delivered as a fast Rust binary with an MCP server built for coding agents. Adopt it to give agents (and reviewers) a structural view of *changes* — what function changed and what it affects — rather than line hunks they must re-interpret. It complements, not replaces, whole-codebase semantic search (serena/claude-context): sem is about understanding diffs, they're about finding code. Pilot it in any Git repo (no setup cost) and weigh deeper buy-in to the Ataraxy stack (weave/inspect) separately.
 
 Compared to neighbors: **serena** does LSP symbol-level find/refactor; **codegraph**/**code-review-graph** build structural/blast-radius graphs; **Understand-Anything** turns code into a knowledge graph. sem's distinguishing pitch is **entity-level git diff/blame/impact (semantic version control) with zero setup and an MCP surface for agents.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. It cites
+[`serena`](https://github.com/oraios/serena) (STACK, `ADOPT`/`MEASURED`), but this evaluation
+records the two as complementary in as many words: **"It complements, not replaces,
+whole-codebase semantic search (serena/claude-context): sem is about understanding *diffs*,
+they're about *finding code*."** Entity-level git diff/blame/impact is not a job any STACK pick
+does. SKIPping it as redundant would invert our own recorded reading.
+
+Cheap to settle, too: MIT, a single Rust binary, zero setup. That makes it a good P0 candidate
+rather than a triage casualty.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

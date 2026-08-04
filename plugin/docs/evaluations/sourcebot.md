@@ -3,6 +3,7 @@
 **Repo:** [sourcebot-dev/sourcebot](https://github.com/sourcebot-dev/sourcebot)
 **Stars:** 3,524 | **Last updated:** 2026-06-20 (pushed) | **License:** see repo (no SPDX detected; self-hostable) | **Language:** TypeScript (self-hosted web app)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04
 **Dev loop stage:** Code Understanding — search, navigation, NL Q&A across repos
 **Layer:** Infrastructure (self-hosted server; humans + agents)
 
@@ -53,6 +54,21 @@ gh api repos/sourcebot-dev/sourcebot/readme --jq '.content' | base64 -d | head -
 **CONDITIONAL** — Sourcebot is a strong **self-hosted, org-scale code-understanding platform** that unifies fast multi-repo search, IDE-grade navigation, and **citation-grounded natural-language Q&A** ("Ask Sourcebot") for both humans and agents. Adopt it when your team has many repos across hosts and wants one self-hosted place for cross-repo search and trustworthy, cited code answers — onboarding, archaeology, and agent retrieval all benefit. It's CONDITIONAL because the license isn't a standard SPDX (verify terms/feature gating), it's a server to operate, and the agent-consumption path needs confirming for your stack. Against single-repo tools (serena, sem), Sourcebot's edge is org-wide reach + cited Q&A.
 
 Compared to neighbors: **serena** does LSP symbol-level edit/find within a project; **claude-context** is embedding search via Milvus; **sem** is entity-level diffs; **code-context-engine** indexes one codebase. Sourcebot's distinguishing pitch is **self-hosted, cross-repo search + navigation + citation-grounded NL Q&A for humans and agents.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped. Against
+[`serena`](https://github.com/oraios/serena) (STACK) its edge is recorded as org-wide reach and
+citation-grounded Q&A: serena navigates one project over LSP, Sourcebot is a self-hosted
+platform searching across many repos and hosts. Not the same job, so redundancy does not decide
+it.
+
+What does make it low priority is shape, not merit — it is a server to operate for a
+multi-repo team, against a single-operator stack. Low priority is not elimination. Watch item
+for whoever takes it: the license is **not a standard SPDX identifier** (`NOASSERTION` in
+`repo-metadata.json`), so terms and any feature gating need reading before adoption.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

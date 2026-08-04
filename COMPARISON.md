@@ -27,23 +27,23 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
 | CodeJury | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | know-before-act | skill | | ✓ | SKIP | SOURCE-ONLY |
-| vibe-coding-prompt-template | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| vibe-coding-prompt-template | skill | | ✓ | SKIP | SOURCE-ONLY |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
 | spec-kit | framework | | ✓ | discovery-log | REVIEW |
 | Finn-loop | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pm-manager | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-spec-workflow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| claude-code-my-workflow | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-my-workflow | tool | | ✓ | SKIP | SOURCE-ONLY |
 | design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | ccpm | skill | | ✓ | discovery-log | REVIEW |
 | OpenSpec | framework | | ✓ | discovery-log | REVIEW |
-| BMAD-METHOD | framework | | ✓ | discovery-log | REVIEW |
+| BMAD-METHOD | framework | | ✓ | SKIP | REVIEW |
 | 8090 Software Factory | platform | ✓ | | DEFER | REVIEW |
 | software-factory-plugin | plugin | | ✓ | CONDITIONAL | MEASURED |
 | spec_driven_develop | skill | | ✓ | discovery-log | REVIEW |
 | reversa | framework | ✓ | ✓ | discovery-log | REVIEW |
 | flow-next | plugin | ✓ | ✓ | discovery-log | REVIEW |
-| mdn/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| mdn/mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opensrc | tool | | ✓ | discovery-log | REVIEW |
 | planning-with-files | skill | | ✓ | SKIP | REVIEW |
 | reporails/cli | tool | | $ | discovery-log | SOURCE-ONLY |
@@ -726,7 +726,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 59 | 23 | 6 | 39% |
+| Plan | 59 | 26 | 6 | 44% |
 | Implement | 212 | 50 | 4 | 24% |
 | Verify | 22 | 5 | 2 | 23% |
 | Review | 42 | 12 | 3 | 29% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 13 | 2 | 30% |
 | Research & Discovery | 20 | 3 | 1 | 15% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **642** | **162** | **34** | **25%** |
+| **Total** | **642** | **165** | **34** | **26%** |

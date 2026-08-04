@@ -3,6 +3,7 @@
 **Repo:** [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)
 **Stars:** 49,365 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review (a full-lifecycle planning-to-code framework)
 **Layer:** Process (with a Tooling install layer — native skills/plugin)
 
@@ -64,11 +65,11 @@ gh api repos/bmad-code-org/BMAD-METHOD/contents/tools/installer/ide/platform-cod
 
 ## Verdict
 
-**CONDITIONAL**
+**SKIP** — redundant with [`GSD`](https://github.com/obra/superpowers), the installed STACK pick for structured spec-to-code work. This is not a new conclusion; it is the one this evaluation already reached and the row had not caught up to: *"it overlaps directly with GSD … given GSD is installed, BMAD is largely **redundant** here, and adopting both would create competing planning directories and vocabularies."* Two spec-to-code frameworks is worse than one — they fight over the same planning artifacts, not merely duplicate them.
 
-Adopt when you (1) are doing substantial, spec-worthy work — green-field projects or large features where up-front planning genuinely pays off — and (2) want a turnkey, mature, agile-style lifecycle with specialist personas and phase handoffs rather than hand-rolling your own planning discipline. V6's rewrite into native Claude Code skills (installs to `.claude/skills`, ships a `marketplace.json`) puts it squarely inside the dev loop, and the dev/review skills encode real correctness discipline (test-first, AC-keyed, run-to-completion, adversarial review). It is genuinely well-engineered and exceptionally maintained (49.4K stars, 145 contributors, 36 releases, MIT) — the "Breakthrough Method" branding undersells nothing technical but oversells novelty.
+None of this is a knock on the tool, and the skip does not claim otherwise. BMAD is genuinely well-engineered and exceptionally maintained (49.4K stars, 145 contributors, 36 releases), V6's rewrite into native Claude Code skills puts it squarely inside the dev loop, and its dev/review skills encode real correctness discipline — test-first, AC-keyed, run-to-completion, adversarial review. If you do **not** already run a structured spec-to-code framework, this is the best-known one to reach for, and it stays catalogued on exactly that basis. The remaining reservations are ceremony that is heavy for small work, a bespoke vocabulary (`_bmad/`, named personas, a Python resolver), and no benchmark proving the output beats unstructured agents.
 
-It is not an unconditional ADOPT because the ceremony is heavy for small/inline work, the install footprint and bespoke vocabulary (`_bmad/`, named personas, Python resolver) are a real commitment, and there is no benchmark proving output beats unstructured agents. Most decisively for this user: **it overlaps directly with GSD**, which already delivers phased, role-driven, document-grounded development with parallel specialist subagents and persistent state. BMAD is additive only if you do NOT already run a structured spec-to-code framework; given GSD is installed, BMAD is largely **redundant** here and adopting both would create competing planning directories and vocabularies. Keep it cataloged as the best-known reference framework in this space and a fallback for tools beyond Claude Code, but do not stack it on top of GSD.
+Re-open if GSD is dropped from STACK, or for a harness GSD does not support — those are the two conditions under which the redundancy stops holding.
 
 ## Catalog entry
 
