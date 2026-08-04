@@ -3,6 +3,7 @@
 **Repo:** [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst)
 **Stars:** 876 (successor) | **Last updated:** 2026-06-19 (pushed; created 2025-10-30) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a visual session-manager/workspace wrapping coding agents; touches Plan via tasks and Review via WYSIWYG diff approval)
 **Layer:** Tooling (cross-platform Electron desktop app + mobile companion)
 
@@ -54,9 +55,23 @@ gh api repos/Nimbalyst/nimbalyst/releases --jq 'length'           # 30
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt if you want a *visual* command center for running several Codex/Claude Code sessions in parallel with red/green human approval and built-in git worktrees, and you prefer a dedicated desktop workspace over a terminal/IDE. It's actively developed, multi-agent, cross-platform, and the diff-approval + session-management combo is genuinely useful. Hold off if you're happy in a TUI (claude-squad) or an in-editor agent — the full Electron workspace is a heavy switch, and the successor is still young.
+**SKIP** — redundant with [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`). The evaluation says so in its own hold-off clause: *"Hold off if
+you're happy in a TUI (claude-squad) — the full Electron workspace is a heavy switch."* Alternatives
+you pick between are the definition of the redundancy this band eliminates.
 
-Compared to neighbors: **claude-squad** is the lean TUI equivalent (manage parallel sessions, no GUI); **kilocode** lives inside your existing editor; Nimbalyst is the maximal **standalone visual workspace** end of that spectrum — more capability and a richer review surface, but more app to adopt. (Catalogued under its live name; the discovered `stravu/crystal` repo is the deprecated predecessor.)
+The job is identical — run several Codex/Claude Code sessions in parallel over git worktrees and
+approve the diffs — and the difference is the surface: an Electron desktop workspace instead of a
+TUI. The WYSIWYG red/green approval and kanban are genuinely nicer, and they are also the cost: a
+standalone Electron app is a heavier dependency than a terminal program, and the evaluation notes
+the successor (formerly Crystal) is still young.
+
+★1.1K against the incumbent's ★8.1K is the tiebreak. A GUI variant with an eighth of the adoption
+is not a replacement candidate.
+
+Re-open if visual diff approval turns out to be the thing that makes parallel sessions reviewable —
+that is a measurable claim (review throughput with and without), and it would be P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

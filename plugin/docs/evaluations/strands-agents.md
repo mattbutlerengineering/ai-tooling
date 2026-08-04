@@ -3,6 +3,7 @@
 **Repo:** [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk)
 **Stars:** 6,218 | **Last updated:** 2026-06-20 (pushed) | **License:** Apache-2.0 | **Language:** Python + TypeScript (PyPI: `strands-agents`; npm: `@strands-agents/sdk`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Harnesses (agent-building SDK) — Implement
 **Layer:** Infrastructure (SDK/framework for building production agents)
 
@@ -53,6 +54,26 @@ gh api repos/strands-agents/harness-sdk/readme --jq '.content' | base64 -d | hea
 **discovery-log — tentative read** — Strands Agents is a serious, Apache-2.0 **model-driven SDK for building production agent harnesses** with the controllability (decision tracing, intercept hooks, guardrails, steering, execution limits) that reliable agentic software demands — dual Python/TS, any-model/any-cloud. Adopt it when you're *building an agentic application or a custom harness* and want end-to-end control plus built-in observability and guardrails, rather than a finished coding agent. It's infrastructure: the value is realized by writing and operating your agent, with AWS/Bedrock as the path of least resistance. For "I just want to code with an agent," a ready harness (Claude Code, letta-code, oh-my-pi) fits better; Strands is for when *you* are the one building the agent.
 
 Compared to neighbors: **mcp-use**/**fastmcp** build MCP servers/clients; **ruflo** is a meta-harness; **phantom** is a standing agent on the Claude Agent SDK. Strands' distinguishing pitch is **a dual-language, any-cloud SDK to build an agent harness you trace and control end-to-end.**
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a level error. `fastmcp` (STACK, `RUN`) is
+for building MCP *servers*: one protocol surface an agent calls. Strands is an SDK for building the
+*agent* — the loop, model routing, context management, execution limits, hooks and steering,
+guardrails, multi-agent patterns — with MCP as one integration among many. A server framework and a
+harness SDK are not substitutes.
+
+It is infrastructure rather than a finished tool, which its evaluation states directly: *"the value
+is realized by writing and operating your agent."* That places it outside the install list by
+construction — nothing gets adopted here by running `pip install` and being done.
+
+What makes it worth keeping visible is the controllability surface: decision tracing, intercept
+hooks, execution limits and guardrails are the features that make agentic software reviewable, and
+they are the same properties this catalog's Verifiability signal asks for. Apache-2.0, dual
+Python/TypeScript, ★6.5K, AWS-backed, pushed today. The right row to reach for if this repo ever
+builds a harness rather than assembling one.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

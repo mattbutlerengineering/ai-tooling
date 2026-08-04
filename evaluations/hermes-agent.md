@@ -3,6 +3,7 @@
 **Repo:** [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 **Stars:** ~197,700 (unusually high — reported as-is, unverified) | **Last updated:** 2026-06-20 (pushed; created 2025-07-22) | **License:** MIT | **Forks:** ~35K
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (general self-improving personal agent; tangential to the coding dev loop)
 **Layer:** Harness (CLI + gateway + TUI; runs on VPS/GPU/serverless)
 
@@ -54,6 +55,25 @@ gh api repos/NousResearch/hermes-agent/readme --jq '.content' | base64 -d | head
 **discovery-log — tentative read** — Hermes Agent is a distinctive, MIT-licensed, **model-agnostic self-improving personal agent** from a credible lab, whose **built-in learning loop** (skills-from-experience + knowledge persistence + cross-session user model) is more ambitious than the catalog's recall-only memory tools, and which runs detached on cheap infra with Telegram access. Adopt it if you want a long-running, own-it personal agent that compounds over time and refuses model lock-in. For the AI-assisted **coding** dev loop specifically it's tangential (it overlaps nanobot/CowAgent as an own-it assistant), the self-modifying behavior is a real governance surface, and its headline popularity metrics are anomalous — pilot in a sandbox and watch what it persists before trusting it.
 
 Compared to neighbors: **nanobot** and **CowAgent** are own-it multi-channel assistants; **hivemind** turns execution traces into reusable skills; **claude-reflect** learns from corrections into CLAUDE.md. Hermes' distinguishing pitch is a **closed-loop self-improving agent** (creates *and* refines its own skills, persists knowledge, models the user) that runs anywhere with any model.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the banding is a category error. `claude-reflect` (STACK,
+`MEASURED`) is a reflection skill that runs inside a coding session; Hermes Agent is a whole
+model-agnostic personal agent with a built-in learning loop that creates and refines skills from
+experience, persists knowledge, searches its own history, and models the user across sessions.
+
+Its evaluation is candid that this is *"tangential"* for the coding dev loop specifically, and that
+is the honest reading — this is a standing personal agent on a VPS with Telegram access, not an
+inner-loop tool. Tangential is not redundant, though, and the learning loop is *"more ambitious than
+the catalog's recall-only memory tools"*, which is a capability claim worth keeping visible rather
+than eliminating.
+
+MIT, ★212K, from a credible lab, pushed today. The scale of the star count is itself a reason not to
+dispose it in a bulk lane: whatever it is, a very large number of people are running it, and the
+skills-from-experience mechanism is the direction this catalog's memory cluster is heading.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

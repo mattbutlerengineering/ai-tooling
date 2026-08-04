@@ -84,17 +84,17 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-orchestrator | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sigbound | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
-| aidlc-workflows | framework | | ✓ | discovery-log | REVIEW |
+| aidlc-workflows | framework | | ✓ | SKIP | REVIEW |
 | arrow-js | framework | | ✓ | discovery-log | REVIEW |
 | beads | tool | ✓ | ✓ | KEEP | MEASURED |
 | succubus | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | aster | harness | | ✓ | SKIP | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
-| eigent | platform | ✓ | ✓ | discovery-log | REVIEW |
+| eigent | platform | ✓ | ✓ | SKIP | REVIEW |
 | herdr | tool | | ✓ | discovery-log | REVIEW |
 | claurst | harness | | ✓ | SKIP | REVIEW |
-| claude-code-harness | harness | | ✓ | discovery-log | REVIEW |
+| claude-code-harness | harness | | ✓ | SKIP | REVIEW |
 | claude-code-router | tool | | ✓ | discovery-log | REVIEW |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | CLIProxyAPI | tool | | ✓ | discovery-log | REVIEW |
@@ -105,28 +105,28 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
-| Nimbalyst | platform | | ✓ | discovery-log | REVIEW |
-| agent-of-empires | tool | | ✓ | discovery-log | REVIEW |
+| Nimbalyst | platform | | ✓ | SKIP | REVIEW |
+| agent-of-empires | tool | | ✓ | SKIP | REVIEW |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
-| claude-task-master | tool | | ✓ | discovery-log | REVIEW |
+| claude-task-master | tool | | ✓ | SKIP | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
 | skill-view | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | align-dev | tool | | ✓ | SKIP | REVIEW |
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
 | claude-account | tool | | ✓ | discovery-log | SOURCE-ONLY |
-| BossConsole | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| BossConsole | platform | | ✓ | SKIP | SOURCE-ONLY |
 | commit-commands | plugin | | ✓ | SKIP | REVIEW |
 | compound-engineering | plugin | | ✓ | discovery-log | REVIEW |
 | context-mode | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Continuous-Claude-v3 | harness | ✓ | ✓ | discovery-log | REVIEW |
+| Continuous-Claude-v3 | harness | ✓ | ✓ | SKIP | REVIEW |
 | CowAgent | harness | | ✓ | SKIP | REVIEW |
-| deer-flow | harness | | ✓ | discovery-log | REVIEW |
+| deer-flow | harness | | ✓ | SKIP | REVIEW |
 | DeepSeek-Reasonix | platform | | ✓ | discovery-log | REVIEW |
 | dify | platform | | ✓ | SKIP | REVIEW |
 | activepieces | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | onyx | platform | | ✓ | discovery-log | SOURCE-ONLY |
-| dmux | tool | | ✓ | discovery-log | REVIEW |
+| dmux | tool | | ✓ | SKIP | REVIEW |
 | ECC | harness | | ✓ | discovery-log | REVIEW |
 | fast-agent | framework | | ✓ | discovery-log | REVIEW |
 | Flowise | platform | | ✓ | SKIP | REVIEW |
@@ -140,14 +140,14 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Kaku | tool | | ✓ | discovery-log | REVIEW |
 | jcode | harness | | ✓ | discovery-log | REVIEW |
 | gstack | harness | | ✓ | discovery-log | REVIEW |
-| gbrain | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| gbrain | harness | | ✓ | SKIP | SOURCE-ONLY |
 | happy | platform | | $ | discovery-log | REVIEW |
-| harness | skill | | ✓ | discovery-log | REVIEW |
+| harness | skill | | ✓ | SKIP | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
 | claude-context-optimizer | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
 | humanlayer | harness | | ✓ | SKIP | REVIEW |
-| KARIMO | plugin | | ✓ | discovery-log | REVIEW |
+| KARIMO | plugin | | ✓ | SKIP | REVIEW |
 | LangGraph | framework | | ✓ | SKIP | REVIEW |
 | deer-workflow | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | langhost | framework | | ✓ | discovery-log | SOURCE-ONLY |
@@ -232,7 +232,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gpt-engineer | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| SWE-agent | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| SWE-agent | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | continue | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cline | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Roo-Code | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -266,13 +266,13 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
 | strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
-| Aegis | skill | | ✓ | discovery-log | REVIEW |
-| superset | tool | | ✓ | discovery-log | REVIEW |
+| Aegis | skill | | ✓ | SKIP | REVIEW |
+| superset | tool | | ✓ | SKIP | REVIEW |
 | implement | skill | | ✓ | discovery-log | REVIEW |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
 | codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
 | agents-council | plugin | | ✓ | discovery-log | SOURCE-ONLY |
-| vibecode-pro-max-kit | harness | | ✓ | discovery-log | REVIEW |
+| vibecode-pro-max-kit | harness | | ✓ | SKIP | REVIEW |
 | re_gent | tool | | ✓ | discovery-log | REVIEW |
 | h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cli-continues | tool | | ✓ | discovery-log | REVIEW |
@@ -288,7 +288,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | clawcodex | harness | | ✓ | discovery-log | REVIEW |
 | claudian | plugin | | ✓ | discovery-log | REVIEW |
 | jetbrains-cc-gui | plugin | | ✓ | discovery-log | REVIEW |
-| babysitter | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| babysitter | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 
 ## Verify
 
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 26 | 6 | 44% |
-| Implement | 212 | 50 | 4 | 24% |
+| Implement | 212 | 68 | 4 | 32% |
 | Verify | 22 | 8 | 2 | 36% |
 | Review | 42 | 15 | 3 | 36% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 13 | 2 | 30% |
 | Research & Discovery | 20 | 5 | 1 | 25% |
 | Reference | 53 | 11 | 4 | 21% |
-| **Total** | **642** | **190** | **34** | **30%** |
+| **Total** | **642** | **208** | **34** | **32%** |

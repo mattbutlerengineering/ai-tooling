@@ -3,6 +3,7 @@
 **Repo:** [revfactory/harness](https://github.com/revfactory/harness)
 **Stars:** 7,095 | **Last updated:** 2026-06-10 (pushed; created 2026-03-26) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer-loop **Architect / Decompose** — it is a *setup-time* generator, not a per-task tool. You run it once to manufacture a domain-tailored `.claude/agents/` + `.claude/skills/` team, which then operates across the inner loop (Plan → Implement → Verify) on subsequent sessions. It builds the harness; the harness does the work.
 **Layer:** Process generator that emits Process artifacts (markdown agent/skill definitions). No runtime of its own — it leans on Claude Code's Agent Teams API (`TeamCreate`/`SendMessage`/`TaskCreate`) at generation and execution time.
 
@@ -59,9 +60,25 @@ gh api repos/revfactory/harness/contributors --jq '[.[].login]'  # 6 contributor
 
 ## Verdict
 
-**discovery-log — tentative read: adopt as a one-time scaffolder if you already run Agent Teams; skip if you don't.** Harness is the most *substantive* team-generator among its neighbors: it ships a real design framework (6 patterns + execution-mode decision tree + drift-aware evolution) rather than a roster, and its docs are unusually honest about their own fragility. But the marquee multi-agent patterns are gated behind an experimental flag that fails silently, the skill body is Korean (hard to audit), there are no tagged releases despite a "v1.2.0" badge, and the generated output quality is unbenchmarked. The right move: use it once to bootstrap a tailored agent/skill set, then read, prune, and own the generated files yourself.
+**SKIP** — redundant with [`skill-creator`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator)
+(STACK, `MEASURED`) on the job it actually does, and gated behind a precondition this stack does not
+meet.
 
-Compared to neighbors: **agency-agents** hands you 271 uncoordinated personas to activate by hand; harness instead *designs and wires* a small team — strictly more useful if the design step works. **gstack** is a curated, opinionated *fixed* setup (~53 chosen skills); harness generates a *bespoke* one per domain — better fit, less battle-testing. **superpowers** ships a complete methodology you adopt as-is; harness produces a methodology *for your domain*. **ruflo** is a heavyweight all-in-one swarm harness with its own runtime; harness is a lean generator that defers execution to Claude Code's native Agent Teams. Pick harness when you want a tailored team scaffolded fast and are comfortable curating the output; pick superpowers/gstack when you want something proven off the shelf.
+The banding put it against `superpowers`, but harness is not a workflow-discipline pack — it is a
+*generator*: a meta-skill that designs agent teams and emits specialized skills. Authoring skills is
+`skill-creator`'s job, and that incumbent has been measured. The evaluation's own conditional is the
+second half: *"adopt as a one-time scaffolder if you already run Agent Teams; skip if you don't."*
+This stack does not, so the condition resolves to the skip branch by its own terms.
+
+The auditability facts argue against carrying it anyway: the marquee multi-agent patterns sit behind
+an experimental flag that *fails silently*, the skill body is Korean and therefore hard to review
+line by line, and there are no tagged releases despite a version badge. A skill generator you cannot
+read is a poor trade when the thing it generates goes into your agent's context.
+
+Re-open if this stack adopts Agent Teams, or if the pattern framework is translated and the
+experimental flag stops failing quietly.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

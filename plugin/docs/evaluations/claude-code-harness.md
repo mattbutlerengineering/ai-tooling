@@ -3,6 +3,7 @@
 **Repo:** [Chachamaru127/claude-code-harness](https://github.com/Chachamaru127/claude-code-harness)
 **Stars:** 2,815 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -63,9 +64,24 @@ Not hands-on installed — evaluation is architecture-review-based due to the he
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`), which is the conclusion the evaluation already reached and the row
+had not caught up to: *"for most users, superpowers (ADOPT) provides 80% of the discipline with 20%
+of the complexity: it composes with existing tools, installs in one command, and its individual
+skills work independently."*
 
-Use when you want a maximally structured development methodology with enforced planning gates and review separation — and you're willing to accept the installation complexity and Japanese-primary documentation. The spec/plan/review separation is genuinely well-designed and the Go-native engine is more robust than bash-based alternatives. However, for most users, superpowers (ADOPT) provides 80% of the discipline with 20% of the complexity: it composes with existing tools, installs in one command, and its individual skills work independently. Choose claude-code-harness over superpowers when you need the non-trivial planning gate (multi-perspective validation), cross-session plan persistence, or the Breezing team execution mode.
+Both impose a structured Plan-Work-Review cycle with enforced gates. The incumbent is installed,
+measured, composable, and in English; this one is a Go-native engine with a heavier install and
+Japanese-primary documentation. Where two tools enforce the same discipline, the one you can read
+and already run wins by default.
+
+The one place the evaluation grants it an edge — a multi-perspective planning gate — is a feature to
+want from the incumbent, not grounds for a second methodology layer. Methodology packs do not
+compose: two of them fighting over the same turn is worse than either alone.
+
+Re-open if the non-trivial planning gate proves to catch plan defects GSD's discovery discussion
+misses — a with/without read, which is P0 work.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

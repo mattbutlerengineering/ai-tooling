@@ -3,6 +3,7 @@
 **Repo:** [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin)
 **Stars:** 21,725 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (full-loop: Plan → Implement → Review → Reflect)
 **Layer:** Tooling
 
@@ -57,6 +58,29 @@ gh api repos/EveryInc/compound-engineering-plugin/contents/CONCEPTS.md --jq '.co
 **discovery-log — tentative read**
 
 Use when you want a complete, opinionated AI engineering methodology and are willing to commit to it as your primary workflow. The compounding knowledge mechanism is genuinely novel and the individual skill quality (especially ce-brainstorm and ce-code-review) is among the highest in the catalog. However, it substantially overlaps with superpowers (ADOPT) and requires full adoption to realize the compounding benefit — it's not a tool you add alongside other methodology plugins. Best for teams standardizing on one workflow across Claude Code, Codex, and Cursor.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped — the only methodology pack in this pass that survives, and it
+survives on a named mechanism rather than on breadth.
+
+Its evaluation grants the overlap with [`superpowers`/GSD](https://github.com/obra/superpowers)
+(STACK, `MEASURED`) plainly, including the part that makes methodology packs mutually exclusive:
+*"it's not a tool you add alongside other methodology plugins."* On that structure alone the rest
+of the cluster was disposed — `claude-code-harness`, `Aegis`, `KARIMO`, `aidlc-workflows`,
+`vibecode-pro-max-kit`.
+
+What separates this one is that the same evaluation calls the compounding-knowledge mechanism
+*"genuinely novel"* and rates the individual skills — `ce-brainstorm`, `ce-code-review` — as *"among
+the highest in the catalog"*. A challenger with a mechanism the incumbent lacks and skill quality
+that reads better is a replacement question, not a redundancy one, and a bulk lane may not answer a
+replacement question in either direction.
+
+★22.9K, MIT, pushed today, and it runs across Claude Code, Codex and Cursor. The P0 read is a
+head-to-head against GSD on a disclosed task set, with the specific question being whether the
+compounding actually compounds over repeated runs — a claim only sequential measurement can test.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

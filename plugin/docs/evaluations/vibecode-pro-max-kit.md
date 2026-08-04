@@ -3,6 +3,7 @@
 **Repo:** [withkynam/vibecode-pro-max-kit](https://github.com/withkynam/vibecode-pro-max-kit)
 **Stars:** 948 | **Last updated:** 2026-06-17 (pushed; created 2026-05-27) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Inner loop, full sweep — Plan (Research/Spec/Innovate/Plan), Implement (Execute), Verify (Validate, test-check-fix loops), plus Reflect (self-improving project memory / Update-Process). A spec-driven autopilot harness.
 **Layer:** Process + Tooling (a RIPER-5 workflow expressed as Claude Code agents/skills, plus real Node.js hooks — installed per project, no server)
 
@@ -61,9 +62,24 @@ gh api repos/withkynam/vibecode-pro-max-kit/contributors --jq '[.[].login]'  # [
 
 ## Verdict
 
-**discovery-log — tentative read: try it in a sandbox, with a human gate, never as unattended autopilot on real work.** Past the anime GIFs and "pro-max" branding there is more substance than the name suggests: tested Node hooks, real PreToolUse-style guardrails (privacy-block, scout-block), a coherent RIPER-5 plan-first workflow, resumable disk state, and genuine cost-routing. But it is single-author, ~3 weeks old, commercially affiliated, installed via curl|bash, and explicitly sells "0 need for human gate" to non-engineers — the riskiest possible combination. Adopt it as a *supervised* spec-driven workflow on a throwaway project to evaluate; do not turn on hands-free autopilot against production code on the strength of self-asserted metrics.
+**SKIP** — redundant with [`superpowers`/GSD](https://github.com/obra/superpowers) (STACK, `MEASURED`) on the spec-driven-workflow job, and the delta it sells is one its
+own evaluation says never to enable: *"try it in a sandbox, with a human gate, never as unattended
+autopilot on real work."*
 
-Compared to neighbors: **GSD** is the mature incumbent for this exact shape (context-engineering Discuss→Plan→Execute→Verify→Ship, durable STATE.md/CONTEXT.md, restricted-tool subagents, an active org-backed repo) and is the safer default; **superpowers** brings battle-tested TDD/review/verification skills; **ralph-claude-code** does autonomous looping with *exit detection* (a sober answer to "when do I stop"). vibecode-pro-max-kit's distinctive contributions are its cost-routing and its tested safety hooks — worth borrowing — but as a whole package it is a younger, louder recombination of what GSD and superpowers already do with more credibility.
+The RIPER-5 plan-first workflow, resumable state and cost routing are the discipline layer the
+incumbent occupies, and methodology packs do not stack. What is left as differentiation is the
+15-agent hands-free autopilot, marketed as *"0 need for human gate"* — a claim aimed at
+non-engineers that the evaluation identifies as the riskiest possible combination with everything
+else about the project.
+
+Everything else about the project is the reason the redundancy is not even the strongest argument:
+single-author, roughly three weeks old, commercially affiliated, ★1K, installed via `curl | bash`.
+The evaluation's honest finding is that there is real substance underneath (tested Node hooks,
+genuine PreToolUse guardrails) — substance is not the issue; trust surface is.
+
+Re-open if it matures, drops the unattended-autopilot pitch, and ships a reviewable install path.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

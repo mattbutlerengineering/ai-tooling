@@ -3,6 +3,7 @@
 **Repo:** [standardagents/dmux](https://github.com/standardagents/dmux)
 **Stars:** 1,655 | **Last updated:** 2026-05-25 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (also Ship — branch/merge/PR handling)
 **Layer:** Tooling
 
@@ -60,11 +61,23 @@ gh api repos/max-sixty/worktrunk --jq '{stars,language,pushed_at}'
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`). Both are terminal session managers over git worktrees: launch
+several coding agents, watch them, switch between them, merge the work back. That is one job, and
+the incumbent has been run.
 
-Adopt dmux when you (1) live in a tmux-based terminal workflow on macOS/Linux and (2) regularly run **multiple coding agents in parallel** and want an interactive dashboard to launch, watch, browse, and merge them. It is a mature (v5.9.0, 15 contributors), well-designed composition of tmux + git worktrees with strong merge-back ergonomics and broad agent support, and it's the right tool for the "I want to see and manage several agents at once" use case. It is not a default for everyone: if you work with a single agent at a time, don't use tmux, or want scriptable/composable worktree commands rather than a TUI, the lighter `worktrunk` (or plain `git worktree`) is a better fit. The README's stale issues link and lack of hands-on validation here are minor caveats, not blockers.
+The delta the evaluation identifies is merge-back ergonomics and a broader agent roster. Real, but
+an ergonomic improvement on a job already covered is what this band eliminates — and the evaluation
+itself scopes the audience out from under it: *"if you work with a single agent at a time, don't
+use tmux, or want scriptable/composable worktree commands rather than a TUI, the lighter
+`worktrunk` (or plain `git worktree`) is a better fit."*
 
-**vs. worktrunk** (also in catalog): both isolate parallel agents via git worktrees, but they occupy different niches. worktrunk (Rust, ~5.5K stars, actively pushed) is a fast, scriptable CLI for git-worktree management — composable, no UI, no tmux requirement, agent-loop-friendly as a building block. dmux is the opposite end: an interactive Ink/React + tmux TUI that *orchestrates* a fleet of agents with a dashboard, file browser, notifications, and one-step merge/PR. Pick worktrunk for a lightweight, scriptable worktree primitive; pick dmux for a hands-on multi-agent cockpit. They're complementary more than competing — the catalog's "overlaps with worktrunk" is accurate but the differentiator is TUI-orchestration (dmux) vs. CLI-primitive (worktrunk). dmux's distinct niche within Agent Orchestration is being agent-CLI-agnostic and worktree-native, where claude-squad is Claude-leaning and heavier orchestration tools (agent-orchestrator, hive) add autonomous planning/conflict-resolution that dmux deliberately omits.
+Adoption decides the tie. dmux is ★1.7K against claude-squad's ★8.1K, and the catalog's answer to
+"I want a *better* session manager than the incumbent" is `herdr` (★24K, Apache-2.0, pushed today),
+which this same pass left open as a head-to-head. dmux is not that challenger.
+
+Re-open if worktree merge-back specifically becomes the friction that makes the incumbent unusable.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

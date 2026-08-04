@@ -3,6 +3,7 @@
 **Repo:** [omnigent-ai/omnigent](https://github.com/omnigent-ai/omnigent)
 **Stars:** 3,985 | **Last updated:** 2026-06-19 (v0.2.0, status: alpha) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship (a meta-harness orchestration layer)
 **Layer:** Infrastructure (the orchestration server/runtime + sandbox + policy engine) + Tooling (the `omnigent`/`omni` CLI and the agents you run)
 
@@ -72,6 +73,27 @@ It is CONDITIONAL rather than ADOPT because (a) it is a *parallel* orchestration
 **Differentiation:** vs **sandcastle** (CONDITIONAL) — both run sandboxed coding agents against your repo with git output, but sandcastle is a programmatic *TypeScript library* you script (`run()`/`createSandbox()`), while Omnigent is a *Python platform + server + web UI* with a YAML agent spec, a policy/governance engine, and multi-user real-time collaboration; sandcastle is leaner and more mature, Omnigent is broader and governance/collaboration-first. vs **claude-squad / dmux** (terminal multi-session managers) — those are lightweight TUIs that juggle several local CC/agent sessions; Omnigent is a far heavier platform that adds cross-vendor orchestration, sandboxing, policies, cloud hosts, and remote/phone access. vs **gastown** (multi-agent workspace manager) — similar parallel-worktree shape, but Omnigent's distinctive pieces are the meta-harness abstraction (swap harnesses via one YAML field) and the governance/policy + managed-cloud-host layer. vs **oh-my-openagent** (SKIP — alternative harness on OpenCode/Codex, not CC) — Omnigent is the inverse: it *consumes* Claude Code (and others) as harnesses rather than replacing the front-end, so it extends rather than supplants the CC dev loop.
 
 Re-evaluate toward ADOPT if it reaches a stable (1.0-ish) release with the V1 config-flow limitations resolved and a track record of reliability, or if a team specifically needs the governed multi-vendor + remote-collaboration story.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, and flagged as a P0 candidate.
+
+The banding against [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K) understates it. Omnigent runs *against your own repo*, orchestrating
+sandboxed coding agents that produce cross-reviewed PRs — it lands across Plan, Implement, Verify,
+Review and Ship, where the incumbent covers session management alone. Its evaluation verified the
+meta-harness claim rather than taking it on trust: ten-plus executor adapters under
+`omnigent/inner/`, per-harness e2e tests, and first-class Claude Code integration on two paths.
+
+Two differentiators have no equivalent anywhere in STACK: layered governance policies over spend,
+tools and blast radius, and per-session OS sandboxing. Both target the thing that makes autonomous
+multi-agent work hard to authorize rather than hard to build.
+
+Apache-2.0 — properly open source, which the evaluation contrasts against `oh-my-openagent`'s
+SUL-1.0 — ★6.9K, pushed today. The read it needs is whether the governance layer actually binds
+(does a blast-radius policy stop a real destructive action?), which is a measurement, not a bulk
+call.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

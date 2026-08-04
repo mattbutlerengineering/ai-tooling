@@ -3,6 +3,7 @@
 **Repo:** [gastownhall/gastown](https://github.com/gastownhall/gastown)
 **Stars:** 15,976 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement + Ship (also Plan/Review — convoys, merge queue, escalation)
 **Layer:** Infrastructure (a full coordination substrate, not a single tool)
 
@@ -76,6 +77,24 @@ Adopt Gas Town when you are deliberately running a **large fleet (10–30) of co
 - **gastown** — the heavyweight: not a cockpit but an **autonomous operations system** (merge queue, watchdogs, scheduler, escalation, federated work network, persistent ledger) aimed at 20–30 agents.
 
 Gas Town is **additive, not a thinner duplicate** — it occupies the "fleet + autonomy + self-healing" end of the spectrum that dmux/claude-squad deliberately leave empty, at the cost of being far heavier. Within the catalog it also overlaps with **agent-orchestrator** (autonomous spawn + conflict resolution) and complements **beads** (its own work ledger, separately cataloged). The existing catalog "overlaps with claude-squad, sandcastle" is accurate but understates that the real distinction is autonomy/scale, not topology.
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, unlike most of the cluster it sits in. The banding is against
+[`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K), which manages parallel sessions; Gas Town runs a *fleet* — a gated merge queue, stuck-agent
+recovery, crash-survivable persistent work state, and escalation paths. Those are operations
+capabilities the incumbent does not have and does not attempt.
+
+What keeps it out of the stack is scale, not quality. Its own evaluation is emphatic: *"decisively
+not a default: for a single agent, or the 'watch and merge a handful of agents' use case, it is
+massive overkill"*, on top of a heavy install (Go, Dolt, beads, tmux) and a large conceptual model
+to learn.
+
+It is the most complete autonomous multi-agent operations substrate in the catalog (v1.2.1, 30
+contributors, ★16.9K, MIT), and it is the right row to reach for if this stack ever runs 10-30
+agents on real repos. Until then it is a capability held in reserve, not a challenger to eliminate.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

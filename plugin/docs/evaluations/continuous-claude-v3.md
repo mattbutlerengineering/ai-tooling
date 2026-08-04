@@ -3,6 +3,7 @@
 **Repo:** [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3)
 **Stars:** 3,818 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Observability
 **Layer:** Infrastructure
 
@@ -66,9 +67,23 @@ gh api "repos/parcadei/Continuous-Claude-v3/git/trees/main?recursive=1" --jq '[.
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — redundant with [`headroom`](https://github.com/headroomlabs-ai/headroom) and
+[`claude-mem`](https://github.com/thedotmack/claude-mem) (both STACK, `MEASURED`), which between
+them already own the two jobs it does.
 
-Use when you want a fully integrated, opinionated development environment and are willing to commit to its workflow philosophy, Docker-based infrastructure, and Python stack. The TLDR code analysis concept and YAML handoff format are genuinely innovative, but the all-or-nothing architecture makes it impractical for teams that want to compose tools incrementally. For most users, superpowers (ADOPT) + caveman (ADOPT) + claude-mem (ADOPT) provides similar benefits — structured workflows, token efficiency, and cross-session memory — with far lower adoption cost.
+Its pitch is context management via hooks — ledgers, handoffs, and MCP execution without context
+pollution. Keeping the working context from filling with tool output is headroom's job; persisting
+what matters across sessions is claude-mem's. Both are measured and installed. A third hook layer
+in the same `PreToolUse`/`PostToolUse` path is not additive capability, it is contention: hooks that
+rewrite context are exactly the component where two implementations interfere.
+
+Staleness settles it. Last pushed 2026-01-26 — over six months, in the part of the stack that
+tracks harness internals most closely. A context-management hook that stops following the harness
+does not degrade gracefully; it silently stops firing or starts corrupting what it edits.
+
+Re-open if the project resumes and demonstrates a handoff pattern the installed pair cannot express.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [CoderLuii/HolyClaude](https://github.com/CoderLuii/HolyClaude)
 **Stars:** 2,352 | **Last updated:** 2026-06-19 (pushed; created 2026-03-22) | **License:** MIT | **Run:** `docker compose up`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (a containerized coding workstation)
 **Layer:** Platform (Docker stack bundling agent + web UI + tools)
 
@@ -52,6 +53,26 @@ gh api repos/CoderLuii/HolyClaude/readme --jq '.content' | base64 -d | head -15 
 **discovery-log — tentative read** — HolyClaude is a convenient, MIT, **containerized AI coding workstation** that turns "two hours of manual setup" into `docker compose up` — Claude Code + web UI + 8 AI CLIs + headless browser + 50+ tools, using your existing subscription. Adopt it if you want a reproducible, batteries-included environment (e.g. onboarding, ephemeral dev boxes, or hopping between agents) and are comfortable adopting its opinionated tool choices and keeping a broad container surface patched. It's a packaging/convenience win, not a new agent capability — and overlaps orca (the heavier ADE) for the "one place to run many agents" goal.
 
 Compared to neighbors: **orca** is a full agent-development environment (worktree fan-out, mobile, design mode); **claude-squad** a TUI session manager. HolyClaude's distinguishing pitch is the **one-command containerized toolchain bundle** (agent + web UI + CLIs + browser + 50+ tools).
+
+## Triage note
+
+Left at `discovery-log`, not SKIPped, though it is one of the weaker leaves in this pass.
+
+The banding is against [`claude-squad`](https://github.com/smtg-ai/claude-squad) (STACK, `RUN`, AGPL-3.0, ★8.1K), and the jobs do not match: HolyClaude is an *environment* — Claude Code
+plus eight AI CLIs, a headless browser and 50+ tools brought up with `docker compose up` — not a
+session manager. Its own evaluation places its real peer as `orca`, the heavier agent-development
+environment, and `orca` is not a STACK pick, so the challenger frame this band applies does not
+reach it.
+
+What argues the other way is that the evaluation is candid about what it is: *"a
+packaging/convenience win, not a new agent capability."* Convenience is worth something —
+reproducible onboarding, ephemeral dev boxes, hopping between agents — but a broad container surface
+is a standing patch obligation, and this catalog's frame rewards capability.
+
+Left rather than disposed because "not a new capability" is a judgement about its merits, and this
+lane's authority runs to redundancy with an incumbent, which is not what is happening here.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
 ## Catalog entry
 
