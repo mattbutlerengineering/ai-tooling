@@ -3,6 +3,7 @@
 **Repo:** [alchaincyf/huashu-design](https://github.com/alchaincyf/huashu-design)
 **Stars:** 19,196 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -63,6 +64,25 @@ Not hands-on tested (no design project available during evaluation), so this is 
 **discovery-log — tentative read**
 
 Use when you need HTML-native design output (prototypes, slides, animations, infographics) and want to avoid AI-default aesthetics. The anti-slop system and 40-style library with reproducibility ratings are unmatched in the catalog — no other design skill provides this level of structured visual vocabulary. The Chinese-language primary documentation is the main barrier for non-Chinese teams; the design methodology itself is language-agnostic once loaded. Choose impeccable or frontend-design for simpler "make it look good" use cases; choose huashu-design when you need structured design direction, animation/video export, or 5-dimension critique.
+
+## Triage note
+
+Left at `discovery-log`. The 40-style library with **reproducibility ratings** is unmatched in the catalog
+and is the kind of detail that separates a design skill from a vibe: a style you can name, apply and expect
+to get back is a specification, not a preference.
+
+Not disposed. It sits with `baoyu-design` on the heavy end of the design cluster — full produce-and-export
+pipelines with animation and video output — against the lean guidance skills (`impeccable`,
+`ui-ux-pro-max`). The eval's routing is explicit and useful: lean skills for "make it look good", this one
+for structured design direction, animation/video export, or five-dimension critique.
+
+The barrier is unusual enough to state: primary documentation is in Chinese. The eval notes the methodology
+is language-agnostic once loaded, which is probably right, and it is still a real friction for a
+non-Chinese-reading team evaluating whether to trust it.
+
+MIT, ★21.2K, pushed 2026-07-02.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

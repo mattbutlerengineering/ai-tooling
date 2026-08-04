@@ -452,11 +452,11 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | excalidraw-diagram-skill | skill | | ✓ | SKIP | REVIEW |
 | formkit | framework | | ✓ | SKIP | REVIEW |
 | frontend-slides | skill | | ✓ | discovery-log | REVIEW |
-| pitch-deck | skill | | ✓ | discovery-log | REVIEW |
-| powerpoint-ppt | skill | | ✓ | discovery-log | REVIEW |
+| pitch-deck | skill | | ✓ | SKIP | REVIEW |
+| powerpoint-ppt | skill | | ✓ | SKIP | REVIEW |
 | presentation-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | lark-slides | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| giving-presentations | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| giving-presentations | skill | | ✓ | SKIP | SOURCE-ONLY |
 | garden-skills | skill | | ✓ | discovery-log | REVIEW |
 | gemini-skills | skill | | ✓ | discovery-log | REVIEW |
 | google/skills | skill | | ✓ | discovery-log | REVIEW |
@@ -733,9 +733,9 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 16 | 2 | 38% |
-| Skills & Plugins | 90 | 30 | 4 | 33% |
+| Skills & Plugins | 90 | 33 | 4 | 37% |
 | Memory & Context | 50 | 19 | 2 | 38% |
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **237** | **34** | **37%** |
+| **Total** | **642** | **240** | **34** | **37%** |

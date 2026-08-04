@@ -3,6 +3,7 @@
 **Repo:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 **Stars:** 39,641 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (build/refine frontend UI) + Review (critique/audit of design quality)
 **Layer:** Process (design vocabulary + rules) with a Tooling component (deterministic detector + edit hook)
 
@@ -73,6 +74,28 @@ grep -in "impeccable" /Users/mbutler/github/ai-tooling/CATALOG.md
 impeccable is the strongest entry in the catalog's crowded "make AI design well" cluster: it pairs a concrete, refusable rule set and a 23-command shared vocabulary with a genuinely deterministic 44-rule detector and an edit-time feedback hook — the inner/outer loop pattern, applied to frontend design, with no API key needed. Provenance is excellent (39.6K stars, Apache-2.0, named author, active same-day maintenance, broad multi-harness support).
 
 Adopt it **when the project has a real frontend** and visual quality is a deliverable — landing pages, dashboards, product UI, component libraries. It is dead weight on backend-only or CLI/library work, it is a heavier install than a typical skill, and it overlaps directly with ui-ux-pro-max / frontend-design / huashu-design / baoyu-design — if the catalog consolidates that cluster, impeccable is the one to keep. It does not belong in a universal default stack (most repos aren't frontend-heavy), but for frontend-focused work it is a default-grade pick. The existing CATALOG.md entry is accurate and needs no change.
+
+## Triage note
+
+Left at `discovery-log`, and it is the row in the design cluster with the most interesting *mechanism*.
+
+Most of these skills are guidance — text that shapes what the model does. impeccable pairs that with a
+**deterministic 44-rule detector and an edit-time feedback hook**: the inner/outer loop pattern applied to
+frontend design, with no API key. A rule that can be mechanically checked is a rule you can measure, and
+that puts this row in a much smaller group than its star count suggests.
+
+That mechanism is also why it is not disposable as redundant with `ui-ux-pro-max`. One supplies knowledge,
+the other enforces rules; they are the two halves of the same problem, and the sibling evals treat them as
+such.
+
+Provenance is strong: Apache-2.0, ★45.1K, named author, pushed 2026-07-10, broad multi-harness support.
+
+The unresolved question is the cluster's shared one — does any of this change what gets built, in a way a
+with/without run would show. For this row that test is cheaper than for the others, because the detector
+gives you an oracle: count rule violations in generated UI with the skill on and off. Worth noting as the
+easiest measurement in a cluster that has none.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
