@@ -53,7 +53,7 @@ gh api repos/ykdojo/claude-code-tips/readme --jq '.content' | base64 -d | wc -l
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as a onboarding resource for new Claude Code users — the non-obvious tips (context management, containers, permission auditing, worktrees) are genuinely valuable. Power users will already know most of these. The status line script is worth extracting independently. Among the five Claude Code reference repos in the catalog, this has the best practitioner signal-to-noise ratio; claude-code-best-practice has more structured methodology, claude-howto has better visual organization.
 

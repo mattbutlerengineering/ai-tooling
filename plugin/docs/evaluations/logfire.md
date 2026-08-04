@@ -48,7 +48,7 @@ gh api repos/pydantic/logfire/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Strong pick for Python/Pydantic LLM and agent stacks that want OTel-standard observability with a SQL query surface and minimal lock-in. If you require a fully self-hosted OSS backend, prefer langfuse or opik. Pairs especially well with pydantic-ai and FastAPI services.
 

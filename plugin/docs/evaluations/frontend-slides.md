@@ -57,7 +57,7 @@ This tool is already a catalog entry (skill, line 188). This evaluation upgrades
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Reach for frontend-slides when you want an AI to *generate* a polished, distinctive web deck from a brief — especially for a non-designer who can pick a look but can't specify one — or to convert an existing `.pptx` into web slides. Its visual-preview loop is the strongest reason to pick it over guizang-ppt-skill, its closest neighbor. Skip it when you need an editable `.pptx` (use the powerpoint skill or slidev's PPTX export) or a code-heavy technical talk with magic-move animations and an embedded editor (use slidev). Within the already-crowded HTML-deck cluster it earns its slot on the strength of the selection UX and active maintenance, but it is not a clear winner over guizang-ppt-skill — choose by whether you value the preview loop (frontend-slides) or pre-baked editorial layouts (guizang-ppt-skill).
 

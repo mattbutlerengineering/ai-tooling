@@ -62,7 +62,7 @@ gh api repos/codejunkie99/agentic-stack/contents/adapters/claude-code/settings.j
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 agentic-stack is a credible, well-engineered, local-first portable memory-and-skills layer whose real, unique value is the **widest cross-harness portability in the category** (12 harnesses, one git-versionable `.agent/` brain, a SHA-256-verified transfer wizard) combined with a deliberately **safety-forward staging-then-human-review** memory model and a genuinely additive **local cross-harness monitoring + data-flywheel** layer that no other catalog memory entry offers. It is **not** a thin duplicate of memsearch/agentmemory/SimpleMem — it attacks portability + auditable human-in-the-loop curation + fleet monitoring rather than competing on hybrid-search recall, and it does so with *no DB and no API key* on the default path, the lightest footprint of any memory tool evaluated. Use it when you actually work across multiple coding-agent harnesses and want one portable, auditable brain plus local fleet monitoring — that is its real differentiator. For this user's case (Claude Code-only, already on claude-mem ADOPT + OMEGA), it does **not** displace claude-mem: the portability is unused in a single-harness setup, claude-mem is more battle-tested with a richer Claude Code recall surface, and agentic-stack's manual-graduation capture is more effort than claude-mem's passive auto-capture. Like memsearch, agentmemory, and SimpleMem (all CONDITIONAL), it wins on a specific axis (cross-harness portability + auditable curation + monitoring) but loses to claude-mem on single-harness ecosystem fit and zero-effort capture. KEEP the catalog entry (now linked to the verified repo); do not adopt over claude-mem.
 

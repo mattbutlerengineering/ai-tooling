@@ -60,7 +60,7 @@ gh api repos/sirmalloc/ccstatusline/readme --jq '.content' | base64 -d   # full 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want a polished, visual statusline (Powerline, themes, gradients, deep git widgets) and you don't already run a statusline you prefer — it occupies the single `statusLine` slot, so it's an either/or choice with claude-hud or a custom statusline. A statusline is more than cosmetic here: the context %/bar, compaction counter, session cost, and usage/reset-timer widgets deliver real outer-loop situational awareness that reduces command round-trips and prevents working in degraded context or hitting surprise rate limits. ccstatusline is the most mature, widely adopted (~185K downloads/month) tool in this niche, but its value is roughly equivalent to claude-hud's (both read the same native data); pick by aesthetic preference (ccstatusline = Powerline/visual polish; claude-hud = denser multi-line HUD). It is complementary to abtop (ADOPT), which monitors sessions from *outside* the agent — ccstatusline lives inside the single CC session's prompt. The user's existing GSD statusline already fills this slot, so for this environment it is a "evaluated, not adopted because the slot is taken" CONDITIONAL.
 

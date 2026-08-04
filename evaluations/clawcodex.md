@@ -48,7 +48,7 @@ gh api repos/agentforce314/clawcodex/readme --jq '.content' | base64 -d | head -
 
 ## Verdict
 
-**CONDITIONAL (lean cautious)** — ClawCodex is an MIT, Python-native rebuild of Claude Code whose genuinely interesting idea is **byte-stable prefix caching to slash long-session token cost on DeepSeek**. Worth a look if you want a Python-embeddable coding agent and are optimizing cost with a cheaper cached model. But the headline claims ("full rebuild," "230× cheaper," "230K LoC") are unverified marketing from a young single-author project, and a from-scratch reimplementation carries real feature/correctness/security-parity risk. Pilot on throwaway work, measure the actual cache savings and reliability yourself, and don't treat it as a drop-in Claude Code replacement on the strength of the README.
+**discovery-log — tentative read (lean cautious)** — ClawCodex is an MIT, Python-native rebuild of Claude Code whose genuinely interesting idea is **byte-stable prefix caching to slash long-session token cost on DeepSeek**. Worth a look if you want a Python-embeddable coding agent and are optimizing cost with a cheaper cached model. But the headline claims ("full rebuild," "230× cheaper," "230K LoC") are unverified marketing from a young single-author project, and a from-scratch reimplementation carries real feature/correctness/security-parity risk. Pilot on throwaway work, measure the actual cache savings and reliability yourself, and don't treat it as a drop-in Claude Code replacement on the strength of the README.
 
 Compared to neighbors: **jcode** and **smallcode** are other lean terminal coding-agent harnesses; **DeepSeek-Reasonix** also targets DeepSeek. ClawCodex's distinguishing pitch is a **Python rebuild + prefix-cache cost economics**.
 

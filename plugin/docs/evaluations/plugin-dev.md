@@ -68,7 +68,7 @@ Repo verification: confirmed. The catalog entry was UNLINKED; the plugin ships f
 
 ## Verdict
 
-**CONDITIONAL (ADOPT for plugin authors; KEEP/installed already)**
+**discovery-log — tentative read (ADOPT for plugin authors; KEEP/installed already)**
 
 For anyone authoring Claude Code plugins, skills, agents, hooks, or MCP integrations, this is the default tool — adopt it. It is the only first-party, comprehensive, auto-triggering authoring toolkit, it ships deterministic validators, and its provenance means it tracks the spec it documents better than any third-party alternative. This repo specifically maintains a `plugin/` marketplace package, so plugin-dev is directly applicable here for validating that package's structure and authoring new components.
 

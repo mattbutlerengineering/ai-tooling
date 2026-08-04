@@ -65,7 +65,7 @@ grep -inE "gastown|claude-squad|dmux|worktrunk|beads" /Users/mbutler/github/ai-t
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt Gas Town when you are deliberately running a **large fleet (10–30) of coding agents** on real repos and need autonomous orchestration — gated merge queue, stuck-agent recovery, persistent crash-survivable work state, and escalation — and you can absorb a heavy install (Go, Dolt, beads, tmux) and a sizable conceptual model. It is a mature, actively developed (v1.2.1, 30 contributors, 16K stars) system with first-class Claude Code integration, and it is the most complete autonomous multi-agent operations substrate in this cluster of the catalog. It is decisively **not** a default: for a single agent, or for the "watch and merge a handful of agents" use case, it is massive overkill — reach for dmux or claude-squad instead. Re-evaluate the Dolt-layer stability (current open issues) and the unsigned-macOS-binary friction before committing a team to it.
 

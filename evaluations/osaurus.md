@@ -49,7 +49,7 @@ gh api repos/osaurus-ai/osaurus/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you want a private, offline, Mac-native agent runtime where agents, memory, identity, and tools live on your machine — its ownership/offline story and cryptographic identity are the differentiators. Accept the macOS-only constraint and the local-model capability ceiling. For cross-platform or maximal capability, a CLI harness (gptme/opencode) or cloud-capable agent fits better; osaurus is for the privacy-first, own-your-AI use case.
 

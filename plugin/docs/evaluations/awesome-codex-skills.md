@@ -59,7 +59,7 @@ We did not verify that linked repos are live, correctly licensed, or that instal
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The single best entry point for Codex-specific skills, and the only Codex-scoped list in the catalog — that scope is its whole justification. Use it as a Discover-stage source when working in the Codex CLI, especially the Composio-maintained in-repo skills (mcp-builder, deploy-pipeline, gh-fix-ci). Versus its neighbors: **awesome-claude-skills** (Composio's own Claude analogue) and **awesome-agent-skills** (VoltAgent, cross-editor) are broader but Claude/multi-editor-first; this is the place to look when you specifically need the Codex trigger model and `$CODEX_HOME` layout. It misses ADOPT for two reasons: no repository license (vendor-in at your own legal risk) and a ~5-week content freeze with no staleness tracking. It also lacks the hand-written, opinionated review depth and the activity-tracking CSV that make awesome-claude-code the gold standard among lists. Re-evaluate if a license lands and updates resume; until then, trust the curation but verify each linked repo's license and freshness yourself.
 

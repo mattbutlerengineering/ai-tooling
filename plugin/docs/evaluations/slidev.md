@@ -58,7 +58,7 @@ Mental dry-run for the 15-slide tech talk: the workflow requires `pnpm create sl
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when building code-heavy technical presentations: conference talks, live coding sessions, developer workshops. Slidev is the best tool in this category — nothing else handles magic-move code animations, embedded Monaco, and Mermaid diagrams in a single coherent authoring experience. Skip it for business decks, status updates, or any presentation where you want AI to do the writing work — wowerpoint handles that case. The Claude Code skill adds value as a complete syntax reference; the underlying framework is the real asset.
 

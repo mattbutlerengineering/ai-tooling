@@ -63,7 +63,7 @@ gh api repos/Goldentrii/AgentRecall-MCP/contents/benchmark/replay-results.json -
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 AgentRecall is a credible, MIT-licensed, local-first memory MCP whose real differentiator is **correction-first compounding memory** with a measurable precision KPI and a deliberately minimal 5-tool surface — axes that make it *additive*, not a thin duplicate of the existing memory CONDITIONALs. agentmemory competes on benchmarked hybrid-search recall and 15+ platform breadth; SimpleMem competes on token-efficient compression and multimodality; AgentRecall competes on *learning from human corrections* and tool-surface frugality, which neither of them centers. Use it when the pain you're solving is **"my agent keeps making the same mistake I already corrected"** and you want a zero-cloud, low-tool-count memory you can grep in markdown.
 

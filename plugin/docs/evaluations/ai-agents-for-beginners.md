@@ -55,7 +55,7 @@ We read the full README lesson index and confirmed the lesson directory structur
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt as a *conceptual* reference for understanding agent design patterns, multi-agent orchestration, and agent safety — it's the highest-production-value agent course in this space and stays current. Hold it at CONDITIONAL rather than ADOPT for two reasons: (1) the hands-on track is Azure/Microsoft-locked, and (2) it teaches building autonomous agents, not AI-assisted *software development*, which is this catalog's actual focus. Compared to neighbors: deeper and far more polished than `ai-engineering-from-scratch` (rohitg00), but less directly relevant to the dev loop than Claude-Code-specific references like `claude-howto` or `claude-code-best-practice`. Closest in spirit to `karpathy-llm-wiki` (general LLM/agent theory) — use it where you need to *reason about* how coding agents work, not to drive day-to-day coding.
 

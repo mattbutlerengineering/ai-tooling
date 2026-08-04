@@ -73,7 +73,7 @@ For the dev-loop comparison I leaned on the existing hands-on evals of the two o
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use browser-use when the task is **genuinely autonomous web automation** — under-specified, multi-step, or exploratory tasks against external sites where the steps can't be enumerated up front (form-filling from a resume, cross-site research, scraping workflows). For that job it is the strongest OSS option in existence (99.6K stars, MIT, active, benchmarked) and earns a place in the catalog.
 

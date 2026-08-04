@@ -61,7 +61,7 @@ Also compared against the built-in `mcp__claude_ai_Figma__` tools available in t
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when your workflow involves implementing designs from Figma files. The 15K-star community, active maintenance, and well-engineered context reduction pipeline make it the clear best-in-class Figma MCP server. However, it requires a Figma API token and a Figma-based design workflow — teams not using Figma get zero value. The telemetry and commercial rebrand warrant monitoring but don't block adoption for the MIT-licensed core.
 

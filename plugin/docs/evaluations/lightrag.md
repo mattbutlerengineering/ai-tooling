@@ -49,7 +49,7 @@ gh api repos/HKUDS/LightRAG/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for RAG over connected document corpora where relationships and multi-hop reasoning matter and you can absorb the up-front graph-extraction cost. For long single documents needing explainable retrieval, PageIndex is the reasoning-over-structure alternative; for plain Q&A, flat vector RAG is cheaper. Pilot on a representative corpus and tune the role-specific LLM config to control indexing spend.
 

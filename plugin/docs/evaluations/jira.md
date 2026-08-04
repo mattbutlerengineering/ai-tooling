@@ -63,7 +63,7 @@ gh api repos/sooperset/mcp-atlassian/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 A Jira MCP server is a genuine dev-loop aid — for teams that use Jira. Reading a ticket's description and acceptance criteria into the agent at Plan, and transitioning the ticket at Ship, is real work-tracking integration that tightens the loop and keeps the agent coding against the source of truth rather than a lossy prompt. But it is **niche by definition**: utility is entirely contingent on the team running Jira, so it cannot be ADOPT-everywhere, and it is not SKIP because for Jira teams the value is concrete and the tooling is mature. **Adopt it when your team tracks work in Jira and you want the agent ticket-aware** — pair it with github-mcp-server (Jira = issues, GitHub = code) for full Plan→Ship coverage. Use the recommended community repo `sooperset/mcp-atlassian` for the broadest deployment/auth coverage (especially Server/Data Center); choose `atlassian/atlassian-mcp-server` if you require an Atlassian-official, OAuth-only hosted server. Scope the API token to least privilege given the live write access to a shared system of record.
 

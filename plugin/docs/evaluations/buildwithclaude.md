@@ -53,7 +53,7 @@ Reviewed: repo description, topics, license, activity dates, and the README (mar
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 buildwithclaude is a credible, actively-maintained discovery hub and native Claude Code marketplace with broad extension-type coverage and a hosted searchable UI — genuine value for the Plan-stage problem of finding skills/agents/commands/plugins. As a reference directory the right call is to keep it as a discovery resource, not adopt it as an in-loop tool. Use it conditionally — when you need to browse or search the Claude Code extension ecosystem or want one-click marketplace installs — while accepting that the discovery half is an aggregator with no vetting or ranking, so installed extensions are unvetted third-party code. It overlaps with awesome-claude-code (flat list, no marketplace) and ctx (graph-ranked, task-aware recommendations vs. plain browse/search); pick buildwithclaude when you want a searchable UI plus a native install path rather than a curated list or automated recommender.
 

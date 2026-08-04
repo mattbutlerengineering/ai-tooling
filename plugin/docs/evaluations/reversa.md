@@ -51,7 +51,7 @@ gh api repos/sandeco/reversa/readme --jq '.content' | base64 -d | head -40   # r
 
 ## Verdict
 
-**CONDITIONAL** — Reversa targets a real, underserved problem — **extracting executable specifications backward out of legacy / vibe-coded systems** so coding agents can evolve them safely — with a sharp "operational contracts, not docs" framing, MIT license, paper backing, and multi-engine install. Adopt it to bootstrap a spec for an undocumented system, but **treat the generated contracts as a high-value draft to verify, not ground truth**: the failure mode (confidently hallucinated business rules) is the dangerous kind. Pilot on a module you understand to calibrate fidelity before trusting it on the parts "nobody wants to touch."
+**discovery-log — tentative read** — Reversa targets a real, underserved problem — **extracting executable specifications backward out of legacy / vibe-coded systems** so coding agents can evolve them safely — with a sharp "operational contracts, not docs" framing, MIT license, paper backing, and multi-engine install. Adopt it to bootstrap a spec for an undocumented system, but **treat the generated contracts as a high-value draft to verify, not ground truth**: the failure mode (confidently hallucinated business rules) is the dangerous kind. Pilot on a module you understand to calibrate fidelity before trusting it on the parts "nobody wants to touch."
 
 Compared to neighbors: **spec-kit**, **OpenSpec**, and **BMAD-METHOD** generate specs *forward* for new/continuing work; **Understand-Anything** builds a queryable graph for comprehension. Reversa's distinguishing pitch is **reverse spec-engineering** — turning existing legacy code into agent-ready operational contracts.
 

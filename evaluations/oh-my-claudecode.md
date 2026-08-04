@@ -64,7 +64,7 @@ curl -s https://api.npmjs.org/downloads/point/last-month/oh-my-claude-sisyphus  
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you (1) regularly do large, parallelizable, PR-sized work and want a turnkey multi-agent + model-routing layer rather than hand-rolling sub-agent prompts, and (2) are willing to take on a heavy, fast-moving plugin with its own vocabulary that substantially modifies `~/.claude`. Unlike most multi-agent tools in the catalog, this one is genuinely a native Claude Code plugin, exceptionally well-maintained (233 releases, 110 contributors, ~31k npm downloads/month), and integrates real cost-routing and verify-fix discipline — all of which can move quality signals inside the dev loop. It does *not* hard-depend on a second paid subscription (cross-model is optional), which makes it a softer commitment than architect-loop.
 

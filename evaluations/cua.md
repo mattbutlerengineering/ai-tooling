@@ -49,7 +49,7 @@ gh api repos/trycua/cua/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you need to give a coding agent (Claude Code/Cursor/Codex) real, benchmarkable computer-use across desktops — the background, focus-preserving drivers and the Bench/Lume stack are its standout. Run untrusted tasks inside Lume VMs or other isolation given the action risk. Versus UI-TARS-desktop, choose cua for the infra/SDK/eval layer; mind that Linux support is still pre-release.
 

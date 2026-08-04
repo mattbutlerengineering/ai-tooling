@@ -49,7 +49,7 @@ gh api repos/CoderLuii/HolyClaude/readme --jq '.content' | base64 -d | head -15 
 
 ## Verdict
 
-**CONDITIONAL** — HolyClaude is a convenient, MIT, **containerized AI coding workstation** that turns "two hours of manual setup" into `docker compose up` — Claude Code + web UI + 8 AI CLIs + headless browser + 50+ tools, using your existing subscription. Adopt it if you want a reproducible, batteries-included environment (e.g. onboarding, ephemeral dev boxes, or hopping between agents) and are comfortable adopting its opinionated tool choices and keeping a broad container surface patched. It's a packaging/convenience win, not a new agent capability — and overlaps orca (the heavier ADE) for the "one place to run many agents" goal.
+**discovery-log — tentative read** — HolyClaude is a convenient, MIT, **containerized AI coding workstation** that turns "two hours of manual setup" into `docker compose up` — Claude Code + web UI + 8 AI CLIs + headless browser + 50+ tools, using your existing subscription. Adopt it if you want a reproducible, batteries-included environment (e.g. onboarding, ephemeral dev boxes, or hopping between agents) and are comfortable adopting its opinionated tool choices and keeping a broad container surface patched. It's a packaging/convenience win, not a new agent capability — and overlaps orca (the heavier ADE) for the "one place to run many agents" goal.
 
 Compared to neighbors: **orca** is a full agent-development environment (worktree fan-out, mobile, design mode); **claude-squad** a TUI session manager. HolyClaude's distinguishing pitch is the **one-command containerized toolchain bundle** (agent + web UI + CLIs + browser + 50+ tools).
 

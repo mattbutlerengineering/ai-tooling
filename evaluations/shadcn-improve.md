@@ -48,7 +48,7 @@ Once installed, you invoke it as a skill inside Claude Code (you pick which mode
 
 ## Verdict
 
-**CONDITIONAL** (review-based)
+**discovery-log — tentative read** (review-based)
 
 On its design, shadcn/improve fits periodic codebase-health audits (monthly/quarterly) rather than per-PR use — that's the code-review plugin's job — and the plan-file + dual-model approach is a sensible way to make a proactive audit cheaper and reviewable. Held at CONDITIONAL because this is a README review, not a run: the signal-to-noise ratio and real cost are the open questions, and the install is `npx skills add shadcn/improve` (a skill), not a `npx shadcn-improve` CLI. Complementary with code-review (reactive, per-PR), not redundant.
 

@@ -63,7 +63,7 @@ grep -inE "mcp-toolbox|genai-toolbox|supabase|prisma" /Users/mbutler/github/ai-t
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 mcp-toolbox is a mature, Google-maintained, genuinely capable MCP server with the broadest database coverage in this catalog's DB cluster. It is two things at once, and the verdict splits on which you use. **As a dev-loop tool (prebuilt mode), adopt it conditionally when you need agent access to a database type prisma/supabase don't cover, or to several DB types at once** — for a single local Postgres in development, the lighter prisma or supabase servers are a smaller lift. **As production infrastructure (custom-tools framework), it is a strong choice when you are building agents that must hit a database safely**, and there its locked-down, parameterized-tool model is a real differentiator rather than an overlap. Not ADOPT-everywhere because it is heavier than alternatives for simple dev needs, carries a Google-Cloud commercial tilt, and its easy on-ramp (raw `execute_sql`) is unsafe-by-default. Not SKIP because the maturity, breadth, and the framework's safety model are clearly best-in-class. It overlaps with prisma and supabase on the dev-time "agent talks to my DB" job; it is complementary to pg-aiguide, which improves the SQL the agent *writes* (knowledge layer, no DB access) rather than executing it.
 

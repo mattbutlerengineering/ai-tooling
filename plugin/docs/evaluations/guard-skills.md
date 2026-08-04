@@ -55,7 +55,7 @@ gh api repos/amElnagdy/guard-skills/contents/skills/clean-code-guard/references/
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use `clean-code-guard`, `test-guard`, and `docs-guard` on projects where AI-generated code quality is a concern and existing review tooling doesn't catch AI-specific failure modes. The AI failure modes reference (imperatives 15-22) is the unique value — the standard Clean Code rules overlap with what code-review plugin and pr-review-toolkit already do. Skip `wp-guard` and `woo-guard` unless working on WordPress/WooCommerce projects. Best paired with code-review plugin (catches correctness bugs) while guard-skills focuses on the AI-specific quality layer.
 

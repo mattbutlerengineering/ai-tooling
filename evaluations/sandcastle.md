@@ -58,7 +58,7 @@ Reviewed: agent providers (`claudeCode`, `codex`, `cursor`, `pi`, `opencode`, `c
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 sandcastle clears the bar aisuite did not: it is not a library for building AI products, but a harness you run against your own repo to orchestrate sandboxed coding agents (Claude Code, Codex, Cursor, Pi, etc.) with commits merged back — landing directly in the Implement, Verify, Review, and Ship stages. Its Claude Code integration is genuinely deep (native provider, session/subagent capture, resume/fork, permission modes) and the isolation + git-merge-back model is the right shape for safe AFK automation. It is mature, MIT, and actively developed by a credible author.
 

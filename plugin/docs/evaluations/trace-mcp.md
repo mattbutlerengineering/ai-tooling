@@ -66,7 +66,7 @@ sed -n '1,15p' src/analytics/benchmark.ts   # "SYNTHETIC ESTIMATOR, not a real m
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 trace-mcp is a surprisingly mature, well-engineered, local-first code-graph MCP server whose core thesis — serve a precomputed framework-aware graph instead of letting the agent re-read the repo every turn — is exactly right and well-targeted at the Plan/Implement bottleneck. Its real differentiator over [codegraph](https://github.com/colbymchenry/codegraph) (ADOPT) and [code-context-engine](https://github.com/elara-labs/code-context-engine) is **framework-aware cross-language edges** (PHP↔Vue via Inertia, DI graphs, ORM→migration schema reconstruction) plus code-linked decision memory and deep Claude Code integration. **Adopt it conditionally on framework-heavy, multi-language stacks it explicitly supports** (Laravel/Vue/Inertia, NestJS, Django, Rails, etc.) where those edges pay off — and run `npx trace-mcp benchmark .` on your own repo to see real numbers before committing.
 

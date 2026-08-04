@@ -54,7 +54,7 @@ gh api repos/kaushikb11/awesome-llm-agents/readme --jq '.content' | base64 -d | 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Actively maintained (last update June 2026) and the per-entry health stats are a real, lightweight win when comparing agent frameworks. But scope is narrow — ~27 large frameworks most of which our catalog already tracks — there's no Claude Code relevance, no editorial signal, and no repo license. Use it as a quick "framework landscape with live stats" reference when sizing up agent frameworks; it is not a primary discovery source for our Claude Code-centric catalog. Worth a single catalog row, not adoption into the working stack.
 

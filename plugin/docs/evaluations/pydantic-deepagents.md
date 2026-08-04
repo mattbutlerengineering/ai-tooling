@@ -49,7 +49,7 @@ gh api repos/vstorm-co/pydantic-deepagents/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you build agents in Python on Pydantic AI and want deep-agent patterns — especially self-forking with AI-judge merge, plus sandboxing/checkpoints/teams — as a typed, embeddable library rather than a closed harness. Mind the token cost of forking. It's young; pilot before depending on the API. Overlaps pydantic-ai (foundation) and claude-octopus (forking pattern) — choose by library-vs-standalone preference.
 

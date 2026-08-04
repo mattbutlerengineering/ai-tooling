@@ -53,7 +53,7 @@ gh api repos/shareAI-lab/learn-claude-code/git/trees/main?recursive=1 --jq '.tre
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as the first resource when learning how agent harnesses work or when onboarding engineers who will build custom agents. The progressive 12-stage structure is unmatched for building understanding from zero. Skip if you're already experienced with Claude Code internals — the conceptual framework is valuable but the code is deliberately simplified. The closest comparables in the catalog are `claude-code-system-prompts` (shows the real implementation) and `claude-code-best-practice` (practical tips) — learn-claude-code is the "how it works from first principles" resource between those two.
 

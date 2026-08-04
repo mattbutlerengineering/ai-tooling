@@ -53,7 +53,7 @@ gh api "repos/AgentWrapper/agent-orchestrator/contents/packages/core/src/lifecyc
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you have 5+ parallel issues to work on and want automated CI-fix and review-routing feedback loops. The reaction system is the genuine differentiator — no other tool in the catalog closes the CI-fail → agent-fix → re-run loop automatically. Choose claude-squad (KEEP) for simpler parallel session management without the reaction system overhead. Choose superpowers (ADOPT) if you work one task at a time and want methodology, not fleet management.
 

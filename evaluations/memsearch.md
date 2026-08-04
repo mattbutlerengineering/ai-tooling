@@ -62,7 +62,7 @@ Reviewed: 4 Claude Code hooks, 3 plugin skills, 4-platform plugin layer, CLI ver
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use memsearch when you genuinely work across multiple agent harnesses (Claude Code + Codex CLI + OpenClaw + OpenCode) and want one shared, portable project memory — that cross-agent unification is its real, unique value, and the Markdown-source-of-truth design is sound. For a Claude Code-only user (this user), it does not beat claude-mem (ADOPT): claude-mem is more battle-tested, has a mature plugin ecosystem, and delivers comparable hybrid recall from SQLite + local embeddings with **no vector-DB dependency**, whereas memsearch's Milvus backing is overhead that only pays off at team/multi-user scale and comes with Zilliz Cloud upsell steering. Like agentmemory (CONDITIONAL), it is a credible memory tool that wins on a specific axis (cross-agent reach) but loses to claude-mem on Claude Code ecosystem fit and simplicity. KEEP the catalog entry; do not adopt over claude-mem.
 

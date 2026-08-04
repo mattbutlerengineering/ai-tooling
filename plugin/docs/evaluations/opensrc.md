@@ -71,7 +71,7 @@ grep -inE "opensrc|git-mcp|context7|deepwiki|npm.*source" /Users/mbutler/github/
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 opensrc targets a real, high-value failure mode — agents inventing dependency behavior from stale training data — and addresses it with the strongest grounding there is: reading the dependency's actual source, pinned to the version the project resolves. That is categorically deeper than docs lookup (context7) or generic repo browsing (git-mcp), and the version-from-lockfile detection is the feature that makes it more than `git clone` in a wrapper. It is well-engineered (Rust, multi-registry, sane global cache), Vercel-authored, and Apache-2.0. **Adopt it when you work in a dependency-heavy npm/PyPI/crates project and routinely hit "the agent doesn't actually know how this library works,"** wiring the `AGENTS.md` block or bundled skill so the agent reaches for it. It is **CONDITIONAL rather than ADOPT** because (1) it's a pre-1.0 `vercel-labs` project with a still-moving cache/API surface, (2) integration is manual prompt-scaffolding rather than a one-command setup, and (3) the value only lands when the agent searches source efficiently and the package's repo/tag metadata resolves cleanly. Not SKIP — for the right project this is a meaningfully better grounding lever than the doc-based alternatives.
 

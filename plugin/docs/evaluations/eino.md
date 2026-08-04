@@ -49,7 +49,7 @@ gh api repos/cloudwego/eino/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you build LLM applications or agents in **Go** and want an idiomatic, production-oriented framework with a real component model and an agent ADK (multi-agent, HITL) — it's the standout option for Go shops, from a credible maintainer. Irrelevant for Python/TS stacks (use haystack/pydantic-ai or agent-kit/voltagent there). Check `eino-ext` for the provider/integration coverage you need.
 

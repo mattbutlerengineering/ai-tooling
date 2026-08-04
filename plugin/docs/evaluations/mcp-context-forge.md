@@ -50,7 +50,7 @@ gh api repos/IBM/mcp-context-forge/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt at team/org scale when you run many MCP/A2A/REST endpoints and need a central registry + proxy with governance, discovery, access control, and observability — the "API gateway for agent tools." It's infrastructure to operate, so it's overkill for a couple of personal MCP servers. Distinct from LLM gateways (bifrost/Portkey): ContextForge federates *tools/agents/APIs*, not LLM providers. Strong, IBM-backed option for MCP at scale.
 

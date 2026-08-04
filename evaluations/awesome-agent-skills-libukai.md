@@ -52,7 +52,7 @@ gh api repos/libukai/awesome-agent-skills/readme --jq '.content' | base64 -d | h
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt as a discovery source specifically for Chinese-language and China-ecosystem Skills coverage (SkillHub, WPS, WeChat publishing) — a niche no other list in the catalog fills, plus a safety angle the siblings lack. But it is stale (~3 months), small, sponsor-fronted, and unlicensed, so it is not a primary, always-current source the way the larger English lists aim to be. Use it as a complement to awesome-claude-skills (travisvn) / awesome-agent-skills (VoltAgent), not a replacement. Re-evaluate if updates resume.
 

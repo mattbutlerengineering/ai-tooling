@@ -55,7 +55,7 @@ gh api "repos/aaif-goose/goose/git/trees/main?recursive=1" --jq '.tree[].path' |
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use goose when you need a model-agnostic agent platform (multi-provider support is its primary differentiator), when you're building a custom agent distribution for an organization, or when you want to avoid Claude Code's model lock-in. Choose Claude Code when you want the deepest ecosystem (skills, plugins, marketplace), structured development methodology (superpowers, agent-skills), and Anthropic-optimized performance. The two don't compose — it's a platform choice.
 

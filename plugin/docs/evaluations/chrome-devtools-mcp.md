@@ -55,7 +55,7 @@ Assessed the tool surface area (40+ tools), installation paths (4 options includ
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need agents to *diagnose* web application issues (failed API calls, console errors, performance bottlenecks, cookie/storage problems) rather than just *automate* browser interactions. Complements playwright MCP (ADOPT) and agent-browser (ADOPT) — those drive the browser, this reads what happened. The Python/uv setup is heavier than ideal, and the missing breakpoint support is a real gap (devtools-debugger-mcp fills it). Choose this when debugging network, console, or performance issues; choose playwright for automation and testing.
 

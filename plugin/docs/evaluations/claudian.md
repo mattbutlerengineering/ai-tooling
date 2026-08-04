@@ -62,7 +62,7 @@ gh api repos/YishenTu/claudian/releases --jq 'length'             # 30
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you work in **Obsidian** and want a polished, multi-provider agent host that treats your vault as the working directory, with inline diff edits, Plan Mode, skills, and MCP. It's mature, popular, actively maintained, MIT, and not locked to one agent — an excellent fit for notes/docs/PKM and small projects. Less compelling if your work is a large code repo (use an IDE/terminal agent) or you're not an Obsidian user. It's a front-end, so cost/quality remain the provider's.
+**discovery-log — tentative read** — adopt if you work in **Obsidian** and want a polished, multi-provider agent host that treats your vault as the working directory, with inline diff edits, Plan Mode, skills, and MCP. It's mature, popular, actively maintained, MIT, and not locked to one agent — an excellent fit for notes/docs/PKM and small projects. Less compelling if your work is a large code repo (use an IDE/terminal agent) or you're not an Obsidian user. It's a front-end, so cost/quality remain the provider's.
 
 Compared to neighbors: **Nimbalyst** is a standalone Electron workspace; **cc-switch** is a desktop GUI multiplexer for CLI agents; **kilocode** lives in VS Code/JetBrains; AgriciDaniel's **claude-obsidian** is a second-brain *workflow* for Obsidian. Claudian is the **agent-host plugin inside Obsidian** — the most complete way to run coding agents against your vault, distinct from the IDE- and desktop-app hosts.
 

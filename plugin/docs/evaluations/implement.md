@@ -69,7 +69,7 @@ grep -inE "implement|GSD|superpowers|test-driven|executing-plans|subagent-driven
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 `implement` is a clean, well-authored, intentionally minimal Implement-stage orchestrator whose two best ideas — TDD at *pre-agreed seams* (not blanket TDD) and a graded test cadence (single files often, full suite once) capped by a mandatory review-then-commit tail — are genuinely good defaults. But it carries almost no method of its own: it is a 6-line conductor for `/tdd` and `/review`, so its value is **conditional on adopting the mattpocock family**, and it is additive only for someone *not* already running an implement loop. The user runs **two** richer ones (GSD's execute-phase and superpowers' executing-plans/test-driven-development/requesting-code-review), both of which already provide TDD + review + verify/commit gates with state persistence the thin `implement` lacks. Adopt it **only if you standardize on the mattpocock skill set** (so `/tdd` and `/review` are present and the issue-tracker plumbing is set up) — in which case it's the natural `/implement` entry point. Otherwise it is redundant with the user's existing GSD/superpowers stack; do not add it as a third competing implement loop.
 

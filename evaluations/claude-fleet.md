@@ -57,7 +57,7 @@ gh api repos/tianyilt/claude-fleet/readme --jq '.content' | base64 -d   # triage
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you routinely run 5+ Claude Code/Codex windows and want a lightweight, read-only command center to see who's waiting/stalled/done plus fast cross-transcript search, *on top of* whatever runs your sessions. The triage state machine and skill/memory analytics are genuinely well thought out and the read-only design makes it safe to bolt on. Hold off if you run one or two agents (the dashboard is overkill), want one tool that both runs *and* monitors sessions (use agent-of-empires/claude-squad), or need maturity — it's brand new and small.
+**discovery-log — tentative read** — adopt if you routinely run 5+ Claude Code/Codex windows and want a lightweight, read-only command center to see who's waiting/stalled/done plus fast cross-transcript search, *on top of* whatever runs your sessions. The triage state machine and skill/memory analytics are genuinely well thought out and the read-only design makes it safe to bolt on. Hold off if you run one or two agents (the dashboard is overkill), want one tool that both runs *and* monitors sessions (use agent-of-empires/claude-squad), or need maturity — it's brand new and small.
 
 Compared to neighbors: **abtop** is the closest — a real-time TUI monitor of agent sessions (tokens/context/rate-limits) — where Claude Fleet is a web dashboard centered on *triage + transcript search + skill/memory analytics*; **codeburn** focuses on *cost* attribution; the session *managers* drive agents rather than observe them. Claude Fleet is the read-only **triage + search** layer of the multi-session stack.
 

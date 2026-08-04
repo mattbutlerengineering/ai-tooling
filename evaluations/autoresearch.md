@@ -51,7 +51,7 @@ gh api repos/karpathy/autoresearch/contents/program.md --jq '.content' | base64 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you have a single-GPU ML training setup and want autonomous overnight experimentation. The `program.md` is a masterclass in agent instruction design — study it even if you never train a model. Not applicable to general software development research (last30days covers that), and the 87K stars overstate its breadth of applicability. The methodology (fixed budget, single metric, git-based tracking, simplicity criterion) is transferable to other domains even if the specific implementation is ML-only.
 

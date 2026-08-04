@@ -59,7 +59,7 @@ grep -inE "superset|dmux|claude-squad|worktree|parallel agent|cc-switch|oh-my-op
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt Superset when you (1) work on **macOS**, (2) regularly run **multiple coding agents in parallel** and want a polished **desktop GUI** — embedded terminal, diff viewer, editor handoff, status monitoring — rather than a terminal UI, and (3) are comfortable with the **Elastic License 2.0**. It is a mature (11.9K stars, 69 contributors, active dual-track releases), agent-agnostic cockpit that *orchestrates* Claude Code (and Codex/Cursor/Gemini/etc.) rather than replacing it, so it is additive to the Claude Code dev loop — not a "switch-to" front-end.
 

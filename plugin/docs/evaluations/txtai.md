@@ -49,7 +49,7 @@ gh api repos/neuml/txtai/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you want a single Python framework spanning semantic/multimodal search, RAG, pipelines, workflows, and agents on a flexible embeddings-database core — rather than assembling separate vector-store, RAG, and orchestration libraries. For a single narrow need, a focused tool is lighter; compare against haystack (transparent pipelines) and LightRAG (graph RAG) for the framework slot.
 

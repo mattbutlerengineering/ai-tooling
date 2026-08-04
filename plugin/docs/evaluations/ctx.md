@@ -55,7 +55,7 @@ Reviewed: repo description, topics, license, activity dates, and the full README
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 ctx is a credible, actively-developed meta-tool that automates exactly the discovery + context-budget problem this catalog tackles by hand. The Claude Code hook integration, dry-run safety model, and CI maturity are real and distinguish it from flat curated lists (awesome-claude-code, awesome-agent-skills, buildwithclaude), which it overlaps with on purpose. Adopt it conditionally — when you regularly start work across unfamiliar stacks and want graph-ranked skill/agent/MCP suggestions, and you accept the heavy local graph footprint, a single-maintainer young project, and that its recommendations span unvetted third-party entities. Re-evaluate with hands-on installation to verify recommendation relevance and false-positive rate before promoting to ADOPT.
 

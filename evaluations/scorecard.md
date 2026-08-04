@@ -61,7 +61,7 @@ Also attempted CLI install (`brew install scorecard` — formula confirmed to ex
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when evaluating dependencies or assessing the security posture of upstream projects before adoption. The GitHub Action is valuable for your own repos if you need a security health dashboard. Skip for day-to-day coding workflows — it's an outer-loop assessment tool, not an inner-loop quality gate. Complements SkillSpector (which scans skills for malicious patterns) and hol-guard (which scans before execution); scorecard assesses the project-level health that those tools can't see.
 

@@ -60,7 +60,7 @@ gh api search/repositories -f q='mem0 mcp server' -f sort=stars --jq '.items[] |
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use mem0 when you need memory that works across multiple AI editors (Claude Code + Codex + Cursor), when your memory store exceeds ~5K entries and needs entity linking for retrieval quality, or when you need publishable retrieval benchmarks to justify the tool to stakeholders. For Claude Code-only workflows, claude-mem (ADOPT) remains the better choice: zero-friction install, auto-capture via hooks, and 18+ bundled workflow skills. Do not run both simultaneously.
 

@@ -68,7 +68,7 @@ grep -in "impeccable" /Users/mbutler/github/ai-tooling/CATALOG.md
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 impeccable is the strongest entry in the catalog's crowded "make AI design well" cluster: it pairs a concrete, refusable rule set and a 23-command shared vocabulary with a genuinely deterministic 44-rule detector and an edit-time feedback hook — the inner/outer loop pattern, applied to frontend design, with no API key needed. Provenance is excellent (39.6K stars, Apache-2.0, named author, active same-day maintenance, broad multi-harness support).
 

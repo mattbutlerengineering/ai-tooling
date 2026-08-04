@@ -49,7 +49,7 @@ gh api repos/skyllwt/AutoSci/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Promising for long-horizon, multi-project research where compounding memory (SciMem) would pay off — but it's an actively-iterating research project, so adopt the lean `main` for stability and treat the full `paper`-branch system as experimental. Overlaps ARIS/AutoResearchClaw; choose AutoSci for the memory-centric lifecycle angle. Re-evaluate as the implementation catches up to the paper.
 

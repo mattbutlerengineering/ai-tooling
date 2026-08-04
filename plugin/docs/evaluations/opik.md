@@ -50,7 +50,7 @@ gh api repos/comet-ml/opik/readme --jq '.content' | base64 -d | head -45        
 
 ## Verdict
 
-**CONDITIONAL** — Opik is a strong, Apache-2.0 **LLMOps platform** that uniquely fuses tracing, evaluation, and **automatic prompt/tool optimization** for RAG and agentic systems. Adopt it when you're building and operating LLM-powered apps/agents and want one self-hostable place to trace, score (LLM-as-judge + datasets), and *improve* them. For this catalog it's CONDITIONAL because it observes the AI product you build rather than the coding agent itself, and it's a platform to run (or use Comet-hosted). Against langfuse (tracing-first) and promptfoo (eval/red-team CLI), Opik's edge is the optimization loop; against ragas it's broader than RAG metrics.
+**discovery-log — tentative read** — Opik is a strong, Apache-2.0 **LLMOps platform** that uniquely fuses tracing, evaluation, and **automatic prompt/tool optimization** for RAG and agentic systems. Adopt it when you're building and operating LLM-powered apps/agents and want one self-hostable place to trace, score (LLM-as-judge + datasets), and *improve* them. For this catalog it's CONDITIONAL because it observes the AI product you build rather than the coding agent itself, and it's a platform to run (or use Comet-hosted). Against langfuse (tracing-first) and promptfoo (eval/red-team CLI), Opik's edge is the optimization loop; against ragas it's broader than RAG metrics.
 
 Compared to neighbors: **langfuse** is tracing/observability + prompt management; **promptfoo** is declarative eval + red-teaming; **giskard-oss** is agent red-teaming; **ragas** is RAG metrics. Opik's distinguishing pitch is **unified tracing + evaluation + automatic prompt/tool optimization for agentic systems.**
 

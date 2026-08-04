@@ -49,7 +49,7 @@ gh api repos/BoundaryML/baml/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when reliable, structured LLM outputs matter and you want prompts as typed, testable functions callable from multiple languages — especially valuable for polyglot teams or apps needing tool-calling on models without native APIs. Accept the new-language/codegen overhead. Compare with pydantic-ai/instructor if you're single-language Python and want a lighter-weight structured-output approach.
 

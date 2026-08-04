@@ -49,7 +49,7 @@ gh api repos/agentscope-ai/agentscope/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for Python multi-agent systems where you value being able to see, understand, and trust what the agents do — the observability/transparency emphasis is its differentiator over feature-comparable frameworks. For TS stacks use agent-kit/voltagent; for a transparent-pipeline alternative, haystack. A strong, mature choice when inspectability matters as much as capability.
 

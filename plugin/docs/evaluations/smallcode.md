@@ -59,7 +59,7 @@ gh api repos/Doorman11991/smallcode/releases --jq 'length'             # 24
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you specifically want agentic coding on **local 8B–35B models** for privacy, offline, or zero-cost reasons, and accept the quality ceiling that comes with small models. It's the rare tool built *for* that constraint, and its adaptations (forgiving tool parsing, context budgeting, TODO planning, patch edits) are well-aimed. Skip it if you have frontier-model access — those models plus a frontier-oriented harness (opencode, Claude Code) will outperform, and SmallCode's own docs say so. Treat the headline benchmark as unverified.
+**discovery-log — tentative read** — adopt if you specifically want agentic coding on **local 8B–35B models** for privacy, offline, or zero-cost reasons, and accept the quality ceiling that comes with small models. It's the rare tool built *for* that constraint, and its adaptations (forgiving tool parsing, context budgeting, TODO planning, patch edits) are well-aimed. Skip it if you have frontier-model access — those models plus a frontier-oriented harness (opencode, Claude Code) will outperform, and SmallCode's own docs say so. Treat the headline benchmark as unverified.
 
 Compared to neighbors: **open-interpreter** also targets cheap open models (Deepseek/Kimi/Qwen) with native sandboxing; **DeepSeek-Reasonix** tunes for one provider's caching; **oh-my-pi**/**gemini-cli** assume capable hosted models. SmallCode is the most explicitly **small-local-model-optimized, fully-offline** agent of the set — the privacy/zero-cost end of the spectrum.
 

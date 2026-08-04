@@ -55,7 +55,7 @@ gh api repos/kodustech/kodus-ai/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when a team wants a self-hosted PR reviewer with full model choice, direct provider billing, and org-specific rules — and can run a multi-service deployment. For a solo dev or quick local checks, the built-in /code-review or a single-binary tool (skylos) is lighter. Confirm the OSS/paid feature boundary before standardizing.
 

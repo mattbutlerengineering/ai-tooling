@@ -80,9 +80,16 @@ A skill's value is a *change in agent behaviour*, not a CLI you can run — so m
 
 ## Verdict
 
-**{ADOPT | CONDITIONAL | SKIP | DEFER}**
+**{ADOPT | CONDITIONAL | SKIP | DEFER | discovery-log}**
 
 {2-3 sentences explaining the verdict. ADOPT = use in all projects. CONDITIONAL = use when {specific condition}. SKIP = evaluated and rejected. DEFER = promising but blocked by {reason}, re-evaluate after {trigger}.}
+
+If the tool was never exercised — `Evidence` `REVIEW`/`SOURCE-ONLY`, and its `COMPARISON.md`
+row reads `discovery-log` — the headline is **`discovery-log — tentative read`**, not a
+verdict word. ADR-0005 grants `CONDITIONAL` only to a tool we actually ran or one carrying
+a genuine `adopt-if:` condition; borrowing it for a lead makes a section titled `## Verdict`
+announce a verdict the eval hasn't earned (#324). Detector T (`--lead-headlines`) reports
+any that regrow.
 
 ## Catalog entry
 

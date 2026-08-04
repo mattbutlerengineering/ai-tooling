@@ -56,7 +56,7 @@ gh api repos/VoltAgent/awesome-openclaw-skills/commits --jq '.[0:3] | .[] | .com
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use for broad skill discovery across domains — especially non-engineering categories (transportation, health, smart home, media) where no other catalog has coverage. The malicious-skill filtering and VirusTotal partnership make it the safest large catalog. For Claude Code-specific engineering skills, prefer awesome-agent-skills (CONDITIONAL, editorial by publisher) or antigravity-awesome-skills (CONDITIONAL, installable bundles with CLI). The OpenClaw-native install flow limits direct utility for Claude Code users.
 

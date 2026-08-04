@@ -59,7 +59,7 @@ Did not install the full 754-skill collection — this is a content/architecture
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when doing dedicated security work — incident response, threat hunting, forensics, penetration testing, or compliance mapping. The five-framework coverage and practitioner-level depth per skill set this apart from both trailofbits/skills (code-review security, ADOPT) and Claude-BugHunter (external bug bounty, CONDITIONAL). Not recommended for general development where only the occasional security review is needed — the 754-skill collection adds weight without benefit outside security contexts, and trailofbits/skills covers that use case better.
 

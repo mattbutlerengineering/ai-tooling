@@ -57,7 +57,7 @@ gh api repos/Gentleman-Programming/engram --jq '.description, .stargazers_count'
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you work across multiple AI coding agents (Claude Code + Codex + Gemini CLI) and need shared memory, or when conflict surfacing for evolving architectural decisions matters. For Claude Code-only users, claude-mem (ADOPT) remains simpler and production-proven. Engram's unique strengths — agent-agnostic portability, topic-key upserts, and conflict surfacing — justify adoption when those capabilities are needed.
 

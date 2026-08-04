@@ -62,7 +62,7 @@ gh api "repos/tathagat22/plumb-mcp/git/trees/HEAD?recursive=1" --jq '.tree[].pat
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Plumb is the only Figma-MCP in the catalog cluster that **closes the loop on the generated code** — `plumb_verify` diffs your rendered DOM against the design (ΔE2000 colour + flex/shadow/rotation deltas via headless Chrome) and `plumb_fit` turns that into a self-healing 0–100 convergence loop. Combined with a plugin-bridge that removes Figma's REST quota/plan wall (works on Free, reads Variables) and a PDS normalizer that collapses Figma's giant JSON into a token-budget-friendly spec, it targets the two things that make naive Figma MCPs fail in an agent loop: context blowup and unverified output. **Adopt it when your project does meaningful Figma→code work, you want the agent to verify (not just guess) that the build matches the design, and you can run Figma desktop with the plugin paired** — confirming verify fidelity on a sample run first.
 

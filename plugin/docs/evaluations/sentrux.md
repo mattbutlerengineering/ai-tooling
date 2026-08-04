@@ -87,7 +87,7 @@ Agent: session_end()    → { pass: false, signal_before: 7342, signal_after: 68
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 sentrux is a real, thoughtfully-designed architectural quality sensor, not vaporware — the 5 root-cause metrics rest on named algorithms (Newman's Q, Tarjan, Gini, Lakos), the anti-gaming rationale is the best-articulated in this catalog's quality space, and it ships genuine Claude Code/MCP integration with a `session_start`/`session_end` degradation gate that fits the inner-loop Verify stage exactly. The "recursive self-improvement" framing oversells a standard human/agent-in-the-loop feedback cycle, and the `evolution` tool is git-history analysis, not self-modification — but the underlying substance holds up.
 

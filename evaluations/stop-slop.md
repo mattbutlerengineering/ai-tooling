@@ -64,7 +64,7 @@ grep -inE "taste-skill|humanizer|stop-slop|AI tells" /Users/mbutler/github/ai-to
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 stop-slop is the strongest of the three "de-AI the prose" skills in the catalog — its concrete deny-lists and substitution tables are exactly the format an LLM can apply, where taste-skill's abstract framing is not, and its progressive-disclosure structure and scoring rubric are well built. But for a code-focused dev-loop catalog its surface is narrow (it touches PRs, docs, commit messages, and review comments — not code), and several rules are dogmatic absolutes (no em dashes, kill all adverbs, ban "always/never") that will over-edit technical writing where those constructions are correct.
 

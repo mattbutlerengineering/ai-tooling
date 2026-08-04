@@ -60,7 +60,7 @@ README-based evaluation. The server is HTTP-hosted by Supabase (`https://mcp.sup
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when building on Supabase. The server's security model (read-only mode, project scoping, feature groups) is the most thoughtful of any MCP server in the catalog and sets a good standard. The 25+ tools cover the full Supabase platform surface. However, it's strictly Supabase-specific — if you're using raw Postgres or another provider, the Prisma MCP server is the better fit. The cloud-hosted requirement for full features and the lack of dedicated RLS tooling are minor gaps that don't block adoption for Supabase projects.
 

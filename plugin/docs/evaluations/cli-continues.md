@@ -50,7 +50,7 @@ gh api repos/yigitkonur/cli-continues/readme --jq '.content' | base64 -d | head 
 
 ## Verdict
 
-**CONDITIONAL** — continues is a focused, MIT utility that solves a real friction: **handing your AI coding session (history + file changes + working state) from any of 16 tools to any other**, zero-install via `npx`. Adopt it if you regularly hit rate limits mid-task or like switching models/tools and don't want to lose context — it's the cleanest cross-tool handoff option around. It's CONDITIONAL because the handoff is a *reconstruction* (inherently lossy) and parsing 16 tools' private session formats is brittle to upstream changes. For occasional use it's a great convenience; don't expect a perfect live-session transfer.
+**discovery-log — tentative read** — continues is a focused, MIT utility that solves a real friction: **handing your AI coding session (history + file changes + working state) from any of 16 tools to any other**, zero-install via `npx`. Adopt it if you regularly hit rate limits mid-task or like switching models/tools and don't want to lose context — it's the cleanest cross-tool handoff option around. It's CONDITIONAL because the handoff is a *reconstruction* (inherently lossy) and parsing 16 tools' private session formats is brittle to upstream changes. For occasional use it's a great convenience; don't expect a perfect live-session transfer.
 
 Compared to neighbors: **re_gent** tracks prompt-level provenance of agent changes; **cc-switch** swaps Claude accounts/providers; **storybloq** persists cross-session context within Claude Code. continues' distinguishing pitch is **any-to-any session handoff across 16 different coding agents.**
 

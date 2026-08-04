@@ -76,7 +76,7 @@ Reviewed: README (English, full), `hooks/hooks.json`, the recursive HEAD tree, t
 
 ## Verdict
 
-**CONDITIONAL** (cherry-pick, do not install wholesale) — aligning with the prior [`everything-claude-code.md`](everything-claude-code.md) verdict but for footprint/overlap reasons rather than breadth reasons.
+**discovery-log — tentative read** (cherry-pick, do not install wholesale) — aligning with the prior [`everything-claude-code.md`](everything-claude-code.md) verdict but for footprint/overlap reasons rather than breadth reasons.
 
 ECC is the most substantial security-and-self-improvement bundle in the catalog: GateGuard's pre-execution destructive-command blocking, the fact-force investigate-before-edit gate, config-protection, and the standalone AgentShield auditor are real, hook-enforced guardrails, and the instinct→skill continuous-learning loop is a coherent mechanism, not a slogan. The engineering is mature for a five-month-old repo (v2.0.0, ~2,180 commits, documented runtime gates, dry-run uninstall). Those pieces earn a CONDITIONAL.
 

@@ -49,7 +49,7 @@ gh api repos/kaitranntt/ccs/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you regularly switch between providers, accounts, or models with Claude Code (Claude/Codex/GLM/local/Anthropic-compatible) and want named profiles + one-command switching instead of editing config each time. It's a focused convenience layer — high value if you juggle providers, irrelevant if you use one. Distinct from API gateways (litellm/bifrost): ccs manages CLI profiles/runtime, not request routing.
 

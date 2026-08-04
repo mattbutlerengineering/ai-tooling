@@ -49,7 +49,7 @@ gh api repos/mastra-ai/mastra/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for TypeScript teams building production AI apps/agents that want a batteries-included framework with graph workflows, model routing, RAG, memory, evals, and first-class human-in-the-loop — especially with React/Next/Node frontends. Pin the license terms. For Python stacks use pydantic-ai/haystack; among TS options, compare Mastra (production + frontend + HITL) against voltagent and agent-kit (deterministic routing).
 

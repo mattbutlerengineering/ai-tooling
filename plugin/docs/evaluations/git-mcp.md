@@ -70,7 +70,7 @@ grep -inE "context7|git-mcp|gitmcp|opensrc|code-context-engine|Pare" /Users/mbut
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 GitMCP is a well-built, popular, genuinely open MCP server that targets a real failure mode — agents hallucinating APIs from stale training data — with a uniquely broad reach: it grounds the agent in **any** public GitHub repo, including the long tail of niche and brand-new libraries that curated docs services don't index. That breadth is its decisive advantage over [context7](https://github.com/upstash/context7) (already in the catalog, KEEP), which serves a curated set of well-known libraries' docs. The two are **complementary, not competing** — context7 gives polished, curated docs for mainstream libraries; GitMCP gives raw-but-current docs *and code search* for arbitrary repos. Reach for GitMCP when working against a specific GitHub project (a dependency you're integrating, a library too new/niche for context7, or one where you need to read its actual source). **Adopt it per-project, preferring the per-repo endpoint (`gitmcp.io/{owner}/{repo}`) over the dynamic one, and self-host if a third-party service in the correctness path is unacceptable.** Not ADOPT-everywhere because it's a targeted, per-repo grounding tool with a hosted-service dependency, no release versioning, and quality bounded by each repo's own docs — not a universal default. Not SKIP because the anti-hallucination value for real-repo grounding is concrete and the breadth is unmatched in the catalog.
 

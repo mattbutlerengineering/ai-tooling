@@ -56,7 +56,7 @@ gh api repos/lucasrosati/claude-code-memory-setup/readme --jq '.content' | base6
 
 ## Verdict
 
-**CONDITIONAL (reference / setup recipe)** — a well-documented, MIT recipe for **persistent Claude Code memory + token savings** by composing **Obsidian Zettelkasten + a chat-import pipeline + Graphify**. Its value is the integration blueprint: if you want human-inspectable, file-based memory plus a codebase graph and are willing to run/maintain the stack, it's a credible alternative to a turnkey memory plugin. Treat the "71.5×" headline as one setup's self-reported result, and weigh the multi-component maintenance against a single plugin like claude-mem. Best read as a *how-to* that leans on the already-cataloged Graphify, not a drop-in product.
+**discovery-log — tentative read (reference / setup recipe)** — a well-documented, MIT recipe for **persistent Claude Code memory + token savings** by composing **Obsidian Zettelkasten + a chat-import pipeline + Graphify**. Its value is the integration blueprint: if you want human-inspectable, file-based memory plus a codebase graph and are willing to run/maintain the stack, it's a credible alternative to a turnkey memory plugin. Treat the "71.5×" headline as one setup's self-reported result, and weigh the multi-component maintenance against a single plugin like claude-mem. Best read as a *how-to* that leans on the already-cataloged Graphify, not a drop-in product.
 
 Compared to neighbors: **claude-mem** is a turnkey memory plugin; **storybloq** tracks cross-session context in `.story/`; **Graphify** is the codebase-graph component this recipe builds on. claude-code-memory-setup's distinguishing pitch is the **Obsidian-Zettelkasten + Graphify integration blueprint** for memory *and* token savings.
 

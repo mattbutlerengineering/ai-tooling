@@ -58,7 +58,7 @@ gh api repos/zhukunpenglinyutong/jetbrains-cc-gui/releases --jq 'length'        
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you work in a **JetBrains IDE** and want Claude Code and/or Codex as a native visual panel with `@file` context, image input, conversation rewind, skills, and MCP — rather than driving them in a terminal. It's mature, actively maintained, dual-engine, MIT, and the maintainer's security-audit cadence is reassuring. Not relevant outside JetBrains, and it's a front-end so cost/quality remain the CLIs'. Note the third-party-branding caveat. For VS Code, use kilocode; for a standalone desktop multiplexer, cc-switch.
+**discovery-log — tentative read** — adopt if you work in a **JetBrains IDE** and want Claude Code and/or Codex as a native visual panel with `@file` context, image input, conversation rewind, skills, and MCP — rather than driving them in a terminal. It's mature, actively maintained, dual-engine, MIT, and the maintainer's security-audit cadence is reassuring. Not relevant outside JetBrains, and it's a front-end so cost/quality remain the CLIs'. Note the third-party-branding caveat. For VS Code, use kilocode; for a standalone desktop multiplexer, cc-switch.
 
 Compared to neighbors: **kilocode** is the in-editor agent for VS Code/JetBrains (its own agent, not a CLI wrapper); **cc-switch** is a desktop GUI that switches between CLI agents; **claudian** hosts agents inside Obsidian. CC GUI is the **JetBrains-native GUI specifically for the Claude Code + Codex CLIs** — the IDE-panel host for those two terminal agents.
 

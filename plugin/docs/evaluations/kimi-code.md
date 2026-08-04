@@ -53,7 +53,7 @@ gh api repos/MoonshotAI/kimi-code/releases --jq 'length'             # 24
 
 ## Verdict
 
-**CONDITIONAL** — a well-maintained, broadly-installable terminal coding agent that's the natural pick if you want to run **Kimi models** in an agentic CLI, or if you need **strong Windows support** from a vendor tool. Its 24-release cadence and cross-platform polish are points in its favor over newer entrants. But it's another member of a crowded category with no inner-loop edge beyond model choice, and quality depends on the model you point it at. Choose it for the Kimi ecosystem / Windows story; otherwise it's interchangeable with the other vendor CLIs.
+**discovery-log — tentative read** — a well-maintained, broadly-installable terminal coding agent that's the natural pick if you want to run **Kimi models** in an agentic CLI, or if you need **strong Windows support** from a vendor tool. Its 24-release cadence and cross-platform polish are points in its favor over newer entrants. But it's another member of a crowded category with no inner-loop edge beyond model choice, and quality depends on the model you point it at. Choose it for the Kimi ecosystem / Windows story; otherwise it's interchangeable with the other vendor CLIs.
 
 Compared to neighbors: same family as **gemini-cli** (largest context/free tier), **qwen-code** (Qwen), **grok-cli** (autonomy features), **MiMo-Code** (zero-config free channel + memory), **DeepSeek-Reasonix** (prefix-cache tuned). Kimi Code's distinguishing notes are **Moonshot/Kimi models, mature release cadence, and first-class Windows support**.
 

@@ -49,7 +49,7 @@ gh api repos/sigoden/aichat/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt as a fast, scriptable, all-in-one terminal LLM CLI — shell assistance, REPL/CMD, RAG, and agents across providers in one Rust binary — when you want consolidation over a pile of single-purpose tools. For deep multi-file coding, a dedicated agent (Claude Code/opencode) does more. Mind the Shell Assistant's command-execution risk and the moderate maintenance cadence.
 

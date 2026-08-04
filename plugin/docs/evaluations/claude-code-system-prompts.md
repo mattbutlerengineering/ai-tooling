@@ -55,7 +55,7 @@ gh api repos/Piebald-AI/claude-code-system-prompts/readme --jq '.content' | base
 
 ## Verdict
 
-**CONDITIONAL** (lean ADOPT as a bookmark)
+**discovery-log — tentative read** (lean ADOPT as a bookmark)
 
 The most authoritative, freshest, most granular reference for Claude Code's internal prompts that exists — extracted from compiled source rather than leaked, MIT-licensed, version-pinned, and updated within minutes of each release. The catch is scope: it is Claude-Code-only and is a study artifact, not a runnable tool, so it earns CONDITIONAL rather than ADOPT. Bookmark and consult it when designing your own agent/sub-agent prompts, when investigating how a Claude Code skill behaves, or when reading the changelog after an upgrade. Against its neighbors: `system-prompts-leaks` (asgeirtj, CC0, 43K stars) and `system-prompts-and-models` (x1xhlol) are far **broader** (Anthropic + OpenAI + Google + xAI) but their Claude Code coverage is thinner and second-hand; this repo wins decisively on Claude-Code depth, provenance, and freshness. Use this one for "how does Claude Code work?" and the broad collections for "how do competing tools compare?"
 

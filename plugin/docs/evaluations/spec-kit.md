@@ -71,7 +71,7 @@ gh api repos/github/spec-kit/contributors --jq 'length'   # 30
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for greenfield projects and substantial, PR-sized features where misalignment is the expensive failure — the Specify→Plan→Tasks→Implement sequence with human checkpoints is a disciplined, well-maintained answer to "prompt and pray," and Claude Code is a first-class integration. Skip it for bug fixes, small changes, and exploratory work, where the four-phase ceremony costs more than it saves. Two caveats temper the enthusiasm: the "executable specs" framing oversells what is really durable-markdown-plus-advisory-checks (not enforced gates), and it's still pre-1.0 with churning command names. Within the SDD trio, choose spec-kit when you want GitHub-official polish, the broadest agent support, and the heaviest process; choose **OpenSpec** when you want lighter, more portable specs that act as validation gates without the four-phase ceremony; choose **BMAD-METHOD** when you want role-based agents (analyst/PM/architect/dev) rather than a phase pipeline. For a user already running **GSD** (milestones/phases/planning/execution/verification with its own agents), spec-kit is largely redundant — GSD already provides the structured plan→execute→verify loop, so adding spec-kit would mean running two competing process frameworks; prefer it only if you specifically want the GitHub-standard SDD artifacts or cross-agent portability GSD doesn't offer.
 

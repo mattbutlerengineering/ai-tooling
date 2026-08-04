@@ -49,7 +49,7 @@ gh api repos/xberg-io/xberg/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt as the document-ingestion layer when you need clean text, metadata, and structure (including code intelligence) from many formats to feed RAG or agents — fast and locally, without a GPU. Pin the license terms first, and validate OCR/VLM output quality on your document mix. Pair with a retrieval/index tool (LightRAG/PageIndex); kreuzberg is the extraction front-end, not end-to-end RAG.
 

@@ -55,7 +55,7 @@ gh api repos/.../contents/categories/02-language-specialists/typescript-pro.md -
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The best *quantity-and-distribution* reference for Claude Code subagents — and, unusually, it ships the agents as installable artifacts rather than just linking out, which neither `awesome-claude-code` nor the `awesome-claude-skills` lists do. Use it as a starting-point library when you need an agent for a role you haven't written yet: pull the relevant `.md`, then review and harden the prompt before trusting it. It lands at CONDITIONAL rather than ADOPT because it lacks the editorial curation that makes `awesome-claude-code` valuable — there's no signal about which of the 154 agents are actually good, the bodies look LLM-generated and unvetted, and there's a sponsor/marketing layer. It complements `awesome-claude-code` (curation-rich, agent-light) rather than replacing it: this one is the agent warehouse, that one is the reviewed catalog.
 

@@ -50,7 +50,7 @@ gh api repos/promptfoo/promptfoo/readme --jq '.content' | base64 -d | head -75  
 
 ## Verdict
 
-**CONDITIONAL** — Promptfoo is the **standard open-source LLM eval + red-teaming tool** (MIT, 22K stars, used by OpenAI and Anthropic), and a clear catalog gap now filled. Adopt it whenever you ship LLM-powered features — prompts, RAG, agents — and want regression-tested, CI-gated quality plus security/red-team scanning instead of trial-and-error. It's CONDITIONAL (not unconditional ADOPT for *this* catalog) only because its primary object is *the AI app you build*, not the coding agent itself; for teams whose product includes LLM features it's close to essential. Author real test cases to get real value, and budget for eval inference.
+**discovery-log — tentative read** — Promptfoo is the **standard open-source LLM eval + red-teaming tool** (MIT, 22K stars, used by OpenAI and Anthropic), and a clear catalog gap now filled. Adopt it whenever you ship LLM-powered features — prompts, RAG, agents — and want regression-tested, CI-gated quality plus security/red-team scanning instead of trial-and-error. It's CONDITIONAL (not unconditional ADOPT for *this* catalog) only because its primary object is *the AI app you build*, not the coding agent itself; for teams whose product includes LLM features it's close to essential. Author real test cases to get real value, and budget for eval inference.
 
 Compared to neighbors: **langfuse** is observability/evals/prompt-management as a platform (tracing-first); **evalview** is agent regression testing via MCP. Promptfoo's distinguishing pitch is **declarative, CI-native LLM evals fused with red-teaming/vulnerability scanning — the category standard.**
 

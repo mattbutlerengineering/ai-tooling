@@ -55,7 +55,7 @@ gh api repos/DeusData/codebase-memory-mcp/releases --jq '.[0:3][] | {tag:.tag_na
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 The most security-hardened and best-documented entry in our code-intelligence-graph cluster, and the only one with a published preprint and benchmark methodology — that combination is the reason to look at it over `gortex` (more languages: 257, but thinner trust signals) or `code-context-engine` (simpler, search-only). Adopt it when you need a local, zero-dependency, broad-language structural index and you value the supply-chain provenance. It stays CONDITIONAL rather than ADOPT for two reasons: it is pre-1.0 and only four months old (no stability track record, three same-day releases), and its installer auto-writes agent config and pre-tool hooks across 11 agents — a high-trust action you should audit before running. The conflicting token-savings figures (10x/99%/120x) also argue for measuring on your own repo before believing the headline. Re-evaluate at a 1.0 release.
 

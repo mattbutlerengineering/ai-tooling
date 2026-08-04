@@ -49,7 +49,7 @@ gh api repos/maximhq/bifrost/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you need a fast, self-hosted, multi-provider gateway with failover, caching, and an MCP gateway, and you're throughput-sensitive enough that a Python proxy's overhead matters. For smaller apps already happy with litellm or wanting bundled observability, the incumbents are fine. Verify the performance claims against your own traffic before standardizing.
 

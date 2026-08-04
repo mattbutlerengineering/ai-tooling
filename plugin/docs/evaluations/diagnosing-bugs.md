@@ -71,7 +71,7 @@ gh api repos/mattpocock/skills/contents/skills/engineering/diagnosing-bugs/scrip
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 diagnosing-bugs is a high-quality, well-maintained debug-stage process skill with one genuinely better idea than the catalog's incumbent (a *red-capable artifact* gate and a concrete 10-option feedback-loop menu, plus multi-hypothesis anti-anchoring and agent-grade cleanup hygiene). But it overlaps ~70% with superpowers' `systematic-debugging`, which the user already runs as a plugin, and it is actually *thinner* on root-cause tracing, pattern analysis, and the failed-fix-count escalation that systematic-debugging does well. Running both invites two competing phase-gates on the same "debug this" trigger.
 

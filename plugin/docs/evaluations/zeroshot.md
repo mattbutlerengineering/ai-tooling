@@ -49,7 +49,7 @@ gh api repos/the-open-engine/zeroshot/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for hands-off, correctness-first issue→PR automation where an independent-validation loop (planner/implementer/validators in isolation) matters more than turnaround speed — and you'll review what it merges. Multi-provider and multi-platform-issue support make it practical for ticket-driven teams. Overlaps Archon/flow-next/ruflo; choose zeroshot for the independent-validator, reproducible-failure emphasis.
 

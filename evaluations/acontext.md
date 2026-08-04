@@ -49,7 +49,7 @@ gh api repos/memodb-io/Acontext/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for agents that run repeated tasks and benefit from compounding, inspectable learnings — especially in skill-file-native ecosystems (Claude Code, AI SDK). For a solo user already on claude-mem + OMEGA, it overlaps existing memory; the draw is the skill-file representation if you want portable, hand-editable learnings. Re-evaluate hands-on against memU and ACE for a memory-layer decision.
 

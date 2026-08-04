@@ -53,7 +53,7 @@ gh api repos/agent-of-empires/agent-of-empires/releases --jq 'length'           
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you run several coding agents in parallel from a terminal-centric Linux/macOS setup and want tmux-grade session durability, broad multi-agent support, and real phone/tablet remote access. It's actively developed, MIT-licensed, and the tmux-backed persistence + remote tunnel combo is genuinely differentiated. Hold off if you want a stable GUI today (web dashboard is beta), need Windows, or are already happy in claude-squad — AoE is the more feature-dense, more remote-capable cousin of the same TUI session-manager idea.
+**discovery-log — tentative read** — adopt if you run several coding agents in parallel from a terminal-centric Linux/macOS setup and want tmux-grade session durability, broad multi-agent support, and real phone/tablet remote access. It's actively developed, MIT-licensed, and the tmux-backed persistence + remote tunnel combo is genuinely differentiated. Hold off if you want a stable GUI today (web dashboard is beta), need Windows, or are already happy in claude-squad — AoE is the more feature-dense, more remote-capable cousin of the same TUI session-manager idea.
 
 Compared to neighbors: **claude-squad** is the minimal TUI session manager; **Nimbalyst** is the maximal visual Electron workspace; **AgentsMesh** scales horizontally to a fleet of machines. AoE sits between claude-squad and Nimbalyst — terminal-native like the former, but with web/mobile reach and the widest agent-CLI support.
 

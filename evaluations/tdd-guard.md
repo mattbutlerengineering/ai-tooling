@@ -50,7 +50,7 @@ gh api repos/nizos/tdd-guard/readme --jq '.content' | base64 -d | head -75      
 
 ## Verdict
 
-**CONDITIONAL** — TDD Guard is the rare tool that turns "please write tests first" from a *request* into an *enforced guardrail*: a Claude Code hook that blocks implementation without a failing test and blocks over-implementation, across 9 test frameworks. Adopt it if your team genuinely practices TDD and wants the agent held to red-green-refactor mechanically rather than by hope — it's the enforcement layer the `tdd`/`test-driven-development` skills only advise. Accept that it's Claude-Code-specific, adds a small per-action validation cost, and (today) can be bypassed via MCP/shell paths. For teams that don't do strict TDD, it's friction by design.
+**discovery-log — tentative read** — TDD Guard is the rare tool that turns "please write tests first" from a *request* into an *enforced guardrail*: a Claude Code hook that blocks implementation without a failing test and blocks over-implementation, across 9 test frameworks. Adopt it if your team genuinely practices TDD and wants the agent held to red-green-refactor mechanically rather than by hope — it's the enforcement layer the `tdd`/`test-driven-development` skills only advise. Accept that it's Claude-Code-specific, adds a small per-action validation cost, and (today) can be bypassed via MCP/shell paths. For teams that don't do strict TDD, it's friction by design.
 
 Compared to neighbors: **stryker-js** is mutation testing (are your tests *good*?); **superpowers**' TDD skill *advises* test-first; **pr-review-toolkit** reviews after the fact. TDD Guard's distinguishing pitch is **blocking the agent in real time when it violates test-first/minimal-implementation discipline.**
 

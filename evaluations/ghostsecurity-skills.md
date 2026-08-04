@@ -57,7 +57,7 @@ Not hands-on tested (requires a project with security-relevant code to scan mean
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when your project needs structured security scanning beyond what trailofbits/skills provides. trailofbits/skills (ADOPT) gives you audit methodology — how to systematically review code for security issues. ghostsecurity/skills gives you automated scanning pipelines — SAST, SCA, secrets, and DAST validation with 103 vulnerability vectors and independent verification. They're complementary: trailofbits for manual security review discipline, ghostsecurity for automated scanning coverage. The closed-source scanner binaries (wraith, poltergeist) are a trust tradeoff — you get deeper SCA/secrets scanning but can't audit the scanner itself.
 

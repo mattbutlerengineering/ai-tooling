@@ -49,7 +49,7 @@ gh api repos/langwatch/scenario/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for testing multi-turn agents where behavior and tool usage — not just a single answer — are what matter, and pair it with metric evals (deepeval/promptfoo) for output quality. Pin judge/simulator models and seed scenarios for stable CI signals. The simulation token cost is the price for catching trajectory-level bugs that single-response evals miss.
 

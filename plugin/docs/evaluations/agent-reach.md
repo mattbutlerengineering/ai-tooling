@@ -74,7 +74,7 @@ grep -inE "exa-mcp|firecrawl|last30days|agent-reach" /Users/mbutler/github/ai-to
 
 ## Verdict
 
-**CONDITIONAL** (leaning SKIP for a focused dev-loop stack)
+**discovery-log — tentative read** (leaning SKIP for a focused dev-loop stack)
 
 Agent-Reach is a well-built, genuinely popular, honestly-architected internet-capability router with a real Claude-Code-native SKILL.md surface. But measured against this catalog's frame — tools that move quality signals *in the dev loop* — most of its surface area is general agent automation and social listening, much of it tilted to Chinese platforms. The only dev-relevant channels are a thin `gh`-CLI wrapper and a web/code search that is Exa-under-the-hood. **Adopt it only when your work genuinely needs broad multi-platform internet reach from the agent** — competitive/social research, monitoring discussions across Twitter/Reddit/YouTube, or working across Chinese platforms. For a coding-focused stack, prefer the narrower, lower-surface-area options: `exa-mcp-server` for web/research search (same engine, direct, no cookie sprawl) and the `gh` CLI you already have for GitHub. Not ADOPT because it is not dev-loop-shaped and carries a real credential/dependency surface; not SKIP outright because for research-and-discovery work the multi-backend routing and free-tier breadth are a legitimate, maintained win. Differentiation from `exa-mcp-server`: exa-mcp-server *is a search engine* (one engine, web search/research, direct MCP); Agent-Reach *is a router/installer* across 13 platforms that, for web search, delegates to that very Exa engine — broader reach, more setup, more attack surface, and far less dev-loop focus.
 

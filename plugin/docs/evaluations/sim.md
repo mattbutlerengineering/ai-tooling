@@ -49,7 +49,7 @@ gh api repos/simstudioai/sim/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when a team wants a visual+chat+code workspace to build and operate agents with built-in integrations, RAG, and a database — especially to include non-engineers. Code-first teams or those committed to a single agent CLI will get more control from a framework. Weigh it against Flowise/Langflow/Dify for the visual-builder slot.
 

@@ -61,7 +61,7 @@ Did not install or run against live targets — this is an architecture/content 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when conducting authorized external security testing — bug bounty programs, penetration tests, or red-team engagements. The report-derived hunt skills and the 7-Question Gate triage methodology are significantly more rigorous than generic security scanning prompts. Not a replacement for trailofbits/skills (defensive code review) or ghostsecurity/skills (AppSec during development) — those operate at the Review stage on code you're writing, while Claude-BugHunter operates at the external testing stage against running applications you're authorized to test.
 

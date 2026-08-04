@@ -54,7 +54,7 @@ gh api repos/Nimbalyst/nimbalyst/releases --jq 'length'           # 30
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you want a *visual* command center for running several Codex/Claude Code sessions in parallel with red/green human approval and built-in git worktrees, and you prefer a dedicated desktop workspace over a terminal/IDE. It's actively developed, multi-agent, cross-platform, and the diff-approval + session-management combo is genuinely useful. Hold off if you're happy in a TUI (claude-squad) or an in-editor agent — the full Electron workspace is a heavy switch, and the successor is still young.
+**discovery-log — tentative read** — adopt if you want a *visual* command center for running several Codex/Claude Code sessions in parallel with red/green human approval and built-in git worktrees, and you prefer a dedicated desktop workspace over a terminal/IDE. It's actively developed, multi-agent, cross-platform, and the diff-approval + session-management combo is genuinely useful. Hold off if you're happy in a TUI (claude-squad) or an in-editor agent — the full Electron workspace is a heavy switch, and the successor is still young.
 
 Compared to neighbors: **claude-squad** is the lean TUI equivalent (manage parallel sessions, no GUI); **kilocode** lives inside your existing editor; Nimbalyst is the maximal **standalone visual workspace** end of that spectrum — more capability and a richer review surface, but more app to adopt. (Catalogued under its live name; the discovered `stravu/crystal` repo is the deprecated predecessor.)
 

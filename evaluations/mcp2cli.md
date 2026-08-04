@@ -62,7 +62,7 @@ gh api repos/knowsuchagency/mcp2cli/readme --jq '.content' | base64 -d   # usage
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you wire several MCP servers (or large OpenAPI/GraphQL APIs) into your agents and feel the per-turn tool-schema tax, or if you want any HTTP API callable from an agent without writing an MCP server. The on-demand-discovery pattern is well-reasoned, the multi-protocol + OAuth coverage is strong, and the bundled skill makes agent adoption easy. Hold off if you connect only one or two frequently-used tools (direct MCP wiring is simpler) or need release-tagged stability (none yet). Treat the "96–99%" number as best-case, not a guarantee.
+**discovery-log — tentative read** — adopt if you wire several MCP servers (or large OpenAPI/GraphQL APIs) into your agents and feel the per-turn tool-schema tax, or if you want any HTTP API callable from an agent without writing an MCP server. The on-demand-discovery pattern is well-reasoned, the multi-protocol + OAuth coverage is strong, and the bundled skill makes agent adoption easy. Hold off if you connect only one or two frequently-used tools (direct MCP wiring is simpler) or need release-tagged stability (none yet). Treat the "96–99%" number as best-case, not a guarantee.
 
 Compared to neighbors: most catalog MCP entries are *servers that expose a capability*; mcp2cli is the inverse — **meta-infrastructure that makes any MCP/API agent-callable from a CLI while keeping schemas out of context**, conceptually adjacent to the token-efficiency tools (opensquilla, headroom, context-mode) but aimed at *tool access* rather than reasoning context.
 

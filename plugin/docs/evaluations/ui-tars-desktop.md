@@ -52,7 +52,7 @@ gh api repos/bytedance/UI-TARS-desktop/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you need an agent to operate real GUIs/browsers — desktop automation, computer-use, or web tasks without APIs — and can run it under supervision/sandboxing given the action risk. As a coding-dev-loop tool it's adjacent (automation/QA infra rather than code authoring). Strong, well-backed option in the GUI-agent space; weigh the safety surface and compute needs.
 

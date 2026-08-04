@@ -52,7 +52,7 @@ gh api "repos/shanraisshan/claude-code-best-practice/git/trees/main?recursive=1"
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use as the primary reference when learning a new Claude Code feature (subagents, hooks, skills, MCP, settings) or when comparing development workflow frameworks. The three-layer pattern (best practice + implementation + source) and the 12-framework comparison table are uniquely valuable — no other catalog entry covers this breadth. Skip for daily use — once you've internalized a concept, the official docs are faster for lookups. The lack of an installable component means this competes with bookmarks, not tools.
 

@@ -60,7 +60,7 @@ Not hands-on tested (no design project available during evaluation), so this is 
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need HTML-native design output (prototypes, slides, animations, infographics) and want to avoid AI-default aesthetics. The anti-slop system and 40-style library with reproducibility ratings are unmatched in the catalog — no other design skill provides this level of structured visual vocabulary. The Chinese-language primary documentation is the main barrier for non-Chinese teams; the design methodology itself is language-agnostic once loaded. Choose impeccable or frontend-design for simpler "make it look good" use cases; choose huashu-design when you need structured design direction, animation/video export, or 5-dimension critique.
 

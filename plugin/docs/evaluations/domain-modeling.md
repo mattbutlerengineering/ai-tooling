@@ -67,7 +67,7 @@ grep -inE "domain-model|CONTEXT.md|ubiquitous|codebase-design|ADR|documentation-
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 domain-modeling is a high-quality, well-authored Plan-stage process skill whose load-bearing contributions — the three-part ADR gate, the "glossary and nothing else" invariant, and the `_Avoid_`-synonym mechanism that lets an agent *enforce* language rather than merely define it — are genuinely better-specified than the catalog's incumbent `documentation-and-adrs`. Shared-vocabulary modeling is a real dev-loop lever: it improves Maintainability and Correctness by grounding every later session in consistent terms and recorded rationale, and it is the substrate that makes the sibling skills (`grill-with-docs`, `improve-codebase-architecture`) work.
 

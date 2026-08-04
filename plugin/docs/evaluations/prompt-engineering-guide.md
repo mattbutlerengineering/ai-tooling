@@ -46,7 +46,7 @@ gh api repos/dair-ai/Prompt-Engineering-Guide --jq '{stars,license:.license.spdx
 
 ## Verdict
 
-**CONDITIONAL (reference)** — the Prompt Engineering Guide is the **canonical foundations reference** for prompt/context engineering, RAG, and agents: MIT, comprehensive, and widely used. Keep it as the go-to grounding for *how to prompt*, distinct from the catalog's Claude-Code-specific guides (which cover skills, CLAUDE.md, and the agentic dev loop). It's background knowledge, not a tool that changes your loop.
+**discovery-log — tentative read (reference)** — the Prompt Engineering Guide is the **canonical foundations reference** for prompt/context engineering, RAG, and agents: MIT, comprehensive, and widely used. Keep it as the go-to grounding for *how to prompt*, distinct from the catalog's Claude-Code-specific guides (which cover skills, CLAUDE.md, and the agentic dev loop). It's background knowledge, not a tool that changes your loop.
 
 Compared to neighbors: **ai-agents-for-beginners** / **genai-agents** teach agent building; **awesome-claude-code** indexes Claude-Code-specific configs. This guide's distinguishing role is **provider-agnostic prompt/context-engineering fundamentals** with a linked paper trail.
 

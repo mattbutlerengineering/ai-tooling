@@ -49,7 +49,7 @@ gh api repos/teng-lin/notebooklm-py/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Useful for automating NotebookLM-grounded research from agents/scripts when its grounding is exactly what you want — but treat it as inherently fragile: it rides undocumented Google APIs that can break or run afoul of terms. Fine for exploratory/personal automation; do **not** build a production-critical pipeline on it. For robust research, prefer first-party APIs or tools like storm/deep-research.
 

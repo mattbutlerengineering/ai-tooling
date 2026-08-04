@@ -50,7 +50,7 @@ gh api repos/Arize-ai/phoenix/contents/LICENSE --jq '.content' | base64 -d | hea
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Strong pick when you want one self-hostable, OTel-native tool covering tracing, evals, datasets, and prompt experimentation — especially across multiple agent frameworks. Weigh the Elastic License 2.0 terms versus the Apache/MIT alternatives (langfuse, opik) if license purity or offering-as-a-service matters. Re-evaluate hands-on against logfire and langfuse for an observability-stack decision.
 

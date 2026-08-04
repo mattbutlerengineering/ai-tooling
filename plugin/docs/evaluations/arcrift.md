@@ -61,7 +61,7 @@ gh api repos/Eshaan-Nair/ArcRift/contributors --jq '.[].login'      # Eshaan-Nai
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 ArcRift is a credible, MIT-licensed, local-first memory tool whose real differentiator is the **browser-chat ↔ IDE-agent bridge** — syncing memory between web AI UIs and coding agents over one shared SQLite store, an axis no other catalog memory entry covers. That makes it *additive*, not a thin duplicate: agentmemory competes on benchmarked recall and platform breadth, memsearch on cross-IDE portability, AgentRecall on correction-first compounding, and ArcRift on web-to-IDE unification. Use it when your real pain is **"I plan and decide in ChatGPT/Claude.ai web chats, then lose all that context when I switch to my coding agent"** — and you're willing to run Ollama and a persistent local backend.
 

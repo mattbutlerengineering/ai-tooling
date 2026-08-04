@@ -64,7 +64,7 @@ grep -niE 'git-mcp|token-optimizer|headroom|pare|paretools' /Users/mbutler/githu
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt Pare when you run AI coding agents that lean heavily on git, test runners, builds, installs, and container/infra tooling, and you want **reliable typed tool output** rather than agents regex-parsing fragile terminal text — that reliability angle, not the token savings, is the real reason to choose it. It is the only tool in its catalog cluster that attacks the *source* of verbose/fragile CLI output (a structured MCP replacement) instead of compressing the output after the fact, which makes it complementary to rtk/headroom rather than redundant: Pare cleans up the git/test/build path, a compression layer can still mop up the remaining raw Bash and file-read context. Install only the 2-4 servers your stack needs and use `PARE_TOOLS` to keep the tool surface small. Security hygiene is unusually strong for the size (documented trust model, flag-injection guards, OpenSSF badges).
 

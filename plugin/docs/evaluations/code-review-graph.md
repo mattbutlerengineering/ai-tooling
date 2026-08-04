@@ -67,7 +67,7 @@ Repo structure confirms maturity: `tests/` directory, CI badge + `.github/workfl
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 code-review-graph is a mature (18.7K stars, v2.3.6), local-first, honestly-benchmarked structural code graph with a clear and differentiated specialty — **blast-radius/risk-scored code review** — that the catalog's other code-intelligence tools don't directly target. Its maturity clears the bar that earned codegraph an ADOPT, and its self-aware limitations documentation is a strong trust signal. It falls short of an outright ADOPT on two counts: the 30-tool-by-default MCP surface plus broad feature sprawl make it a heavier, higher-configuration commitment than codegraph's tight always-on model, and its headline accuracy claim ("recall 1.0") is circular by the author's own admission, with real predictive recall unquoted.
 

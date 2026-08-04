@@ -53,7 +53,7 @@ gh api repos/sjsyrek/design-council/git/trees/main?recursive=1 --jq '.tree[].pat
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when a decision crosses ≥2 specialist domains and the output must survive handoff (decision log, tracker items, execution plan). The protocol engineering is the most thorough in the catalog — production-grade with battle-tested gotcha documentation. Skip for bug fixes, single-specialist questions, or quick library picks where the 10–20× token cost isn't earned. Requires advanced Claude Code orchestration features (TeamCreate, peer SendMessage) that may not be available in all configurations.
 

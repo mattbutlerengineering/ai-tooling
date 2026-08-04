@@ -54,7 +54,7 @@ Examined: setup wizard flow (`make setup`), config.yaml model provider system (8
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need a self-hosted, model-agnostic super-agent platform for long-horizon tasks (research, report generation, multi-step analysis) that span minutes to hours. DeerFlow is genuinely impressive infrastructure — sandboxed execution, sub-agent orchestration, persistent memory, and 71K-star community support. However, it's a standalone platform that runs alongside Claude Code rather than enhancing it, and the deployment overhead (Docker + Python + Node + LangGraph) is substantial compared to plugin-based alternatives. Choose superpowers (ADOPT) or compound-engineering (CONDITIONAL) if you want to enhance Claude Code directly; choose DeerFlow if you need a full autonomous agent runtime with execution sandboxes.
 

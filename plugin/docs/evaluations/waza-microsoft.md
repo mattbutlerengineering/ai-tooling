@@ -51,7 +51,7 @@ gh api repos/microsoft/waza/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt if you author or maintain agent skills seriously and want to benchmark their effectiveness across models rather than trusting vibes — the skills equivalent of an eval harness. For one-off personal skills it's overkill; the value is in regression-testing a skill library. Overlaps skill-creator's eval features — pick by whether you want a standalone cross-model benchmarker (this) or integrated authoring+eval (skill-creator).
 

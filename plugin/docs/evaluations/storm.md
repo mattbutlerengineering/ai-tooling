@@ -49,7 +49,7 @@ gh api repos/stanford-oval/storm/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Reach for STORM when you need a grounded, cited long-form draft on a topic — documentation, literature surveys, internal research briefs — and will edit the output. The multi-perspective outline and academic grounding set it apart from generic research agents. For the project's own deep-research workflow it overlaps the installed deep-research skill; STORM shines for Wikipedia-style synthesis with citations.
 

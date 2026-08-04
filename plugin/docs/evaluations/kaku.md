@@ -54,7 +54,7 @@ gh api repos/tw93/Kaku/releases --jq 'length'   # 18
 
 ## Verdict
 
-**CONDITIONAL** — adopt if you're on macOS and want a polished, zero-config WezTerm-compatible terminal pre-tuned for running coding agents, and you value the small built-in AI conveniences. It is well-built and actively maintained, but it is *infrastructure you run agents inside*, not a tool that intervenes in the dev loop — so it earns a catalog row as the environment layer, not as a quality-signal mover. Skip it if you're not on macOS or are happy with your current terminal; the AI panel is a nicety, not a reason to switch on its own.
+**discovery-log — tentative read** — adopt if you're on macOS and want a polished, zero-config WezTerm-compatible terminal pre-tuned for running coding agents, and you value the small built-in AI conveniences. It is well-built and actively maintained, but it is *infrastructure you run agents inside*, not a tool that intervenes in the dev loop — so it earns a catalog row as the environment layer, not as a quality-signal mover. Skip it if you're not on macOS or are happy with your current terminal; the AI panel is a nicety, not a reason to switch on its own.
 
 Compared to neighbors: its sibling **Waza** (CONDITIONAL) is a *skill* suite that does intervene in the loop (think/check/hunt); Kaku is the terminal beneath it. Against agent CLIs like **gemini-cli / opencode / goose**, Kaku is orthogonal — it *hosts* them rather than competing. The honest framing is "a better terminal for AI coders," not "an AI coding tool."
 

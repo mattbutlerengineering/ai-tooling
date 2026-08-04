@@ -49,7 +49,7 @@ gh api repos/disler/claude-code-hooks-multi-agent-observability/readme --jq '.co
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Useful when you run multi-agent Claude Code swarms and want live tracing of tool calls, handoffs, and lifecycle via native hooks — and as a clean reference architecture for building your own. Treat it as a reference/demo: clarify the missing license before relying on it, and expect to self-host the stack. For single-session post-hoc inspection, claude-devtools is lighter; this one's value is the live, multi-agent view.
 

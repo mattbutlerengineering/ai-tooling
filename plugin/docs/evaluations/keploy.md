@@ -49,7 +49,7 @@ gh api repos/keploy/keploy/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt to bootstrap integration/API test coverage from real traffic with zero code changes — especially valuable as a regression net over code an agent generated. Mind that captured tests encode current behavior (curate them) and that eBPF capture has platform requirements. Pairs well with aimock (deterministic AI-dependency mocks) and unit-level TDD (tdd-guard).
 

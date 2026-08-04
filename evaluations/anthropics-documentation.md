@@ -65,7 +65,7 @@ The skill's brevity is both its strength and its limitation. There's no workflow
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you need fast, low-ceremony documentation for well-understood document types (READMEs, runbooks, onboarding guides). Skip for ADRs (use `documentation-and-adrs` instead) and skip for complex documentation requiring Diátaxis discipline (use `documentation-writer`). This skill fills the gap for quick operational documentation where a three-step workflow would be overkill. Worth keeping installed for its lightweight trigger coverage; not worth relying on as the primary documentation skill.
 

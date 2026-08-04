@@ -55,7 +55,7 @@ gh api repos/anthropics/skills/contents/.claude-plugin/marketplace.json --jq '.c
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use the document-skills plugin when working with Office documents — these are the official engines behind Claude's document features and the best reference for script-backed skills. Use claude-api when building LLM applications. Use skill-creator when authoring new skills and needing the eval harness. Skip the example-skills for general engineering work — mattpocock/skills (ADOPT) and agent-skills (ADOPT) cover that territory with more depth and breadth. The repo's highest value is as a canonical reference for _how to build skills_, not as a skill collection to install wholesale.
 

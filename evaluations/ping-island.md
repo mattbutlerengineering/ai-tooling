@@ -48,7 +48,7 @@ gh api repos/erha19/ping-island/readme --jq '.content' | base64 -d | head -30   
 
 ## Verdict
 
-**CONDITIONAL** — Ping Island is a polished, Apache-2.0, **native-macOS notch/Dynamic-Island status surface for AI coding agents** that pops up with context and action controls exactly when an agent needs attention. Adopt it if you're on a notch-era MacBook running several agents and want an ambient "who's waiting / who's done" indicator without a separate dashboard. It overlaps claude-fleet/abtop/claude-hud — pick it for the native macOS ergonomics; pick claude-fleet/agentsview if you need transcript search/analytics, or abtop for a cross-platform TUI. macOS-only by design.
+**discovery-log — tentative read** — Ping Island is a polished, Apache-2.0, **native-macOS notch/Dynamic-Island status surface for AI coding agents** that pops up with context and action controls exactly when an agent needs attention. Adopt it if you're on a notch-era MacBook running several agents and want an ambient "who's waiting / who's done" indicator without a separate dashboard. It overlaps claude-fleet/abtop/claude-hud — pick it for the native macOS ergonomics; pick claude-fleet/agentsview if you need transcript search/analytics, or abtop for a cross-platform TUI. macOS-only by design.
 
 Compared to neighbors: **claude-fleet** is a read-only multi-window triage dashboard with ripgrep transcript search; **abtop** a real-time TUI monitor; **claude-hud** an in-Claude HUD; **agentsview** a cross-agent session browser. Ping Island's distinguishing pitch is the **ambient macOS notch/Dynamic-Island attention surface**.
 

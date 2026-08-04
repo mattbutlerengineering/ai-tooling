@@ -46,7 +46,7 @@ gh api repos/ashishpatel26/500-AI-Agents-Projects --jq '{stars,license:.license.
 
 ## Verdict
 
-**CONDITIONAL (reference)** — a broad, MIT, industry-organized **catalog of ~500 agent use cases with open-source implementation links**. Useful as a discovery/inspiration index when scoping what an agent could do in a given domain and wanting concrete prior art. It overlaps the catalog's other agent indexes (awesome-ai-agents, awesome-llm-agents); its distinguishing angle is the use-case-by-industry framing. Treat linked projects as leads to evaluate, not vetted recommendations.
+**discovery-log — tentative read (reference)** — a broad, MIT, industry-organized **catalog of ~500 agent use cases with open-source implementation links**. Useful as a discovery/inspiration index when scoping what an agent could do in a given domain and wanting concrete prior art. It overlaps the catalog's other agent indexes (awesome-ai-agents, awesome-llm-agents); its distinguishing angle is the use-case-by-industry framing. Treat linked projects as leads to evaluate, not vetted recommendations.
 
 Compared to neighbors: **awesome-ai-agents** / **awesome-llm-agents** index agents/tools by type; **genai-agents** teaches building. This list's distinguishing role is **breadth of real-world use cases mapped to implementations**.
 

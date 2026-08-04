@@ -50,18 +50,21 @@ The marker is your signature that this was a bulk disposition, not a hands-on ev
      reached a real verdict the `discovery-log` row hasn't caught up to. Promoting the row
      to match is a **human/non-bulk** action — **escalate** (leave a note; do not SKIP and
      do not promote). This is the `#259` category.
-   - `CONDITIONAL`/`DEFER` at Evidence **`REVIEW`/`SOURCE-ONLY`** → **proceed.** This is not
-     a verdict. Per [ADR-0005](../../../docs/adr/0005-verdict-vocabulary.md) and
-     `COMPARISON.md`'s legend, a real CONDITIONAL requires a tool we *actually exercised*
+   - `discovery-log` → **proceed.** Since #324 a lead's eval headlines
+     `**discovery-log — tentative read** — …`, which is the normal state of every lead and
+     says exactly what it is. This is the case you will meet ~324 times.
+   - `CONDITIONAL`/`DEFER` at Evidence **`REVIEW`/`SOURCE-ONLY`** → **proceed**, same as
+     above. This is not a verdict. Per [ADR-0005](../../../docs/adr/0005-verdict-vocabulary.md)
+     and `COMPARISON.md`'s legend, a real CONDITIONAL requires a tool we *actually exercised*
      (MEASURED/RUN) or a genuine `adopt-if:` condition; on an unexercised lead the same word
      is the "tentative read … notes, not a recommendation" that `discovery-log` denotes.
-     Treating it as untouchable is not caution — it is a no-op: **304** `discovery-log` rows
-     carry a CONDITIONAL headline, so that reading would freeze the entire bulk-triage
-     program. Detector D excludes `discovery-log` rows precisely because this is the normal
-     state, not a mismatch.
+     Treating it as untouchable is not caution — it is a no-op: this headline was the state
+     of **324** `discovery-log` rows before #324 relabelled them, so that reading would have
+     frozen the entire bulk-triage program. One surviving here means the relabel regrew —
+     detector T (`--lead-headlines`) reports it; fix the headline, don't escalate the lead.
 
-   Proceed only when there is **no eval**, or the eval's headline is itself `SKIP` /
-   genuinely tentative in the sense just defined.
+   Proceed only when there is **no eval**, or the eval's headline is `discovery-log` / `SKIP`
+   / genuinely tentative in the sense just defined.
 
 4. **Decide the disposition** (judgement, inside eliminate-only authority):
    - **SKIP** when the lead is clearly not worth a first-time hands-on eval —
@@ -91,18 +94,20 @@ The marker is your signature that this was a bulk disposition, not a hands-on ev
      row stays `discovery-log`.
    - *Eval exists, no `## Verdict`:* same — stamp
      `**Last triaged:** <today>  <!-- triaged: bulk -->` and add a `## Triage note`.
-   - *Eval exists **with** a headline verdict (the step-3 `REVIEW`/`SOURCE-ONLY`
-     CONDITIONAL case):* stamp the **date only — omit the `<!-- triaged: bulk -->`
-     marker** — and add a `## Triage note` saying why it was left. Leave the existing
-     `## Verdict` untouched; the row stays `discovery-log`.
+   - *Eval exists with a `discovery-log` headline (the normal post-#324 case):* stamp
+     `**Last triaged:** <today>  <!-- triaged: bulk -->` and add a `## Triage note` saying
+     why it was left. Leave the `## Verdict` untouched; the row stays `discovery-log`.
+   - *Eval exists with some other headline verdict (a `REVIEW`/`SOURCE-ONLY` CONDITIONAL
+     that regrew):* stamp the **date only — omit the marker** — and add the `## Triage note`.
 
-     The marker is not decoration: detector Q reads it as *"this lane disposed this lead"*
-     and allows nothing above `SKIP` (`BULK_ALLOWED = {"SKIP"}`). Stamping it beside a
-     CONDITIONAL headline this pass did not write fails `make check` for a claim nobody
-     made. Leaving a lead is not a disposition, so there is nothing to sign — the date
-     alone records that the lane looked, which is all `**Last triaged:**` ever asserts.
-     Every one of the 72 marker-bearing evals is a `SKIP` or a verdict-less stub; keep it
-     that way.
+     The marker is not decoration: detector Q reads it as *"this lane touched this lead"*
+     and allows only what eliminate-only authorizes (`BULK_ALLOWED = {"SKIP",
+     "discovery-log"}`). Before #324 a left lead borrowed a `CONDITIONAL` headline, so
+     signing it would have failed `make check` for a claim nobody made — hence the
+     marker-free stamp. Now that a lead headlines `discovery-log`, the leave outcome is a
+     token Q can recognize, so it signs like any other and Q polices both outcomes. Keep
+     the marker-free form only for the leftover case above, where the headline is still a
+     word this lane did not write and may not endorse.
 
 7. **Regenerate and gate.** Run `make fix` — it reconciles counts, regenerates the
    derived files (Evidence, tiers, `NEXT-EVALS.md`, `WATCHLIST.md`), syncs `plugin/docs/`,

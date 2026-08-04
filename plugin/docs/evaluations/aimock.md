@@ -49,7 +49,7 @@ gh api repos/CopilotKit/aimock/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you have an AI/agent app and want fast, deterministic, zero-cost tests of its plumbing — request handling, branching, error paths, tool wiring — without hitting real providers. Mind the env-var-before-client construction caveat. Pair with behavioral/eval tools (scenario, deepeval) which test real model quality; aimock tests everything around the model.
 

@@ -53,7 +53,7 @@ gh api repos/jarrodwatts/claude-hud --jq '.stargazers_count, .updated_at, .licen
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you want rich context/usage/cost visibility and don't already have a statusline you prefer. The context health bar and prompt cache countdown are genuinely useful for session management. Choose ccstatusline (10.9K stars) if you want a lighter visual-only statusline with Powerline themes. Choose abtop (ADOPT) if you want cross-session monitoring from outside the agent — claude-hud and abtop are complementary (inside vs outside).
 

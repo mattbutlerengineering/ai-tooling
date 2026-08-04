@@ -53,7 +53,7 @@ gh api repos/virgiliojr94/book-to-skill/contents/SKILL.md --jq '.content' | base
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when you repeatedly reference the same technical books, internal docs, or research papers across coding sessions. The compile-once-query-forever model pays back quickly for books you'd otherwise re-read or context-dump. Skip for one-off reads where a plain PDF agent is sufficient. The Python dependency chain and ~$1 conversion cost are minor but real barriers.
 

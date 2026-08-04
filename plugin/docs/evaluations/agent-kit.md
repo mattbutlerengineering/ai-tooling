@@ -56,7 +56,7 @@ gh api repos/inngest/agent-kit/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt for TypeScript multi-agent systems where you want deterministic, code-controllable routing and durable, fault-tolerant execution — particularly if you already use or are willing to adopt Inngest. For Python stacks, pydantic-ai fits better; for a broader TS platform with bundled ops, compare voltagent. Strong concept; weigh the Inngest platform commitment.
 

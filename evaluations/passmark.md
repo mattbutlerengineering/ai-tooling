@@ -66,7 +66,7 @@ Key facts established from inspection: created 2026-03-29 (~3 months old at eval
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt only for projects with rapidly-changing UIs where selector maintenance is a real, recurring cost and where the FSL-1.1 non-compete license is acceptable (i.e., you are not building a competing test/QA product). The auto-healing + consensus design is genuinely novel for the Verify stage, but it trades determinism for resilience — the same healing that absorbs legitimate refactors can absorb bugs, so it complements rather than replaces deterministic Playwright assertions on critical paths. Given its ~3-month age, self-acknowledged thin test coverage, restrictive license, and Redis + dual-provider-key setup cost, it is not a default-install tool.
 

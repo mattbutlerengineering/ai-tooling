@@ -49,7 +49,7 @@ gh api repos/CopilotKit/CopilotKit/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you're building user-facing applications that embed agents and need generative UI, bidirectional shared state, and human-in-the-loop steering — across React/Angular/Vue/React Native. As the AG-UI reference implementation it's the natural choice for the agent↔UI layer. Not relevant to in-terminal coding workflows; it's an app-builder framework. Pairs with the ag-ui protocol entry.
 

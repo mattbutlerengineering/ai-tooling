@@ -68,7 +68,7 @@ Verified in source: `MAX_OUTPUT_CHARS = 200000` and a `_truncate_output(text, ma
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 longhand is a credible, well-secured tool with a genuinely differentiated thesis — lossless, verbatim, zero-API session memory with deterministic problem→fix recall and file-state replay — that the summary-based tools (claude-mem, OMEGA, mem0, memsearch) structurally cannot replicate. It is **additive rather than duplicative**: it reads the same JSONL claude-mem does, without interfering, and offers forensic "give me the exact diff" recall that complements claude-mem's semantic-observation timeline and OMEGA's cross-session decision graph. That is its real, unique value.
 

@@ -49,7 +49,7 @@ gh api repos/evo-hq/evo/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Adopt when you have a codebase with a measurable optimization target (performance, a quality metric, a benchmark) and want an autonomous experiment loop that discovers and hill-climbs it with parallel tree search — a structured upgrade over manual tuning or naive autoresearch. Budget for the compute of parallel experiment subagents. For prompt/solution optimization specifically, textgrad/ACE are alternatives; evo's niche is codebase-level metric optimization.
 
