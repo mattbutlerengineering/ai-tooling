@@ -3,6 +3,7 @@
 **Repo:** [Doorman11991/smallcode](https://github.com/Doorman11991/smallcode)
 **Stars:** 1,903 | **Last updated:** 2026-06-04 (pushed; created 2026-05-18) | **License:** MIT | **Releases:** 24
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a terminal coding agent; touches all inner-loop stages)
 **Layer:** Tooling (JavaScript; `npm i -g smallcode` / `npx smallcode`)
 
@@ -62,6 +63,19 @@ gh api repos/Doorman11991/smallcode/releases --jq 'length'             # 24
 **discovery-log — tentative read** — adopt if you specifically want agentic coding on **local 8B–35B models** for privacy, offline, or zero-cost reasons, and accept the quality ceiling that comes with small models. It's the rare tool built *for* that constraint, and its adaptations (forgiving tool parsing, context budgeting, TODO planning, patch edits) are well-aimed. Skip it if you have frontier-model access — those models plus a frontier-oriented harness (opencode, Claude Code) will outperform, and SmallCode's own docs say so. Treat the headline benchmark as unverified.
 
 Compared to neighbors: **open-interpreter** also targets cheap open models (Deepseek/Kimi/Qwen) with native sandboxing; **DeepSeek-Reasonix** tunes for one provider's caching; **oh-my-pi**/**gemini-cli** assume capable hosted models. SmallCode is the most explicitly **small-local-model-optimized, fully-offline** agent of the set — the privacy/zero-cost end of the spectrum.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★2.0K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+The eval contains a sentence that reads like a disposal — "Skip it if you have frontier-model access
+… and SmallCode's own docs say so" — and it is deliberately not being acted on. It is a *conditional*
+addressed to one reader, and the condition inverts for the reader this row exists for: agentic coding
+on **local 8B–35B models**, fully offline, zero-cost. Nothing else in the cluster targets that
+constraint (`open-interpreter` gets closest but assumes cheap *hosted* models). Eliminating it would
+remove the catalog's only answer for the offline/privacy case.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

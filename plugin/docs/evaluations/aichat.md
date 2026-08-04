@@ -3,6 +3,7 @@
 **Repo:** [sigoden/aichat](https://github.com/sigoden/aichat)
 **Stars:** ~10,200 | **Last updated:** 2026-02-23 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -52,6 +53,21 @@ gh api repos/sigoden/aichat/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt as a fast, scriptable, all-in-one terminal LLM CLI — shell assistance, REPL/CMD, RAG, and agents across providers in one Rust binary — when you want consolidation over a pile of single-purpose tools. For deep multi-file coding, a dedicated agent (Claude Code/opencode) does more. Mind the Shell Assistant's command-execution risk and the moderate maintenance cadence.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★10.3K, pushed 2026-02-23 (~5 months — the second-oldest in this
+slice, but well short of the dormancy that decided `plandex`).
+
+Scope-checked rather than redundancy-checked, because it is a different shape from the cluster: an
+all-in-one terminal **LLM** CLI (shell assistance, REPL, RAG, agents) rather than a coding agent. Its
+own eval concedes the point — "for deep multi-file coding, a dedicated agent … does more" — which
+positions it beside the coding harnesses rather than against them.
+
+The Safety note in its eval is the one to keep: the Shell Assistant executes commands, so it carries
+the same class of risk as any agent with shell access, in a tool whose framing is a convenience CLI.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

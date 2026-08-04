@@ -3,6 +3,7 @@
 **Repo:** [tailcallhq/forgecode](https://github.com/tailcallhq/forgecode)
 **Stars:** 7,423 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Rust (by Tailcall)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Harnesses / Implement — terminal AI pair programmer
 **Layer:** Tooling (CLI coding agent)
 
@@ -52,6 +53,20 @@ gh api repos/tailcallhq/forgecode --jq '.description'                           
 **discovery-log — tentative read** — Forge (forgecode) is an active, Apache-2.0, Rust **model-agnostic terminal pair programmer** spanning Claude/GPT/O-series/Grok/DeepSeek with MCP and custom workflows. Adopt it if you specifically want **one interactive CLI that pairs across many models** (and you value Rust speed + MCP extensibility) rather than a single-vendor agent. It's CONDITIONAL primarily because the category is saturated — its edge over opencode/goose/grok-cli is multi-model + configurability, not a distinct capability — so the decision is whether that consolidation is worth adding another agent to your stack. Solid, well-maintained option; not obviously better than the incumbents for any one model.
 
 Compared to neighbors: **opencode**/**goose** are model-agnostic open agents; **grok-cli** is Grok-native; **oh-my-openagent** is a token-efficient harness. Forge's distinguishing pitch is **a Rust, MCP-enabled, multi-model pair-programming CLI from Tailcall.**
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★7.5K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+This eval names the cluster problem outright — "the category is saturated — its edge over
+opencode/goose/grok-cli is multi-model + configurability, not a distinct capability" — and then
+declines to SKIP on it, correctly. Model-agnosticism *is* the differentiator against the vendor-native
+half of the cluster (`qwen-code`, `gemini-cli`, `grok-cli`, `kimi-code`, `MiMo-Code`), and the rows it
+would be redundant with on that axis, `opencode` and `goose`, are **P0 leads** this band may not
+touch. Resolving it needs the P0 measurement first; there is no disposal available here that does not
+prejudge that.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

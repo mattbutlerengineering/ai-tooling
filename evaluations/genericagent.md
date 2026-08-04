@@ -3,6 +3,7 @@
 **Repo:** [lsdefine/GenericAgent](https://github.com/lsdefine/GenericAgent)
 **Stars:** ~13,000 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/lsdefine/GenericAgent/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Interesting for those who want a tiny, transparent, self-evolving agent core to understand, audit, and extend — rather than a heavyweight framework — with a token-efficiency emphasis. Validate the 6× claim on your tasks and review the skills it evolves (self-evolution is a safety surface). Note the unusual commercial-partner notices despite the MIT code. A compelling base for tinkerers; treat the efficiency and self-evolution claims as unverified until tested.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★13.7K, pushed 2026-08-03.
+
+Not really a member of the CLI cluster: it is a **tiny self-evolving agent core** meant to be read and
+extended, not a harness to adopt. Two things in its eval are worth keeping visible rather than
+disposing. First, self-evolution is a **safety surface** — an agent that writes its own skills needs
+those skills reviewed, which is a real Safety note this catalog should not lose. Second, the eval flags
+"unusual commercial-partner notices despite the MIT code", which is a licensing ambiguity distinct from
+the `NOASSERTION` cases in this slice: here GitHub parses MIT cleanly and the *repo text* adds
+conditions. Worth a read of the actual notices before anyone relies on the MIT record.
+
+The 6× token-efficiency claim is unverified and is exactly the shape detector `--savings-claims`
+tracks.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -37,10 +37,11 @@
   },
   "1jehuang/jcode": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:11:50Z",
+    "pushed_at": "2026-08-04T23:33:40Z",
     "resolved_name": "1jehuang/jcode",
-    "stars": 8256
+    "stars": 15884
   },
   "1weiho/open-slide": {
     "archived": false,
@@ -164,10 +165,11 @@
   },
   "agentforce314/clawcodex": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T10:41:48Z",
+    "pushed_at": "2026-08-04T19:50:13Z",
     "resolved_name": "agentforce314/clawcodex",
-    "stars": 776
+    "stars": 848
   },
   "agentops-ai/tokencost": {
     "archived": false,
@@ -728,10 +730,11 @@
   },
   "code-yeongyu/lazycodex": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T01:17:53Z",
+    "pushed_at": "2026-08-01T09:50:14Z",
     "resolved_name": "code-yeongyu/lazycodex",
-    "stars": 2596
+    "stars": 3099
   },
   "code-yeongyu/oh-my-openagent": {
     "archived": false,
@@ -791,10 +794,11 @@
   },
   "commandcodeai/command-code": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NONE",
-    "pushed_at": "2026-06-26T14:28:35Z",
+    "pushed_at": "2026-08-04T03:52:20Z",
     "resolved_name": "CommandCodeAI/command-code",
-    "stars": 3477
+    "stars": 3606
   },
   "composio-community/awesome-codex-skills": {
     "archived": false,
@@ -1016,10 +1020,11 @@
   },
   "doorman11991/smallcode": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-06-20T04:11:30Z",
+    "pushed_at": "2026-08-04T11:32:01Z",
     "resolved_name": "Doorman11991/smallcode",
-    "stars": 1980
+    "stars": 1998
   },
   "dsherret/ts-morph": {
     "archived": false,
@@ -1044,10 +1049,11 @@
   },
   "earendil-works/pi": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T23:17:06Z",
+    "pushed_at": "2026-08-04T21:31:29Z",
     "resolved_name": "earendil-works/pi",
-    "stars": 69241
+    "stars": 83512
   },
   "editor-code-assistant/eca": {
     "archived": false,
@@ -1107,10 +1113,11 @@
   },
   "esengine/deepseek-reasonix": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:23:07Z",
+    "pushed_at": "2026-08-04T21:55:01Z",
     "resolved_name": "esengine/DeepSeek-Reasonix",
-    "stars": 26556
+    "stars": 30749
   },
   "eshaan-nair/arcrift": {
     "archived": false,
@@ -1439,10 +1446,11 @@
   },
   "google-gemini/gemini-cli": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T01:43:07Z",
+    "pushed_at": "2026-08-04T21:50:55Z",
     "resolved_name": "google-gemini/gemini-cli",
-    "stars": 105879
+    "stars": 106359
   },
   "google-gemini/gemini-skills": {
     "archived": false,
@@ -1490,10 +1498,11 @@
   },
   "gptme/gptme": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:24:40Z",
+    "pushed_at": "2026-08-04T22:08:18Z",
     "resolved_name": "gptme/gptme",
-    "stars": 4355
+    "stars": 4374
   },
   "grapeot/context-infrastructure": {
     "archived": false,
@@ -1878,10 +1887,11 @@
   },
   "kilo-org/kilocode": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T21:57:12Z",
+    "pushed_at": "2026-08-04T23:45:30Z",
     "resolved_name": "Kilo-Org/kilocode",
-    "stars": 25939
+    "stars": 26711
   },
   "knowsuchagency/mcp2cli": {
     "archived": false,
@@ -2039,10 +2049,11 @@
   },
   "lsdefine/genericagent": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:42:10Z",
+    "pushed_at": "2026-08-03T08:24:38Z",
     "resolved_name": "lsdefine/GenericAgent",
-    "stars": 13348
+    "stars": 13654
   },
   "lucasrosati/claude-code-memory-setup": {
     "archived": false,
@@ -2399,10 +2410,11 @@
   },
   "moonshotai/kimi-code": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:07:43Z",
+    "pushed_at": "2026-08-04T17:06:11Z",
     "resolved_name": "MoonshotAI/kimi-code",
-    "stars": 3036
+    "stars": 6024
   },
   "mrexodia/ida-pro-mcp": {
     "archived": false,
@@ -2701,10 +2713,11 @@
   },
   "openinterpreter/openinterpreter": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-07T00:59:25Z",
+    "pushed_at": "2026-08-01T23:18:17Z",
     "resolved_name": "openinterpreter/openinterpreter",
-    "stars": 64320
+    "stars": 67564
   },
   "openmemind/memind": {
     "archived": false,
@@ -2757,10 +2770,11 @@
   },
   "osaurus-ai/osaurus": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:48:37Z",
+    "pushed_at": "2026-08-04T23:54:12Z",
     "resolved_name": "osaurus-ai/osaurus",
-    "stars": 6894
+    "stars": 7517
   },
   "ossf/scorecard": {
     "archived": false,
@@ -2841,10 +2855,11 @@
   },
   "plandex-ai/plandex": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2025-10-03T21:49:58Z",
     "resolved_name": "plandex-ai/plandex",
-    "stars": 15511
+    "stars": 15567
   },
   "plastic-labs/honcho": {
     "archived": false,
@@ -2933,10 +2948,11 @@
   },
   "qwenlm/qwen-code": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T04:20:00Z",
+    "pushed_at": "2026-08-04T23:42:07Z",
     "resolved_name": "QwenLM/qwen-code",
-    "stars": 25910
+    "stars": 26698
   },
   "ref-tools/ref-tools-mcp": {
     "archived": false,
@@ -3177,10 +3193,11 @@
   },
   "sigoden/aichat": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
     "pushed_at": "2026-02-23T11:16:42Z",
     "resolved_name": "sigoden/aichat",
-    "stars": 10223
+    "stars": 10326
   },
   "simstudioai/sim": {
     "archived": false,
@@ -3241,10 +3258,11 @@
   },
   "snarktank/ralph": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-02-02T01:46:21Z",
     "resolved_name": "snarktank/ralph",
-    "stars": 20973
+    "stars": 21379
   },
   "softaworks/agent-toolkit": {
     "archived": false,
@@ -3362,10 +3380,11 @@
   },
   "superagent-ai/grok-cli": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-07-06T14:05:33Z",
     "resolved_name": "superagent-ai/grok-cli",
-    "stars": 3225
+    "stars": 3366
   },
   "superagent-ai/superagent": {
     "archived": false,
@@ -3398,10 +3417,11 @@
   },
   "tabbyml/tabby": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
     "pushed_at": "2026-06-30T20:38:02Z",
     "resolved_name": "TabbyML/tabby",
-    "stars": 33683
+    "stars": 33819
   },
   "tadata-org/fastapi_mcp": {
     "archived": false,
@@ -3412,10 +3432,11 @@
   },
   "tailcallhq/forgecode": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T04:16:31Z",
+    "pushed_at": "2026-08-04T23:52:55Z",
     "resolved_name": "tailcallhq/forgecode",
-    "stars": 7450
+    "stars": 7478
   },
   "tambo-ai/tambo": {
     "archived": false,
@@ -3475,10 +3496,11 @@
   },
   "the-open-engine/zeroshot": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T02:15:32Z",
+    "pushed_at": "2026-08-04T22:59:35Z",
     "resolved_name": "the-open-engine/zeroshot",
-    "stars": 1633
+    "stars": 1690
   },
   "the-pocket/pocketflow-tutorial-codebase-knowledge": {
     "archived": false,
@@ -3908,10 +3930,11 @@
   },
   "xiaomimimo/mimo-code": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T01:49:22Z",
+    "pushed_at": "2026-08-04T13:39:04Z",
     "resolved_name": "XiaomiMiMo/MiMo-Code",
-    "stars": 11725
+    "stars": 12641
   },
   "xknight254-hub/align-dev": {
     "archived": false,

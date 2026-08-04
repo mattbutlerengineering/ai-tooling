@@ -3,6 +3,7 @@
 **Repo:** [QwenLM/qwen-code](https://github.com/QwenLM/qwen-code)
 **Stars:** 25,365 (2,536 forks) | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify (a full inner-loop terminal agent — but a *replacement* front-end, not a Claude Code add-on)
 **Layer:** Tooling (an alternative agent harness / standalone CLI), backed by Infrastructure (Alibaba's Qwen models)
 
@@ -77,6 +78,18 @@ Qwen Code is a high-maturity, Apache-2.0, Alibaba-backed standalone terminal age
 - vs. **oh-my-claudecode** (CONDITIONAL) — sharp contrast in *kind*: oh-my-claudecode is a real Claude Code plugin that lives inside the loop; Qwen Code is a separate agent that only touches the loop via Claw delegation. If you must pick one to install *into* Claude Code, oh-my-claudecode; if you want a cheap delegated executor or a Qwen-stack agent, Qwen Code.
 
 Re-evaluate to ADOPT (within its niche) if (a) the Claw/acpx delegation pattern proves reliable and economical in hands-on use, or (b) the user's primary stack is Qwen — and after independent (non-self-authored) evidence of Claude Code parity emerges.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★26.7K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Checked for the one thing that would separate it from the vendor-CLI pack, and it has it: the
+**Claw / acpx ACP delegation path**, which lets a Claude Code session offload work to a Qwen-backed
+executor. That is an *into-the-loop* pattern rather than a replacement harness, and it is the reason
+this eval lifts it above the flat-SKIP tier it puts `claurst` in. A row with a documented interop path
+into the incumbent harness is not redundant with the incumbent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)
 **Stars:** 105,414 | **Last updated:** 2026-06-19 (pushed; created 2025-04-17) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (an interactive terminal coding agent — query/edit codebases, run shell, fetch web; spills into Verify via `/review`, async PR-review skills, and CI automation, and into Plan via its `/full-context` and introspection commands)
 **Layer:** Tooling (a Node.js CLI that wraps Google's Gemini models as an agentic loop with built-in tools, MCP support, and an extension/skill system) — a direct peer of Claude Code, not infrastructure or process
 
@@ -60,6 +61,42 @@ gh api repos/google-gemini/gemini-cli --jq '.open_issues_count'   # 1355
 **discovery-log — tentative read: adopt as a second, Gemini-native CLI for big-context and free-tier work; not a replacement for your primary harness.** gemini-cli is the most credible, best-resourced "alternative coding agent CLI" in this catalog: Google-owned, Apache-2.0, weekly-released, genuinely extensible, with a 1M-token window and the strongest free tier of any first-party agent. But adopting it means running a parallel harness locked to Gemini, with its own config and skills, and its real coding quality versus Claude Code is per-task and untested in this inspection. Reach for it specifically when you want whole-repo/large-context reasoning, search-grounded answers, multimodal input, or zero-cost routine runs — and keep your primary harness for everything else.
 
 Compared to neighbors: it lands in the same CONDITIONAL bucket as **qwen-code** (Qwen-native) and **opencode** (open alternative to Claude Code), but is better backed and better maintained than either, and far higher-resourced than **DeepSeek-Reasonix** or **oh-my-pi**. Unlike **claude-code-router** (route any model through Claude Code's harness) and **goose** (model-agnostic platform), gemini-cli is single-vendor — pick router/goose if model flexibility is the goal, pick gemini-cli if Gemini 3 + 1M context + free tier is the goal.
+
+## Triage note
+
+Left at `discovery-log`. This note carries the finding for the whole terminal-coding-agent cluster,
+because the finding is about the **cluster**, not this row.
+
+**~20 catalog rows answer one question.** `qwen-code`, `gemini-cli`, `grok-cli`, `MiMo-Code`,
+`kimi-code`, `DeepSeek-Reasonix`, `jcode`, `smallcode`, `clawcodex`, `kilocode`, `plandex`,
+`forgecode`, `lazycodex`, `aichat`, `gptme`, `osaurus`, `open-interpreter`, `command-code`, `pi`,
+`ralph` — plus the P0 leads `opencode`, `goose` and `OpenHands` — are all answers to "which terminal
+coding agent do I run?". Read end to end, their evals say the same thing in different words:
+
+> "another member of a crowded category with no inner-loop edge beyond model choice … otherwise it's
+> interchangeable with the other vendor CLIs" (`kimi-code`) · "it sits in a deep field of
+> equally-capable harnesses" (`jcode`) · "the category is saturated — its edge over
+> opencode/goose/grok-cli is multi-model + configurability, not a distinct capability" (`forgecode`) ·
+> "doesn't yet show a clear advantage over the established CLIs" (`MiMo-Code`)
+
+**Why that does not license a bulk SKIP.** The tempting move is to keep two or three and cut the rest.
+It would be wrong on this evidence. Every one of these evals concludes that the choice is made on
+*model and ecosystem*, not capability — `gemini-cli` for 1M context and the free tier, `qwen-code` for
+Qwen plus the Claw/acpx delegation path, `kimi-code` for Moonshot and Windows, `smallcode` for 8B–35B
+fully offline, `osaurus` for Mac-native private runtime, `kilocode` for in-editor rather than TUI. On
+that basis each is the correct pick for *someone*, so no single row is redundant with another, and a
+lane with no measurements may not decide that one model's ecosystem matters less than another's.
+
+**What the cluster actually needs** is one measured comparison on a shared task set, per
+`evaluations/measurement-protocols.md` — the same conclusion earlier slices reached for the SDD tools
+(#341), the presentation skills (#342) and the multi-model deliberation CLIs (#344), but this is by
+far the largest instance and the only one where the redundancy is *asserted by the evals themselves*.
+Filed separately rather than acted on here.
+
+This row specifically: Google-owned, Apache-2.0, ★106K, pushed today — the best-resourced member of
+the set and the one an unmeasured comparison would be least likely to dislodge.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

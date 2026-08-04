@@ -3,6 +3,7 @@
 **Repo:** [the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot)
 **Stars:** ~1,520 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (autonomous orchestration)
 **Layer:** Tooling
 
@@ -52,6 +53,19 @@ gh api repos/the-open-engine/zeroshot/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt for hands-off, correctness-first issue→PR automation where an independent-validation loop (planner/implementer/validators in isolation) matters more than turnaround speed — and you'll review what it merges. Multi-provider and multi-platform-issue support make it practical for ticket-driven teams. Overlaps Archon/flow-next/ruflo; choose zeroshot for the independent-validator, reproducible-failure emphasis.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★1.7K, pushed today.
+
+Not a terminal CLI — it is hands-off **issue → PR automation** with planner/implementer/validators run
+in isolation. Its overlaps cell points at `Archon`, `flow-next` and `ruflo`, which are the right
+neighbors, and all of them are themselves `discovery-log` leads, so there is no incumbent for a
+redundancy SKIP to name. Its stated differentiator — independent validation and reproducible failures
+— is a Verifiability claim, which is the newest of the six quality signals and the least covered in
+the catalog. That makes it a row worth keeping findable rather than one to thin.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

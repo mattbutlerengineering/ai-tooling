@@ -3,6 +3,7 @@
 **Repo:** [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex)
 **Stars:** 1,517 | **Last updated:** 2026-06-20 (pushed; created 2026-05-25) | **License:** MIT | **Install:** `npx lazycodex-ai install`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (agent harness layered onto Codex)
 **Layer:** Harness (skill/discipline pack for Codex)
 
@@ -54,6 +55,21 @@ gh api repos/code-yeongyu/lazycodex/readme --jq '.content' | base64 -d | head -2
 **discovery-log — tentative read** — LazyCodex brings the **OmO quality bar — project memory, planning, execution, and verified completion — to Codex**, MIT-licensed with a one-line install, from the credible oh-my-* author. Adopt it if Codex is your harness and you want structured, drift-resistant workflows on complex codebases without the OmO setup ceremony. The main trade-off is cost: the OmO lineage is openly a "token burner," exchanging spend for thoroughness — fine for high-stakes work, expensive for routine tasks. If you're on Claude Code, use the sibling oh-my-claudecode instead; the choice here is host-driven.
 
 Compared to neighbors: **oh-my-openagent** and **oh-my-claudecode** are the same family for other hosts; **codex-plugin-cc** bridges Codex and Claude Code config. LazyCodex's distinguishing pitch is **OmO-grade memory/planning/verified-completion specifically inside Codex**, one-line installed.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★3.1K, pushed 2026-08-01. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Checked the apparent duplication inside the oh-my-* family, and it is **host-partitioned rather than
+redundant**: `oh-my-claudecode` targets Claude Code, `oh-my-openagent` targets other hosts, and this
+one brings the same memory/planning/verified-completion bar to **Codex**. The eval says so directly —
+"If you're on Claude Code, use the sibling oh-my-claudecode instead; the choice here is host-driven."
+Three hosts, three ports; removing one removes support for a host, not a duplicate.
+
+The recorded trade-off is cost — the family is openly a "token burner" — which is a measurable claim
+and the right target for a Cost-Efficiency run rather than a triage guess.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

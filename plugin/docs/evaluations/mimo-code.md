@@ -3,6 +3,7 @@
 **Repo:** [XiaomiMiMo/MiMo-Code](https://github.com/XiaomiMiMo/MiMo-Code)
 **Stars:** 9,944 | **Last updated:** 2026-06-19 (pushed; created 2026-06-10) | **License:** MIT | **Releases:** 2
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a terminal coding agent CLI; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript, `npm i -g @mimo-ai/cli` or one-line installer)
 
@@ -55,6 +56,18 @@ gh api repos/XiaomiMiMo/MiMo-Code/releases --jq 'length'              # 2
 **discovery-log — tentative read** — a credible, easy-to-try vendor coding CLI with a genuinely low on-ramp (free channel + one-step Claude Code import) and first-class persistent memory. Worth a look if you want to sample another terminal agent or run a provider-agnostic harness with built-in memory. But it's days old with minimal release history, the free channel is temporary, and it doesn't yet show a clear advantage over the established CLIs or change the fact that model quality dominates outcomes. Try it; don't make it load-bearing until it matures, and check the anonymous channel's data terms before sending proprietary code.
 
 Compared to neighbors: it sits squarely with **gemini-cli** / **qwen-code** / **grok-cli** / **kimi-code** / **DeepSeek-Reasonix** as a vendor-native terminal agent. Its pitch is the **zero-config free channel + Claude Code auth import + persistent memory**; gemini-cli leads on context size/free tier and grok-cli on autonomy features. Pick by which model/ecosystem you want and how much the easy migration matters.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★12.6K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Its pitch is on-ramp rather than capability — a free channel plus one-step Claude Code auth import,
+plus first-class persistent memory. The eval's caveats are age and a temporary free channel, both of
+which are things a re-check resolves rather than grounds to eliminate. Worth noting the eval's own
+warning to check the anonymous channel's data terms before sending proprietary code; that is a Safety
+condition on adoption, not a disposal.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

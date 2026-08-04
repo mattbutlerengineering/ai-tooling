@@ -3,6 +3,7 @@
 **Repo:** [openinterpreter/openinterpreter](https://github.com/openinterpreter/openinterpreter)
 **Stars:** 64,057 | **Last updated:** 2026-06-19 (pushed; created 2023-07-14) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Inner-loop **Implement** (and adjacent Verify via its QA skill) — a terminal coding agent that plans, edits, and runs code on your machine.
 **Layer:** Tooling/Infrastructure (a standalone Rust TUI binary with native OS sandboxing; you bring your own model/provider)
 
@@ -60,6 +61,20 @@ gh api repos/openinterpreter/openinterpreter/releases --jq 'length'   # 30 (page
 **discovery-log — tentative read: adopt only if your goal is cheap open-model coding in a sandboxed terminal, and only after vetting the sandbox.** The current Open Interpreter is a credible, standards-forward Codex fork with a real differentiator (harness emulation) and the right safety posture on paper (native sandboxing + approvals). But the 64K stars belong to a retired Python project, it executes code on your host, and its core niche is already filled by several catalog entries. It earns a place as the **cost-optimized, sandboxed member of the open-model terminal-agent cohort** — not a default.
 
 Compared to neighbors: **qwen-code** and **DeepSeek-Reasonix** are model-native agents tuned to one provider; OI is broader (any cheap model + emulated harness) but less deeply optimized for any single one. **opencode** and **goose** are the general-purpose open alternatives to Claude Code with larger communities and no host-execution sandbox emphasis; **gemini-cli** wins on backing and free tier. OI's unique pitches are (1) harness emulation and (2) first-class native sandboxing — pick it when *those two specifically* matter; otherwise opencode/goose/gemini-cli are safer defaults.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★67.6K, pushed 2026-08-01. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+One correction is worth keeping visible because a star count invites the wrong read: this eval records
+that **the 64K stars belong to the retired Python project**, and the current tool is a Codex fork. Any
+ranking of this cluster by stars is measuring the dead project, not the live one.
+
+Its two named differentiators — harness emulation and first-class native sandboxing — are capability
+axes rather than model axes, so the cluster's "pick by model" logic does not dispose it. The eval's own
+condition is to vet the sandbox before trusting it, since it executes code on the host.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

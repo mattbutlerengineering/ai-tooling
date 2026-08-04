@@ -3,6 +3,7 @@
 **Repo:** [gptme/gptme](https://github.com/gptme/gptme)
 **Stars:** ~4,330 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -52,6 +53,19 @@ gh api repos/gptme/gptme/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you want a minimal, hackable, local-first terminal agent you fully control and can extend into custom persistent agents — rather than a heavyweight or cloud-locked harness. For maximal capability out of the box, flagship harnesses (Claude Code/Codex/opencode) do more; gptme's appeal is transparency and ownership. A good base for tinkerers building bespoke agents.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★4.4K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Its niche is minimalism and ownership — a hackable local-first agent you extend into bespoke persistent
+agents — which is a *transparency* argument rather than a capability one. That is not a claim any
+better-resourced member of the cluster can absorb, since their advantage is exactly the surface area
+gptme declines to have. It also functions as the reference point several other evals in this slice
+compare against (`osaurus`, `GenericAgent`, `aichat` all cite it), which is a second reason the row
+earns its place.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
