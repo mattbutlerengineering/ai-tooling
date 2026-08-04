@@ -3,6 +3,7 @@
 **Repo:** [google-gemini/gemini-skills](https://github.com/google-gemini/gemini-skills)
 **Stars:** 3,671 | **Last updated:** 2026-06-17 (pushed; created 2026-02-06) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement — it is reference context injected at code-gen time so the agent writes correct, current Gemini API/SDK code. Secondarily Plan (model selection). Not a Verify/Review tool.
 **Layer:** Process (a small set of `SKILL.md` files installed into the agent's skills directory; no runtime, no code that executes — the optional companion is an MCP docs server, evaluated separately).
 
@@ -64,6 +65,23 @@ gh api repos/google/skills --jq '.stargazers_count'               # 13,948 (the 
 **discovery-log — tentative read: adopt if and only if you build on Gemini.** Within its lane this is a near-textbook freshness skill: authoritative, current, well-authored, and backed by a published correctness eval — exactly the override layer that fixes the "model emits deprecated Gemini code" failure. But the lane is narrow (Gemini-only by construction) and the payload is perishable and unversioned, so its value decays without re-pulling. For an Anthropic-centric stack like this catalog's recommended one, it is not a default install; it earns a slot the moment a project targets the Gemini API, and is best paired with the docs MCP.
 
 Compared to neighbors: **google/skills** (13.9K stars) is the broader Google skills monorepo and is where `vertex-ai-api-dev` now lives — gemini-skills is the focused, Gemini-API-only subset. Versus the portable, build-backed **vercel-labs/agent-skills** (real test suites, framework-agnostic React/Next guidance) and the canonical **anthropics/skills** reference, gemini-skills trades portability for vendor depth: it is the right tool only when Gemini is the target, where the others stay useful across stacks.
+
+## Triage note
+
+Left at `discovery-log`. The interesting check here was a possible **subsumption**: this eval says
+`google/skills` "is where `vertex-ai-api-dev` now lives — gemini-skills is the focused, Gemini-API-only
+subset". "Subset" would be a redundancy ground if it held for the pack rather than one skill.
+
+It does not clearly hold. They are separate repos under separate orgs (`google-gemini/gemini-skills`
+vs `google/skills`), both first-party, both Apache-2.0, and the migration claim covers a single skill
+moving — not the collection being absorbed. Settling it needs a read of both trees to see what
+actually overlaps, which is measurement work this band may not do. Left rather than guessed.
+
+The other honest caveat, already in the eval, is that the payload is perishable and unversioned: a
+freshness skill decays without re-pulling, so its value is time-dependent in a way a star count does
+not show.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

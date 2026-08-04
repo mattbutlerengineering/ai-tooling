@@ -3,6 +3,7 @@
 **Repo:** [qufei1993/skills-hub](https://github.com/qufei1993/skills-hub)
 **Stars:** ~1,050 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (skill management)
 **Layer:** Tooling
 
@@ -52,6 +53,19 @@ gh api repos/qufei1993/skills-hub/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you maintain a sizable skill library across multiple coding agents and want one place to curate, tag, and sync it — the symlink-based "install once, sync everywhere" model fits multi-tool users. CLI-preferring users may want a scriptable alternative; verify cross-OS symlink behavior first. Note the manager doesn't vet skill *content* — audit skills you install (pairs with waza for quality, security-reviewer for safety).
+
+## Triage note
+
+Left at `discovery-log`. Its `Overlaps with` cell names `vercel-labs/skills`, `find-skills` and
+`ComposioHQ/awesome-claude-skills`, which looks like a crowded lane until you separate the shapes:
+this is a **desktop GUI** (Tauri/React) for curating and tagging a library, `vercel-labs/skills` is a
+**CLI installer** with lockfiles, and `find-skills` — a skill this repo actually has installed — is a
+**search** skill. Three different jobs; installing one does not answer the others.
+
+The eval's own caveat is the honest one: the manager does not vet skill *content*, so it moves files
+without improving them. That bounds its value; it does not duplicate anything.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

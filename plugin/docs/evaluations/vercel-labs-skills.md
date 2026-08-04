@@ -1,8 +1,9 @@
 # Evaluation: vercel-labs-skills (`npx skills`)
 
 **Repo:** [vercel-labs/skills](https://github.com/vercel-labs/skills)
-**Stars:** 22,937 | **Last updated:** 2026-06-18 (pushed; created 2026-01-14) | **License:** none declared
+**Stars:** 28,034 | **Last updated:** 2026-08-04 (pushed; created 2026-01-14) | **License:** MIT <!-- was `none declared` at eval time; MIT LICENSE added upstream, re-checked 2026-08-04 -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Pre-loop / cross-cutting — it is the *acquisition* mechanism that gets skills into whatever tool you run for every stage. It does not itself participate in Plan/Implement/Verify; it provisions the skills that do.
 **Layer:** Tooling (an npm CLI that resolves a source, parses `SKILL.md` files, and symlinks or copies them into each agent's skills directory; plus a telemetry/registry backend)
 
@@ -40,7 +41,7 @@ gh api repos/vercel-labs/skills/releases --jq 'length'  # 30 (page cap); forks 1
 ## What didn't work or surprised us
 
 - **It phones home on every operation.** `src/telemetry.ts` posts to `https://add-skill.vercel.sh/t` (and an `/audit` endpoint) on `install`, `remove`, `update`, and `find`, sending the source, skill names, agent names, scope, and even a JSON map of skill→path. **Update (verified in source):** an opt-out *does* exist — `isEnabled()` returns false when `DO_NOT_TRACK` or `DISABLE_TELEMETRY` is set, and telemetry auto-disables under CI (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, `CIRCLECI`, …). So the flow is real and undisclosed in the README, but it honors the standard `DO_NOT_TRACK=1` convention and is already off in CI — the remaining issue is documentation, not the absence of a control.
-- **No license file.** `license` is `null` in the GitHub metadata — a 22.9K-star tool you are asked to pipe into `claude` with no declared license terms. That is a real adoption blocker for any org with license hygiene.
+- **~~No license file.~~ Resolved 2026-08-04.** At eval time `license` was `null` in the GitHub metadata — a 22.9K-star tool you were asked to pipe into `claude` with no declared license terms, a real adoption blocker for any org with license hygiene. Upstream has since added an **MIT** LICENSE (re-checked against `gh api` 2026-08-04, ★28.0K). The blocker is gone; the telemetry reservation below is not.
 - **`skills use ... | claude` is arbitrary remote prompt execution.** `use` fetches a third-party skill to a temp dir and pipes its generated prompt straight into your agent. The convenience is real; so is the supply-chain surface — you are trusting whatever `owner/repo` resolves to, with no validation step. (Contrast tech-leads-club/agent-skills, which sells *validated* skills.)
 - **743 open issues.** High traction brings a large, partly-unresolved backlog; "72 agents" support is breadth that is hard to keep all working.
 - **It is plumbing, not value.** `skills` moves files; it produces zero quality improvement on its own. Its worth is entirely downstream — only as good as the collections you point it at (e.g. its sibling vercel-labs/agent-skills).
@@ -52,14 +53,33 @@ gh api repos/vercel-labs/skills/releases --jq 'length'  # 30 (page cap); forks 1
 | Correctness | neutral | Installs skills; does not change code quality itself. Any correctness gain comes from the skills it delivers, not the installer. |
 | Speed | + | One command to add/update/remove skills across 70+ tools, project- or global-scoped, scriptable in CI — far faster than manual copy-into-each-tool. |
 | Maintainability | + | Lockfiles + `update`/`remove` + symlink-to-canonical-copy keep installed skills maintainable and drift-free across tools. |
-| Safety | − / neutral | Telemetry to `add-skill.vercel.sh` on every op (undocumented in README, but opt-out via `DO_NOT_TRACK`/`DISABLE_TELEMETRY` and auto-off in CI); no license declared; `use`/`add` execute/install arbitrary remote skill content with no validation gate. |
+| Safety | − / neutral | Telemetry to `add-skill.vercel.sh` on every op (undocumented in README, but opt-out via `DO_NOT_TRACK`/`DISABLE_TELEMETRY` and auto-off in CI); ~~no license declared~~ (MIT as of 2026-08-04); `use`/`add` execute/install arbitrary remote skill content with no validation gate. |
 | Cost Efficiency | neutral | The CLI itself adds no token cost; downstream skill quality determines token spend. |
 
 ## Verdict
 
-**discovery-log — tentative read: the best general-purpose skills installer here, but vet the telemetry and license before scripting it into CI.** `npx skills` (a.k.a. `add-skill`) is the most capable cross-tool skill installer in the catalog: git-native source resolution, 70+ agents, real lifecycle commands, lockfiles, and symlink-by-default, all Vercel-engineered and heavily starred. The reservations are governance, not capability — telemetry on every install/remove/update/find to a Vercel endpoint (undocumented in README, but suppressible with `DO_NOT_TRACK=1`/`DISABLE_TELEMETRY=1` and already off in CI), and no declared license. Use it for ad-hoc `add`/`use` against sources you already trust; set `DO_NOT_TRACK=1` and confirm licensing before wiring it into automated onboarding.
+**discovery-log — tentative read: the best general-purpose skills installer here, but vet the telemetry and license before scripting it into CI.** `npx skills` (a.k.a. `add-skill`) is the most capable cross-tool skill installer in the catalog: git-native source resolution, 70+ agents, real lifecycle commands, lockfiles, and symlink-by-default, all Vercel-engineered and heavily starred. The reservations are governance, not capability — telemetry on every install/remove/update/find to a Vercel endpoint (undocumented in README, but suppressible with `DO_NOT_TRACK=1`/`DISABLE_TELEMETRY=1` and already off in CI), and — at eval time — no declared license. **The license half of that reservation is now resolved:** upstream added an MIT LICENSE, re-checked 2026-08-04. Use it for ad-hoc `add`/`use` against sources you already trust and set `DO_NOT_TRACK=1`; the remaining pre-CI question is telemetry, not licensing.
 
 Compared to neighbors: **openskills** is a simpler universal loader (copy-based, fewer agents, no registry/telemetry) — lighter and quieter but less capable. **buildwithclaude** is a discovery *hub* (find skills), not an installer; `skills` is the install/lifecycle layer that pairs with it (buildwithclaude already lists skills.sh, the registry this CLI fronts). **claude-code-templates** is a component installer/marketplace with an analytics dashboard but is Claude-Code-centric; `skills` wins on cross-tool breadth and git-native sourcing. **tech-leads-club/agent-skills** sells *validated* skills — the safety property `skills` conspicuously lacks at the installer layer.
+
+## Triage note
+
+Left at `discovery-log` — **and this lead was queued for elimination until the license was
+re-checked.** `repo-metadata.json` recorded `license_spdx: NONE`, and a no-license entry is a
+disposal under this repo's adoption bar. A fresh `gh api repos/vercel-labs/skills` on 2026-08-04
+returns **MIT**: upstream added a LICENSE file after the eval was written. The metadata record, this
+eval's header, its "What didn't work" bullet, its Safety row, and its verdict have all been corrected.
+
+That makes this the pass's headline finding: **a cached license value is a snapshot, and acting on a
+stale `NONE` produces a false SKIP with a real justification attached to it.** `--metadata-staleness`
+ages the whole snapshot but cannot flag one record that flipped, and this record was well inside the
+120-day threshold. The general lesson is to re-fetch before disposing *on* a license, not to distrust
+the cache for banding.
+
+The eval's remaining reservation is telemetry (`add-skill.vercel.sh` on every operation, opt-out via
+`DO_NOT_TRACK=1`, auto-off in CI), which is a condition to satisfy rather than a ground to eliminate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

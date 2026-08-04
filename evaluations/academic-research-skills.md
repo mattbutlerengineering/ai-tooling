@@ -3,6 +3,7 @@
 **Repo:** [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)
 **Stars:** 32,912 | **Last updated:** 2026-06-19 (pushed; created 2026-02-26) | **License:** CC BY-NC 4.0 (NonCommercial)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (research, outline, literature) → and a Review/Verify analogue for the *writing* loop (peer-review and integrity gates over a manuscript, not over code)
 **Layer:** Process / Tooling (a Claude Code plugin: four parent skills, ~30+ agent definitions, modes, hooks; prompt-driven, optional Python guard)
 
@@ -61,6 +62,28 @@ gh api repos/Imbad0202/academic-research-skills/contents/LICENSE --jq '.content'
 **discovery-log — tentative read** — adopt if you (or your lab) actually write academic papers and can live with the CC BY-NC 4.0 NonCommercial license. It is the most mature, most honestly-positioned tool in this trio: real release discipline, literature-grounded integrity gates, Semantic Scholar verification, and a refreshingly anti-hype "copilot not pilot" stance. Skip it if you write code rather than papers, or if your use is commercial — the NonCommercial license rules out the latter, and that is the gating condition.
 
 Compared to neighbors: **scientific-agent-skills (also CONDITIONAL)** is a *breadth* play — 147 domain skills + 100 databases across all of science, MIT-licensed; ARS is a *depth* play on one workflow (paper writing) with far more rigor per stage and explicit integrity gates, but a restrictive license. **PaperOrchestra (SKIP/CONDITIONAL)** is a single-author implementation of one Google paper's five-agent pipeline — ARS actually *cites and absorbed* PaperOrchestra's techniques (v3.3) and is the more complete, better-maintained superset. **AI-Research-SKILLs** is the generic "turn agents into researchers" library; ARS is the specialized, hardened, paper-specific instance. Among the three evaluated here, ARS is the only one that approaches an ADOPT — held back only by license and audience narrowness.
+
+## Triage note
+
+Left at `discovery-log`. The license was the thing worth checking, and it is a two-layer trap.
+`repo-metadata.json` records **`NOASSERTION`** — GitHub could not parse the LICENSE file — while this
+eval read the file itself and found **CC BY-NC 4.0 (NonCommercial)**. `NOASSERTION` never disposes a
+lead, but here it was *hiding* a real blocker rather than a benign one. The `CATALOG.md` row has been
+updated to state the license, since it previously said nothing at all about it.
+
+A NonCommercial license on a **vendored** Type (a `skill`, whose text is copied into the consuming
+repo) is precisely the shape band **P4 mechanical-skip** exists to dispose with zero judgement — and
+arguably a harder blocker than the copyleft licenses P4 does list, because NC bars commercial use
+outright rather than imposing terms on redistribution. But P4's vocabulary is `NONE`/`AGPL`/`GPL`/
+`CC-BY-SA`/`EUPL`, so the mechanical band cannot see it. Disposing it here by hand would be this lane
+inventing a rule the band does not encode; the durable fix is to widen P4's list, which is a
+`triage.py` change, not a triage verdict.
+
+Everything else about this lead reads well (release discipline, Semantic Scholar citation
+verification, literature-grounded integrity gates, an explicit "copilot not pilot" stance), so there
+is no non-license ground to eliminate on either.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

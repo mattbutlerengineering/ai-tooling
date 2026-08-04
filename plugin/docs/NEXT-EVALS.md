@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 402 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 401 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 96 distinct values across these 402 leads (159 have zero overlap pressure; largest tie: 33) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 96 distinct values across these 401 leads (159 have zero overlap pressure; largest tie: 33) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -11,7 +11,7 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
 | **P2 challenger** | overlaps a tool already in STACK | 107 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 270 | leave; stamp `**Last triaged:**` only |
+| **P3 backlog** | everything else | 269 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 
 <!-- NEXT-EVALS:START -->
@@ -34,8 +34,8 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | spec-kit | Plan | 33.1 | pressure 13, gap 5.1 | `/evaluate-tool spec-kit` |
 | pydantic-ai | Implement | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool pydantic-ai` |
 | awesome-claude-code | Reference | 31.0 | pressure 11, gap 7.0 | `/evaluate-tool awesome-claude-code` |
-| tech-leads-club/agent-skills | Skills & Plugins | 30.3 | pressure 11, gap 6.3 | `/evaluate-tool tech-leads-club/agent-skills` |
-| vercel-labs/agent-skills | Skills & Plugins | 30.3 | pressure 11, gap 6.3 | `/evaluate-tool vercel-labs/agent-skills` |
+| tech-leads-club/agent-skills | Skills & Plugins | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool tech-leads-club/agent-skills` |
+| vercel-labs/agent-skills | Skills & Plugins | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool vercel-labs/agent-skills` |
 | MemOS | Memory & Context | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool MemOS` |
 | mem0 | Memory & Context | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool mem0` |
 | awesome-agent-skills | Reference | 29.0 | pressure 10, gap 7.0 | `/evaluate-tool awesome-agent-skills` |
@@ -75,11 +75,11 @@ _Listing 12 of 107 — rerun `python3 triage.py` and read the source for the tai
 | claude-octopus | Review | 23.0 | pressure 8, gap 5.0 | `/triage-lead claude-octopus` |
 | tdd-guard | Review | 23.0 | pressure 8, gap 5.0 | `/triage-lead tdd-guard` |
 
-## P3 backlog — 270 leads
+## P3 backlog — 269 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 270 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 269 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -94,7 +94,7 @@ _Listing 12 of 270 — rerun `python3 triage.py` and read the source for the tai
 | gptme | Implement | 20.8 | pressure 6, gap 6.8 | `/triage-lead gptme` |
 | haystack | Implement | 20.8 | pressure 6, gap 6.8 | `/triage-lead haystack` |
 | kilocode | Implement | 20.8 | pressure 6, gap 6.8 | `/triage-lead kilocode` |
-| google/skills | Skills & Plugins | 20.3 | pressure 6, gap 6.3 | `/triage-lead google/skills` |
+| DeepSeek-Reasonix | Implement | 18.8 | pressure 5, gap 6.8 | `/triage-lead DeepSeek-Reasonix` |
 
 ## P4 mechanical-skip — 0 leads
 

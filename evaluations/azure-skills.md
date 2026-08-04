@@ -3,6 +3,7 @@
 **Repo:** [microsoft/azure-skills](https://github.com/microsoft/azure-skills)
 **Stars:** 1,220 | **Last updated:** 2026-06-18 (pushed; created 2026-02-26) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer loop — Ship (deploy/validate) and Operate (diagnostics, monitoring, cost, compliance). Touches inner-loop Implement only for Azure-SDK wiring; its center of gravity is the cloud-operations end of the loop, not writing application code.
 **Layer:** Tooling + Infrastructure — a packaged capability layer that pairs guidance *skills* (the "brain") with the Azure MCP Server and Foundry MCP (the "hands") that reach live Azure resources.
 
@@ -62,6 +63,21 @@ gh api repos/microsoft/azure-skills/contents/.claude-plugin/plugin.json --jq '.c
 **discovery-log — tentative read: adopt if and only if you ship on Azure; otherwise SKIP.** azure-skills is the strongest *shape* of cloud skill pack in this catalog: first-party, versioned (v1.1.71, 19 releases), multi-host, and crucially pairing guidance skills with a live MCP execution layer rather than just prose. For an Azure team it is close to ADOPT for the Ship/Operate stages. But it is rigidly Azure-scoped, demands a subscription and authenticated CLIs, ships a telemetry hook, and hands the agent a large credentialed tool surface — so the conditions (Azure shop + RBAC-scoped identity + telemetry reviewed) are load-bearing, and it is worthless to anyone not on Azure.
 
 Compared to neighbors: it is the operations counterpart to **microsoft/skills** (which teaches Azure-*SDK coding* patterns — Implement stage); install both for an Azure dev shop, neither alone is complete. **google/skills** is the analogous GCP/Workspace vendor pack; **gemini-skills** the Gemini-ecosystem one — all three are domain-locked and only earn their keep inside their vendor's cloud. Against general packs like **agent-skills** or **mattpocock/skills**, azure-skills trades breadth for depth and live execution: it does one cloud's operations work very well and everything else not at all.
+
+## Triage note
+
+Left at `discovery-log`. Checked the obvious redundancy pair — this and `microsoft/skills` are both
+first-party Microsoft packs — and they are **complements, not duplicates**: this one is Azure
+*operations* (deploy, diagnose, govern, paired with live MCP execution), `microsoft/skills` is Azure
+*SDK coding* patterns at the Implement stage. This eval's own read says "install both for an Azure
+dev shop, neither alone is complete", so a redundancy SKIP against either would be wrong.
+
+Vendor-locked to Azure, which under a narrower category blurb would be a scope SKIP. Skills & Plugins
+is deliberately broad — "Extensions that add domain-specific capabilities to coding agents" — so a
+vendor cloud pack is exactly what the section is for. Same reasoning that spared the domain packs in
+the previous slice.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

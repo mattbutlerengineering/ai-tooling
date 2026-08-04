@@ -15,10 +15,11 @@
   },
   "0xnyk/council-of-high-intelligence": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-04T08:53:40Z",
+    "pushed_at": "2026-08-03T08:43:03Z",
     "resolved_name": "0xNyk/council-of-high-intelligence",
-    "stars": 3440
+    "stars": 3817
   },
   "0xsteph/pentest-ai": {
     "archived": false,
@@ -304,10 +305,11 @@
   },
   "alphagbm/skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-07-09T06:18:18Z",
     "resolved_name": "AlphaGBM/skills",
-    "stars": 1301
+    "stars": 1692
   },
   "amelnagdy/guard-skills": {
     "archived": false,
@@ -378,6 +380,14 @@
     "pushed_at": "2026-07-01T18:11:25Z",
     "resolved_name": "anthropics/skills",
     "stars": 159872
+  },
+  "antonbabenko/terraform-skill": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-07-03T05:56:41Z",
+    "resolved_name": "antonbabenko/terraform-skill",
+    "stars": 2238
   },
   "antonosika/gpt-engineer": {
     "archived": true,
@@ -1436,10 +1446,11 @@
   },
   "google-gemini/gemini-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-06-30T16:18:04Z",
+    "pushed_at": "2026-07-24T12:07:13Z",
     "resolved_name": "google-gemini/gemini-skills",
-    "stars": 3798
+    "stars": 3877
   },
   "google-labs-code/design.md": {
     "archived": false,
@@ -1457,10 +1468,11 @@
   },
   "google/skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-09T22:21:23Z",
+    "pushed_at": "2026-08-04T23:28:15Z",
     "resolved_name": "google/skills",
-    "stars": 14489
+    "stars": 15563
   },
   "googleapis/mcp-toolbox": {
     "archived": false,
@@ -1584,10 +1596,11 @@
   },
   "himself65/finance-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-06-14T20:00:07Z",
+    "pushed_at": "2026-07-21T20:33:47Z",
     "resolved_name": "himself65/finance-skills",
-    "stars": 2977
+    "stars": 3115
   },
   "hkuds/cli-anything": {
     "archived": false,
@@ -1675,10 +1688,11 @@
   },
   "imbad0202/academic-research-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-08T14:40:54Z",
+    "pushed_at": "2026-08-04T14:45:52Z",
     "resolved_name": "Imbad0202/academic-research-skills",
-    "stars": 37146
+    "stars": 40887
   },
   "imbue-ai/vet": {
     "archived": false,
@@ -2256,10 +2270,11 @@
   },
   "microsoft/azure-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T16:17:36Z",
+    "pushed_at": "2026-08-04T19:04:39Z",
     "resolved_name": "microsoft/azure-skills",
-    "stars": 1264
+    "stars": 1353
   },
   "microsoft/debugmcp": {
     "archived": false,
@@ -2305,10 +2320,11 @@
   },
   "microsoft/skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T16:17:03Z",
+    "pushed_at": "2026-08-04T16:15:45Z",
     "resolved_name": "microsoft/skills",
-    "stars": 2714
+    "stars": 2861
   },
   "microsoft/waza": {
     "archived": false,
@@ -3104,10 +3120,11 @@
   },
   "samuraigpt/generative-media-skills": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-06-22T09:38:26Z",
+    "pushed_at": "2026-08-04T19:14:54Z",
     "resolved_name": "SamurAIGPT/Generative-Media-Skills",
-    "stars": 3754
+    "stars": 3976
   },
   "sandeco/reversa": {
     "archived": false,
@@ -3231,10 +3248,11 @@
   },
   "softaworks/agent-toolkit": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-03-05T16:46:24Z",
     "resolved_name": "softaworks/agent-toolkit",
-    "stars": 2169
+    "stars": 2278
   },
   "sooperset/mcp-atlassian": {
     "archived": false,
@@ -3655,10 +3673,11 @@
   },
   "vercel-labs/skills": {
     "archived": false,
-    "license_spdx": "NONE",
-    "pushed_at": "2026-07-08T20:55:32Z",
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T22:30:03Z",
     "resolved_name": "vercel-labs/skills",
-    "stars": 25671
+    "stars": 28034
   },
   "vercel/ai": {
     "archived": false,

@@ -3,6 +3,7 @@
 **Repo:** [virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill)
 **Stars:** 6,047 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Tooling
 
@@ -56,6 +57,18 @@ gh api repos/virgiliojr94/book-to-skill/contents/SKILL.md --jq '.content' | base
 **discovery-log — tentative read**
 
 Use when you repeatedly reference the same technical books, internal docs, or research papers across coding sessions. The compile-once-query-forever model pays back quickly for books you'd otherwise re-read or context-dump. Skip for one-off reads where a plain PDF agent is sufficient. The Python dependency chain and ~$1 conversion cost are minor but real barriers.
+
+## Triage note
+
+Left at `discovery-log`. Checked for an overlap to dispose against and there is genuinely none: its
+`Overlaps with` cell reads "— (unique: book → skill converter)" and that holds up. Every other row in
+this section is a *collection of skills*; this is a **converter** that produces one, so no pack in the
+catalog can subsume it. MIT, ★8.4K.
+
+The eval's own reservations are cost and dependencies (a Python chain, ~$1 per conversion), which are
+adoption frictions to price in a measured eval — not grounds for elimination.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

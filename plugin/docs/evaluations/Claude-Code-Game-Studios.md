@@ -3,6 +3,7 @@
 **Repo:** [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
 **Stars:** 21,922 | **Last updated:** 2026-05-21 (pushed; created 2026-02-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the whole loop *for one domain* — Plan (brainstorm, GDD, epics/stories), Implement (engine specialists), Verify/Review (QA, design review, director gates), Ship (release-manager), Reflect (sprint retrospective hook). It is a full game-studio workflow scaffold, not a single-stage tool.
 **Layer:** Process + Tooling — a `.claude/` directory you copy into a game project: agent personas + slash-command skills + lifecycle hooks + path-scoped rules + document templates, all wired into a studio hierarchy. No runtime of its own.
 
@@ -63,6 +64,18 @@ gh api repos/Donchitos/Claude-Code-Game-Studios/releases --jq 'length'    # 5
 **discovery-log — tentative read: adopt as a whole if you are building a non-trivial game with Claude Code; otherwise SKIP.** Claude-Code-Game-Studios is the most *complete* domain workflow pack in this catalog: it is the rare collection that pairs a real orchestration hierarchy with executable enforcement (hooks + path-scoped rules), cost-aware model tiering, engine-specific specialists, and document scaffolding. For a serious game project it is close to ADOPT and clearly beats wiring this up by hand. But it is single-domain and single-maintainer, the ceremony is heavy for tiny projects, and the 49-agent/73-skill surface is an all-in commitment with the usual hook-review caveat — so it earns CONDITIONAL, gated on (a) you're actually shipping a game and (b) you've reviewed the hooks and right-sized the process via `/project-stage-detect`.
 
 Compared to neighbors: it is the structural opposite of **agency-agents** (a flat 271-persona menu with *no* coordinator) — Game Studios actually orchestrates via a Director→Lead→Specialist hierarchy with gates and hooks, which is the teamwork agency-agents only gestures at. Against the **harness** meta-skill (which *generates* a domain team on demand), Game Studios is the pre-built, opinionated, battle-coherent alternative for the specific domain it covers. Against general/role packs like **mattpocock/skills** or **alirezarezvani/claude-skills**, it trades cross-domain breadth for end-to-end depth in one vertical. As a domain collection it is best-in-class; its weakness is simply that the domain is narrow.
+
+## Triage note
+
+Left at `discovery-log`. The existing eval already argued the disposal case and rejected it on named
+merits — a Director→Lead→Specialist orchestration hierarchy with executable hook enforcement,
+cost-aware model tiering, and path-scoped rules — landing on "close to ADOPT" for anyone actually
+shipping a game. Eliminating it here would be this lane overruling a considered positive human read
+by fiat, which is the one thing the eliminate-only rule is meant to prevent.
+
+Narrow domain (game dev), which is in scope under the broad Skills & Plugins blurb.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

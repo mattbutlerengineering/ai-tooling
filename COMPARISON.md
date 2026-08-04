@@ -509,7 +509,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-night-market | plugin | | ✓ | discovery-log | REVIEW |
 | huashu-design | skill | | ✓ | discovery-log | REVIEW |
 | baoyu-design | skill | | ✓ | discovery-log | REVIEW |
-| AlphaGBM/skills | skill | | ✓ | discovery-log | REVIEW |
+| AlphaGBM/skills | skill | | ✓ | SKIP | REVIEW |
 | himself65/finance-skills | skill | | ✓ | discovery-log | REVIEW |
 | web-access | skill | ✓ | ✓ | SKIP | REVIEW |
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
@@ -733,9 +733,9 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 42 | 16 | 2 | 38% |
-| Skills & Plugins | 90 | 33 | 4 | 37% |
+| Skills & Plugins | 90 | 34 | 4 | 38% |
 | Memory & Context | 50 | 19 | 2 | 38% |
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **240** | **34** | **37%** |
+| **Total** | **642** | **241** | **34** | **38%** |

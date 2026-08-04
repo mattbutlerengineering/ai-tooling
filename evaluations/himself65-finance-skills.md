@@ -3,6 +3,7 @@
 **Repo:** [himself65/finance-skills](https://github.com/himself65/finance-skills)
 **Stars:** 2,851 | **Last updated:** 2026-06-14 (pushed; created 2026-03-13) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** None of the software dev loop. This is a *domain* collection for financial analysis/trading — it sits outside Plan/Implement/Verify/Review/Ship/Reflect. The loop-adjacent exception is the bundled **`finance-skill-creator`** plugin (a skill-authoring/quality-scoring skill) and the `opencli-plugins/` JS adapters, which are reusable patterns rather than dev tooling.
 **Layer:** Process (25 `SKILL.md` packs grouped into 6 installable Claude Code plugins via a `marketplace.json`; backed by yfinance, opencli adapters, and external MCP/REST APIs — no orchestration runtime)
 
@@ -67,6 +68,23 @@ gh api repos/himself65/finance-skills/contributors --jq '[.[].login]'  # himself
 **discovery-log — tentative read (finance-only): strong addition to the catalog as a domain pack; irrelevant to software development.** himself65/finance-skills is the most polished finance skill collection inspected: multi-provider, vendor-neutral at the core, with real release/packaging discipline and analyst-grade depth. But it has **no bearing on the AI-for-software-development loop** — adopt only if financial analysis is part of your actual work; otherwise SKIP. The thin (2-person) maintainer base and large external-dependency surface are the main caveats. Add to the catalog flagged domain-specific (finance).
 
 Compared to neighbors: like **pm-skills** (100+) and **marketingskills**, this is a broad, free, vendor-neutral *domain* collection that belongs in the catalog as an "if you do this work" reference — and it sits naturally beside them as the finance entry. Versus the other finance pack [AlphaGBM/skills](./AlphaGBM-skills.md), himself65 is clearly **broader and less locked-in**: AlphaGBM gates its real value behind a single paid options API, while himself65 runs core skills on open yfinance/opencli and offers six independently installable plugins. For anyone doing finance work, himself65 is the better default; AlphaGBM is the narrower options-specialist alternative.
+
+## Triage note
+
+Left at `discovery-log` — and it is the **surviving** side of this slice's one disposal. The catalog
+carried two finance packs; `AlphaGBM/skills` has been SKIPped as redundant with this one, on grounds
+both sibling evals state independently: this is multi-provider and vendor-neutral at the core
+(yfinance, opencli, MCP) with six independently installable plugins, while AlphaGBM funnels its real
+value through a single paid options API.
+
+Note this is *not* the humanizer/stop-slop situation from the previous slice, where two sibling evals
+made contradicting claims to primacy and neither could be disposed. Here the two evals **agree** on
+the ordering, so acting on it is following the human reads rather than picking between them.
+
+Its own caveats — a two-person maintainer base and a large external-dependency surface — are things a
+measured eval must price, not grounds to eliminate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

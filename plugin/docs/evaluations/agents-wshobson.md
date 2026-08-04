@@ -3,6 +3,7 @@
 **Repo:** [wshobson/agents](https://github.com/wshobson/agents)
 **Stars:** 36,966 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-loop marketplace)
 **Layer:** Tooling
 
@@ -65,6 +66,23 @@ gh api 'repos/wshobson/agents/commits?per_page=1' -i | grep -i '^link:'         
 Adopt selectively — add the marketplace and install only the one or two plugins whose content is genuinely additive (most likely a language/domain stack the user lacks, e.g. a specific backend/data/ML plugin, or the multi-harness packaging if the user works across Codex/Cursor/Gemini/Copilot). The per-plugin install loads only that plugin's components, so a scoped trial is safe. It earns CONDITIONAL over SKIP on real merits the solo bundles lack: honest counts that match the tree exactly, a genuine 64-contributor community (vs 2 for claude-night-market, 9 for gstack), a built-in `plugin-eval` quality framework with CI enforcement, an explicit cost-aware model-tier strategy, and a multi-harness adapter design that is the most distinctive thing in this niche.
 
 It is **not** ADOPT because the surface is a kitchen-sink registry (84 plugins / 192 agents / 156 skills spanning business, SEO, and marketing alongside engineering) that substantially **duplicates** tools the user already runs — superpowers (TDD/review/debug/verification), the user's commit/review skills, and OMEGA — so installing broadly is redundant bulk rather than addition. The sensible path mirrors claude-night-market and gstack: cherry-pick the few genuinely net-new plugins, do not adopt the marketplace wholesale. Note for the catalog: the listed overlap *everything-claude-code (ECC)* is a **separate** marketplace, not this repo — both are large multi-harness bundles in the same niche, so recording the overlap is right, but they are distinct projects and should not be merged. Re-evaluate toward ADOPT if a hands-on run shows a specific plugin's agents outperform the user's existing stack, or if the multi-harness packaging becomes load-bearing for the user's cross-editor workflow.
+
+## Triage note
+
+Left at `discovery-log`. The challenger case was already made and rejected inside this eval, with the
+duplication named explicitly — `superpowers` (a STACK pick), the user's own commit/review skills, and
+OMEGA — and the conclusion was still "CONDITIONAL over SKIP" on merits the solo bundles lack: counts
+that match the tree, 64 contributors, a `plugin-eval` framework with CI enforcement, cost-aware model
+tiering, and multi-harness adapters.
+
+So the disposal this band would write is one a human already considered and declined. Eliminate-only
+means this lane may not overturn that. The eval's own recommendation — add the marketplace, install
+only the one or two net-new plugins — is a cherry-pick, and cherry-picks need the row to stay.
+
+One catalog correction the eval already records and is worth not losing: the listed overlap
+*everything-claude-code (ECC)* is a **separate** marketplace, not this repo.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
