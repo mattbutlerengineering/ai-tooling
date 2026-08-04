@@ -3,6 +3,7 @@
 **Repo:** [stevesolun/ctx](https://github.com/stevesolun/ctx)
 **Stars:** 518 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (recommends the right tools for the task before/during work)
 **Layer:** Tooling
 
@@ -58,6 +59,18 @@ Reviewed: repo description, topics, license, activity dates, and the full README
 **discovery-log — tentative read**
 
 ctx is a credible, actively-developed meta-tool that automates exactly the discovery + context-budget problem this catalog tackles by hand. The Claude Code hook integration, dry-run safety model, and CI maturity are real and distinguish it from flat curated lists (awesome-claude-code, awesome-agent-skills, buildwithclaude), which it overlaps with on purpose. Adopt it conditionally — when you regularly start work across unfamiliar stacks and want graph-ranked skill/agent/MCP suggestions, and you accept the heavy local graph footprint, a single-maintainer young project, and that its recommendations span unvetted third-party entities. Re-evaluate with hands-on installation to verify recommendation relevance and false-positive rate before promoting to ADOPT.
+
+## Triage note
+
+Left at `discovery-log`. Typed `tool`, not `reference` — it *recommends* skills, agents, MCP servers
+and harnesses from a 102K-node LLM-wiki graph rather than listing them.
+
+★547, MIT, pushed 2026-07-09. Small, and the interesting question is not adoption but overlap with
+what this repo does by hand: a graph-backed recommender over the same tool space as `CATALOG.md` is
+either a source to reconcile against or a demonstration that the curation should be derived. Worth a
+real look on that ground alone, which is not a backlog-sweep call.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

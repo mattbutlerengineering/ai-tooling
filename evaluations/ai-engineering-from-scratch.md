@@ -3,6 +3,7 @@
 **Repo:** [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)
 **Stars:** 34,701 | **Last updated:** 2026-06-14 (pushed; created 2026-03-18) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover / Plan (outer loop — a learning path that builds background before you touch a real codebase)
 **Layer:** Process / Infrastructure (a curriculum-as-process; ships runnable code, prompts, skills, agents, and MCP servers as artifacts)
 
@@ -56,6 +57,17 @@ gh api repos/rohitg00/ai-engineering-from-scratch/commits --jq '.[0].commit.comm
 **discovery-log — tentative read** — adopt as a deep-background learning path for engineers who want to understand how LLMs and agents *actually work* under the hood (Phases 13–17 are the parts most relevant to AI-assisted-dev practitioners), and skip it if you want a fast, focused on-ramp to using AI coding tools day-to-day. Its editorial quality and freshness are high, but the bulk of the curriculum is ML/AI-engineering fundamentals, only partially aligned with this catalog's AI-assisted-software-development remit, and its headline scale (503 lessons) is a self-reported target rather than a verified, completed inventory.
 
 Compared to neighbors: it is a fundamentally different resource from the Claude Code learning entries. **claude-howto** and **claude-code-best-practice** are narrow, practical, copy-paste on-ramps to Claude Code itself — far more directly useful for this catalog's audience and much lower time-cost. **karpathy-llm-wiki / andrej-karpathy-skills** package conceptual knowledge as queryable skills (reference-on-demand), whereas this is a from-scratch *course* you work through linearly. **dictionary-of-ai-coding** is a glossary, not a path. ai-engineering-from-scratch is the most ambitious and best-produced learning resource in the set, but also the broadest and least targeted — recommend it to engineers who specifically want first-principles model/agent understanding, not as the default starting point for getting productive with AI coding tools.
+
+## Triage note
+
+Left at `discovery-log`. ★37.8K, MIT, pushed 2026-06-25, and its "Overlaps with" cell is empty —
+its framing is shipping AI engineering work for others rather than the tutorial-course shape of
+`ai-agents-for-beginners` or the notebook shape of `genai-agents`.
+
+Nothing here to dispose: it is a large, maintained, permissively-licensed learning resource with no
+catalogued substitute, which is the ordinary reason a Reference row exists.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

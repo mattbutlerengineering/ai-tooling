@@ -3,6 +3,7 @@
 **Repo:** [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
 **Stars:** 41,059 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** All (reference + installable catalog)
 **Layer:** Tooling
 
@@ -69,6 +70,18 @@ Also checked the 51 specialized plugin bundles — they're real Claude Code/Code
 **discovery-log — tentative read**
 
 Use when you need broad skill coverage across multiple domains or runtimes — the specialized plugin bundles (AAS Web App Builder, AAS Security Engineer, etc.) are the right entry point, not the full 1,595-skill install. For focused Claude Code work, curated collections like mattpocock/skills (ADOPT) or trailofbits/skills (ADOPT) offer higher signal-to-noise. Antigravity wins on breadth, cross-runtime support, and installable packaging — it's the best choice when onboarding a team that uses mixed editors.
+
+## Triage note
+
+Left at `discovery-log`. ★42.7K, MIT, pushed 2026-07-10 — 1,500+ installable skills with a CLI
+installer and bundles, which makes it closer to a *registry* than a list.
+
+That distinction is why it sits alongside `awesome-openclaw-skills` (5,400+ entries from the
+official OpenClaw registry) rather than superseding or being superseded by it: they index different
+ecosystems. The number to be sceptical about in both is the count — skill-selection surface is the
+scarce resource in an agent's context, and 1,500 skills is a menu, not a stack.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

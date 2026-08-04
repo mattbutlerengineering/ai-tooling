@@ -672,15 +672,15 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-claude-skills (travisvn) | reference | | ✓ | SKIP | REVIEW |
 | claude-cookbooks | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-codex-skills | reference | | ✓ | discovery-log | REVIEW |
-| awesome-llm-agents | reference | | ✓ | discovery-log | REVIEW |
-| awesome-hermes-agent | reference | | ✓ | discovery-log | SOURCE-ONLY |
-| awesome-ai-tools-for-ui | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-llm-agents | reference | | ✓ | SKIP | REVIEW |
+| awesome-hermes-agent | reference | | ✓ | SKIP | SOURCE-ONLY |
+| awesome-ai-tools-for-ui | reference | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-openclaw-skills | reference | | ✓ | discovery-log | REVIEW |
 | ai-engineering-from-scratch | reference | | ✓ | discovery-log | REVIEW |
 | claude-code | reference | | ✓ | discovery-log | REVIEW |
 | claude-code-best-practice | reference | | ✓ | discovery-log | REVIEW |
 | claude-code-system-prompts | reference | | ✓ | discovery-log | REVIEW |
-| claude-code-tips | reference | | ✓ | discovery-log | REVIEW |
+| claude-code-tips | reference | | ✓ | SKIP | REVIEW |
 | claude-howto | reference | | ✓ | discovery-log | REVIEW |
 | Awesome-finance-skills | skill | | ✓ | SKIP | REVIEW |
 | claude-plugins-official | reference | | ✓ | KEEP | REVIEW |
@@ -690,7 +690,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-harness-engineering | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | learn-harness-engineering | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | system-prompts-and-models | reference | | ✓ | discovery-log | REVIEW |
-| CL4R1T4S | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| CL4R1T4S | reference | | ✓ | SKIP | SOURCE-ONLY |
 | tolaria | tool | | ✓ | SKIP | REVIEW |
 | docmd | tool | | ✓ | discovery-log | REVIEW |
 | agentskills | reference | | ✓ | ADOPT | REVIEW |
@@ -737,5 +737,5 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 50 | 15 | 2 | 30% |
 | MCP Servers | 44 | 13 | 2 | 30% |
 | Research & Discovery | 20 | 5 | 1 | 25% |
-| Reference | 53 | 11 | 4 | 21% |
-| **Total** | **642** | **208** | **34** | **32%** |
+| Reference | 53 | 16 | 4 | 30% |
+| **Total** | **642** | **213** | **34** | **33%** |

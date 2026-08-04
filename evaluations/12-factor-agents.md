@@ -3,6 +3,7 @@
 **Repo:** [humanlayer/12-factor-agents](https://github.com/humanlayer/12-factor-agents)
 **Stars:** 23,418 | **Last updated:** 2025-09-21 (pushed) | **License:** Apache-2.0 (code) / CC-BY-SA-4.0 (content) | **Type:** reference guide
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (agent engineering principles) — informs Plan/architecture
 **Layer:** Process/Reference (a written methodology, not a tool)
 
@@ -53,6 +54,18 @@ gh api repos/humanlayer/12-factor-agents/readme --jq '.content' | base64 -d | he
 **discovery-log — tentative read** (reference — read it) — 12-Factor Agents is the **canonical principles document for building production-grade agentic software**, and arguably required reading for anyone designing agent harnesses or LLM features. It earns its catalog place not as a tool but as the methodology that explains *why* the deterministic-orchestration, context-engineering, and human-in-the-loop tools elsewhere in this catalog work. "Adopt" it the way you adopt the 12 Factor App manifesto: internalize the factors, apply the ones that fit, and treat it as a design lens rather than a checklist. Its only real limits are that it's prose (nothing to install) and lightly stale.
 
 Compared to neighbors: **dictionary-of-ai-coding** defines the vocabulary; **agents-best-practices** is a provider-neutral skill of practices; **claude-code-best-practice** is CC-specific. 12-Factor Agents' distinguishing contribution is **a coherent, widely-adopted set of engineering principles for reliable LLM software.**
+
+## Triage note
+
+Left at `discovery-log`. Last pushed 2025-09-21 — eleven months, which for a *tool* would be a
+staleness finding and for a principles document is not: the twelve factors are an argument, and
+arguments do not rot on the schedule software does.
+
+★24K, and cited in the "Overlaps with" cell of several catalog rows, which makes it load-bearing
+reference material rather than a lead. Licensing is split (Apache-2.0 code, CC-BY-SA content) and
+resolves to `NOASSERTION` — worth knowing before quoting it at length, immaterial for reading it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

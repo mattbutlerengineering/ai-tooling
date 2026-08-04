@@ -3,6 +3,7 @@
 **Repo:** [DenisSergeevitch/agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices)
 **Stars:** 1,976 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Tooling
 
@@ -56,6 +57,18 @@ gh api repos/DenisSergeevitch/agents-best-practices/contents/references --jq '.[
 **discovery-log — tentative read**
 
 Use when designing or auditing an agentic harness — especially for non-coding domains (operations, finance, legal, healthcare) where the agent has less built-in architecture knowledge. The MVP Builder Mode and coding-agent specialization are genuinely useful for teams building production harnesses. For simple Claude Code / Codex usage within established patterns, the skill adds context cost without proportional benefit. At 2K stars with active maintenance, it's the most substantive agent architecture reference skill in the catalog.
+
+## Triage note
+
+Left at `discovery-log`. Typed `skill` rather than `reference` — it is installable advice, not a
+document, which puts it in the same family as `andrej-karpathy-skills` and
+`claude-code-best-practice`'s skill form.
+
+★2.1K, MIT, pushed 2026-06-29. Provider-neutral is the claim worth testing if it is ever exercised:
+a skill that genuinely reads the same across Codex and Claude Code is rarer than the label suggests,
+and it is the sort of thing only a triggering test would settle.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

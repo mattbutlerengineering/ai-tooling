@@ -3,6 +3,7 @@
 **Repo:** [ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui)
 **Stars:** ~14,300 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (protocol / Implement when integrating)
 **Layer:** Infrastructure
 
@@ -52,6 +53,17 @@ gh api repos/ag-ui-protocol/ag-ui/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Reach for AG-UI when you're building user-facing applications that embed agents and want a standard, event-based way to stream agent state to the frontend instead of bespoke wiring. As reference knowledge it rounds out the agent-protocol picture (MCP for tools, A2A for agents, AG-UI for UIs). Adoption breadth is the variable to watch; for in-IDE coding workflows it's architectural context, not a daily tool.
+
+## Triage note
+
+Left at `discovery-log`. It is a protocol rather than a tool — an open, event-based standard for how
+agents stream state to user-facing apps, MIT, ★14.7K, CopilotKit-backed, pushed 2026-07-10.
+
+In scope but adjacent: it matters when you are *building* an agent-backed product surface, not when
+you are using an agent to write code. The catalog's `generative-ui-frameworks` cluster is where this
+question actually lives, and `openui` and `MCP Apps (ext-apps)` are the two rows to read beside it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

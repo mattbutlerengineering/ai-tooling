@@ -3,6 +3,7 @@
 **Repo:** [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips)
 **Stars:** 8,852 | **Last updated:** 2026-06-19 | **License:** unlicensed (no SPDX)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** All (cross-cutting reference)
 **Layer:** Process
 
@@ -53,9 +54,23 @@ gh api repos/ykdojo/claude-code-tips/readme --jq '.content' | base64 -d | wc -l
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — superseded by two catalogued guides that dominate it on every axis. "43 tips" at ★9.1K
+with no parseable licence (`NOASSERTION`) sits behind `claude-code-best-practice` (★62K, MIT,
+comprehensive, pushed today) and `claude-howto` (★39.6K, MIT, visual and example-driven) — both of
+which it names in its own "Overlaps with" cell.
 
-Use as a onboarding resource for new Claude Code users — the non-obvious tips (context management, containers, permission auditing, worktrees) are genuinely valuable. Power users will already know most of these. The status line script is worth extracting independently. Among the five Claude Code reference repos in the catalog, this has the best practitioner signal-to-noise ratio; claude-code-best-practice has more structured methodology, claude-howto has better visual organization.
+The distinctive artifacts it ships beyond the tips are a status-line script and a container setup.
+Those are real, and they are also the parts most likely to be stale in a tips repo: harness-specific
+scaffolding ages with the harness.
+
+A tips list is the reference genre with the shortest half-life, and this catalog already carries the
+two long-form guides that absorb it.
+
+Re-open if the tips repo becomes the fast-moving one — a frequently-updated tips list would beat a
+comprehensive guide on recency, which is the one thing it could win on.
+
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

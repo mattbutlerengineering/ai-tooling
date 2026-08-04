@@ -3,6 +3,7 @@
 **Repo:** [kaushikb11/awesome-llm-agents](https://github.com/kaushikb11/awesome-llm-agents)
 **Stars:** 1,514 | **Last commit:** 2026-06-14 | **License:** none
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -54,9 +55,21 @@ gh api repos/kaushikb11/awesome-llm-agents/readme --jq '.content' | base64 -d | 
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — superseded within this catalog. A 1,527-star curated list of LLM agent frameworks sits
+behind three catalogued directories that cover the same ground more thoroughly:
+`500-AI-Agents-Projects` (★34K, ~500 use cases each linked to an implementation), `awesome-ai-agents`
+(the row it names in its own "Overlaps with"), and `awesome-generative-ai-guide` (★28K).
 
-Actively maintained (last update June 2026) and the per-entry health stats are a real, lightweight win when comparing agent frameworks. But scope is narrow — ~27 large frameworks most of which our catalog already tracks — there's no Claude Code relevance, no editorial signal, and no repo license. Use it as a quick "framework landscape with live stats" reference when sizing up agent frameworks; it is not a primary discovery source for our Claude Code-centric catalog. Worth a single catalog row, not adoption into the working stack.
+A reference row earns its keep by being the place you look. When three larger, fresher lists index
+the same ecosystem, the smallest one is not a fourth answer — it is a fourth thing to check. It also
+declares no licence, which for a list of links matters less than it would for code, but it is one
+more reason it is not the copy to reach for.
+
+Re-open if it develops a filter the larger lists lack — curation by quality rather than breadth is
+the thing none of them do.
+
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

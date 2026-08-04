@@ -3,6 +3,7 @@
 **Repo:** [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents)
 **Stars:** 22,115 | **Created:** 2025-07-30 | **Last commit:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -58,6 +59,18 @@ gh api repos/.../contents/categories/02-language-specialists/typescript-pro.md -
 **discovery-log — tentative read**
 
 The best *quantity-and-distribution* reference for Claude Code subagents — and, unusually, it ships the agents as installable artifacts rather than just linking out, which neither `awesome-claude-code` nor the `awesome-claude-skills` lists do. Use it as a starting-point library when you need an agent for a role you haven't written yet: pull the relevant `.md`, then review and harden the prompt before trusting it. It lands at CONDITIONAL rather than ADOPT because it lacks the editorial curation that makes `awesome-claude-code` valuable — there's no signal about which of the 154 agents are actually good, the bodies look LLM-generated and unvetted, and there's a sponsor/marketing layer. It complements `awesome-claude-code` (curation-rich, agent-light) rather than replacing it: this one is the agent warehouse, that one is the reviewed catalog.
+
+## Triage note
+
+Left at `discovery-log`. ★23.1K, MIT, pushed 2026-07-08 — 154+ ready-to-install subagents shipped
+as agent files with frontmatter, which makes it directly usable rather than merely browsable.
+
+Frontmatter matters here specifically: this repo has learned the hard way that a `.claude/agents/`
+file without a `name:` field is not dispatchable, so a directory that ships *working* agent files is
+worth more than one that ships links. Not disposed, and a plausible source if the agent roster here
+ever needs widening.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

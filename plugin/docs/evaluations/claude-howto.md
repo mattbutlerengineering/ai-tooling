@@ -3,6 +3,7 @@
 **Repo:** [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto)
 **Stars:** 37,603 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Process
 
@@ -58,6 +59,18 @@ gh api repos/luongnv89/claude-howto/contents/CATALOG.md --jq '.content' | base64
 **discovery-log — tentative read**
 
 The best onboarding resource in our reference set for someone *new* to Claude Code: a real curriculum with time estimates, working templates, and in-tool quizzes, actively maintained and version-tracked. Recommend it as the first stop for a developer ramping up. It drops below ADOPT because (a) its value is teaching, not tool discovery — experienced users gain little; (b) the README leans marketing-heavy and the repo sets no GitHub description; and (c) we inspected source only and did not verify the templates run against current Claude Code. Use as a learning-path pointer, not an authoritative spec.
+
+## Triage note
+
+Left at `discovery-log`. ★39.6K, MIT, pushed 2026-07-01 — a visual, example-driven guide that
+survives the same pass in which `claude-code-tips` was disposed as superseded.
+
+The distinction is genre, not quality ranking: a long-form illustrated walkthrough and a
+comprehensive best-practices reference (`claude-code-best-practice`, ★62K) serve different readers,
+where a 43-item tips list serves neither better than both. Two Claude Code guides is a reasonable
+number for a catalog whose whole subject is that harness; four was not.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

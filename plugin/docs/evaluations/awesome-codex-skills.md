@@ -4,6 +4,7 @@
 **Stars:** 15,598 | **Created:** 2026-01-12 | **Last updated:** 2026-07-26 (pushed) | **License:** none (no LICENSE file)
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -63,6 +64,18 @@ We did not verify that linked repos are live, correctly licensed, or that instal
 **discovery-log — tentative read**
 
 The single best entry point for Codex-specific skills, and the only Codex-scoped list in the catalog — that scope is its whole justification. Use it as a Discover-stage source when working in the Codex CLI, especially the Composio-maintained in-repo skills (mcp-builder, deploy-pipeline, gh-fix-ci). Versus its neighbors: **awesome-claude-skills** (Composio's own Claude analogue) and **awesome-agent-skills** (VoltAgent, cross-editor) are broader but Claude/multi-editor-first; this is the place to look when you specifically need the Codex trigger model and `$CODEX_HOME` layout. It misses ADOPT for two reasons: no repository license (vendor-in at your own legal risk) and a ~5-week content freeze with no staleness tracking. It also lacks the hand-written, opinionated review depth and the activity-tracking CSV that make awesome-claude-code the gold standard among lists. Re-evaluate if a license lands and updates resume; until then, trust the curation but verify each linked repo's license and freshness yourself.
+
+## Triage note
+
+Left at `discovery-log`. ★15.6K, pushed 2026-07-26 — the Codex-scoped counterpart to the Claude
+skill directories, and the only one in the catalog covering that harness's skills.
+
+Its slug moved during this pass's sibling issue (#280): it is now `composio-community/` rather than
+`ComposioHQ/`, and the eval header has been repointed. It declares no licence, which for a curated
+list of links is a licensing question about the curation itself rather than about anything you would
+install.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

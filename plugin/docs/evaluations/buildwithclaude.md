@@ -3,6 +3,7 @@
 **Repo:** [davepoon/buildwithclaude](https://github.com/davepoon/buildwithclaude)
 **Stars:** 3,087 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (discover the right skill/agent/command/plugin before work)
 **Layer:** Process
 
@@ -56,6 +57,18 @@ Reviewed: repo description, topics, license, activity dates, and the README (mar
 **discovery-log — tentative read**
 
 buildwithclaude is a credible, actively-maintained discovery hub and native Claude Code marketplace with broad extension-type coverage and a hosted searchable UI — genuine value for the Plan-stage problem of finding skills/agents/commands/plugins. As a reference directory the right call is to keep it as a discovery resource, not adopt it as an in-loop tool. Use it conditionally — when you need to browse or search the Claude Code extension ecosystem or want one-click marketplace installs — while accepting that the discovery half is an aggregator with no vetting or ranking, so installed extensions are unvetted third-party code. It overlaps with awesome-claude-code (flat list, no marketplace) and ctx (graph-ranked, task-aware recommendations vs. plain browse/search); pick buildwithclaude when you want a searchable UI plus a native install path rather than a curated list or automated recommender.
+
+## Triage note
+
+Left at `discovery-log`. It is one of the discovery hubs this catalog's *own* rows cite as a peer —
+it shows up in the "Overlaps with" cell of several Reference entries, which is the signal that it is
+serving its purpose as a place people look.
+
+MIT, ★3.2K, pushed 2026-07-09. Smaller than the awesome-lists it sits beside, and differently
+shaped: it indexes skills, agents, commands, hooks, plugins *and* marketplace collections in one
+place rather than one artifact type, which is why it is not merely a lesser copy of any of them.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

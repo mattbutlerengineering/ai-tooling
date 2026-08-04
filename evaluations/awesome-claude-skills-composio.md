@@ -3,6 +3,7 @@
 **Repo:** [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills)
 **Stars:** 65,223 | **Last updated:** 2026-05-22 | **License:** none declared (README badge claims Apache-2.0)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -57,6 +58,18 @@ gh api repos/ComposioHQ/awesome-claude-skills/contents --jq '.[].name'
 **discovery-log — tentative read**
 
 The clearest explainer and the cleanest use-case taxonomy in the awesome-Skills space, and the most recently maintained — worth pointing newcomers at to *understand* Skills and to browse by task domain. But the inflated "1000+" claim, pervasive Composio self-promotion, missing license, and heavy entry overlap with VoltAgent/travisvn/buildwithclaude keep it from ADOPT. Use it for its prose and taxonomy; rely on the editorial-quality lists (awesome-claude-code) and the existing siblings for breadth. Pick one general Skills list to track — this one earns its place mainly on freshness and explanation quality.
+
+## Triage note
+
+Left at `discovery-log`. At ★67K it is the largest Claude-Skills directory in the catalog, and the
+`## Verdict` already records why it earns a row: the Skills explainer is unusually good, and the
+list is organized by use case rather than alphabetically.
+
+Two facts to carry: it declares no licence (immaterial for a list of links, but it means the *text*
+of the explainer is not reusable), and it was last pushed 2026-05-22 — the longest gap among the
+large skill directories, worth watching in a category that adds entries weekly.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

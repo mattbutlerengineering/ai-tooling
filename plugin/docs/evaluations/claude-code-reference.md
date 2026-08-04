@@ -3,6 +3,7 @@
 **Repo:** [anthropics/claude-code](https://github.com/anthropics/claude-code)
 **Stars:** 133,228 | **Last updated:** 2026-06-18 | **License:** Proprietary (source-available)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** All (reference resource)
 **Layer:** Infrastructure
 
@@ -62,6 +63,18 @@ gh api repos/anthropics/claude-code/issues --jq '.[0:5] | .[] | "\(.number) \(.t
 **discovery-log — tentative read**
 
 Use as the primary reference for tracking Claude Code bugs, releases, and known issues — the daily release notes and label-filtered issue search are genuinely useful. Not a general-purpose reference because the issue volume is overwhelming without filters, there's no roadmap visibility, and the real documentation lives at code.claude.com rather than in the repo. ADOPT the release notes feed; treat the issue tracker as a search-when-needed resource rather than something to browse.
+
+## Triage note
+
+Left at `discovery-log`, and it should never be anything else. This is `anthropics/claude-code` —
+the official repository, ★137K, the source of truth for features, issues and releases of the harness
+this entire catalog is written about.
+
+It carries no "Overlaps with" entries because nothing overlaps it. Triaging it as a lead is a
+category artifact of the queue being built from `discovery-log` rows: it is not a tool under
+consideration, it is the ground the catalog stands on.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

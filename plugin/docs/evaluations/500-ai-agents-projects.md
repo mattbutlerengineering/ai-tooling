@@ -3,6 +3,7 @@
 **Repo:** [ashishpatel26/500-AI-Agents-Projects](https://github.com/ashishpatel26/500-AI-Agents-Projects)
 **Stars:** 32,806 | **Last updated:** 2026-06-06 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (cross-cutting — agent use-case catalog)
 **Layer:** Reference (curated index of projects)
 
@@ -49,6 +50,18 @@ gh api repos/ashishpatel26/500-AI-Agents-Projects --jq '{stars,license:.license.
 **discovery-log — tentative read (reference)** — a broad, MIT, industry-organized **catalog of ~500 agent use cases with open-source implementation links**. Useful as a discovery/inspiration index when scoping what an agent could do in a given domain and wanting concrete prior art. It overlaps the catalog's other agent indexes (awesome-ai-agents, awesome-llm-agents); its distinguishing angle is the use-case-by-industry framing. Treat linked projects as leads to evaluate, not vetted recommendations.
 
 Compared to neighbors: **awesome-ai-agents** / **awesome-llm-agents** index agents/tools by type; **genai-agents** teaches building. This list's distinguishing role is **breadth of real-world use cases mapped to implementations**.
+
+## Triage note
+
+Left at `discovery-log`. ★34K, MIT, pushed 2026-06-06 — the broadest use-case index in the catalog,
+with each of the ~500 entries linked to an open-source implementation.
+
+That linkage is what distinguishes it from the awesome-lists it sits beside and why it absorbed
+`awesome-llm-agents` in this pass: a list of frameworks tells you what exists, a list of use cases
+with implementations tells you what has been built. Industry-organized rather than dev-loop
+organized, so it is a discovery resource rather than a stack input.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

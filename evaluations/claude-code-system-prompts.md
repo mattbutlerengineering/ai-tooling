@@ -3,6 +3,7 @@
 **Repo:** [Piebald-AI/claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts)
 **Stars:** 11,225 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover, Reflect (outer loop)
 **Layer:** Infrastructure
 
@@ -58,6 +59,18 @@ gh api repos/Piebald-AI/claude-code-system-prompts/readme --jq '.content' | base
 **discovery-log — tentative read** (lean ADOPT as a bookmark)
 
 The most authoritative, freshest, most granular reference for Claude Code's internal prompts that exists — extracted from compiled source rather than leaked, MIT-licensed, version-pinned, and updated within minutes of each release. The catch is scope: it is Claude-Code-only and is a study artifact, not a runnable tool, so it earns CONDITIONAL rather than ADOPT. Bookmark and consult it when designing your own agent/sub-agent prompts, when investigating how a Claude Code skill behaves, or when reading the changelog after an upgrade. Against its neighbors: `system-prompts-leaks` (asgeirtj, CC0, 43K stars) and `system-prompts-and-models` (x1xhlol) are far **broader** (Anthropic + OpenAI + Google + xAI) but their Claude Code coverage is thinner and second-hand; this repo wins decisively on Claude-Code depth, provenance, and freshness. Use this one for "how does Claude Code work?" and the broad collections for "how do competing tools compare?"
+
+## Triage note
+
+Left at `discovery-log`. ★11.7K, MIT, pushed 2026-07-09 — all parts of Claude Code's system prompt,
+27 tool descriptions, and sub-agent prompts.
+
+Smaller than the two general prompt-leak collections it sits beside (`system-prompts-and-models` at
+★142K, `system-prompts-leaks` at ★55K) and deliberately narrower: Claude Code only, structured by
+component. That precision is why it survived the same pass that disposed `CL4R1T4S` — a focused,
+MIT-licensed, harness-specific extract is not a lesser copy of a broad multi-vendor dump.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

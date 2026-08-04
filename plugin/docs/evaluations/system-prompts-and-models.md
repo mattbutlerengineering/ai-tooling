@@ -3,6 +3,7 @@
 **Repo:** [x1xhlol/system-prompts-and-models-of-ai-tools](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
 **Stars:** 140,892 | **Last updated:** 2026-06-12 | **License:** GPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover
 **Layer:** Infrastructure
 
@@ -59,6 +60,17 @@ Reviewed: top-level directory list (34 product folders), the Anthropic folder co
 **discovery-log — tentative read**
 
 The most comprehensive, most current, and most-starred leaked-prompt corpus available — high learning value for anyone designing agent prompts, skills, or tool schemas, and worth keeping as a Discover-stage reference. Use it conditionally: as a comparative study aid to learn prompt-engineering patterns across 34 products, not as authoritative documentation (the prompts are unverified leaks) and not as a source to copy text from verbatim (GPL-3.0 over leaked third-party content is legally murky). Within the leaked-prompt cluster it is the widest net: prefer it over [claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts) (Claude-Code-only, deeper single-product detail) when you want cross-product breadth, and it overlaps closely with [system-prompts-leaks](https://github.com/asgeirtj/system_prompts_leaks) (also broad and regularly updated, spanning more non-coding assistants) — keep both as complementary corpora rather than picking one.
+
+## Triage note
+
+Left at `discovery-log`. ★141.8K — the largest reference row in the catalog: full system prompts
+from Cursor, Devin, Windsurf, Claude Code and others, pushed 2026-07-08.
+
+GPL-3.0 is the fact to record. It does not dispose the row (P4's copyleft band covers *vendored*
+skills and plugins, not documents you read), but it does mean the collected text is not something to
+copy into this repo's own prompts or skills — read it, do not vendor it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
