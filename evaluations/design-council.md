@@ -3,6 +3,7 @@
 **Repo:** [sjsyrek/design-council](https://github.com/sjsyrek/design-council)
 **Stars:** 166 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -56,6 +57,25 @@ gh api repos/sjsyrek/design-council/git/trees/main?recursive=1 --jq '.tree[].pat
 **discovery-log — tentative read**
 
 Use when a decision crosses ≥2 specialist domains and the output must survive handoff (decision log, tracker items, execution plan). The protocol engineering is the most thorough in the catalog — production-grade with battle-tested gotcha documentation. Skip for bug fixes, single-specialist questions, or quick library picks where the 10–20× token cost isn't earned. Requires advanced Claude Code orchestration features (TeamCreate, peer SendMessage) that may not be available in all configurations.
+
+## Triage note
+
+Left at `discovery-log`. Checked in this pass against `llm-council`, which was SKIPped here for an
+absent licence and eight months of dormancy — the two share the multi-model-committee idea, and this is
+the maintained, MIT-licensed way to reach it. That comparison is a reason to keep this row, not to
+dispose it.
+
+The read above is honest about the cost (10–20× tokens, earned only when a decision crosses two or more
+specialist domains) and about a real dependency: it needs advanced Claude Code orchestration features
+(TeamCreate, peer SendMessage) that are not available in every configuration. A promotion would have to
+confirm those still exist in the form the protocol assumes — that is a freshness check on a 2026-06
+eval, not a redundancy question.
+
+At ★166 it is small, and the eval calls its protocol engineering the most thorough in the catalog. Those
+two facts point opposite directions, which is exactly the case a hands-on run resolves and a bulk pass
+does not.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

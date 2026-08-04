@@ -3,6 +3,7 @@
 **Repo:** [skyllwt/AutoSci](https://github.com/skyllwt/AutoSci)
 **Stars:** ~1,360 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Research & Discovery)
 **Layer:** Tooling
 
@@ -52,6 +53,24 @@ gh api repos/skyllwt/AutoSci/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Promising for long-horizon, multi-project research where compounding memory (SciMem) would pay off — but it's an actively-iterating research project, so adopt the lean `main` for stability and treat the full `paper`-branch system as experimental. Overlaps ARIS/AutoResearchClaw; choose AutoSci for the memory-centric lifecycle angle. Re-evaluate as the implementation catches up to the paper.
+
+## Triage note
+
+Left at `discovery-log`. Checked against the two larger siblings it overlaps — `ARIS` (★12.4K) and
+`AutoResearchClaw` (★13.5K) — and not SKIPped as redundant with either, because the differentiator the
+eval identifies is structural rather than cosmetic: SciMem, a compounding memory across projects, where
+the others run per-investigation loops.
+
+The caveat that decides it is one the eval states plainly: the implementation is an actively-iterating
+research project, and there is a gap between the lean `main` branch and the fuller `paper`-branch
+system. "Re-evaluate as the implementation catches up to the paper" is a re-evaluate trigger, and the
+kind of thing `WATCHLIST.md` is for.
+
+At ★1.4K it is the smallest survivor in the cluster after `PaperOrchestra` was SKIPped here. It survives
+where PaperOrchestra did not because it has a clear licence (MIT), a named architectural distinction,
+and no better-resourced row doing the same specific thing.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

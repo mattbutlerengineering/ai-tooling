@@ -3,6 +3,7 @@
 **Repo:** [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py)
 **Stars:** ~16,700 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Research & Discovery)
 **Layer:** Tooling
 
@@ -52,6 +53,25 @@ gh api repos/teng-lin/notebooklm-py/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Useful for automating NotebookLM-grounded research from agents/scripts when its grounding is exactly what you want — but treat it as inherently fragile: it rides undocumented Google APIs that can break or run afoul of terms. Fine for exploratory/personal automation; do **not** build a production-critical pipeline on it. For robust research, prefer first-party APIs or tools like storm/deep-research.
+
+## Triage note
+
+Left at `discovery-log`, and this is the row in the cluster with the clearest structural risk.
+
+It rides **undocumented Google APIs**. That is not a maintenance-quality worry, it is a dependency on an
+interface with no compatibility promise and a terms-of-service question attached — the eval says so and
+says explicitly not to build a production-critical pipeline on it. ★16.7K and MIT do not change that,
+because the fragility is external to the repo entirely.
+
+Not SKIPped, because that caveat is already recorded prominently and because the grounding NotebookLM
+provides is genuinely distinct from what `storm` or the installed deep-research skill do. A reader who
+wants exactly that grounding should be able to find this row.
+
+The disposition it actually wants is closer to "watch for breakage" than to a verdict — the same shape
+as `thinking-claude`'s platform-absorption problem noted elsewhere in this triage, and another data
+point for a vocabulary this catalog does not yet have.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [Infisical/agent-vault](https://github.com/Infisical/agent-vault)
 **Stars:** 1,699 | **Last updated:** 2026-06-19 | **License:** MIT (Expat; `ee/` dir reserved for enterprise)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Ship / Implement (runtime infrastructure that wraps the agent process during any outbound API call)
 **Layer:** Infrastructure
 
@@ -75,6 +76,23 @@ Adopt when an agent runs somewhere you do not fully trust — remote coding agen
 Keeping secrets out of agent context is a real and increasingly common dev-loop need (it is exactly why Anthropic and others warn about prompt-injection exfiltration), but it is acute mainly once the agent host is untrusted; for the local single-developer case the friction outweighs the payoff, which is what keeps this CONDITIONAL rather than ADOPT.
 
 **Differentiation from overlaps.** Genuinely unique in the catalog — it is the only **credential-proxy / brokered-access** entry. It is a different axis from the other Safety tools: **cc-safety-net** (CONDITIONAL) blocks destructive *git/filesystem commands* pre-execution via a PreToolUse hook; **hol-guard** vets *what runs* (extensions/packages) at harness launch; **agentlint** broadly constrains *agent actions* with rule packs. None of them touch the *credential-access* problem. Agent Vault is complementary to all three: it governs the secrets the agent can use and where its authenticated traffic may go, while the others govern the commands and code the agent executes. Its closest conceptual cousins are general forward proxies (`mitmproxy`, `squid`), which it positions itself against by being purpose-built for agent ergonomics with a CLI, multi-tenancy, and credential-substitution semantics.
+
+## Triage note
+
+Left at `discovery-log`. The read above already establishes it is the catalog's only
+**credential-proxy / brokered-access** entry — a different axis from every other Safety row — so the
+redundancy question this lane exists to answer is answered in the negative on the record.
+
+The condition that decides it is deployment posture, not capability: it earns its keep where the agent
+host is untrusted (remote agents, CI runners, multi-tenant setups) and costs more than it returns for a
+solo developer running locally with their own keys. That is a property of the *user*, which no amount of
+triage resolves.
+
+Two facts worth keeping in view for whoever picks this up: it is pre-1.0 "Preview" with a fast-moving
+API, and the licence line reads `MIT (Expat; ee/ dir reserved for enterprise)` — an open-core split, so
+the grant covers what is in the main tree and not necessarily the whole product.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw)
 **Stars:** 13,490 | **Last updated:** 2026-06-03 (pushed; created 2026-03-15) | **License:** MIT | **CLI:** `researchclaw`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Research & Discovery (autonomous end-to-end research)
 **Layer:** Harness (multi-stage research pipeline over any ACP-compatible agent backend)
 
@@ -57,6 +58,24 @@ gh api repos/aiming-lab/AutoResearchClaw/readme --jq '.content' | base64 -d | he
 **discovery-log — tentative read** — AutoResearchClaw is an unusually serious, MIT, paper-backed **autonomous research harness** — a 23-stage idea→paper pipeline with domain-specialist experiment agents (physics/biology/stats/ML), a released benchmark (ARC-Bench), human-in-the-loop modes, and anti-hallucination verification, runnable on any ACP agent. Adopt it for genuine autonomous/assisted research exploration if you can supply the domain compute and **treat every output as a draft requiring expert verification** — the failure mode (plausible fabricated findings) is the dangerous one, which is exactly why its HITL and claim-verification layers exist. It's heavy and costly; not a casual add to a coding loop.
 
 Compared to neighbors: **ARIS** is an overnight plan→review→persist research loop; **autoresearch** and **deer-flow** are research agents; **PaperOrchestra** orchestrates paper work. AutoResearchClaw's distinguishing pitch is **multi-domain autonomous experimentation + a research benchmark + paper backing**.
+
+## Triage note
+
+Left at `discovery-log`. Of the five paper-writing rows in this cluster this is the best-evidenced —
+MIT, ★13.5K, paper-backed, with a released benchmark (ARC-Bench) of its own — which is what made
+`PaperOrchestra` (★605, `NOASSERTION`) the one to SKIP and this one the one to keep.
+
+The eval already names the failure mode that matters and it is the right one: plausible fabricated
+findings. Its HITL modes and claim-verification layer exist for that reason, and "treat every output as
+a draft requiring expert verification" is the correct standing caveat. Worth noting that this is the
+same hazard this repo's own detector B guards against in evals — an assertion with no run behind it —
+so the concern is one the catalog takes seriously rather than a generic AI disclaimer.
+
+Heavy, costly, and needs domain compute; not a casual add to a coding loop. Left because the scope
+question ("is autonomous research part of the dev loop?") is a category-wide maintainer call, not a
+per-row elimination.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

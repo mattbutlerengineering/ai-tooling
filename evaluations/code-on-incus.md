@@ -3,6 +3,7 @@
 **Repo:** [mensfeld/code-on-incus](https://github.com/mensfeld/code-on-incus)
 **Stars:** 554 | **Last updated:** 2026-06-19 (pushed; very active) | **License:** MIT | **Releases:** 10
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Cross-cutting / Safety (isolation substrate for running coding agents; touches Implement)
 **Layer:** Infrastructure (CLI over Incus/LXD system containers; GitHub-reported language Python, ships tagged release binaries)
 
@@ -80,6 +81,25 @@ Because the active-defense layer (detect reverse shell / credential-scan / exfil
 For an **every-project STACK slot, it does not qualify** — and this evaluation's failed install attempt is the concrete reason. STACK membership requires a tool that moves a quality signal *in real testing* and installs cleanly enough to run on every project. `coi`'s value (Safety via active defense) is precisely the part this evaluation could **not** verify, because its load-bearing prerequisite — an Incus/LXD daemon — is absent on the host and unavailable on macOS arm64 without first standing up a Linux VM (also absent). A tool that needs a Linux host or a VM-backed Incus install before it can do anything is by definition not an every-project install; it's a deliberate, Linux-fleet, high-autonomy choice. **Keep it catalogued as the full-machine-isolation + active-response option; re-evaluate for a STACK slot only after a real hands-on run on a Linux host (or VM-backed Incus on macOS) confirms the detect-and-kill behavior fires correctly and without crippling false positives.**
 
 Compared to neighbors: **sandboxd**/**vercel-sandbox** isolate agent execution (the latter cloud-hosted, so no local substrate to install) but focus on containment, not detection; **agentlint** adds rule-based runtime guardrails at the action level. code-on-incus is the **full-machine isolation + active intrusion-response** option — the only one here that watches the sandbox and kills it on attack — but also the heaviest to stand up, which is exactly why it stays CONDITIONAL rather than ADOPT.
+
+## Triage note
+
+Left at `discovery-log`. This row is a genuine oddity in the queue: the eval carries a *failed install
+attempt* as its central evidence, which is more hands-on grounding than most leads here have, and the
+failure is itself the finding — Incus/LXD is a Linux prerequisite, absent on macOS arm64 without first
+standing up a VM.
+
+That makes it the clearest illustration of why a P0 measurement can end in a STACK exclusion rather than
+a promotion: the tool's whole value is active detect-and-respond behaviour, and that is precisely the
+part that could not be exercised. STACK membership needs a tool that installs cleanly on every project;
+a Linux-host prerequisite disqualifies it from that slot without saying anything against the design,
+which the eval calls the most defensible in its group.
+
+Nothing to eliminate. The verdict text also carries a DEFER signal ("re-evaluate for a STACK slot only
+after a real hands-on run on a Linux host"), which is a re-evaluate trigger of exactly the kind
+`WATCHLIST.md` collects.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

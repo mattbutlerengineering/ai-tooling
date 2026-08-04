@@ -3,6 +3,7 @@
 **Repo:** [web-infra-dev/midscene](https://github.com/web-infra-dev/midscene)
 **Stars:** ~13,800 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (UI testing / automation)
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/web-infra-dev/midscene/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you need cross-platform (web + mobile) UI automation/testing in natural language and want resilience to selector/DOM churn — its standout over Playwright/Selenium. Accept the per-step vision cost and nondeterminism, and pin prompts for stable CI. For web-only, high-volume testing, a selector engine is cheaper; reach for Midscene when mobile coverage or selector-free robustness matters.
+
+## Triage note
+
+Left at `discovery-log`. It is the incumbent this pass measured `SceneProof` against, and the comparison
+is what kept both rows: midscene does natural-language UI automation across web and mobile, but a
+WebGL/Three.js scene rendered at full quality is a verification problem the DOM cannot describe, so the
+newer row is not simply a smaller version of this one.
+
+★13.8K, MIT, and the standout claim is resilience to selector and DOM churn — the thing that makes
+Playwright suites rot. That is measurable: run a suite, change the markup without changing behaviour,
+count what breaks. It is a good P0 candidate for that reason.
+
+The costs are equally concrete and the eval names them: per-step vision inference, and nondeterminism
+that needs pinned prompts before CI is trustworthy. For web-only high-volume testing a selector engine
+is cheaper; reach for this when mobile coverage or selector-free robustness is the requirement.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

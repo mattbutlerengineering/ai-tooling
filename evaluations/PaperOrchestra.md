@@ -3,6 +3,7 @@
 **Repo:** [Ar9av/PaperOrchestra](https://github.com/Ar9av/PaperOrchestra)
 **Stars:** 587 | **Last updated:** 2026-06-13 (pushed; created 2026-04-09) | **License:** NOASSERTION (see repo `LICENSE`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Research (outer-loop knowledge production), with Verify-style integrity gates (citation F1, autoraters); not a code-production tool
 **Layer:** Process / Tooling (a host-agent-executable skill pack: `SKILL.md` instruction docs + verbatim paper prompts + purely deterministic local helper scripts; no API keys, no LLM SDK)
 
@@ -56,9 +57,22 @@ gh api repos/Ar9av/PaperOrchestra/releases --jq 'length'  # 2
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt only when you actually produce research-paper-grade writeups (academic submissions, formal technical reports, security/whitepaper deliverables in LaTeX). It is the strongest of this catalog's research-writing cluster precisely because it is a *faithful implementation of one published, benchmarked method* with built-in citation verification and autoraters, rather than a loose "research assistant" persona. For everyday coding it is out of the loop, the cost per run is high, and the upstream benchmark margins are inherited, not reproduced.
+**SKIP** — superseded within the catalog and the weakest entry in its cluster. Automated research-
+paper writing is covered here by four larger, better-maintained rows it shares an overlap
+neighbourhood with — `ARIS` (MIT, ★13.2K, pushed today), `AutoResearchClaw` (MIT, ★13.8K,
+paper-backed with its own ARC-Bench), `AutoSci` (MIT, ★1.5K) and `storm` (Stanford OVAL, MIT, ★30K).
 
-Compared to neighbors: **academic-research-skills** and **scientific-agent-skills** are broader skill collections covering literature search and analysis but without a single rigorous end-to-end pipeline or autoraters; **deep-research** (harness) does multi-source fact-checked *reports*, not submission-ready LaTeX papers. PaperOrchestra wins on rigor and verification within its narrow lane; it loses on breadth and on being relevant to non-research workflows.
+At ★605 with `NOASSERTION` licensing it is neither the most adopted, the most rigorous, nor the most
+clearly licensed option for the same job. A catalog row earns its place by being the one you reach
+for; five entries in one niche means four of them are never reached.
+
+The benchmark-plus-autoraters design and the zero-API-keys claim are the parts worth remembering,
+and both are ideas rather than a reason to carry a fifth paper writer.
+
+Re-open if the autorater evaluation turns out to be the rigorous one in the cluster — that would be
+a measurable claim and would change the ranking.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

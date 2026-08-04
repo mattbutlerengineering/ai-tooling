@@ -3,6 +3,7 @@
 **Repo:** [evo-hq/evo](https://github.com/evo-hq/evo)
 **Stars:** ~1,210 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (autoresearch / optimization)
 **Layer:** Tooling
 
@@ -52,6 +53,26 @@ gh api repos/evo-hq/evo/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you have a codebase with a measurable optimization target (performance, a quality metric, a benchmark) and want an autonomous experiment loop that discovers and hill-climbs it with parallel tree search — a structured upgrade over manual tuning or naive autoresearch. Budget for the compute of parallel experiment subagents. For prompt/solution optimization specifically, textgrad/ACE are alternatives; evo's niche is codebase-level metric optimization.
+
+## Triage note
+
+Left at `discovery-log`, and it is arguably mis-clustered rather than mis-ranked.
+
+The research rows around it produce *documents* — papers, surveys, briefs. evo optimizes a **codebase**
+against a measurable target using parallel tree search over experiments. That is closer to the Verify
+and Reflect loops than to literature work, and it means the redundancy test against its neighbours
+mostly does not apply.
+
+What makes it interesting for this repo specifically: a tool whose entire premise is "define a metric,
+then hill-climb it" is directly compatible with `evaluations/measurement-protocols.md`, which asks for
+with/without deltas on a disclosed task set. A tool that produces a number is one you can hold to a
+number.
+
+Apache-2.0, ★1.2K. The cost caveat in the eval is real — parallel experiment subagents burn compute —
+and the alternatives it names (textgrad, ACE) address prompt/solution optimization rather than
+codebase-level metrics. Nothing to eliminate here; this wants a run against a real benchmark.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -2984,6 +2984,14 @@
     "resolved_name": "reworkd/AgentGPT",
     "stars": 36260
   },
+  "reyj94/sceneproof": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T10:22:47Z",
+    "resolved_name": "ReyJ94/SceneProof",
+    "stars": 39
+  },
   "richards199999/thinking-claude": {
     "archived": false,
     "license_spdx": "MIT",

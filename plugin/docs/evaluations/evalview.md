@@ -3,6 +3,7 @@
 **Repo:** [hidai25/eval-view](https://github.com/hidai25/eval-view)
 **Stars:** 117 | **Last updated:** 2026-06-15 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -77,9 +78,23 @@ npm view evalview --json
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — superseded within the catalog. Agent regression testing is covered by
+[`scenario`](https://github.com/langwatch/scenario) (Apache-2.0, ★914, LangWatch, pushed today),
+which simulates users across scenarios with multi-turn assertions, and by `promptfoo` and `deepeval`
+for eval harnessing — with `langfuse`, the row evalview names in its own overlaps cell, holding the
+observability half.
 
-Adopt when you build, ship, or maintain a real tool-calling or multi-turn AI agent and need a merge-time regression gate — that is exactly the Verify-stage gap EvalView fills, and its free offline tool/sequence diff is cheap enough to run per-commit. For a documentation-only repo like this one there is no agent to baseline, so it is not part of the recommended STACK here; this evaluation establishes the catalog entry's identity and scope. EvalView and langfuse are complementary, not competing: langfuse for production observability/eval, EvalView for the pre-merge behavior gate — many teams run both. The verdict is CONDITIONAL rather than ADOPT primarily on maturity (117 stars, v0.8.0, single maintainer) and because the value is contingent on owning an agent worth regression-testing; the MCP server specifically is a convenience layer over a stronger CLI/pytest/GitHub-Action core. Re-evaluate hands-on if a coding-agent project in scope acquires a stable tool-calling spec.
+At ★122 it is the smallest entry in a niche that already has three better-populated answers, and
+nothing in its one-liner names a capability the others lack. A reference to "AI agent regression
+testing" is the category, not a differentiator.
+
+Apache-2.0 and pushed 2026-07-03, so this is a supersession call rather than an abandonment one.
+
+Re-open if it develops something the simulation-based tools do not do — recording real production
+traffic into a replayable suite would be that thing, and would put it beside `keploy` rather than
+beside `scenario`.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

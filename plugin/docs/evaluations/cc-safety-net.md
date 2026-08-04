@@ -3,6 +3,7 @@
 **Repo:** [kenryu42/cc-safety-net](https://github.com/kenryu42/cc-safety-net)
 **Stars:** 1,405 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Ship (runtime guardrail, not post-hoc Review)
 **Layer:** Infrastructure
 
@@ -71,6 +72,23 @@ Maturity signals: 1.4K stars, MIT, created 2025-12-25, pushed same day as evalua
 Adopt when you want bypass-resistant, semantic protection against destructive git/filesystem commands specifically — and you understand it is a *complement to*, not a replacement for, Claude Code's built-in permission system and sandboxing. Its genuine net-new value over the built-in classifier is the semantic option-grammar parsing (defeats flag-reordering, shell-wrapper, and interpreter-one-liner bypasses that string/wildcard matching misses) and its awareness of git footguns the sandbox treats as "safe within cwd" (`git reset --hard`, `git stash clear`). That increment is real but narrow, so it does not clear the ADOPT bar of "use everywhere by default" — the built-in permission prompts already cover the common case for most users.
 
 **Differentiation from overlaps.** Three distinct points in the agent-safety stack. **cc-safety-net** is the *focused, deep* git/filesystem data-loss guard: one PreToolUse Bash hook, deny via semantic command analysis, seven-agent support. **agentlint** (CONDITIONAL, 25 stars) is the *broad* runtime guardrail: 77 rules across 8 packs covering secrets, exfiltration, supply chain, code quality, subagent auditing — far wider, but its universal pack only heuristically matches the same destructive commands cc-safety-net parses semantically. **hol-guard** (CONDITIONAL, ~361 stars) sits one layer lower as "AV": it snapshot/diffs extensions and package installs at harness launch — provenance of what *runs*, not what the agent *does* mid-session. So they are complementary: hol-guard vets the launcher, cc-safety-net deep-guards a narrow set of catastrophic Bash commands, agentlint broadly constrains agent actions. If your single concern is "never let the agent nuke my working tree or home directory," cc-safety-net is the most precise and best-tested tool for exactly that; if you want broad action control, agentlint covers more. The closest substitute is Claude Code's own permission classifier — cc-safety-net's justification over it is bypass-resistance and git-footgun awareness, which is meaningful but not universal.
+
+## Triage note
+
+Left at `discovery-log`. The read above is unusually thorough — it already separates cc-safety-net,
+`agentlint` and `hol-guard` into three distinct layers of the agent-safety stack and explains why they
+are complements rather than substitutes. That is exactly the analysis a challenger pass would produce,
+already done.
+
+What this pass checked and can add: the real incumbent is not another catalog row but **Claude Code's
+own permission classifier**, and the eval names it. The claimed increment — semantic option-grammar
+parsing that survives flag reordering, shell wrappers and interpreter one-liners, plus awareness of git
+footguns the sandbox treats as in-cwd-and-therefore-safe — is a *testable* claim, not a positioning
+one. Feed it a set of known bypass strings with and without the hook and count what gets through.
+
+That measurement is the whole disposition, and it is P0 work. Nothing here to eliminate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

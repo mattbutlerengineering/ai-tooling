@@ -3,6 +3,7 @@
 **Repo:** [CopilotKit/aimock](https://github.com/CopilotKit/aimock)
 **Stars:** ~630 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (test infrastructure)
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/CopilotKit/aimock/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you have an AI/agent app and want fast, deterministic, zero-cost tests of its plumbing — request handling, branching, error paths, tool wiring — without hitting real providers. Mind the env-var-before-client construction caveat. Pair with behavioral/eval tools (scenario, deepeval) which test real model quality; aimock tests everything around the model.
+
+## Triage note
+
+Left at `discovery-log`. Sits deliberately opposite `scenario` in the Verify stage, and the pair is a
+good illustration of why "overlaps" is not "redundant": aimock tests everything *around* the model with
+deterministic zero-cost mocks — request handling, branching, error paths, tool wiring — while scenario
+simulates real multi-turn behaviour. You would sensibly run both.
+
+The determinism is the point, and it is the rarest property in this category. Nearly every other testing
+row here pays per run and returns a different answer each time; a mock provider does neither, which
+makes it the only one of them that belongs in a fast CI loop without qualification.
+
+★630 and CopilotKit behind it. The one recorded gotcha — env vars must be set before client
+construction — is the kind of thing that only surfaces from actually running it, which is a point in the
+eval's favour. Nothing to eliminate; this is a small, clear tool waiting on a measured run.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
