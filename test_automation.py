@@ -1352,9 +1352,44 @@ class TestDetectorE(unittest.TestCase):
         self.assertEqual((measured, backlog), ([], []))
 
 
-# ----------------------------------------------------------------- detector Q (skill test-design, #221)
-class TestDetectorQ(unittest.TestCase):
-    """Detector Q (--skill-design, report-only): a skill/plugin-Type eval that records a
+# ----------------------------------------------------------------- detector letter registry
+class TestDetectorLetters(unittest.TestCase):
+    """Detector letters are the vocabulary CLAUDE.md, the Makefile header, TEMPLATE.md,
+    routines.md and the triage-lead skill all use to refer to a detector ("detector Q
+    gates this", "offline detectors B/D/G/J/K/O"). Two detectors shared the letter Q for
+    months, which made "detector Q" ambiguous and left one of them effectively unnamed
+    in the docs (#317). Nothing misbehaved at runtime, which is exactly why it survived
+    — so pin it mechanically instead of relying on review to notice the next one."""
+
+    HEADER = re.compile(r"^# -+ ([A-Z])\. (.+)$", re.M)     # section banners in the code
+    REGISTRY = re.compile(r"^  ([A-Z])\. [A-Z]", re.M)      # the module docstring's list
+
+    def _source(self):
+        with open(os.path.join(ROOT, "audit-evals.py"), encoding="utf-8") as f:
+            return f.read()
+
+    def test_every_letter_is_unique(self):
+        letters = [m.group(1) for m in self.HEADER.finditer(self._source())]
+        dupes = sorted({l for l in letters if letters.count(l) > 1})
+        self.assertEqual(dupes, [], msg=f"detector letter(s) used twice: {dupes}")
+        self.assertGreater(len(letters), 15, "header regex stopped matching — fix the test")
+
+    def test_registry_and_sections_agree(self):
+        # The docstring registry is where a reader looks up what a letter means. It had
+        # silently drifted: P, Q and S existed as detectors with no registry entry at all.
+        src = self._source()
+        sections = {m.group(1) for m in self.HEADER.finditer(src)}
+        # The registry lives in the module docstring, above the first section banner.
+        registry = {m.group(1) for m in self.REGISTRY.finditer(src[:src.index("\n# ---")])}
+        self.assertEqual(sections - registry, set(),
+                         msg="detector(s) with a code section but no docstring registry entry")
+        self.assertEqual(registry - sections, set(),
+                         msg="docstring registry entr(ies) naming a detector that has no code section")
+
+
+# ----------------------------------------------------------------- detector S (skill test-design, #221)
+class TestDetectorS(unittest.TestCase):
+    """Detector S (--skill-design, report-only): a skill/plugin-Type eval that records a
     Triggering test OR a with-skill-vs-baseline A/B is compliant; one recording neither
     is flagged. Conservative (any triggering/A/B vocab passes); never affects exit code."""
     SKILL_ROW = "| [{n}](https://github.com/a/{n}) | skill | x | y | z |\n"

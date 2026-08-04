@@ -91,6 +91,26 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      COMPARISON row whose Evaluated cell isn't a verdict token, with file and line
      number (#198). Offline, gating, on by default.
 
+  P. WORKFLOW-STACK DRIFT (opt-in, --workflow-drift, REPORT-ONLY) — WORKFLOW.md and
+     STACK.md must not give a newcomer two different answers to "what do I use for X".
+     Every STACK pick (matched by owner/repo slug, not display name) must appear
+     somewhere in WORKFLOW.md; the reverse is not required, since WORKFLOW legitimately
+     lists non-STACK CONDITIONAL options. Offline.
+
+  Q. ELIMINATE-ONLY BULK TRIAGE — an eval marked "triaged: bulk" may only read SKIP or
+     stay at discovery-log; it may never carry ADOPT/KEEP/CONDITIONAL. A false SKIP is
+     cheap and reversible, a false ADOPT poisons STACK, and K's honesty-disclaimer
+     escape hatch would otherwise let a README skim carry an ADOPT. This is what makes
+     eliminate-only mechanical rather than a promise. Offline, gating, on by default.
+
+  S. SKILL TEST-DESIGN (opt-in, --skill-design, REPORT-ONLY) — every skill/plugin-Type
+     eval should record at least one skill dimension (a Triggering test or a
+     with-skill-vs-baseline A/B) per TEMPLATE.md (#38). Conservative by design: an eval
+     counts as compliant on any triggering/A-B vocabulary, so an honest measured eval is
+     never false-flagged. A tracked metric, not a gate. Offline.
+     (Was a second "Q" until #317 — Q belongs to eliminate-only, which is referenced by
+     letter in CLAUDE.md, triage.py, TEMPLATE.md, routines.md and the triage-lead skill.)
+
   R. METADATA STALENESS (opt-in, --metadata-staleness, REPORT-ONLY) — repo-metadata.json
      is a committed snapshot the triage bands rest on, and it rots in one direction:
      a repo archived after our last refresh keeps `archived: false`, so it never
@@ -529,7 +549,7 @@ MEASURED = re.compile(r"tiktoken|with[- ]skill|baseline|measured a/b|\ba/b\b|tri
 STRONG_MEASURED = re.compile(r"measured a/b|\ba/b\b|trigger rate|assertion (passed|failed)|"
                              r"\*\*hands-on,? measured|run_eval|tiktoken|measured ~", re.I)
 
-# ------------------------------------------------------- declared evidence field
+# ---------------------------------------------------------------- I. declared evidence field
 # Issue #62: the *declared* evidence-strength field — how hard we looked, recorded
 # explicitly as data rather than inferred from prose. Distinct from the Evidence
 # class below, which *infers* fabrication/measurement signals from the How section.
@@ -781,7 +801,7 @@ def audit_skill_evidence(ctx):
         (measured if ev.evidence.is_measured else backlog).append(ev.name)
     return measured, backlog
 
-# ---------------------------------------------------------------- Q. skill test-design (report-only)
+# ---------------------------------------------------------------- S. skill test-design (report-only)
 # TEMPLATE.md's "Test design — skills" section requires every skill/plugin-Type eval to
 # record BOTH skill dimensions (issue #38): Triggering (does the description fire on the
 # right prompts?) and an Output A/B (with-skill vs baseline). This report surfaces
@@ -794,7 +814,7 @@ _SKILL_TRIGGER_RE = re.compile(r"trigger|run_eval|should[- ]?fire", re.I)
 _SKILL_AB_RE = re.compile(r"\bA/B\b|with[- ]skill|without[- ]skill|baseline|skill on vs", re.I)
 
 def audit_skill_design(ctx):
-    """Detector Q (REPORT-ONLY): skill/plugin-Type evals that record NEITHER a triggering
+    """Detector S (REPORT-ONLY): skill/plugin-Type evals that record NEITHER a triggering
     test nor an A/B, per TEMPLATE.md's required skills Test-design section (#38). Returns
     (compliant, missing) as lists of eval names. Never affects the exit code."""
     compliant, missing = [], []
@@ -1326,7 +1346,7 @@ def main():
     if do_skill_design:
         compliant, missing = audit_skill_design(ctx)
         tot = len(compliant) + len(missing)
-        print(f"== Q. skill test-design (report-only) — {len(compliant)}/{tot} skill/plugin evals record a triggering test or A/B ==")
+        print(f"== S. skill test-design (report-only) — {len(compliant)}/{tot} skill/plugin evals record a triggering test or A/B ==")
         for n in compliant:
             print(f"  ok       {n}")
         for n in missing:
