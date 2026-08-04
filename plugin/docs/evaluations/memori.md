@@ -3,6 +3,7 @@
 **Repo:** [MemoriLabs/Memori](https://github.com/MemoriLabs/Memori)
 **Stars:** 15,333 | **Last updated:** 2026-06-15 (pushed; created 2025-07-24) | **License:** Apache-2.0 (GitHub classifies as "Other"/NOASSERTION, but the LICENSE file is verbatim Apache 2.0) | **Releases:** 30
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory layer for agents across sessions)
 **Layer:** Infrastructure (LLM/datastore/framework-agnostic; TypeScript + Python SDKs; Memori Cloud or self-host)
 
@@ -64,6 +65,27 @@ gh api repos/MemoriLabs/Memori/readme --jq '.content' | base64 -d   # register/a
 **discovery-log — tentative read** — adopt if you want the **lowest-friction "wrap your LLM client and get automatic memory"** integration for production agents, value multi-tenant attribution (entity/process), and are comfortable with a cloud-first default (or can confirm the self-host path). The register-and-go ergonomics and "memory from what agents do" framing are genuine strengths, the SDK coverage (TS + Python) is strong, and it's Apache-2.0 despite GitHub's misclassification. Caveats: it's one of several strong memory layers (compare mem0, cognee, MemOS by integration fit), the headline path leans on Memori Cloud, and auto-recall opacity + the external-dependency/privacy surface warrant a pilot. Measure recall quality on your own data before relying on it.
 
 Compared to neighbors: **mem0** is the broad universal memory layer; **cognee** a self-hosted knowledge-graph memory; **MemOS** a self-evolving "memory OS" with policy/skill layers; **agentmemory** a benchmarked persistent store. Memori's distinguishing pitch is **register-your-client, automatic background memory with production multi-tenant attribution** — the most "drop-in for production systems" ergonomics of the set, with a cloud-first default to weigh.
+
+## Triage note
+
+Left at `discovery-log`. Its distinguishing pitch — register your LLM client and get automatic
+background memory, with multi-tenant entity/process attribution — is the most drop-in ergonomics of the
+memory cluster, and that is a real axis rather than repositioning.
+
+One correction worth carrying, because it would otherwise decide the row wrongly: `repo-metadata.json`
+records the licence as **`NOASSERTION`**, and the eval establishes it is actually **Apache-2.0**,
+misclassified by GitHub's parser. `NOASSERTION` means "could not parse", never "no licence" — CLAUDE.md
+is explicit that it never disposes a lead — and this row is the concrete case that rule exists for.
+
+Not disposed as redundant either. Memory & Context is the most crowded category here and four of its
+members are P0 leads (`cognee`, `mem0`, `MemOS`, `supermemory`); ranking within that set needs a
+measured recall comparison on real data, which is precisely the work P0 exists to do and this lane may
+not shortcut.
+
+Weigh at promotion: the headline path leans on Memori Cloud, and auto-recall opacity means you cannot
+easily see why something was surfaced.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

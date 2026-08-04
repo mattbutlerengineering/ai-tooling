@@ -3,6 +3,7 @@
 **Repo:** [codejunkie99/agentic-stack](https://github.com/codejunkie99/agentic-stack)
 **Stars:** 2,117 | **Last updated:** 2026-05-25 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -65,6 +66,27 @@ gh api repos/codejunkie99/agentic-stack/contents/adapters/claude-code/settings.j
 **discovery-log — tentative read**
 
 agentic-stack is a credible, well-engineered, local-first portable memory-and-skills layer whose real, unique value is the **widest cross-harness portability in the category** (12 harnesses, one git-versionable `.agent/` brain, a SHA-256-verified transfer wizard) combined with a deliberately **safety-forward staging-then-human-review** memory model and a genuinely additive **local cross-harness monitoring + data-flywheel** layer that no other catalog memory entry offers. It is **not** a thin duplicate of memsearch/agentmemory/SimpleMem — it attacks portability + auditable human-in-the-loop curation + fleet monitoring rather than competing on hybrid-search recall, and it does so with *no DB and no API key* on the default path, the lightest footprint of any memory tool evaluated. Use it when you actually work across multiple coding-agent harnesses and want one portable, auditable brain plus local fleet monitoring — that is its real differentiator. For this user's case (Claude Code-only, already on claude-mem ADOPT + OMEGA), it does **not** displace claude-mem: the portability is unused in a single-harness setup, claude-mem is more battle-tested with a richer Claude Code recall surface, and agentic-stack's manual-graduation capture is more effort than claude-mem's passive auto-capture. Like memsearch, agentmemory, and SimpleMem (all CONDITIONAL), it wins on a specific axis (cross-harness portability + auditable curation + monitoring) but loses to claude-mem on single-harness ecosystem fit and zero-effort capture. KEEP the catalog entry (now linked to the verified repo); do not adopt over claude-mem.
+
+## Triage note
+
+Left at `discovery-log`. The axis is **cross-harness portability** — one git-versionable `.agent/`
+brain across twelve harnesses, with a SHA-256-verified transfer wizard — plus a staging-then-human-review
+capture model and local fleet monitoring. None of that is what `claude-mem` competes on, so it is not a
+duplicate of the installed incumbent.
+
+It is, however, a good example of a capability whose value depends on a fact about the *user* rather
+than the tool: this repo supports two harnesses (Claude Code and opencode per ADR-0002), so the
+portability is partly exercised, but nothing like the twelve it is built for. The read above assumes a
+Claude-Code-only setup and concludes the portability is unused; with opencode in the picture that is now
+half true, which is a small update worth recording rather than a change of verdict.
+
+The genuinely additive part regardless of harness count is the safety-forward capture model —
+staged memories a human reviews before they are trusted — versus `claude-mem`'s zero-effort passive
+capture. That is an auditability-versus-friction trade, and it is measurable.
+
+No DB, no API key on the default path: the lightest footprint of any memory tool evaluated here.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

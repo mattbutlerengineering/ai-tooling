@@ -3,6 +3,7 @@
 **Repo:** [EvoMap/evolver](https://github.com/EvoMap/evolver)
 **Stars:** 8,714 | **Last updated:** 2026-06-18 (pushed) | **License:** GPL-3.0 (⚠️ future releases moving to source-available) | **Language:** Node.js (npm: `@evomap/evolver`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (agent self-improvement) — Reflect
 **Layer:** Tooling (CLI engine; core behind the EvoMap network)
 
@@ -49,9 +50,27 @@ gh api repos/EvoMap/evolver/readme --jq '.content' | base64 -d | sed -n '286,342
 
 ## Verdict
 
-**discovery-log — tentative read** — Evolver is one of the more intellectually serious **agent self-improvement** engines: a paper-backed argument that compact, auditable **Genes** (under the GEP protocol) are a better carrier for accumulated experience than skill docs, with CritPt benchmark lifts to back it. Adopt it experimentally if you want **governed, auditable agent evolution** and are comfortable pinning to the current GPL-3.0 release — because the headline caveat is the announced move **from open source to source-available** for future versions, which makes long-term reliance on the latest features uncertain. Treat the benchmarks as vendor/paper-reported, and weigh the EvoMap-network gravity. Against ACE (Skillbook) and hivemind (traces→skills), Evolver's distinct bet is the gene representation itself.
+**SKIP** — the licence trajectory forecloses it. Two facts from the read above compound:
 
-Compared to neighbors: **ACE** curates a Skillbook via reflection; **hivemind** turns traces into shared skills; **MemOS**/**memind** crystallize experience into policy; **pro-workflow** is correction-driven memory. Evolver's distinguishing pitch is **GEP-protocol Genes/Capsules — a compact, auditable, paper-backed alternative to skill-doc evolution.**
+1. The current release is **GPL-3.0**, and this catalog's adoption bar is permissive OSS.
+2. The project has **announced a move from open source to source-available** for future versions.
+
+Either alone would be a caveat. Together they mean the best case is pinning to a copyleft snapshot and
+watching the interesting work happen behind a licence you cannot build on — which is not a foundation
+to put in a stack, however good the engineering is.
+
+Worth being clear that this is *not* the P4 mechanical rule. P4 scopes copyleft to vendored
+`skill`/`plugin` types whose text is copied into your repo; `evolver` is a `tool`, and GPL alone would
+not dispose it (`firecrawl` was left standing under AGPL in this same pass for exactly that reason).
+It is the announced relicensing that decides this one.
+
+The idea is the interesting part and survives independently: compact, auditable **Genes** under the
+GEP protocol as a carrier for accumulated experience, versus the skill-doc evolution `ACE` and
+`hivemind` bet on. That comparison stays live through those rows, both of which are permissively
+licensed. CritPt benchmark lifts are paper-reported and unverified here.
+
+Re-open if the licence resolves permissively.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

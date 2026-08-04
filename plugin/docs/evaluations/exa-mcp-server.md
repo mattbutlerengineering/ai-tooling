@@ -3,6 +3,7 @@
 **Repo:** [exa-labs/exa-mcp-server](https://github.com/exa-labs/exa-mcp-server)
 **Stars:** 4,593 | **Last updated:** 2026-06-08 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Research / Plan (live web grounding) — touches Implement when used as a code-search source
 **Layer:** Tooling (retrieval layer; the default hosted endpoint is Infrastructure-adjacent — a remote, paid service)
 
@@ -69,6 +70,24 @@ grep -inE "exa|firecrawl|Agent-Reach|context7|tavily" /Users/mbutler/github/ai-t
 **discovery-log — tentative read**
 
 Exa MCP Server is a legitimate, first-party, actively maintained (MIT, 4.6K stars, has tests) way to give a coding agent live web search and an agentic deep-research workflow — a real need that the catalog's docs/repo-grounding servers cannot cover. But it is **not a default**, and the reason is friction plus fit. (1) **Paid-API friction:** every call is metered against an Exa key, which is strictly worse on Cost Efficiency than the free alternatives that overlap it. (2) **Fit:** for the most common dev-loop "current information" need — correct, current library/API usage — [context7](https://github.com/upstash/context7) (curated docs, KEEP) and [git-mcp](https://github.com/idosal/git-mcp) (actual repo source, CONDITIONAL) are higher-signal and free; reach for those first. Exa earns its place for the genuinely *open-web* questions those can't answer: "what's the current state of X," release news, comparisons, cross-source research. Versus [firecrawl-mcp](https://github.com/firecrawl/firecrawl-mcp-server) the two are complementary, not competing — Exa *finds/searches* the web (and fetches), firecrawl *scrapes/crawls* known URLs into structured content; pair Exa-search → firecrawl-extract when you need both. Versus [Agent-Reach](https://github.com/Panniantong/Agent-Reach) (free, social-source focused) Exa is the paid, broader-quality option. **Adopt only when (a) live open-web search/research is a recurring need on the project, (b) docs/repo grounding has already been tried, and (c) the metered cost is acceptable — and prefer pinning to `webSearch`/`webFetch`/`exaCode` over the people/company tools.** Not ADOPT-everywhere (paid, narrow-fit, third-party data path); not SKIP (the open-web research capability is real and well-built).
+
+## Triage note
+
+Left at `discovery-log`. The read above is already a full conditional analysis — paid metered API,
+complementary to `firecrawl-mcp` on the search-versus-extract axis, second in line behind `context7`
+and `git-mcp` for the common "current library usage" question — and it correctly declines both ADOPT
+and SKIP.
+
+What this pass adds is the cluster view. Four rows now touch web access: this one searches,
+`firecrawl-mcp` extracts, `firecrawl` is the engine under that MCP, and `Agent-Reach` is the free
+social-source option. None is redundant with another, and all four share one unresolved question —
+whether *any* general web access belongs in a dev-loop stack, or is something you reach for during
+research. That is a cluster decision, and it is why nothing in this neighbourhood was disposed here.
+
+The concrete promotion path the eval already names: pin to `webSearch`/`webFetch`/`exaCode` and drop
+the people/company tools, then measure whether open-web search answers questions `context7` cannot.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

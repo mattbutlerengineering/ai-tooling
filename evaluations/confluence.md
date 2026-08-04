@@ -3,6 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (latest release v0.21.1, 2026-04-10) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Reflect (read team docs into context up front; write findings/runbooks back out) — touches Implement when a spec lives on the wiki
 **Layer:** Infrastructure (network connector to a live external system — the team's Confluence instance)
 
@@ -78,6 +79,25 @@ grep -inE "jira|confluence|atlassian|sooperset" /Users/mbutler/github/ai-tooling
 **discovery-log — tentative read**
 
 mcp-atlassian is the right, well-maintained implementation behind the catalog "confluence" entry, and it cleanly solves the stated problem — read/write access to team documentation during Plan and Reflect. But the value is entirely conditional on **the team actually using Confluence**, and it carries a real safety cost: write tools mutate shared team docs and require a broad API token. **Adopt it for teams whose source of truth lives in Confluence** (especially enterprise Server/Data Center shops, where mcp-atlassian's deployment coverage beats every alternative), and prefer wiring it **read-first** — start with `confluence_search` / `confluence_get_page` and only enable page-write tools once you trust the agent's behavior and have a way to review its edits. Teams that want the vendor-supported path with managed OAuth should evaluate **atlassian/atlassian-mcp-server** (official, Apache-2.0) instead, accepting its much smaller adoption and hosted-remote model. **Not ADOPT-everywhere** because it is dead weight for non-Confluence teams and adds a write surface to a shared system. **Not SKIP** because for a Confluence-centric team it is a genuine, low-friction context win.
+
+## Triage note
+
+Left at `discovery-log`. Conditional on the team's documentation actually living in Confluence, with a
+real write surface on a shared system — correctly neither ADOPT nor SKIP, and the eval's read-first
+posture (`confluence_search` / `confluence_get_page` before any page-write tool) is the right default.
+
+The structural finding is the one already recorded in the Catalog note below and worth restating,
+because it is the third instance of this shape found in the triage lane: **`confluence` and `jira` are
+two catalog rows for one repo.** Both resolve to `sooperset/mcp-atlassian`, a single combined server —
+install one and you have both. That is the same class of problem as `diagnosing-bugs` and `implement`
+shipping inside `mattpocock/skills`: the queue treats a facet of an artifact as an independent lead.
+
+It does not make either row a SKIP — the two facets serve genuinely different stages (Confluence at
+Plan and Reflect, Jira at Plan and Ship) and a reader looking for one should find it. It does mean a
+promotion decision here is a single decision, not two, and that `triage.py` counting them as two leads
+overstates the queue.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog note (do not edit CATALOG.md as part of this evaluation)
 

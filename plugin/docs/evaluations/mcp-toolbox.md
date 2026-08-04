@@ -3,6 +3,7 @@
 **Repo:** [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox)
 **Stars:** 15,661 | **Last updated:** 2026-06-19 (latest release v1.5.0, 2026-06-18) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (DB-aware coding, schema discovery) — with strong Infrastructure use beyond the dev loop (build production agent tools)
 **Layer:** Tooling (prebuilt-tools mode, what the catalog cares about) / Infrastructure (custom-tools framework mode)
 
@@ -66,6 +67,25 @@ grep -inE "mcp-toolbox|genai-toolbox|supabase|prisma" /Users/mbutler/github/ai-t
 **discovery-log — tentative read**
 
 mcp-toolbox is a mature, Google-maintained, genuinely capable MCP server with the broadest database coverage in this catalog's DB cluster. It is two things at once, and the verdict splits on which you use. **As a dev-loop tool (prebuilt mode), adopt it conditionally when you need agent access to a database type prisma/supabase don't cover, or to several DB types at once** — for a single local Postgres in development, the lighter prisma or supabase servers are a smaller lift. **As production infrastructure (custom-tools framework), it is a strong choice when you are building agents that must hit a database safely**, and there its locked-down, parameterized-tool model is a real differentiator rather than an overlap. Not ADOPT-everywhere because it is heavier than alternatives for simple dev needs, carries a Google-Cloud commercial tilt, and its easy on-ramp (raw `execute_sql`) is unsafe-by-default. Not SKIP because the maturity, breadth, and the framework's safety model are clearly best-in-class. It overlaps with prisma and supabase on the dev-time "agent talks to my DB" job; it is complementary to pg-aiguide, which improves the SQL the agent *writes* (knowledge layer, no DB access) rather than executing it.
+
+## Triage note
+
+Left at `discovery-log`. Google-maintained with the broadest database coverage in the catalog's DB
+cluster, and the read above splits the verdict the right way: as a dev-loop tool it is heavier than
+`prisma` or `supabase` for a single local Postgres; as a framework for *building* agents that must hit
+a database safely, its parameterized locked-down tool model is a genuine differentiator.
+
+Two rows in one, in other words — which is a catalog-shape observation as much as a verdict, and the
+same pattern `firecrawl`/`firecrawl-mcp` shows one section over.
+
+The safety detail is the one to carry: the easy on-ramp is raw `execute_sql`, which is unsafe by
+default. A promotion should describe the prebuilt-versus-custom-tools posture explicitly rather than
+recommending the product as a whole.
+
+Complementary to `pg-aiguide` (knowledge layer, writes better SQL) and overlapping `prisma`/`supabase`
+(execution layer, runs it). This pass left all four.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

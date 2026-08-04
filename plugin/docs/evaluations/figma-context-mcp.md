@@ -3,6 +3,7 @@
 **Repo:** [GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
 **Stars:** 15,153 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -64,6 +65,25 @@ Also compared against the built-in `mcp__claude_ai_Figma__` tools available in t
 **discovery-log — tentative read**
 
 Use when your workflow involves implementing designs from Figma files. The 15K-star community, active maintenance, and well-engineered context reduction pipeline make it the clear best-in-class Figma MCP server. However, it requires a Figma API token and a Figma-based design workflow — teams not using Figma get zero value. The telemetry and commercial rebrand warrant monitoring but don't block adoption for the MIT-licensed core.
+
+## Triage note
+
+Left at `discovery-log`. ★15.4K and described in its own read as clear best-in-class for the job, so
+there is nothing here to eliminate — it is the incumbent of its cluster, not a challenger to one.
+
+Two things this pass checked. First, the cluster is genuinely differentiated and was left intact:
+`plumb-mcp` closes a design→code→**verify** loop this row does not attempt, `figma-mcp-go` writes
+*into* Figma, `design-extract` works from a live site rather than a file. Four rows, four distinct
+jobs.
+
+Second, the condition on its value is binary rather than graded — teams not using Figma get exactly
+zero from it, which is what keeps it out of ADOPT-everywhere without saying anything against it.
+
+The open flags the eval raises and this pass cannot resolve: telemetry, and a commercial rebrand. The
+MIT core is unaffected, but both are worth re-checking at promotion time rather than trusting a
+2026-06 read.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

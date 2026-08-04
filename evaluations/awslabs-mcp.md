@@ -3,6 +3,7 @@
 **Repo:** [awslabs/mcp](https://github.com/awslabs/mcp)
 **Stars:** 9,296 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -60,6 +61,23 @@ Not hands-on installed (requires AWS account and configured credentials).
 **discovery-log — tentative read**
 
 Use when building on AWS. The collection is the definitive MCP integration for AWS services — 60+ servers with the strongest security model of any cloud-provider MCP in the catalog. The `aws-api-mcp-server` alone provides a validated bridge to every AWS CLI command with read-only and mutation-consent gates. Requires AWS account and Python/uv; the Agent Toolkit for AWS may supersede this collection for production use, but the open-source servers remain the best option for development workflows today.
+
+## Triage note
+
+Left at `discovery-log`. 60+ official servers with what the read above calls the strongest security
+model of any cloud-provider MCP in the catalog — read-only and mutation-consent gates on a validated
+bridge to the AWS CLI. Not a row a bulk lane disposes.
+
+Checked against `cloudflare-mcp`: same shape for a different cloud, complementary by construction, and
+both were left. Value is fully conditional on running on AWS, which is the standard vendor-integration
+shape and neither ADOPT-everywhere nor SKIP.
+
+The flag worth re-checking at promotion time is a succession question rather than a quality one: the
+eval notes the **Agent Toolkit for AWS** may supersede this collection for production use, while the
+open-source servers remain the better development-workflow option today. That is a 2026-06 read of a
+moving target and is exactly the kind of claim a fresh look should verify first.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG)
 **Stars:** ~36,800 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (retrieval / Memory & Context)
 **Layer:** Infrastructure
 
@@ -52,6 +53,26 @@ gh api repos/HKUDS/LightRAG/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt for RAG over connected document corpora where relationships and multi-hop reasoning matter and you can absorb the up-front graph-extraction cost. For long single documents needing explainable retrieval, PageIndex is the reasoning-over-structure alternative; for plain Q&A, flat vector RAG is cheaper. Pilot on a representative corpus and tune the role-specific LLM config to control indexing spend.
+
+## Triage note
+
+Left at `discovery-log`. ★37.5K, MIT, pushed this week — the largest retrieval row left standing after
+`RAGFlow` was SKIPped in this pass, and it survives where RAGFlow did not for a specific reason worth
+recording.
+
+RAGFlow's own eval declares it product infrastructure rather than a dev-loop tool. LightRAG makes no
+such claim: graph-based retrieval over a connected corpus with multi-hop reasoning is a capability an
+*agent working on your codebase* could plausibly use, and `kreuzberg` (extraction front-end) plus
+LightRAG (retrieval) is a coherent pairing the catalog already records.
+
+The cost the read above names is the real gate: up-front graph extraction is expensive, and for plain
+Q&A flat vector RAG is cheaper. So the promotion question is not "does it work" but "is the corpus
+connected enough to earn the graph" — a measurable question on a representative corpus, and P0 work.
+
+`PageIndex` is the named alternative for long single documents needing explainable retrieval; both were
+left.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

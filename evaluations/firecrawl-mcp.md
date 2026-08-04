@@ -3,6 +3,7 @@
 **Repo:** [firecrawl/firecrawl-mcp-server](https://github.com/firecrawl/firecrawl-mcp-server)
 **Stars:** 6,629 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Research/Discovery (gathering web content) — touches Plan when scraping docs/data to ground a task
 **Layer:** Tooling (retrieval layer; the default cloud path is Infrastructure-adjacent — a remote paid API)
 
@@ -69,6 +70,23 @@ grep -niE "exa-mcp|firecrawl|playwright|web scrap|crawl" /Users/mbutler/github/a
 **discovery-log — tentative read**
 
 Firecrawl MCP is a mature, well-maintained, official MCP server that solves a real dev-loop problem — getting clean, agent-ready content out of modern JS-heavy web pages — with unusually broad coverage (scrape, crawl, map, batch, schema extraction, search, deep-research agent) and genuine operational polish (retries, rate limiting, credit monitoring). The decisive trade-off is cost: the default path is a paid, metered cloud API where every operation spends credits, which is real friction next to zero-cost grounding tools. **Adopt it per-project when the task genuinely needs robust extraction from JS-rendered or anti-scraping sites and simpler/free tools fall short — and seriously consider the self-host path (`FIRECRAWL_API_URL`) for teams doing this at volume, which removes both the per-credit cost and the third-party dependency.** Versus [exa-mcp-server](https://github.com/exa-labs/exa-mcp-server) the two are complementary, not redundant: Exa is search-first (find current information across the web); Firecrawl is extraction-first (turn specific known pages/sites into clean data), with web search as a secondary feature. For "ground the agent in *this* documentation site or scrape *this* data," reach for Firecrawl; for "search the web for current info," reach for Exa. Not ADOPT-everywhere because of the paid-API friction and overlap with both search and browser-automation tools; not SKIP because the clean-extraction value and maturity are concrete and unmatched on the extraction axis in the catalog.
+
+## Triage note
+
+Left at `discovery-log`, and paired deliberately with `firecrawl`, which was examined in the previous
+slice of this issue. The two are layers of one system: this row is the agent-facing MCP wrapper, that
+row is the scraping engine underneath. Disposing either as redundant with the other would misread the
+stack, and the licences differ in a way that matters — the engine is AGPL-3.0, this wrapper is MIT.
+
+The read above already settles the neighbour question too: `exa-mcp-server` is search-first, this is
+extraction-first, and the natural pairing is Exa-search → firecrawl-extract.
+
+The cost caveat is the whole disposition and the eval names the escape hatch: the default path is a
+metered cloud API, and `FIRECRAWL_API_URL` self-hosting removes both the per-credit spend and the
+third-party data path. Whether the self-hosted route is as good is the measurable question a
+promotion would answer.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

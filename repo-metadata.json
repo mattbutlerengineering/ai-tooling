@@ -3500,6 +3500,14 @@
     "resolved_name": "tirth8205/code-review-graph",
     "stars": 19371
   },
+  "toolmonsters/handoff-skill": {
+    "archived": false,
+    "fetched_at": "2026-08-04",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-07-23T11:27:12Z",
+    "resolved_name": "ToolMonsters/handoff-skill",
+    "stars": 33
+  },
   "topoteretes/cognee": {
     "archived": false,
     "license_spdx": "Apache-2.0",

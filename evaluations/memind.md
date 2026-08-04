@@ -3,6 +3,7 @@
 **Repo:** [openmemind/memind](https://github.com/openmemind/memind)
 **Stars:** 902 | **Last updated:** 2026-06-14 (pushed; created 2026-03-19) | **License:** Apache-2.0 | **Language:** Java
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (memory + context engine)
 **Layer:** Infrastructure (Java service; REST + MCP + SDKs + agent plugins)
 
@@ -49,9 +50,24 @@ gh api repos/openmemind/memind/readme --jq '.content' | base64 -d | head -20   #
 
 ## Verdict
 
-**discovery-log — tentative read** — Memind is an Apache-2.0, **JVM-native self-evolving memory + context engine** whose distinctive idea is turning tool calls and resolved tasks into **reusable experience** (memory graphs, threads, Insight Trees), exposed over REST/MCP/SDKs with claimed SOTA on LoCoMo/LongMemEval/PersonaMem. Adopt it if you want an agent memory layer in a **Java** stack or value the experience-reuse model over plain recall, and are willing to run/govern a self-evolving service. Treat the SOTA claims as vendor-reported and pilot on your own data; for Python/TS shops, cognee/supermemory/MemPalace cover similar ground. The self-evolving promotion logic warrants observability before you trust what it surfaces.
+**SKIP** — wrong ecosystem, and covered where it counts. The distinguishing pitch in the read above is
+that it is **JVM-native**, and the same paragraph names the alternative for everyone else: *"for
+Python/TS shops, cognee/supermemory/MemPalace cover similar ground."*
 
-Compared to neighbors: **cognee** is a knowledge-graph memory; **MemOS** a self-evolving memory OS; **supermemory**/**MemPalace** benchmark-forward memory engines. Memind's distinguishing pitch is **JVM-native, experience-reuse memory (Insight Trees) with REST/MCP/SDK access**.
+This catalog's stack is Python and TypeScript; a Java-native memory service is a runtime dependency
+with no reason to exist in it. And the crowded field is exactly why the ecosystem fit decides it —
+Memory & Context is one of the largest categories here, `cognee`, `supermemory`, `mem0` and `MemOS`
+are all P0 leads, and adding a fifth memory layer that additionally requires a JVM clears no bar.
+
+The idea worth remembering is experience reuse — turning resolved tasks and tool calls into Insight
+Trees rather than storing transcripts — which is the same bet `ACE`, `evolver` and `hivemind` make in
+other forms. That bet is being tracked; this implementation of it is not the one to track it through.
+
+The SOTA claims on LoCoMo/LongMemEval/PersonaMem are vendor-reported and unverified here, so they
+carry no weight in either direction.
+
+Re-open for a JVM-stack project.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

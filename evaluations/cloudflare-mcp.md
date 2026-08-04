@@ -3,6 +3,7 @@
 **Repo:** [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
 **Stars:** 3,878 | **Last updated:** pushed 2026-06-08 (created 2024-11-27) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Ship (deploy/operate Cloudflare infra from agent sessions) — with Verify/Reflect use (observability, logs, analytics)
 **Layer:** Infrastructure (managed remote MCP servers fronting Cloudflare's account APIs)
 
@@ -65,6 +66,26 @@ grep -inE "cloudflare" /Users/mbutler/github/ai-tooling/CATALOG.md
 **discovery-log — tentative read**
 
 The Cloudflare MCP servers are mature, official, and genuinely capable, but their value is entirely gated on being a Cloudflare user — so they cannot be ADOPT-everywhere. **Adopt conditionally when you operate apps on Cloudflare (Workers, Pages, DNS, R2/KV/D1) and want to deploy, debug, and inspect that infra from agent sessions.** In that case, wire up only the domain-specific servers you need (observability, bindings, builds, DNS analytics), scope tokens to least privilege, and prefer read-only tokens unless the agent genuinely needs to make changes. Consider the companion **Code Mode** server (`cloudflare/mcp`) when you want broad cross-API coverage at minimal context cost rather than a curated per-product tool set. Not SKIP — for Cloudflare shops this is the canonical, first-party way to give agents account access, and the Code Mode context-efficiency work is best-in-class. It overlaps with `awslabs/mcp` only as the analogous offering for a different cloud (complementary, not competing).
+
+## Triage note
+
+Left at `discovery-log`. Official, mature, and entirely gated on being a Cloudflare user — the
+textbook shape of a row that is neither ADOPT-everywhere nor SKIP, and the read above says so
+directly.
+
+Checked against `awslabs/mcp`, the only row it overlaps: same offering for a different cloud, so
+complementary by construction. Neither can dispose the other, and this pass left both.
+
+The part worth carrying forward is the **Code Mode** server (`cloudflare/mcp`), which the eval calls
+best-in-class on context efficiency: broad cross-API coverage at minimal token cost, versus wiring up
+a curated per-product tool set. Context economy is a quality signal this catalog tracks under Cost
+Efficiency, and a first-party implementation of it is worth a measured read independent of whether you
+run on Cloudflare.
+
+Standing safety note from the eval, not this pass: scope tokens to least privilege and prefer
+read-only unless the agent genuinely needs to mutate infrastructure.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
