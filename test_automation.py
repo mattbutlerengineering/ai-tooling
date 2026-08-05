@@ -3046,6 +3046,68 @@ class TestMaintenanceSignal(unittest.TestCase):
             self.assertIn("why", rec["discontinued_ack"])
 
 
+class TestScopeMismatch(unittest.TestCase):
+    """Pins detector W (#353). next-evals.py's score has no scope term — every term
+    measures how much attention a lead attracts — so a row WORKFLOW.md's one-line
+    exclusion already disposes of can rank into P0, the one band an unattended pass may
+    not write to. pydantic-ai sits there at pressure 12 while agent-kit, same class, was
+    disposed in P3."""
+
+    def test_concession_vocab_matches_the_codified_exclusion(self):
+        # The two dominant corpus strings ARE WORKFLOW.md's exclusion, quoted verbatim by
+        # the #348 SKIP pass. If they stop matching, the detector has gone blind.
+        for s in ("for building AI products",
+                  "not for your own dev workflow",
+                  "it builds LLM apps, not coding agents",
+                  "not a drop-in coding harness",
+                  "tangential to authoring code"):
+            self.assertTrue(audit.SCOPE_CONCESSION.search(s), s)
+
+    def test_clearance_vocab_recognizes_the_bridge_arguments(self):
+        # Real strings from evals that quote the exclusion IN ORDER TO distinguish
+        # themselves from it. Each would otherwise be a false positive.
+        for s in ("fast-agent clears the bar that aisuite and LangGraph did not",
+                  "it is not a library for building AI products, but a harness you run",
+                  "catalog-relevant as the obs/eval layer",
+                  "with one genuine bridge into Implement"):
+            self.assertTrue(audit.SCOPE_CLEARED.search(s), s)
+
+    def test_type_gate_is_the_types_the_exclusion_is_about(self):
+        # "Visual/programmatic agent BUILDERS". A harness or tool is something you run —
+        # the gate is what drops mirrord ("not a coding agent", said of a k8s tool) and
+        # 12-factor-agents (a reference). Both survive the phrase match alone.
+        self.assertEqual(audit.SCOPE_TYPES, frozenset({"framework", "platform"}))
+
+    def test_quote_is_line_scoped(self):
+        # A sentence-scoped window ran past the newline and spliced a header into a prose
+        # line, which reads as a garbled claim rather than as the eval's own words.
+        text = "**Dev loop stage:** X — for building AI products\n**Layer:** Infrastructure"
+        m = audit.SCOPE_CONCESSION.search(text)
+        self.assertNotIn("Layer", audit._scope_quote(text, m))
+
+    def test_flag_is_report_only_and_opt_in(self):
+        # The immediate item is a HUMAN read of a P0 lead. Moving that authority to an
+        # unattended lane is precisely what #353 declined to do.
+        self.assertIn("--scope", audit.REPORT_FLAGS)
+        self.assertNotIn("--scope", audit.DEFAULT_GATES)
+        self.assertNotIn("--scope", audit.OFFLINE_GATES)
+
+    def test_lazy_triage_import_does_not_recurse(self):
+        # triage.py loads audit-evals.py at import time; a module-level import back would
+        # recurse forever. This is the regression net for that.
+        mod = audit._load_sibling("triage_probe", "triage.py")
+        self.assertTrue(hasattr(mod, "assign"))
+
+    def test_live_run_separates_findings_from_cleared(self):
+        # End-to-end against the real tree: the detector must not report a lead that
+        # argues it clears the bar as a finding.
+        finds, cleared = audit.audit_scope(audit.DetectorContext(ROOT))
+        self.assertEqual(set(f.tool for f in finds) & set(c.tool for c in cleared), set())
+        for f in finds + cleared:
+            self.assertIn(f.typ, audit.SCOPE_TYPES)
+            self.assertTrue(f.phrase.strip(), f.tool)
+
+
 class TestAckCarryForward(unittest.TestCase):
     """`discontinued_ack` is the one field in repo-metadata.json that a human writes and
     the refresher does not own. If a refresh drops it, V's acknowledged false positive
