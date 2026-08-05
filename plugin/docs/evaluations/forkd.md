@@ -3,6 +3,7 @@
 **Repo:** [deeplethe/forkd](https://github.com/deeplethe/forkd)
 **Stars:** 2,650 | **Last updated:** 2026-06-14 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify (parallel-agent and code-interpreter sandbox infrastructure)
 **Layer:** Infrastructure
 
@@ -64,6 +65,23 @@ Reviewed: the fork/BRANCH mechanism and CoW design, the benchmark table (forkd 1
 forkd clears the bar aisuite did not: it ships a real MCP server with documented `claude mcp add forkd` registration, so it has an actual surface inside the dev loop rather than being a pure build-a-product library. Its BRANCH-mid-execution capability is genuinely differentiated for parallel/speculative agent exploration and code-interpreter fan-out, and its benchmarking discipline (published RESULTS files, self-reported regressions, fair-comparison corrections) is unusually credible. But it remains low-level infrastructure with a narrow trigger and hard prerequisites — Linux/KVM-only, a vendored Firecracker fork to build, root for the daemon, and zero value unless your workflow actually fans out many short-lived isolated sandboxes.
 
 **Adopt it when** you are building or operating an agent platform that needs fast, hardware-isolated, warm-state-inheriting sandboxes at scale — code-interpreter tools, evaluation rollouts, or BRANCH-based "try N fixes from one warm state" parallelism on a Linux host. **Skip it for** ordinary single-agent Claude Code coding on macOS or any workflow that doesn't fan out — the setup cost dwarfs the benefit. It is the heavier, hardware-isolated end of the same space as dmux/worktrunk (worktree isolation), nanoclaw, and sandcastle (lighter sandbox orchestration).
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★2.7K, pushed 2026-08-02.
+
+Its eval already applied this catalog's scope bar and cleared it explicitly: "**forkd clears the bar
+aisuite did not: it ships a real MCP server with documented `claude mcp add forkd` registration, so it
+has an actual surface inside the dev loop** rather than being a pure build-a-product library." That is
+the same dev-loop-bridge test the two preceding slices used to dispose thirty-three framework rows,
+applied here to the opposite conclusion by a human who looked at the tree.
+
+Its BRANCH-mid-execution primitive (fork a live microVM in ~150ms to try N fixes from one warm state)
+has no equivalent in the catalog, and the eval singles out its benchmarking discipline — published
+RESULTS files, self-reported regressions, fair-comparison corrections — as "unusually credible", which
+is a Verifiability-shaped virtue this catalog is short of.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

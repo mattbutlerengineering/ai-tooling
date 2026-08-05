@@ -145,10 +145,11 @@
   },
   "agent-sandbox/agent-sandbox": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:52:04Z",
+    "pushed_at": "2026-07-30T08:49:33Z",
     "resolved_name": "agent-sandbox/agent-sandbox",
-    "stars": 164
+    "stars": 182
   },
   "agent-sh/agnix": {
     "archived": false,
@@ -522,10 +523,11 @@
   },
   "beam-cloud/beta9": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "AGPL-3.0",
-    "pushed_at": "2026-07-09T19:08:19Z",
+    "pushed_at": "2026-08-04T16:17:08Z",
     "resolved_name": "beam-cloud/beta9",
-    "stars": 1695
+    "stars": 1727
   },
   "behisecc/awesome-claude-skills": {
     "archived": false,
@@ -615,10 +617,11 @@
   },
   "bytedance/ui-tars-desktop": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-01T03:03:19Z",
+    "pushed_at": "2026-08-02T09:41:26Z",
     "resolved_name": "bytedance/UI-TARS-desktop",
-    "stars": 37879
+    "stars": 38431
   },
   "campfirein/byterover-cli": {
     "archived": false,
@@ -715,10 +718,11 @@
   },
   "cloudflare/moltworker": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
     "pushed_at": "2026-05-09T02:37:13Z",
     "resolved_name": "cloudflare/moltworker",
-    "stars": 9916
+    "stars": 9927
   },
   "cloudwego/eino": {
     "archived": false,
@@ -950,17 +954,19 @@
   },
   "daytonaio/daytona": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NONE",
-    "pushed_at": "2026-07-09T18:45:58Z",
+    "pushed_at": "2026-07-24T07:12:07Z",
     "resolved_name": "daytonaio/daytona",
-    "stars": 72242
+    "stars": 72050
   },
   "deeplethe/forkd": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-09T03:32:24Z",
+    "pushed_at": "2026-08-02T12:32:39Z",
     "resolved_name": "deeplethe/forkd",
-    "stars": 2711
+    "stars": 2739
   },
   "deepset-ai/haystack": {
     "archived": false,
@@ -1741,10 +1747,11 @@
   },
   "infragate/capa": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NONE",
-    "pushed_at": "2026-07-09T15:28:35Z",
+    "pushed_at": "2026-08-04T17:36:13Z",
     "resolved_name": "infragate/capa",
-    "stars": 619
+    "stars": 680
   },
   "inftyai/awesome-llmops": {
     "archived": false,
@@ -1818,10 +1825,11 @@
   },
   "kaitranntt/ccs": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-08T14:22:56Z",
+    "pushed_at": "2026-08-03T00:29:26Z",
     "resolved_name": "kaitranntt/ccs",
-    "stars": 2680
+    "stars": 2782
   },
   "karpathy/autoresearch": {
     "archived": false,
@@ -2158,10 +2166,11 @@
   },
   "maximhq/bifrost": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:19:02Z",
+    "pushed_at": "2026-08-04T22:39:27Z",
     "resolved_name": "maximhq/bifrost",
-    "stars": 6403
+    "stars": 7047
   },
   "mcp-ui-org/mcp-ui": {
     "archived": false,
@@ -2474,10 +2483,11 @@
   },
   "musistudio/claude-code-router": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:56:10Z",
+    "pushed_at": "2026-08-04T01:19:18Z",
     "resolved_name": "musistudio/claude-code-router",
-    "stars": 35715
+    "stars": 36414
   },
   "mvanhorn/last30days-skill": {
     "archived": false,
@@ -3110,10 +3120,11 @@
   },
   "router-for-me/cliproxyapi": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T04:05:50Z",
+    "pushed_at": "2026-08-04T23:29:03Z",
     "resolved_name": "router-for-me/CLIProxyAPI",
-    "stars": 39690
+    "stars": 46164
   },
   "rtk-ai/rtk": {
     "archived": false,
@@ -3476,10 +3487,11 @@
   },
   "tastyeffectco/sandboxd": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T11:44:47Z",
+    "pushed_at": "2026-08-01T23:37:19Z",
     "resolved_name": "tastyeffectco/sandboxd",
-    "stars": 714
+    "stars": 875
   },
   "tathagat22/plumb-mcp": {
     "archived": false,
@@ -3611,10 +3623,11 @@
   },
   "trycua/cua": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:19:39Z",
+    "pushed_at": "2026-08-05T00:04:34Z",
     "resolved_name": "trycua/cua",
-    "stars": 19511
+    "stars": 20924
   },
   "tw93/kaku": {
     "archived": false,
@@ -3741,10 +3754,11 @@
   },
   "vercel/sandbox": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-09T15:38:57Z",
+    "pushed_at": "2026-08-04T21:30:55Z",
     "resolved_name": "vercel/sandbox",
-    "stars": 162
+    "stars": 168
   },
   "vercel/workflow": {
     "archived": false,

@@ -3,6 +3,7 @@
 **Repo:** [trycua/cua](https://github.com/trycua/cua)
 **Stars:** ~18,600 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (computer-use agent infrastructure)
 **Layer:** Infrastructure
 
@@ -52,6 +53,21 @@ gh api repos/trycua/cua/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you need to give a coding agent (Claude Code/Cursor/Codex) real, benchmarkable computer-use across desktops — the background, focus-preserving drivers and the Bench/Lume stack are its standout. Run untrusted tasks inside Lume VMs or other isolation given the action risk. Versus UI-TARS-desktop, choose cua for the infra/SDK/eval layer; mind that Linux support is still pre-release.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★20.9K, pushed today.
+
+Checked the obvious redundancy pair — this and `UI-TARS-desktop` are both computer-use agent stacks —
+and both evals agree they split rather than compete: "versus UI-TARS-desktop, choose **cua** for the
+infra/SDK/eval layer". One is the infrastructure and benchmark layer, the other the multimodal agent
+stack. Complementary.
+
+Its own Safety note has become harder to satisfy: it recommends running untrusted tasks "inside Lume
+VMs or other isolation (**daytona** / agent-sandbox)", and `daytona` was SKIPped in this pass as
+discontinued upstream. The advice stands; one of the two named isolation options no longer does.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

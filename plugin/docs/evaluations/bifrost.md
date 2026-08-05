@@ -3,6 +3,7 @@
 **Repo:** [maximhq/bifrost](https://github.com/maximhq/bifrost)
 **Stars:** ~5,900 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (infrastructure / gateway)
 **Layer:** Infrastructure
 
@@ -52,6 +53,22 @@ gh api repos/maximhq/bifrost/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you need a fast, self-hosted, multi-provider gateway with failover, caching, and an MCP gateway, and you're throughput-sensitive enough that a Python proxy's overhead matters. For smaller apps already happy with litellm or wanting bundled observability, the incumbents are fine. Verify the performance claims against your own traffic before standardizing.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★7.0K, pushed today.
+
+Checked for an incumbent to be redundant with and there is none in STACK: its named comparator
+`litellm` is catalogued at CONDITIONAL, not adopted, so the challenger frame does not apply. Its own
+eval is honest that the differentiator is throughput — "verify the performance claims against your own
+traffic before standardizing" — which makes the headline "50× faster than LiteLLM" in the repository
+description an unverified benchmark claim of exactly the shape detector `--savings-claims` tracks for
+token savings. Same class of assertion, different metric.
+
+Left with that flagged rather than disposed: an unproven performance claim is a measurement task, not
+a disqualification.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

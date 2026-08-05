@@ -3,6 +3,7 @@
 **Repo:** [tastyeffectco/sandboxd](https://github.com/tastyeffectco/sandboxd)
 **Stars:** 675 | **Last updated:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Verify / Ship (preview-environment + agent-in-sandbox infrastructure)
 **Layer:** Infrastructure
 
@@ -64,6 +65,20 @@ sandboxd is a clean, honest, MIT-licensed control plane for one specific job: st
 It clears SKIP rather than landing there because it does intervene at a real dev-loop stage — Verify/Ship, via isolated agent-generated previews — and per-branch / per-PR ephemeral preview environments are a legitimate (if narrow) dev-workflow use even outside the SaaS-builder framing.
 
 **Adopt it when** you are building an AI app-builder, an agent/coding-playground product, or per-user / per-branch preview environments and want multi-tenant isolation + preview routing + idle/wake cost control + agent orchestration on one inexpensive Linux box without running Kubernetes. **Skip it for** ordinary single-developer Claude Code coding (especially on macOS), or any workflow that doesn't fan out many sandboxes for other people — the README itself tells you to use a shell script instead. It is the lighter, container-based, product-backend-shaped neighbor of forkd (microVM/KVM, lower-level) and nanoclaw (lighter sandbox orchestration).
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★875, pushed 2026-08-01.
+
+Its eval explicitly weighed a SKIP and declined: "**It clears SKIP rather than landing there** because
+it does intervene at a real dev-loop stage — Verify/Ship, via isolated agent-generated previews — and
+per-branch / per-PR ephemeral preview environments are a legitimate (if narrow) dev-workflow use even
+outside the SaaS-builder framing."
+
+That is a considered human read of exactly the question this band would ask, reached against the same
+bar and answered. Eliminate-only means this lane may not re-run it to the opposite conclusion.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

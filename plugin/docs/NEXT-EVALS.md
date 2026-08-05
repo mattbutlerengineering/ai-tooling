@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 366 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 365 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 96 distinct values across these 366 leads (140 have zero overlap pressure; largest tie: 21) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 96 distinct values across these 365 leads (140 have zero overlap pressure; largest tie: 21) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -11,7 +11,7 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
 | **P2 challenger** | overlaps a tool already in STACK | 106 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 235 | leave; stamp `**Last triaged:**` only |
+| **P3 backlog** | everything else | 234 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 
 <!-- NEXT-EVALS:START -->
@@ -75,26 +75,26 @@ _Listing 12 of 106 — rerun `python3 triage.py` and read the source for the tai
 | tdd-guard | Review | 23.0 | pressure 8, gap 5.0 | `/triage-lead tdd-guard` |
 | ACE (agentic-context-engine) | Memory & Context | 22.2 | pressure 8, gap 6.2 | `/triage-lead ACE (agentic-context-engine)` |
 
-## P3 backlog — 235 leads
+## P3 backlog — 234 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 235 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 234 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | agent-kit | Implement | 25.1 | pressure 9, gap 5.1 | `/triage-lead agent-kit` |
-| daytona | Implement | 23.1 | pressure 8, gap 5.1 | `/triage-lead daytona` |
-| CLIProxyAPI | Implement | 21.1 | pressure 7, gap 5.1 | `/triage-lead CLIProxyAPI` |
 | fast-agent | Implement | 21.1 | pressure 7, gap 5.1 | `/triage-lead fast-agent` |
-| bifrost | Implement | 19.1 | pressure 6, gap 5.1 | `/triage-lead bifrost` |
-| agent-sandbox | Implement | 17.1 | pressure 5, gap 5.1 | `/triage-lead agent-sandbox` |
-| claude-code-router | Implement | 15.1 | pressure 4, gap 5.1 | `/triage-lead claude-code-router` |
-| UI-TARS-desktop | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead UI-TARS-desktop` |
-| capa | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead capa` |
 | claudian | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead claudian` |
 | codex-plugin-cc | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead codex-plugin-cc` |
 | nanobot | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead nanobot` |
+| phantom | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead phantom` |
+| re_gent | Implement | 13.1 | pressure 3, gap 5.1 | `/triage-lead re_gent` |
+| Archon | Implement | 11.1 | pressure 2, gap 5.1 | `/triage-lead Archon` |
+| agency-agents | Implement | 11.1 | pressure 2, gap 5.1 | `/triage-lead agency-agents` |
+| happy | Implement | 11.1 | pressure 2, gap 5.1 | `/triage-lead happy` |
+| cli-continues | Implement | 9.1 | pressure 1, gap 5.1 | `/triage-lead cli-continues` |
+| jetbrains-cc-gui | Implement | 9.1 | pressure 1, gap 5.1 | `/triage-lead jetbrains-cc-gui` |
 
 ## P4 mechanical-skip — 0 leads
 

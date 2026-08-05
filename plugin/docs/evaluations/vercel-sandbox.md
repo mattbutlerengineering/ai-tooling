@@ -3,6 +3,7 @@
 **Repo:** [vercel/sandbox](https://github.com/vercel/sandbox)
 **Stars:** 147 | **Last updated:** 2026-06-16 (pushed; created 2026-01-23) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify — execution isolation infrastructure. It is where agent-generated code *runs*: install deps, start a dev server, run a build or test, expose a preview URL — all inside a disposable VM rather than on the host. Not an orchestrator and not a harness itself; a primitive a harness calls.
 **Layer:** Infrastructure (a hosted Vercel service fronted by an npm SDK `@vercel/sandbox` and a `sandbox` CLI; the VMs run on Vercel's Firecracker fleet, not on your machine)
 
@@ -60,6 +61,20 @@ gh api repos/vercel/sandbox/contributors --jq '[.[].login]|length'  # 19
 **discovery-log — tentative read: strong primitive, but hosted/paid/vendor-locked and unproven in public.** Vercel Sandbox is a legitimately good isolation primitive for running agent-generated code: real Firecracker MicroVMs, a clean typed SDK, preview URLs, an agent-oriented example, and a Skill. If you already live in the Vercel ecosystem and want managed, secure execution with public previews — and accept metered cost and lock-in — adopt it. For anyone wanting self-hosted, local, or vendor-neutral isolation, the trade-offs (hosted-only, billed, 147 stars, ~5 months old, isolation unverified by us) argue for waiting or choosing a neighbor. Conditional, not skip: the engineering is sound; the open question is whether you want this specific managed dependency.
 
 Compared to neighbors in Agent Harnesses: **sandboxd** is the closest philosophical opposite — *self-hosted* dev sandboxes with preview URLs, "one command, no Kubernetes," no vendor bill. **sandcastle** orchestrates sandboxed coding agents in TypeScript (programmatic spawning/isolation) and would *consume* a primitive like this rather than compete with it. **forkd** offers fast KVM-isolated agent microVMs with sub-second fork — comparable isolation tech, different (fork-heavy, self-run) model. Vercel Sandbox's distinguishing bet is "managed Firecracker + public previews on the Vercel build fleet"; its distinguishing cost is that you must be on Vercel to use it.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★168, pushed today.
+
+Its eval already names the reservations precisely — hosted, paid, vendor-locked, "unproven in public"
+— and they are conditions to price rather than grounds to eliminate. Real Firecracker microVMs with a
+typed SDK and preview URLs is a legitimate isolation primitive.
+
+Worth noting how this row's standing changed without the row changing: with `daytona` SKIPped as
+discontinued in this pass, the catalog's isolation lane is now thinner and more skewed toward hosted,
+paid options. That is an argument for someone measuring this lane, not for adjusting any verdict in it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
