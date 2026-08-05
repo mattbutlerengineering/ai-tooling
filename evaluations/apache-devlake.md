@@ -1,7 +1,7 @@
 # Evaluation: Apache DevLake
 
-**Repo:** [apache/incubator-devlake](https://github.com/apache/incubator-devlake)
-**Stars:** 3,039 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
+**Repo:** [apache/devlake](https://github.com/apache/devlake)  <!-- was apache/incubator-devlake at eval time; graduated out of the Apache Incubator and the repo was renamed, re-checked 2026-08-04 -->
+**Stars:** 3,094 (re-checked 2026-08-04) | **Last updated:** 2026-06-17 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Outer loop (Retrospect)
 **Layer:** Infrastructure
@@ -59,4 +59,4 @@ Promising for teams but premature for solo AI-assisted development. The infrastr
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [Apache DevLake](https://github.com/apache/incubator-devlake) | platform | DORA metrics and engineering analytics from DevOps tool data | No visibility into delivery performance trends (lead time, deploy frequency, MTTR) | langfuse (observability), LinearB |
+| [Apache DevLake](https://github.com/apache/devlake) | platform | DORA metrics and engineering analytics from DevOps tool data | No visibility into delivery performance trends (lead time, deploy frequency, MTTR) | langfuse (observability), LinearB |

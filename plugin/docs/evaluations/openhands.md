@@ -1,7 +1,7 @@
 # Evaluation: OpenHands
 
-**Repo:** [All-Hands-AI/OpenHands](https://github.com/All-Hands-AI/OpenHands)
-**Stars:** 77,739 | **Last updated:** 2026-06-19 | **License:** MIT (enterprise/ directory separate)
+**Repo:** [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)  <!-- was All-Hands-AI/OpenHands at eval time; the org renamed itself, re-checked 2026-08-04 -->
+**Stars:** 83,137 (re-checked 2026-08-04) | **Last updated:** 2026-06-19 | **License:** MIT (enterprise/ directory separate)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
@@ -64,4 +64,4 @@ Use OpenHands when you need a self-hosted agent orchestration platform with mult
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [OpenHands](https://github.com/All-Hands-AI/OpenHands) | platform | Self-hosted agent control center — multi-backend, multi-agent, automations (77.7K stars) | Want a full AI dev platform with scheduled automations and team agent servers | claude-squad, goose, opencode |
+| [OpenHands](https://github.com/OpenHands/OpenHands) | platform | Self-hosted agent control center — multi-backend, multi-agent, automations (77.7K stars) | Want a full AI dev platform with scheduled automations and team agent servers | claude-squad, goose, opencode |

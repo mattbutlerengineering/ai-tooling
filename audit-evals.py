@@ -137,7 +137,10 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      slug and the stars/license it was written against (#336; `herdr` was SKIP-eligible
      on exactly this). ORPHAN — an embedded row naming no catalogued tool. TEXT — the
      one-liner/problem/overlaps cells disagree; not cosmetic, since triage.py bands
-     leads from the overlaps cell. CASE — the URLs differ only in capitalization, which
+     leads from the overlaps cell. AMBIG — two catalog rows collapse to one name_key
+     ('agent-skills' vs 'agentskills'), so the mirror cannot be identified; resolution
+     is exact-name-first for this reason, and an ambiguous fallback resolves to nothing
+     rather than to a coin flip. CASE — the URLs differ only in capitalization, which
      GitHub redirects; kept out of LINK so that bucket stays actionable, but printed,
      not filtered. Offline: a string comparison between two files already in the tree,
      unlike C's ~450 requests. Report-only and deliberately NOT a bulk fixer — #345's
@@ -693,14 +696,24 @@ class Evaluation:
     # The `**Repo:**` header link. Detector U compares it to the CATALOG row's link:
     # when a repo is renamed the catalog row gets repointed and this header does not,
     # so the eval keeps asserting a pre-rename slug forever (#336).
-    _REPO_HEADER = re.compile(r"^\*\*Repo:\*\*\s*\[[^\]]*\]\(([^)]*)\)", re.M)
+    _REPO_HEADER = re.compile(r"^\*\*Repo:\*\*.*$", re.M)
+    _MD_LINK = re.compile(r"\[[^\]]*\]\(([^)]*)\)")
 
     @property
     def repo_link(self):
-        """The URL in this eval's `**Repo:**` header, or None (some evals head with
-        `**Site:**` for a commercial platform, or list several companion repos)."""
+        """The FIRST URL in this eval's `**Repo:**` header, or None (some evals head
+        with `**Site:**` for a commercial platform)."""
+        links = self.repo_links
+        return links[0] if links else None
+
+    @property
+    def repo_links(self):
+        """EVERY URL on the `**Repo:**` line. A header that documents a rename names
+        both repos — `[old](…) — **now redirects to** [new](…)` — and that form is
+        richer than the catalog's single link, not drift. Detector U accepts the header
+        when the catalog's URL appears anywhere on the line."""
         m = self._REPO_HEADER.search(self.text)
-        return m.group(1) if m else None
+        return self._MD_LINK.findall(m.group(0)) if m else []
 
     # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
     # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
@@ -1162,12 +1175,31 @@ def audit_catalog_mirror(ctx):
     `**Repo:**` header) disagrees with CATALOG.md's row for the same tool. Offline —
     a string comparison between two files already in the tree, unlike detector C's
     ~450 HTTP requests, which is what makes it cheap enough to run every time."""
-    cat = {}
+    # Two maps, because one is not enough. name_key collapses non-alphanumerics, so
+    # `agent-skills` (addyosmani) and `agentskills` (the spec) key identically — and a
+    # single setdefault map silently handed one eval the OTHER tool's row and reported a
+    # LINK against it. Exact name wins; the collapsed key is a fallback, and a fallback
+    # key reaching two different rows resolves to nothing rather than to a coin flip.
+    exact, fuzzy, ambiguous = {}, {}, set()
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         if r.url is None:
             continue
+        exact.setdefault(r.name, r)
         for k in catalog_lib.identity_keys(r.name):
-            cat.setdefault(k, r)  # first registration wins, as comparison_verdict_map does
+            if k in fuzzy and fuzzy[k].name != r.name:
+                ambiguous.add(k)
+            fuzzy.setdefault(k, r)
+
+    def lookup(name):
+        """(row, ambiguous_key) for a name — never a guess between two distinct tools."""
+        if name in exact:
+            return exact[name], None
+        for k in catalog_lib.identity_keys(name):
+            if k in ambiguous:
+                return None, k
+            if k in fuzzy:
+                return fuzzy[k], None
+        return None, None
 
     findings = []
     for ev in ctx.evals:
@@ -1177,7 +1209,12 @@ def audit_catalog_mirror(ctx):
         # A pack eval embeds several rows (8090-software-factory carries the platform's);
         # every one of them mirrors some catalog row, so check each against its own.
         for row in rows:
-            crow = next((cat[k] for k in catalog_lib.identity_keys(row.name) if k in cat), None)
+            crow, ambig = lookup(row.name)
+            if ambig:
+                findings.append(CatalogMirrorFinding(
+                    ev.name, row.name, "AMBIG",
+                    f"two CATALOG.md rows collapse to the key '{ambig}' — cannot tell which is mirrored"))
+                continue
             if crow is None:
                 findings.append(CatalogMirrorFinding(
                     ev.name, row.name, "ORPHAN",
@@ -1195,12 +1232,12 @@ def audit_catalog_mirror(ctx):
         # The header link is checked against the FIRST embedded row's catalog match: that
         # row is the eval's own subject (pack evals lead with theirs), and an eval with no
         # `**Repo:**` header is not a finding — commercial platforms head with `**Site:**`.
-        head = ev.repo_link
-        crow = next((cat[k] for k in catalog_lib.identity_keys(rows[0].name) if k in cat), None)
-        if head and crow and crow.url and head != crow.url:
+        heads = ev.repo_links
+        crow, _ = lookup(rows[0].name)
+        if heads and crow and crow.url and crow.url not in heads:
             findings.append(CatalogMirrorFinding(
-                ev.name, rows[0].name, _link_kind(head, crow.url),
-                f"**Repo:** header {head} != catalog {crow.url}"))
+                ev.name, rows[0].name, _link_kind(heads[0], crow.url),
+                f"**Repo:** header {heads[0]} != catalog {crow.url}"))
     return findings
 
 
@@ -1620,12 +1657,12 @@ def main():
         evals_hit = len({f.eval_name for f in drift})
         print(f"== U. catalog-entry mirror drift (report-only) — {len(drift)} disagreement(s) "
               f"across {evals_hit} eval(s): {kinds['LINK']} LINK, {kinds['ORPHAN']} ORPHAN, "
-              f"{kinds['TEXT']} TEXT, {kinds['CASE']} CASE ==")
+              f"{kinds['TEXT']} TEXT, {kinds['CASE']} CASE, {kinds['AMBIG']} AMBIG ==")
         if not drift:
             print("  OK — every embedded catalog row matches CATALOG.md")
         # LINK first: a stale slug makes an eval assert facts about the wrong repo (#336),
         # where TEXT drift is a disagreement about wording that a human resolves per row.
-        order = {"LINK": 0, "ORPHAN": 1, "TEXT": 2, "CASE": 3}
+        order = {"LINK": 0, "ORPHAN": 1, "AMBIG": 2, "TEXT": 3, "CASE": 4}
         for f in sorted(drift, key=lambda f: (order[f.kind], f.eval_name)):
             print(f"  {f.kind:6} {f.eval_name} [{f.tool}]: {f.detail}")
     sys.exit(rc)

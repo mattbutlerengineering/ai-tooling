@@ -2827,3 +2827,46 @@ class TestCatalogMirror(unittest.TestCase):
         self.assertNotIn("--catalog-mirror", audit.DEFAULT_GATES)
         self.assertNotIn("--catalog-mirror", audit.OFFLINE_GATES)
         self.assertIn("--catalog-mirror", audit.REPORT_FLAGS)
+
+    def test_hyphen_collision_resolves_by_exact_name(self):
+        # name_key collapses non-alphanumerics, so 'agent-skills' and 'agentskills' key
+        # identically. A single collapsed-key map handed one eval the OTHER tool's row
+        # and reported a LINK against it — a detector reporting a defect that isn't.
+        a = "https://github.com/addyosmani/agent-skills"
+        b = "https://github.com/agentskills/agentskills"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("agent-skills", a), self._row("agentskills", b)],
+                            {"agentskills": self._eval("agentskills", b,
+                                                       self._row("agentskills", b))})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_collapsed_key_reaching_two_rows_is_AMBIG_not_a_guess(self):
+        # No exact match, and the fallback key reaches two distinct tools: resolve to
+        # nothing and say so, rather than to whichever row happened to come first.
+        a = "https://github.com/one/agent-skills"
+        b = "https://github.com/two/agent_skills"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("agent-skills", a), self._row("agent_skills", b)],
+                            {"e": self._eval("e", a, self._row("agentskills", a))})
+            f, = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(f.kind, "AMBIG")
+            self.assertIn("agentskills", f.detail)
+
+    def test_header_documenting_a_rename_is_not_drift(self):
+        # `[old](…) — **now redirects to** [new](…)` is richer than the catalog's single
+        # link, not stale. Accept the header when the catalog URL appears anywhere on it.
+        old, new = "https://github.com/o/old", "https://github.com/o/new"
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n\n**Repo:** [old]({old}) — **now redirects to** "
+                    f"[new]({new})\n\n## Catalog entry\n\n{self.HDR}{self._row('t', new)}")
+            ctx = self._ctx(d, [self._row("t", new)], {"t": text})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_header_naming_only_the_old_repo_is_still_drift(self):
+        old, new = "https://github.com/o/old", "https://github.com/o/new"
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n\n**Repo:** [old]({old})\n\n"
+                    f"## Catalog entry\n\n{self.HDR}{self._row('t', new)}")
+            ctx = self._ctx(d, [self._row("t", new)], {"t": text})
+            # only the header is stale here — the embedded row already matches
+            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["LINK"])
