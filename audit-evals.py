@@ -129,6 +129,21 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Offline (#260). Cannot become a gate: it would fail for a reason no code change
      caused, and its only fix needs the network CI must not depend on.
 
+  U. CATALOG-ENTRY MIRROR DRIFT (opt-in, --catalog-mirror, REPORT-ONLY) — TEMPLATE.md
+     has every eval close with a `## Catalog entry` copy of its CATALOG.md row: a fact
+     restated in ~520 places with no generator and no test, so it drifted (#345). Four
+     kinds, reported apart because they are not equally dangerous. LINK — the eval and
+     the catalog name different repos, so a rename leaves the eval asserting a dead
+     slug and the stars/license it was written against (#336; `herdr` was SKIP-eligible
+     on exactly this). ORPHAN — an embedded row naming no catalogued tool. TEXT — the
+     one-liner/problem/overlaps cells disagree; not cosmetic, since triage.py bands
+     leads from the overlaps cell. CASE — the URLs differ only in capitalization, which
+     GitHub redirects; kept out of LINK so that bucket stays actionable, but printed,
+     not filtered. Offline: a string comparison between two files already in the tree,
+     unlike C's ~450 requests. Report-only and deliberately NOT a bulk fixer — #345's
+     sequencing note is that a wholesale rewrite in either direction destroys real work
+     in the other, because the eval side is sometimes the better text (`azure-skills`).
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -675,6 +690,18 @@ class Evaluation:
         except ValueError:
             return None
 
+    # The `**Repo:**` header link. Detector U compares it to the CATALOG row's link:
+    # when a repo is renamed the catalog row gets repointed and this header does not,
+    # so the eval keeps asserting a pre-rename slug forever (#336).
+    _REPO_HEADER = re.compile(r"^\*\*Repo:\*\*\s*\[[^\]]*\]\(([^)]*)\)", re.M)
+
+    @property
+    def repo_link(self):
+        """The URL in this eval's `**Repo:**` header, or None (some evals head with
+        `**Site:**` for a commercial platform, or list several companion repos)."""
+        m = self._REPO_HEADER.search(self.text)
+        return m.group(1) if m else None
+
     # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
     # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
     # is — a tentative read — instead of borrowing CONDITIONAL, a word ADR-0005 reserves
@@ -1107,6 +1134,90 @@ def audit_lead_headlines(ctx):
     return flagged
 
 
+# ---------------------------------------------------------------- U. catalog-entry mirror drift (report-only)
+# TEMPLATE.md has every eval close with a `## Catalog entry` section holding that tool's
+# CATALOG.md row. It is a mirror — a fact restated in two places with no generator and no
+# test — so it drifts, and 62% of it had (#345). This is the same class root CLAUDE.md
+# calls out for plugin/CLAUDE.md: *gate the shared facts, not the file*.
+#
+# Two kinds, reported apart because they are not equally dangerous:
+#
+#   LINK  — the eval points at a different repo than the catalog does (#336). When a repo
+#           is renamed the daily discovery pass repoints the CATALOG row and nothing
+#           repoints the eval, so the eval asserts a dead slug (and the stars/license it
+#           was written against) indefinitely. `herdr` was SKIP-eligible on stale facts
+#           for exactly this reason. This is the class worth gating first.
+#   TEXT  — the one-liner / problem / overlaps cells disagree. Cosmetic-looking, but the
+#           overlaps cell is what `triage.py` bands leads from, so a disagreement here
+#           decides which band a lead lands in (`softaworks/agent-toolkit`, #344).
+#
+# Report-only, and deliberately NOT a bulk fixer: #345's sequencing note is that whichever
+# direction is applied wholesale destroys real work in the other, because the eval side is
+# sometimes the better text (`azure-skills`). This prints the number to shrink; a human
+# decides per row which side is right.
+CatalogMirrorFinding = collections.namedtuple("CatalogMirrorFinding", "eval_name tool kind detail")
+
+def audit_catalog_mirror(ctx):
+    """CatalogMirrorFindings for every eval whose embedded `## Catalog entry` row (or
+    `**Repo:**` header) disagrees with CATALOG.md's row for the same tool. Offline —
+    a string comparison between two files already in the tree, unlike detector C's
+    ~450 HTTP requests, which is what makes it cheap enough to run every time."""
+    cat = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if r.url is None:
+            continue
+        for k in catalog_lib.identity_keys(r.name):
+            cat.setdefault(k, r)  # first registration wins, as comparison_verdict_map does
+
+    findings = []
+    for ev in ctx.evals:
+        rows = [r for r in ev.catalog_rows if r.url is not None]
+        if not rows:
+            continue  # no embedded row: nothing mirrored, nothing to drift
+        # A pack eval embeds several rows (8090-software-factory carries the platform's);
+        # every one of them mirrors some catalog row, so check each against its own.
+        for row in rows:
+            crow = next((cat[k] for k in catalog_lib.identity_keys(row.name) if k in cat), None)
+            if crow is None:
+                findings.append(CatalogMirrorFinding(
+                    ev.name, row.name, "ORPHAN",
+                    "embedded row names a tool with no CATALOG.md row"))
+                continue
+            if row.url != crow.url:
+                findings.append(CatalogMirrorFinding(
+                    ev.name, row.name, _link_kind(row.url, crow.url),
+                    f"eval row {row.url} != catalog {crow.url}"))
+            for field in ("type", "one_liner", "overlaps"):
+                mine, theirs = getattr(row, field), getattr(crow, field)
+                if mine != theirs:
+                    findings.append(CatalogMirrorFinding(
+                        ev.name, row.name, "TEXT", f"{field}: {_clip(mine)} != {_clip(theirs)}"))
+        # The header link is checked against the FIRST embedded row's catalog match: that
+        # row is the eval's own subject (pack evals lead with theirs), and an eval with no
+        # `**Repo:**` header is not a finding — commercial platforms head with `**Site:**`.
+        head = ev.repo_link
+        crow = next((cat[k] for k in catalog_lib.identity_keys(rows[0].name) if k in cat), None)
+        if head and crow and crow.url and head != crow.url:
+            findings.append(CatalogMirrorFinding(
+                ev.name, rows[0].name, _link_kind(head, crow.url),
+                f"**Repo:** header {head} != catalog {crow.url}"))
+    return findings
+
+
+def _link_kind(a, b):
+    """LINK for a genuine repo disagreement, CASE when the two URLs differ only in
+    capitalization. GitHub owner/repo names are case-insensitive and redirect, so a
+    case-only diff cannot make an eval assert the wrong repo's facts — the failure
+    #336 is about. Reported apart rather than dropped: it is still a tidy-up, and a
+    silently-filtered finding reads as "clean" when it isn't."""
+    return "CASE" if a.lower() == b.lower() else "LINK"
+
+
+def _clip(s, n=58):
+    s = (s or "").replace("\n", " ")
+    return s if len(s) <= n else s[:n - 1] + "…"
+
+
 def audit_comparison(ctx):
     text = ctx.comparison
     body = catalog_lib.comparison_body_counts(text)          # shared with reconcile-counts.py
@@ -1232,7 +1343,8 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 # Opt-in reports. Never in the default set; never affect the exit code.
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
-                "--staleness", "--metadata-staleness", "--lead-headlines")
+                "--staleness", "--metadata-staleness", "--lead-headlines",
+                "--catalog-mirror")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1285,6 +1397,7 @@ def main():
     do_staleness = "--staleness" in want     # opt-in report (does not affect exit code)
     do_meta_stale = "--metadata-staleness" in want  # opt-in report (does not affect exit code)
     do_lead_head = "--lead-headlines" in want   # opt-in report (does not affect exit code)
+    do_mirror = "--catalog-mirror" in want   # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1501,6 +1614,20 @@ def main():
         for name, verd, lvl in leads:
             print(f"  OVERREACH {name}: row=discovery-log but eval headlines {verd} at {lvl} evidence "
                   f"(relabel it a tentative read, or promote the row with a run behind it)")
+    if do_mirror:
+        drift = audit_catalog_mirror(ctx)
+        kinds = collections.Counter(f.kind for f in drift)
+        evals_hit = len({f.eval_name for f in drift})
+        print(f"== U. catalog-entry mirror drift (report-only) — {len(drift)} disagreement(s) "
+              f"across {evals_hit} eval(s): {kinds['LINK']} LINK, {kinds['ORPHAN']} ORPHAN, "
+              f"{kinds['TEXT']} TEXT, {kinds['CASE']} CASE ==")
+        if not drift:
+            print("  OK — every embedded catalog row matches CATALOG.md")
+        # LINK first: a stale slug makes an eval assert facts about the wrong repo (#336),
+        # where TEXT drift is a disagreement about wording that a human resolves per row.
+        order = {"LINK": 0, "ORPHAN": 1, "TEXT": 2, "CASE": 3}
+        for f in sorted(drift, key=lambda f: (order[f.kind], f.eval_name)):
+            print(f"  {f.kind:6} {f.eval_name} [{f.tool}]: {f.detail}")
     sys.exit(rc)
 
 if __name__ == "__main__":
