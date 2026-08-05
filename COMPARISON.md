@@ -167,7 +167,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | praisonai | framework | | ✓ | SKIP | SOURCE-ONLY |
 | vercel-ai | framework | | ✓ | discovery-log | REVIEW |
 | antigravity-sdk-python | framework | | ✓ | SKIP | REVIEW |
-| pydantic-ai | framework | | ✓ | discovery-log | REVIEW |
+| pydantic-ai | framework | | ✓ | SKIP | REVIEW |
 | voltagent | framework | ✓ | ✓/$ | SKIP | REVIEW |
 | agent-kit | framework | ✓ | ✓ | SKIP | REVIEW |
 | agno | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -737,7 +737,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 215 | 110 | 4 | 51% |
+| Implement | 215 | 111 | 4 | 52% |
 | Verify | 23 | 11 | 2 | 48% |
 | Review | 43 | 21 | 3 | 49% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -748,4 +748,4 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **652** | **284** | **34** | **44%** |
+| **Total** | **652** | **285** | **34** | **44%** |
