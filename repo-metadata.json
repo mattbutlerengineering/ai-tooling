@@ -95,10 +95,11 @@
   },
   "activepieces/activepieces": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-09T23:37:57Z",
+    "pushed_at": "2026-08-04T21:10:06Z",
     "resolved_name": "activepieces/activepieces",
-    "stars": 23194
+    "stars": 23577
   },
   "addyosmani/agent-skills": {
     "archived": false,
@@ -443,10 +444,11 @@
   },
   "assistant-ui/assistant-ui": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:30:29Z",
+    "pushed_at": "2026-08-05T00:00:46Z",
     "resolved_name": "assistant-ui/assistant-ui",
-    "stars": 11011
+    "stars": 11408
   },
   "astro-han/karpathy-llm-wiki": {
     "archived": false,
@@ -598,10 +600,11 @@
   },
   "builderio/agent-native": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NONE",
-    "pushed_at": "2026-07-10T01:45:19Z",
+    "pushed_at": "2026-08-05T00:09:16Z",
     "resolved_name": "BuilderIO/agent-native",
-    "stars": 3556
+    "stars": 4408
   },
   "bytedance/deer-flow": {
     "archived": false,
@@ -869,10 +872,11 @@
   },
   "copilotkit/opengenerativeui": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-06-10T23:23:43Z",
     "resolved_name": "CopilotKit/OpenGenerativeUI",
-    "stars": 1438
+    "stars": 1483
   },
   "coplaydev/unity-mcp": {
     "archived": false,
@@ -1955,10 +1959,11 @@
   },
   "langflow-ai/langflow": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T00:47:12Z",
+    "pushed_at": "2026-08-05T00:09:23Z",
     "resolved_name": "langflow-ai/langflow",
-    "stars": 151467
+    "stars": 152841
   },
   "langfuse/langfuse": {
     "archived": false,
@@ -2032,10 +2037,11 @@
   },
   "liveloveapp/hashbrown": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-09T18:58:20Z",
+    "pushed_at": "2026-07-21T22:19:16Z",
     "resolved_name": "liveloveapp/hashbrown",
-    "stars": 706
+    "stars": 716
   },
   "ljagiello/ctf-skills": {
     "archived": false,
@@ -2159,10 +2165,11 @@
   },
   "mcp-ui-org/mcp-ui": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
     "pushed_at": "2026-07-08T04:21:59Z",
     "resolved_name": "MCP-UI-Org/mcp-ui",
-    "stars": 4999
+    "stars": 5073
   },
   "mcp-use/mcp-use": {
     "archived": false,
@@ -2363,7 +2370,7 @@
     "license_spdx": "MIT",
     "pushed_at": "2026-07-10T16:53:47Z",
     "resolved_name": "mindsdb/mindshub",
-    "stars": 39515
+    "stars": 39516
   },
   "minishlab/semble": {
     "archived": false,
@@ -2438,10 +2445,11 @@
   },
   "mudler/localai": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T23:48:46Z",
+    "pushed_at": "2026-08-05T00:07:52Z",
     "resolved_name": "mudler/LocalAI",
-    "stars": 47451
+    "stars": 48238
   },
   "mukul975/anthropic-cybersecurity-skills": {
     "archived": false,
@@ -2501,10 +2509,11 @@
   },
   "nesquena/hermes-webui": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T03:31:59Z",
+    "pushed_at": "2026-07-31T18:58:21Z",
     "resolved_name": "nesquena/hermes-webui",
-    "stars": 15729
+    "stars": 16948
   },
   "neuml/txtai": {
     "archived": false,
@@ -2649,10 +2658,11 @@
   },
   "onyx-dot-app/onyx": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-07-10T04:24:22Z",
+    "pushed_at": "2026-08-05T00:06:03Z",
     "resolved_name": "onyx-dot-app/onyx",
-    "stars": 30798
+    "stars": 31423
   },
   "ooples/token-optimizer-mcp": {
     "archived": false,
@@ -3208,10 +3218,11 @@
   },
   "simstudioai/sim": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T03:57:04Z",
+    "pushed_at": "2026-08-05T00:08:25Z",
     "resolved_name": "simstudioai/sim",
-    "stars": 28982
+    "stars": 29331
   },
   "sipyourdrink-ltd/bernstein": {
     "archived": false,
@@ -3450,10 +3461,11 @@
   },
   "tambo-ai/tambo": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-10T01:32:30Z",
+    "pushed_at": "2026-08-04T21:49:30Z",
     "resolved_name": "tambo-ai/tambo",
-    "stars": 11154
+    "stars": 11155
   },
   "tanstack/cli": {
     "archived": false,
@@ -3684,10 +3696,11 @@
   },
   "vercel-labs/json-render": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
     "pushed_at": "2026-07-08T23:20:55Z",
     "resolved_name": "vercel-labs/json-render",
-    "stars": 15653
+    "stars": 15825
   },
   "vercel-labs/openreview": {
     "archived": false,

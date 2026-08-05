@@ -124,13 +124,13 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deer-flow | harness | | ✓ | SKIP | REVIEW |
 | DeepSeek-Reasonix | platform | | ✓ | discovery-log | REVIEW |
 | dify | platform | | ✓ | SKIP | REVIEW |
-| activepieces | platform | | ✓ | discovery-log | SOURCE-ONLY |
-| onyx | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| activepieces | platform | | ✓ | SKIP | SOURCE-ONLY |
+| onyx | platform | | ✓ | SKIP | SOURCE-ONLY |
 | dmux | tool | | ✓ | SKIP | REVIEW |
 | ECC | harness | | ✓ | discovery-log | REVIEW |
 | fast-agent | framework | | ✓ | discovery-log | REVIEW |
 | Flowise | platform | | ✓ | SKIP | REVIEW |
-| langflow | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| langflow | platform | | ✓ | SKIP | SOURCE-ONLY |
 | forkd | tool | | ✓ | discovery-log | REVIEW |
 | gastown | tool | | ✓ | discovery-log | REVIEW |
 | goose | platform | | ✓ | discovery-log | REVIEW |
@@ -182,7 +182,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | hermes-webui | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | agentgpt | platform | | ✓ | SKIP | SOURCE-ONLY |
 | khoj | platform | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| mindsdb/minds | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mindsdb/minds | platform | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | oh-my-claudecode | harness | | ✓ | discovery-log | REVIEW |
 | oh-my-agent | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | oh-my-openagent | harness | | ✓ | SKIP | REVIEW |
@@ -199,7 +199,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | axern | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | tabby | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Archon | platform | ✓ | ✓ | discovery-log | REVIEW |
-| sim | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| sim | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | haystack | framework | ✓ | ✓ | SKIP | REVIEW |
 | Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | OmniRoute | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -210,13 +210,13 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pydantic-deepagents | framework | ✓ | ✓ | SKIP | REVIEW |
 | pi-subagents | plugin | ✓ | ✓ | SKIP | REVIEW |
 | CopilotKit | framework | ✓ | ✓ | SKIP | REVIEW |
-| tambo | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| agent-native | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| assistant-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| hashbrown | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| OpenGenerativeUI | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| json-render | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| mcp-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| tambo | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| agent-native | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| assistant-ui | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| hashbrown | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| OpenGenerativeUI | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| json-render | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| mcp-ui | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | agentscope | framework | ✓ | ✓ | SKIP | REVIEW |
 | open-multi-agent | framework | ✓ | ✓ | SKIP | REVIEW |
 | eino | framework | ✓ | ✓ | SKIP | REVIEW |
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 212 | 91 | 4 | 43% |
+| Implement | 212 | 103 | 4 | 49% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **264** | **34** | **41%** |
+| **Total** | **642** | **276** | **34** | **43%** |
