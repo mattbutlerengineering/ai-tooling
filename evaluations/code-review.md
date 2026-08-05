@@ -3,10 +3,41 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review)
 **Stars:** n/a (monorepo of official plugins) | **Last updated:** 2026 (v1.0.0) | **License:** Apache-2.0
 **Last verified:** 2026-06-22
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — the install claim below no longer holds; the measurement does.**
+>
+> The eval resolved its install path from `~/.claude/plugins/installed_plugins.json`
+> (`code-review@claude-plugins-official`) and the Verdict says "It is already installed".
+> That record now holds **two** entries — `rialto@local` and
+> `claude-md-management@claude-plugins-official` — and `enabledPlugins` holds one.
+> Neither names this plugin. Its marketplace cache directory contains only `unknown`
+> (never fetched), which is precisely the discriminator [#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)
+> used to separate a real install from a marketplace listing.
+>
+> Where the eval's files actually came from is knowable: `~/.claude/plugins/repos/claude-plugins-official/plugins/code-review/`
+> exists — the marketplace repo *clone*, a fourth mechanism beside the three #366
+> enumerates. Only `frontend-design` carries the top-level symlink into that clone that
+> makes a plugin loadable, so the eval read real, correct files from a checkout rather
+> than from an installation. **Nothing in section (a) or (b) below is retracted** — the
+> v1.0.0 command surface and the planted-defect result were measured against the actual
+> shipped artifact and stand.
+>
+> One thing worth knowing before reaching for `/code-review` on this machine: the name is
+> taken. `~/.claude/skills/code-review` resolves to `mattpocock/skills`' own `code-review`
+> — a different tool with a different design (detector Y COLLISION). The capability
+> appears present under this name while not being this artifact.
+>
+> The `KEEP` verdict is **left in place and escalated**, not rewritten. `KEEP` is defined
+> as "validated, retaining", and ADR-0005 makes it the *also-ran-but-installed* status, so
+> the obvious-looking repair — promote to ADOPT — would be a promotion no unattended pass
+> may make, and would put a second `ADOPT` in the Review overlap cluster that ADR-0005
+> says should have exactly one pick. Which way it should go is a maintainer's call; the
+> facts it needs are above.
 
 > **Not to be confused with** [`code-review-graph`](./code-review-graph.md) (tirth8205) — a local code-intelligence graph with blast-radius analysis. This eval is for Anthropic's `/code-review` **plugin** that reviews a GitHub PR with parallel agents and posts a comment via `gh`.
 

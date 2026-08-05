@@ -3,10 +3,32 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
 **Stars:** 30,653 | **Last updated:** 2026-06-23 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Implement
 **Layer:** Process
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — the path below is real; the word "installed" is not.**
+>
+> This eval says the plugin is "installed locally under
+> `~/.claude/plugins/repos/claude-plugins-official/plugins/feature-dev`". **That path
+> exists.** It is the marketplace repo *clone* — a fourth install mechanism beside the
+> three #366 enumerates — and only `frontend-design` carries the top-level symlink into
+> that clone that makes a plugin loadable. So the eval read the real shipped files, and
+> everything it concluded from them holds; what it mislabelled is where they came from.
+>
+> The records that would show an install do not: `installed_plugins.json` holds
+> `rialto@local` and `claude-md-management@claude-plugins-official`, `enabledPlugins`
+> holds the latter alone, and the marketplace cache entry for this plugin contains only
+> `unknown` — never fetched ([#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)'s
+> discriminator).
+>
+> The `KEEP` verdict is **left in place and escalated**. See the note on `code-review.md`
+> for why the obvious repair is not available to an unattended pass: ADR-0005 makes
+> `KEEP` the also-ran-but-installed status, so promoting to `ADOPT` is a promotion, and
+> this eval's own Verdict already names the alternative — "a CONDITIONAL-on-feature-size
+> caveat" — which would take it out of STACK's stage table. That is a maintainer's call.
 
 ## What it does
 

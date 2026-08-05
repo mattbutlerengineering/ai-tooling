@@ -3,10 +3,37 @@
 **Repo:** [BayramAnnakov/claude-reflect](https://github.com/BayramAnnakov/claude-reflect)
 **Stars:** 1069 | **Last updated:** 2026-03-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Reflect
 **Layer:** Process
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — it was running when this was written, and it is not running now.**
+>
+> This is the cleanest instance of what #366 describes: a present-tense claim that was
+> true, silently stopped being true, and had no mechanism to notice.
+>
+> What survives: the marketplace cache holds a genuinely **fetched v3.1.0** (not the
+> `unknown` placeholder that marks a listing — [#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)'s
+> discriminator), five projects carry `.reflect-initialized`, and **122**
+> `learnings-queue.json` files sit under `~/.claude/projects/*/`. The capture hook really
+> did fire in normal use, exactly as section 4 reports.
+>
+> What does not: the plugin is absent from `installed_plugins.json` and from
+> `enabledPlugins`, so its `hooks/hooks.json` is not loaded — `~/.claude/settings.json`
+> registers `SessionStart`, `PostToolUse` and `Stop` hooks and none of them is
+> `capture_learning.py`. The newest queue file is dated **2026-07-12**, and most are
+> 2-byte empty arrays. Capture stopped roughly three weeks before this re-check and
+> nothing reported it.
+>
+> The 222-test run, the detector's false-positive discipline, and the routing analysis are
+> unaffected — they were run against the fetched source, which is still on disk.
+>
+> Note the eval's own headline is already `**ADOPT**` while the `COMPARISON.md` row reads
+> `KEEP`; detector D tolerates that pair precisely because `KEEP` adds the installed
+> status. With the installed half unbacked, the pair is worth a maintainer's second look
+> rather than an unattended rewrite ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)).
 
 ## What it does
 

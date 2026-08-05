@@ -3,10 +3,27 @@
 **Repo:** [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)
 **Stars:** 83,792 | **Last updated:** 2026-06-22 | **License:** Apache-2.0
 **Last verified:** 2026-06-22
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — fetched and full of data, but not a recorded install.**
+>
+> The plugin cache holds genuinely **fetched** versions (13.11.0 and 13.4.0 — not the
+> `unknown` placeholder that marks a mere marketplace listing), and `~/.claude-mem/`
+> carries a 176 MB `claude-mem.db` plus a chroma store, so the persisted memory this eval
+> queried is real and still on disk. What is absent is any record that it is *active*: no
+> entry in `installed_plugins.json` or `enabledPlugins`, and no `mcpServers` entry in
+> `~/.claude.json` or `~/.claude/settings.json` to spawn `scripts/mcp-server.cjs`. The
+> directory also contains a `CAPTURE_BROKEN` marker and its newest content predates this
+> check by weeks.
+>
+> The 20-tool surface count and the read-only store queries below were measured against
+> that fetched source and stand. The `ADOPT` verdict asserts a recommendation rather than
+> an install and is unaffected; this is recorded because `STACK.md` lists claude-mem as a
+> Tier 1 install-with-confidence pick.
 
 ## What it does
 

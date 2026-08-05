@@ -3,10 +3,25 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
 **Stars:** 30,653 (monorepo) | **Last updated:** 2026-06-23 | **License:** Apache-2.0
 **Last verified:** 2026-06-22
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — "worth keeping installed" is not backed by an install record.**
+>
+> `installed_plugins.json` holds `rialto@local` and
+> `claude-md-management@claude-plugins-official`; `enabledPlugins` holds the latter alone.
+> This plugin's marketplace cache entry contains only `unknown` — never fetched, which is
+> [#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)'s discriminator
+> for a listing versus an install. The files the eval read are in
+> `~/.claude/plugins/repos/claude-plugins-official/plugins/pr-review-toolkit/`, the
+> marketplace repo clone, so the six-agent bijection result and the prompt analysis below
+> are measured against the real artifact and stand unchanged.
+>
+> The `KEEP` verdict is **left in place and escalated** — see `code-review.md`'s note for
+> why an unattended pass may not repair it in either direction.
 
 ## What it does
 

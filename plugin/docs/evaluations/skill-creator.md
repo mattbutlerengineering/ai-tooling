@@ -3,10 +3,25 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator)
 **Stars:** 30,648 (monorepo) | **Last updated:** 2026-06-23 (marketplace `pushed_at`) | **License:** Apache-2.0
 **Last verified:** 2026-06-22
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Reflect (authoring/improving the tools the loop itself uses)
 **Layer:** Tooling
 
 ---
+
+> **Install re-verification, 2026-08-05 ([#366](https://github.com/mattbutlerengineering/ai-tooling/issues/366)) — the name resolves here, to a different tool.**
+>
+> `~/.claude/skills/skill-creator` exists and resolves to `vercel-labs/agent-browser`'s
+> own `skill-creator`, not to the Anthropic plugin this eval is about (detector Y
+> COLLISION). The Anthropic one is absent from `installed_plugins.json` and from
+> `enabledPlugins`, and its marketplace cache entry contains only `unknown` — never
+> fetched ([#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)'s
+> discriminator).
+>
+> The verdict here is `ADOPT`, which asserts a recommendation rather than an install, so
+> nothing in it is contradicted by the above. It is recorded because `STACK.md` lists this
+> tool as an install-with-confidence pick and the name being taken by a different
+> implementation is a thing to know before running it.
 
 ## What it does
 
