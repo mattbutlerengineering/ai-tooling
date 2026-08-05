@@ -23,6 +23,11 @@ backfilled, since a floor date would assert a fetch that never happened.
   ./refresh-metadata.py --stale         # only fetch slugs missing from the cache
   ./refresh-metadata.py --maintenance   # also read each README head for a discontinuation
                                         #   banner (#351) — DOUBLES the call count
+
+A repo whose license comes back absent gets a few extra calls on EVERY path, not just
+--maintenance: see LICENSE_HEADING below for why `NONE` cannot be trusted as an absence.
+That is scoped to the handful of records it applies to, so it costs a few dozen calls in
+a ~600-repo run rather than doubling it.
 """
 import os, re, sys, json, base64, datetime, subprocess
 
@@ -72,6 +77,55 @@ DISCONTINUED = re.compile(
     r"|will receive no further updates)", re.I)
 README_HEAD = 3000  # the banner is at the top or it is not a banner
 
+# GitHub's licensee detector reads exactly one thing: a root LICENSE file. A repo that
+# states its terms in the README, or in package.json, or in both, records `NONE` — the
+# same value as a repo that grants nothing. triage.py's P4 mechanical-skip band disposes
+# vendored leads on that value, so the conflation is not academic: 8 of 28 NONE records
+# were wrong, and two skill leads were SKIPped "text carrying no license grant cannot be
+# copied in" against a README reading `## License` / `MIT` (#372).
+#
+# What this records is a CANDIDATE, not a license. A README line naming MIT without the
+# license text or a copyright holder is a thinner record than a LICENSE file, and whether
+# that is good enough is a human call. What it is NOT is an absence — and only an absence
+# can carry a mechanical SKIP.
+#
+# Recorded ONLY when the API reports no license, which is the one state where it changes
+# a disposition, and re-derived on every fetch rather than carried forward: a repo that
+# later adds a real LICENSE file drops the field on its own.
+LICENSE_HEADING = re.compile(r"^#{1,6}[ \t]*licen[cs]e\b.*$", re.I | re.M)
+LICENSE_SECTION = 400   # chars after the heading — the name is in the first line or two
+MANIFESTS = ("package.json", "pyproject.toml", "Cargo.toml")
+
+# Longest-first within a family so AGPL never matches as GPL and CC-BY-NC-SA never as
+# CC-BY. The value is the FAMILY, not the version: nothing downstream keys on a version
+# (triage.py's DISQUALIFYING_LICENSE matches on prefix, and a human reads the phrase),
+# and inferring "GPL" -> "GPL-3.0" from prose that never said 3.0 would be a fabrication
+# in a field whose entire purpose is to stop one.
+SPDX_FAMILIES = (
+    ("AGPL", "AGPL"), ("LGPL", "LGPL"), ("GPL", "GPL"),
+    ("APACHE", "Apache-2.0"), ("BSD-3", "BSD-3-Clause"), ("BSD-2", "BSD-2-Clause"),
+    ("BSD", "BSD"), ("MPL", "MPL-2.0"), ("CC0", "CC0-1.0"),
+    ("CC-BY-NC-SA", "CC-BY-NC-SA"), ("CC-BY-SA", "CC-BY-SA"),
+    ("CC-BY-NC", "CC-BY-NC"), ("CC-BY", "CC-BY"), ("EUPL", "EUPL"),
+    ("MIT", "MIT"), ("ISC", "ISC"), ("UNLICENSE", "Unlicense"),
+    ("ZLIB", "Zlib"), ("WTFPL", "WTFPL"), ("PROPRIETARY", "Proprietary"),
+)
+SPDX_TOKEN = re.compile(
+    r"\b(AGPL[-\s]?[0-9.]*|LGPL[-\s]?[0-9.]*|GPL[-\s]?[0-9.]*"
+    r"|Apache(?:[-\s]License)?[-\s]?[0-9.]*|BSD[-\s]?[0-9]?[-\s]?(?:Clause)?"
+    r"|MPL[-\s]?[0-9.]*|CC0[-\s]?[0-9.]*|CC[-\s]BY(?:[-\s]NC)?(?:[-\s]SA)?[-\s]?[0-9.]*"
+    r"|EUPL[-\s]?[0-9.]*|MIT|ISC|Unlicense|Zlib|WTFPL|proprietary)\b", re.I)
+
+
+def normalize_spdx(token):
+    """The SPDX family a license NAME in prose belongs to, or the token uppercased when
+    it belongs to none. Sorted longest-family-first by SPDX_FAMILIES, not by regex luck."""
+    t = re.sub(r"[\s_]+", "-", token.strip()).upper()
+    for prefix, family in sorted(SPDX_FAMILIES, key=lambda p: -len(p[0])):
+        if t.startswith(prefix):
+            return family
+    return t
+
 
 def catalog_slugs(catalog_text):
     """Every `owner/repo` a CATALOG row links to in its Name cell, lowercased and
@@ -99,20 +153,90 @@ def stamp(record, today=None):
     return dict(record, fetched_at=(today or datetime.date.today()).isoformat())
 
 
-def readme_signal(slug):
-    """The discontinuation phrase in `slug`'s README head, or None. Returns the matched
-    text rather than a bool so a record says WHY it was flagged and a human can judge
-    the phrase instead of trusting the regex."""
+def _gh_file(slug, path):
+    """A repo file's decoded text, or "" when absent/unreachable. Never raises: a
+    missing file is a fact about the repo, not a reason to abort a 600-repo run."""
     try:
         out = subprocess.run(
-            ["gh", "api", f"repos/{slug}/readme", "--jq", ".content"],
+            ["gh", "api", f"repos/{slug}/{path}", "--jq", ".content"],
             capture_output=True, text=True, check=True,
         ).stdout.strip()
-        head = base64.b64decode(out).decode("utf-8", "replace")[:README_HEAD]
+        return base64.b64decode(out).decode("utf-8", "replace")
     except (subprocess.CalledProcessError, FileNotFoundError, ValueError):
-        return None  # no README, or unreachable — absence of a banner, not a signal
-    m = DISCONTINUED.search(head)
+        return ""
+
+
+def readme_text(slug):
+    return _gh_file(slug, "readme")
+
+
+def discontinued_phrase(text):
+    """The discontinuation phrase in a README HEAD, or None. Returns the matched text
+    rather than a bool so a record says WHY it was flagged and a human can judge the
+    phrase instead of trusting the regex. Scoped to the head: the banner is at the top
+    or it is not a banner."""
+    m = DISCONTINUED.search(text[:README_HEAD])
     return m.group(0).strip() if m else None
+
+
+def readme_license(text):
+    """(family, quoted phrase) for a license named under a README `## License` heading,
+    or None. Searches the WHOLE README, not the head — a license section sits at the
+    bottom (vercel-labs/agent-skills' is at line 226), which is exactly the opposite of
+    where a discontinuation banner lives."""
+    h = LICENSE_HEADING.search(text)
+    if not h:
+        return None
+    section = text[h.end():h.end() + LICENSE_SECTION]
+    m = SPDX_TOKEN.search(section)
+    if not m:
+        return None
+    phrase = " ".join((h.group(0) + " " + section[:m.end()]).split())
+    return normalize_spdx(m.group(1)), phrase
+
+
+def manifest_license(slug):
+    """(family, quoted phrase, filename) from the first root manifest that declares a
+    license, or None. package.json first (the catalog skews JS), then the TOML pair —
+    `license = "MIT"` parses the same in pyproject.toml and Cargo.toml."""
+    for fn in MANIFESTS:
+        text = _gh_file(slug, f"contents/{fn}")
+        if not text:
+            continue
+        m = re.search(r'"license"\s*:\s*"([^"]+)"', text) if fn.endswith(".json") \
+            else re.search(r'^\s*license\s*=\s*"([^"]+)"', text, re.M)
+        # npm's legacy object form: "license": { "type": "MIT" }
+        if not m and fn.endswith(".json"):
+            m = re.search(r'"license"\s*:\s*\{[^}]*"type"\s*:\s*"([^"]+)"', text, re.S)
+        if m:
+            return normalize_spdx(m.group(1)), f'{fn}: "{m.group(1)}"', fn
+    return None
+
+
+def declared_license(slug, readme=None):
+    """`license_declared` for a repo GitHub reports no license for, or None.
+
+    Records where the grant was found and quotes it, so a human judges the wording
+    rather than trusting the regex (detector V's rule). When the README and the manifest
+    disagree it records BOTH and says so: builderio/agent-native reads MIT in its README
+    and ISC in package.json, and the standing "the LICENSE file governs" tiebreak (#26)
+    has nothing to govern with when there is no LICENSE file."""
+    text = readme if readme is not None else readme_text(slug)
+    from_readme = readme_license(text) if text else None
+    from_manifest = manifest_license(slug)
+    if not from_readme and not from_manifest:
+        return None
+    if from_readme and from_manifest:
+        spdx, phrase = from_readme
+        mspdx, mphrase, _ = from_manifest
+        rec = {"spdx": spdx, "where": "readme+manifest", "phrase": f"{phrase} | {mphrase}"}
+        if mspdx != spdx:
+            rec.update(conflict=mspdx, where="readme")
+        return rec
+    if from_readme:
+        return {"spdx": from_readme[0], "where": "readme", "phrase": from_readme[1]}
+    spdx, phrase, fn = from_manifest
+    return {"spdx": spdx, "where": "manifest", "phrase": phrase}
 
 
 def fetch(slug, today=None, maintenance=False, previous=None):
@@ -124,7 +248,13 @@ def fetch(slug, today=None, maintenance=False, previous=None):
     not). The license moves in BOTH directions — daytona went AGPL-3.0 → 404 while
     vercel-labs/skills went NONE → MIT — and `--metadata-staleness` cannot see either,
     because it ages the snapshot as a whole and both records were well inside the
-    threshold. A per-record flag is the only thing that catches a single flip."""
+    threshold. A per-record flag is the only thing that catches a single flip.
+
+    `license_declared` is written on EVERY path, not just --maintenance, because it
+    fires only on a `NONE` license and there are a few dozen of those — a rounding error
+    against a ~600-repo run, and the field is what stops P4 disposing a lead on a license
+    GitHub merely failed to look for (#372)."""
+    readme = None
     try:
         out = subprocess.run(
             ["gh", "api", f"repos/{slug}", "--jq", JQ],
@@ -132,11 +262,16 @@ def fetch(slug, today=None, maintenance=False, previous=None):
         ).stdout.strip()
         rec = json.loads(out)
         if maintenance:
-            rec["discontinued"] = readme_signal(slug)
+            readme = readme_text(slug)
+            rec["discontinued"] = discontinued_phrase(readme)
             had = (previous or {}).get("license_spdx")
             rec["license_lost"] = bool(
                 had and had not in (UNREACHABLE, NO_LICENSE)
                 and rec["license_spdx"] in (UNREACHABLE, NO_LICENSE))
+        if rec.get("license_spdx") == NO_LICENSE:
+            found = declared_license(slug, readme)
+            if found:
+                rec["license_declared"] = found
     except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
         rec = {"license_spdx": UNREACHABLE, "archived": None,
                "stars": None, "pushed_at": None, "resolved_name": None}
@@ -190,13 +325,20 @@ def main():
     undated = [s for s, m in cache.items() if not m.get("fetched_at")]
     dead = [s for s, m in cache.items() if m.get("discontinued")]
     lost = [s for s, m in cache.items() if m.get("license_lost")]
+    declared = [s for s, m in cache.items() if m.get("license_declared")]
+    nolicense = [s for s, m in cache.items() if m["license_spdx"] == NO_LICENSE]
     print(f"refresh-metadata: wrote {len(cache)} records "
           f"({len(archived)} archived, {len(unreachable)} unreachable, "
-          f"{len(dead)} discontinued, {len(lost)} license-lost)")
+          f"{len(dead)} discontinued, {len(lost)} license-lost, "
+          f"{len(declared)} of {len(nolicense)} 'NONE' declared elsewhere)")
     for s in sorted(dead):
         print(f"  DISCONTINUED {s}: \"{cache[s]['discontinued']}\"")
     for s in sorted(lost):
         print(f"  LICENSE-LOST {s}: now {cache[s]['license_spdx']}")
+    for s in sorted(declared):
+        d = cache[s]["license_declared"]
+        conflict = f" (manifest says {d['conflict']})" if d.get("conflict") else ""
+        print(f"  DECLARED {s}: {d['spdx']} in {d['where']}{conflict} — \"{d['phrase']}\"")
     if undated:
         # --stale skips slugs already present, so records written before fetched_at
         # existed keep no date until a FULL refresh re-fetches them. Say so rather

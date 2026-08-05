@@ -102,7 +102,7 @@
   "8090-inc/software-factory-harness": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-03-17T04:24:43Z",
@@ -562,12 +562,12 @@
   "anthropics/claude-code": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-04T22:39:55Z",
     "resolved_name": "anthropics/claude-code",
-    "stars": 140273
+    "stars": 140366
   },
   "anthropics/claude-code-action": {
     "archived": false,
@@ -612,12 +612,12 @@
   "anthropics/skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-24T20:12:36Z",
     "resolved_name": "anthropics/skills",
-    "stars": 166295
+    "stars": 166462
   },
   "antonbabenko/terraform-skill": {
     "archived": false,
@@ -822,12 +822,12 @@
   "behisecc/awesome-claude-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-02T11:06:52Z",
     "resolved_name": "BehiSecc/awesome-claude-skills",
-    "stars": 9900
+    "stars": 9904
   },
   "bergside/awesome-design-skills": {
     "archived": false,
@@ -922,12 +922,18 @@
   "builderio/agent-native": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "conflict": "ISC",
+      "phrase": "## License MIT | package.json: \"ISC\"",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
-    "pushed_at": "2026-08-05T02:45:23Z",
+    "pushed_at": "2026-08-05T18:55:22Z",
     "resolved_name": "BuilderIO/agent-native",
-    "stars": 4408
+    "stars": 4411
   },
   "bybit-exchange/kaas": {
     "archived": false,
@@ -1212,12 +1218,12 @@
   "coleam00/excalidraw-diagram-skill": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-03-01T13:36:16Z",
     "resolved_name": "coleam00/excalidraw-diagram-skill",
-    "stars": 4310
+    "stars": 4316
   },
   "comet-ml/opik": {
     "archived": false,
@@ -1232,32 +1238,37 @@
   "commandcodeai/command-code": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-04T03:52:20Z",
     "resolved_name": "CommandCodeAI/command-code",
-    "stars": 3608
+    "stars": 3612
   },
   "composio-community/awesome-codex-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-26T01:14:54Z",
     "resolved_name": "composio-community/awesome-codex-skills",
-    "stars": 15605
+    "stars": 15622
   },
   "composiohq/awesome-claude-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License This repository is licensed under the Apache License 2.0",
+      "spdx": "Apache-2.0",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-24T07:48:01Z",
     "resolved_name": "ComposioHQ/awesome-claude-skills",
-    "stars": 71798
+    "stars": 71866
   },
   "composiohq/composio": {
     "archived": false,
@@ -1452,12 +1463,12 @@
   "daytonaio/daytona": {
     "archived": false,
     "discontinued": "no longer maintained",
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-24T07:12:07Z",
     "resolved_name": "daytonaio/daytona",
-    "stars": 72052
+    "stars": 72054
   },
   "deeplethe/forkd": {
     "archived": false,
@@ -1552,12 +1563,12 @@
   "disler/claude-code-hooks-multi-agent-observability": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-02-08T23:59:13Z",
     "resolved_name": "disler/claude-code-hooks-multi-agent-observability",
-    "stars": 1507
+    "stars": 1508
   },
   "docmd-io/docmd": {
     "archived": false,
@@ -1812,12 +1823,17 @@
   "eze-is/web-access": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-05-16T05:22:35Z",
     "resolved_name": "eze-is/web-access",
-    "stars": 8539
+    "stars": 8551
   },
   "fareedkhan-dev/claude-code-staff-engineer": {
     "archived": false,
@@ -2286,7 +2302,12 @@
   "grapeot/context-infrastructure": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-03T23:59:38Z",
@@ -2606,7 +2627,7 @@
   "igorwarzocha/opencode-workflows": {
     "archived": true,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-02-04T00:46:55Z",
@@ -2676,12 +2697,12 @@
   "infragate/capa": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
-    "pushed_at": "2026-08-04T17:36:13Z",
+    "pushed_at": "2026-08-05T18:29:29Z",
     "resolved_name": "infragate/capa",
-    "stars": 680
+    "stars": 693
   },
   "inftyai/awesome-llmops": {
     "archived": false,
@@ -2816,32 +2837,37 @@
   "karpathy/autoresearch": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-03-26T00:07:37Z",
     "resolved_name": "karpathy/autoresearch",
-    "stars": 93122
+    "stars": 93189
   },
   "karpathy/llm-council": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2025-11-22T23:35:21Z",
     "resolved_name": "karpathy/llm-council",
-    "stars": 23592
+    "stars": 23639
   },
   "kaushikb11/awesome-llm-agents": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-02T03:38:15Z",
     "resolved_name": "kaushikb11/awesome-llm-agents",
-    "stars": 1551
+    "stars": 1552
   },
   "kayba-ai/agentic-context-engine": {
     "archived": false,
@@ -3126,12 +3152,12 @@
   "libukai/awesome-agent-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
-    "pushed_at": "2026-08-05T03:16:19Z",
+    "pushed_at": "2026-08-05T15:41:35Z",
     "resolved_name": "libukai/awesome-agent-skills",
-    "stars": 4920
+    "stars": 4924
   },
   "liveloveapp/hashbrown": {
     "archived": false,
@@ -3256,12 +3282,12 @@
   "mattpocock/dictionary-of-ai-coding": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-02T13:31:02Z",
     "resolved_name": "mattpocock/dictionary-of-ai-coding",
-    "stars": 3408
+    "stars": 3436
   },
   "mattpocock/sandcastle": {
     "archived": false,
@@ -3306,12 +3332,12 @@
   "maxbogo/awesome-ai-tools-for-ui": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-06T20:21:13Z",
     "resolved_name": "maxbogo/awesome-ai-tools-for-ui",
-    "stars": 802
+    "stars": 803
   },
   "maximhq/bifrost": {
     "archived": false,
@@ -3776,12 +3802,17 @@
   "multica-ai/andrej-karpathy-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-04-20T10:05:04Z",
     "resolved_name": "multica-ai/andrej-karpathy-skills",
-    "stars": 199609
+    "stars": 199884
   },
   "musistudio/claude-code-router": {
     "archived": false,
@@ -4726,7 +4757,12 @@
   "rohitg00/pro-workflow": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "package.json: \"MIT\"",
+      "spdx": "MIT",
+      "where": "manifest"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-08-03T20:24:42Z",
@@ -5446,12 +5482,12 @@
   "travisvn/awesome-claude-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-04-28T19:30:24Z",
     "resolved_name": "travisvn/awesome-claude-skills",
-    "stars": 14507
+    "stars": 14522
   },
   "triggerdotdev/trigger.dev": {
     "archived": false,
@@ -5596,12 +5632,17 @@
   "vercel-labs/agent-skills": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-07-24T10:25:29Z",
     "resolved_name": "vercel-labs/agent-skills",
-    "stars": 29749
+    "stars": 29776
   },
   "vercel-labs/dev3000": {
     "archived": false,
@@ -5626,12 +5667,17 @@
   "vercel-labs/openreview": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
+    "license_declared": {
+      "phrase": "## License MIT",
+      "spdx": "MIT",
+      "where": "readme"
+    },
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-03-06T16:44:33Z",
     "resolved_name": "vercel-labs/openreview",
-    "stars": 1485
+    "stars": 1488
   },
   "vercel-labs/opensrc": {
     "archived": false,
@@ -5984,7 +6030,7 @@
   "xknight254-hub/align-dev": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-06-05T08:10:33Z",
@@ -6094,12 +6140,12 @@
   "zarazhangrui/codebase-to-course": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-05",
     "license_lost": false,
     "license_spdx": "NONE",
     "pushed_at": "2026-03-30T18:26:09Z",
     "resolved_name": "zarazhangrui/codebase-to-course",
-    "stars": 5330
+    "stars": 5334
   },
   "zarazhangrui/frontend-slides": {
     "archived": false,

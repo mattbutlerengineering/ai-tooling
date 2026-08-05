@@ -252,6 +252,29 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      lockfile, and a build that fails for a reason no code change caused is worse than
      unobserved drift.
 
+  Z. UNREAD LICENSE DECLARATION (opt-in, --license-declared, REPORT-ONLY) — GitHub's
+     licensee detector reads a root LICENSE file and nothing else, so `license_spdx:
+     NONE` means "no LICENSE file", not "no license". triage.py's P4 mechanical-skip
+     band disposes vendored leads on that value, and 8 of 28 NONE records turned out to
+     declare a license anyway — in a README `## License` section, in package.json, or in
+     both (#372). Reads the `license_declared` field refresh-metadata.py writes and
+     reports it against the disposition each row already carries.
+       GROUNDED — the row is SKIP and its `## Verdict` rests on the license. The
+                  disposition is false: `andrej-karpathy-skills` and `web-access` were
+                  both SKIPped "text carrying no license grant cannot be copied in"
+                  against a README reading `## License` / `MIT`. Strongest.
+       CONFLICT — the README and the manifest name different licenses. The standing
+                  "the LICENSE file governs" tiebreak (#26) has nothing to govern with
+                  when there is no LICENSE file, so a human picks.
+       RECORDED — declared elsewhere, but no verdict rests on it. The record is still
+                  wrong and the next bulk pass reads it.
+     The declaration is QUOTED, per V's rule: a README line naming MIT without the
+     license text or a copyright holder is a thinner record than a LICENSE file, and
+     whether that clears the bar is a human's call. This detector never says a tool is
+     adoptable — only that the ground under a mechanical SKIP is not an absence.
+     Report-only: the remedy is a re-read of a human's verdict, not a build failure.
+     Offline — it compares two files already in the tree.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -266,6 +289,7 @@ Usage:
   python3 audit-evals.py --scope      # P0 leads whose eval concedes it is out of scope (offline)
   python3 audit-evals.py --identity   # catalog rows that are facets of one artifact (offline)
   python3 audit-evals.py --installed  # ADOPT/KEEP rows vs this machine's install records (local)
+  python3 audit-evals.py --license-declared  # 'NONE' licenses declared outside a LICENSE file (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -1837,6 +1861,83 @@ def audit_installed(ctx, home=None):
 
 
 
+# ---------------------------------------------------------------- Z. unread license declaration (report-only)
+# `license_spdx: NONE` is what GitHub returns when there is no root LICENSE file. It is
+# recorded, and read by triage.py's P4 mechanical-skip band, as though it meant the repo
+# grants nothing — and for 8 of 28 records it did not (#372). This reports the gap
+# against the disposition each row already carries, strongest first: a SKIP whose stated
+# ground is the license is a wrong disposition, not merely a wrong record.
+
+# A verdict "rests on the license" when it says so. Deliberately narrow — a passing
+# mention ("MIT, permissive") must not count, or every clean row becomes a finding.
+LICENSE_GROUND = re.compile(
+    r"no (?:declared |real |explicit )?licen[cs]e"
+    r"|licen[cs]e(?: is)? (?:not declared|absent|missing)"
+    r"|no LICENSE file"
+    r"|carrying no licen[cs]e grant"
+    r"|licen[cs]e alone"
+    r"|\*\*SKIP\*\* ?\(licen[cs]e\)", re.I)
+
+LicenseFinding = collections.namedtuple(
+    "LicenseFinding", "kind tool slug verdict spdx where phrase conflict")
+
+
+def audit_license_declared(ctx):
+    """(findings, records) — catalogued repos whose metadata records a license declared
+    outside a LICENSE file, plus the number of records carrying the field.
+
+    A cache with no `license_declared` anywhere yields 0 RECORDS, not 0 findings: the
+    field is written by the refresher, so its absence means "not collected", never
+    "every NONE is a real absence" (detector V's rule, same reason)."""
+    try:
+        records = json.loads(ctx.read("repo-metadata.json"))
+    except (OSError, ValueError):
+        return [], 0
+    if not isinstance(records, dict):
+        return [], 0
+
+    by_slug = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if r.url:
+            for s in catalog_lib.github_repos(r.url):
+                by_slug.setdefault(s.lower(), r.name)
+    verd = ctx.comparison_verdict_map
+    # alias -> the eval's Verdict section, so "is the license the stated ground?" reads
+    # the argument rather than the whole file (a How-we-tested `gh api ... .license` line
+    # is evidence of a check, not of a disposition).
+    grounds = {}
+    for ev in ctx.evals:
+        sec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", ev.text, re.S)
+        if sec:
+            for a in ev.name_aliases:
+                grounds.setdefault(a, sec.group(0))
+
+    collected = sum(1 for m in records.values()
+                    if isinstance(m, dict) and m.get("license_declared"))
+    findings = []
+    for slug, meta in sorted(records.items()):
+        if not isinstance(meta, dict):
+            continue
+        d = meta.get("license_declared")
+        if not isinstance(d, dict) or not d.get("spdx"):
+            continue
+        tool = by_slug.get(slug, slug)
+        v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
+        sec = next((grounds[a] for a in catalog_lib.alias_keys(tool) if a in grounds), "")
+        if v == "SKIP" and LICENSE_GROUND.search(sec):
+            kind = "GROUNDED"
+        elif d.get("conflict"):
+            kind = "CONFLICT"
+        else:
+            kind = "RECORDED"
+        findings.append(LicenseFinding(kind, tool, slug, v, d["spdx"], d.get("where", "?"),
+                                       d.get("phrase", ""), d.get("conflict")))
+
+    rank = {"GROUNDED": 0, "CONFLICT": 1, "RECORDED": 2}
+    findings.sort(key=lambda f: (rank[f.kind], f.tool))
+    return findings, collected
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -1845,7 +1946,8 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
-                "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed")
+                "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
+                "--license-declared")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1905,6 +2007,7 @@ def main():
     # NOT `do_inst` — that name belongs to detector A's `--installs`. Reusing it
     # silently rebound it, so `--installed` also ran the network install resolver.
     do_instrec = "--installed" in want       # opt-in LOCAL report (never a gate)
+    do_licdecl = "--license-declared" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -2191,6 +2294,22 @@ def main():
             print("  OK — every ADOPT/KEEP skill/plugin row is backed by an install record")
         for f in finds:
             print(f"  {f.kind:12} {f.tool} [{f.verdict}]: {f.detail}")
+    if do_licdecl:
+        finds, records = audit_license_declared(ctx)
+        grounded = sum(1 for f in finds if f.kind == "GROUNDED")
+        print(f"== Z. unread license declaration (report-only) — {len(finds)} record(s) "
+              f"whose 'NONE' license is declared elsewhere, {grounded} carrying a "
+              f"license-grounded SKIP ==")
+        if not records:
+            print("  no license_declared data — run `python3 refresh-metadata.py` to "
+                  "collect it (absence of the field is 'not collected', never 'every "
+                  "NONE is a real absence')")
+        elif not finds:
+            print("  OK — no catalogued repo declares a license GitHub failed to read")
+        for f in finds:
+            extra = f" — manifest says {f.conflict}" if f.conflict else ""
+            print(f"  {f.kind:8} {f.tool} ({f.slug}) [{f.verdict}]: {f.spdx} in "
+                  f"{f.where}{extra} — \"{f.phrase}\"")
     sys.exit(rc)
 
 if __name__ == "__main__":
