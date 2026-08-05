@@ -3142,10 +3142,13 @@ class TestInstallRecords(unittest.TestCase):
     HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
            "|------|------|-----------|-------------------|---------------|\n")
 
-    def _home(self, d, lock=None, plugins=None, skill_dirs=()):
+    def _home(self, d, lock=None, plugins=None, skill_dirs=(), cache=()):
         os.makedirs(os.path.join(d, ".agents"), exist_ok=True)
         os.makedirs(os.path.join(d, ".claude", "plugins"), exist_ok=True)
         os.makedirs(os.path.join(d, ".claude", "skills"), exist_ok=True)
+        for market, plugin, version in cache:   # cache/<marketplace>/<plugin>/<version>
+            os.makedirs(os.path.join(d, ".claude", "plugins", "cache",
+                                     market, plugin, version), exist_ok=True)
         if lock is not None:
             with open(os.path.join(d, ".agents", ".skill-lock.json"), "w") as fh:
                 json.dump({"version": 3, "skills": lock}, fh)
@@ -3274,6 +3277,66 @@ class TestInstallRecords(unittest.TestCase):
             self._home(h, lock=self._lock(other="x/y"))
             finds, _, _ = audit.audit_installed(ctx, home=h)
             self.assertEqual([f.tool for f in finds if f.kind != "UNCATALOGUED"], [])
+
+    # ---- #366: a fetched version in the plugin cache is not "nothing answers" ----
+    def test_unknown_cache_version_is_still_no_record(self):
+        # #332's trap: a directory under the cache means the MARKETPLACE was added.
+        # `unknown` is listing metadata for code that was never pulled.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("feature-dev", "https://github.com/anthropics/official")],
+                            [("feature-dev", "KEEP")], typ="plugin")
+            self._home(h, lock={}, skill_dirs=("unrelated",),
+                       cache=[("official", "feature-dev", "unknown")])
+            finds, _, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([(f.kind, f.tool) for f in finds],
+                             [("NO-RECORD", "feature-dev")])
+
+    def test_an_unknown_only_cache_is_not_knowledge_about_this_machine(self):
+        # A machine whose ONLY evidence is `unknown` cache dirs has told us the
+        # marketplace was added and nothing else — 0 records, so no findings at all,
+        # rather than a sweep that flags every row against metadata it cannot read.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("feature-dev", "https://github.com/anthropics/official")],
+                            [("feature-dev", "KEEP")], typ="plugin")
+            self._home(h, cache=[("official", "feature-dev", "unknown")])
+            self.assertEqual(audit.audit_installed(ctx, home=h), ([], [], 0))
+
+    def test_real_cache_version_is_cache_only_not_no_record(self):
+        # A version string means this machine pulled the code. Still a finding — a
+        # fetch is not an activation — but "nothing answers to this row" is false.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("claude-reflect", "https://github.com/b/claude-reflect")],
+                            [("claude-reflect", "KEEP")], typ="plugin")
+            self._home(h, lock={}, cache=[("reflect-marketplace", "claude-reflect", "3.1.0")])
+            finds, _, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([(f.kind, f.tool) for f in finds],
+                             [("CACHE-ONLY", "claude-reflect")])
+            self.assertIn("3.1.0", finds[0].detail)
+
+    def test_every_fetched_version_is_reported_never_a_latest(self):
+        # These are opaque strings — semver AND commit shas — so a lexicographic max
+        # reads 13.11.0 as older than 13.4.0. Report the set; invent no order.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("claude-mem", "https://github.com/t/claude-mem")],
+                            [("claude-mem", "ADOPT")], typ="plugin")
+            self._home(h, lock={}, cache=[("t", "claude-mem", "13.11.0"),
+                                          ("t", "claude-mem", "13.4.0"),
+                                          ("t", "claude-mem", "unknown")])
+            finds, _, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual(finds[0].kind, "CACHE-ONLY")
+            self.assertIn("13.11.0", finds[0].detail)
+            self.assertIn("13.4.0", finds[0].detail)
+            self.assertNotIn("unknown", finds[0].detail)
+
+    def test_an_install_record_still_outranks_the_cache(self):
+        # A real install must not be downgraded to CACHE-ONLY by its own cache entry.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")],
+                            [("thing", "ADOPT")], typ="plugin")
+            self._home(h, lock=self._lock(thing="o/pack"),
+                       cache=[("m", "thing", "1.0.0")])
+            finds, _, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual(finds, [])
 
     def test_no_records_reports_zero_records_not_zero_findings(self):
         # V's rule: absence of a record is "nothing known about this machine", never
