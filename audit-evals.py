@@ -223,6 +223,35 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only, and deliberately not a fixer: whether to merge rows, add a "ships inside"
      column, or exclude facets from the queue is the decision #343 asks for. Offline.
 
+  Y. INSTALL-RECORD MISMATCH (opt-in, --installed, REPORT-ONLY, LOCAL-ONLY) — KEEP is
+     DEFINED as the validated-INSTALLED status, STACK.md is the install list, and detector
+     J gates STACK derivation against the verdict data. Every one of those rests on an
+     install fact, and until now nothing looked at one (#366). It cannot be a gate: install
+     status is a property of one laptop, which is exactly why it drifts unobserved.
+     Reads the records a machine actually keeps — `~/.agents/.skill-lock.json` (the
+     `npx skills` v3 lockfile: a `source` slug, path and hash per skill),
+     `~/.claude/plugins/installed_plugins.json`, and the `~/.claude/skills/` directory —
+     and joins them to ADOPT/KEEP rows of `skill`/`plugin` Type, the only Types these
+     records cover.
+     Joined on SLUG, never on name, because name-matching IS the bug. #332's "already
+     installed/active" was a marketplace CACHE directory read as an install; three STACK
+     members turned out to be name COLLISIONS, a same-named artifact from a different
+     source (`code-review` is ADOPT-as-anthropics/claude-plugins-official while what is
+     symlinked in is `mattpocock/skills`'s `skills/engineering/code-review`, a different
+     tool with a different design). That is #343's root — identity by name rather than by
+     slug — one layer out, on a filesystem where 72 skills from 16 sources are flattened
+     into one directory.
+       COLLISION    — the name resolves, to something from another repo. Strongest.
+       NO-RECORD    — no record and no directory answers to the row at all.
+       UNCATALOGUED — an installed source with no catalog row (found from the install
+                      side; a scan only ever looks at what exists, never at what runs here).
+     NO-RECORD is deliberately NOT called "not installed": `claude install-skill` and npm
+     globals leave no entry in either record, so absence is absence OF A RECORD. The
+     directory fallback is what makes it worth printing anyway. Missing record files report
+     0 RECORDS, never 0 findings — V's rule, same reason. Never in `make check`: CI has no
+     lockfile, and a build that fails for a reason no code change caused is worse than
+     unobserved drift.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -236,6 +265,7 @@ Usage:
   python3 audit-evals.py --bulk-triage  # bulk-marked evals may only SKIP (offline)
   python3 audit-evals.py --scope      # P0 leads whose eval concedes it is out of scope (offline)
   python3 audit-evals.py --identity   # catalog rows that are facets of one artifact (offline)
+  python3 audit-evals.py --installed  # ADOPT/KEEP rows vs this machine's install records (local)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -1717,6 +1747,96 @@ def audit_identity(ctx):
 
 
 
+# ---------------------------------------------------------------- Y. install-record mismatch (report-only)
+# KEEP is DEFINED as the validated-installed status, and nothing checked the installed
+# half (#366). Joined on SLUG rather than name, because name-matching is the bug itself:
+# #332's "already installed/active" was a marketplace cache directory, and three STACK
+# members are name collisions with an artifact from a different source.
+
+SKILL_LOCK = "~/.agents/.skill-lock.json"          # npx skills (vercel-labs/skills) v3
+PLUGIN_RECORD = "~/.claude/plugins/installed_plugins.json"
+SKILL_DIR = "~/.claude/skills"
+# The only Types these records can cover. A CLI or an MCP server is installed by npm,
+# brew or a settings entry, none of which leaves a mark here — flagging them would be
+# noise indistinguishable from signal.
+INSTALLABLE_TYPES = frozenset({"skill", "plugin"})
+
+InstallFinding = collections.namedtuple("InstallFinding", "kind tool verdict detail")
+
+
+def read_install_records(home=None):
+    """(skill_name -> source slug, set of installed slugs, set of names on disk).
+
+    Every value is absent-tolerant: a machine with no lockfile is a machine we know
+    nothing about, which must read as 0 records rather than as a clean bill."""
+    def path(p):
+        return os.path.join(home, p.replace("~/", "")) if home else os.path.expanduser(p)
+
+    by_name, slugs, on_disk = {}, set(), set()
+    try:
+        with open(path(SKILL_LOCK), encoding="utf-8") as fh:
+            for name, meta in (json.load(fh).get("skills") or {}).items():
+                src = (meta or {}).get("source")
+                if src:
+                    by_name[name] = src.lower()
+                    slugs.add(src.lower())
+    except (OSError, ValueError, AttributeError):
+        pass
+    try:
+        with open(path(PLUGIN_RECORD), encoding="utf-8") as fh:
+            for key in (json.load(fh).get("plugins") or {}):
+                on_disk.add(key.split("@")[0])
+    except (OSError, ValueError, AttributeError):
+        pass
+    try:
+        on_disk |= set(os.listdir(path(SKILL_DIR)))
+    except OSError:
+        pass
+    return by_name, slugs, on_disk
+
+
+def audit_installed(ctx, home=None):
+    """(findings, records) — ADOPT/KEEP skill/plugin rows this machine's install records
+    do not back, plus installed sources the catalog does not know."""
+    by_name, slugs, on_disk = read_install_records(home)
+    records = len(by_name) + len(on_disk)
+    if not records:
+        return [], 0
+
+    verd = ctx.comparison_verdict_map
+    rows = [r for r in catalog_lib.parse_catalog_rows(ctx.catalog) if r.url]
+    catalogued = {(next(iter(catalog_lib.github_repos(r.url)), "") or "").lower()
+                  for r in rows}
+    lock_by_key = {catalog_lib.name_key(n): s for n, s in by_name.items()}
+    disk_keys = {catalog_lib.name_key(n) for n in on_disk}
+
+    findings = []
+    for r in rows:
+        v = next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), "—")
+        if v not in SETTLED_VERDICTS or (r.type or "").strip() not in INSTALLABLE_TYPES:
+            continue
+        slug = (next(iter(catalog_lib.github_repos(r.url)), "") or "").lower()
+        key = catalog_lib.name_key(r.name)
+        installed_from = lock_by_key.get(key)
+        if installed_from and installed_from != slug:
+            findings.append(InstallFinding(
+                "COLLISION", r.name, v,
+                f"row says {slug}, installed skill of that name comes from {installed_from}"))
+        elif slug not in slugs and key not in disk_keys:
+            findings.append(InstallFinding(
+                "NO-RECORD", r.name, v, f"no record and no directory answers to {slug}"))
+
+    for slug in sorted(slugs - catalogued):
+        n = sum(1 for s in by_name.values() if s == slug)
+        findings.append(InstallFinding("UNCATALOGUED", slug, "—",
+                                       f"{n} installed skill(s), no catalog row"))
+
+    rank = {"COLLISION": 0, "NO-RECORD": 1, "UNCATALOGUED": 2}
+    findings.sort(key=lambda f: (rank[f.kind], f.tool))
+    return findings, records
+
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -1725,7 +1845,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
-                "--catalog-mirror", "--maintenance", "--scope", "--identity")
+                "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1782,6 +1902,9 @@ def main():
     do_maint = "--maintenance" in want       # opt-in report (does not affect exit code)
     do_scope = "--scope" in want             # opt-in report (does not affect exit code)
     do_ident = "--identity" in want          # opt-in report (does not affect exit code)
+    # NOT `do_inst` — that name belongs to detector A's `--installs`. Reusing it
+    # silently rebound it, so `--installed` also ran the network install resolver.
+    do_instrec = "--installed" in want       # opt-in LOCAL report (never a gate)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -2057,6 +2180,17 @@ def main():
                    else "collapsed, but every row is already disposed")
             print(f"  {f.kind.lower()} ({why}) — {f.slug}: "
                   f"{len(f.peers)} rows, {', '.join(f.peers)}")
+    if do_instrec:
+        finds, records = audit_installed(ctx)
+        print(f"== Y. install-record mismatch (report-only, this machine) — "
+              f"{len(finds)} finding(s) across {records} install record(s) ==")
+        if not records:
+            print("  no install records found — absence of a record is 'nothing known "
+                  "about this machine', never 'nothing is installed'")
+        elif not finds:
+            print("  OK — every ADOPT/KEEP skill/plugin row is backed by an install record")
+        for f in finds:
+            print(f"  {f.kind:12} {f.tool} [{f.verdict}]: {f.detail}")
     sys.exit(rc)
 
 if __name__ == "__main__":

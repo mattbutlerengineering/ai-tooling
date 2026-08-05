@@ -3046,6 +3046,128 @@ class TestMaintenanceSignal(unittest.TestCase):
             self.assertIn("why", rec["discontinued_ack"])
 
 
+class TestInstallRecords(unittest.TestCase):
+    """Pins detector Y (#366). KEEP is DEFINED as the validated-INSTALLED status and
+    nothing checked the installed half — so three STACK members turned out to be name
+    collisions with an artifact from a different source."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+           "|------|------|-----------|-------------------|---------------|\n")
+
+    def _home(self, d, lock=None, plugins=None, skill_dirs=()):
+        os.makedirs(os.path.join(d, ".agents"), exist_ok=True)
+        os.makedirs(os.path.join(d, ".claude", "plugins"), exist_ok=True)
+        os.makedirs(os.path.join(d, ".claude", "skills"), exist_ok=True)
+        if lock is not None:
+            with open(os.path.join(d, ".agents", ".skill-lock.json"), "w") as fh:
+                json.dump({"version": 3, "skills": lock}, fh)
+        if plugins is not None:
+            with open(os.path.join(d, ".claude", "plugins", "installed_plugins.json"), "w") as fh:
+                json.dump({"version": 2, "plugins": plugins}, fh)
+        for s in skill_dirs:
+            os.makedirs(os.path.join(d, ".claude", "skills", s), exist_ok=True)
+        return d
+
+    def _ctx(self, d, rows, verdicts, typ="skill"):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR + "".join(
+            f"| [{n}]({u}) | {typ} | x | y | z |\n" for n, u in rows))
+        _write(d, "COMPARISON.md",
+               "# T\n\n## Implement\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|---|---|---|---|---|---|\n" + "".join(
+                   f"| {n} | {typ} | y | y | {v} | REVIEW |\n" for n, v in verdicts))
+        return audit.DetectorContext(d)
+
+    @staticmethod
+    def _lock(**pairs):
+        return {n: {"source": s, "sourceType": "github"} for n, s in pairs.items()}
+
+    def test_same_name_from_another_source_is_a_collision(self):
+        # code-review: ADOPT-as-anthropics/claude-plugins-official, but what is symlinked
+        # in is mattpocock/skills' own code-review — a different tool, same name.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("code-review", "https://github.com/anthropics/official")],
+                            [("code-review", "KEEP")])
+            self._home(h, lock=self._lock(**{"code-review": "mattpocock/skills"}))
+            finds, _ = audit.audit_installed(ctx, home=h)
+            # mattpocock/skills is also UNCATALOGUED in this fixture; that is correct and
+            # separate, so scope the assertion to the collision under test.
+            hits = [f for f in finds if f.kind != "UNCATALOGUED"]
+            self.assertEqual([(f.kind, f.tool) for f in hits], [("COLLISION", "code-review")])
+            self.assertIn("mattpocock/skills", hits[0].detail)
+
+    def test_matching_slug_is_clean(self):
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self._home(h, lock=self._lock(thing="o/pack"))
+            self.assertEqual(audit.audit_installed(ctx, home=h)[0], [])
+
+    def test_a_directory_answers_for_a_slug_with_no_lock_entry(self):
+        # claude install-skill and npm globals leave no lockfile entry. The directory
+        # fallback is what keeps NO-RECORD from being mostly noise.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self._home(h, lock={}, skill_dirs=("thing",))
+            self.assertEqual(audit.audit_installed(ctx, home=h)[0], [])
+
+    def test_nothing_answering_at_all_is_no_record(self):
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self._home(h, lock=self._lock(other="x/y"))
+            finds, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([(f.kind, f.tool) for f in finds][:1], [("NO-RECORD", "thing")])
+
+    def test_installed_source_with_no_catalog_row_is_uncatalogued(self):
+        # Found from the install side: a scan only ever looks at what EXISTS, never at
+        # what is already running here.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self._home(h, lock=self._lock(thing="o/pack", extra="who/dis"))
+            finds, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([(f.kind, f.tool) for f in finds], [("UNCATALOGUED", "who/dis")])
+
+    def test_only_installable_types_are_judged(self):
+        # A CLI or MCP server is installed by npm, brew or a settings entry — none of
+        # which leaves a mark in these records, so flagging it would be pure noise.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("ripgrep", "https://github.com/bs/ripgrep")],
+                            [("ripgrep", "ADOPT")], typ="tool")
+            self._home(h, lock=self._lock(other="x/y"))
+            finds, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([f.tool for f in finds if f.kind != "UNCATALOGUED"], [])
+
+    def test_no_records_reports_zero_records_not_zero_findings(self):
+        # V's rule: absence of a record is "nothing known about this machine", never
+        # "nothing is installed".
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self.assertEqual(audit.audit_installed(ctx, home=h), ([], 0))
+
+    def test_malformed_records_do_not_raise(self):
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            os.makedirs(os.path.join(h, ".agents"))
+            with open(os.path.join(h, ".agents", ".skill-lock.json"), "w") as fh:
+                fh.write("{not json")
+            self.assertEqual(audit.audit_installed(ctx, home=h), ([], 0))
+
+    def test_flag_is_local_only_and_never_a_gate(self):
+        # CI has no lockfile. A build that fails for a reason no code change caused is
+        # worse than the drift it would catch.
+        self.assertIn("--installed", audit.REPORT_FLAGS)
+        self.assertNotIn("--installed", audit.DEFAULT_GATES)
+        self.assertNotIn("--installed", audit.OFFLINE_GATES)
+
+    def test_installed_flag_does_not_trigger_the_installs_resolver(self):
+        # The two flags differ by two characters and the wiring reused one variable, so
+        # `--installed` silently ran detector A's ~50 network requests.
+        with open(os.path.join(ROOT, "audit-evals.py"), encoding="utf-8") as fh:
+            src = fh.read()
+        self.assertIn('do_inst = "--installs" in want', src)
+        self.assertIn('do_instrec = "--installed" in want', src)
+
+
 class TestCollapsedIdentity(unittest.TestCase):
     """Pins detector X (#343). A row naming a COMPONENT of an artifact catalogued as a
     WHOLE is not an independent lead — mattpocock/skills produced three separate P3 leads
