@@ -1,6 +1,6 @@
 # Evaluation: feature-dev
 
-**Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official)
+**Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
 **Stars:** 30,653 | **Last updated:** 2026-06-23 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
 **Dev loop stage:** Implement
@@ -105,4 +105,4 @@ The installed source substantiates feature-dev's core claims: genuinely read-onl
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [feature-dev](https://github.com/anthropics/claude-plugins-official) | plugin | Guided feature development with codebase-understanding and architecture subagents plus a /feature-dev command | Unstructured feature work that skips exploration, design trade-offs, and review | code-architect / code-explorer / code-reviewer subagents; setup-workflow |
+| [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) | plugin | Guided feature development with codebase-understanding and architecture subagents plus a /feature-dev command | Unstructured feature work that skips exploration, design trade-offs, and review | code-architect / code-explorer / code-reviewer subagents; setup-workflow |
