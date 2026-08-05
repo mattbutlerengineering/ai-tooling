@@ -3,7 +3,7 @@
 **Repo:** [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
 **Stars:** 178,312 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Implement
 **Layer:** Process
 
@@ -55,11 +55,13 @@ gh api repos/multica-ai/andrej-karpathy-skills/contents/EXAMPLES.md --jq '.conte
 
 ## Verdict
 
-**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+**discovery-log — tentative read.** The SKIP this file carried from 2026-07-09 to 2026-08-05 is **withdrawn: its only ground was false.**
 
-_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
+That SKIP read *"no declared license — a skill/plugin is vendored, and text carrying no license grant cannot be copied in."* The repo declares **MIT**, in a `## License` section of its README. GitHub's licensee detector reads a root `LICENSE` file and nothing else, so `repo-metadata.json` cached `license_spdx: NONE` and the P4 mechanical-skip band disposed the lead on it (#372).
 
-**CONDITIONAL**
+**The contradiction was inside this file the whole time.** Its own header has read `**License:** MIT` since it was written; the bulk pass wrote "no declared license" three sections below it and nothing compared the two. Detector U checks an eval's catalog-row mirror against `CATALOG.md`; nothing checked the header against the verdict.
+
+Restored to `discovery-log` rather than to the CONDITIONAL below it, because ADR-0005 grants a verdict only to a tool that was exercised or carries an `adopt-if:` gate, and this is `Evidence: REVIEW` — the same correction #324 applied corpus-wide. The read itself stands unchanged:
 
 Use as a starting point when you have no CLAUDE.md behavioral guidelines yet — it's the most popular and most concise behavioral framework available. However, once you've internalized the four principles into your own project-specific rules (as this user already has), the skill becomes redundant. The EXAMPLES.md is worth reading once as a teaching tool even if you don't install the skill. Compare with mattpocock/skills (ADOPT) which provides deeper, more structured guidance across more dimensions, and agents-best-practices (CONDITIONAL) which covers agent design patterns the Karpathy skill doesn't touch.
 

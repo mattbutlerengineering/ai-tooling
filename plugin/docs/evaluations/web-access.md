@@ -1,9 +1,9 @@
 # Evaluation: Web Access (web-access)
 
 **Repo:** [eze-is/web-access](https://github.com/eze-is/web-access)
-**Stars:** 7,739 | **Last updated:** 2026-05-16 (pushed) | **License:** ⚠️ none declared | **Language:** JavaScript (SKILL.md skill; primarily 中文 docs)
+**Stars:** 7,739 | **Last updated:** 2026-05-16 (pushed) | **License:** MIT, declared in the README; no `LICENSE` file, so GitHub reports `null` (see Verdict) | **Language:** JavaScript (SKILL.md skill; primarily 中文 docs)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-07-09  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Skills & Plugins / Verify — gives agents full web access
 **Layer:** Tooling (agent skill, SKILL.md-compatible)
 
@@ -34,7 +34,7 @@ gh api repos/eze-is/web-access/readme --jq '.content' | base64 -d | sed -n '343,
 
 ## What didn't work or surprised us
 
-- **No license declared.** A skill with **no LICENSE** is a real adoption blocker for many — usage/redistribution rights are unclear; treat as "all rights reserved" until clarified.
+- **~~No license declared.~~ Corrected 2026-08-05 — MIT is declared, just not in a file GitHub reads.** The original bullet called this "a real adoption blocker … treat as 'all rights reserved' until clarified." The README carries a `## License` section reading `MIT · 作者：一泽 Eze`. What is missing is a root `LICENSE` file, which is the only thing GitHub's licensee detector looks at. The residual weakness is thinner and worth naming: a README line naming MIT without the license text or a copyright year is a weaker record than a LICENSE file — but it is a stated grant, not the absence of one.
 - **Driving your real browser is a powerful, sensitive capability.** CDP control of your logged-in Chrome/Edge with file upload and real mouse events is high-trust: the agent can act as you on authenticated sites. That's the feature and the risk — needs careful permissioning.
 - **Primarily Chinese docs.** README/design essays are mostly 中文; non-Chinese users lean on translation, raising the bar to configure CDP correctly.
 - **Setup friction.** Requires enabling remote debugging on the browser and managing `config.env`/proxy pinning — more involved than an MCP one-liner.
@@ -47,14 +47,18 @@ gh api repos/eze-is/web-access/readme --jq '.content' | base64 -d | sed -n '343,
 | Correctness | + | Logged-in real-browser access + strategy reach pages WebFetch can't, so agents work from real data. |
 | Speed | + / neutral | Parallel sub-agents + cached site experience speed multi-target work; CDP setup adds upfront effort. |
 | Maintainability | neutral | Per-domain experience is reusable; managing browser debug + proxy config is ongoing overhead. |
-| Safety | − / neutral | Driving your authenticated browser (uploads, real clicks) is high-trust; no license adds legal uncertainty. |
+| Safety | − / neutral | Driving your authenticated browser (uploads, real clicks) is high-trust. (The licensing concern recorded here originally is withdrawn — see Verdict.) |
 | Cost Efficiency | + | Smart tool selection avoids WebFetch's 20k-token dumps; reuse of site experience cuts re-discovery. |
 
 ## Verdict
 
-**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+**discovery-log — tentative read.** The SKIP this file carried from 2026-07-09 to 2026-08-05 is **withdrawn: its only ground was false.**
 
-_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
+That SKIP read *"no declared license — a skill/plugin is vendored, and text carrying no license grant cannot be copied in."* The repo declares **MIT** in a `## License` section of its README (`MIT · 作者：一泽 Eze`). GitHub's licensee detector reads a root `LICENSE` file and nothing else, so `repo-metadata.json` cached `license_spdx: NONE` and the P4 mechanical-skip band disposed the lead on it (#372).
+
+Restored to `discovery-log` rather than to the CONDITIONAL below it: ADR-0005 grants a verdict only to a tool that was exercised or carrying an `adopt-if:` gate, and this is `Evidence: REVIEW` — nothing was installed and no browser was driven. The read itself stands unchanged, **including its second caveat, which was always the more serious one**: letting an agent drive your real logged-in browser with file upload and real mouse events is a high-trust capability, and that is a Safety judgement no license fixes. A hands-on eval is what would settle this row.
+
+_Original read, unchanged:_
 
 **CONDITIONAL** (with caveats) — web-access is a capable, popular **web-access skill** whose standout idea is driving the user's **real, logged-in Chrome/Edge via CDP** with a tool-selection strategy and **per-domain experience accumulation** — reaching authenticated/internal pages and dynamic content that built-in WebSearch/WebFetch and headless tools miss. Adopt it when an agent genuinely needs logged-in, interactive web access (internal dashboards, authenticated flows, video frame analysis) and you can navigate the setup. Two real caveats keep it CONDITIONAL: **no declared license** (resolve rights before any non-personal use) and the **high-trust nature of letting an agent act as you in your real browser** (permission carefully). Chinese-first docs add friction for others. For simpler, lower-trust automation, agent-browser/playwright are more conventional.
 
@@ -64,4 +68,4 @@ Compared to neighbors: **agent-browser** is a CLI browser-automation tool for ag
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [web-access](https://github.com/eze-is/web-access) | skill | Full web-access skill for SKILL.md agents (⚠️ no license declared; primarily 中文 docs) — adds networking strategy + CDP browser control over your real logged-in Chrome/Edge (dynamic pages, clicks, uploads, video frame-grab), local bookmark/history search, parallel sub-agents, and per-domain experience accumulation | Built-in WebSearch/WebFetch lack scheduling and real-browser automation; want logged-in, interactive web access with reusable site know-how | agent-browser, browser-use, playwright, exa-mcp-server |
+| [web-access](https://github.com/eze-is/web-access) | skill | Full web-access skill for SKILL.md agents (MIT per README, no LICENSE file; primarily 中文 docs) — adds networking strategy + CDP browser control over your real logged-in Chrome/Edge (dynamic pages, clicks, uploads, video frame-grab), local bookmark/history search, parallel sub-agents, and per-domain experience accumulation | Built-in WebSearch/WebFetch lack scheduling and real-browser automation; want logged-in, interactive web access with reusable site know-how | agent-browser, browser-use, playwright, exa-mcp-server |

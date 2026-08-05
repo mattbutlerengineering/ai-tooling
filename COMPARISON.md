@@ -448,7 +448,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
-| andrej-karpathy-skills | skill | | ✓ | SKIP | REVIEW |
+| andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
 | Anthropic-Cybersecurity-Skills | skill | | ✓ | SKIP | REVIEW |
 | anthropics/skills | reference | | ✓ | discovery-log | REVIEW |
 | antfu/skills | skill | | ✓ | SKIP | REVIEW |
@@ -520,7 +520,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | baoyu-design | skill | | ✓ | discovery-log | REVIEW |
 | AlphaGBM/skills | skill | | ✓ | SKIP | REVIEW |
 | himself65/finance-skills | skill | | ✓ | discovery-log | REVIEW |
-| web-access | skill | ✓ | ✓ | SKIP | REVIEW |
+| web-access | skill | ✓ | ✓ | discovery-log | REVIEW |
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
@@ -743,9 +743,9 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 44 | 16 | 2 | 36% |
-| Skills & Plugins | 92 | 34 | 4 | 37% |
+| Skills & Plugins | 92 | 32 | 4 | 35% |
 | Memory & Context | 51 | 19 | 2 | 37% |
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **652** | **285** | **34** | **44%** |
+| **Total** | **652** | **283** | **34** | **43%** |
