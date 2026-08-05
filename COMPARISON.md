@@ -236,7 +236,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gpt-engineer | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | SWE-agent | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| continue | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| continue | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | cline | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Roo-Code | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | void | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -315,7 +315,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | playwright | MCP server | | ✓ | ADOPT | RUN |
 | playwright-skill | skill | | ✓ | SKIP | REVIEW |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL | RUN |
-| qodo-cover | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| qodo-cover | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | passmark | tool | ✓ | ✓ | SKIP | REVIEW |
 | diagnosing-bugs | skill | | ✓ | discovery-log | REVIEW |
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
@@ -737,8 +737,8 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 215 | 109 | 4 | 51% |
-| Verify | 23 | 10 | 2 | 43% |
+| Implement | 215 | 110 | 4 | 51% |
+| Verify | 23 | 11 | 2 | 48% |
 | Review | 43 | 21 | 3 | 49% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
@@ -748,4 +748,4 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **652** | **282** | **34** | **43%** |
+| **Total** | **652** | **284** | **34** | **44%** |

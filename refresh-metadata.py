@@ -137,10 +137,17 @@ def fetch(slug, today=None, maintenance=False, previous=None):
             rec["license_lost"] = bool(
                 had and had not in (UNREACHABLE, NO_LICENSE)
                 and rec["license_spdx"] in (UNREACHABLE, NO_LICENSE))
-        return stamp(rec, today)
     except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
-        return stamp({"license_spdx": UNREACHABLE, "archived": None,
-                      "stars": None, "pushed_at": None, "resolved_name": None}, today)
+        rec = {"license_spdx": UNREACHABLE, "archived": None,
+               "stars": None, "pushed_at": None, "resolved_name": None}
+    # A human's false-positive acknowledgment (#360) is the one field this script does
+    # not own; carry it forward or a refresh silently erases the judgement call. Applied
+    # on EVERY path — not just --maintenance runs, and notably including the unreachable
+    # one, since a transient `gh` failure must not cost a human decision.
+    ack = (previous or {}).get("discontinued_ack")
+    if ack:
+        rec["discontinued_ack"] = ack
+    return stamp(rec, today)
 
 
 def load_cache():

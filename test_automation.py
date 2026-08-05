@@ -14,7 +14,7 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
-import os, datetime, importlib.util, json, re, shutil, subprocess, tempfile, unittest
+import os, datetime, importlib.util, json, re, shutil, subprocess, tempfile, types, unittest
 import urllib.error
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -2928,8 +2928,8 @@ class TestMaintenanceSignal(unittest.TestCase):
             ctx = self._ctx(d, {"daytonaio/daytona": {
                 "archived": False, "license_spdx": "404",
                 "discontinued": "no longer maintained", "license_lost": True}})
-            finds, collected = audit.audit_maintenance(ctx)
-            self.assertEqual(collected, 1)
+            finds, collected, acked = audit.audit_maintenance(ctx)
+            self.assertEqual((collected, acked), (1, []))
             self.assertEqual([f.kind for f in finds], ["DISCONTINUED", "LICENSE-LOST"])
             self.assertEqual(finds[0].verdict, "ADOPT")
             self.assertEqual(finds[0].tool, "daytona")
@@ -2939,7 +2939,7 @@ class TestMaintenanceSignal(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, {"daytonaio/daytona": {
                 "archived": False, "license_spdx": "MIT", "discontinued": "is discontinued"}})
-            finds, _ = audit.audit_maintenance(ctx)
+            finds, _, _ = audit.audit_maintenance(ctx)
             self.assertEqual(len(finds), 1)
 
     def test_healthy_record_is_clean(self):
@@ -2947,21 +2947,20 @@ class TestMaintenanceSignal(unittest.TestCase):
             ctx = self._ctx(d, {"daytonaio/daytona": {
                 "archived": False, "license_spdx": "MIT",
                 "discontinued": None, "license_lost": False}})
-            finds, collected = audit.audit_maintenance(ctx)
-            self.assertEqual((finds, collected), ([], 1))
+            self.assertEqual(audit.audit_maintenance(ctx), ([], 1, []))
 
     def test_uncollected_signal_reports_zero_records_not_zero_findings(self):
         # Absence of the field means "not collected", never "nothing is dead" — the
         # count is what distinguishes them, so it must not read as a clean bill.
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, {"daytonaio/daytona": {"archived": False, "license_spdx": "MIT"}})
-            self.assertEqual(audit.audit_maintenance(ctx), ([], 0))
+            self.assertEqual(audit.audit_maintenance(ctx), ([], 0, []))
 
     def test_missing_cache_is_not_an_exception(self):
         with tempfile.TemporaryDirectory() as d:
             os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
             _write(d, "CATALOG.md", ""); _write(d, "COMPARISON.md", "")
-            self.assertEqual(audit.audit_maintenance(audit.DetectorContext(d)), ([], 0))
+            self.assertEqual(audit.audit_maintenance(audit.DetectorContext(d)), ([], 0, []))
 
     def test_strongest_verdict_sorts_first(self):
         # A dead tool we RECOMMEND outranks a dead lead nobody was going to reach.
@@ -2978,13 +2977,122 @@ class TestMaintenanceSignal(unittest.TestCase):
                 "o/a": {"discontinued": "is discontinued"},
                 "o/b": {"discontinued": "no longer maintained"}}))
             os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
-            finds, _ = audit.audit_maintenance(audit.DetectorContext(d))
+            finds, _, _ = audit.audit_maintenance(audit.DetectorContext(d))
             self.assertEqual([f.tool for f in finds], ["b", "a"])
 
     def test_flag_is_report_only_and_opt_in(self):
         self.assertIn("--maintenance", audit.REPORT_FLAGS)
         self.assertNotIn("--maintenance", audit.DEFAULT_GATES)
         self.assertNotIn("--maintenance", audit.OFFLINE_GATES)
+
+    # --- the acknowledgment escape hatch (#360) -------------------------------
+    # V's second false-positive class is not mechanically separable: giskard-oss says
+    # "no longer actively maintained" of Giskard **v2** while the repo ships v3. No regex
+    # resolves a phrase's subject, so a human's judgement has to be recordable — but
+    # narrowly, or the hatch becomes a mute button.
+
+    def test_acked_finding_is_returned_apart_and_not_counted_as_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "discontinued": "no longer actively maintained",
+                "discontinued_ack": {"phrase": "no longer actively maintained",
+                                     "why": "said of v2; repo ships v3"}}})
+            finds, collected, acked = audit.audit_maintenance(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual(collected, 1)          # still collected, just not a finding
+            self.assertEqual([f.kind for f in acked], ["DISCONTINUED"])
+            self.assertIn("no longer actively maintained", acked[0].detail)
+
+    def test_ack_pins_the_phrase_so_a_new_banner_reports_again(self):
+        # The whole point of pinning: a stale ack must not shield a repo that later
+        # gains a genuine repo-level banner.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "discontinued": "this repository is deprecated",
+                "discontinued_ack": {"phrase": "no longer actively maintained"}}})
+            finds, _, acked = audit.audit_maintenance(ctx)
+            self.assertEqual([f.kind for f in finds], ["DISCONTINUED"])
+            self.assertEqual(acked, [])
+
+    def test_ack_does_not_silence_a_lost_license(self):
+        # The ack is scoped to the README phrase it names; license_lost is a different
+        # signal and must survive it.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "discontinued": "no longer maintained", "license_spdx": "404",
+                "license_lost": True,
+                "discontinued_ack": {"phrase": "no longer maintained"}}})
+            finds, _, acked = audit.audit_maintenance(ctx)
+            self.assertEqual([f.kind for f in finds], ["LICENSE-LOST"])
+            self.assertEqual([f.kind for f in acked], ["DISCONTINUED"])
+
+    def test_malformed_ack_does_not_silence(self):
+        # A bare string or a missing phrase is not a grant. Fail toward reporting.
+        for ack in ("no longer maintained", {}, {"why": "trust me"}, None, []):
+            with tempfile.TemporaryDirectory() as d:
+                ctx = self._ctx(d, {"daytonaio/daytona": {
+                    "discontinued": "no longer maintained", "discontinued_ack": ack}})
+                finds, _, acked = audit.audit_maintenance(ctx)
+                self.assertEqual([f.kind for f in finds], ["DISCONTINUED"], ack)
+                self.assertEqual(acked, [], ack)
+
+    def test_real_giskard_record_is_acked_in_the_committed_cache(self):
+        # Pins the disposition itself: the live record must carry an ack whose phrase
+        # matches its own banner, or the sweep regrows a finding a human already judged.
+        with open(os.path.join(ROOT, "repo-metadata.json"), encoding="utf-8") as fh:
+            rec = json.load(fh).get("giskard-ai/giskard-oss", {})
+        if rec.get("discontinued"):     # only meaningful once --maintenance has run
+            self.assertEqual(rec["discontinued_ack"]["phrase"], rec["discontinued"])
+            self.assertIn("why", rec["discontinued_ack"])
+
+
+class TestAckCarryForward(unittest.TestCase):
+    """`discontinued_ack` is the one field in repo-metadata.json that a human writes and
+    the refresher does not own. If a refresh drops it, V's acknowledged false positive
+    silently regrows and the judgement call has to be made again (#360)."""
+
+    def _mod(self):
+        spec = importlib.util.spec_from_file_location(
+            "refresh_metadata", os.path.join(ROOT, "refresh-metadata.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+    def _run(self, mod, stdout=None, boom=None):
+        """Stub `gh` so this stays offline: either a canned payload or a failure.
+
+        Swaps the module's `subprocess` REFERENCE for a shim rather than assigning
+        `mod.subprocess.run` — the latter mutates the real stdlib module and breaks
+        every other test in this file."""
+        def fake(cmd, **kw):
+            if boom:
+                raise boom
+            return types.SimpleNamespace(stdout=stdout)
+        mod.subprocess = types.SimpleNamespace(
+            run=fake, CalledProcessError=subprocess.CalledProcessError)
+        return mod
+
+    PAYLOAD = ('{"license_spdx":"MIT","archived":false,"stars":1,'
+               '"pushed_at":"2026-08-05","resolved_name":"o/r"}')
+    ACK = {"phrase": "no longer actively maintained", "why": "said of v2"}
+
+    def test_plain_refresh_preserves_the_ack(self):
+        # The common case: a routine refresh with no --maintenance flag must not erase it.
+        mod = self._run(self._mod(), stdout=self.PAYLOAD)
+        rec = mod.fetch("o/r", today=datetime.date(2026, 8, 5), previous={"discontinued_ack": self.ACK})
+        self.assertEqual(rec["discontinued_ack"], self.ACK)
+        self.assertEqual(rec["license_spdx"], "MIT")
+
+    def test_unreachable_repo_still_preserves_the_ack(self):
+        # A transient `gh` failure must not cost a human decision.
+        mod = self._run(self._mod(), boom=FileNotFoundError("gh"))
+        rec = mod.fetch("o/r", today=datetime.date(2026, 8, 5), previous={"discontinued_ack": self.ACK})
+        self.assertEqual(rec["discontinued_ack"], self.ACK)
+        self.assertEqual(rec["license_spdx"], mod.UNREACHABLE)
+
+    def test_no_previous_ack_adds_no_field(self):
+        mod = self._run(self._mod(), stdout=self.PAYLOAD)
+        self.assertNotIn("discontinued_ack", mod.fetch("o/r", today=datetime.date(2026, 8, 5)))
 
 
 class TestDiscontinuationRegex(unittest.TestCase):
