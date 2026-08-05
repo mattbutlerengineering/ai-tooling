@@ -3405,3 +3405,200 @@ class TestDiscontinuationRegex(unittest.TestCase):
     def test_matches_a_repo_that_really_is_read_only(self):
         rx = self._rx()
         self.assertIsNotNone(rx.search("This repository is read-only for all users."))
+
+
+# ----------------------------------------------------- Z. unread license declaration (#372)
+class TestLicenseDeclared(unittest.TestCase):
+    """Pins detector Z, the refresher's license-declaration parsers, and triage.py's
+    effective_license (#372).
+
+    `license_spdx: NONE` is what GitHub returns when there is no root LICENSE file — its
+    licensee detector reads nothing else. It was recorded, and read by P4 mechanical-skip,
+    as though it meant the repo grants nothing, and for 9 of 28 records it did not:
+    `andrej-karpathy-skills` and `web-access` were SKIPped "text carrying no license grant
+    cannot be copied in" against a README reading `## License` / `MIT`."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+           "|------|------|-----------|-------------------|---------------|\n")
+
+    def _refresh(self):
+        return _load("refresh_metadata", "refresh-metadata.py")
+
+    # --- the parsers -----------------------------------------------------------
+    def test_readme_license_reads_the_whole_file_not_the_head(self):
+        # A discontinuation banner is at the TOP or it is not a banner; a license section
+        # is at the BOTTOM. vercel-labs/agent-skills' is at line 226, well past README_HEAD.
+        m = self._refresh()
+        text = "# Tool\n\n" + ("filler paragraph.\n" * 400) + "\n## License\n\nMIT\n"
+        self.assertGreater(len(text), m.README_HEAD)
+        found = m.readme_license(text)
+        self.assertEqual(found[0], "MIT")
+        self.assertIn("License", found[1])
+
+    def test_readme_license_quotes_what_it_matched(self):
+        # Detector V's rule: a human judges the wording, not the regex.
+        m = self._refresh()
+        spdx, phrase = m.readme_license("## License\n\nThis repository is licensed under "
+                                        "the Apache License 2.0.\n")
+        self.assertEqual(spdx, "Apache-2.0")
+        self.assertIn("Apache License 2.0", phrase)
+
+    def test_no_heading_or_no_name_is_no_declaration(self):
+        m = self._refresh()
+        self.assertIsNone(m.readme_license("# Tool\n\nA thing that does things.\n"))
+        self.assertIsNone(m.readme_license("## License\n\nSee the LICENSE file.\n"))
+
+    def test_family_precedence_never_reads_agpl_as_gpl(self):
+        # The whole point of the field is to stop a wrong license disposing a lead.
+        m = self._refresh()
+        for token, family in (("AGPL-3.0", "AGPL"), ("LGPL 2.1", "LGPL"), ("GPLv3", "GPL"),
+                              ("Apache License 2.0", "Apache-2.0"), ("BSD-3-Clause",
+                              "BSD-3-Clause"), ("CC-BY-SA 4.0", "CC-BY-SA"),
+                              ("CC BY-NC-SA", "CC-BY-NC-SA"), ("MIT", "MIT"),
+                              ("ISC", "ISC"), ("Unlicense", "Unlicense")):
+            self.assertEqual(m.normalize_spdx(token), family, token)
+
+    def test_version_is_never_invented(self):
+        # "GPL" in prose that never said 3.0 must not become GPL-3.0: this field exists
+        # to stop a fabricated license fact, so it may not introduce one.
+        m = self._refresh()
+        self.assertEqual(m.normalize_spdx("GPL"), "GPL")
+
+    def test_declared_license_records_a_readme_manifest_conflict(self):
+        # builderio/agent-native: MIT in the README, ISC in package.json. The standing
+        # "the LICENSE file governs" tiebreak (#26) has nothing to govern with here.
+        m = self._refresh()
+        m.manifest_license = lambda slug: ("ISC", 'package.json: "ISC"', "package.json")
+        rec = m.declared_license("o/r", readme="## License\n\nMIT\n")
+        self.assertEqual((rec["spdx"], rec["conflict"]), ("MIT", "ISC"))
+        self.assertIn("ISC", rec["phrase"])
+
+    def test_declared_license_is_none_when_nothing_declares_one(self):
+        m = self._refresh()
+        m.manifest_license = lambda slug: None
+        self.assertIsNone(m.declared_license("o/r", readme="# Tool\n\nNo terms here.\n"))
+
+    # --- triage: the band this unblocks ----------------------------------------
+    def test_effective_license_prefers_a_declaration_over_a_bare_none(self):
+        self.assertEqual(triage.effective_license(
+            {"license_spdx": "NONE", "license_declared": {"spdx": "MIT"}}), "MIT")
+        self.assertEqual(triage.effective_license({"license_spdx": "NONE"}), "NONE")
+        self.assertEqual(triage.effective_license({"license_spdx": "MIT"}), "MIT")
+        self.assertEqual(triage.effective_license({}), "")
+
+    def test_a_declared_copyleft_still_disqualifies(self):
+        # It resolves in BOTH directions — the field records what the repo says, and a
+        # README declaring AGPL disqualifies a vendored artifact on exactly the reasoning
+        # a parsed AGPL does. Anything else would make the field an escape hatch.
+        lic = triage.effective_license(
+            {"license_spdx": "NONE", "license_declared": {"spdx": "AGPL"}})
+        self.assertTrue(triage.DISQUALIFYING_LICENSE.match(lic))
+
+    def test_vendored_lead_with_a_declared_mit_leaves_the_mechanical_band(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "CATALOG.md", "## Plan\n\n" + self.HDR +
+                   "| [skl](https://github.com/o/skl) | skill | one | two | none |\n")
+            _write(d, "COMPARISON.md",
+                   "# Tool Comparison\n\n## Plan\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|------|------|------|------|-----------|----------|\n"
+                   "| skl | skill | | ✓ | discovery-log | SOURCE-ONLY |\n")
+            _write(d, "STACK.md", "# STACK\n")
+            ctx = audit.DetectorContext(d)
+            facts = triage.catalog_facts(ctx.catalog)
+            bare = {"o/skl": {"license_spdx": "NONE", "archived": False}}
+            self.assertEqual(triage.band_of("skl", facts, bare, {}), "P4 mechanical-skip")
+            declared = {"o/skl": dict(bare["o/skl"],
+                                      license_declared={"spdx": "MIT", "where": "readme"})}
+            self.assertIsNone(triage.band_of("skl", facts, declared, {}))
+            copyleft = {"o/skl": dict(bare["o/skl"],
+                                      license_declared={"spdx": "AGPL", "where": "readme"})}
+            self.assertEqual(triage.band_of("skl", facts, copyleft, {}),
+                             "P4 mechanical-skip")
+
+    # --- detector Z ------------------------------------------------------------
+    def _ctx(self, d, records, verdict="SKIP", verdict_text=None):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", "## Plan\n\n" + self.HDR +
+               "| [skl](https://github.com/o/skl) | skill | one | two | none |\n")
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Plan\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n"
+               f"| skl | skill | | ✓ | {verdict} | REVIEW |\n")
+        if verdict_text:
+            _write(d, "evaluations/skl.md",
+                   f"# Evaluation: skl\n\n## Verdict\n\n{verdict_text}\n")
+        _write(d, "repo-metadata.json", json.dumps(records))
+        return audit.DetectorContext(d)
+
+    DECLARED = {"o/skl": {"license_spdx": "NONE", "archived": False,
+                          "license_declared": {"spdx": "MIT", "where": "readme",
+                                               "phrase": "## License MIT"}}}
+
+    def test_a_skip_grounded_on_the_license_is_the_strongest_kind(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP** — no declared license. A skill/plugin is *vendored* — its text "
+                "is copied into the consuming repo — and text carrying no license grant "
+                "cannot be copied in."))
+            finds, records = audit.audit_license_declared(ctx)
+            self.assertEqual(records, 1)
+            self.assertEqual([(f.kind, f.spdx) for f in finds], [("GROUNDED", "MIT")])
+            self.assertIn("## License MIT", finds[0].phrase)
+
+    def test_a_skip_on_other_grounds_is_only_recorded(self):
+        # The record is still wrong and the next bulk pass reads it — but no human's
+        # disposition rests on it, which is a different order of problem.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP** — dormant for 13 months and redundant with the incumbent."))
+            finds, _ = audit.audit_license_declared(ctx)
+            self.assertEqual([f.kind for f in finds], ["RECORDED"])
+
+    def test_a_passing_mention_of_a_license_is_not_a_ground(self):
+        # Deliberately narrow: if every verdict that says the word "license" counted,
+        # every clean row would be a finding and the count would stop meaning anything.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP** — capable, permissively licensed, and wholly redundant."))
+            finds, _ = audit.audit_license_declared(ctx)
+            self.assertEqual([f.kind for f in finds], ["RECORDED"])
+
+    def test_conflict_is_reported_apart(self):
+        with tempfile.TemporaryDirectory() as d:
+            recs = {"o/skl": {"license_spdx": "NONE", "license_declared": {
+                "spdx": "MIT", "where": "readme", "phrase": "x", "conflict": "ISC"}}}
+            ctx = self._ctx(d, recs, verdict="discovery-log")
+            finds, _ = audit.audit_license_declared(ctx)
+            self.assertEqual([(f.kind, f.conflict) for f in finds], [("CONFLICT", "ISC")])
+
+    def test_grounded_outranks_conflict(self):
+        # A false disposition outranks a bookkeeping disagreement — and the conflict is
+        # still carried on the finding rather than lost to the sort.
+        with tempfile.TemporaryDirectory() as d:
+            recs = {"o/skl": {"license_spdx": "NONE", "license_declared": {
+                "spdx": "MIT", "where": "readme", "phrase": "x", "conflict": "ISC"}}}
+            ctx = self._ctx(d, recs, verdict_text="**SKIP** (license) — no LICENSE file.")
+            finds, _ = audit.audit_license_declared(ctx)
+            self.assertEqual([(f.kind, f.conflict) for f in finds], [("GROUNDED", "ISC")])
+
+    def test_uncollected_field_reports_zero_records_not_zero_findings(self):
+        # V's rule: absence of the field means "not collected", never "every NONE is a
+        # real absence". The count is what distinguishes them.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"o/skl": {"license_spdx": "NONE", "archived": False}})
+            self.assertEqual(audit.audit_license_declared(ctx), ([], 0))
+
+    def test_missing_cache_is_not_an_exception(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "CATALOG.md", ""); _write(d, "COMPARISON.md", "")
+            self.assertEqual(
+                audit.audit_license_declared(audit.DetectorContext(d)), ([], 0))
+
+    def test_flag_is_report_only_and_opt_in(self):
+        self.assertIn("--license-declared", audit.REPORT_FLAGS)
+        self.assertNotIn("--license-declared", audit.DEFAULT_GATES)
+        self.assertNotIn("--license-declared", audit.OFFLINE_GATES)

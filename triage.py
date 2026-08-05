@@ -25,6 +25,8 @@ they live nowhere in this repo's own files:
                    a naive copyleft rule SKIPs anthropics/claude-code (no license,
                    Type reference) and firecrawl while letting a CC-BY-SA skill
                    through, where ShareAlike genuinely reaches the copied text.
+                   Reads effective_license(), not the raw field: a `NONE` that
+                   turns out to be MIT-in-the-README is not an absence (#372).
   successor-check  archived. NOT a SKIP: Roo-Code, void and gpt-engineer are
                    archived because they MOVED. Find the successor or SKIP with a
                    reason — never dispose on a metadata bit alone.
@@ -66,6 +68,23 @@ VENDORED_TYPES = frozenset({"skill", "plugin"})
 # GitHub could not parse the LICENSE file, not that one is absent; auto-SKIPping those
 # would kill ~48 leads on a reason nobody read.
 DISQUALIFYING_LICENSE = re.compile(r"^(NONE|A?GPL|CC-BY-SA|EUPL)", re.I)
+
+
+def effective_license(meta):
+    """The license this band may act on: the one GitHub parsed, or — when it parsed
+    none — the one the repo declares somewhere GitHub does not read (#372).
+
+    `NONE` is not an absence. GitHub's licensee detector reads a root LICENSE file and
+    nothing else, so a repo stating MIT in its README records `NONE` exactly like a repo
+    granting nothing, and this band SKIPped two skill leads on the difference. A declared
+    license is still a candidate rather than a settled fact — a README line naming MIT
+    without the license text is a thinner record than a LICENSE file — but a candidate is
+    a human's call, and only an absence can carry a mechanical SKIP.
+
+    Note it resolves in BOTH directions: a README declaring AGPL is disqualifying on
+    exactly the reasoning a parsed AGPL is, so the band still fires."""
+    declared = (meta.get("license_declared") or {}).get("spdx")
+    return declared or meta.get("license_spdx") or ""
 
 LAST_TRIAGED = re.compile(r"^\*\*Last triaged:\*\*\s*(\d{4}-\d{2}-\d{2})", re.M)
 
@@ -141,10 +160,16 @@ def positive_reads(ctx):
     A discovery-log eval still carries a `## Verdict` line: per COMPARISON.md's legend
     it is "the eval's tentative read — notes, not a recommendation". Promoting such a
     lead to SKIP is the point of bulk triage. But where that read is POSITIVE, a bulk
-    SKIP would have an unattended pass overrule a human who looked and liked it —
-    vercel-labs/agent-skills reads ADOPT *with its missing license in view*. Eliminate-
-    only cuts both ways: the lane may not contradict a positive read either. These
-    leads fall through to the score-based bands, where a human decides.
+    SKIP would have an unattended pass overrule a human who looked and liked it.
+    Eliminate-only cuts both ways: the lane may not contradict a positive read either.
+    These leads fall through to the score-based bands, where a human decides.
+
+    The shield earned its keep on vercel-labs/agent-skills, which read ADOPT *with its
+    missing license in view* and would otherwise have been mechanically SKIPped — and
+    the license turned out to be MIT, declared in the README (#372). It has since been
+    relabelled `discovery-log` for an unrelated reason (#259: source-only evidence
+    cannot headline a verdict), so the shield no longer holds it; effective_license()
+    does.
 
     Keys on `ev.verdict` (the headline token) and never `verdict_set`, which collects
     every verdict WORD in the section: trailofbits/skills reads "Held at CONDITIONAL
@@ -168,7 +193,7 @@ def band_of(tool, facts, meta, reads):
     m = meta.get(slug) if slug else None
     if not m:
         return None
-    lic = m.get("license_spdx") or ""
+    lic = effective_license(m)
     if typ in VENDORED_TYPES and DISQUALIFYING_LICENSE.match(lic):
         return "P4 mechanical-skip"
     if m.get("archived"):
