@@ -3,6 +3,7 @@
 **Repo:** [musistudio/claude-code-router](https://github.com/musistudio/claude-code-router)
 **Stars:** 35,136 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify (intercepts every model request Claude Code makes; spans the whole inner loop)
 **Layer:** Infrastructure
 
@@ -66,6 +67,25 @@ Reviewed: the `Router` category model (default/background/think/longContext/webS
 claude-code-router is the dominant, mature (35K stars, MIT, just hit 2.0.0) way to make Claude Code talk to models other than Claude, and its category-aware routing (`background`/`think`/`longContext` with a token threshold) is a genuinely good Cost-Efficiency lever — the strongest in its catalog cluster for *keeping the Claude Code UX while paying less per token*. That earns it a real place in the dev loop as an Infrastructure layer.
 
 It is CONDITIONAL, not ADOPT, because the value comes from routing Claude Code's carefully-tuned agentic traffic to weaker models, and the correctness cost of that is real and unquantified (the `enhancetool` adapter is a tell), it sits on the critical path of every request with 968 open issues, and it lives in a ToS gray area with unofficial provider bridges. **Adopt it when** cost or provider-flexibility outweighs peak quality: heavy long-session users wanting cheap `background`/local routing, teams on a GLM/DeepSeek/Qwen subscription or air-gapped/local-only models, or CI pipelines routing `@claude` tasks to cheap models off-peak. **Skip it when** you are on a flat-rate Claude plan, do quality-sensitive agentic coding where Claude's tool discipline matters, or want to minimize critical-path moving parts — in which case run Claude Code natively. It differs from its overlaps: claude-code-templates ships *configs/agents/skills* for stock Claude Code (no model redirection); CLIProxyAPI is a general multi-CLI LLM proxy, whereas CCR is purpose-built for Claude Code's request shape with CC-specific routing categories and subagent prefixes.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★36.4K, pushed today.
+
+Its eval makes the affirmative case cleanly — category-aware routing (`background`/`think`/
+`longContext` with a token threshold) is "the strongest [lever] in its catalog cluster for keeping the
+Claude Code UX while paying less per token", which "earns it a real place in the dev loop as an
+Infrastructure layer" — and the reservations that hold it below ADOPT are unquantified correctness
+cost, 968 open issues on the critical path of every request, and ToS gray areas. All conditions, none
+a disposal.
+
+**One drift worth recording.** The repository now describes itself as "**One local control plane for
+every AI agent** — route across models, fuse new capabilities, orchestrate tools", where the eval was
+written against a Claude-Code-specific router. If the scope has genuinely broadened to any agent, the
+comparison against `CLIProxyAPI` and `bifrost` in that eval is measuring a narrower tool than the one
+that ships today. Flagged for the re-check, not resolved here.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

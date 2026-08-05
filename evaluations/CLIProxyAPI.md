@@ -3,6 +3,7 @@
 **Repo:** [router-for-me/CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI)
 **Stars:** 37,921 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Language:** Go
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Dev Workflow (infrastructure — API gateway in front of coding-agent CLI accounts)
 **Layer:** Infrastructure (proxy server; local or multi-account)
 
@@ -54,6 +55,28 @@ gh api repos/router-for-me/CLIProxyAPI/readme --jq '.content' | base64 -d | head
 **discovery-log — tentative read** — CLIProxyAPI is a popular, MIT-licensed Go proxy that turns coding-agent CLI accounts (Claude Code, Codex, Gemini, Grok) into a single OpenAI/Gemini/Claude-compatible API via OAuth, with multi-account load-balancing. It's genuinely useful when you need to drive a CLI subscription from arbitrary SDKs/tools or pool several accounts for development throughput. But it sits in **provider-ToS gray-area** (re-exposing subscription access as a general API), its README ecosystem is dominated by subscription-arbitrage relay sponsors, and it adds a credential-holding always-on service rather than improving any quality signal of the code you ship. Adopt only with a clear, ToS-compatible reason; keep it out of the critical path of production work.
 
 Compared to neighbors: **claude-code-router** customizes how you interact with Claude Code while inheriting upstream updates (a routing/extension layer on one agent); CLIProxyAPI is a **multi-provider API gateway fronting CLI accounts**. Both are access/infrastructure rather than dev-loop quality tools.
+
+## Triage note
+
+Left at `discovery-log`, and this was the slice's closest call in the other direction — the reasons to
+dispose it are unusually concrete.
+
+Its own eval records that it "sits in **provider-ToS gray-area** (re-exposing subscription access as a
+general API)", that "its README ecosystem is dominated by **subscription-arbitrage relay sponsors**",
+and — most pointed for a catalog organised around six quality signals — that it "adds a
+credential-holding always-on service rather than **improving any quality signal of the code you
+ship**". The `aisuite` SKIP used almost that exact formulation as its ground.
+
+It is nonetheless left, because the eval's gate is **user-specific rather than checkable**: "adopt
+only with a clear, ToS-compatible reason". That is unlike `plandex` in an earlier slice, whose gate
+("confirm current-model support") this lane could and did resolve by looking. Nobody but the reader
+knows whether they have a ToS-compatible reason, and an unattended pass deciding a legal-posture
+question on someone else's behalf is beyond what a triage lane should do.
+
+Recorded so the reservations are not lost in the leaving: at ★46.2K this is the most-starred row in the
+router cluster, and its risk profile is the worst.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

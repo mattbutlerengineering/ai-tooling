@@ -3,6 +3,7 @@
 **Repo:** [kaitranntt/ccs](https://github.com/kaitranntt/ccs)
 **Stars:** ~2,600 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (provider/profile management)
 **Layer:** Tooling
 
@@ -52,6 +53,23 @@ gh api repos/kaitranntt/ccs/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you regularly switch between providers, accounts, or models with Claude Code (Claude/Codex/GLM/local/Anthropic-compatible) and want named profiles + one-command switching instead of editing config each time. It's a focused convenience layer — high value if you juggle providers, irrelevant if you use one. Distinct from API gateways (litellm/bifrost): ccs manages CLI profiles/runtime, not request routing.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★2.8K, pushed 2026-08-03.
+
+**A dependency has appeared that the eval predates.** That eval distinguishes ccs from the gateways —
+"distinct from API gateways (litellm/bifrost): ccs manages CLI profiles/runtime, not request routing"
+— but the repository now describes itself as switching between accounts and providers "**via
+CLIProxyAPI OAuth proxy**". If ccs is now built on `CLIProxyAPI`, it inherits that row's reservations
+wholesale: ToS gray area, and a credential-holding always-on service in the path.
+
+That is a material change to a Safety profile, not a cosmetic one, and it is exactly the kind of drift
+a `**Last verified:**` date exists to bound. Not disposed — the profile-switching convenience is real
+and the dependency may be optional — but the re-check now has a specific question to answer rather
+than a general "is this still true".
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

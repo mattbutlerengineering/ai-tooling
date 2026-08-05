@@ -3,6 +3,7 @@
 **Repo:** [infragate/capa](https://github.com/infragate/capa)
 **Stars:** 284 | **Last updated:** 2026-06-18 (v1.9.15) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (cross-project capability config; touches Plan when bootstrapping a repo's agent setup)
 **Layer:** Infrastructure
 
@@ -66,6 +67,28 @@ grep -niE "reporails|openskills|skills-manage|agentic-stack|capa" CATALOG.md
 capa is a well-engineered, actively maintained config-as-code package manager for AI agents, with deeper per-editor integration (especially Claude Code) and more thoughtful primitives (marker blocks, lockfile, per-sub-agent MCP filtering, lazy tool loading) than the other multi-editor config tools in the catalog. The decisive question is multi-editor scope: its core pain — keeping `.cursor/rules/`, `CLAUDE.md`, and `AGENTS.md` in sync — barely exists for someone working primarily in Claude Code, where `.claude/` and `CLAUDE.md` are read natively. **Adopt when** you (a) run agents across two or more editors (Cursor + Claude Code + Codex, etc.) or maintain a shared agent config for a team, and (b) are comfortable depending on a 284-star tool's yaml format, local server, and DB. **Skip if** you're a single-editor Claude Code user — it adds an indirection layer over files the agent already consumes directly. Re-evaluate the maturity caveat as the star/contributor base grows.
 
 Versus neighbors: **reporails/cli** is diagnostics (validate existing instructions), capa is generation/management — complementary, as the catalog already notes. **openskills** and **skills-manage** only move *skills* across editors; capa covers the full primitive set (skills + rules + sub-agents + hooks + MCP + plugins) and adds an MCP proxy layer. **agentic-stack** ships a portable `.agent/` folder (brain + memory); capa instead emits each editor's native files from one source — different strategy for the same portability goal.
+
+## Triage note
+
+Left at `discovery-log`. ★680, pushed today.
+
+**License finding, disclosed rather than acted on.** GitHub reports no license for this repository, and
+a direct check confirms it: `GET /repos/infragate/capa/license` returns 404 and there is no `LICENSE`
+file anywhere in the HEAD tree. But the README carries an **MIT badge** whose link points at that
+missing file. So the intent is declared and the grant is not shipped.
+
+That is deliberately not treated the same as `command-code` or `agent-native`, both SKIPped in this
+lane for having no license: those declare nothing anywhere. Here the author states MIT and has
+evidently forgotten the file — a fixable omission, and disposing a row for a missing file when the
+intent is published in the README would be punishing a clerical error. It is worth an upstream issue.
+
+On the merits the eval's own reservation stands and is the reason this is not a promotion either: its
+core pain — keeping `.cursor/rules/`, `CLAUDE.md` and `AGENTS.md` in sync — "barely exists for someone
+working primarily in Claude Code". Note that this repo *is* multi-harness (Claude Code + opencode per
+ADR-0002), so the reservation may apply less here than the eval assumed. That is a reason to measure
+it, which is P0 work.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

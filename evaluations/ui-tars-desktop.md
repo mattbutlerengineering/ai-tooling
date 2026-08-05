@@ -3,6 +3,7 @@
 **Repo:** [bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop)
 **Stars:** ~37,000 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (GUI agent stack)
 **Layer:** Tooling
 
@@ -55,6 +56,21 @@ gh api repos/bytedance/UI-TARS-desktop/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you need an agent to operate real GUIs/browsers — desktop automation, computer-use, or web tasks without APIs — and can run it under supervision/sandboxing given the action risk. As a coding-dev-loop tool it's adjacent (automation/QA infra rather than code authoring). Strong, well-backed option in the GUI-agent space; weigh the safety surface and compute needs.
+
+## Triage note
+
+Left at `discovery-log`. Apache-2.0, ★38.4K, pushed 2026-08-02.
+
+Its eval contains the closest thing in this slice to a scope concession — "as a coding-dev-loop tool
+it's **adjacent** (automation/QA infra rather than code authoring)" — and adjacent is deliberately not
+out. The two preceding slices disposed thirty-three rows that build *the product*; this one drives
+real GUIs and browsers, which is Verify-stage automation on software you are working on. Different
+side of the same line, and the same distinction that kept `hermes-webui` in the previous pass.
+
+The Safety surface is the real item: a vision agent driving your actual mouse, keyboard and browser
+needs supervision or isolation, and the eval says so. That is a condition, not a disposal.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -194,7 +194,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
 | OpenHands | platform | | ✓ | discovery-log | REVIEW |
-| daytona | platform | ✓ | ✓/$ | discovery-log | REVIEW |
+| daytona | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | agent-sandbox | tool | ✓ | ✓ | discovery-log | REVIEW |
 | axern | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | tabby | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 212 | 103 | 4 | 49% |
+| Implement | 212 | 104 | 4 | 49% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **276** | **34** | **43%** |
+| **Total** | **642** | **277** | **34** | **43%** |

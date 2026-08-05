@@ -3,6 +3,7 @@
 **Repo:** [beam-cloud/beta9](https://github.com/beam-cloud/beta9)
 **Stars:** ~1,670 | **Last updated:** 2026-06-20 | **License:** AGPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (serverless execution / sandboxes)
 **Layer:** Infrastructure
 
@@ -52,6 +53,24 @@ gh api repos/beam-cloud/beta9/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you need fast, scalable, scale-to-zero serverless execution for AI workloads — and, relevant here, sandboxes for running agent/AI-generated code at scale with a Pythonic DX. Weigh AGPL-3.0 for productized/networked use. For purpose-built agent code-execution sandboxes specifically, daytona/agent-sandbox/cua are more focused; beta9 fits when you also want a general serverless AI runtime.
+
+## Triage note
+
+Left at `discovery-log`. AGPL-3.0, ★1.7K, pushed today.
+
+Its eval positions it against `daytona`, `agent-sandbox` and `cua` — "those are purpose-built
+agent/code sandboxes; beta9 is a broader AI runtime that happens to include sandboxes" — which is a
+differentiation, not a redundancy, and it survives the loss of `daytona` (SKIPped in this pass as
+discontinued) intact. If anything the broader-runtime framing is now the thing to check, since one of
+the three purpose-built comparators is gone.
+
+AGPL-3.0 is noted and is **not** a disposal ground here. `beta9` is a `platform` you run, not a
+vendored `skill`/`plugin` whose text is copied into your repo, and copyleft on something you merely
+operate imposes nothing — which is precisely why band P4's mechanical rule is scoped to vendored
+Types. The eval's "weigh AGPL-3.0 for productized/networked use" is the correct framing and is a
+condition on adoption, not on cataloguing.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

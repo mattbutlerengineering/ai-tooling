@@ -3,6 +3,7 @@
 **Repo:** [daytonaio/daytona](https://github.com/daytonaio/daytona)
 **Stars:** ~72,400 | **Last updated:** 2026-06-19 | **License:** AGPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (code-execution infrastructure)
 **Layer:** Infrastructure
 
@@ -49,9 +50,54 @@ gh api repos/daytonaio/daytona/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP — discontinued upstream, no open-source successor.** Daytona's own README now opens with a
+banner this evaluation was written before:
 
-Adopt when you run untrusted or parallel AI-generated code and need real isolation with fast cold starts and persistent state — the canonical foundation for agent code-execution. Weigh AGPL-3.0 obligations for productized/networked use, and prefer it over running LLM code on the host. For lighter, E2B-protocol needs, agent-sandbox is a self-hosted alternative.
+> **This repository is no longer maintained.** As of **June 2026**, Daytona's core development has
+> moved to a **private codebase**. This repository will receive no further updates, fixes, or
+> releases. It remains public and free to use, fork, and build on under the LICENSE, as is and
+> without support or warranty.
+
+Verified independently on 2026-08-04 rather than taken from the banner:
+
+| Check | Result |
+|---|---|
+| `archived` flag | **false** — which is why band P1 never saw it |
+| Last push | 2025-07-24 |
+| `GET /repos/daytonaio/daytona/license` | **404** |
+| `LICENSE` in the HEAD tree (recursive) | **absent** — the README's own link points at tag `v0.190.0`, not `main` |
+| Successor org `github.com/daytona` (34 repos) | SDKs, `legacy-daytona-provider-*`, docs/content — **no successor to the core engine** |
+
+So this is a P1 successor-check in substance that the structural band could not reach. **P1 keys on
+`archived == true`, and a project can announce its own discontinuation while staying unarchived.**
+Daytona did exactly that two months ago, and nothing in the repo's automation noticed — this row was
+sitting in P3 as ordinary backlog.
+
+Applying P1's own rule — "repoint the link to a successor, or SKIP 'archived, no successor'" — there
+is no successor to repoint to. The *product* continues as a hosted service at daytona.io, but that is
+a different artifact from the self-hostable open-source engine this row recommends, and the catalog
+cannot recommend a closed codebase it cannot inspect.
+
+**The license position is worse than the eval recorded.** That eval says "weigh AGPL-3.0 obligations
+for productized/networked use". AGPL-3.0 is what the *cache* said; HEAD now carries no LICENSE file at
+all. Anyone who takes the README's advice to "fork and build on" is forking from a tag, not from
+`main`. Recorded because this cuts the opposite way to the `vercel-labs/skills` case earlier in this
+lane, where a cached `NONE` had quietly become MIT — licenses move in both directions and the cache
+tracks neither.
+
+**Blast radius.** Daytona is named as the mature, proven option in sibling evals: `agent-sandbox`
+("far less proven than Daytona"), `beta9`, `cua` (pair with isolation), `flue`, `axern`,
+`agent-governance-toolkit`, and as an execution backend in `harbor`, `cognee` and `omnigent`. The
+directly inverted claim in `agent-sandbox.md` has been corrected in this pass; the rest are
+comparative mentions that a maintainer should re-read now that the comparator is gone. That
+cross-file staleness is invisible to detector D, which only checks an eval against its own
+`COMPARISON.md` row.
+
+Re-open if the core engine returns to a public repository under a declared license, or if a maintained
+community fork of `v0.190.0` establishes itself — the design was good and the eval's technical read of
+it is not in dispute.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
