@@ -1,6 +1,7 @@
 # SkillSpector scan of the recommended skills
 
 **Evidence:** MEASURED
+**Stars:** n/a — a scan report, not a tool evaluation. The scanner is [skillspector.md](skillspector.md) (NVIDIA/SkillSpector 14,190); the scanned skills carry their own evals.
 **Last verified:** 2026-06-24
 **Tool used:** [NVIDIA/SkillSpector](https://github.com/NVIDIA/SkillSpector) v2.3.5 ([eval](skillspector.md))
 **Dev loop stage:** Review / Ship (supply-chain vetting)

@@ -1,6 +1,7 @@
 # Evaluation: claude-code-spec-workflow
 
 **Repo:** [Pimzino/claude-code-spec-workflow](https://github.com/Pimzino/claude-code-spec-workflow)
+**Stars:** 3,807  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
 **Last verified:** 2026-07-30
 **Last triaged:** 2026-07-30  <!-- triaged: bulk -->

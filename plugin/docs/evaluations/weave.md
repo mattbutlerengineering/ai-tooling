@@ -1,6 +1,7 @@
 # Evaluation: weave
 
 **Repo:** [Ataraxy-Labs/weave](https://github.com/Ataraxy-Labs/weave)
+**Stars:** 1,236  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->

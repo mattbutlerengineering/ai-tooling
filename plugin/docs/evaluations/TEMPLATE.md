@@ -2,6 +2,23 @@
 
 **Repo:** [{owner}/{repo}](https://github.com/{owner}/{repo})
 **Stars:** {count} | **Last updated:** {date} | **License:** {license}
+<!-- STAR CONVENTION (#256/#261). Every eval DECLARES a **Stars:** value; what it declares
+     depends on what the file is about, because a single number is only meaningful for a
+     single subject:
+       one tool          -> its star count (the case above; 482 evals).
+       named contenders  -> one figure per contender, in the order of the **Contenders:**
+                            (or arms) line, e.g. "codegraph 64,594 · serena 27,562".
+                            Collapsing a head-to-head into one number would pick a winner
+                            before the eval does.
+       no single subject -> `n/a` WITH THE REASON: a protocol doc has no repo, a landscape
+                            survey has no fixed contender set, a scan report is about its
+                            subject's output rather than its popularity.
+     The absence is DECLARED, never merely missing — the same rule as `**Last triaged:**`
+     (never backfilled) and the detectors' "0 records, not 0 findings". A blank field and an
+     inapplicable one look identical; a declared `n/a` distinguishes them, and is what a
+     presence gate could key on later.
+     Figures come from `repo-metadata.json` (refresh-metadata.py), not from a fresh manual
+     lookup, so they carry that cache's fetch date. -->
 **Last verified:** {YYYY-MM-DD}  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
 <!-- OPTIONAL next line: **Last triaged:** {YYYY-MM-DD} — add it only for a lead the triage
      lane actually looked at. Its ABSENCE is meaningful: this lead has never been examined.

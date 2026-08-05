@@ -1,6 +1,7 @@
 # Evaluation: symbolpeek-mcp
 
 **Repo:** [pioner92/symbolpeek-mcp](https://github.com/pioner92/symbolpeek-mcp)
+**Stars:** 18  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **Last verified:** 2026-07-30
 **Last triaged:** 2026-07-30  <!-- triaged: bulk -->
 **Dev loop stage:** Plan

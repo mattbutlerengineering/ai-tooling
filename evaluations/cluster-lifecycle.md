@@ -2,6 +2,7 @@
 
 **Cluster:** Dev Workflow / lifecycle frameworks (the default Plan→Implement→Verify→Ship loop)
 **Contenders:** [agent-skills](https://github.com/addyosmani/agent-skills) (ADOPT, recommended primary) · [superpowers](https://github.com/obra/superpowers) (ADOPT) · [GSD](https://github.com/open-gsd/gsd-core) (KEEP, incumbent) · [feature-dev](https://github.com/anthropics/claude-plugins-official) (KEEP)
+**Stars:** agent-skills 81,681 · superpowers 266,647 · GSD 7,722 · feature-dev 33,072 (the claude-plugins-official monorepo it ships in, not the plugin alone)  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **Last verified:** 2026-06-22
 **Dev loop stage:** Plan + Implement + Verify + Ship (these frameworks drive the whole loop)
 **Layer:** Process (a phase-loop methodology) with a Tooling spine (slash commands / skills / installer)

@@ -1,6 +1,7 @@
 # Evaluation: export-md
 
 **Repo:** [yussufs/export-md](https://github.com/yussufs/export-md)
+**Stars:** 24  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->
