@@ -31,6 +31,8 @@ intent ─▶ /to-prd ─▶ PRD
 
 A worked example of assessing your own setup against the loop, with named gaps: **[spikes/my-dev-workflow-assessment.md](spikes/my-dev-workflow-assessment.md)**.
 
+Where the "software factory" pitch is right and where it isn't — five commercial platforms and six practitioner talks, reduced to nine rules you can adopt incrementally: **[methodologies/software-factories.md](methodologies/software-factories.md)** (with the source reading in **[software-factory-field-notes.md](methodologies/software-factory-field-notes.md)**). Rule 0 is the one to act on first: grade the repo's *agent readiness* before adding pipeline stages, because the only measured claim in the vendor material is that low-readiness codebases get **slower**.
+
 To bootstrap any repo with these conventions, run `/setup-workflow`.
 
 ## 3. What to watch
