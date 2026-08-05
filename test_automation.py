@@ -2698,3 +2698,132 @@ class TestWatchlist(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestCatalogMirror(unittest.TestCase):
+    """Pins detector U: an eval's embedded `## Catalog entry` row and `**Repo:**` header
+    must agree with CATALOG.md's row for the same tool (#345, #336). The block is a
+    mirror with no generator and no test, which is exactly how 62% of it drifted."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+           "|------|------|-----------|-------------------|---------------|\n")
+
+    def _row(self, name, url, type_="tool", one="does a thing", prob="a pain", ovl="x"):
+        return f"| [{name}]({url}) | {type_} | {one} | {prob} | {ovl} |\n"
+
+    def _ctx(self, d, catalog_rows, evals):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", "## Plan\n\n" + self.HDR + "".join(catalog_rows))
+        _write(d, "COMPARISON.md", "")
+        for name, text in evals.items():
+            _write(d, f"evaluations/{name}.md", text)
+        return audit.DetectorContext(d)
+
+    def _eval(self, title, repo_url, row):
+        return (f"# Evaluation: {title}\n\n**Repo:** [slug]({repo_url})\n\n"
+                f"## Catalog entry\n\n{self.HDR}{row}")
+
+    def test_matching_row_is_clean(self):
+        url = "https://github.com/o/t"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", url)],
+                            {"t": self._eval("t", url, self._row("t", url))})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_renamed_repo_is_a_LINK_finding(self):
+        # The #336 failure: CATALOG gets repointed on a rename, the eval never does.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/new/t")],
+                            {"t": self._eval("t", "https://github.com/old/t",
+                                             self._row("t", "https://github.com/old/t"))})
+            kinds = [f.kind for f in audit.audit_catalog_mirror(ctx)]
+            self.assertEqual(kinds, ["LINK", "LINK"])  # embedded row + **Repo:** header
+
+    def test_case_only_link_diff_is_CASE_not_LINK(self):
+        # GitHub slugs are case-insensitive and redirect: this cannot make an eval
+        # assert the wrong repo's facts, so it must not dilute the LINK bucket.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/Owner/T")],
+                            {"t": self._eval("t", "https://github.com/owner/t",
+                                             self._row("t", "https://github.com/owner/t"))})
+            self.assertEqual({f.kind for f in audit.audit_catalog_mirror(ctx)}, {"CASE"})
+
+    def test_one_liner_drift_is_a_TEXT_finding(self):
+        url = "https://github.com/o/t"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", url, one="catalog wording")],
+                            {"t": self._eval("t", url, self._row("t", url, one="eval wording"))})
+            f, = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(f.kind, "TEXT")
+            self.assertTrue(f.detail.startswith("one_liner:"))
+
+    def test_overlaps_drift_is_reported(self):
+        # Not cosmetic: triage.py bands leads from the overlaps cell, so which copy
+        # is authoritative decides which band a lead lands in (#344).
+        url = "https://github.com/o/t"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", url, ovl="incumbent")],
+                            {"t": self._eval("t", url, self._row("t", url, ovl="something else"))})
+            f, = audit.audit_catalog_mirror(ctx)
+            self.assertEqual((f.kind, f.detail.split(":")[0]), ("TEXT", "overlaps"))
+
+    def test_embedded_row_with_no_catalog_row_is_ORPHAN(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [], {"t": self._eval("t", "https://github.com/o/t",
+                                                    self._row("t", "https://github.com/o/t"))})
+            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["ORPHAN"])
+
+    def test_eval_with_no_embedded_row_is_not_a_finding(self):
+        # 110 evals carry no `## Catalog entry` block; nothing is mirrored, so nothing drifts.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\n**Repo:** [s](https://github.com/o/t)\n"})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_site_headed_eval_reports_no_header_finding(self):
+        # A commercial platform heads with **Site:**, not **Repo:** — absence is not drift.
+        url = "https://github.com/o/t"
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n\n**Site:** [x](https://example.com)\n\n"
+                    f"## Catalog entry\n\n{self.HDR}{self._row('t', url)}")
+            ctx = self._ctx(d, [self._row("t", url)], {"t": text})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_pack_eval_checks_every_embedded_row(self):
+        # A pack eval embeds its siblings' rows too; each mirrors a catalog row.
+        a, b = "https://github.com/o/a", "https://github.com/o/b"
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: pack\n\n**Repo:** [s]({a})\n\n## Catalog entry\n\n"
+                    f"{self.HDR}{self._row('a', a)}{self._row('b', b, one='eval wording')}")
+            ctx = self._ctx(d, [self._row("a", a), self._row("b", b, one="catalog wording")],
+                            {"pack": text})
+            f, = audit.audit_catalog_mirror(ctx)
+            self.assertEqual((f.tool, f.kind), ("b", "TEXT"))
+
+    def test_parenthetical_name_resolves_to_its_catalog_row(self):
+        # 'GSD (gsd-core)' must find the catalog row via identity_keys, not report ORPHAN.
+        url = "https://github.com/o/gsd"
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("GSD (gsd-core)", url)],
+                            {"gsd": self._eval("GSD", url, self._row("GSD (gsd-core)", url))})
+            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+
+    def test_flag_is_report_only_and_exits_zero(self):
+        # Report-only, per #345: a bulk fix in either direction destroys real work in
+        # the other, so this prints a number to shrink and never fails a build.
+        with tempfile.TemporaryDirectory() as d:
+            for fn in ("audit-evals.py", "catalog_lib.py"):
+                shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+            self._ctx(d, [self._row("t", "https://github.com/new/t")],
+                      {"t": self._eval("t", "https://github.com/old/t",
+                                       self._row("t", "https://github.com/old/t"))})
+            r = subprocess.run(["python3", "audit-evals.py", "--catalog-mirror"],
+                               cwd=d, capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertIn("== U. catalog-entry mirror drift", r.stdout)
+            self.assertIn("2 LINK", r.stdout)
+
+    def test_flag_is_not_in_the_default_or_offline_gate_set(self):
+        self.assertNotIn("--catalog-mirror", audit.DEFAULT_GATES)
+        self.assertNotIn("--catalog-mirror", audit.OFFLINE_GATES)
+        self.assertIn("--catalog-mirror", audit.REPORT_FLAGS)
