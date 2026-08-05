@@ -1,6 +1,7 @@
 # Evaluation: inngest
 
 **Repo:** [inngest/inngest](https://github.com/inngest/inngest)
+**Stars:** 5,687  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** NOASSERTION
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->

@@ -1,6 +1,7 @@
 # Evaluation: Per-signal measurement protocols
 
 **Repo:** _(methodology — not a third-party tool; the protocols live in this repo)_
+**Stars:** n/a — methodology, no repo
 **Last verified:** 2026-07-03
 **Evidence:** MEASURED
 **Dev loop stage:** Reflect

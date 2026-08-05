@@ -1,6 +1,7 @@
 # Bake-off: agentmemory vs claude-mem — Memory & Context pilot
 
 **Evidence:** REVIEW
+**Stars:** claude-mem 89,595 (incumbent, arm A) · agentmemory 26,556 (challenger, arm B)  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **Last verified:** 2026-07-03
 **Dev loop stage:** Reflect
 **Layer:** Tooling

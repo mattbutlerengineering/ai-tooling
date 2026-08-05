@@ -1,6 +1,7 @@
 # Evaluation: cursor-bridge
 
 **Repo:** [hkc5/cursor-bridge](https://github.com/hkc5/cursor-bridge)
+**Stars:** 67  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->

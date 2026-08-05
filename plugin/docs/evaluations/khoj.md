@@ -1,6 +1,7 @@
 # Evaluation: khoj
 
 **Repo:** [khoj-ai/khoj](https://github.com/khoj-ai/khoj)
+**Stars:** 36,205  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** AGPL-3.0
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->

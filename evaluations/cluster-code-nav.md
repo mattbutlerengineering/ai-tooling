@@ -2,6 +2,7 @@
 
 **Cluster:** Code Understanding (structural/semantic code navigation for agents)
 **Contenders:** [codegraph](https://github.com/colbymchenry/codegraph) (ADOPT, always-on default) vs [serena](https://github.com/oraios/serena) (ADOPT, conditional)
+**Stars:** codegraph 64,594 · serena 27,562  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **Last verified:** 2026-06-22
 **Dev loop stage:** Plan + Implement — both feed agents precise structural context; serena also *edits* at the symbol level
 **Layer:** Tooling / Infrastructure (both run as MCP servers the client launches)

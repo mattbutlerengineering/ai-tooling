@@ -1,6 +1,7 @@
 # Evaluation: awesome-claude-skills (behisecc)
 
 **Repo:** [behisecc/awesome-claude-skills](https://github.com/behisecc/awesome-claude-skills)
+**Stars:** 9,904  <!-- repo-metadata.json, fetched 2026-08-05 -->
 **Last verified:** 2026-07-30
 **Last triaged:** 2026-07-30  <!-- triaged: bulk -->
 **Dev loop stage:** Reference

@@ -1,6 +1,7 @@
 # Evaluation: axern
 
 **Repo:** [cofy-x/axern](https://github.com/cofy-x/axern)
+**Stars:** 105  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->

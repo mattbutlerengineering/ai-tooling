@@ -1,6 +1,7 @@
 # Generative-UI frameworks: a landscape evaluation
 
 **Evidence:** REVIEW
+**Stars:** n/a — landscape survey of a field, not a fixed contender set; per-framework figures sit with each framework below
 **Last verified:** 2026-06-24
 **Dev loop stage:** Implement (building agent-facing UIs)
 **Layer:** Tooling / Reference

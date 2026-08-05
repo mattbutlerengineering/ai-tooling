@@ -2,6 +2,7 @@
 
 **Cluster:** Memory & Context (persistent cross-session recall)
 **Contenders:** [claude-mem](https://github.com/thedotmack/claude-mem) (ADOPT, STACK pick) vs OMEGA (KEEP, retained incumbent)
+**Stars:** claude-mem 89,595 · OMEGA n/a — no public repo  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **Last verified:** 2026-06-22
 **Dev loop stage:** Reflect (cross-session continuity) — a memory layer spanning the whole loop rather than one stage
 **Layer:** Infrastructure (a persistent store fronted by hooks/MCP tools)

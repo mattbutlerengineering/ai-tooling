@@ -1,6 +1,7 @@
 # Evaluation: h5i
 
 **Repo:** [h5i-dev/h5i](https://github.com/h5i-dev/h5i)
+**Stars:** 502  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
 **Last verified:** 2026-07-30
 **Last triaged:** 2026-07-30  <!-- triaged: bulk -->

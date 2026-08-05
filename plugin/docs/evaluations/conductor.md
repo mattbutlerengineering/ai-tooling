@@ -1,6 +1,7 @@
 # Evaluation: conductor
 
 **Repo:** [conductor-oss/conductor](https://github.com/conductor-oss/conductor)
+**Stars:** 32,055  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
 **Last verified:** 2026-07-31
 **Last triaged:** 2026-07-31  <!-- triaged: bulk -->
