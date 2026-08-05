@@ -3,7 +3,7 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 **Stars:** 30,444 (monorepo) | **Last updated:** 2025-12-18 (plugin author: Daisy Hollman, daisy@anthropic.com) | **License:** MIT (per plugin README); monorepo is Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-05  <!-- triaged: human -->
 **Dev loop stage:** Implement (meta: building the tools you implement *with*)
 **Layer:** Tooling
 
@@ -69,31 +69,53 @@ Repo verification: confirmed. The catalog entry was UNLINKED; the plugin ships f
 
 ## Verdict
 
-**discovery-log — tentative read (ADOPT for plugin authors; KEEP/installed already)**
+**discovery-log — tentative read.** _No verdict is asserted here; see the triage note for why the
+parenthetical that used to sit on this line was wrong on its facts._
 
-For anyone authoring Claude Code plugins, skills, agents, hooks, or MCP integrations, this is the default tool — adopt it. It is the only first-party, comprehensive, auto-triggering authoring toolkit, it ships deterministic validators, and its provenance means it tracks the spec it documents better than any third-party alternative. This repo specifically maintains a `plugin/` marketplace package, so plugin-dev is directly applicable here for validating that package's structure and authoring new components.
+For anyone authoring Claude Code plugins, skills, agents, hooks, or MCP integrations, this is the strongest candidate in the catalog. It is the only first-party, comprehensive, auto-triggering authoring toolkit, it ships deterministic validators, and its provenance means it tracks the spec it documents better than any third-party alternative. This repo specifically maintains a `plugin/` marketplace package, so plugin-dev is directly applicable here for validating that package's structure and authoring new components.
 
-It is CONDITIONAL rather than blanket-ADOPT only because the value is fully audience-gated: it does nothing for consumers who never author plugins, and it is v0.1.0 with a spec-lag risk. Versus **skill-creator**: keep both in the catalog and treat them as complementary, not duplicate — plugin-dev is the broader meta-toolkit (commands/agents/hooks/MCP + a guided scaffolder + validators), while skill-creator is the focused choice for standalone skill authoring with eval/benchmark/variance tooling that plugin-dev lacks. Reach for plugin-dev when building a multi-component plugin; reach for skill-creator when you only need one skill and want to measure its trigger accuracy. It is already installed/active in this environment, so the practical recommendation is KEEP.
+Whatever verdict it eventually earns will be audience-gated rather than blanket: it does nothing for consumers who never author plugins, and it is v0.1.0 with a spec-lag risk. Versus **skill-creator**: keep both in the catalog and treat them as complementary, not duplicate — plugin-dev is the broader meta-toolkit (commands/agents/hooks/MCP + a guided scaffolder + validators), while skill-creator is the focused choice for standalone skill authoring with eval/benchmark/variance tooling that plugin-dev lacks. Reach for plugin-dev when building a multi-component plugin; reach for skill-creator when you only need one skill and want to measure its trigger accuracy.
 
 ## Triage note
 
-**Escalated, not disposed.** Left at `discovery-log` for a human, because the eval substantively
-reads ADOPT/KEEP even though its headline token does not: "**ADOPT for plugin authors;
-KEEP/installed already**", and the body says "It is already installed/active in this environment,
-so the practical recommendation is KEEP."
+**Resolved: the escalation rested on a factual claim that does not hold — `plugin-dev` is not
+installed here.** ([#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332))
 
-That is a positive read, and no bulk lane may overrule one. It is the same shape as
-[#259](https://github.com/mattbutlerengineering/ai-tooling/issues/259) — an eval that concluded
-something the `discovery-log` row never caught up to — with an extra wrinkle: the tool is
-*installed*, so `KEEP` (the validated-installed status) is the verdict the row is missing, and a
-missing KEEP is what detector J's STACK-derivation drift exists to catch.
+The [#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263) pass escalated this lead
+rather than disposing it, correctly: the eval read "**ADOPT for plugin authors; KEEP/installed
+already**" and asserted "It is already installed/active in this environment", and no bulk lane may
+overrule a positive read. #332 then framed the decision as *if installed → the row is KEEP and it
+needs a STACK entry or a ledger exclusion; if not → the KEEP language goes*. Checking which branch
+applies is a fact, not a judgement, so it did not need a human — and the answer is the second branch:
 
-Note that detector T does not flag this one: after [#324](https://github.com/mattbutlerengineering/ai-tooling/issues/324)
-the headline *token* is `discovery-log` and the ADOPT/KEEP sits in the parenthetical, so a
-headline-keyed check reads it as a clean lead. Filed separately rather than widened into the
-detector, since "verdict word inside a tentative read" is prose, not structure.
+- `~/.claude/plugins/installed_plugins.json` lists exactly two entries, `rialto@local` and
+  `claude-md-management@claude-plugins-official`. `plugin-dev` is not among them.
+- `~/.claude/plugins/cache/claude-plugins-official/` holds **all 19** plugins in that marketplace —
+  auth0, context7, playwright, superpowers and the rest — because it caches the marketplace *repo*.
+  A directory there is evidence the marketplace was added, not that a plugin was installed. That
+  directory is the near-certain origin of the "installed/active" claim.
+- The distinction is visible in the cache itself: the genuinely-installed `claude-md-management`
+  has a **versioned** subdirectory (`1.0.0`) matching its `installPath`, while `plugin-dev/`
+  contains only `unknown`.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
+So the KEEP half of the parenthetical was never earned, and the ADOPT half was a recommendation
+written in verdict vocabulary — [#324](https://github.com/mattbutlerengineering/ai-tooling/issues/324)'s
+rule applied one level deeper than the headline. Both are now gone from the `## Verdict` section:
+the substantive read survives as prose ("the strongest candidate in the catalog" for plugin
+authors) without claiming a verdict the evidence level (`REVIEW`, and the eval's own admission that
+`/plugin-dev:create-plugin` was never run end-to-end) does not support.
+
+**Left at `discovery-log`, and the row is unchanged** — nothing here promotes it, so detector J is
+not being deprived of a KEEP it should have seen. Promoting it remains open, and detector K sets the
+bar: a KEEP needs `MEASURED`/`RUN` evidence or an honesty disclaimer. Installing it and running the
+scaffolder against this repo's own `plugin/` package is the obvious way to earn one.
+
+**The generalizable finding is that "installed" is a claim nothing in this repo checks.** Install
+status is a property of one laptop, so it can never be a CI gate — but it is load-bearing, because
+`KEEP` is *defined* as the validated-installed status. 25 evals assert some form of local install;
+this one was wrong. Filed separately.
+
+_Triaged 2026-08-05 by a human pass over [#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)._
 
 ## Catalog entry
 
