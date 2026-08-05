@@ -3,6 +3,7 @@
 **Repo:** [simstudioai/sim](https://github.com/simstudioai/sim)
 **Stars:** ~28,800 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (agent building/orchestration)
 **Layer:** Tooling
 
@@ -49,9 +50,30 @@ gh api repos/simstudioai/sim/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP — agent application platform, no dev-loop bridge.** Sim is a visual, chat and code workspace
+for building, deploying and operating AI agents — its own description is "**Build, deploy, and
+orchestrate AI agents** — the central intelligence layer for your AI workforce".
 
-Adopt when a team wants a visual+chat+code workspace to build and operate agents with built-in integrations, RAG, and a database — especially to include non-engineers. Code-first teams or those committed to a single agent CLI will get more control from a framework. Weigh it against Flowise/Langflow/Dify for the visual-builder slot.
+**Its own evaluation names the category and the peers.** It tells the reader to "weigh it against
+**Flowise/Langflow/Dify** for the visual-builder slot" — `Flowise` and `dify` are already SKIPped on
+exactly this ground, and `langflow` is SKIPped in this same pass. Its `Overlaps with` cell adds
+`agent-kit` and `voltagent`, the latter disposed in the preceding pass. Every peer it names is out of
+scope; a row whose entire comparison set is excluded is excluded.
+
+`WORKFLOW.md`'s **Tools Deliberately Excluded** table states the rule — "Flowise, LangGraph —
+visual/programmatic agent builders: for building AI products, not for your own dev workflow" — and the
+`dify` eval applies it to precisely this artifact class: "for building AI products, not for making
+developers more productive with AI coding agents."
+
+The eval's own strongest argument for Sim is that its visual workspace lets **non-engineers** build
+agents. That is a real virtue and it points away from this catalog, which is an operating manual for
+engineers improving how they write and ship code. It is also the specific property the `Flowise` eval
+flagged as a cost rather than a benefit here: hard-to-diff visual flows "actively cut against the
+engineering discipline (versioning, review, testing) the catalog's quality signals reward."
+
+The SKIP removes nothing — per the `Flowise` precedent the row stays in `CATALOG.md` as a reference
+entry. Re-open if it grows a dev-loop bridge of the kind `fast-agent` and `vercel/ai` have.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
