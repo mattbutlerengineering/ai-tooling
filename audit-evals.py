@@ -195,6 +195,34 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only: the immediate item is a HUMAN read of a P0 lead, and moving that
      authority is exactly what #353 declined to do. Offline.
 
+  X. COLLAPSED CATALOG IDENTITY (opt-in, --identity, REPORT-ONLY) — a row that names a
+     COMPONENT of an artifact catalogued as a WHOLE is not an independent lead. The P3
+     lane hit this five times from both directions before it was filed (#343): three
+     separate leads for skills that all ship in `mattpocock/skills` (a STACK pick), and
+     `jira`+`confluence`, which are one repo. Three observed effects — the queue is
+     overstated (installing the pack settles all three at once), a redundancy verdict
+     between the two is meaningless (that is the same thing, not a competitor), and the
+     eliminate-only band cannot act, so every pass spends a note re-explaining why.
+     Groups catalog rows by resolved `owner/repo` and splits them by whether the CATALOG
+     links already distinguish the rows:
+       SETTLED   — a discovery-log lead sharing a slug with an ADOPT/KEEP row. Strongest:
+                   the decision is made; the lead is a facet of an adopted artifact.
+       COLLAPSED — a lead sharing a slug with other rows, none of them settled.
+       FACETED   — every row in the group links its own subpath, so the catalog already
+                   distinguishes them. Printed, never counted: `claude-plugins-official`
+                   (8 rows, 8 subpaths) and `modelcontextprotocol/servers` (3 and 3) are
+                   monorepos of independently-installable artifacts, which is a different
+                   thing from one artifact counted N times.
+     That link-shape split is the whole precision story — the four collapsed groups all
+     have EVERY row pointing at one identical URL, so nothing in the catalog distinguishes
+     them, while the faceted ones point at distinct paths.
+     It does not see two cases #343 also lists, and cannot: a row whose pack is not itself
+     catalogued (`presentation-creator` inside `getsentry/skills`), and a row whose link
+     is the WHOLE product while the artifact is a component inside it (`prisma`, where the
+     ★46.9K measures the ORM, not the MCP server). Both need a human, not a slug compare.
+     Report-only, and deliberately not a fixer: whether to merge rows, add a "ships inside"
+     column, or exclude facets from the queue is the decision #343 asks for. Offline.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -207,6 +235,7 @@ Usage:
   python3 audit-evals.py --rows       # malformed CATALOG/COMPARISON table rows (offline)
   python3 audit-evals.py --bulk-triage  # bulk-marked evals may only SKIP (offline)
   python3 audit-evals.py --scope      # P0 leads whose eval concedes it is out of scope (offline)
+  python3 audit-evals.py --identity   # catalog rows that are facets of one artifact (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -1625,6 +1654,69 @@ def _scope_quote(text, match, width=110):
 
 
 
+# ---------------------------------------------------------------- X. collapsed catalog identity (report-only)
+# Two rows, one artifact (#343). A row naming a COMPONENT of something catalogued as a
+# WHOLE overstates the lead queue, makes a redundancy verdict between the two meaningless
+# ("redundant with X" is not a thing you can say about X's own contents), and strands the
+# eliminate-only band, which can neither SKIP it nor explain it in a verdict.
+
+IdentityFinding = collections.namedtuple("IdentityFinding", "kind slug tool verdict peers")
+
+SETTLED_VERDICTS = frozenset({"ADOPT", "KEEP"})
+
+
+def audit_identity(ctx):
+    """(findings, faceted) — leads that are facets of one catalogued artifact, plus the
+    multi-row groups that are NOT findings, carried so neither goes unmentioned.
+
+    The split is by LINK SHAPE, and it carries all the precision. Where every row in a
+    slug group points at one identical URL, nothing in the catalog tells them apart —
+    that is the #343 pattern. Where each row links its own subpath, the group is a
+    monorepo of independently-installable artifacts (`claude-plugins-official`: 8 rows,
+    8 subpaths), which is a different thing and must not be counted as drift."""
+    rows = [r for r in catalog_lib.parse_catalog_rows(ctx.catalog) if r.url]
+    groups = collections.defaultdict(list)
+    for r in rows:
+        slug = next(iter(catalog_lib.github_repos(r.url)), None)
+        if slug:
+            groups[slug.lower()].append(r)
+
+    verd = ctx.comparison_verdict_map
+
+    def verdict_of(name):
+        return next((verd[k] for k in catalog_lib.identity_keys(name) if k in verd), "—")
+
+    findings, context = [], []
+    for slug, members in sorted(groups.items()):
+        if len(members) < 2:
+            continue
+        by_verdict = [(r.name, verdict_of(r.name)) for r in members]
+        names = tuple(n for n, _ in by_verdict)
+        if len({r.url for r in members}) == len(members):
+            context.append(IdentityFinding("FACETED", slug, "", "", names))
+            continue
+        settled = tuple((n, v) for n, v in by_verdict if v in SETTLED_VERDICTS)
+        leads = [n for n, v in by_verdict if v == "discovery-log"]
+        if not leads:
+            # The identity is still collapsed, but no queue slot is wasted — every row
+            # is already disposed. Reported so the group is not silently invisible.
+            context.append(IdentityFinding("NO-LEADS", slug, "", "", names))
+            continue
+        for name in leads:
+            findings.append(IdentityFinding(
+                "SETTLED" if settled else "COLLAPSED", slug, name,
+                settled[0][1] if settled else "",
+                tuple(n for n, _ in settled) if settled
+                else tuple(n for n in names if n != name)))
+
+    # SETTLED first: a lead whose artifact is already ADOPT/KEEP is the one whose queue
+    # slot is provably wasted, where a COLLAPSED group is merely two facets of one
+    # undecided thing.
+    findings.sort(key=lambda f: (0 if f.kind == "SETTLED" else 1, f.slug, f.tool))
+    return findings, context
+
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -1633,7 +1725,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
-                "--catalog-mirror", "--maintenance", "--scope")
+                "--catalog-mirror", "--maintenance", "--scope", "--identity")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1689,6 +1781,7 @@ def main():
     do_mirror = "--catalog-mirror" in want   # opt-in report (does not affect exit code)
     do_maint = "--maintenance" in want       # opt-in report (does not affect exit code)
     do_scope = "--scope" in want             # opt-in report (does not affect exit code)
+    do_ident = "--identity" in want          # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1948,6 +2041,22 @@ def main():
             print(f"  SCOPE [{f.band}] {f.tool} ({f.typ}): \"{f.phrase}\"")
         for f in cleared:
             print(f"  argues it clears the bar — [{f.band}] {f.tool} ({f.typ}): \"{f.phrase}\"")
+    if do_ident:
+        finds, context = audit_identity(ctx)
+        settled = sum(1 for f in finds if f.kind == "SETTLED")
+        print(f"== X. collapsed catalog identity (report-only) — {len(finds)} lead(s) that "
+              f"are facets of one artifact, {settled} already settled ==")
+        if not finds:
+            print("  OK — no lead shares a catalog link with another row")
+        for f in finds:
+            tail = (f"already {f.verdict} as {f.peers[0]}" if f.kind == "SETTLED"
+                    else f"shares its link with {', '.join(f.peers)}")
+            print(f"  {f.kind:9} {f.tool} ({f.slug}): {tail}")
+        for f in context:
+            why = ("each row links its own subpath" if f.kind == "FACETED"
+                   else "collapsed, but every row is already disposed")
+            print(f"  {f.kind.lower()} ({why}) — {f.slug}: "
+                  f"{len(f.peers)} rows, {', '.join(f.peers)}")
     sys.exit(rc)
 
 if __name__ == "__main__":

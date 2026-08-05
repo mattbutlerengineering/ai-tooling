@@ -3046,6 +3046,88 @@ class TestMaintenanceSignal(unittest.TestCase):
             self.assertIn("why", rec["discontinued_ack"])
 
 
+class TestCollapsedIdentity(unittest.TestCase):
+    """Pins detector X (#343). A row naming a COMPONENT of an artifact catalogued as a
+    WHOLE is not an independent lead — mattpocock/skills produced three separate P3 leads
+    for skills that all ship in one pack the catalog already ADOPTs."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+           "|------|------|-----------|-------------------|---------------|\n")
+
+    def _ctx(self, d, catalog_rows, verdicts):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR + "".join(
+            f"| [{n}]({u}) | skill | x | y | z |\n" for n, u in catalog_rows))
+        _write(d, "COMPARISON.md",
+               "# T\n\n## Implement\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|---|---|---|---|---|---|\n" + "".join(
+                   f"| {n} | skill | y | y | {v} | REVIEW |\n" for n, v in verdicts))
+        return audit.DetectorContext(d)
+
+    PACK = "https://github.com/o/pack"
+
+    def test_lead_sharing_a_link_with_an_adopt_row_is_settled(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("pack", self.PACK), ("skill-a", self.PACK)],
+                            [("pack", "ADOPT"), ("skill-a", "discovery-log")])
+            finds, _ = audit.audit_identity(ctx)
+            self.assertEqual([(f.kind, f.tool, f.verdict) for f in finds],
+                             [("SETTLED", "skill-a", "ADOPT")])
+
+    def test_two_undecided_facets_are_collapsed_not_settled(self):
+        # jira + confluence: one repo, neither disposed. A redundancy verdict between
+        # them would be meaningless — that is the same thing, not a competitor.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("jira", self.PACK), ("confluence", self.PACK)],
+                            [("jira", "discovery-log"), ("confluence", "discovery-log")])
+            finds, _ = audit.audit_identity(ctx)
+            self.assertEqual([f.kind for f in finds], ["COLLAPSED", "COLLAPSED"])
+            self.assertEqual(finds[0].peers, ("jira",))
+
+    def test_distinct_subpaths_are_faceted_and_never_counted(self):
+        # THE precision rule. claude-plugins-official is 8 rows over 8 subpaths — a
+        # monorepo of independently-installable plugins, not one artifact counted 8 times.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("a", self.PACK + "/tree/main/plugins/a"),
+                                ("b", self.PACK + "/tree/main/plugins/b")],
+                            [("a", "discovery-log"), ("b", "discovery-log")])
+            finds, context = audit.audit_identity(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual([f.kind for f in context], ["FACETED"])
+
+    def test_collapsed_group_with_no_leads_is_context_not_a_finding(self):
+        # The identity is still collapsed, but no queue slot is wasted. Reported so the
+        # group is not silently invisible; not counted, because there is nothing to do.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("a", self.PACK), ("b", self.PACK)],
+                            [("a", "ADOPT"), ("b", "ADOPT")])
+            finds, context = audit.audit_identity(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual([f.kind for f in context], ["NO-LEADS"])
+
+    def test_a_lone_row_is_never_a_group(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("a", self.PACK)], [("a", "discovery-log")])
+            self.assertEqual(audit.audit_identity(ctx), ([], []))
+
+    def test_flag_is_report_only_and_opt_in(self):
+        # Whether to merge rows, add a "ships inside" column, or exclude facets from the
+        # queue is the DECISION #343 asks for — not something a detector should presume.
+        self.assertIn("--identity", audit.REPORT_FLAGS)
+        self.assertNotIn("--identity", audit.DEFAULT_GATES)
+        self.assertNotIn("--identity", audit.OFFLINE_GATES)
+
+    def test_live_run_finds_the_documented_groups(self):
+        # Guards the real tree: mattpocock/skills is the case #343 was filed over, and
+        # claude-plugins-official is the false positive the link-shape split must avoid.
+        finds, context = audit.audit_identity(audit.DetectorContext(ROOT))
+        settled = {f.tool for f in finds if f.kind == "SETTLED"}
+        self.assertIn("implement", settled)
+        faceted = {f.slug for f in context if f.kind == "FACETED"}
+        self.assertIn("anthropics/claude-plugins-official", faceted)
+
+
 class TestScopeMismatch(unittest.TestCase):
     """Pins detector W (#353). next-evals.py's score has no scope term — every term
     measures how much attention a lead attracts — so a row WORKFLOW.md's one-line
