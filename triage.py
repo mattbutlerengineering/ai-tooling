@@ -173,7 +173,11 @@ def positive_reads(ctx):
 
     Keys on `ev.verdict` (the headline token) and never `verdict_set`, which collects
     every verdict WORD in the section: trailofbits/skills reads "Held at CONDITIONAL
-    rather than ADOPT", so its set contains ADOPT while its verdict does not."""
+    rather than ADOPT", so its set contains ADOPT while its verdict does not.
+
+    Registered under `ev.name_aliases` — filename, `# Evaluation:` heading, catalog-row
+    name — which contains NO basenames, so the lookup side must use `identity_keys` and
+    never `alias_keys` (#374). See band_of."""
     reads = {}
     for ev in ctx.evals:
         if ev.verdict in catalog_lib.RECOMMENDED_VERDICTS:
@@ -186,8 +190,17 @@ def band_of(tool, facts, meta, reads):
     """The metadata-derived band for a lead, or None when the score-based bands
     (measure / challenger / backlog) decide it. Structural facts win: a lead that is
     archived or license-disqualified is banded on that fact regardless of its score —
-    unless its eval already reads ADOPT/KEEP, which no bulk lane may overrule."""
-    if any(a in reads for a in catalog_lib.alias_keys(tool)):
+    unless its eval already reads ADOPT/KEEP, which no bulk lane may overrule.
+
+    The shield asks `identity_keys`, NOT `alias_keys` (#374). alias_keys adds the
+    slash-basename so an entry installed under another name still resolves (GSD ←
+    obra/superpowers); between two rows that both name `owner/repo` that basename is
+    not a synonym but a DIFFERENT TOOL — `vercel-labs/agent-skills` → `agentskills` is
+    addyosmani/agent-skills, an unrelated ADOPT and a STACK pick. Two leads were
+    shielded by that stranger's verdict. identity_keys exists for exactly this and
+    names this exact pair in its docstring. Same root as #343 (identity by name inside
+    the catalog) and #366 (on the filesystem): key on what the row IS."""
+    if any(a in reads for a in catalog_lib.identity_keys(tool)):
         return None
     typ, slug, _ = facts.get(catalog_lib.name_key(tool), (None, None, ""))
     m = meta.get(slug) if slug else None
@@ -233,9 +246,13 @@ def assign(ctx):
         _, _, overlaps = facts.get(catalog_lib.name_key(tool), (None, None, ""))
         bands[tool] = "P2 challenger" if overlaps_stack(overlaps, skeys) else "P3 backlog"
 
-    # Within a band, an already-triaged lead sinks: fresh leads first.
+    # Within a band, an already-triaged lead sinks: fresh leads first. identity_keys,
+    # not alias_keys, for band_of's reason (#374) — last_triaged_map registers under
+    # ev.name_aliases too, so a basename here would sink a lead because a DIFFERENT
+    # tool sharing its basename was triaged. No such collision exists today; the
+    # lookup is corrected because the registration side never offered a basename.
     def sort_key(row):
-        stamped = any(a in triaged for a in catalog_lib.alias_keys(row[1]))
+        stamped = any(a in triaged for a in catalog_lib.identity_keys(row[1]))
         return (1 if stamped else 0, -row[0], -row[3], row[1])
 
     ordered = {name: sorted((r for r in ranked if bands[r[1]] == name), key=sort_key)

@@ -2256,6 +2256,94 @@ class TestTriage(unittest.TestCase):
             self.assertEqual(bands["P4 mechanical-skip"], [])
             self.assertIn("badskill", bands["P3 backlog"])
 
+    # ---- #374: the shield is an identity test, so it may not use alias_keys ----
+    # alias_keys adds the slash-basename so an entry installed under another name
+    # resolves (GSD <- obra/superpowers). Between two rows that BOTH name a tool,
+    # that basename is not a synonym but a different tool: 'vercel-labs/agent-skills'
+    # keys to 'agentskills', which is addyosmani/agent-skills — an unrelated ADOPT
+    # and a STACK pick. Two real leads were shielded by that stranger's verdict.
+    def _collision_tree(self, d):
+        """badskill (ADOPT) + vendor/badskill (a distinct lead sharing its basename)."""
+        self._fixture_tree(d)
+        _write(d, "CATALOG.md", self.CATALOG +
+               "| [vendor/badskill](https://github.com/vendor/badskill) "
+               "| skill | one | two | none |\n")
+        _write(d, "COMPARISON.md", self.COMPARISON +
+               "| vendor/badskill | skill | | ✓ | discovery-log | SOURCE-ONLY |\n")
+        meta = dict(self.META)
+        meta["vendor/badskill"] = {"license_spdx": "NONE", "archived": False}
+        _write(d, "repo-metadata.json", json.dumps(meta))
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "evaluations/badskill.md",
+               "# Evaluation: badskill\n\n## Verdict\n\n**ADOPT** — worth it.\n")
+
+    def test_basename_collision_does_not_shield_a_different_tool(self):
+        # vendor/badskill has no eval of its own; badskill's ADOPT must not reach it.
+        with tempfile.TemporaryDirectory() as d:
+            self._collision_tree(d)
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], ["vendor/badskill"])
+            self.assertIn("badskill", bands["P3 backlog"])   # its own ADOPT still shields
+
+    def test_slash_named_lead_is_shielded_by_its_own_positive_read(self):
+        # The other direction: the fix must not cost a lead its OWN shield.
+        with tempfile.TemporaryDirectory() as d:
+            self._collision_tree(d)
+            _write(d, "evaluations/vendor-badskill.md",
+                   "# Evaluation: vendor/badskill\n\n## Verdict\n\n**KEEP** — installed.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], [])
+
+    def test_parenthetical_alias_still_shields(self):
+        # identity_keys keeps the parenthetical-stripped form — only the basename
+        # fallback is dropped. A row named 'x (y)' evaluated as 'x' stays shielded.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            _write(d, "CATALOG.md", self.CATALOG.replace(
+                "| [badskill](https://github.com/x/badskill) | skill",
+                "| [badskill (Vendor)](https://github.com/x/badskill) | skill"))
+            _write(d, "COMPARISON.md", self.COMPARISON.replace(
+                "| badskill | skill", "| badskill (Vendor) | skill"))
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "evaluations/badskill.md",
+                   "# Evaluation: badskill\n\n## Verdict\n\n**ADOPT** — worth it.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P4 mechanical-skip"], [])
+
+    def test_triaged_sink_is_also_an_identity_test(self):
+        # Same mismatch in assign()'s sort_key: last_triaged_map registers under
+        # ev.name_aliases (no basenames), so a basename lookup would sink a lead
+        # because a DIFFERENT tool sharing its basename was triaged. No such
+        # collision exists in the corpus today — this fixture manufactures one.
+        # 'vendor/badskill' has never been triaged and outranks 'zpeer' by name,
+        # so it must lead; a basename lookup would sink it on badskill's stamp.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            _write(d, "CATALOG.md",
+                   "## Plan\n"
+                   "| Name | Type | One-liner | Problem | Overlaps with |\n"
+                   "|------|------|-----------|---------|---------------|\n"
+                   "| [badskill](https://github.com/x/badskill) | skill | one | two | none |\n"
+                   "| [vendor/badskill](https://github.com/vendor/badskill) "
+                   "| tool | one | two | none |\n"
+                   "| [zpeer](https://github.com/x/zpeer) | tool | one | two | none |\n")
+            _write(d, "COMPARISON.md",
+                   "# Tool Comparison\n\n## Plan\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|------|------|------|------|-----------|----------|\n"
+                   "| badskill | skill | | ✓ | ADOPT | REVIEW |\n"
+                   "| vendor/badskill | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+                   "| zpeer | tool | | ✓ | discovery-log | SOURCE-ONLY |\n")
+            _write(d, "repo-metadata.json", json.dumps({
+                "vendor/badskill": {"license_spdx": "MIT", "archived": False},
+                "x/zpeer": {"license_spdx": "MIT", "archived": False}}))
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "evaluations/badskill.md",
+                   "# Evaluation: badskill\n**Last triaged:** 2026-08-05  "
+                   "<!-- triaged: human -->\n\n## Verdict\n\n**ADOPT** — worth it.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P3 backlog"], ["vendor/badskill", "zpeer"])
+
     def test_headline_verdict_not_verdict_set_shields(self):
         # "Held at CONDITIONAL rather than ADOPT" must NOT count as a positive read
         # (verdict_set contains ADOPT; the headline verdict does not).
