@@ -13,10 +13,19 @@ neither installable nor GitHub repos, so they live here instead and never touch
 those gates. Map the topics below onto the dev loop in
 [WORKFLOW.md](WORKFLOW.md).
 
-**Last verified:** 2026-06-28 — channel URLs, listed video links, and web
-resources confirmed via web fetch. Channels with no per-video links had no
-specific video confirmed at verification time (channel is still good; titles were
-left out rather than link to a guess).
+**When a set of talks has actually been watched and distilled**, the reading lives
+in `methodologies/` and this page links to it — see
+[software-factory-field-notes.md](methodologies/software-factory-field-notes.md),
+which reduces six of the talks listed below to what they agree on, what they split
+on, and which side to take. This page stays a *pointer* list; the distillations are
+their own artifacts.
+
+**Last verified:** 2026-08-05 — the six software-factory channels and talks added
+below were confirmed live at that date (metadata pulled directly, and each talk was
+watched end to end). The rest of the page was last confirmed 2026-06-28 — channel
+URLs, listed video links, and web resources confirmed via web fetch. Channels with
+no per-video links had no specific video confirmed at verification time (channel is
+still good; titles were left out rather than link to a guess).
 
 ---
 
@@ -72,6 +81,33 @@ Jeff Delaney's high-energy, fast-paced dev channel ("X in 100 Seconds" + same-da
 breakdowns of new AI models/tools). Great for quick, opinionated orientation on
 new AI tech.
 
+### [IndyDevDan](https://www.youtube.com/@indydevdan)
+Weekly agentic-engineering builds with a consistent thesis — *"agents plus code
+beats agents alone"*: composable AI Developer Workflows with deterministic gate
+checks between agent steps and validated JSON handoffs, rather than piling
+everything into skills.
+- [My Super Simple Software Factory (For Agentic Engineers)](https://www.youtube.com/watch?v=haUfb1ievTE)
+
+### [Owain Lewis](https://www.youtube.com/@owainlewis)
+Working demos of ticket→spec→worktree→implement→review→merge pipelines, run
+live. Label-driven stages, worktree-per-run isolation, and scheduled jobs that
+*open tickets* rather than merging.
+- [I Built an Agentic Software Factory with Codex and Claude Code](https://www.youtube.com/watch?v=AbpyqAfxZ8c)
+
+### [Agentic Development — Ben Fellows](https://www.youtube.com/@benfellows-dev)
+The dissent worth keeping: generic agentic "factories" failed him, and the
+alternative is bespoke per-repo pipelines built from shared blocks, plus
+policy-as-code as a pre-test gate. *"There's a reason why Ford doesn't build
+every one of their cars in one factory."*
+- [I Tried Building with Agentic Factories. They Failed. Here's What Worked Instead.](https://www.youtube.com/watch?v=mREHBZQbhBo)
+
+### [Zen van Riel](https://www.youtube.com/@zenvanriel)
+Agentic engineering with a review-queue reality check — four effort-tiered
+parallel agents rather than fifty, worktrees for real parallelism, and an honest
+30–60% productivity number instead of a 5× claim. Skeptical by default of
+methodology branding that hasn't survived three to four months.
+- [The Agentic Engineer Workflow You Need In 2026](https://www.youtube.com/watch?v=ElYxdpYi4U0)
+
 ---
 
 ## Concepts — explainers for mixed-skill teams
@@ -96,6 +132,12 @@ DeepMind, Cursor, Cognition, and more. Among the best for applied AI engineering
 - [Don't Build Agents, Build Skills Instead — Barry Zhang & Mahesh Murag, Anthropic](https://www.youtube.com/watch?v=CEvIs9y1uog)
 - [Claude Code & the evolution of agentic coding — Boris Cherny, Anthropic](https://www.youtube.com/watch?v=Lue8K2jqfKk)
 - [Claude Agent SDK [Full Workshop] — Thariq Shihipar, Anthropic](https://www.youtube.com/watch?v=TqC1qOfiVcQ)
+- [Building your own software factory — Eric Zakariasson, Cursor](https://www.youtube.com/watch?v=rnDm57Py54A) — the levels-of-autonomy ladder, and the primitives/guardrails/enablers/environment checklist for building one on a team
+
+### [Arize AI](https://www.youtube.com/@arizeai)
+The Observe conference channel — AI observability and evaluation talks, with the
+enterprise end of agentic delivery well represented.
+- [From AI Coding Agents to the Software Factory — Eno Reyes, Factory AI](https://www.youtube.com/watch?v=SkoT4RkteSA) — agent-readiness grading, and the finding that level 1–2 codebases *decelerate* delivery
 
 ### [Latent Space](https://www.youtube.com/@LatentSpacePod)
 swyx (Shawn Wang) and Alessio Fanelli's podcast "by and for AI Engineers" —
