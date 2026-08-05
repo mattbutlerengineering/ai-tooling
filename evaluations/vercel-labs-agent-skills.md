@@ -1,8 +1,8 @@
 # Evaluation: vercel-labs-agent-skills
 
 **Repo:** [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
-**Stars:** 28,119 | **Last updated:** 2026-06-10 (pushed; created 2025-12-08) | **License:** none declared
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Stars:** 29,775 | **Last updated:** 2026-07-24 (pushed; created 2025-12-08) | **License:** MIT, declared in the README and in both `packages/*/package.json` — but there is **no `LICENSE` file**, so GitHub's API reports `null` and `repo-metadata.json` caches `NONE` (see Verdict)
+**Last verified:** 2026-08-05
 **Dev loop stage:** Implement + Review — the skills are coding guidance (React/Next.js, React Native, view transitions, web design, prose) applied while writing and reviewing UI/docs, plus a Verify-adjacent Vercel cost/perf audit. Frontend- and Vercel-leaning, not a general-purpose roster.
 **Layer:** Process (a small collection of `SKILL.md` instruction-and-script packages installed into an agent's skills directory; no runtime of its own — installed via the sibling `npx skills` CLI)
 
@@ -45,7 +45,7 @@ gh api repos/vercel-labs/agent-skills --jq '{forks:.forks_count, openissues:.ope
 ## What didn't work or surprised us
 
 - **Narrow by design — Vercel/React-shaped, not a general dev kit.** 4 of 9 skills are React/Next/RN; two more are Vercel-deploy/CLI specific. If you are not on the Vercel/React stack, perhaps half the collection is irrelevant. This is a quality trade (focus over breadth), but it is a real fit constraint vs. broad collections.
-- **No declared license.** `license` is `null` — same blocker as the sibling CLI. "Official Vercel" framing doesn't substitute for explicit terms when you are installing it into client work.
+- **~~No declared license.~~ Corrected 2026-08-05 — MIT is declared, just not where GitHub looks.** The original bullet read "`license` is `null` — same blocker as the sibling CLI." Both halves have since turned out to be wrong. The README carries a `## License` section reading `MIT`, and both `packages/*/package.json` manifests declare `"license": "MIT"`; what is missing is a root `LICENSE` **file**, which is the only thing GitHub's licensee detector reads. And the sibling CLI (`vercel-labs/skills`) has since added a real MIT `LICENSE`, so it is no longer a blocker there either. The residual weakness is narrow and worth stating: a README line names the license without reproducing the MIT text or a copyright holder line, which is thinner than a `LICENSE` file — but it is a stated grant from the copyright holder, not the absence of one.
 - **Vendor-aligned guidance.** The advice optimizes for the Vercel/Next.js way (and `deploy-to-vercel`/`vercel-cli-with-tokens` are outright platform plumbing). Excellent if you're on Vercel; mild lock-in pull if you're evaluating neutrally.
 - **Rule counts are self-reported.** "40+/100+/80+ rules" and impact rankings are the authors' claims; the test suites validate parsing/extraction, not that following every rule improves real outcomes. Treat the rankings as informed opinion, not measured.
 - **Two of the nine are thin platform skills.** `deploy-to-vercel` and `vercel-cli-with-tokens` are convenience/credential plumbing, not craft guidance — they pad the count more than the value.
@@ -57,12 +57,29 @@ gh api repos/vercel-labs/agent-skills --jq '{forks:.forks_count, openissues:.ope
 | Correctness | + | Build-backed, test-validated rule sets (react-best-practices, web-design-guidelines) catch real perf/a11y/UI defects during Implement and Review. |
 | Speed | + | Ready-made, impact-ranked guidance means the agent applies known-good patterns instead of re-deriving them; vercel-optimize triages by metrics first. |
 | Maintainability | + | web-design-guidelines, writing-guidelines, and composition-patterns push consistent, reviewable UI/prose/component conventions. |
-| Safety | neutral | Pure instruction/script skills; no runtime reach of their own. `vercel-cli-with-tokens` touches credentials — handle per normal token hygiene. (No license is a governance, not runtime, concern.) |
+| Safety | neutral | Pure instruction/script skills; no runtime reach of their own. `vercel-cli-with-tokens` touches credentials — handle per normal token hygiene. (The license question is governance, not runtime — and it resolves in the tool's favour; see Verdict.) |
 | Cost Efficiency | + | vercel-optimize is purpose-built to cut Vercel cost/function usage — one of the few catalog entries that directly targets spend. |
 
 ## Verdict
 
-**ADOPT (for Vercel/React stacks) — cherry-pick vercel-optimize, react-best-practices, and web-design-guidelines; CONDITIONAL otherwise.** This is the highest-trust skill collection inspected so far: small, curated, Vercel-authored, and — uniquely — build-backed with real test suites instead of unverified markdown. If you ship on Vercel/Next.js, vercel-optimize (metrics-first cost/perf audit) and the React/web-design rule sets are immediately worth installing. The only real caveats are the missing license and the deliberate narrowness — outside the Vercel/React orbit, only web-design-guidelines and writing-guidelines fully generalize.
+**discovery-log — tentative read.** Resolves [#259](https://github.com/mattbutlerengineering/ai-tooling/issues/259), which asked whether the no-license bar overrides an eyes-open ADOPT here. Neither half of that question survived a live re-check on 2026-08-05, so the answer is neither of the two it offered.
+
+**The license ground is false.** `vercel-labs/agent-skills` declares **MIT** — a `## License` section in the README and `"license": "MIT"` in both `packages/*/package.json`. There is no root `LICENSE` file, which is the only thing GitHub's licensee detector reads, so the API returns `null` and `repo-metadata.json` caches `license_spdx: NONE`. The adoption bar ([ADR-0005](../docs/adr/0005-verdict-vocabulary.md), #26/#36) disqualifies a repo that *grants nothing*; it does not disqualify a repo that grants MIT in the wrong file. So this is **not** a SKIP.
+
+```bash
+gh api repos/vercel-labs/agent-skills --jq '.license'                          # null
+gh api "repos/vercel-labs/agent-skills/git/trees/HEAD" --jq '.tree[].path'     # no LICENSE
+gh api repos/vercel-labs/agent-skills/readme --jq '.content' | base64 -d | sed -n '226,232p'   # "## License\n\nMIT"
+gh api repos/vercel-labs/agent-skills/contents/packages/react-best-practices-build/package.json --jq '.content' | base64 -d | grep license   # "license": "MIT"
+```
+
+**But the ADOPT does not stand either — for an unrelated reason the license argument was masking.** ADR-0005 grants a real verdict only to a tool that was *exercised* or that carries a genuine `adopt-if:` condition. This eval is `Evidence: REVIEW` and says so plainly in its own "How we tested it": no skill was installed, none was activated, no Vercel project was audited. An ADOPT headline on a source-only read is precisely the overreach [#324](https://github.com/mattbutlerengineering/ai-tooling/issues/324) relabelled across 324 files, and detector T (`--lead-headlines`) reports this file as its **only** remaining finding. The `COMPARISON.md` row already read `discovery-log`; the headline is what was out of line, and it is now relabelled to match.
+
+**The technical read is unchanged and stands as the reason this is worth promoting.** Everything above this section still holds: 9 skills, build-backed with real test suites (`react-best-practices-build`, `vercel-optimize-tests`), and `vercel-optimize`'s metrics-first methodology touching Cost Efficiency, which little else in the catalog moves. Among source-inspected skill collections this is still the highest-trust one on the shelf. What it lacks is a run, not a case.
+
+**Promotion path.** Install the three candidate skills via `npx skills add vercel-labs/agent-skills`, then run the skill-dimension protocol `TEMPLATE.md` requires — a triggering test plus a with-skill-vs-baseline A/B on a disclosed task set (`evaluations/measurement-protocols.md`). ADOPT is available on that evidence and on nothing weaker. The narrowness caveat is a scoping note for that run, not a blocker: outside the Vercel/React orbit only `web-design-guidelines` and `writing-guidelines` fully generalize.
+
+**One caveat worth carrying forward.** The cached `NONE` that grounded this whole question is wrong for **8 of the 28** repos it is recorded against, and `openreview` is already SKIPped on that false premise — filed separately, since the fix belongs in `refresh-metadata.py` rather than in this eval.
 
 Compared to neighbors: **addyosmani/agent-skills** is broader "production-grade engineering" coverage but markdown-only (not test-backed); Vercel wins on verification, addy on breadth. **mattpocock/skills** is a working dev's general-purpose kit (TDD, module design, debugging) — more stack-agnostic, less specialized. **gstack** is a *harness* (~53 curated skills + CLIs) — a whole setup vs. a focused 9-skill collection. **wshobson/agents** and **agency-agents** are large persona rosters you curate down; vercel-labs/agent-skills is the opposite philosophy — few skills, each tested. For Vercel/React work specifically, this beats all of them on trust per skill.
 
