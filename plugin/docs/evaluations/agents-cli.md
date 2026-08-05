@@ -3,6 +3,7 @@
 **Repo:** [google/agents-cli](https://github.com/google/agents-cli)
 **Stars:** 3,012 | **Last updated:** 2026-06-15 (pushed; created 2026-04-08) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the loop *for one narrow domain* — building, evaluating, and deploying agents on Google Cloud: Plan/Implement (scaffold + ADK), Verify (eval generate/grade/analyze/optimize), Ship (deploy, CI/CD, publish to Gemini Enterprise), Reflect (observability via Cloud Trace). It is not a general coding agent.
 **Layer:** Tooling + Process — a PyPI CLI (`google-agents-cli`) that does the Google Cloud heavy lifting, plus an installable **Skills pack** that teaches *your* coding assistant how to drive it.
 
@@ -59,6 +60,23 @@ gh api repos/google/agents-cli --jq '.forks_count'      # 363 forks, only ~3 lis
 **discovery-log — tentative read: adopt if and only if you build agents on Google Cloud / Gemini Enterprise.** agents-cli is high-quality, official, cross-assistant Google tooling for a genuinely hard vertical: scaffolding, evaluating, deploying, and observing ADK agents on GCP. Its eval suite is a real differentiator and the skills-only install lowers the trial cost. But it is *not* the general "expert coding assistant" upgrade its tagline implies — strip away Google Cloud and little remains. For anyone on the GCP/ADK path it is close to an ADOPT; for everyone else it is out of scope.
 
 Compared to neighbors: it is **not** a peer of gemini-cli / qwen-code / opencode / grok-cli — those are general coding agents; agents-cli is platform-ops tooling that *rides on top of* one of them (it explicitly lists Gemini CLI, Claude Code, Codex, Antigravity as hosts). Its closest catalog kin are vertical skill/plugin packs that teach an assistant a specific domain (e.g. the agency/skills collections) rather than coding-agent CLIs — but unlike pure persona packs, it ships a real CLI doing real Google Cloud work behind the skills. Best filed as a domain-specific Agent Harness skill pack, not an alternative coding CLI.
+
+## Triage note
+
+Left at `discovery-log`. A vertical domain pack — *"adopt if and only if you build agents on Google
+Cloud / Gemini Enterprise"* — which is out of *this user's* scope without being out of the catalog's.
+That is the same call made for `azure-skills` and `google/skills` in the Skills & Plugins pass, and
+the Skills & Plugins section blurb deliberately holds domain packs. Apache-2.0, ★5.5K, pushed
+2026-08-04.
+
+One catalog defect worth recording rather than acting on: its "Overlaps with" cell points at general
+coding CLIs (gemini-cli, opencode, qwen-code), which the eval says is a mis-filing — agents-cli
+*rides on top of* those hosts rather than competing with them, and its real kin are vertical skill
+packs. A mis-pointed overlaps cell mis-bands a lead (the `softaworks/agent-toolkit` finding from the
+Skills & Plugins pass); here it would push a domain pack into a coding-CLI comparison it should
+never have been in.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [ghostwright/phantom](https://github.com/ghostwright/phantom)
 **Stars:** 1,432 | **Last updated:** 2026-06-16 (pushed; created 2026-03-26) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Cross-cutting / autonomous operations (a persistent self-directed agent, not a single dev-loop stage)
 **Layer:** Infrastructure (deployable TypeScript agent platform on the Claude Agent SDK; Docker)
 
@@ -58,6 +59,21 @@ gh api repos/ghostwright/phantom/readme --jq '.content' | base64 -d   # idea, ch
 **discovery-log — tentative read** — adopt only as a deliberately-isolated autonomous co-worker, never as a casual dev-loop tool. The "AI with its own computer + persistent memory + self-evolution + multi-channel identity" concept is genuinely novel and the BYO-model/Apache-2.0 story is strong. But the safety surface is the defining factor: an agent that mounts the Docker socket, builds infra without permission, and holds credentials and an email identity is root-equivalent on its host — run it on throwaway, network-isolated infrastructure with scoped, revocable credentials and treat its self-built artifacts as unreviewed. The marquee capability claims are self-reported and unverified. Best for experimenters wanting a standing autonomous agent; not for anyone who can't fully sandbox it.
 
 Compared to neighbors: catalog harnesses like **superpowers/ECC/gstack** *structure how Claude Code operates within your repo*; **ralph-claude-code/deer-flow** run autonomous loops *on a task*; Phantom is further out — a **persistent, self-hosted agent that lives on its own machine and operates continuously across channels**, closer to an autonomous platform (goose/OpenHands) than a per-task harness, with a correspondingly larger safety footprint.
+
+## Triage note
+
+Left at `discovery-log`, and it carries the largest safety surface in this slice: it mounts the
+Docker socket, builds infrastructure without asking, and holds credentials and an email identity —
+root-equivalent on its host, with self-reported marquee capability claims.
+
+Not SKIPped because the eval states the mitigation as a **gate** — *"run it on throwaway,
+network-isolated infrastructure with scoped, revocable credentials"* — and whether a reader can meet
+that is user-specific and uncheckable from here. This is the `CLIProxyAPI` call from the sandboxes
+pass repeated: a strong case is not the same as a checkable one, and `plandex` was disposable only
+because its gate (upstream still shipping) resolves against public facts. Apache-2.0, ★1.5K, pushed
+2026-06-16.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

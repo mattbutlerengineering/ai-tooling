@@ -3,6 +3,7 @@
 **Repo:** [inngest/agent-kit](https://github.com/inngest/agent-kit)
 **Stars:** ~900 | **Last updated:** 2026-04-29 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -56,9 +57,29 @@ gh api repos/inngest/agent-kit/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP — a framework for building AI products, which `WORKFLOW.md` excludes by name; three of its
+four named peers are already SKIP.**
 
-Adopt for TypeScript multi-agent systems where you want deterministic, code-controllable routing and durable, fault-tolerant execution — particularly if you already use or are willing to adopt Inngest. For Python stacks, pydantic-ai fits better; for a broader TS platform with bundled ops, compare voltagent. Strong concept; weigh the Inngest platform commitment.
+The codified ground is *"Flowise, LangGraph — Visual/programmatic agent builders — for building AI
+products, not for your own dev workflow"* (`WORKFLOW.md`, Tools Deliberately Excluded). The test a
+framework must clear to keep a recommendation is a **dev-loop bridge**: something you run on your own
+repo — as `fast-agent` has (a runnable MCP-native coding agent, left at `discovery-log` in this same
+pass) and `vercel/ai` has (a coding-agent skill plus a harness primitive). agent-kit ships neither.
+It is a TypeScript library for building multi-agent *networks* with typed shared state and durable
+execution — production agent systems, not your dev loop — and its own adoption condition is a
+platform commitment: *"particularly if you already use or are willing to adopt Inngest."*
+
+Its "Overlaps with" cell names four peers, and the disposition is already settled for three of them:
+**voltagent** and **microsoft/agent-framework** are SKIP on this exact ground, and **pydantic-ai** is
+held only because it sits in P0 measure where this lane may not write. That leaves agent-kit as the
+last unreached member of a class of 22 rows the agent-frameworks pass eliminated — it was named in
+that pass's finding as out of scope but out of reach, and this closes it.
+
+Nothing here is a quality judgement: Apache-2.0, credible authorship, and deterministic
+code-controllable routing is a real differentiator against fully-autonomous frameworks. The row stays
+as reference under the `Flowise` precedent, so a reader building a TS agent product still finds it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

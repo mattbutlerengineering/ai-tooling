@@ -3,6 +3,7 @@
 **Repo:** [tw93/Kaku](https://github.com/tw93/Kaku)
 **Stars:** 5,423 | **Last updated:** 2026-06-18 (pushed; created 2026-02-07) | **License:** MIT (README/LICENSE.md; GitHub API reports NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Cross-cutting environment — the terminal you run coding agents *in*, not a stage participant; light Implement/Verify conveniences via its AI panel
 **Layer:** Infrastructure (a macOS terminal emulator — a deeply customized WezTerm fork in Rust)
 
@@ -54,9 +55,27 @@ gh api repos/tw93/Kaku/releases --jq 'length'   # 18
 
 ## Verdict
 
-**discovery-log — tentative read** — adopt if you're on macOS and want a polished, zero-config WezTerm-compatible terminal pre-tuned for running coding agents, and you value the small built-in AI conveniences. It is well-built and actively maintained, but it is *infrastructure you run agents inside*, not a tool that intervenes in the dev loop — so it earns a catalog row as the environment layer, not as a quality-signal mover. Skip it if you're not on macOS or are happy with your current terminal; the AI panel is a nicety, not a reason to switch on its own.
+**SKIP for this catalog's purpose — it is the terminal you run agents *in*, not a tool that
+intervenes in the dev loop (keep the row).** The eval already reached this conclusion and only
+stopped short of the label: *"it is **infrastructure you run agents inside**, not a tool that
+intervenes in the dev loop — so it earns a catalog row as the environment layer, not as a
+quality-signal mover"*, and *"the honest framing is 'a better terminal for AI coders,' not 'an AI
+coding tool.'"* Its own header files the Layer as Infrastructure and the stage as "not a stage
+participant".
 
-Compared to neighbors: its sibling **Waza** (CONDITIONAL) is a *skill* suite that does intervene in the loop (think/check/hunt); Kaku is the terminal beneath it. Against agent CLIs like **gemini-cli / opencode / goose**, Kaku is orthogonal — it *hosts* them rather than competing. The honest framing is "a better terminal for AI coders," not "an AI coding tool."
+That is the `Flowise` disposition verbatim — SKIP for this catalog's purpose, keep as a reference
+entry. The row survives, so a reader looking for a WezTerm-compatible macOS terminal tuned for
+agents still finds it; what changes is only that it is not a recommendation. Its sibling **Waza**
+(CONDITIONAL) is the skill suite that *does* intervene in the loop; Kaku is the terminal beneath it.
+
+**License, for the record:** GitHub reports `NOASSERTION`, but `LICENSE.md` read live on 2026-08-04
+is plain **MIT** — the parser is defeated by two copyright lines (Tw93, plus Wez Furlong for the
+original WezTerm code this forks). The header already discloses this, so nothing needed correcting.
+It is noted because the lane is now three-for-three that `NOASSERTION` means *unparsed*, never
+*absent*: it has hidden a permissive Apache-2.0 (`terraform-skill`), a blocking CC BY-NC
+(`academic-research-skills`), and now an MIT-with-upstream-attribution.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

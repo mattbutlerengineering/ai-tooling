@@ -3,6 +3,7 @@
 **Repo:** [evalstate/fast-agent](https://github.com/evalstate/fast-agent)
 **Stars:** 3,830 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify (CLI coding agent + agent/eval harness)
 **Layer:** Tooling (the CLI agent) + Infrastructure (the Python framework)
 
@@ -63,6 +64,26 @@ Reviewed: the coding-agent invocation paths (`-x` shell mode, `--smart`, `--pack
 fast-agent clears the bar that aisuite and LangGraph did not: it is not merely a library for building AI products — it ships a runnable, MCP-native, SKILL.md/ACP-aware **coding agent and evaluation toolkit** you drive from the terminal (`fast-agent --model opus -x --smart`), which lands directly in the Implement and Verify stages of the dev loop. That is a real dev-loop surface, so it does not get the SKIP that the pure frameworks received.
 
 It is CONDITIONAL rather than ADOPT because (a) it is a *parallel* agent runtime, not an enhancement to your existing Claude Code setup (no plugin/skill of its own), so adopting it means running a second agent; and (b) its other half is a general agent-building framework that, in isolation, is out of catalog scope. **Adopt it when** you want a provider-agnostic, MCP-first coding agent or a lightweight harness to build/run model-vs-model and evaluator-optimizer **evaluations** — especially if you live outside the Anthropic-only Claude Code path or need deep MCP transport/OAuth control. If your workflow is fully inside Claude Code and you only need MCP servers and skills, the marginal benefit is smaller.
+
+## Triage note
+
+Left at `discovery-log` — **this is the reference case for the bar that eliminated 33 framework rows
+in the agent-frameworks pass**, and it clears it. `WORKFLOW.md`'s excluded table disposes
+"visual/programmatic agent builders — for building AI products, not for your own dev workflow"; the
+test a framework must pass is a **dev-loop bridge**, something you run on your own repo. fast-agent
+ships one: a runnable, MCP-native, SKILL.md/ACP-aware coding agent and evaluation toolkit driven
+from the terminal, landing in Implement and Verify. Only it and `vercel/ai` survived that pass on
+this ground.
+
+Apache-2.0, ★3.9K, pushed 2026-08-04 (the day of this triage) — the most actively maintained lead in
+the slice. Its evaluator-optimizer half is also a candidate for the Verify-stage gap the scoring
+function keeps flagging, which is a reason to measure it, not to eliminate it.
+
+The eval's reservations are adoption conditions, not disposal grounds: it is a *parallel* runtime
+rather than an enhancement to an existing Claude Code setup, so adopting it means running a second
+agent, and its framework half is out of scope in isolation.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

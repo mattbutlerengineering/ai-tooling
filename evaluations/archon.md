@@ -3,6 +3,7 @@
 **Repo:** [coleam00/Archon](https://github.com/coleam00/Archon)
 **Stars:** ~22,500 | **Last updated:** 2026-06-15 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (workflow orchestration for coding agents)
 **Layer:** Tooling
 
@@ -52,6 +53,19 @@ gh api repos/coleam00/Archon/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when you want AI coding to be deterministic and repeatable — encoding your plan→implement→validate→review→PR process as owned, version-controlled workflows with validation gates and parallel worktree runs. Best for teams standardizing a process across projects; overkill for ad-hoc single tasks. Compare against flow-next and spec-kit for the spec/workflow layer that fits your team.
+
+## Triage note
+
+Left at `discovery-log`. A workflow engine for plan→implement→validate→review→PR with validation
+gates and parallel worktree runs — squarely inside the loop, not beside it. MIT, ★23.1K, pushed
+2026-08-04.
+
+Not disposable by this lane because the eval defers the call to a comparison with `flow-next`
+(discovery-log) and **`spec-kit` (P0 measure)**: the spec/workflow slot has no STACK incumbent, so
+there is no "redundant with X" available, and choosing among the candidates is exactly the measured
+comparison P0 exists for. Eliminating one arm of an undecided comparison would prejudge it.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

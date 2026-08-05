@@ -3,6 +3,7 @@
 **Repo:** [modu-ai/moai-adk](https://github.com/modu-ai/moai-adk)
 **Stars:** ~1,100 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Process / Tooling
 
@@ -52,6 +53,19 @@ gh api repos/modu-ai/moai-adk/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you want a turnkey SPEC-First + TDD/DDD workflow for Claude Code and prefer an opinionated kit over assembling spec-kit + TDD hooks + agents yourself — especially for multi-language teams. Audit the 24-agent/52-skill bundle against your conventions first. Compare with flow-next/Archon (workflow engines) and spec-kit (spec layer) for the spec-driven slot.
+
+## Triage note
+
+Left at `discovery-log`, for the same reason as `Archon` in this pass: it is a candidate for the
+spec-driven slot that `spec-kit` (P0 measure) will decide, and that slot has no STACK incumbent to
+be redundant with. Apache-2.0, ★1.2K, pushed 2026-08-05.
+
+The eval's own caveat — *"audit the 24-agent/52-skill bundle against your conventions first"* — is an
+adoption condition, and notably **not** the undifferentiated-breadth problem that disposed
+`agency-agents` in this same pass: this is an opinionated SPEC-First + TDD/DDD kit where the bundle
+implements one workflow, rather than a menu of personas with no runtime.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

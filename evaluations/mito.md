@@ -3,6 +3,7 @@
 **Repo:** [mito-ds/mito](https://github.com/mito-ds/mito)
 **Stars:** ~2,640 | **Last updated:** 2026-06-11 | **License:** open-core (repo SPDX returns NOASSERTION; Mito Pro tier)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -56,6 +57,25 @@ gh api repos/mito-ds/mito/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt for Jupyter/data-science work where you want an in-notebook AI copilot (chat + error debugging, no copy-paste) and spreadsheet-to-Python codegen — it underserves a niche that terminal/IDE assistants miss. Confirm the open-core/license boundary. Not relevant to general software development outside notebooks; for that, tabby/aichat or an IDE assistant fit better.
+
+## Triage note
+
+Left at `discovery-log` — **and the eval's open question is now answered.** It asked to "confirm the
+open-core/license boundary"; read live on 2026-08-04, `LICENSE` declares everything outside
+`mitosheet/**/pro` and `mitosheet/**/enterprise` to be **AGPL-3.0**, with those two directories
+proprietary. GitHub reports `NOASSERTION` because of that carve-out preamble, not because terms are
+missing — the same parser failure this lane has now seen four times.
+
+**The AGPL does not dispose this lead.** `triage.py`'s P4 copyleft rule is deliberately scoped to
+*vendored* Types — `skill`/`plugin`, whose text is copied into your repo — because copyleft on
+something you merely *run* imposes nothing. mito is a `tool`: a Jupyter extension you install. The
+scoping exists precisely so a naive copyleft sweep can't take out live infrastructure.
+
+Left rather than SKIPped on scope, too: it is a notebook-scoped Implement tool (in-notebook chat,
+error debugging, spreadsheet-to-Python codegen) serving a niche terminal and IDE assistants miss.
+★2.6K, pushed 2026-07-21.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
