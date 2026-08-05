@@ -128,6 +128,25 @@ harness/model combinations currently lead on agentic terminal work when deciding
 what to adopt. *The leaderboard is live and shifts often — check current standings
 rather than trusting a snapshot.*
 
+### [Comprehension Debt — the hidden cost of AI-generated code](https://addyosmani.com/blog/comprehension-debt/) — Addy Osmani
+Names and quantifies the failure mode this repo's [Verifiability quality
+signal](WORKFLOW.md#why-verifiability-is-its-own-signal) is built to catch: teams
+generating code faster than anyone can understand it. Cites convergent findings
+from multiple 2026 research groups that AI coding tools produce code 5-7x faster
+than developers can review it, and that PR volume rising alongside a rising
+incident rate per PR is a signal standard velocity metrics miss entirely — it
+shows up 6-18 months later as code nobody can confidently modify. Useful as the
+named-concept companion to the Verifiability rationale already in `WORKFLOW.md`.
+
+### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
+A measured comparison (not a vendor claim) of 470 real open-source pull requests
+(320 AI-coauthored, 150 human-only): AI-generated code averaged 1.7x more issues
+per PR than human-written code, with security vulnerabilities up to 2.74x higher
+and logic/correctness issues 75% more common. The most concrete evidence found
+this pass for why unreviewed AI output is the wrong default — it's a data point
+for the Verifiability signal's premise, not a reason to distrust AI coding tools
+outright; the gap is exactly what review process closes.
+
 ---
 
 *Suggest additions or fixes via PR. Keep entries developer-focused, verify links
