@@ -2899,3 +2899,135 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, [self._row("t", new)], {"t": text})
             # only the header is stale here — the embedded row already matches
             self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["LINK"])
+
+
+class TestMaintenanceSignal(unittest.TestCase):
+    """Pins detector V and the refresher's discontinuation regex (#351). `archived` only
+    catches maintainers who flipped the flag; daytona announced death in its README, kept
+    `archived: false`, and sat in P3 backlog for two months."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+           "|------|------|-----------|-------------------|---------------|\n")
+
+    def _ctx(self, d, records, rows=("daytona", "https://github.com/daytonaio/daytona"),
+             verdict="ADOPT"):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        name, url = rows
+        _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR +
+               f"| [{name}]({url}) | tool | x | y | z |\n")
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Implement\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n"
+               f"| {name} | tool | y | y | {verdict} | REVIEW |\n")
+        _write(d, "repo-metadata.json", json.dumps(records))
+        return audit.DetectorContext(d)
+
+    def test_discontinued_readme_is_reported_with_its_verdict(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "archived": False, "license_spdx": "404",
+                "discontinued": "no longer maintained", "license_lost": True}})
+            finds, collected = audit.audit_maintenance(ctx)
+            self.assertEqual(collected, 1)
+            self.assertEqual([f.kind for f in finds], ["DISCONTINUED", "LICENSE-LOST"])
+            self.assertEqual(finds[0].verdict, "ADOPT")
+            self.assertEqual(finds[0].tool, "daytona")
+
+    def test_archived_false_is_not_a_free_pass(self):
+        # The whole point: this record would never reach the P1 successor-check band.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "archived": False, "license_spdx": "MIT", "discontinued": "is discontinued"}})
+            finds, _ = audit.audit_maintenance(ctx)
+            self.assertEqual(len(finds), 1)
+
+    def test_healthy_record_is_clean(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "archived": False, "license_spdx": "MIT",
+                "discontinued": None, "license_lost": False}})
+            finds, collected = audit.audit_maintenance(ctx)
+            self.assertEqual((finds, collected), ([], 1))
+
+    def test_uncollected_signal_reports_zero_records_not_zero_findings(self):
+        # Absence of the field means "not collected", never "nothing is dead" — the
+        # count is what distinguishes them, so it must not read as a clean bill.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {"archived": False, "license_spdx": "MIT"}})
+            self.assertEqual(audit.audit_maintenance(ctx), ([], 0))
+
+    def test_missing_cache_is_not_an_exception(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "CATALOG.md", ""); _write(d, "COMPARISON.md", "")
+            self.assertEqual(audit.audit_maintenance(audit.DetectorContext(d)), ([], 0))
+
+    def test_strongest_verdict_sorts_first(self):
+        # A dead tool we RECOMMEND outranks a dead lead nobody was going to reach.
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR +
+                   "| [a](https://github.com/o/a) | tool | x | y | z |\n"
+                   "| [b](https://github.com/o/b) | tool | x | y | z |\n")
+            _write(d, "COMPARISON.md",
+                   "# T\n\n## Implement\n\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n"
+                   "| a | tool | y | y | discovery-log | REVIEW |\n"
+                   "| b | tool | y | y | ADOPT | RUN |\n")
+            _write(d, "repo-metadata.json", json.dumps({
+                "o/a": {"discontinued": "is discontinued"},
+                "o/b": {"discontinued": "no longer maintained"}}))
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            finds, _ = audit.audit_maintenance(audit.DetectorContext(d))
+            self.assertEqual([f.tool for f in finds], ["b", "a"])
+
+    def test_flag_is_report_only_and_opt_in(self):
+        self.assertIn("--maintenance", audit.REPORT_FLAGS)
+        self.assertNotIn("--maintenance", audit.DEFAULT_GATES)
+        self.assertNotIn("--maintenance", audit.OFFLINE_GATES)
+
+
+class TestDiscontinuationRegex(unittest.TestCase):
+    """The README banner is the HIGH-PRECISION signal, deliberately not a pushed_at
+    threshold: dormancy is not discontinuation. plandex was SKIPped at 13 months because
+    a coding agent rots when model APIs turn over; ralph was left at ~6 because an
+    autonomous loop is a pattern over whatever harness you point it at."""
+
+    def _rx(self):
+        spec = importlib.util.spec_from_file_location(
+            "refresh_metadata", os.path.join(ROOT, "refresh-metadata.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod.DISCONTINUED
+
+    def test_matches_real_banners(self):
+        rx = self._rx()
+        for text in (
+            "This repository is no longer maintained. As of June 2026, Daytona's core "
+            "development has moved to a private codebase.",
+            "> **This project is discontinued.**",
+            "This repo is deprecated - use the successor instead.",
+            "The repository is now read-only.",
+            "This repository will receive no further updates, fixes, or releases.",
+            "NOTE: this package is not actively maintained.",
+        ):
+            self.assertIsNotNone(rx.search(text), text)
+
+    def test_does_not_match_healthy_readmes(self):
+        rx = self._rx()
+        for text in (
+            "Actively maintained and used in production by hundreds of teams.",
+            "A fast, well-maintained toolkit for building agents.",
+            "Maintained by the core team. Contributions welcome.",
+            "Supports read-only mode for safe inspection.",
+            # Both real, both live tools, both flagged by a bare `is read-only` on the
+            # detector's first collection run. A false positive costs trust in every
+            # other finding; a miss costs one stale row.
+            "This command is read-only and will not perform any changes.",
+            "The closing `final-review` is read-only. It returns `REVIEW: GREEN`.",
+        ):
+            self.assertIsNone(rx.search(text), text)
+
+    def test_matches_a_repo_that_really_is_read_only(self):
+        rx = self._rx()
+        self.assertIsNotNone(rx.search("This repository is read-only for all users."))

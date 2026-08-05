@@ -152,6 +152,25 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      sequencing note is that a wholesale rewrite in either direction destroys real work
      in the other, because the eval side is sometimes the better text (`azure-skills`).
 
+  V. MAINTENANCE SIGNAL (opt-in, --maintenance, REPORT-ONLY) — triage.py's P1
+     successor-check band is `archived == true`, which only catches maintainers who
+     flipped GitHub's flag. daytonaio/daytona (★72K, the catalog's canonical sandbox
+     answer) announced discontinuation in its README in June 2026, moved development to
+     a private codebase, kept `archived: false`, and sat in P3 backlog as ordinary
+     un-examined work for two months (#351). Reports the two per-record signals
+     `refresh-metadata.py --maintenance` writes: `discontinued` (the README banner
+     phrase, quoted so a human judges the phrase rather than trusting the regex) and
+     `license_lost` (a real license that became NONE/404 since the last snapshot).
+     A match is a CANDIDATE, not a disposition: the phrase's subject may be a component
+     or a version rather than the repo (giskard-oss's "no longer actively maintained"
+     is about Giskard **v2** while the repo ships v3), which no regex resolves. That is
+     why the phrase is quoted in the output and why this detector never bands anything.
+     Deliberately NOT a pushed_at threshold — dormancy is not discontinuation, and
+     `plandex` vs `ralph` is why. Sorted strongest-verdict-first: a dead tool we still
+     recommend outranks a dead lead nobody was going to reach. An uncollected signal
+     reports 0 RECORDS, never 0 findings — absence of the field means "not collected".
+     Offline (reads the committed cache).
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -1275,6 +1294,63 @@ def _clip(s, n=58):
     return s if len(s) <= n else s[:n - 1] + "…"
 
 
+# ---------------------------------------------------------------- V. maintenance signal (report-only)
+# `archived == true` is triage.py's P1 successor-check band, and it only catches
+# maintainers who flipped GitHub's archive flag. daytonaio/daytona — ★72K, the catalog's
+# canonical answer to "run untrusted AI-generated code" — announced discontinuation in
+# its README in June 2026 and moved development to a private codebase, and sat in P3
+# backlog as ordinary un-examined work for two months because `archived` stayed false
+# (#351). P1 reading "0 leads" presents as "nothing archived to check"; that is true and
+# also says nothing about how many catalogued projects are dead.
+#
+# This reports the two per-record signals `refresh-metadata.py --maintenance` writes:
+# `discontinued` (the README banner phrase) and `license_lost` (a real license that
+# became NONE/404 since the last snapshot — daytona went AGPL-3.0 → 404 while
+# vercel-labs/skills went NONE → MIT, and detector R can see neither, because it ages
+# the snapshot as a whole and both records were well inside the threshold).
+#
+# Report-only, and the ordering is the point: a discontinued tool with an ADOPT/KEEP
+# verdict is a live recommendation to install a dead project, which is worth more than a
+# dead `discovery-log` lead nobody was going to reach anyway.
+MaintenanceFinding = collections.namedtuple("MaintenanceFinding", "slug kind detail verdict tool")
+
+def audit_maintenance(ctx):
+    """MaintenanceFindings for every catalogued repo whose metadata records a
+    discontinuation banner or a lost license, strongest verdict first. A cache with no
+    maintenance fields yields nothing and says so via the count — the signal is opt-in
+    on the refresher, so its absence means "not collected", never "nothing is dead"."""
+    try:
+        records = json.loads(ctx.read("repo-metadata.json"))
+    except (OSError, ValueError):
+        return [], 0
+    if not isinstance(records, dict):
+        return [], 0
+    # slug -> catalog row name, so a finding names the tool a human recognizes
+    by_slug = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if r.url:
+            for s in catalog_lib.github_repos(r.url):
+                by_slug.setdefault(s.lower(), r.name)
+    verd = ctx.comparison_verdict_map
+    collected = sum(1 for m in records.values()
+                    if isinstance(m, dict) and ("discontinued" in m or "license_lost" in m))
+    findings = []
+    for slug, meta in sorted(records.items()):
+        if not isinstance(meta, dict):
+            continue
+        tool = by_slug.get(slug, slug)
+        v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
+        if meta.get("discontinued"):
+            findings.append(MaintenanceFinding(slug, "DISCONTINUED",
+                                               f'README: "{meta["discontinued"]}"', v, tool))
+        if meta.get("license_lost"):
+            findings.append(MaintenanceFinding(slug, "LICENSE-LOST",
+                                               f"now {meta.get('license_spdx')}", v, tool))
+    rank = {"ADOPT": 0, "KEEP": 0, "CONDITIONAL": 1, "DEFER": 2, "discovery-log": 3, "SKIP": 4}
+    findings.sort(key=lambda f: (rank.get(f.verdict, 3), f.slug))
+    return findings, collected
+
+
 def audit_comparison(ctx):
     text = ctx.comparison
     body = catalog_lib.comparison_body_counts(text)          # shared with reconcile-counts.py
@@ -1401,7 +1477,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
-                "--catalog-mirror")
+                "--catalog-mirror", "--maintenance")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1455,6 +1531,7 @@ def main():
     do_meta_stale = "--metadata-staleness" in want  # opt-in report (does not affect exit code)
     do_lead_head = "--lead-headlines" in want   # opt-in report (does not affect exit code)
     do_mirror = "--catalog-mirror" in want   # opt-in report (does not affect exit code)
+    do_maint = "--maintenance" in want       # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1690,6 +1767,17 @@ def main():
         order = {"LINK": 0, "ORPHAN": 1, "AMBIG": 2, "TEXT": 3, "CASE": 4}
         for f in sorted(drift, key=lambda f: (order[f.kind], f.eval_name)):
             print(f"  {f.kind:6} {f.eval_name} [{f.tool}]: {f.detail}")
+    if do_maint:
+        finds, collected = audit_maintenance(ctx)
+        print(f"== V. maintenance signal (report-only) — {len(finds)} finding(s) "
+              f"across {collected} record(s) carrying the signal ==")
+        if not collected:
+            print("  no maintenance data — run `python3 refresh-metadata.py --maintenance` "
+                  "to collect it (absence of the field is 'not collected', not 'nothing is dead')")
+        elif not finds:
+            print("  OK — no catalogued repo announces discontinuation or has lost its license")
+        for f in finds:
+            print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}")
     sys.exit(rc)
 
 if __name__ == "__main__":
