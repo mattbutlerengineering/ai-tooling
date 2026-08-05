@@ -1322,9 +1322,9 @@ def audit_maintenance(ctx):
     try:
         records = json.loads(ctx.read("repo-metadata.json"))
     except (OSError, ValueError):
-        return [], 0
+        return [], 0, []
     if not isinstance(records, dict):
-        return [], 0
+        return [], 0, []
     # slug -> catalog row name, so a finding names the tool a human recognizes
     by_slug = {}
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
@@ -1334,21 +1334,36 @@ def audit_maintenance(ctx):
     verd = ctx.comparison_verdict_map
     collected = sum(1 for m in records.values()
                     if isinstance(m, dict) and ("discontinued" in m or "license_lost" in m))
-    findings = []
+    findings, acked = [], []
     for slug, meta in sorted(records.items()):
         if not isinstance(meta, dict):
             continue
         tool = by_slug.get(slug, slug)
         v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
-        if meta.get("discontinued"):
-            findings.append(MaintenanceFinding(slug, "DISCONTINUED",
-                                               f'README: "{meta["discontinued"]}"', v, tool))
+        phrase = meta.get("discontinued")
+        if phrase:
+            f = MaintenanceFinding(slug, "DISCONTINUED", f'README: "{phrase}"', v, tool)
+            (acked if _acked(meta, phrase) else findings).append(f)
         if meta.get("license_lost"):
             findings.append(MaintenanceFinding(slug, "LICENSE-LOST",
                                                f"now {meta.get('license_spdx')}", v, tool))
     rank = {"ADOPT": 0, "KEEP": 0, "CONDITIONAL": 1, "DEFER": 2, "discovery-log": 3, "SKIP": 4}
-    findings.sort(key=lambda f: (rank.get(f.verdict, 3), f.slug))
-    return findings, collected
+    for bucket in (findings, acked):
+        bucket.sort(key=lambda f: (rank.get(f.verdict, 3), f.slug))
+    return findings, collected, acked
+
+
+def _acked(meta, phrase):
+    """True when a human has recorded that THIS phrase is a false positive. The ack
+    pins the exact phrase it was granted against, so a README that later gains a real
+    repo-level banner reports again instead of hiding behind a stale acknowledgment.
+
+    This exists because V's version-scoped class is not mechanically separable —
+    giskard-oss says "no longer actively maintained" of Giskard **v2** while the repo
+    ships v3 — and a permanently-stuck false positive turns "a number to shrink" into
+    noise. Acked findings are still PRINTED, just not counted (no silent caps)."""
+    ack = meta.get("discontinued_ack")
+    return isinstance(ack, dict) and ack.get("phrase") == phrase
 
 
 def audit_comparison(ctx):
@@ -1768,7 +1783,7 @@ def main():
         for f in sorted(drift, key=lambda f: (order[f.kind], f.eval_name)):
             print(f"  {f.kind:6} {f.eval_name} [{f.tool}]: {f.detail}")
     if do_maint:
-        finds, collected = audit_maintenance(ctx)
+        finds, collected, acked = audit_maintenance(ctx)
         print(f"== V. maintenance signal (report-only) — {len(finds)} finding(s) "
               f"across {collected} record(s) carrying the signal ==")
         if not collected:
@@ -1778,6 +1793,8 @@ def main():
             print("  OK — no catalogued repo announces discontinuation or has lost its license")
         for f in finds:
             print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}")
+        for f in acked:
+            print(f"  acknowledged false positive — {f.tool} ({f.slug}): {f.detail}")
     sys.exit(rc)
 
 if __name__ == "__main__":

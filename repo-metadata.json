@@ -2112,6 +2112,10 @@
   "giskard-ai/giskard-oss": {
     "archived": false,
     "discontinued": "no longer actively maintained",
+    "discontinued_ack": {
+      "phrase": "no longer actively maintained",
+      "why": "version-scoped, not repo-scoped: the README says it of Giskard **v2** while this repo ships the v3 rewrite and was pushed 2026-08-05. Verified by reading the README head 2026-08-05 (#360)."
+    },
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "Apache-2.0",

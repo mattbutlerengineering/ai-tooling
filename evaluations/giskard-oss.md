@@ -3,7 +3,7 @@
 **Repo:** [Giskard-AI/giskard-oss](https://github.com/Giskard-AI/giskard-oss)
 **Stars:** 5,438 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (PyPI: `giskard`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-05  <!-- triaged: bulk -->
 **Dev loop stage:** Observability / Verify — eval, red-teaming, test generation for agents
 **Layer:** Tooling (Python library)
 
@@ -57,22 +57,25 @@ Compared to neighbors: **promptfoo** is the declarative, CI-native eval + red-te
 
 ## Triage note
 
-Left at `discovery-log`. Its distinct angle is **multi-turn scenario testing** — behaviour across a
-conversation rather than a single response — plus a vulnerability scanner and RAG synthetic-data
-generation. Against `promptfoo`'s declarative breadth that is a complement, and the eval says so.
+Left at `discovery-log` — **and this is detector V's known version-scoped false positive, now
+acknowledged in the metadata rather than re-reported on every run.**
 
-Not disposed. The eval cluster here is large but each member has a real axis: `promptfoo` is the
-CI-native declarative standard, `deepeval` expresses evals as pytest tests, `ragas` is the reference-free
-RAG metric set, `giskard-oss` does multi-turn agent scenarios. Choosing between them is an ergonomics
-decision a measured run informs and a bulk pass cannot.
+V flags the repo because its README contains *"no longer actively maintained"*. Read in context on
+2026-08-05, that sentence is about **Giskard v2**, not the repository: the README introduces the v3
+rewrite, notes that the vulnerability scanner and RAG evaluation still rely on v2, and then says v2
+itself is what is no longer actively maintained. This repo ships v3 and was pushed 2026-08-05.
 
-The concrete flag to check before relying on it: v3 is mid-migration and the scan and RAG pieces still
-run on v2. The eval's advice — pilot `giskard-checks` now, wait on the v3 ports — is a re-evaluate
-trigger, and one worth confirming has moved since the 2026-06 read.
+No regex resolves a phrase's *subject*, which is why V quotes the matched phrase and never bands
+anything — the design earned itself on its first sweep. The record now carries a `discontinued_ack`
+pinned to this exact phrase, so the finding is still printed but not counted; if the README later
+gains a genuine repo-level banner the phrase changes and V reports it as new.
 
-Apache-2.0, ★5.5K, pushed this week. Needs Python 3.12+.
+Nothing else needed correcting. The concern raised in
+[#360](https://github.com/mattbutlerengineering/ai-tooling/issues/360) — that this eval might predate
+the rewrite — does not hold: it is already titled for v3 and its verdict already names the
+mid-migration caveat that scan/RAG still run on v2.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+_Triaged 2026-08-05 by the detector-V maintenance sweep ([#360](https://github.com/mattbutlerengineering/ai-tooling/issues/360))._
 
 ## Catalog entry
 

@@ -5,7 +5,7 @@
 **Dev loop stage:** Verify (test generation)
 **Layer:** Tooling
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-05  <!-- triaged: bulk -->
 
 ---
 
@@ -22,26 +22,38 @@ We did **not** install or run this. Source-grounded only: GitHub metadata (fetch
 plus the CATALOG one-liner and "Overlaps with" cell (`stryker-js`, `pr-agent`). Enough to place it;
 not enough for a positive verdict, and none is offered.
 
-## Triage note
+## Verdict
 
-Left at `discovery-log`. The catalog row already records the right relationship — qodo-cover
-*writes* tests, `stryker-js` grades whether existing tests are any good — so the overlap is
-complementary and disposing it as redundant would repeat the category error this lane keeps
-catching.
+**SKIP — discontinued upstream, and the maintainer explicitly declines to name a successor.**
 
-The interesting property is the loop: generate, run, keep only what passes and raises coverage. That
-is a mechanical oracle, which makes it one of the few tools here whose value claim is directly
-measurable under `evaluations/measurement-protocols.md` — coverage delta on a disclosed repo, with
-and without. It is a good P0 candidate for exactly that reason.
+Read live on 2026-08-05, the README opens with:
 
-Two things to weigh when someone runs it. Pushed 2026-04-05, four months quiet, which is long for a
-tool in an area moving this fast. And coverage-maximizing generation has a well-known failure mode —
-tests that execute lines without asserting anything meaningful — so the measurement worth taking is
-mutation score after generation, not the coverage number the tool optimizes.
+> **⚠️ This repository is no longer maintained. Please fork it if you wish to continue development
+> or use it in your own projects.**
 
-AGPL-3.0 does not dispose it: this is a `tool` you run, not a vendored skill whose text enters your
-repo.
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+That is repo-level and unambiguous, and "fork it" is the maintainer saying there is no successor —
+which is the one thing P1's successor-check exists to establish before disposing an unmaintained
+project. Pushed 2026-04-05; `archived` is still `false`, which is exactly why nothing caught this
+until detector V (#351) started reading README banners.
+
+**This eval's previous triage note is superseded, and how it failed is the point.** That pass ran on
+2026-08-04, noted *"pushed 2026-04-05, four months quiet, which is long for a tool in an area moving
+this fast"*, and still left the lead — because dormancy is not discontinuation and the lane was
+right not to dispose on age alone. It looked directly at the only signal available and could not
+tell. The banner was the missing fact, not the judgement.
+
+What the SKIP costs is worth naming: that note argued qodo-cover was one of the better **P0
+measurement** candidates in the catalog, because generate → run → keep-only-what-passes is a
+mechanical oracle and coverage delta is directly measurable under
+`evaluations/measurement-protocols.md`. That remains true of the *technique*; it is no longer a
+reason to spend a measured evaluation on this implementation. An unmaintained LLM-driven test
+generator is the `plandex` case — it rots as model APIs turn over, and here there will be no
+release to fix it.
+
+The row stays as reference (the `Flowise` precedent). AGPL-3.0 was never the disposing factor: it
+is a `tool` you run, not a vendored skill.
+
+_Triaged 2026-08-05 by the detector-V maintenance sweep ([#360](https://github.com/mattbutlerengineering/ai-tooling/issues/360))._
 
 ## Catalog entry
 
