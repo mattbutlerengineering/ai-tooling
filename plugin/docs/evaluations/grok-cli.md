@@ -3,6 +3,7 @@
 **Repo:** [superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli)
 **Stars:** 3,158 | **Last updated:** 2026-06-17 (pushed; created 2025-07-14) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Inner loop, all stages — it is a full terminal coding agent (Plan, Implement, Verify) with an outer-loop tilt via `--verify` smoke checks, scheduled overnight runs, and remote (Telegram) drive-by-phone.
 **Layer:** Tooling (a standalone TypeScript/Bun coding-agent CLI you install and run; it owns the agent loop, tools, and TUI — not a plugin on top of another harness)
 
@@ -60,6 +61,17 @@ gh api repos/superagent-ai/grok-cli --jq '.forks_count'       # 393 forks, ~20 c
 **discovery-log — tentative read: adopt only if Grok is your model of record.** grok-cli is one of the more complete and better-maintained entries in the open coding-CLI category: a true agent loop, sub-agents on by default, MCP/Skills, headless JSON, a scheduler, `--verify`, and Telegram remote control, all with 30 releases and real tests. The disqualifier for general use is hard single-vendor lock-in plus the unaffiliated-community-vs-xAI governance risk — you are betting on xAI's API and Grok model quality, which this evaluation did not test.
 
 Compared to neighbors: it is a direct peer of **gemini-cli**, **qwen-code**, **opencode**, and **goose** — all CONDITIONAL alternative coding CLIs. **gemini-cli** wins on first-party backing and a no-credit-card free tier; **opencode**/**goose** win on model-agnosticism; **qwen-code** matches it as a vendor-native CLI. grok-cli's differentiators are its autonomy stack (scheduler + batch + Telegram + `--verify`) and live X/web search — pick it specifically when you want a Grok-native agent and value drive-from-phone overnight runs, not as a default coding CLI.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★3.4K, pushed 2026-07-06. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Its named differentiator is an autonomy stack — scheduler, batch, `--verify`, Telegram remote control
+— which is a capability axis rather than a model axis, and nothing else in the cluster carries it. The
+eval's own reservation is governance (an unaffiliated community project fronting xAI's API), which is
+a risk to price rather than a redundancy to eliminate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

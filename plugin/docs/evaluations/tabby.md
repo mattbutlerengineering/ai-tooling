@@ -3,6 +3,7 @@
 **Repo:** [TabbyML/tabby](https://github.com/TabbyML/tabby)
 **Stars:** ~33,600 | **Last updated:** 2026-03-02 | **License:** open-source / on-prem (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -52,6 +53,22 @@ gh api repos/TabbyML/tabby/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt when privacy/compliance rules out cloud Copilot and you want self-hosted completion + chat grounded in your code, on hardware you control. Accept the model-quality tradeoff versus frontier cloud assistants, and pin the license terms for commercial use. It complements — rather than replaces — agentic coding CLIs.
+
+## Triage note
+
+Left at `discovery-log`. ★33.8K, pushed 2026-06-30.
+
+Checked its category placement, and it is not actually in the cluster: Tabby is **self-hosted
+completion + chat**, not an agentic coding CLI. Its own eval says it "complements — rather than
+replaces — agentic coding CLIs", so no member of this slice can subsume it and it cannot subsume them.
+
+The open item is the license. GitHub records `NOASSERTION` — its parser could not read the LICENSE
+file — and the eval already flags "pin the license terms for commercial use". Following the rule this
+repo applies elsewhere, `NOASSERTION` disposes nothing on its own: in this same triage lane it has now
+concealed a permissive Apache-2.0 (`terraform-skill`) and a blocking CC BY-NC (`academic-research-skills`).
+Reading the actual LICENSE text is the resolution, and it is a task rather than a verdict.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

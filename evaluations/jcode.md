@@ -3,6 +3,7 @@
 **Repo:** [1jehuang/jcode](https://github.com/1jehuang/jcode)
 **Stars:** 7,251 | **Last updated:** 2026-06-18 (pushed; created 2026-01-05) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a terminal coding-agent harness spanning plan→edit→run within a session)
 **Layer:** Tooling (a cross-platform Rust CLI coding agent; BYO model provider)
 
@@ -56,6 +57,18 @@ gh api repos/1jehuang/jcode/releases --jq 'length'   # 30
 **discovery-log — tentative read** — adopt if you specifically want a fast, low-footprint, Rust-native, cross-platform terminal coding agent and you run multi-session workflows where resource efficiency compounds; otherwise it sits in a deep field of equally-capable harnesses. It is well-built and actively released, but its differentiator (performance at scale) is narrow and its benchmarks are self-reported, so it doesn't displace the vendor-backed or already-adopted options for most users.
 
 Compared to neighbors: **opencode / goose / qwen-code / gemini-cli / grok-cli** are its direct peers — jcode's pitch is "lighter and faster for many sessions" rather than a unique capability. Against **claude-squad** (which *manages* parallel sessions of other agents), jcode is the agent itself, optimized to be cheap to run many of. Pick it on the performance axis; otherwise the incumbent in your stack is fine.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★15.9K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Its differentiator is resource efficiency at multi-session scale (Rust, low footprint), which the eval
+itself calls narrow and self-reported. Both halves matter: narrow is not redundant, and self-reported
+is exactly what a measured cluster comparison would settle. Checked whether `claude-squad` subsumes it
+— it does not; that *manages* parallel sessions of other agents, while this is the agent optimized to
+be cheap to run many of. Complementary, not competing.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [MoonshotAI/kimi-code](https://github.com/MoonshotAI/kimi-code)
 **Stars:** 2,564 | **Last updated:** 2026-06-19 (pushed; created 2026-05-22) | **License:** MIT | **Releases:** 24
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (a terminal coding agent CLI; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript; install script, Homebrew, npm; macOS/Linux/Windows)
 
@@ -56,6 +57,17 @@ gh api repos/MoonshotAI/kimi-code/releases --jq 'length'             # 24
 **discovery-log — tentative read** — a well-maintained, broadly-installable terminal coding agent that's the natural pick if you want to run **Kimi models** in an agentic CLI, or if you need **strong Windows support** from a vendor tool. Its 24-release cadence and cross-platform polish are points in its favor over newer entrants. But it's another member of a crowded category with no inner-loop edge beyond model choice, and quality depends on the model you point it at. Choose it for the Kimi ecosystem / Windows story; otherwise it's interchangeable with the other vendor CLIs.
 
 Compared to neighbors: same family as **gemini-cli** (largest context/free tier), **qwen-code** (Qwen), **grok-cli** (autonomy features), **MiMo-Code** (zero-config free channel + memory), **DeepSeek-Reasonix** (prefix-cache tuned). Kimi Code's distinguishing notes are **Moonshot/Kimi models, mature release cadence, and first-class Windows support**.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★6.0K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+This eval states the cluster problem most bluntly — "interchangeable with the other vendor CLIs" — and
+it is still not a SKIP, because the sentence before it names two real reasons to pick this one:
+Moonshot/Kimi models and **first-class Windows support**. Windows is a genuine gap in a
+terminal-agent field that skews Unix, and it is not a model-choice argument.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [plandex-ai/plandex](https://github.com/plandex-ai/plandex)
 **Stars:** 15,458 | **Last updated:** 2025-10-03 (pushed) | **License:** MIT | **Language:** Go (terminal agent; self-hostable)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration / Implement — autonomous terminal coding agent
 **Layer:** Tooling/Platform (CLI + self-hostable server)
 
@@ -49,9 +50,36 @@ gh api repos/plandex-ai/plandex/readme --jq '.content' | base64 -d | head -45   
 
 ## Verdict
 
-**discovery-log — tentative read** — Plandex is a well-regarded, MIT **open-source terminal coding agent built for large, multi-file tasks**, and its standout is the **sandboxed diff-review model** that gives you autonomy without letting the agent write blindly to your tree. Adopt it when you want an autonomous agent for big refactors/features with review gates and self-hosting, and you're comfortable with its opinionated plan/sandbox workflow. The real caveat keeping it CONDITIONAL is **maintenance cadence** — the last push is ~8 months old (not archived, but lagging the fast-moving field), so confirm current-model support before committing. In a crowded category (opencode/goose/OpenHands), Plandex's edge is large-project handling + sandbox review.
+**SKIP** — dormant. Not archived, so this is not a P1 successor-check; the ground is that the eval's
+own gating condition has now been checked and comes back negative.
 
-Compared to neighbors: **opencode**/**goose** are model-agnostic open agents; **OpenHands** is a full AI dev platform; **ralph-claude-code** is an autonomous loop. Plandex's distinguishing pitch is **large-project, multi-file planning with a sandboxed diff-review apply model.**
+That eval held Plandex at a tentative read with one explicit reservation: "the last push is ~8 months
+old (not archived, but lagging the fast-moving field), so **confirm current-model support before
+committing**." Confirmed on 2026-08-04:
+
+| Signal | Value |
+|--------|-------|
+| Last push (any branch) | **2025-10-03** — 10 months |
+| Last commit to `main` | **2025-10-03** |
+| Last release (`server/v2.2.1`, `cli/v2.2.1`) | **2025-07-16** — 13 months |
+| Open issues | 61 |
+| Archived | no |
+
+Thirteen months without a release in a category where every other row in this slice was pushed within
+the last week (and where model APIs, tool-calling formats and context limits all turned over in that
+window) means the reservation is no longer a risk to price — it is a resolved fact. A coding agent
+that has not shipped since 2025-07 does not support the models people would run it on.
+
+This is *not* a redundancy SKIP, and that distinction matters: Plandex's differentiator — large
+multi-file planning with a **sandboxed diff-review apply model** — is genuinely good and is one of the
+better answers in the catalog to "how do I let an agent work autonomously without letting it write
+blindly to my tree". Nothing here disputes the design. The row is being retired on maintenance, and if
+maintenance resumes the design argument is untouched.
+
+Re-open on any of: a new release, a commit series indicating resumed maintenance, or a maintained fork
+carrying the sandboxed-review model forward — the last of which would be worth catalogueing on its own.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -190,7 +190,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
 | omnigent | framework | | ✓ | discovery-log | REVIEW |
 | opencode | platform | | ✓ | discovery-log | REVIEW |
-| plandex | platform | ✓ | ✓ | discovery-log | REVIEW |
+| plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
 | OpenHands | platform | | ✓ | discovery-log | REVIEW |
@@ -227,7 +227,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | eve | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Trellis | harness | | ✓ | SKIP | SOURCE-ONLY |
 | software-factory-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
-| command-code | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| command-code | harness | | ✓ | SKIP | SOURCE-ONLY |
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 212 | 68 | 4 | 32% |
+| Implement | 212 | 70 | 4 | 33% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **241** | **34** | **38%** |
+| **Total** | **642** | **243** | **34** | **38%** |

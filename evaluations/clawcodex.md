@@ -3,6 +3,7 @@
 **Repo:** [agentforce314/clawcodex](https://github.com/agentforce314/clawcodex)
 **Stars:** 648 | **Last updated:** 2026-06-19 (pushed; created 2026-04-20) | **License:** MIT | **Language:** Python
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (alternative terminal coding-agent runtime)
 **Layer:** Harness (Python-native CLI agent)
 
@@ -51,6 +52,27 @@ gh api repos/agentforce314/clawcodex/readme --jq '.content' | base64 -d | head -
 **discovery-log — tentative read (lean cautious)** — ClawCodex is an MIT, Python-native rebuild of Claude Code whose genuinely interesting idea is **byte-stable prefix caching to slash long-session token cost on DeepSeek**. Worth a look if you want a Python-embeddable coding agent and are optimizing cost with a cheaper cached model. But the headline claims ("full rebuild," "230× cheaper," "230K LoC") are unverified marketing from a young single-author project, and a from-scratch reimplementation carries real feature/correctness/security-parity risk. Pilot on throwaway work, measure the actual cache savings and reliability yourself, and don't treat it as a drop-in Claude Code replacement on the strength of the README.
 
 Compared to neighbors: **jcode** and **smallcode** are other lean terminal coding-agent harnesses; **DeepSeek-Reasonix** also targets DeepSeek. ClawCodex's distinguishing pitch is a **Python rebuild + prefix-cache cost economics**.
+
+## Triage note
+
+Left at `discovery-log`, though this was the closest call in the slice. MIT, ★848, pushed today.
+
+The redundancy case is real: it targets the same **DeepSeek prefix-cache economics** as
+`DeepSeek-Reasonix`, which is better engineered by every visible signal (static Go binary, signed
+releases, ★30.7K vs ★848) and carries a much more favorable eval. Against that, this eval is openly
+"lean cautious" and calls the headline claims — "full rebuild", "230× cheaper", "230K LoC" —
+"unverified marketing from a young single-author project".
+
+It survives on one axis the other does not cover: it is a **Python-embeddable** agent, where Reasonix
+is a Go binary. That is a different integration story, not a weaker version of the same one, and it is
+the sort of distinction a redundancy SKIP would erase without measuring. Disposing a row because its
+README oversells is also the wrong instrument — unverified claims are what `--savings-claims` and a
+measured run are for, and "230× cheaper" is precisely the shape that detector tracks.
+
+Re-open the question if a measured run fails to reproduce a meaningful cache saving, or if the Python
+embedding path turns out not to work as described.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

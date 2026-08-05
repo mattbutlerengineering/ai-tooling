@@ -3,6 +3,7 @@
 **Repo:** [Kilo-Org/kilocode](https://github.com/Kilo-Org/kilocode)
 **Stars:** 22,863 | **Last updated:** 2026-06-19 (pushed; created 2025-03-10) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Inner-loop **Implement** primarily (in-editor agentic coding), reaching into Review (automated PR reviews) and Ship (cloud agents / "KiloClaw" always-on runner).
 **Layer:** Tooling (a VS Code / JetBrains extension + CLI in the Cline/Roo lineage) sitting on a hosted platform (model router, cloud agents, PR reviews)
 
@@ -60,6 +61,21 @@ gh api repos/Kilo-Org/kilocode/releases --jq 'length'   # 30 (page-1 cap; very a
 **discovery-log — tentative read: strong pick if you want an in-editor (VS Code/JetBrains) agent and accept an open-core hosted platform.** Kilo Code is a mature, well-funded, MIT-licensed agentic editor in the Cline/Roo lineage whose real differentiators are multi-surface reach (editor + JetBrains + CLI + cloud) and an open-pricing model marketplace. The catch is that the marketed experience is open-*core*: the agent is open source, but the router, PR reviews, and cloud agents are hosted services, and the "zero markup" claim is unverifiable from the repo. Adopt for the in-editor niche our terminal-heavy catalog lacks; route through your own model keys if you want to avoid the platform dependency.
 
 Compared to neighbors: against the terminal cohort (**opencode, goose, qwen-code, gemini-cli**), Kilo's edge is that it lives *inside* the IDE with native context rather than in a TUI. Against **cherry-studio** and **lobehub** (desktop/ops platforms), Kilo is a coding-focused editor agent, not a general assistant studio or fleet manager. Against **OpenHands** (full hosted dev platform), Kilo is lighter-weight and editor-embedded rather than a standalone environment. Its closest true peers — Cline, Roo, Cursor — aren't yet catalog entries; Kilo is effectively the catalog's representative of the in-editor agentic-extension category.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★26.7K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+It is in the cluster's roster but not really in its lane: this is an **in-editor** agent (VS Code /
+JetBrains) rather than a terminal one, and the eval is explicit that its edge over the TUI cohort is
+living inside the IDE with native context. The eval also notes it is effectively this catalog's only
+representative of the in-editor agentic-extension category, since Cline, Roo and Cursor are not
+catalogued — so eliminating it would empty a category rather than thin a crowded one.
+
+The honest caveat, already recorded, is open-*core*: the agent is MIT but the router, PR reviews and
+cloud agents are hosted services, and the "zero markup" claim is unverifiable from the repo.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

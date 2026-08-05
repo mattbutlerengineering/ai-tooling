@@ -3,6 +3,7 @@
 **Repo:** [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus)
 **Stars:** ~5,970 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (local agent harness)
 **Layer:** Tooling
 
@@ -52,6 +53,20 @@ gh api repos/osaurus-ai/osaurus/readme --jq '.content' | base64 -d
 **discovery-log — tentative read**
 
 Adopt if you want a private, offline, Mac-native agent runtime where agents, memory, identity, and tools live on your machine — its ownership/offline story and cryptographic identity are the differentiators. Accept the macOS-only constraint and the local-model capability ceiling. For cross-platform or maximal capability, a CLI harness (gptme/opencode) or cloud-capable agent fits better; osaurus is for the privacy-first, own-your-AI use case.
+
+## Triage note
+
+Left at `discovery-log`. MIT, ★7.5K, pushed today. See the cluster note on [`gemini-cli`](./gemini-cli.md) for the finding that governs this whole section: ~20 catalog rows answer one question, and every eval in it independently says the choice is made on model and ecosystem rather than capability.
+
+Checked against `smallcode`, the other privacy/offline entry, and they are not duplicates: smallcode is
+a **cross-platform agent tuned for small local models**, osaurus is a **Mac-native runtime** where
+agents, memory, identity and tools live on the machine, with cryptographic identity as its stated
+differentiator. Different layers of the same concern.
+
+macOS-only is a real limit, but it is the mirror of `kimi-code`'s Windows story elsewhere in this
+slice — platform coverage is a reason rows exist, not a reason to cut them.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
