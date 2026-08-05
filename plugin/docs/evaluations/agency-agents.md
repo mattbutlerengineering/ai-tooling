@@ -3,6 +3,7 @@
 **Repo:** [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)
 **Stars:** 114,550 | **Last updated:** 2026-06-18 (pushed; created 2025-10-13) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the loop by *role*, not by stage — it ships personas for Plan (software-architect), Implement (frontend/backend/mobile/senior-dev), Review (code-reviewer), and outer-loop Architect/Decompose (multi-agent-systems-architect). It is a persona library, not a workflow.
 **Layer:** Process (a portable collection of agent-definition markdown files installed into each tool's agent directory; no runtime, no code that executes)
 
@@ -60,9 +61,26 @@ gh api repos/msitarzewski/agency-agents/contributors --jq '[.[].login]'  # ~30 i
 
 ## Verdict
 
-**discovery-log — tentative read: cherry-pick a handful of engineering personas; do not install the agency.** agency-agents is a large, genuinely community-maintained, cross-tool persona library with better repo hygiene than most of this catalog. But "complete AI agency" is marketing for "271 single-file personas you activate by hand" — there is no orchestration, the personality framing adds token cost and stylistic noise rather than correctness, and the "proven/battle-tested" claims are unsubstantiated. The right move is to lift 3-5 dev-relevant files (code-reviewer, software-architect, minimal-change-engineer, codebase-onboarding-engineer) as reference or starting points, not to bulk-install the roster.
+**SKIP — a 271-file undifferentiated persona menu, dominated by two rows this catalog has already
+eliminated.** This eval's own read was *"cherry-pick a handful of engineering personas; **do not
+install the agency**"*: there is no orchestration, the personality framing adds token cost and
+stylistic noise rather than correctness, and the "proven/battle-tested" claims are unsubstantiated.
+That is a recommendation against installing the artifact, which is what a SKIP records. The catalog
+row stays (the `Flowise` precedent — SKIP is a recommendation status, not a deletion), and the
+eval's advice to lift 3–5 individual persona files as reference remains good.
 
-Compared to neighbors: **gstack** is a *curated, opinionated* setup (~53 skills chosen and integrated), and **harness** (revfactory) actually *generates* a tailored team for your domain — both are more useful than a 271-file undifferentiated menu. **claude-code-staff-engineer** at least adds hierarchical coordination (a lead engineer routing specialists), which agency-agents lacks entirely. agency-agents wins only on raw breadth and portability; for shipping code, a small curated set beats a giant uncoordinated roster.
+`WORKFLOW.md`'s "Tools Deliberately Excluded" table already codifies the ground:
+*"everything-claude-code (251+ skills) — Too broad. Use targeted skills … instead of a kitchen-sink
+plugin."* agency-agents is that shape at 271 files.
+
+What makes it decisive rather than a judgement call is where the eval places it against its
+neighbors. It says gstack (curated), `harness` (revfactory, which *generates* a tailored team) and
+`claude-code-staff-engineer` (which at least adds hierarchical coordination) are each more useful —
+and **`harness` and `claude-code-staff-engineer` are themselves already SKIP**. A lead its own eval
+ranks below two eliminated rows has nothing left to be promoted over; the curated end of this space
+is held by `superpowers` (ADOPT, in STACK).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

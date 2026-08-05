@@ -77,7 +77,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agency-agents | harness | | ✓ | discovery-log | REVIEW |
+| agency-agents | harness | | ✓ | SKIP | REVIEW |
 | sol-skill | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | CoordClaw | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opendot | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -137,7 +137,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-interpreter | harness | | ✓ | discovery-log | REVIEW |
 | kilocode | platform | | ✓ | discovery-log | REVIEW |
 | grok-cli | platform | | ✓ | discovery-log | REVIEW |
-| Kaku | tool | | ✓ | discovery-log | REVIEW |
+| Kaku | tool | | ✓ | SKIP | REVIEW |
 | jcode | harness | | ✓ | discovery-log | REVIEW |
 | gstack | harness | | ✓ | discovery-log | REVIEW |
 | gbrain | harness | | ✓ | SKIP | SOURCE-ONLY |
@@ -166,7 +166,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | antigravity-sdk-python | framework | | ✓ | SKIP | REVIEW |
 | pydantic-ai | framework | | ✓ | discovery-log | REVIEW |
 | voltagent | framework | ✓ | ✓/$ | SKIP | REVIEW |
-| agent-kit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| agent-kit | framework | ✓ | ✓ | SKIP | REVIEW |
 | agno | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | conductor | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cee | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -175,7 +175,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | microsoft/agent-framework | framework | | ✓ | SKIP | REVIEW |
 | lobehub | platform | | ✓ | SKIP | REVIEW |
 | nanoclaw | platform | | ✓ | SKIP | REVIEW |
-| nanobot | harness | ✓ | ✓ | discovery-log | REVIEW |
+| nanobot | harness | ✓ | ✓ | SKIP | REVIEW |
 | Hermes Agent | harness | ✓ | ✓ | discovery-log | REVIEW |
 | flue | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | moltworker | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -226,7 +226,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | aider | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | eve | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Trellis | harness | | ✓ | SKIP | SOURCE-ONLY |
-| software-factory-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| software-factory-harness | harness | | ✓ | SKIP | SOURCE-ONLY |
 | command-code | harness | | ✓ | SKIP | SOURCE-ONLY |
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 212 | 104 | 4 | 49% |
+| Implement | 212 | 109 | 4 | 51% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **277** | **34** | **43%** |
+| **Total** | **642** | **282** | **34** | **44%** |

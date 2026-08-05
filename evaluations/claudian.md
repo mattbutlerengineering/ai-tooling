@@ -3,6 +3,7 @@
 **Repo:** [YishenTu/claudian](https://github.com/YishenTu/claudian)
 **Stars:** 12,963 | **Last updated:** 2026-06-18 (pushed; created 2025-12-05) | **License:** MIT | **Releases:** 30
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / cross-cutting (an agent host inside Obsidian; also Plan via Plan Mode)
 **Layer:** Tooling (TypeScript Obsidian plugin; desktop)
 
@@ -65,6 +66,20 @@ gh api repos/YishenTu/claudian/releases --jq 'length'             # 30
 **discovery-log — tentative read** — adopt if you work in **Obsidian** and want a polished, multi-provider agent host that treats your vault as the working directory, with inline diff edits, Plan Mode, skills, and MCP. It's mature, popular, actively maintained, MIT, and not locked to one agent — an excellent fit for notes/docs/PKM and small projects. Less compelling if your work is a large code repo (use an IDE/terminal agent) or you're not an Obsidian user. It's a front-end, so cost/quality remain the provider's.
 
 Compared to neighbors: **Nimbalyst** is a standalone Electron workspace; **cc-switch** is a desktop GUI multiplexer for CLI agents; **kilocode** lives in VS Code/JetBrains; AgriciDaniel's **claude-obsidian** is a second-brain *workflow* for Obsidian. Claudian is the **agent-host plugin inside Obsidian** — the most complete way to run coding agents against your vault, distinct from the IDE- and desktop-app hosts.
+
+## Triage note
+
+Left at `discovery-log`. An agent *host* — it runs multi-provider coding agents against a working
+directory that happens to be an Obsidian vault, with inline diff edits, Plan Mode, skills and MCP.
+That is inside the loop, unlike `Kaku` (the terminal beneath the agent) which this pass SKIPped; the
+distinction is whether the tool touches your files or merely surrounds them. MIT, ★14.5K, pushed
+2026-08-05.
+
+Its peers are the other editor hosts — `cc-gui-jetbrains` (JetBrains), `kilocode` (VS Code) — none
+of which is in STACK, so no incumbent argument reaches it. The honest limit is the one its eval
+names: less compelling against a large code repo, where a terminal or IDE agent fits better.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

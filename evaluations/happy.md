@@ -3,6 +3,7 @@
 **Repo:** [slopus/happy](https://github.com/slopus/happy)
 **Stars:** 22,068 | **Last updated:** 2026-06-10 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement + Verify (remote access/monitoring across the inner loop)
 **Layer:** Infrastructure (access/transport layer around the agent, not the agent itself)
 
@@ -68,6 +69,23 @@ curl -s https://api.npmjs.org/downloads/point/last-month/happy                # 
 Adopt happy when remote or asynchronous access to your coding agent is a real need — you run long autonomous sessions and want to monitor them or approve permission prompts from a phone, or you want to kick off/check work away from your desk. The encryption model is genuine and the self-host option means you can keep the security posture of a local-only setup while gaining remote control. It is non-invasive and low lock-in, which makes it a safe trial.
 
 It is not an unconditional ADOPT because it sits *beside* the dev loop rather than inside it: it improves access and convenience but does not move Correctness, Maintainability, or (for the core feature) Cost. For developers who always work at their keyboard, it adds a network surface and an external relay dependency in exchange for benefits they won't use. The catalog already marks it "unique: mobile client," and that uniqueness is exactly its scope — a remote-access convenience layer, valuable for the specific async/mobile workflow and skippable otherwise.
+
+## Triage note
+
+Left at `discovery-log`. Sits *beside* the loop — remote/mobile access to a coding agent — which is
+close to the ground that disposed `Kaku` and `nanobot` in this same pass, and is deliberately not
+the same. Those two are environments and assistants that never touch your repo; happy operates **on
+your coding agent**, monitoring long autonomous sessions and answering permission prompts. That is
+the loop, at one remove.
+
+There is also nothing to be redundant with: the catalog row marks it "unique: mobile client", so no
+incumbent and no P2 challenger argument reaches it. MIT, ★23.1K, pushed 2026-08-04.
+
+The eval's reservation — an added network surface and an external relay dependency, mitigated by the
+genuine encryption model and a self-host option — is a condition to satisfy, not a ground to
+eliminate.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

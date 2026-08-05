@@ -3,6 +3,7 @@
 **Repo:** [HKUDS/nanobot](https://github.com/HKUDS/nanobot)
 **Stars:** 44,465 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Package:** PyPI `nanobot-ai` (Python ≥3.11)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (general-purpose own-it agent harness; tangential to the coding dev loop)
 **Layer:** Harness (small readable core + bundled WebUI + chat-channel connectors)
 
@@ -51,9 +52,21 @@ gh api repos/HKUDS/nanobot/readme --jq '.content' | base64 -d | head -70   # Web
 
 ## Verdict
 
-**discovery-log — tentative read** — nanobot is a popular, MIT-licensed, ultra-lightweight **own-it personal AI agent** with an impressive batteries-included surface (WebUI workbench, chat channels, memory, MCP, model routing, automation) from a credible lab. Adopt it if you want a small, self-hostable agent you fully control across messaging channels for long-running personal/enterprise workflows. For the AI-assisted **coding** dev loop specifically, it's tangential and overlaps CowAgent and nanoclaw — pick it for the readable own-it core and multi-channel reach, not as a coding harness. Pre-1.0, so pilot before depending on it.
+**SKIP for this catalog's purpose — a personal multi-channel assistant, not a coding harness (keep
+the row).** This eval's own scope finding is explicit: *"For the AI-assisted **coding** dev loop
+specifically, it's tangential and overlaps CowAgent and nanoclaw — pick it for the readable own-it
+core and multi-channel reach, **not as a coding harness**."* Its header already files it as
+"tangential to the coding dev loop". A tool whose value is a self-hostable assistant reachable over
+chat channels does not intervene in Plan/Implement/Verify/Review/Ship.
 
-Compared to neighbors: **CowAgent** is a self-evolving multi-channel "super assistant"; **nanoclaw** is a containerized agent runtime with WhatsApp/Telegram/Slack/Discord/Gmail. nanobot's distinguishing pitch is a **deliberately small, readable, truly-owned core** with a polished WebUI workbench and first-class MCP/model-routing.
+The two peers the eval names to differentiate itself, **CowAgent** and **nanoclaw**, are both
+already SKIP. This is the third and last member of that class, disposed on the same ground, and the
+row stays as reference like theirs.
+
+Nothing here is a quality judgement: MIT, ★46.6K, HKUDS is a credible lab, and the small readable
+core is genuinely the eval's headline. It is a good tool pointed somewhere else.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

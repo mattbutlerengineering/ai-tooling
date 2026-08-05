@@ -3,6 +3,7 @@
 **Repo:** [zhukunpenglinyutong/jetbrains-cc-gui](https://github.com/zhukunpenglinyutong/jetbrains-cc-gui)
 **Stars:** 4,068 | **Last updated:** 2026-06-17 (pushed; created 2025-11-20) | **License:** MIT | **Releases:** 30
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (in-IDE agent host; touches all inner-loop stages)
 **Layer:** Tooling (TypeScript; IntelliJ/JetBrains plugin via JetBrains Marketplace)
 
@@ -61,6 +62,20 @@ gh api repos/zhukunpenglinyutong/jetbrains-cc-gui/releases --jq 'length'        
 **discovery-log — tentative read** — adopt if you work in a **JetBrains IDE** and want Claude Code and/or Codex as a native visual panel with `@file` context, image input, conversation rewind, skills, and MCP — rather than driving them in a terminal. It's mature, actively maintained, dual-engine, MIT, and the maintainer's security-audit cadence is reassuring. Not relevant outside JetBrains, and it's a front-end so cost/quality remain the CLIs'. Note the third-party-branding caveat. For VS Code, use kilocode; for a standalone desktop multiplexer, cc-switch.
 
 Compared to neighbors: **kilocode** is the in-editor agent for VS Code/JetBrains (its own agent, not a CLI wrapper); **cc-switch** is a desktop GUI that switches between CLI agents; **claudian** hosts agents inside Obsidian. CC GUI is the **JetBrains-native GUI specifically for the Claude Code + Codex CLIs** — the IDE-panel host for those two terminal agents.
+
+## Triage note
+
+Left at `discovery-log`. The JetBrains-native GUI for the Claude Code and Codex CLIs — a front end
+for the agents this catalog is *about*, which is the distinction that let `hermes-webui` survive the
+generative-UI pass while the product-building UI frameworks did not. MIT, ★5.2K, pushed 2026-08-02,
+30 releases.
+
+Peer to `claudian` (Obsidian) and `kilocode` (VS Code) in the editor-host cluster; none is in STACK,
+so there is nothing to be redundant with. Being a front end, cost and output quality remain the
+underlying CLI's — which caps its ceiling but is not a disposal ground. The eval's third-party
+branding caveat is worth a reader's attention and is already disclosed.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

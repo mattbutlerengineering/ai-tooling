@@ -3,6 +3,7 @@
 **Repo:** [regent-vcs/re_gent](https://github.com/regent-vcs/re_gent)
 **Stars:** 744 | **Last updated:** 2026-06-13 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (audit trail of agent edits) — also Reflect (after-the-fact provenance/debugging)
 **Layer:** Tooling
 
@@ -65,6 +66,21 @@ What the source tree confirms beyond the README: a real Go codebase under `inter
 Adopt re_gent when you need an **audit trail and per-line provenance for agent-authored code** — specifically: teams running one or more coding agents where "which prompt wrote this, and why" must be answerable later, or where you want a tamper-evident record of what agents touched (compliance, post-incident review, debugging bad refactors). It is a well-engineered, git-literate, hook-driven tool that fills a real gap git does not cover, and it is mature enough (v1.1.0, real tests, multi-agent hooks, VSCode extension) to take seriously. It is not a default for everyone: a solo dev who reads diffs and trusts their agent gets modest marginal value, the destructive "manage/rewind" half of the pitch is still roadmap, and a second growing object store without GC is a real operational caveat. Re-evaluate toward ADOPT-for-teams once rewind/fork and garbage collection ship and the format stabilizes. **KEEP** in the catalog — the existing entry is accurate; consider softening the one-liner from "manage" to "track and inspect" to match shipped capability.
 
 **vs. worktrunk / dmux** (also in catalog): these are not competitors. worktrunk and dmux solve *isolation and parallelism* (git worktrees, a branch + working dir per agent so concurrent agents don't collide). re_gent solves *provenance and audit* (what each agent did, which prompt caused each line, the conversation behind it). You could run re_gent inside a worktrunk/dmux setup to get both isolation and an audit trail. The catalog's "complementary" framing is correct; the distinction is isolation-of-work (worktrunk/dmux) vs. record-of-work (re_gent).
+
+## Triage note
+
+Left at `discovery-log`. Provenance and per-line audit for agent-authored code — a gap the eval
+shows git does not cover and that the isolation tools (`worktrunk`, `dmux`) do not address either,
+so it is not redundant with them despite sharing the "multi-agent hygiene" shelf. Apache-2.0, ★781,
+pushed 2026-07-02.
+
+Note for whoever promotes this: the eval's prose already reads **"KEEP in the catalog — the existing
+entry is accurate"**, but that sentence is about the *row*, not a verdict. Eliminate-only forbids
+this lane writing KEEP, and it is not written here. The eval also carries a genuine re-evaluate
+trigger — rewind/fork shipping and garbage collection landing — which is DEFER-shaped and would put
+it in `WATCHLIST.md`; that call needs a human.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

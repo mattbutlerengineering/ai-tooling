@@ -3,6 +3,7 @@
 **Repo:** [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc)
 **Stars:** 21,295 | **Last updated:** 2026-06-14 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (primary) — also Implement via `/codex:rescue` delegation
 **Layer:** Tooling
 
@@ -76,6 +77,21 @@ Adopt when you (1) already have Codex set up on the machine (ChatGPT subscriptio
 It is not an unconditional ADOPT because the cross-model payoff is asserted rather than benchmarked, it still spends a second vendor's usage budget, it is young (v1.0.x, ~3 months old), and the opt-in Stop-gate review loop is a real cost/latency foot-gun. Claude-Code-only users with no Codex footprint, or anyone doing small inline changes, get little marginal value over Claude-native `/review`.
 
 Differentiation from overlaps: **claude-octopus** is a heavy multi-vendor *consensus* engine (up to 9 models, 75% gate, 49 commands) — maximal blindspot coverage at maximal cost and footprint; codex-plugin-cc is the focused, first-party *one second opinion* (Codex only) with a tiny surface. **architect-loop** is a cross-vendor *build loop* (Claude Fable architect / GPT-5.5 Codex builder) for PR-sized parallel construction; codex-plugin-cc is not a build loop — it is review-first with optional single-task delegation (`/codex:rescue`). A focused Codex-from-CC reviewer is additive precisely because it is the low-ceremony, official, single-second-opinion point on a spectrum whose other end (octopus) is heavyweight consensus and whose adjacent neighbor (architect-loop) is a full build loop.
+
+## Triage note
+
+Left at `discovery-log`. A Review-stage surface with a real dev-loop role: an OpenAI-official thin
+wrapper that gets a cross-model second opinion inside Claude Code, over a Codex install you already
+have. Apache-2.0, ★31.3K.
+
+Nothing to be redundant with — the cross-model-review cluster (`claude-octopus`, `agents-council`,
+this) is entirely `discovery-log`, with no STACK incumbent, so the P2 challenger argument has no
+target. The eval's reservations are the ordinary CONDITIONAL kind: the cross-model payoff is
+asserted rather than benchmarked, it spends a second vendor's budget, and the opt-in Stop-gate
+review loop is a cost/latency foot-gun. Benchmarking that payoff is a measurement job, not an
+elimination.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
