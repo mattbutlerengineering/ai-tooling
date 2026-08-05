@@ -3,7 +3,7 @@
 **Repo:** [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex)
 **Stars:** ~33,200 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (retrieval / Memory & Context)
 **Layer:** Infrastructure
 

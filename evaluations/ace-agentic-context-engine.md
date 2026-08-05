@@ -3,7 +3,7 @@
 **Repo:** [kayba-ai/agentic-context-engine](https://github.com/kayba-ai/agentic-context-engine)
 **Stars:** 2,528 | **Last updated:** 2026-07-08 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

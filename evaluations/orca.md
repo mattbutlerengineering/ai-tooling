@@ -3,7 +3,7 @@
 **Repo:** [stablyai/orca](https://github.com/stablyai/orca)
 **Stars:** 5,540 | **Last updated:** 2026-06-20 (pushed; created 2026-03-17) | **License:** MIT | **Platforms:** desktop + iOS/Android
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (an "ADE" — agent development environment)
 **Layer:** Harness / platform (GUI app that hosts many coding agents)
 

@@ -3,7 +3,7 @@
 **Repo:** [nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp)
 **Stars:** 88 | **Last updated:** 2026-06-18 (pushed); latest release v1.43.1 (2026-06-16) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement (code understanding before and during a change); touches Review (CI change-impact reports) and Reflect (decision memory)
 **Layer:** Tooling (a queryable code-graph index served over MCP)
 

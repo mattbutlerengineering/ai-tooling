@@ -3,7 +3,7 @@
 **Repo:** [repowise-dev/repowise](https://github.com/repowise-dev/repowise)
 **Stars:** ~2,460 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (codebase intelligence)
 **Layer:** Tooling
 

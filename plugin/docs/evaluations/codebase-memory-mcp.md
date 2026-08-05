@@ -3,7 +3,7 @@
 **Repo:** [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
 **Stars:** 8,056 | **Created:** 2026-02-24 | **Last commit:** 2026-06-19 | **Latest release:** v0.8.1 (2026-06-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement (inner loop) — code understanding
 **Layer:** Tooling
 

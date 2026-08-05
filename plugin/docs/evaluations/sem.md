@@ -3,7 +3,7 @@
 **Repo:** [Ataraxy-Labs/sem](https://github.com/Ataraxy-Labs/sem)
 **Stars:** 2,948 | **Last updated:** 2026-06-17 (pushed) | **License:** MIT | **Language:** Rust
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Code Understanding — Implement/Review
 **Layer:** Tooling (CLI + MCP server for agents)
 

@@ -3,7 +3,7 @@
 **Repo:** [modelcontextprotocol/servers — src/memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
 **Stars:** 87,453 (monorepo) | **Last updated:** 2026-06-17 (pushed; monorepo created 2024-11-19) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Outer-loop **Reflect** / cross-session continuity — it is the persistence substrate an agent reads at task start and writes at task end, not a stage that produces code.
 **Layer:** Infrastructure (a stdio MCP server process holding a knowledge graph; the agent is the only client and decides what to store)
 

@@ -4,7 +4,7 @@
 **Stars:** 362 | **Last updated:** 2026-08-04 (pushed) | **License:** MIT
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

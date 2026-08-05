@@ -3,7 +3,7 @@
 **Repo:** [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian)
 **Stars:** 7,151 | **Last updated:** 2026-05-28 (pushed; created 2026-04-07) | **License:** MIT | **Latest:** v1.9.2
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (persistent knowledge base for Claude Code)
 **Layer:** Skill pack / plugin (15 Claude Code skills over an Obsidian vault)
 

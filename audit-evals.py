@@ -100,8 +100,13 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
   Q. ELIMINATE-ONLY BULK TRIAGE — an eval marked "triaged: bulk" may only read SKIP or
      stay at discovery-log; it may never carry ADOPT/KEEP/CONDITIONAL. A false SKIP is
      cheap and reversible, a false ADOPT poisons STACK, and K's honesty-disclaimer
-     escape hatch would otherwise let a README skim carry an ADOPT. This is what makes
-     eliminate-only mechanical rather than a promise. Offline, gating, on by default.
+     escape hatch would otherwise let a README skim carry an ADOPT. Also fails an
+     UNATTRIBUTED stamp: a `**Last triaged:**` with neither the bulk marker nor
+     `<!-- triaged: human -->` is unpoliceable, not innocent — Q can only constrain a
+     lane it can identify, so a bare date looks exactly like a lane that behaved (#327).
+     The human marker exempts the verdict ceiling, since reaching a real verdict is what
+     a human pass is for. This is what makes eliminate-only mechanical rather than a
+     promise. Offline, gating, on by default.
 
   S. SKILL TEST-DESIGN (opt-in, --skill-design, REPORT-ONLY) — every skill/plugin-Type
      eval should record at least one skill dimension (a Triggering test or a
@@ -1098,6 +1103,16 @@ BULK_MARKER = "<!-- triaged: bulk -->"
 # gate would have failed the build for prose the lane never wrote. Since #324 a lead
 # headlines `discovery-log`, so the leave outcome is a token the gate can recognize.
 BULK_ALLOWED = frozenset({"SKIP", "discovery-log"})
+# A `**Last triaged:**` stamp says *some* lane examined this lead — but not which, and Q
+# can only police a lane it can identify. The bulk marker is that identification; a human
+# pass writes HUMAN_MARKER instead, which exempts the eval (a human may reach any verdict,
+# which is the whole difference between the lanes). A stamp carrying NEITHER is the hole
+# #327 names: it looks exactly like a lane that behaved, and Q never sees it. The
+# /triage-lead skill has written the bulk marker on both outcomes since #323; this makes
+# that protocol mechanical instead of a promise.
+TRIAGE_STAMP = "**Last triaged:**"
+HUMAN_MARKER = "<!-- triaged: human -->"
+UNATTRIBUTED = "unattributed"  # the second finding kind audit_bulk_triage returns
 
 def audit_bulk_triage(ctx):
     """(eval name, verdict) for every bulk-marked eval whose verdict exceeds the
@@ -1110,6 +1125,11 @@ def audit_bulk_triage(ctx):
     flagged = []
     for ev in ctx.evals:
         if BULK_MARKER not in ev.text:
+            # An unattributed stamp is unpoliceable, not innocent: Q cannot tell a lane
+            # that left a lead from one that raised it (#327). Reported at the stamp, so
+            # the fix is attribution rather than a verdict argument.
+            if TRIAGE_STAMP in ev.text and HUMAN_MARKER not in ev.text:
+                flagged.append((ev.name, UNATTRIBUTED))
             continue
         if ev.verdict and ev.verdict not in BULK_ALLOWED:
             flagged.append((ev.name, ev.verdict))
@@ -1490,8 +1510,13 @@ def main():
         if bprob:
             rc = 1
             for name, verdict in bprob:
-                print(f"  OVERREACH {name}: bulk-triaged eval claims {verdict} — "
-                      f"the bulk lane may only SKIP or leave at discovery-log")
+                if verdict == UNATTRIBUTED:
+                    print(f"  UNATTRIBUTED {name}: carries `{TRIAGE_STAMP}` with neither "
+                          f"`{BULK_MARKER}` nor `{HUMAN_MARKER}` — Q cannot police a lane "
+                          f"it cannot identify (#327)")
+                else:
+                    print(f"  OVERREACH {name}: bulk-triaged eval claims {verdict} — "
+                          f"the bulk lane may only SKIP or leave at discovery-log")
         else:
             print("  OK — every bulk-triaged eval stays within eliminate-only authority")
     if do_drift:

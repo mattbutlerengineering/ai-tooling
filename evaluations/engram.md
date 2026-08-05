@@ -3,7 +3,7 @@
 **Repo:** [Gentleman-Programming/engram](https://github.com/Gentleman-Programming/engram)
 **Stars:** 4,493 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

@@ -3,7 +3,7 @@
 **Repo:** [lucasrosati/claude-code-memory-setup](https://github.com/lucasrosati/claude-code-memory-setup)
 **Stars:** 785 | **Last updated:** 2026-06-01 (pushed; created 2026-04-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (a *setup recipe*, not an installable tool)
 **Layer:** Reference (guide wiring existing tools together)
 

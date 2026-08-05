@@ -3,7 +3,7 @@
 **Repo:** [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph)
 **Stars:** 18,696 | **Last updated:** 2026-06-14 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Review (primary); Plan (codebase navigation)
 **Layer:** Tooling
 

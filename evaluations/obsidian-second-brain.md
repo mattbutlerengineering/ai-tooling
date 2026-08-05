@@ -3,7 +3,7 @@
 **Repo:** [eugeniughelbur/obsidian-second-brain](https://github.com/eugeniughelbur/obsidian-second-brain)
 **Stars:** ~2,570 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (knowledge management / Memory & Context)
 **Layer:** Process / Tooling
 
