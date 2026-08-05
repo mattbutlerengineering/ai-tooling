@@ -3,6 +3,7 @@
 **Repo:** [BoundaryML/baml](https://github.com/BoundaryML/baml)
 **Stars:** ~8,400 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -49,9 +50,31 @@ gh api repos/BoundaryML/baml/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP — app-building framework, no dev-loop bridge.** A domain-specific language for writing prompts as typed, testable functions with codegen into multiple host languages.
 
-Adopt when reliable, structured LLM outputs matter and you want prompts as typed, testable functions callable from multiple languages — especially valuable for polyglot teams or apps needing tool-calling on models without native APIs. Accept the new-language/codegen overhead. Compare with pydantic-ai/instructor if you're single-language Python and want a lighter-weight structured-output approach.
+**Its own evaluation says so.** Its recommendation is "adopt when reliable, structured LLM outputs matter", compared against `pydantic-ai` and `instructor` — the structured-output tooling for AI applications.
+
+The bar is not new and is not this lane's invention. `WORKFLOW.md`'s **Tools Deliberately
+Excluded** table states it — "Flowise, LangGraph — visual/programmatic agent builders: for building AI
+products, not for your own dev workflow" — and the catalog has already applied it nine times, to
+`langchain`, `LangChain.js`, `LangGraph`, `LangGraph.js`, `crewAI`, `aisuite`, `dify`, `Flowise` and
+`RAGFlow`. The `langchain` eval spells out both the test and the exceptions: a framework earns a slot
+only if it has a **dev-loop bridge**, as `fast-agent` does by doubling as a runnable MCP-native coding
+agent and `vercel/ai` does by shipping a coding-agent skill plus a harness-building primitive.
+
+A SKIP here removes nothing. Per the `Flowise` precedent — "SKIP for this catalog's purpose (keep as
+a reference entry)" — the row stays in `CATALOG.md`; what changes is that it stops reading as
+something to install into a dev loop.
+
+This was the closest call in the batch, because BAML's differentiator *is* developer experience — a playground, tests, typed functions — which superficially reads like dev-loop tooling. The distinction that decides it: those affordances help you develop **the LLM feature inside your product**, not the loop in which you write code. By that test BAML is `langchain` with better ergonomics, and `langchain` is SKIPped.
+
+Separately, the row is filed under **Dev Workflow** ("git management, planning, project orchestration, and development process"), which fits it no better than Agent Orchestration does. The misfiling is noted, not fixed — re-sectioning a row is a catalog edit, not a triage disposition.
+
+Re-open if it grows a dev-loop bridge of the kind `fast-agent` and `vercel/ai` have — a runnable
+coding agent, an installable coding-agent skill, or a documented primitive for building a harness.
+Nothing about the project's quality is in dispute; this is a category call.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [vercel/ai](https://github.com/vercel/ai)
 **Stars:** 24,995 | **Last updated:** 2026-06-19 (pushed; created 2023-05-23) | **License:** NOASSERTION (Apache-2.0 per package manifests; GitHub couldn't resolve a single SPDX for the monorepo)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Mostly off-loop (an SDK for building LLM apps), with one genuine bridge into Implement: it ships an installable coding-agent skill and a `ToolLoopAgent` primitive people use to *build* coding harnesses.
 **Layer:** Infrastructure — a provider-agnostic TypeScript toolkit (`ai`, `@ai-sdk/*`) imported into product code, plus UI hooks (`@ai-sdk/react`) and a Vercel AI Gateway path.
 
@@ -60,6 +61,24 @@ gh api repos/vercel/ai/releases/latest --jq '{tag,date:.published_at[0:10]}'  # 
 **discovery-log — tentative read: catalog it for the coding-agent skill and the harness-building primitive, not as a workflow SDK.** vercel/ai is, like LangChain, primarily a framework for building LLM applications — the class this catalog SKIPs. But it crosses the bar two of its skipped siblings don't: it ships an installable coding-agent skill (`npx skills add vercel/ai`) that improves Implement-stage code generation, and `ToolLoopAgent` is a documented substrate for *building a coding harness*. Adopt it only in those two cases: (a) you write AI-SDK code and want the agent skill, or (b) you are building a custom TS coding harness. As a general workflow tool it offers nothing; default users want the skill via vercel-labs/skills, not the framework.
 
 Compared to neighbors: against **LangChain (Python)** — which we SKIP for having no dev-loop bridge — vercel/ai earns CONDITIONAL precisely because it has one (the skill + harness primitive). It parallels **fast-agent**, cataloged despite being an agent framework because it doubles as a runnable coding agent; vercel/ai's bridge is thinner (a skill + a primitive, not a ready coding agent), hence CONDITIONAL not ADOPT. For pure provider interoperability, **aisuite** is the minimal alternative. The skill itself lives in the **vercel-labs/skills** / **vercel-labs/agent-skills** orbit already in the catalog.
+
+## Triage note
+
+Left at `discovery-log` — **the one framework in this slice that clears the scope bar**, and the
+reason the bar is a test rather than a category ban.
+
+Twenty-one rows around it were SKIPped in this pass as app-building frameworks with no dev-loop
+bridge. This one has two, both named in its own eval and both concrete: it ships an installable
+**coding-agent skill** (`npx skills add vercel/ai`) that improves Implement-stage code generation, and
+**`ToolLoopAgent`** is a documented substrate for *building a coding harness*. The `langchain` eval
+already used this row as the worked example of the exception — "against LangChain, which we SKIP for
+having no dev-loop bridge, vercel/ai earns CONDITIONAL precisely because it has one."
+
+So the disposition is unchanged and deliberate: catalogued for the skill and the harness primitive,
+not as a workflow SDK. The bridge is thinner than `fast-agent`'s (a skill plus a primitive, not a
+ready coding agent), which is why the read is CONDITIONAL rather than ADOPT.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
