@@ -8,6 +8,21 @@
 
 ---
 
+> **⚠️ This eval and its CATALOG.md row are about two different tools.** Detector U
+> (`--catalog-mirror`, #336) surfaced the mismatch on 2026-08-04. Everything below was
+> written about **`benjaminr/chrome-devtools-mcp`** — a third-party MIT server, ★303,
+> last pushed 2025-10-06 (dormant ~10 months). The `chrome-devtools-mcp` row in
+> `CATALOG.md` names the **official** server, `ChromeDevTools/chrome-devtools-mcp`
+> (Apache-2.0, ★48.5K, Chrome DevTools team, pushed 2026-08-04) — a different codebase
+> that merely shares the name.
+>
+> The link is deliberately **not** repointed: doing so would attach this review of the
+> third-party server to the official one's identity, which is worse than the mismatch.
+> The official server is a **P0 measure** lead and needs its own evaluation; tracked in
+> [#355](https://github.com/mattbutlerengineering/ai-tooling/issues/355). Read nothing
+> below as evidence about the official server.
+
+
 ## What it does
 
 An MCP server that bridges Claude to Chrome's DevTools Protocol (CDP), giving agents direct access to network monitoring, console logs, JavaScript execution, DOM inspection, CSS analysis, storage/cookie access, and performance metrics. Unlike playwright (which automates browser interactions — clicking, typing, navigating), this server focuses on *inspection*: reading network responses, diagnosing console errors, profiling performance, and examining runtime state. The agent connects to a Chrome instance with remote debugging enabled and queries it through ~40 MCP tools organized into six categories (Chrome management, network, console, page analysis, DOM, CSS).
