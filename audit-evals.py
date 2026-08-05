@@ -1785,6 +1785,17 @@ def audit_identity(ctx):
 SKILL_LOCK = "~/.agents/.skill-lock.json"          # npx skills (vercel-labs/skills) v3
 PLUGIN_RECORD = "~/.claude/plugins/installed_plugins.json"
 SKILL_DIR = "~/.claude/skills"
+PLUGIN_CACHE = "~/.claude/plugins/cache"           # <marketplace>/<plugin>/<version|unknown>
+# #332's discriminator, generalized. A directory under the plugin cache means the
+# MARKETPLACE was added, never that a plugin was installed — that is the trap #332 fell
+# into. But the version subdirectory splits the trap in two: `unknown` is listing metadata
+# for a plugin whose code was never fetched, while a real version string ('3.1.0', a commit
+# sha) means this machine pulled that plugin at that version. #332 used exactly this to
+# separate the genuinely-installed claude-md-management (`1.0.0`, matching its installPath)
+# from plugin-dev (`unknown`). Evidence of a fetch is strictly more than `unknown` and
+# strictly less than an installed_plugins.json entry, so it gets its own bucket rather
+# than being collapsed into either.
+UNFETCHED = "unknown"
 # The only Types these records can cover. A CLI or an MCP server is installed by npm,
 # brew or a settings entry, none of which leaves a mark here — flagging them would be
 # noise indistinguishable from signal.
@@ -1794,14 +1805,15 @@ InstallFinding = collections.namedtuple("InstallFinding", "kind tool verdict det
 
 
 def read_install_records(home=None):
-    """(skill_name -> source slug, set of installed slugs, set of names on disk).
+    """(skill_name -> source slug, set of installed slugs, set of names on disk,
+    plugin name -> fetched version).
 
     Every value is absent-tolerant: a machine with no lockfile is a machine we know
     nothing about, which must read as 0 records rather than as a clean bill."""
     def path(p):
         return os.path.join(home, p.replace("~/", "")) if home else os.path.expanduser(p)
 
-    by_name, slugs, on_disk = {}, set(), set()
+    by_name, slugs, on_disk, fetched = {}, set(), set(), {}
     try:
         with open(path(SKILL_LOCK), encoding="utf-8") as fh:
             for name, meta in (json.load(fh).get("skills") or {}).items():
@@ -1821,7 +1833,24 @@ def read_install_records(home=None):
         on_disk |= set(os.listdir(path(SKILL_DIR)))
     except OSError:
         pass
-    return by_name, slugs, on_disk
+    cache = path(PLUGIN_CACHE)
+    for market in _listdir(cache):
+        for plugin in _listdir(os.path.join(cache, market)):
+            vers = [v for v in _listdir(os.path.join(cache, market, plugin))
+                    if v != UNFETCHED]
+            if vers:                       # a real version string: the code was pulled
+                # Every fetched version, not a "latest": these are opaque strings (semver
+                # AND commit shas), and a lexicographic max reads 13.11.0 as older than
+                # 13.4.0. Reporting the set states what is on disk and invents no order.
+                fetched.setdefault(plugin, ", ".join(vers))
+    return by_name, slugs, on_disk, fetched
+
+
+def _listdir(p):
+    try:
+        return sorted(d for d in os.listdir(p) if not d.startswith("."))
+    except OSError:
+        return []
 
 
 def audit_installed(ctx, home=None):
@@ -1839,9 +1868,19 @@ def audit_installed(ctx, home=None):
 
     Shadows are returned APART and printed rather than counted: the name really does
     resolve elsewhere on this machine, which is worth knowing and is not a defect in
-    the row (V's `acked`, W's `cleared`, X's `FACETED`)."""
-    by_name, slugs, on_disk = read_install_records(home)
-    records = len(by_name) + len(on_disk)
+    the row (V's `acked`, W's `cleared`, X's `FACETED`).
+
+    CACHE-ONLY sits between NO-RECORD and clean (#366). The plugin cache is #332's trap
+    — a directory there means the marketplace was added — but the version subdirectory
+    splits it: `unknown` is listing metadata, while a real version string means the code
+    was pulled. Four rows sat in NO-RECORD holding a fetched version (claude-reflect
+    3.1.0, superpowers 5.1.0, security-guidance 2.0.6, claude-mem 13.11.0/13.4.0), which
+    'nothing on the machine answers to this row' does not describe. It is still a finding
+    — a fetch is not an activation, and nothing records which of the two happened — but
+    calling it NO-RECORD overstates by exactly the amount #332 warned about in the other
+    direction."""
+    by_name, slugs, on_disk, fetched = read_install_records(home)
+    records = len(by_name) + len(on_disk) + len(fetched)
     if not records:
         return [], [], 0
 
@@ -1851,6 +1890,7 @@ def audit_installed(ctx, home=None):
                   for r in rows}
     lock_by_key = {catalog_lib.name_key(n): s for n, s in by_name.items()}
     disk_keys = {catalog_lib.name_key(n) for n in on_disk}
+    fetched_keys = {catalog_lib.name_key(n): v for n, v in fetched.items()}
 
     findings, shadowed = [], []
     for r in rows:
@@ -1871,6 +1911,11 @@ def audit_installed(ctx, home=None):
             findings.append(InstallFinding(
                 "COLLISION", r.name, v,
                 f"row says {slug}, installed skill of that name comes from {installed_from}"))
+        elif key in fetched_keys:
+            findings.append(InstallFinding(
+                "CACHE-ONLY", r.name, v,
+                f"no install record; plugin cache holds fetched version(s) "
+                f"{fetched_keys[key]} — code was pulled, activation is unrecorded"))
         elif key not in disk_keys:
             findings.append(InstallFinding(
                 "NO-RECORD", r.name, v, f"no record and no directory answers to {slug}"))
@@ -1880,7 +1925,7 @@ def audit_installed(ctx, home=None):
         findings.append(InstallFinding("UNCATALOGUED", slug, "—",
                                        f"{n} installed skill(s), no catalog row"))
 
-    rank = {"COLLISION": 0, "NO-RECORD": 1, "UNCATALOGUED": 2}
+    rank = {"COLLISION": 0, "NO-RECORD": 1, "CACHE-ONLY": 2, "UNCATALOGUED": 3}
     findings.sort(key=lambda f: (rank[f.kind], f.tool))
     shadowed.sort(key=lambda f: f.tool)
     return findings, shadowed, records
