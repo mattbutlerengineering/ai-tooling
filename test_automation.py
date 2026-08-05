@@ -3543,8 +3543,8 @@ class TestLicenseDeclared(unittest.TestCase):
                 "**SKIP** — no declared license. A skill/plugin is *vendored* — its text "
                 "is copied into the consuming repo — and text carrying no license grant "
                 "cannot be copied in."))
-            finds, records = audit.audit_license_declared(ctx)
-            self.assertEqual(records, 1)
+            finds, records, withdrawn = audit.audit_license_declared(ctx)
+            self.assertEqual((records, withdrawn), (1, []))
             self.assertEqual([(f.kind, f.spdx) for f in finds], [("GROUNDED", "MIT")])
             self.assertIn("## License MIT", finds[0].phrase)
 
@@ -3554,7 +3554,7 @@ class TestLicenseDeclared(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, self.DECLARED, verdict_text=(
                 "**SKIP** — dormant for 13 months and redundant with the incumbent."))
-            finds, _ = audit.audit_license_declared(ctx)
+            finds, _, _ = audit.audit_license_declared(ctx)
             self.assertEqual([f.kind for f in finds], ["RECORDED"])
 
     def test_a_passing_mention_of_a_license_is_not_a_ground(self):
@@ -3563,7 +3563,7 @@ class TestLicenseDeclared(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, self.DECLARED, verdict_text=(
                 "**SKIP** — capable, permissively licensed, and wholly redundant."))
-            finds, _ = audit.audit_license_declared(ctx)
+            finds, _, _ = audit.audit_license_declared(ctx)
             self.assertEqual([f.kind for f in finds], ["RECORDED"])
 
     def test_conflict_is_reported_apart(self):
@@ -3571,7 +3571,7 @@ class TestLicenseDeclared(unittest.TestCase):
             recs = {"o/skl": {"license_spdx": "NONE", "license_declared": {
                 "spdx": "MIT", "where": "readme", "phrase": "x", "conflict": "ISC"}}}
             ctx = self._ctx(d, recs, verdict="discovery-log")
-            finds, _ = audit.audit_license_declared(ctx)
+            finds, _, _ = audit.audit_license_declared(ctx)
             self.assertEqual([(f.kind, f.conflict) for f in finds], [("CONFLICT", "ISC")])
 
     def test_grounded_outranks_conflict(self):
@@ -3581,7 +3581,7 @@ class TestLicenseDeclared(unittest.TestCase):
             recs = {"o/skl": {"license_spdx": "NONE", "license_declared": {
                 "spdx": "MIT", "where": "readme", "phrase": "x", "conflict": "ISC"}}}
             ctx = self._ctx(d, recs, verdict_text="**SKIP** (license) — no LICENSE file.")
-            finds, _ = audit.audit_license_declared(ctx)
+            finds, _, _ = audit.audit_license_declared(ctx)
             self.assertEqual([(f.kind, f.conflict) for f in finds], [("GROUNDED", "ISC")])
 
     def test_uncollected_field_reports_zero_records_not_zero_findings(self):
@@ -3589,16 +3589,63 @@ class TestLicenseDeclared(unittest.TestCase):
         # real absence". The count is what distinguishes them.
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, {"o/skl": {"license_spdx": "NONE", "archived": False}})
-            self.assertEqual(audit.audit_license_declared(ctx), ([], 0))
+            self.assertEqual(audit.audit_license_declared(ctx), ([], 0, []))
 
     def test_missing_cache_is_not_an_exception(self):
         with tempfile.TemporaryDirectory() as d:
             os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
             _write(d, "CATALOG.md", ""); _write(d, "COMPARISON.md", "")
             self.assertEqual(
-                audit.audit_license_declared(audit.DetectorContext(d)), ([], 0))
+                audit.audit_license_declared(audit.DetectorContext(d)), ([], 0, []))
 
     def test_flag_is_report_only_and_opt_in(self):
         self.assertIn("--license-declared", audit.REPORT_FLAGS)
         self.assertNotIn("--license-declared", audit.DEFAULT_GATES)
         self.assertNotIn("--license-declared", audit.OFFLINE_GATES)
+
+    # --- the withdrawal bucket -------------------------------------------------
+    # A verdict that has already withdrawn its license ground still QUOTES the claim it
+    # withdrew, because quoting it is the honest way to record a correction. Without a
+    # bucket, an eval is punished for documenting its own repair and the count can never
+    # reach zero. Same shape as W's "argues it clears the bar" and V's ack.
+
+    def test_a_withdrawn_ground_is_printed_but_not_counted(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP — off-scope.** ~~A second ground: no license.~~ Withdrawn: the "
+                "README declares MIT. The scope ground below decides the row on its own."))
+            finds, records, withdrawn = audit.audit_license_declared(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual(records, 1)                    # still collected
+            self.assertEqual([f.kind for f in withdrawn], ["GROUNDED"])
+
+    def test_withdrawal_recognizes_the_explicit_sentence_form(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP** — dormant. The license ground stated here is withdrawn; the "
+                "repo has no LICENSE file but its README declares MIT."))
+            finds, _, withdrawn = audit.audit_license_declared(ctx)
+            self.assertEqual((finds, len(withdrawn)), ([], 1))
+
+    def test_a_live_ground_is_not_withdrawn_by_the_word_license_alone(self):
+        # The hatch must not open on any verdict that merely discusses licensing, or it
+        # becomes a mute button for the findings it exists to let a human clear.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, self.DECLARED, verdict_text=(
+                "**SKIP** — no declared license. The license question is central here "
+                "and the licensing terms matter for a vendored skill."))
+            finds, _, withdrawn = audit.audit_license_declared(ctx)
+            self.assertEqual([f.kind for f in finds], ["GROUNDED"])
+            self.assertEqual(withdrawn, [])
+
+    def test_withdrawal_applies_only_to_a_grounded_finding(self):
+        # RECORDED and CONFLICT are facts about the METADATA, not about a verdict, so a
+        # retraction in someone's prose must not suppress them.
+        with tempfile.TemporaryDirectory() as d:
+            recs = {"o/skl": {"license_spdx": "NONE", "license_declared": {
+                "spdx": "MIT", "where": "readme", "phrase": "x", "conflict": "ISC"}}}
+            ctx = self._ctx(d, recs, verdict="discovery-log",
+                            verdict_text="~~no license~~ withdrawn — README declares MIT.")
+            finds, _, withdrawn = audit.audit_license_declared(ctx)
+            self.assertEqual([f.kind for f in finds], ["CONFLICT"])
+            self.assertEqual(withdrawn, [])

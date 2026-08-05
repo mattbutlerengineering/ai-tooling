@@ -272,6 +272,11 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      license text or a copyright holder is a thinner record than a LICENSE file, and
      whether that clears the bar is a human's call. This detector never says a tool is
      adoptable — only that the ground under a mechanical SKIP is not an absence.
+     A verdict that has ALREADY withdrawn its license ground is bucketed apart and not
+     counted, because an honest retraction quotes the claim it retracts and would
+     otherwise flag forever — W's "argues it clears the bar" shape. Widen
+     LICENSE_WITHDRAWN if it misses an honest retraction; never narrow LICENSE_GROUND
+     to compensate, which would hide live findings to clear stale ones.
      Report-only: the remedy is a re-read of a human's verdict, not a build failure.
      Offline — it compares two files already in the tree.
 
@@ -1878,6 +1883,21 @@ LICENSE_GROUND = re.compile(
     r"|licen[cs]e alone"
     r"|\*\*SKIP\*\* ?\(licen[cs]e\)", re.I)
 
+# A verdict that has ALREADY withdrawn its license ground still quotes the claim it
+# withdrew — because quoting it is the honest way to record a correction (detector V's
+# rule). Without this, an eval is punished for documenting its own repair and the count
+# can never reach zero. Same shape as W's "argues it clears the bar" and V's ack: still
+# printed, not counted.
+#
+# The recognized form is a STRUCK-THROUGH claim, `~~…licen…~~`, or an explicit
+# withdrawn/retracted sentence naming the license. Widen this vocabulary if it misses an
+# honest retraction — never narrow LICENSE_GROUND to compensate, which would hide live
+# findings to clear stale ones.
+LICENSE_WITHDRAWN = re.compile(
+    r"~~[^~]{0,300}licen[a-z]*[^~]{0,300}~~"
+    r"|licen[a-z]*[^.\n]{0,100}(?:is |was |been )?(?:withdrawn|retracted)"
+    r"|(?:withdrawn|retracted)[^.\n]{0,100}licen[a-z]*", re.I)
+
 LicenseFinding = collections.namedtuple(
     "LicenseFinding", "kind tool slug verdict spdx where phrase conflict")
 
@@ -1892,9 +1912,9 @@ def audit_license_declared(ctx):
     try:
         records = json.loads(ctx.read("repo-metadata.json"))
     except (OSError, ValueError):
-        return [], 0
+        return [], 0, []
     if not isinstance(records, dict):
-        return [], 0
+        return [], 0, []
 
     by_slug = {}
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
@@ -1914,7 +1934,7 @@ def audit_license_declared(ctx):
 
     collected = sum(1 for m in records.values()
                     if isinstance(m, dict) and m.get("license_declared"))
-    findings = []
+    findings, withdrawn = [], []
     for slug, meta in sorted(records.items()):
         if not isinstance(meta, dict):
             continue
@@ -1924,18 +1944,21 @@ def audit_license_declared(ctx):
         tool = by_slug.get(slug, slug)
         v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
         sec = next((grounds[a] for a in catalog_lib.alias_keys(tool) if a in grounds), "")
-        if v == "SKIP" and LICENSE_GROUND.search(sec):
+        grounded = v == "SKIP" and LICENSE_GROUND.search(sec)
+        if grounded:
             kind = "GROUNDED"
         elif d.get("conflict"):
             kind = "CONFLICT"
         else:
             kind = "RECORDED"
-        findings.append(LicenseFinding(kind, tool, slug, v, d["spdx"], d.get("where", "?"),
-                                       d.get("phrase", ""), d.get("conflict")))
+        f = LicenseFinding(kind, tool, slug, v, d["spdx"], d.get("where", "?"),
+                           d.get("phrase", ""), d.get("conflict"))
+        (withdrawn if grounded and LICENSE_WITHDRAWN.search(sec) else findings).append(f)
 
     rank = {"GROUNDED": 0, "CONFLICT": 1, "RECORDED": 2}
-    findings.sort(key=lambda f: (rank[f.kind], f.tool))
-    return findings, collected
+    for bucket in (findings, withdrawn):
+        bucket.sort(key=lambda f: (rank[f.kind], f.tool))
+    return findings, collected, withdrawn
 
 
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
@@ -2295,7 +2318,7 @@ def main():
         for f in finds:
             print(f"  {f.kind:12} {f.tool} [{f.verdict}]: {f.detail}")
     if do_licdecl:
-        finds, records = audit_license_declared(ctx)
+        finds, records, withdrawn = audit_license_declared(ctx)
         grounded = sum(1 for f in finds if f.kind == "GROUNDED")
         print(f"== Z. unread license declaration (report-only) — {len(finds)} record(s) "
               f"whose 'NONE' license is declared elsewhere, {grounded} carrying a "
@@ -2310,6 +2333,9 @@ def main():
             extra = f" — manifest says {f.conflict}" if f.conflict else ""
             print(f"  {f.kind:8} {f.tool} ({f.slug}) [{f.verdict}]: {f.spdx} in "
                   f"{f.where}{extra} — \"{f.phrase}\"")
+        for f in withdrawn:
+            print(f"  ground already withdrawn — {f.tool} ({f.slug}) [{f.verdict}]: "
+                  f"{f.spdx} in {f.where}")
     sys.exit(rc)
 
 if __name__ == "__main__":

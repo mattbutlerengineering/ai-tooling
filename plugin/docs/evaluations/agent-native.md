@@ -37,9 +37,13 @@ plus a harness-building primitive). This row has none.
 The SKIP removes nothing — per the `Flowise` precedent the entry stays in `CATALOG.md` as a reference
 row. Re-open if a dev-loop bridge appears; nothing here disputes the project's quality.
 
-**A second, independent ground: no license.** The `CATALOG.md` row already carries "⚠️ no license = not adoptable", and that was re-verified rather than trusted — a live fetch on 2026-08-04 returns `license: null`. The re-check was not ceremony: earlier in this same triage lane `vercel-labs/skills` was queued for elimination on a cached `NONE` and survived, because upstream had added an MIT LICENSE since the record was written. A cached `NONE` is not evidence; a same-day confirmed absence is.
+**~~A second, independent ground: no license.~~ Withdrawn 2026-08-05.** That paragraph read: the `CATALOG.md` row carries "⚠️ no license = not adoptable", re-verified rather than trusted by a live fetch on 2026-08-04 returning `license: null`, and *"a cached `NONE` is not evidence; a same-day confirmed absence is."*
 
-Either ground alone would decide this row. Both are recorded so that a future LICENSE file re-opens only the licensing question, not the scope one.
+The instinct was right and the check was still wrong. `license: null` is not a confirmed absence — GitHub's licensee detector reads a root `LICENSE` file and nothing else, and this repo's README carries a `## License` section reading `MIT` (#372). The re-fetch confirmed the API's answer a day fresher, which is not the same as confirming the repo's terms. That the paragraph re-checked *because* `vercel-labs/skills` had survived exactly this trap makes the point sharper, not softer: a second look in the same place finds the same blind spot.
+
+This row is also the set's one genuine **conflict** — the README says MIT and `package.json` says **ISC** — and the standing tiebreak from #26 ("the LICENSE file governs, not the README badge or package metadata") has nothing to govern with when there is no LICENSE file. Both are permissive, so nothing turns on it here; it is recorded because the next row where it happens may not be so lucky.
+
+**The scope ground is untouched and decides the row on its own** — which is why the verdict does not move. It was recorded as independent precisely so that one ground failing would not take the other with it, and that is what happened.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
@@ -47,4 +51,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [agent-native](https://github.com/BuilderIO/agent-native) | framework | Framework for building agent-native applications (⚠️ no license = not adoptable, ★3.2K) — structure apps so AI agents can operate them by design | Apps aren't built for agents to drive; want a framework that makes an app agent-operable by design | CopilotKit, tambo, CLI-Anything |
+| [agent-native](https://github.com/BuilderIO/agent-native) | framework | Framework for building agent-native applications (MIT per README, ISC in package.json, no LICENSE file; ★3.2K) — structure apps so AI agents can operate them by design | Apps aren't built for agents to drive; want a framework that makes an app agent-operable by design | CopilotKit, tambo, CLI-Anything |

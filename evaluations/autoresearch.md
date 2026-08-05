@@ -59,9 +59,11 @@ tool that moves a quality signal in the software dev loop, and
 [`last30days`](https://github.com/mvanhorn/last30days-skill) (STACK, `MEASURED`) already owns the
 Research slot for the work this catalog maps.
 
-The licensing is the second half and it is not a technicality: GitHub reports **no license** on the
-repo. Absent a grant, the default is exclusive copyright — nothing here is adoptable, whatever the
-star count says.
+**~~The licensing is the second half~~ — withdrawn 2026-08-05.** That paragraph read: *"GitHub
+reports no license on the repo. Absent a grant, the default is exclusive copyright — nothing here is
+adoptable, whatever the star count says."* GitHub reports what its licensee detector can read, which
+is a root `LICENSE` file and nothing else; this repo's README declares **MIT** under a `## License`
+heading (#372). The off-scope ground below is untouched and decides the row on its own.
 
 What is genuinely valuable survives the SKIP intact. The evaluation calls `program.md` *"a
 masterclass in agent instruction design — study it even if you never train a model"*, and the
@@ -69,7 +71,7 @@ methodology it encodes (fixed budget, single metric, git-based tracking, an expl
 criterion) transfers to any autonomous loop. SKIP is a statement about the install list, not the
 catalog: the row stays, and reading `program.md` costs nothing and needs no license grant.
 
-Re-open if the repo adopts a license *and* the work involves ML training — or, more likely, harvest
+Re-open if the work involves ML training — or, more likely, harvest
 the instruction-design pattern into our own agent docs and leave the tool where it is.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
