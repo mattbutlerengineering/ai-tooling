@@ -171,6 +171,30 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      reports 0 RECORDS, never 0 findings — absence of the field means "not collected".
      Offline (reads the committed cache).
 
+  W. P0 SCOPE MISMATCH (opt-in, --scope, REPORT-ONLY) — next-evals.py scores a lead as
+     2*overlap_pressure + stage_gap_weight + evidence_bonus. All three terms measure how
+     much ATTENTION a lead attracts; none asks whether it is a tool this catalog is FOR.
+     So a row can be both clearly out of scope and highly ranked — and ranking high puts
+     it in P0 measure, the one band an unattended pass may not write to (#353). Overlap
+     pressure is the trap: a framework accumulates pressure from the very rows SKIPped
+     alongside it, so the more thoroughly a class is eliminated, the higher its survivors
+     score. `pydantic-ai` sits in P0 at pressure 12 while `agent-kit`, same class, was
+     disposed in P3.
+     Reports leads whose OWN EVAL concedes the WORKFLOW.md exclusion — "visual/programmatic
+     agent builders — for building AI products, not for your own dev workflow" — gated to
+     the framework/platform Types that exclusion is about. The detector does not decide
+     scope; it finds evals that already said it, which is why the conceding phrase is
+     QUOTED (V's rule) and why it bands nothing.
+     Two bucketing rules keep it precise. An eval that argues it CLEARS the bar is bucketed
+     apart, not counted — `fast-agent` and `sandcastle` quote the exclusion in order to
+     distinguish themselves from it, and `opik`/`helicone` concede tangency while asserting
+     "catalog-relevant as the obs layer". That is detector B's HONEST-vocabulary shape:
+     widen the clearance vocab if it false-flags, do not tighten the concession vocab.
+     The Type gate drops `mirrord` (a k8s tool whose eval says "not a coding agent" about
+     itself) and `12-factor-agents` (a reference). Both survived the phrase match alone.
+     Report-only: the immediate item is a HUMAN read of a P0 lead, and moving that
+     authority is exactly what #353 declined to do. Offline.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -182,6 +206,7 @@ Usage:
   python3 audit-evals.py --verdict-evidence  # ADOPT/KEEP must be run-backed or disclaimered (offline)
   python3 audit-evals.py --rows       # malformed CATALOG/COMPARISON table rows (offline)
   python3 audit-evals.py --bulk-triage  # bulk-marked evals may only SKIP (offline)
+  python3 audit-evals.py --scope      # P0 leads whose eval concedes it is out of scope (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -203,9 +228,23 @@ are report-only and never affect the exit code; --selftest exits non-zero on a
 failing assertion, so it can gate alone.
 """
 import os, re, sys, json, glob, collections, functools, subprocess, datetime, urllib.request, urllib.error
+import importlib.util
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
+def _load_sibling(name, filename):
+    """Load a hyphenated sibling script as a module, ON DEMAND.
+
+    triage.py loads THIS module at its own import time, so anything here that needs
+    triage.py must import it lazily or the two recurse. Called from a detector rather
+    than at module scope, the nested copy never re-enters the detector, so it
+    terminates at depth 2."""
+    spec = importlib.util.spec_from_file_location(name, os.path.join(ROOT, filename))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 TIMEOUT = 15
 
 # Staleness thresholds in days, by eval Type (#65). Fast-moving categories rot sooner
@@ -1484,6 +1523,108 @@ def selftest():
 # run (all three invoke `--offline` bare, so they move together). This tuple is the
 # source of truth for what "offline" means; CLAUDE.md's prose list documents it and
 # must be updated alongside any change here.
+# ---------------------------------------------------------------- W. P0 scope mismatch (report-only)
+# The score has no scope term (#353). Every term measures attention, so a lead that
+# WORKFLOW.md's one-line exclusion already disposes of can still rank into P0 measure —
+# the band reserved for leads that might reach ADOPT, and the one an unattended pass may
+# not write to. Spending a measured evaluation to reach a SKIP a codified rule already
+# reached is the most expensive path to that SKIP.
+
+# The eval's OWN concession, harvested from the corpus rather than invented. The two
+# dominant strings are WORKFLOW.md's exclusion quoted verbatim by the #348 SKIP pass.
+SCOPE_CONCESSION = re.compile(
+    r"for building AI products"
+    r"|not for your own dev workflow"
+    r"|building agentic products"
+    r"|building an agentic product"
+    r"|for building agent products"
+    r"|build(?:s|ing) LLM apps"       # pydantic-ai: "It builds LLM apps, not coding agents."
+    r"|building LLM-powered"
+    r"|not a coding (?:agent|harness)"
+    r"|drop-in coding harness"
+    r"|not authoring code"
+    r"|tangential to (?:the )?(?:coding|authoring)"
+    r"|adjacent to the coding dev loop", re.I)
+
+# An eval that quotes the exclusion in order to DISTINGUISH itself from it. Same shape as
+# detector B's HONEST vocabulary: the escape hatch is what keeps the finding count honest,
+# so widen this when it false-flags rather than narrowing the concession vocab above.
+SCOPE_CLEARED = re.compile(
+    r"clears the bar"
+    r"|catalog-relevant as"
+    r"|genuine bridge into"
+    r"|not (?:merely |just )?a library for building", re.I)
+
+# The Types WORKFLOW.md's exclusion is about ("visual/programmatic agent builders").
+# A harness or tool is something you RUN; the exclusion was never aimed at it.
+SCOPE_TYPES = frozenset({"framework", "platform"})
+
+ScopeFinding = collections.namedtuple("ScopeFinding", "tool band typ phrase")
+
+
+def audit_scope(ctx):
+    """(findings, cleared) — leads whose own eval concedes the WORKFLOW.md scope
+    exclusion, P0 first. `cleared` holds the ones that argue they clear the bar; they
+    are printed but not counted, because a detector whose headline number includes its
+    own known false positives is not a number anyone shrinks."""
+    # Lazy import: triage.py loads THIS module at import time, so a module-level import
+    # here would recurse. Called from main(), the nested copy never re-enters.
+    triage = _load_sibling("triage_bands", "triage.py")
+    try:
+        ordered, _ = triage.assign(ctx)
+    except (OSError, ValueError, KeyError):
+        return [], []
+
+    types = {catalog_lib.name_key(r.name): (r.type or "").strip()
+             for r in catalog_lib.parse_catalog_rows(ctx.catalog)}
+    by_key = {}
+    for ev in ctx.evals:
+        for k in catalog_lib.identity_keys(ev.name):
+            by_key.setdefault(k, ev)
+
+    findings, cleared = [], []
+    for band, rows in ordered.items():
+        for row in rows:
+            tool = row[1]
+            typ = types.get(catalog_lib.name_key(tool), "")
+            if typ not in SCOPE_TYPES:
+                continue
+            ev = next((by_key[k] for k in catalog_lib.identity_keys(tool) if k in by_key), None)
+            if ev is None:
+                continue
+            m = SCOPE_CONCESSION.search(ev.text)
+            if not m:
+                continue
+            f = ScopeFinding(tool, band, typ, _scope_quote(ev.text, m))
+            (cleared if SCOPE_CLEARED.search(ev.text) else findings).append(f)
+
+    # P0 first: it is the only band a bulk lane cannot reach, so a finding there is the
+    # one that stays stuck until a human looks.
+    for bucket in (findings, cleared):
+        bucket.sort(key=lambda f: (0 if f.band.startswith("P0") else 1, f.band, f.tool))
+    return findings, cleared
+
+
+def _scope_quote(text, match, width=110):
+    """The conceding phrase in its own line, windowed around the match. Quoted rather
+    than summarized so a human judges the eval's own words — detector V's rule, for the
+    same reason: a phrase match is a candidate, not a disposition.
+
+    Line-scoped on purpose. A sentence-scoped window ran past `\n` and produced quotes
+    that spliced a header into a prose line ("...dev loop **Layer:** Infrastructure"),
+    which reads as a garbled claim rather than as the eval's words."""
+    ls = text.rfind("\n", 0, match.start()) + 1
+    le = text.find("\n", match.end())
+    line = " ".join(text[ls: le if le != -1 else len(text)].split()).strip(" -*_#|")
+    hit = line.lower().find(match.group(0).lower().split("\n")[0][:20])
+    if len(line) <= width or hit == -1:
+        return line[:width] + ("…" if len(line) > width else "")
+    start = max(0, hit - (width - len(match.group(0))) // 2)
+    frag = line[start:start + width]
+    return ("…" if start else "") + frag + ("…" if start + width < len(line) else "")
+
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -1492,7 +1633,7 @@ DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
-                "--catalog-mirror", "--maintenance")
+                "--catalog-mirror", "--maintenance", "--scope")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -1547,6 +1688,7 @@ def main():
     do_lead_head = "--lead-headlines" in want   # opt-in report (does not affect exit code)
     do_mirror = "--catalog-mirror" in want   # opt-in report (does not affect exit code)
     do_maint = "--maintenance" in want       # opt-in report (does not affect exit code)
+    do_scope = "--scope" in want             # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -1795,6 +1937,17 @@ def main():
             print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}")
         for f in acked:
             print(f"  acknowledged false positive — {f.tool} ({f.slug}): {f.detail}")
+    if do_scope:
+        finds, cleared = audit_scope(ctx)
+        p0 = sum(1 for f in finds if f.band.startswith("P0"))
+        print(f"== W. P0 scope mismatch (report-only) — {len(finds)} lead(s) whose eval "
+              f"concedes the scope exclusion, {p0} in P0 ==")
+        if not finds:
+            print("  OK — no framework/platform lead concedes it is out of scope")
+        for f in finds:
+            print(f"  SCOPE [{f.band}] {f.tool} ({f.typ}): \"{f.phrase}\"")
+        for f in cleared:
+            print(f"  argues it clears the bar — [{f.band}] {f.tool} ({f.typ}): \"{f.phrase}\"")
     sys.exit(rc)
 
 if __name__ == "__main__":
