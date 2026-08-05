@@ -1825,12 +1825,25 @@ def read_install_records(home=None):
 
 
 def audit_installed(ctx, home=None):
-    """(findings, records) — ADOPT/KEEP skill/plugin rows this machine's install records
-    do not back, plus installed sources the catalog does not know."""
+    """(findings, shadowed, records) — ADOPT/KEEP skill/plugin rows this machine's install
+    records do not back, plus installed sources the catalog does not know.
+
+    THE SLUG IS ASKED FIRST (#366). The row's own slug being present in the lockfile
+    settles the row: it is installed, full stop. A skill of the same name sourced from
+    somewhere else is then a name shadow, not a missing install — `caveman` (ADOPT,
+    JuliusBrussee/caveman) ships four `caveman-*` skills that ARE installed here, while
+    the bare name `caveman` in the lockfile belongs to mattpocock/skills. Testing the
+    name first reported that row as a COLLISION, i.e. as an unbacked ADOPT, which it is
+    not. A detector that flags a healthy row is worse than one that misses a sick one —
+    detector V's rule, and the same identity-by-name root the detector exists to find.
+
+    Shadows are returned APART and printed rather than counted: the name really does
+    resolve elsewhere on this machine, which is worth knowing and is not a defect in
+    the row (V's `acked`, W's `cleared`, X's `FACETED`)."""
     by_name, slugs, on_disk = read_install_records(home)
     records = len(by_name) + len(on_disk)
     if not records:
-        return [], 0
+        return [], [], 0
 
     verd = ctx.comparison_verdict_map
     rows = [r for r in catalog_lib.parse_catalog_rows(ctx.catalog) if r.url]
@@ -1839,7 +1852,7 @@ def audit_installed(ctx, home=None):
     lock_by_key = {catalog_lib.name_key(n): s for n, s in by_name.items()}
     disk_keys = {catalog_lib.name_key(n) for n in on_disk}
 
-    findings = []
+    findings, shadowed = [], []
     for r in rows:
         v = next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), "—")
         if v not in SETTLED_VERDICTS or (r.type or "").strip() not in INSTALLABLE_TYPES:
@@ -1847,11 +1860,18 @@ def audit_installed(ctx, home=None):
         slug = (next(iter(catalog_lib.github_repos(r.url)), "") or "").lower()
         key = catalog_lib.name_key(r.name)
         installed_from = lock_by_key.get(key)
-        if installed_from and installed_from != slug:
+        shadow = installed_from and installed_from != slug
+        if slug in slugs:                      # the row's own repo is installed: settled
+            if shadow:
+                shadowed.append(InstallFinding(
+                    "SHADOWED", r.name, v,
+                    f"{slug} is installed; the name '{r.name}' resolves to "
+                    f"{installed_from} instead"))
+        elif shadow:
             findings.append(InstallFinding(
                 "COLLISION", r.name, v,
                 f"row says {slug}, installed skill of that name comes from {installed_from}"))
-        elif slug not in slugs and key not in disk_keys:
+        elif key not in disk_keys:
             findings.append(InstallFinding(
                 "NO-RECORD", r.name, v, f"no record and no directory answers to {slug}"))
 
@@ -1862,7 +1882,8 @@ def audit_installed(ctx, home=None):
 
     rank = {"COLLISION": 0, "NO-RECORD": 1, "UNCATALOGUED": 2}
     findings.sort(key=lambda f: (rank[f.kind], f.tool))
-    return findings, records
+    shadowed.sort(key=lambda f: f.tool)
+    return findings, shadowed, records
 
 
 
@@ -2307,7 +2328,7 @@ def main():
             print(f"  {f.kind.lower()} ({why}) — {f.slug}: "
                   f"{len(f.peers)} rows, {', '.join(f.peers)}")
     if do_instrec:
-        finds, records = audit_installed(ctx)
+        finds, shadowed, records = audit_installed(ctx)
         print(f"== Y. install-record mismatch (report-only, this machine) — "
               f"{len(finds)} finding(s) across {records} install record(s) ==")
         if not records:
@@ -2317,6 +2338,9 @@ def main():
             print("  OK — every ADOPT/KEEP skill/plugin row is backed by an install record")
         for f in finds:
             print(f"  {f.kind:12} {f.tool} [{f.verdict}]: {f.detail}")
+        for f in shadowed:
+            print(f"  {f.kind:12} (installed; name shadowed, not counted) "
+                  f"{f.tool} [{f.verdict}]: {f.detail}")
     if do_licdecl:
         finds, records, withdrawn = audit_license_declared(ctx)
         grounded = sum(1 for f in finds if f.kind == "GROUNDED")

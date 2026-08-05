@@ -3178,7 +3178,7 @@ class TestInstallRecords(unittest.TestCase):
             ctx = self._ctx(d, [("code-review", "https://github.com/anthropics/official")],
                             [("code-review", "KEEP")])
             self._home(h, lock=self._lock(**{"code-review": "mattpocock/skills"}))
-            finds, _ = audit.audit_installed(ctx, home=h)
+            finds, _, _ = audit.audit_installed(ctx, home=h)
             # mattpocock/skills is also UNCATALOGUED in this fixture; that is correct and
             # separate, so scope the assertion to the collision under test.
             hits = [f for f in finds if f.kind != "UNCATALOGUED"]
@@ -3190,6 +3190,56 @@ class TestInstallRecords(unittest.TestCase):
             ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
             self._home(h, lock=self._lock(thing="o/pack"))
             self.assertEqual(audit.audit_installed(ctx, home=h)[0], [])
+
+    # ---- #366: the slug is asked FIRST; a name shadow is not a missing install ----
+    def test_installed_slug_under_a_shadowed_name_is_not_a_collision(self):
+        # caveman (ADOPT, JuliusBrussee/caveman) ships caveman-commit/-compress/-help/
+        # -review, all installed. The bare name 'caveman' in the lockfile belongs to
+        # mattpocock/skills. Asking the name first reported the row as an unbacked
+        # ADOPT, which it is not.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("caveman", "https://github.com/JuliusBrussee/caveman")],
+                            [("caveman", "ADOPT")])
+            self._home(h, lock=self._lock(**{"caveman": "mattpocock/skills",
+                                             "caveman-review": "JuliusBrussee/caveman"}))
+            finds, shadowed, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([f.tool for f in finds if f.kind != "UNCATALOGUED"], [])
+            self.assertEqual([(f.kind, f.tool) for f in shadowed],
+                             [("SHADOWED", "caveman")])
+            self.assertIn("mattpocock/skills", shadowed[0].detail)
+
+    def test_shadow_is_only_reported_when_a_name_really_resolves_elsewhere(self):
+        # Installed under its own name: nothing to report in either bucket.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
+            self._home(h, lock=self._lock(thing="o/pack"))
+            finds, shadowed, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual(finds, [])
+            self.assertEqual(shadowed, [])
+
+    def test_slug_absent_and_name_taken_is_still_a_collision(self):
+        # The fix must not weaken the real finding: code-review's row slug is NOT
+        # installed, and the name belongs to someone else. That stays a COLLISION.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("code-review", "https://github.com/anthropics/official")],
+                            [("code-review", "KEEP")])
+            self._home(h, lock=self._lock(**{"code-review": "mattpocock/skills"}))
+            finds, shadowed, _ = audit.audit_installed(ctx, home=h)
+            self.assertEqual([f.kind for f in finds if f.kind != "UNCATALOGUED"],
+                             ["COLLISION"])
+            self.assertEqual(shadowed, [])
+
+    def test_shadowed_rows_are_not_counted_as_findings(self):
+        # The headline is a number to shrink; a row a human cannot fix (someone else
+        # named their skill the same) must not inflate it. V's `acked` rule.
+        with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
+            ctx = self._ctx(d, [("caveman", "https://github.com/o/caveman")],
+                            [("caveman", "ADOPT")])
+            self._home(h, lock=self._lock(**{"caveman": "someone/else",
+                                             "caveman-x": "o/caveman"}))
+            finds, shadowed, _ = audit.audit_installed(ctx, home=h)
+            self.assertNotIn("caveman", [f.tool for f in finds])
+            self.assertEqual(len(shadowed), 1)
 
     def test_a_directory_answers_for_a_slug_with_no_lock_entry(self):
         # claude install-skill and npm globals leave no lockfile entry. The directory
@@ -3203,7 +3253,7 @@ class TestInstallRecords(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
             ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
             self._home(h, lock=self._lock(other="x/y"))
-            finds, _ = audit.audit_installed(ctx, home=h)
+            finds, _, _ = audit.audit_installed(ctx, home=h)
             self.assertEqual([(f.kind, f.tool) for f in finds][:1], [("NO-RECORD", "thing")])
 
     def test_installed_source_with_no_catalog_row_is_uncatalogued(self):
@@ -3212,7 +3262,7 @@ class TestInstallRecords(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
             ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
             self._home(h, lock=self._lock(thing="o/pack", extra="who/dis"))
-            finds, _ = audit.audit_installed(ctx, home=h)
+            finds, _, _ = audit.audit_installed(ctx, home=h)
             self.assertEqual([(f.kind, f.tool) for f in finds], [("UNCATALOGUED", "who/dis")])
 
     def test_only_installable_types_are_judged(self):
@@ -3222,7 +3272,7 @@ class TestInstallRecords(unittest.TestCase):
             ctx = self._ctx(d, [("ripgrep", "https://github.com/bs/ripgrep")],
                             [("ripgrep", "ADOPT")], typ="tool")
             self._home(h, lock=self._lock(other="x/y"))
-            finds, _ = audit.audit_installed(ctx, home=h)
+            finds, _, _ = audit.audit_installed(ctx, home=h)
             self.assertEqual([f.tool for f in finds if f.kind != "UNCATALOGUED"], [])
 
     def test_no_records_reports_zero_records_not_zero_findings(self):
@@ -3230,7 +3280,7 @@ class TestInstallRecords(unittest.TestCase):
         # "nothing is installed".
         with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
             ctx = self._ctx(d, [("thing", "https://github.com/o/pack")], [("thing", "ADOPT")])
-            self.assertEqual(audit.audit_installed(ctx, home=h), ([], 0))
+            self.assertEqual(audit.audit_installed(ctx, home=h), ([], [], 0))
 
     def test_malformed_records_do_not_raise(self):
         with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as h:
@@ -3238,7 +3288,7 @@ class TestInstallRecords(unittest.TestCase):
             os.makedirs(os.path.join(h, ".agents"))
             with open(os.path.join(h, ".agents", ".skill-lock.json"), "w") as fh:
                 fh.write("{not json")
-            self.assertEqual(audit.audit_installed(ctx, home=h), ([], 0))
+            self.assertEqual(audit.audit_installed(ctx, home=h), ([], [], 0))
 
     def test_flag_is_local_only_and_never_a_gate(self):
         # CI has no lockfile. A build that fails for a reason no code change caused is
