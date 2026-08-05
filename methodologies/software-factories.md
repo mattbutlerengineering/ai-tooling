@@ -261,14 +261,25 @@ gives a vendor-free version you can run against any repo today:
 | **Feedback speed** | How long until the agent learns it was wrong? | CI wall-clock, flaky-test detection |
 | **Task discovery** | Can an agent find work without being told? | tickets with enough context to implement from; labels that trigger stages |
 
-**This repo's own honest score.** Guardrails are strong — `make check` is exactly the single
-non-zero-exit command this asks for, with 15 detectors behind it. Primitives are strong: one
-`CLAUDE.md` routes everything, and the artifacts are flat files. Enablers are real (the repo
-skills). Environment is trivially satisfied — there is no build. Task discovery is strong:
-`triage.py` generates the queue and bands declare what may be concluded about each. What is
-missing is **feedback speed instrumentation** and, more pointedly, the fact that none of this
-has ever been *scored* — the grade above is asserted, not measured. That gap is the concrete
-follow-up this research produces.
+**This repo's own score — measured, not asserted.** See
+[`spikes/agent-readiness-score.md`](../spikes/agent-readiness-score.md) (#385), which scored this
+repo against the model rather than eyeballing it. The result is sharper than the guess that
+originally stood here, and corrects it in two places:
+
+- **Level 1, gate not cleared — 2/4.** README ✅ and 324 unit tests ✅, but **no linter and no
+  type checker** for 8,223 lines of Python. The rigor here is aimed entirely at the *data*
+  (`CATALOG.md`, the evals, the generated pages) and not at all at the *program* that enforces
+  it. `audit-evals.py` is 2,411 lines that have never been linted. "Guardrails are strong" was
+  true of the data plane and false of the code plane, and the distinction was invisible until
+  something scored it.
+- **Feedback speed was not the gap.** It was un-instrumented, not slow: CI runs a **median of
+  34 seconds**, 20/20 green. One command settled it.
+
+What the score does confirm: primitives are strong (one `CLAUDE.md` routes everything, artifacts
+are flat files), enablers are real, task discovery is strong, and the orchestration is
+**Level-5-shaped** — derived pages, self-merging routines, bands that declare what an unattended
+pass may conclude. Level-5 orchestration on a Level-1 foundation is exactly the inversion a gated
+model exists to catch.
 
 ## The ideal workflow
 
@@ -332,7 +343,7 @@ destroy the sixth.
 
 | Ideal-workflow rule | Here today | Gap |
 |---|---|---|
-| 0 · readiness grade | strong guardrails (`make check`), strong primitives, real enablers | never *scored*; no feedback-speed instrumentation |
+| 0 · readiness grade | [**scored**](../spikes/agent-readiness-score.md): strong primitives, enablers, task discovery; CI median 34s | **Level 1, gate not cleared** — no linter, no type checker for 8,223 lines of Python |
 | 1 · tickets as queue | GitHub Issues + `triage.py` bands + `/triage` | no label-triggered stage advance |
 | 2 · staged fresh context | [`intent-to-production-recipe.md`](intent-to-production-recipe.md) stage skills | handoffs are prose artifacts, not validated typed ones |
 | 3 · deterministic gates | **`make check` — 15 detectors, CI-gated, offline** | — (this is the repo's strongest asset) |
@@ -342,14 +353,17 @@ destroy the sixth.
 | 7 · autonomy by measurement | verdict/evidence data, Evidence tiers | **no cycle-time or defect-origin metric at all** |
 | 8 · review capacity | Verifiability signal defined and required for new evals | measured per-tool, never for the pipeline itself |
 
-The two real gaps are **7** and the unscored half of **0** — both measurement, not machinery. The
-machinery this repo has is, by the standards of the corpus, unusually good; what is missing is
-the number that would say so.
+The real gaps are **7** — no cycle-time or defect-origin metric — and, now that **0** has been
+scored, the ungated code plane: the machinery that enforces everything is itself unlinted and
+untyped. By the standards of the corpus the *process* machinery here is unusually good; what is
+missing is the number that would say so, and a linter on the program that produces it.
 
 ## Next actions this research argues for
 
-1. **Score this repo against the readiness table** and record it, so the claim above stops being
-   an assertion. Cheap, and it establishes the baseline rule 7 needs.
+1. ~~**Score this repo against the readiness table.**~~ Done —
+   [`spikes/agent-readiness-score.md`](../spikes/agent-readiness-score.md). It produced a sharper
+   answer than expected and a concrete next step: add a linter and a type checker for this repo's
+   own Python, which is the only thing standing between it and the Level 1 gate.
 2. **Catalog the gap.** Factory, Tembo, Qodo (the platform) and Planview have no `CATALOG.md`
    rows; only 8090 and Qodo's open-source pieces do. Four commercial products that define the
    category are invisible to the catalog and therefore to `triage.py`.
