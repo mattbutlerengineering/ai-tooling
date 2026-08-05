@@ -3,7 +3,7 @@
 **Repo:** [aiming-lab/SimpleMem](https://github.com/aiming-lab/SimpleMem)
 **Stars:** 3,521 | **Last updated:** 2026-05-21 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 

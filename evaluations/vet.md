@@ -3,7 +3,7 @@
 **Repo:** [imbue-ai/vet](https://github.com/imbue-ai/vet)
 **Stars:** 476 | **Last updated:** 2026-06-10 (pushed) | **License:** AGPL-3.0 | **Language:** Python (PyPI: `verify-everything`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Code Review & Quality / Verify
 **Layer:** Tooling (CLI + agent skill + CI)
 

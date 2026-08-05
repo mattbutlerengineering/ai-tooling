@@ -3,7 +3,7 @@
 **Repo:** [mcp-use/mcp-use](https://github.com/mcp-use/mcp-use)
 **Stars:** 10,123 | **Last updated:** 2026-06-19 (pushed; created 2025-03-28) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (build MCP servers/apps) + a thin slice of Verify (the Inspector for testing/debugging servers). It is infrastructure you build *with*, not a tool that intervenes in your project's dev loop — relevant only when the thing you ship *is* an MCP server or MCP app.
 **Layer:** Tooling/Infrastructure — an SDK + scaffolder (`create-mcp-use-app`) + web Inspector + CLI, plus a managed cloud (Manufact) for deploy/observability. Maintained by manufact.com, the commercial host behind it.
 

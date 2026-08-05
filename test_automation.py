@@ -2381,6 +2381,35 @@ class TestBulkTriageDetector(unittest.TestCase):
             ctx = self._ctx(d, {"t": self._eval("KEEP")})
             self.assertEqual(audit.audit_bulk_triage(ctx), [("t", "KEEP")])
 
+    def test_unattributed_stamp_is_flagged(self):
+        # #327: a `**Last triaged:**` with no marker is unpoliceable, not innocent —
+        # Q cannot tell a lane that left a lead from one that raised it.
+        with tempfile.TemporaryDirectory() as d:
+            text = "# Evaluation: t\n**Last triaged:** 2026-08-04\n\n## Verdict\n\n**SKIP** — x.\n"
+            ctx = self._ctx(d, {"t": text})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("t", audit.UNATTRIBUTED)])
+
+    def test_human_marked_stamp_is_exempt(self):
+        # A human pass may reach any verdict — that is the whole difference between lanes.
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n**Last triaged:** 2026-08-04  {audit.HUMAN_MARKER}\n\n"
+                    "## Verdict\n\n**ADOPT** — measured.\n")
+            ctx = self._ctx(d, {"t": text})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
+    def test_bulk_marked_stamp_is_policed_not_merely_attributed(self):
+        with tempfile.TemporaryDirectory() as d:
+            text = (f"# Evaluation: t\n**Last triaged:** 2026-08-04  {audit.BULK_MARKER}\n\n"
+                    "## Verdict\n\n**ADOPT** — nope.\n")
+            ctx = self._ctx(d, {"t": text})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("t", "ADOPT")])
+
+    def test_eval_with_no_stamp_at_all_is_untouched(self):
+        # Q's business is triage lanes; an eval nobody triaged is none of its business.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"t": "# Evaluation: t\n\n## Verdict\n\n**ADOPT** — fine.\n"})
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
 
 # ----------------------------------------------------------------- detector T (lead headlines, #324)
 class TestDetectorT(unittest.TestCase):

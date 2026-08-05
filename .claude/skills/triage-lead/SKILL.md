@@ -20,8 +20,15 @@ An unattended bulk pass may **reject** a lead but never **promote** one. You may
 You may **never** write `ADOPT`, `KEEP`, or `CONDITIONAL`. A false SKIP is cheap and
 reversible; a false ADOPT poisons STACK. Detector Q (`audit-evals.py --bulk-triage`)
 enforces this mechanically: any eval carrying the bulk marker
-(`<!-- triaged: bulk -->`) whose headline verdict exceeds `SKIP` fails `make check`.
-The marker is your signature that this was a bulk disposition, not a hands-on eval.
+(`<!-- triaged: bulk -->`) whose headline verdict is not `SKIP` or `discovery-log`
+fails `make check`. The marker is your signature that this was a bulk pass, not a
+hands-on eval.
+
+**Write the marker on both outcomes.** A `**Last triaged:**` stamp with no marker
+is invisible to Q — it looks exactly like a lane that behaved, which is the gap #327
+named — so an unattributed stamp is itself a `make check` failure. A *human* triage
+pass writes `<!-- triaged: human -->` instead, which exempts the eval because a human
+may reach any verdict; that marker is not yours to write.
 
 ## Inputs
 

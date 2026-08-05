@@ -3,7 +3,7 @@
 **Repo:** [microsoft/DebugMCP](https://github.com/microsoft/DebugMCP)
 **Stars:** ~390 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03
+**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (interactive debugging / MCP server)
 **Layer:** Infrastructure
 

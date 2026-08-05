@@ -3,7 +3,7 @@
 **Repo:** [mex-memory/mex](https://github.com/mex-memory/mex)
 **Stars:** 1,149 | **Last updated:** 2026-07-08 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context
 **Layer:** Tooling
 

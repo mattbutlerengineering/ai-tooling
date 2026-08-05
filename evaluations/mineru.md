@@ -3,7 +3,7 @@
 **Repo:** [opendatalab/MinerU](https://github.com/opendatalab/MinerU)
 **Stars:** 74,101 | **Last updated:** 2026-07-10 (pushed) | **License:** NOASSERTION ⚠️
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 
