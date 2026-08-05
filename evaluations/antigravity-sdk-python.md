@@ -3,6 +3,7 @@
 **Repo:** [google-antigravity/antigravity-sdk-python](https://github.com/google-antigravity/antigravity-sdk-python)
 **Stars:** 1,885 | **Last updated:** 2026-06-18 (pushed; created 2026-04-29) | **License:** Apache-2.0 | **Package:** PyPI `google-antigravity`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (agent-building SDK / framework)
 **Layer:** Infrastructure (SDK + compiled runtime binary)
 
@@ -48,9 +49,29 @@ gh api repos/google-antigravity/antigravity-sdk-python/readme --jq '.content' | 
 
 ## Verdict
 
-**discovery-log — tentative read** — the Google Antigravity SDK is the **official Python way to build stateful AI agents on Google Antigravity + Gemini**, Apache-2.0 on the SDK surface with a managed agentic-loop abstraction. Adopt it if you're committed to the Google/Gemini agent stack and want first-party, supported infrastructure. Weigh two caveats: the agentic-loop **runtime is a closed compiled binary** (not fully open/auditable/self-hostable), and it's **tangential to the AI-assisted coding loop** this catalog centers on — it's for building application agents, like vercel-ai or LangGraph, not improving how you code. Avoid if you need model-agnostic portability.
+**SKIP — app-building framework, no dev-loop bridge.** The official Python SDK for building stateful agents on Google Antigravity + Gemini.
 
-Compared to neighbors: **vercel-ai**, **LangGraph**, and **fast-agent** are agent-building frameworks (model/provider-flexible to varying degrees). The Antigravity SDK's distinguishing pitch is **first-party Google Antigravity/Gemini integration with a managed (closed-runtime) agentic loop**.
+**Its own evaluation says so.** The eval calls it "**tangential to the AI-assisted coding loop this catalog centers on — it's for building application agents, like vercel-ai or LangGraph**", and names LangGraph, an already-SKIPped row, as its own peer.
+
+The bar is not new and is not this lane's invention. `WORKFLOW.md`'s **Tools Deliberately
+Excluded** table states it — "Flowise, LangGraph — visual/programmatic agent builders: for building AI
+products, not for your own dev workflow" — and the catalog has already applied it nine times, to
+`langchain`, `LangChain.js`, `LangGraph`, `LangGraph.js`, `crewAI`, `aisuite`, `dify`, `Flowise` and
+`RAGFlow`. The `langchain` eval spells out both the test and the exceptions: a framework earns a slot
+only if it has a **dev-loop bridge**, as `fast-agent` does by doubling as a runnable MCP-native coding
+agent and `vercel/ai` does by shipping a coding-agent skill plus a harness-building primitive.
+
+A SKIP here removes nothing. Per the `Flowise` precedent — "SKIP for this catalog's purpose (keep as
+a reference entry)" — the row stays in `CATALOG.md`; what changes is that it stops reading as
+something to install into a dev loop.
+
+A second, independent reservation the eval records and this SKIP does not rest on: the agentic-loop runtime is a **closed compiled binary**, so it is not fully auditable or self-hostable. That would be worth weighing if the row were in scope. It is not, so the scope call decides it first.
+
+Re-open if it grows a dev-loop bridge of the kind `fast-agent` and `vercel/ai` have — a runnable
+coding agent, an installable coding-agent skill, or a documented primitive for building a harness.
+Nothing about the project's quality is in dispute; this is a category call.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

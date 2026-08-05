@@ -201,10 +201,11 @@
   },
   "agno-agi/agno": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T04:21:44Z",
+    "pushed_at": "2026-08-04T22:40:34Z",
     "resolved_name": "agno-agi/agno",
-    "stars": 41079
+    "stars": 41571
   },
   "agricidaniel/claude-obsidian": {
     "archived": false,
@@ -568,10 +569,11 @@
   },
   "boundaryml/baml": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T01:14:04Z",
+    "pushed_at": "2026-08-04T23:58:30Z",
     "resolved_name": "BoundaryML/baml",
-    "stars": 8527
+    "stars": 8807
   },
   "browser-act/skills": {
     "archived": false,
@@ -695,10 +697,11 @@
   },
   "cloudflare/agents": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T20:34:42Z",
+    "pushed_at": "2026-08-04T19:33:24Z",
     "resolved_name": "cloudflare/agents",
-    "stars": 5240
+    "stars": 5353
   },
   "cloudflare/mcp-server-cloudflare": {
     "archived": false,
@@ -1641,10 +1644,11 @@
   },
   "huggingface/smolagents": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-06-23T18:34:53Z",
+    "pushed_at": "2026-07-21T18:35:00Z",
     "resolved_name": "huggingface/smolagents",
-    "stars": 28268
+    "stars": 28676
   },
   "humanlayer/12-factor-agents": {
     "archived": false,
@@ -2225,10 +2229,11 @@
   },
   "mervinpraison/praisonai": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T22:21:45Z",
+    "pushed_at": "2026-08-04T23:55:31Z",
     "resolved_name": "MervinPraison/PraisonAI",
-    "stars": 8364
+    "stars": 8550
   },
   "metalbear-co/mirrord": {
     "archived": false,
@@ -2317,10 +2322,11 @@
   },
   "microsoft/semantic-kernel": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T17:21:44Z",
+    "pushed_at": "2026-08-04T21:11:56Z",
     "resolved_name": "microsoft/semantic-kernel",
-    "stars": 28289
+    "stars": 28417
   },
   "microsoft/skillopt": {
     "archived": false,
@@ -3108,10 +3114,11 @@
   },
   "run-llama/llama_index": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-08T10:53:59Z",
+    "pushed_at": "2026-08-04T16:33:38Z",
     "resolved_name": "run-llama/llama_index",
-    "stars": 50752
+    "stars": 51375
   },
   "ruvnet/ruflo": {
     "archived": false,
@@ -3310,10 +3317,11 @@
   },
   "standardagents/arrow-js": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
     "pushed_at": "2026-07-01T16:52:04Z",
     "resolved_name": "standardagents/arrow-js",
-    "stars": 3694
+    "stars": 3719
   },
   "standardagents/dmux": {
     "archived": false,
@@ -3331,10 +3339,11 @@
   },
   "stanfordnlp/dspy": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "MIT",
-    "pushed_at": "2026-07-09T22:12:20Z",
+    "pushed_at": "2026-08-04T18:17:16Z",
     "resolved_name": "stanfordnlp/dspy",
-    "stars": 36010
+    "stars": 36626
   },
   "stevesolun/ctx": {
     "archived": false,
@@ -3352,10 +3361,11 @@
   },
   "strands-agents/harness-sdk": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T01:02:59Z",
+    "pushed_at": "2026-08-04T21:58:43Z",
     "resolved_name": "strands-agents/harness-sdk",
-    "stars": 6504
+    "stars": 6794
   },
   "strukto-ai/mirage": {
     "archived": false,
@@ -3710,10 +3720,11 @@
   },
   "vercel/eve": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T04:18:26Z",
+    "pushed_at": "2026-08-05T00:02:53Z",
     "resolved_name": "vercel/eve",
-    "stars": 3366
+    "stars": 4354
   },
   "vercel/sandbox": {
     "archived": false,
@@ -3724,10 +3735,11 @@
   },
   "vercel/workflow": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-10T02:57:32Z",
+    "pushed_at": "2026-08-04T23:47:53Z",
     "resolved_name": "vercel/workflow",
-    "stars": 2193
+    "stars": 2283
   },
   "vibe-log/vibe-log-cli": {
     "archived": false,
@@ -3867,10 +3879,11 @@
   },
   "withastro/flue": {
     "archived": false,
+    "fetched_at": "2026-08-04",
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-07-09T22:36:09Z",
+    "pushed_at": "2026-08-04T10:00:24Z",
     "resolved_name": "withastro/flue",
-    "stars": 7219
+    "stars": 7692
   },
   "withkynam/vibecode-pro-max-kit": {
     "archived": false,

@@ -85,7 +85,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sigbound | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
 | aidlc-workflows | framework | | ✓ | SKIP | REVIEW |
-| arrow-js | framework | | ✓ | discovery-log | REVIEW |
+| arrow-js | framework | | ✓ | SKIP | REVIEW |
 | beads | tool | ✓ | ✓ | KEEP | MEASURED |
 | succubus | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | aster | harness | | ✓ | SKIP | SOURCE-ONLY |
@@ -156,23 +156,23 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | langchain | framework | | ✓ | SKIP | REVIEW |
 | autogen | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | MetaGPT | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| llama_index | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| semantic-kernel | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| smolagents | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| dspy | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| llama_index | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| semantic-kernel | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| smolagents | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| dspy | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | crewAI | framework | | ✓ | SKIP | REVIEW |
-| praisonai | framework | | ✓ | discovery-log | SOURCE-ONLY |
+| praisonai | framework | | ✓ | SKIP | SOURCE-ONLY |
 | vercel-ai | framework | | ✓ | discovery-log | REVIEW |
-| antigravity-sdk-python | framework | | ✓ | discovery-log | REVIEW |
+| antigravity-sdk-python | framework | | ✓ | SKIP | REVIEW |
 | pydantic-ai | framework | | ✓ | discovery-log | REVIEW |
-| voltagent | framework | ✓ | ✓/$ | discovery-log | REVIEW |
+| voltagent | framework | ✓ | ✓/$ | SKIP | REVIEW |
 | agent-kit | framework | ✓ | ✓ | discovery-log | REVIEW |
-| agno | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agno | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | conductor | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cee | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | inngest | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| cloudflare/agents | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| microsoft/agent-framework | framework | | ✓ | discovery-log | REVIEW |
+| cloudflare/agents | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| microsoft/agent-framework | framework | | ✓ | SKIP | REVIEW |
 | lobehub | platform | | ✓ | SKIP | REVIEW |
 | nanoclaw | platform | | ✓ | SKIP | REVIEW |
 | nanobot | harness | ✓ | ✓ | discovery-log | REVIEW |
@@ -200,16 +200,16 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | tabby | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Archon | platform | ✓ | ✓ | discovery-log | REVIEW |
 | sim | platform | ✓ | ✓/$ | discovery-log | REVIEW |
-| haystack | framework | ✓ | ✓ | discovery-log | REVIEW |
+| haystack | framework | ✓ | ✓ | SKIP | REVIEW |
 | Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | OmniRoute | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| baml | framework | ✓ | ✓ | discovery-log | REVIEW |
+| baml | framework | ✓ | ✓ | SKIP | REVIEW |
 | moai-adk | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | TanStack-cli | tool | ✓ | ✓ | discovery-log | REVIEW |
-| mastra | framework | ✓ | ✓ | discovery-log | REVIEW |
-| pydantic-deepagents | framework | ✓ | ✓ | discovery-log | REVIEW |
+| mastra | framework | ✓ | ✓ | SKIP | REVIEW |
+| pydantic-deepagents | framework | ✓ | ✓ | SKIP | REVIEW |
 | pi-subagents | plugin | ✓ | ✓ | SKIP | REVIEW |
-| CopilotKit | framework | ✓ | ✓ | discovery-log | REVIEW |
+| CopilotKit | framework | ✓ | ✓ | SKIP | REVIEW |
 | tambo | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-native | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | assistant-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -217,10 +217,10 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenGenerativeUI | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | json-render | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-ui | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| agentscope | framework | ✓ | ✓ | discovery-log | REVIEW |
-| open-multi-agent | framework | ✓ | ✓ | discovery-log | REVIEW |
-| eino | framework | ✓ | ✓ | discovery-log | REVIEW |
-| vercel/workflow | framework | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
+| agentscope | framework | ✓ | ✓ | SKIP | REVIEW |
+| open-multi-agent | framework | ✓ | ✓ | SKIP | REVIEW |
+| eino | framework | ✓ | ✓ | SKIP | REVIEW |
+| vercel/workflow | framework | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | osaurus | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aichat | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aider | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -245,7 +245,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | freestyle | tool | | ✓ | discovery-log | REVIEW |
 | beta9 | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | cua | harness | ✓ | ✓/$ | discovery-log | REVIEW |
-| txtai | framework | ✓ | ✓ | discovery-log | REVIEW |
+| txtai | framework | ✓ | ✓ | SKIP | REVIEW |
 | UI-TARS-desktop | harness | ✓ | ✓ | discovery-log | REVIEW |
 | LongHorizon-Harness | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opensquilla | tool | | ✓ | SKIP | REVIEW |
@@ -265,7 +265,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | orchestkit | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
-| strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
+| strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Aegis | skill | | ✓ | SKIP | REVIEW |
 | superset | tool | | ✓ | SKIP | REVIEW |
 | implement | skill | | ✓ | discovery-log | REVIEW |
@@ -727,7 +727,7 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
-| Implement | 212 | 70 | 4 | 33% |
+| Implement | 212 | 91 | 4 | 43% |
 | Verify | 22 | 10 | 2 | 45% |
 | Review | 42 | 21 | 3 | 50% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -738,4 +738,4 @@ All 642 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **642** | **243** | **34** | **38%** |
+| **Total** | **642** | **264** | **34** | **41%** |

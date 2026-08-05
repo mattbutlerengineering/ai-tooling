@@ -3,6 +3,7 @@
 **Repo:** [standardagents/arrow-js](https://github.com/standardagents/arrow-js)
 **Stars:** 3,666 | **Last updated:** 2026-04-01 (pushed; created 2022-11-08) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement — it is a UI runtime/library you build *with*, not a workflow that drives the loop. Its agent-relevant hooks (the `@arrow-js/skill` installer, the QuickJS sandbox) touch Plan/Implement and Safety, but the artifact is application code.
 **Layer:** Infrastructure (a published npm runtime — `@arrow-js/core` and a monorepo of framework/SSR/hydrate/sandbox/compiler packages — that ships inside the product, not into the agent's config).
 
@@ -56,9 +57,29 @@ gh api repos/standardagents/arrow-js/contents/AGENTS.md --jq '.content' | base64
 
 ## Verdict
 
-**discovery-log — tentative read: adopt only if you are building a web UI and want agent-generated frontend code to run in a sandbox.** ArrowJS is a well-engineered, genuinely thoughtful reactive UI runtime whose "primitives the model understands" thesis and QuickJS/WASM sandbox are real, differentiated ideas for the agent era. But it is application *infrastructure*, not a dev-loop tool: it only earns its place when your stack is (or could be) ArrowJS, and the bet that agents code it better than React is unproven against the incumbents' training-data advantage. Worth a catalog entry as a reference example of agent-first UI design and for its sandbox primitive — not a default recommendation.
+**SKIP — app-building framework, no dev-loop bridge.** A reactive UI runtime designed for agent-generated frontend code, with a QuickJS/WASM sandbox for safe execution.
 
-Compared to neighbors: it sits oddly among Agent Orchestration entries. **LangGraph** and **sandcastle** orchestrate *agents*; ArrowJS orchestrates *DOM updates* — the only true overlap is the sandbox concept, where ArrowJS isolates a *rendering realm* while sandcastle/forkd isolate whole *agent processes* (microVMs/containers). They solve different layers of the same "run generated code safely" problem. The existing catalog row already (correctly) flags no real peer ("Overlaps with: —"); the closest conceptual cousin is **sandcastle** on the sandbox axis only.
+**Its own evaluation says so.** The eval reaches the conclusion unprompted: "**it is application infrastructure, not a dev-loop tool** … Worth a catalog entry as a reference" — which is verbatim the `Flowise` disposition this SKIP applies.
+
+The bar is not new and is not this lane's invention. `WORKFLOW.md`'s **Tools Deliberately
+Excluded** table states it — "Flowise, LangGraph — visual/programmatic agent builders: for building AI
+products, not for your own dev workflow" — and the catalog has already applied it nine times, to
+`langchain`, `LangChain.js`, `LangGraph`, `LangGraph.js`, `crewAI`, `aisuite`, `dify`, `Flowise` and
+`RAGFlow`. The `langchain` eval spells out both the test and the exceptions: a framework earns a slot
+only if it has a **dev-loop bridge**, as `fast-agent` does by doubling as a runnable MCP-native coding
+agent and `vercel/ai` does by shipping a coding-agent skill plus a harness-building primitive.
+
+A SKIP here removes nothing. Per the `Flowise` precedent — "SKIP for this catalog's purpose (keep as
+a reference entry)" — the row stays in `CATALOG.md`; what changes is that it stops reading as
+something to install into a dev loop.
+
+Its sandbox is the one thing that looks like a bridge, and the eval already ruled on it: ArrowJS isolates a *rendering realm* while `sandcastle`/`forkd` isolate whole *agent processes*. Different layers of "run generated code safely" — the shared word is not a shared function.
+
+Re-open if it grows a dev-loop bridge of the kind `fast-agent` and `vercel/ai` have — a runnable
+coding agent, an installable coding-agent skill, or a documented primitive for building a harness.
+Nothing about the project's quality is in dispute; this is a category call.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
