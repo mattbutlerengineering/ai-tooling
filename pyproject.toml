@@ -1,0 +1,88 @@
+# Lint + type-check configuration for the integrity scripts (#388).
+#
+# Until now `make check` ran on python3 + gh + node and nothing else — every script
+# pure stdlib — while 8,000+ lines of Python guarded data that is itself gated fifteen
+# ways. ruff and mypy are the first dependencies in that gate path, which is why they
+# are PINNED in requirements-dev.txt: an unpinned linter turns an upstream rule
+# addition into a red build on an unrelated PR.
+#
+# Both are wired into `make check`; `make fix` runs `ruff check --fix` and
+# `ruff format` ahead of the other fixers. See CLAUDE.md's integrity-audit section.
+
+[tool.ruff]
+target-version = "py310"
+# Long lines are pre-existing and load-bearing in the detector docstrings; E501 is not
+# selected, so line length is deliberately unenforced.
+line-length = 100
+extend-exclude = ["plugin/", "skills/"]
+
+[tool.ruff.lint]
+# Selected EXPLICITLY rather than inherited from ruff's defaults. The defaults move
+# between releases, and a gate whose rule set changes when the pin is bumped is a gate
+# that fails for a reason no code change caused — the same objection the Makefile
+# records against making the staleness sweeps gating.
+select = [
+    "E4", "E7", "E9",  # pycodestyle: the error subset (E501 line length excluded)
+    "F",               # pyflakes
+    "I",               # import sorting
+    "B",               # flake8-bugbear
+    "SIM",             # flake8-simplify
+    "C4",              # flake8-comprehensions
+    "UP",              # pyupgrade
+    "ISC",             # implicit string concat — the missing-comma footgun
+    "EXE",             # shebang/executable-bit agreement
+    "BLE",             # blind except
+    "PLW",             # pylint warnings
+    "FURB",            # refurb
+    "RUF",             # ruff-specific
+]
+# DTZ (flake8-datetimez) is deliberately NOT selected. Every date in this repo is a
+# calendar date — an eval's `**Last verified:**`, a metadata record's `fetched_at`, a
+# staleness threshold in days. `datetime.date.today()` is the right call for all of
+# them, and DTZ011 would push toward timezone-aware datetimes that mean nothing here.
+ignore = [
+    # The repo's own house style, which a linter added years into a codebase does not
+    # get to overrule. Each of these would rewrite existing, deliberate code for no
+    # defect — and a 200-line style diff across twelve *gating* scripts is real risk
+    # bought with no correctness.
+    "E701",    # `if not m: continue` on one line — the guard style used throughout
+    "E702",    # `buf = ""; pending = {}` — paired initialisations on one line
+    "E731",    # `text = lambda r: ...` — a handful of local one-liner helpers
+    "E741",    # `for l in lines` — a dozen loop variables; a rename is not a fix
+    # The prose in these files is intentionally typographic: `·` separates contenders,
+    # `—` sets off clauses, `★` prefixes star counts, `→` shows derivation. RUF001-003
+    # read every one of them as a homoglyph attack.
+    "RUF001",  # ambiguous unicode in a string
+    "RUF002",  # ...in a docstring
+    "RUF003",  # ...in a comment
+]
+
+[tool.ruff.lint.isort]
+# `I` is the one selected rule that DOES restyle existing code: the scripts opened with
+# a single `import os, re, sys, glob` line and isort splits those, one per line, in
+# every file. Kept anyway, and E401 is deliberately NOT in the ignore list above — an
+# ignore that claims to preserve a shape isort rewrites anyway would just be untrue.
+# The trade is one mechanical diff at the head of twelve files, once, against import
+# drift forever after.
+force-single-line = false
+
+[tool.ruff.lint.per-file-ignores]
+# The test harness deliberately imports repo scripts by path (filenames are hyphenated
+# and not importable) and shells out to them; several rules read that as a smell.
+"test_automation.py" = ["S101"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["*.py"]
+exclude = "(^plugin/|^skills/)"
+# Deliberately NOT strict. The scripts are unannotated, so mypy has little to check —
+# 12 errors before this issue, all the same importlib dance. It is here as a REGRESSION
+# NET, not a signal source: it catches a genuinely wrong attribute or argument type as
+# annotations appear, and it will get stricter as they do. Recording that as a
+# deliberate limitation rather than pretending the checkbox bought more than it did.
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+# Hyphenated filenames are not importable as modules; mypy is pointed at the files
+# directly, so it must not insist each one be reachable as a package path.
+explicit_package_bases = true

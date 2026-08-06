@@ -1,0 +1,17 @@
+# Dev-only dependencies for the integrity gate path (#388).
+#
+# `make check` was pure stdlib until these two; they are the FIRST dependencies in
+# that path, so they are pinned to an exact version rather than a range. An unpinned
+# linter turns a rule addition upstream into a red build on an unrelated PR — the same
+# objection the Makefile records against making the staleness sweeps gating: a build
+# that fails for a reason no code change caused.
+#
+# Bumping a pin is a deliberate act: raise it here, run `make fix`, and land any new
+# findings in their own commit so the version bump stays reviewable.
+#
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+#
+# Nothing at runtime needs these. The catalog scripts themselves remain stdlib-only,
+# which is why `make check` still works (minus the two lint gates) on a bare python3.
+ruff==0.16.1
+mypy==2.3.0
