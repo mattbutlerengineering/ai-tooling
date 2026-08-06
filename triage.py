@@ -105,6 +105,8 @@ BANDS = (
      "leave; stamp `**Last triaged:**` only"),
     ("P4 mechanical-skip", "vendored Type under a disqualifying license",
      "SKIP — zero judgement"),
+    ("P5 ships-inside", "the row declares a `Ships inside` container (#343)",
+     "settle the container, or SKIP \"ships inside `<container>`\" — never an independent lead"),
 )
 
 
@@ -119,14 +121,21 @@ def load_metadata():
         return json.load(f)
 
 
+CatalogFacts = collections.namedtuple("CatalogFacts", "type slug overlaps ships_inside")
+
+
 def catalog_facts(catalog_text):
-    """name_key(tool) -> (Type, slug, overlaps cell) for every catalogued row."""
+    """name_key(tool) -> CatalogFacts for every catalogued row."""
     facts = {}
     for row in catalog_lib.parse_catalog_rows(catalog_text):
         repos = catalog_lib.github_repos(row.url) if row.url else []
         slug = repos[0].lower() if repos else None
-        facts[catalog_lib.name_key(row.name)] = (row.type, slug, row.overlaps or "")
+        facts[catalog_lib.name_key(row.name)] = CatalogFacts(
+            row.type, slug, row.overlaps or "", row.ships_inside)
     return facts
+
+
+NO_FACTS = CatalogFacts(None, None, "", "")
 
 
 def stack_keys(stack_text):
@@ -208,12 +217,19 @@ def band_of(tool, facts, meta, reads):
     the catalog) and #366 (on the filesystem): key on what the row IS."""
     if any(a in reads for a in catalog_lib.identity_keys(tool)):
         return None
-    typ, slug, _ = facts.get(catalog_lib.name_key(tool), (None, None, ""))
-    m = meta.get(slug) if slug else None
+    f = facts.get(catalog_lib.name_key(tool), NO_FACTS)
+    # Containment first, ahead of even the mechanical bands (#343). A row that ships
+    # inside another artifact is not an independent lead at all, so banding it on its
+    # own license or archival answers a question about the WRONG artifact — those facts
+    # belong to the container, which the P5 disposition sends you to. This is the band
+    # that stops `mattpocock/skills` from producing five queue slots for one decision.
+    if f.ships_inside:
+        return "P5 ships-inside"
+    m = meta.get(f.slug) if f.slug else None
     if not m:
         return None
     lic = effective_license(m)
-    if typ in VENDORED_TYPES and DISQUALIFYING_LICENSE.match(lic):
+    if f.type in VENDORED_TYPES and DISQUALIFYING_LICENSE.match(lic):
         return "P4 mechanical-skip"
     if m.get("archived"):
         return "P1 successor-check"
@@ -249,8 +265,8 @@ def assign(ctx):
         tool = row[1]
         if tool in bands:
             continue
-        _, _, overlaps = facts.get(catalog_lib.name_key(tool), (None, None, ""))
-        bands[tool] = "P2 challenger" if overlaps_stack(overlaps, skeys) else "P3 backlog"
+        f = facts.get(catalog_lib.name_key(tool), NO_FACTS)
+        bands[tool] = "P2 challenger" if overlaps_stack(f.overlaps, skeys) else "P3 backlog"
 
     # Within a band, an already-triaged lead sinks: fresh leads first. identity_keys,
     # not alias_keys, for band_of's reason (#374) — last_triaged_map registers under

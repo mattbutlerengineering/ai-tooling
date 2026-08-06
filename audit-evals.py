@@ -213,15 +213,24 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
                    (8 rows, 8 subpaths) and `modelcontextprotocol/servers` (3 and 3) are
                    monorepos of independently-installable artifacts, which is a different
                    thing from one artifact counted N times.
+       DECLARED  — every member row names its container in CATALOG.md's `Ships inside`
+                   column, or IS the container the others name (#343's resolution). Also
+                   printed, never counted, and checked FIRST: FACETED *infers* from
+                   distinct subpaths that the catalog distinguishes the rows, while this
+                   means the catalog says so outright, in the column triage.py's P5 band
+                   reads to keep them out of the queue.
      That link-shape split is the whole precision story — the four collapsed groups all
      have EVERY row pointing at one identical URL, so nothing in the catalog distinguishes
      them, while the faceted ones point at distinct paths.
-     It does not see two cases #343 also lists, and cannot: a row whose pack is not itself
-     catalogued (`presentation-creator` inside `getsentry/skills`), and a row whose link
-     is the WHOLE product while the artifact is a component inside it (`prisma`, where the
-     ★46.9K measures the ORM, not the MCP server). Both need a human, not a slug compare.
-     Report-only, and deliberately not a fixer: whether to merge rows, add a "ships inside"
-     column, or exclude facets from the queue is the decision #343 asks for. Offline.
+     The two cases a slug compare structurally cannot see are exactly the two the column
+     now carries by hand: a row whose pack is not itself catalogued (`presentation-creator`
+     inside `getsentry/skills`) and a row whose link is the WHOLE product while the
+     artifact is a component inside it (`prisma`, where the ★46.9K measures the ORM, not
+     the MCP server). Neither is a finding here and neither ever will be — the column is
+     where a human records what the compare cannot reach.
+     Report-only, and still not a fixer. #343 asked for a decision between merging rows,
+     a "ships inside" column, and excluding facets from the queue; the column was chosen,
+     and it delivers the third as a consequence (triage.py's P5 band). Offline.
 
   Y. INSTALL-RECORD MISMATCH (opt-in, --installed, REPORT-ONLY, LOCAL-ONLY) — KEEP is
      DEFINED as the validated-INSTALLED status, STACK.md is the install list, and detector
@@ -1743,6 +1752,20 @@ IdentityFinding = collections.namedtuple("IdentityFinding", "kind slug tool verd
 SETTLED_VERDICTS = frozenset({"ADOPT", "KEEP"})
 
 
+def _names_container(row, declared):
+    """True when this row IS one of the containers `declared` names — the pack row, whose
+    own `Ships inside` cell is legitimately empty because it does not ship inside itself.
+
+    Asked with `identity_keys`, NEVER `alias_keys` (#374). alias_keys adds the URL's repo
+    basename, and every row in a collapsed group shares that URL — so a lead named `b`
+    sitting at `github.com/o/pack` would answer to `pack` and be mistaken for the pack
+    itself, which would let one declared row silently settle an undeclared sibling. The
+    row's own NAME is the only thing that identifies it as the container."""
+    keys = catalog_lib.identity_keys(row.name)
+    return any(catalog_lib.name_key(c) in keys
+               or catalog_lib.name_key(c.split("/")[-1]) in keys for c in declared)
+
+
 def audit_identity(ctx):
     """(findings, faceted) — leads that are facets of one catalogued artifact, plus the
     multi-row groups that are NOT findings, carried so neither goes unmentioned.
@@ -1770,11 +1793,30 @@ def audit_identity(ctx):
             continue
         by_verdict = [(r.name, verdict_of(r.name)) for r in members]
         names = tuple(n for n, _ in by_verdict)
+        # DECLARED (#343) is checked FIRST, ahead of the link-shape split below, because
+        # it is the stronger statement: FACETED *infers* from distinct subpaths that the
+        # catalog distinguishes the rows, while DECLARED means the catalog says so, in a
+        # column triage.py's P5 band already reads to keep them out of the queue. A group
+        # qualifies when every member either names its container or IS the container the
+        # others name — so the pack row's own empty cell is not a hole. Printed, never
+        # counted: the same shape as FACETED, and what makes X's headline a number the
+        # column can actually shrink.
+        declared = {r.ships_inside for r in members if r.ships_inside}
+        if declared and all(r.ships_inside or _names_container(r, declared) for r in members):
+            context.append(IdentityFinding("DECLARED", slug, "", "", names))
+            continue
         if len({r.url for r in members}) == len(members):
             context.append(IdentityFinding("FACETED", slug, "", "", names))
             continue
         settled = tuple((n, v) for n, v in by_verdict if v in SETTLED_VERDICTS)
-        leads = [n for n, v in by_verdict if v == "discovery-log"]
+        # A row that names its container is no longer an independent lead even when its
+        # siblings stay undeclared — triage.py's P5 band already takes it out of the
+        # queue. Filtering per row rather than per group is what makes the headline
+        # monotone: filling one cell drops one finding, so the count walks to zero
+        # instead of staying flat until the last row in a group is declared.
+        resolved = {r.name for r in members
+                    if r.ships_inside or (declared and _names_container(r, declared))}
+        leads = [n for n, v in by_verdict if v == "discovery-log" and n not in resolved]
         if not leads:
             # The identity is still collapsed, but no queue slot is wasted — every row
             # is already disposed. Reported so the group is not silently invisible.
@@ -2385,8 +2427,9 @@ def main():
                     else f"shares its link with {', '.join(f.peers)}")
             print(f"  {f.kind:9} {f.tool} ({f.slug}): {tail}")
         for f in context:
-            why = ("each row links its own subpath" if f.kind == "FACETED"
-                   else "collapsed, but every row is already disposed")
+            why = {"FACETED": "each row links its own subpath",
+                   "DECLARED": "every row names its container in `Ships inside` (#343)",
+                   }.get(f.kind, "collapsed, but every row is already disposed")
             print(f"  {f.kind.lower()} ({why}) — {f.slug}: "
                   f"{len(f.peers)} rows, {', '.join(f.peers)}")
     if do_instrec:

@@ -27,8 +27,9 @@ judgement (category, one-liner, overlaps). Detector G then verifies the result.
 3. **Scope check.** Only catalogue dev-loop tooling (produces/reviews/tests/ships code, or agent/MCP infra for that). Skip proprietary-only, model-serving infra, chat UIs, and general business automation — note the skip and why.
 
 4. **Craft the CATALOG row** (match the column format in `CLAUDE.md` > "Catalog format"):
-   `| [name](https://github.com/{slug}) | <type> | <one-liner ~12 words> | <problem it solves> | <overlaps> |`
+   `| [name](https://github.com/{slug}) | <type> | <one-liner ~12 words> | <problem it solves> | <overlaps> | <ships inside> |`
    - **Overlaps**: name 2-4 existing entries in the same category (check them first); mark external/conceptual peers with `(ext.)`.
+   - **Ships inside** (#343): usually **empty**, but all six cells are required — a 5-cell row fails gating detector O on row shape. Fill it only when the artifact is a *component* of a larger one you would install as a whole (a skill inside a pack, one server inside a monorepo), and fill it with an `owner/repo` slug, **never a display name** — a basename is not a synonym (#366, #374). A filled cell bands the row into `P5 ships-inside`, which says "settle the container", so filling it wrongly hides a real lead. If your dedup grep in step 2 found the *pack* already catalogued, this is the cell that says so.
 
 5. **Insert the CATALOG row** under the chosen `## <category>` section (after a related peer).
 

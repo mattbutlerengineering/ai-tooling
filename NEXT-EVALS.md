@@ -10,9 +10,10 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 109 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 234 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 104 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 228 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
+| **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 11 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
 <!-- NEXT-EVALS:START -->
 
@@ -54,11 +55,11 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 109 leads
+## P2 challenger — 104 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 109 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 104 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -75,11 +76,11 @@ _Listing 12 of 109 — rerun `python3 triage.py` and read the source for the tai
 | compound-engineering | Implement | 20.8 | pressure 7, gap 4.8 | `/triage-lead compound-engineering` |
 | ralph-claude-code | Implement | 20.8 | pressure 7, gap 4.8 | `/triage-lead ralph-claude-code` |
 
-## P3 backlog — 234 leads
+## P3 backlog — 228 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 234 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 228 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -101,5 +102,23 @@ _Listing 12 of 234 — rerun `python3 triage.py` and read the source for the tai
 _SKIP — zero judgement._
 
 _(none)_
+
+## P5 ships-inside — 11 leads
+
+_settle the container, or SKIP "ships inside `<container>`" — never an independent lead._
+
+| Tool | Stage | Score | Why (pressure/gap) | Command |
+|------|-------|-------|--------------------|---------|
+| prisma | MCP Servers | 10.6 | pressure 2, gap 6.6 | `/triage-lead prisma` |
+| plugin-dev | Skills & Plugins | 10.5 | pressure 1, gap 6.5 | `/triage-lead plugin-dev` |
+| server-memory | Memory & Context | 10.3 | pressure 1, gap 6.3 | `/triage-lead server-memory` |
+| codebase-design | Plan | 9.1 | pressure 1, gap 5.1 | `/triage-lead codebase-design` |
+| domain-modeling | Plan | 9.1 | pressure 1, gap 5.1 | `/triage-lead domain-modeling` |
+| confluence | MCP Servers | 8.6 | pressure 0, gap 6.6 | `/triage-lead confluence` |
+| jira | MCP Servers | 8.6 | pressure 0, gap 6.6 | `/triage-lead jira` |
+| typescript-mcp-server-generator | Skills & Plugins | 8.5 | pressure 0, gap 6.5 | `/triage-lead typescript-mcp-server-generator` |
+| implement | Implement | 6.8 | pressure 0, gap 4.8 | `/triage-lead implement` |
+| diagnosing-bugs | Verify | 6.8 | pressure 0, gap 4.8 | `/triage-lead diagnosing-bugs` |
+| presentation-creator | Skills & Plugins | 6.5 | pressure 0, gap 6.5 | `/triage-lead presentation-creator` |
 
 <!-- NEXT-EVALS:END -->
