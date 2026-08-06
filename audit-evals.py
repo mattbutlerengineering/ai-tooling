@@ -315,8 +315,21 @@ pre-commit hook. E (skill evidence), F (dangling overlaps), and I (evidence fiel
 are report-only and never affect the exit code; --selftest exits non-zero on a
 failing assertion, so it can gate alone.
 """
-import os, re, sys, json, glob, collections, functools, subprocess, datetime, urllib.request, urllib.error
+import collections
+import contextlib
+import datetime
+import functools
+import glob
 import importlib.util
+import json
+import os
+import re
+import subprocess
+import sys
+import urllib.error
+import urllib.request
+from pathlib import Path
+
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -357,7 +370,7 @@ def http_ok(url):
         req = urllib.request.Request(url, headers={"User-Agent": "ai-tooling-audit"})
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             return r.status == 200
-    except Exception:
+    except Exception:  # noqa: BLE001 — any failure here means 'cannot verify', not 'broken'
         return False
 
 def _run_ok(cmd):
@@ -368,7 +381,7 @@ def _run_ok(cmd):
     run down with a traceback. A real 404 still exits non-zero and is still reported."""
     try:
         return subprocess.run(cmd, capture_output=True, text=True,
-                              timeout=TIMEOUT).returncode == 0
+                              timeout=TIMEOUT, check=False).returncode == 0
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return True
 
@@ -386,12 +399,12 @@ PKG_CLEAN = lambda s: re.sub(r"[<>=].*|\[.*?\]|['\"]|@latest$", "", s).strip()
 
 # A package token that is really a placeholder / prose fragment, not installable.
 PLACEHOLDER = re.compile(r"^\.+$|\.\.\.|[<>{}|&]|^-|,$|"
-                         r"^(install|installer|command|version|CLI|skills|name|pkg|package|foo|bar)$", re.I)
+                         r"^(install|installer|command|version|CLI|skills|name|pkg|package|foo|bar)$", re.IGNORECASE)
 # If a backtick command is discussed as the WRONG/non-existent option ("not `npx x`",
 # "listed as `npx x` (doesn't exist)", "earlier draft showed `x`, which does not exist"),
 # it's a correction note, not an install to resolve. Markers can sit on either side.
 NEGATION = re.compile(r"\b(not|non-?existent|does ?n.?t exist|do(es)? not exist|no such|wrong|"
-                      r"instead of|isn.?t|rather than|earlier draft|was wrong|404|nonexistent)\b", re.I)
+                      r"instead of|isn.?t|rather than|earlier draft|was wrong|404|nonexistent)\b", re.IGNORECASE)
 
 def extract_installs(text):
     """Yield (kind, package) from install-like commands in markdown."""
@@ -422,7 +435,7 @@ def audit_installs(ctx):
     exactly as they were: lookups DEDUPE, findings do NOT, so a broken package cited in
     three evals is still three findings."""
     import concurrent.futures
-    files = ["STACK.md", "CATALOG.md"] + sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))
+    files = ["STACK.md", "CATALOG.md", *sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))]
     checkers = {"pypi": pypi_exists, "crates": crates_exists, "npm": npm_exists, "gh": gh_repo_exists}
     mentions = []  # (rel, kind, pkg) in file order — this IS the reported order
     for rel in files:
@@ -433,7 +446,7 @@ def audit_installs(ctx):
     # max_workers matches audit_links. Do NOT raise it: PyPI and the npm registry
     # rate-limit, and a 429 would surface as a false BROKEN.
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
-        seen = dict(zip(targets, ex.map(lambda t: checkers[t[0]](t[1]), targets)))
+        seen = dict(zip(targets, ex.map(lambda t: checkers[t[0]](t[1]), targets), strict=True))
     return [(rel, kind, pkg) for rel, kind, pkg in mentions if not seen[(kind, pkg)]]
 
 # ---------------------------------------------------------------- B. fabrication
@@ -446,20 +459,20 @@ HONEST = re.compile(r"not installed|not run|did not|do not|source-grounded|archi
                     r"\bread (the|every|all|\d|through|\d+)|\bfetched\b|\binspected\b|\bexamined\b|"
                     r"\benumerated\b|\bcounted\b|\bdiffed\b|queried the (github|rest) api|github[- ]api|"
                     r"as (installed|checked out) on this machine|mentally|applied (to|against)|"
-                    r"could not install|attempted to apply", re.I)
+                    r"could not install|attempted to apply", re.IGNORECASE)
 # Specific run claims a fabricator invents (used only when no honest/verified marker is present).
 RUN_CLAIM = re.compile(r"\b(ran it|we ran|i ran|ran the|ran against|added the .* server|"
                        r"used it (on|to|across)|deployed |generated |executed |"
-                       r"launched |wrapped the|let it index|pointed it|fed it)\b", re.I)
+                       r"launched |wrapped the|let it index|pointed it|fed it)\b", re.IGNORECASE)
 # Markers of a genuine, trustable hands-on run.
 VERIFIED = re.compile(r"\*\*hands-on\*\*|verified hands-on|verified (live|:)|re-verified|re-ran|"
                       r"ran it \*\*live\*\*|ran it (live|for real)|ran the .*\blive\b|live from inside|"
                       r"installed (it|the real|via|globally|as a skill|as a claude)|"
                       r"installed \(|pip[- ]?install.*\bran\b|exercised the|one real script execution|"
-                      r"ran `|loaded all tool schemas", re.I)
+                      r"ran `|loaded all tool schemas", re.IGNORECASE)
 
 def how_section(text):
-    m = re.search(r"#+\s*How we tested.*?(?=\n#+\s|\Z)", text, re.S | re.I)
+    m = re.search(r"#+\s*How we tested.*?(?=\n#+\s|\Z)", text, re.DOTALL | re.IGNORECASE)
     return m.group(0) if m else ""
 
 def audit_fabrication(ctx):
@@ -494,7 +507,7 @@ def check_repo(slug):
         if e.code == 404:
             return "dead"          # the one status that genuinely means "gone"
         return f"unknown:HTTP {e.code}"   # 429 rate limit, 5xx, auth walls — not a verdict
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 — every non-404 outcome is inconclusive by design
         return f"unknown:{type(e).__name__}"  # timeout / DNS / TLS — also not a verdict
 
 def audit_links(ctx):
@@ -505,7 +518,7 @@ def audit_links(ctx):
     slugs = catalog_lib.github_repos(ctx.catalog)
     problems, unknowns = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
-        for slug, res in zip(slugs, ex.map(check_repo, slugs)):
+        for slug, res in zip(slugs, ex.map(check_repo, slugs), strict=True):
             if res.startswith("unknown:"):
                 unknowns.append((slug, res[len("unknown:"):]))
             elif res != "ok":
@@ -585,13 +598,13 @@ def audit_metadata_staleness(ctx, today=None):
 # keep notable/historical tools but expect the entry to carry a ⚠️ archived note.
 def check_archived(slug):
     r = subprocess.run(["gh", "api", f"repos/{slug}", "--jq", "[.archived, .pushed_at[0:7]]"],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, check=False)
     if r.returncode != 0:
         return None
     try:
         arch, pushed = json.loads(r.stdout)
         return (bool(arch), pushed)
-    except Exception:
+    except Exception:  # noqa: BLE001 — a malformed `gh` payload means 'unknown', not a crash
         return None
 
 def audit_archived(ctx):
@@ -600,10 +613,10 @@ def audit_archived(ctx):
     slugs = catalog_lib.github_repos(text)
     archived = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
-        for slug, res in zip(slugs, ex.map(check_archived, slugs)):
+        for slug, res in zip(slugs, ex.map(check_archived, slugs), strict=True):
             if res and res[0]:
                 # already disclosed in the entry? (a ⚠️ near the link)
-                flagged = bool(re.search(re.escape(slug) + r".{0,400}?(?:archived|⚠️)", text, re.S | re.I))
+                flagged = bool(re.search(re.escape(slug) + r".{0,400}?(?:archived|⚠️)", text, re.DOTALL | re.IGNORECASE))
                 archived.append((slug, res[1], flagged))
     return archived, len(slugs)
 
@@ -644,7 +657,7 @@ def audit_verdicts(ctx):
 # This kills the hand-maintained drift prior audits kept finding (abtop/codeburn,
 # serena, documentation-writer). Gating, on by default. Consumes the #64 ledger.
 _LEDGER_ROW = re.compile(
-    r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.M)
+    r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.MULTILINE)
 
 def _stack_member_keys(stack_text):
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
@@ -719,14 +732,14 @@ def audit_verdict_evidence(ctx):
 # review. This is a backlog report, not a gate — it does not affect the exit code.
 MEASURED = re.compile(r"tiktoken|with[- ]skill|baseline|measured a/b|\ba/b\b|trigger rate|"
                       r"assertion (passed|failed)|measured ~|token.*reduction.*measured|"
-                      r"\*\*hands-on,? measured|run_eval", re.I)
+                      r"\*\*hands-on,? measured|run_eval", re.IGNORECASE)
 # A strong, unambiguous measurement marker — strong enough to override a *weak*
 # honest-review word (e.g. "inspected"/"read"/"examined") that would otherwise
 # demote a genuinely measured eval. (Real case: a measured eval that wrote
 # "inspected each SKILL.md" was wrongly held in the backlog because `\binspected\b`
 # lives in HONEST. Sealing precedence here makes that a decision, not an accident.)
 STRONG_MEASURED = re.compile(r"measured a/b|\ba/b\b|trigger rate|assertion (passed|failed)|"
-                             r"\*\*hands-on,? measured|run_eval|tiktoken|measured ~", re.I)
+                             r"\*\*hands-on,? measured|run_eval|tiktoken|measured ~", re.IGNORECASE)
 
 # ---------------------------------------------------------------- I. declared evidence field
 # Issue #62: the *declared* evidence-strength field — how hard we looked, recorded
@@ -789,7 +802,7 @@ class Evaluation:
 
     @classmethod
     def from_path(cls, path):
-        return cls(os.path.basename(path)[:-3], open(path, encoding="utf-8").read())
+        return cls(os.path.basename(path)[:-3], Path(path).read_text(encoding="utf-8"))
 
     @property
     def how(self):
@@ -847,7 +860,7 @@ class Evaluation:
     # The `**Repo:**` header link. Detector U compares it to the CATALOG row's link:
     # when a repo is renamed the catalog row gets repointed and this header does not,
     # so the eval keeps asserting a pre-rename slug forever (#336).
-    _REPO_HEADER = re.compile(r"^\*\*Repo:\*\*.*$", re.M)
+    _REPO_HEADER = re.compile(r"^\*\*Repo:\*\*.*$", re.MULTILINE)
     _MD_LINK = re.compile(r"\[[^\]]*\]\(([^)]*)\)")
 
     @property
@@ -885,7 +898,7 @@ class Evaluation:
         # every verdict word in the Verdict section (handles dual verdicts)
         if not self.verdict:
             return set()
-        vsec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", self.text, re.S)
+        vsec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", self.text, re.DOTALL)
         if vsec:
             return {w for w in VERDICTS if re.search(rf"\b{w}\b", vsec.group(0))}
         return {self.verdict}
@@ -894,7 +907,7 @@ class Evaluation:
     def name_aliases(self):
         # normalized names this eval might be keyed by in COMPARISON.md
         cands = {catalog_lib.name_key(self.name)}
-        h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.M)
+        h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.MULTILINE)
         if h: cands.add(catalog_lib.name_key(h.group(1)))
         ce = next((r for r in self.catalog_rows
                    if r.url and r.url.startswith("https://github")), None)
@@ -918,7 +931,7 @@ class DetectorContext:
         return os.path.join(self.root, rel)
 
     def read(self, rel):
-        return open(self.path(rel), encoding="utf-8").read()
+        return Path(self.path(rel)).read_text(encoding="utf-8")
 
     @functools.cached_property
     def catalog(self):
@@ -986,8 +999,8 @@ def audit_evidence_field(ctx):
     MEASURED"). Returns (counts, missing, strong) where counts/strong are level->int
     over all evals / over ADOPT+KEEP evals, and missing lists evals with no field.
     Records how hard we looked, separate from the verdict; gating weak backing is #71."""
-    counts = {lvl: 0 for lvl in EVIDENCE_LEVELS}
-    strong = {lvl: 0 for lvl in EVIDENCE_LEVELS}  # restricted to ADOPT/KEEP-verdict evals
+    counts = dict.fromkeys(EVIDENCE_LEVELS, 0)
+    strong = dict.fromkeys(EVIDENCE_LEVELS, 0)  # restricted to ADOPT/KEEP-verdict evals
     missing = []
     for ev in ctx.evals:
         lvl = ev.evidence_level
@@ -1020,8 +1033,8 @@ def audit_skill_evidence(ctx):
 # regex): an eval counts as compliant if it names a triggering test OR an A/B anywhere,
 # so an honest measured eval is never false-flagged. Widen the vocab if it does; never
 # tighten it into a gate here — this mirrors --skills as a tracked metric, not a gate.
-_SKILL_TRIGGER_RE = re.compile(r"trigger|run_eval|should[- ]?fire", re.I)
-_SKILL_AB_RE = re.compile(r"\bA/B\b|with[- ]skill|without[- ]skill|baseline|skill on vs", re.I)
+_SKILL_TRIGGER_RE = re.compile(r"trigger|run_eval|should[- ]?fire", re.IGNORECASE)
+_SKILL_AB_RE = re.compile(r"\bA/B\b|with[- ]skill|without[- ]skill|baseline|skill on vs", re.IGNORECASE)
 
 def audit_skill_design(ctx):
     """Detector S (REPORT-ONLY): skill/plugin-Type evals that record NEITHER a triggering
@@ -1187,9 +1200,9 @@ def audit_clusters(ctx):
 # "unverified" disclaimer is the honest path — like detector B's HONEST vocab — and is
 # bucketed apart from the silent claims. Report-only; does not affect exit code.
 _SAVINGS_NUM = re.compile(r"~?\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?\s*%\+?|~?\d+(?:\.\d+)?\s*(?:×|x\b)")
-_SAVINGS_NEAR = re.compile(r"token|context|prompt|saving|reduc|fewer|less|waste|compress|consumption|lower|smaller|\bcut", re.I)
-_SAVINGS_CTX = re.compile(r"token|context|prompt", re.I)
-_SAVINGS_DISCLAIMER = re.compile(r"self-?reported|unverified", re.I)
+_SAVINGS_NEAR = re.compile(r"token|context|prompt|saving|reduc|fewer|less|waste|compress|consumption|lower|smaller|\bcut", re.IGNORECASE)
+_SAVINGS_CTX = re.compile(r"token|context|prompt", re.IGNORECASE)
+_SAVINGS_DISCLAIMER = re.compile(r"self-?reported|unverified", re.IGNORECASE)
 
 def _has_savings_claim(one_liner):
     """A numeric token-savings headline: a percentage or N× figure sitting next to
@@ -1632,7 +1645,7 @@ SCOPE_CONCESSION = re.compile(
     r"|drop-in coding harness"
     r"|not authoring code"
     r"|tangential to (?:the )?(?:coding|authoring)"
-    r"|adjacent to the coding dev loop", re.I)
+    r"|adjacent to the coding dev loop", re.IGNORECASE)
 
 # An eval that quotes the exclusion in order to DISTINGUISH itself from it. Same shape as
 # detector B's HONEST vocabulary: the escape hatch is what keeps the finding count honest,
@@ -1641,7 +1654,7 @@ SCOPE_CLEARED = re.compile(
     r"clears the bar"
     r"|catalog-relevant as"
     r"|genuine bridge into"
-    r"|not (?:merely |just )?a library for building", re.I)
+    r"|not (?:merely |just )?a library for building", re.IGNORECASE)
 
 # The Types WORKFLOW.md's exclusion is about ("visual/programmatic agent builders").
 # A harness or tool is something you RUN; the exclusion was never aimed at it.
@@ -1829,10 +1842,8 @@ def read_install_records(home=None):
                 on_disk.add(key.split("@")[0])
     except (OSError, ValueError, AttributeError):
         pass
-    try:
+    with contextlib.suppress(OSError):
         on_disk |= set(os.listdir(path(SKILL_DIR)))
-    except OSError:
-        pass
     cache = path(PLUGIN_CACHE)
     for market in _listdir(cache):
         for plugin in _listdir(os.path.join(cache, market)):
@@ -1947,7 +1958,7 @@ LICENSE_GROUND = re.compile(
     r"|no LICENSE file"
     r"|carrying no licen[cs]e grant"
     r"|licen[cs]e alone"
-    r"|\*\*SKIP\*\* ?\(licen[cs]e\)", re.I)
+    r"|\*\*SKIP\*\* ?\(licen[cs]e\)", re.IGNORECASE)
 
 # A verdict that has ALREADY withdrawn its license ground still quotes the claim it
 # withdrew — because quoting it is the honest way to record a correction (detector V's
@@ -1962,7 +1973,7 @@ LICENSE_GROUND = re.compile(
 LICENSE_WITHDRAWN = re.compile(
     r"~~[^~]{0,300}licen[a-z]*[^~]{0,300}~~"
     r"|licen[a-z]*[^.\n]{0,100}(?:is |was |been )?(?:withdrawn|retracted)"
-    r"|(?:withdrawn|retracted)[^.\n]{0,100}licen[a-z]*", re.I)
+    r"|(?:withdrawn|retracted)[^.\n]{0,100}licen[a-z]*", re.IGNORECASE)
 
 LicenseFinding = collections.namedtuple(
     "LicenseFinding", "kind tool slug verdict spdx where phrase conflict")
@@ -1993,7 +2004,7 @@ def audit_license_declared(ctx):
     # is evidence of a check, not of a disposition).
     grounds = {}
     for ev in ctx.evals:
-        sec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", ev.text, re.S)
+        sec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", ev.text, re.DOTALL)
         if sec:
             for a in ev.name_aliases:
                 grounds.setdefault(a, sec.group(0))
@@ -2030,7 +2041,7 @@ def audit_license_declared(ctx):
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
-DEFAULT_GATES = OFFLINE_GATES + ("--installs",)
+DEFAULT_GATES = (*OFFLINE_GATES, "--installs")
 # Opt-in reports. Never in the default set; never affect the exit code.
 REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overlaps",
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
@@ -2041,7 +2052,7 @@ DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
 # into "run everything, including the ~26s network resolver", exit 0. Fail loudly instead.
-KNOWN_FLAGS = DETECTOR_FLAGS + ("--offline", "--selftest")
+KNOWN_FLAGS = (*DETECTOR_FLAGS, "--offline", "--selftest")
 
 # ---------------------------------------------------------------- main
 def main():
@@ -2260,7 +2271,7 @@ def main():
             print("  no repo-metadata.json — run `python3 refresh-metadata.py` to build it")
         elif oldest is None:
             print("  UNDATED — no record carries a fetch date, so the cache's age is unknown.")
-            print(f"  Run `python3 refresh-metadata.py` to stamp them (not backfilled: a "
+            print("  Run `python3 refresh-metadata.py` to stamp them (not backfilled: a "
                   "floor date would assert a fetch that never happened).")
         else:
             slug, date, age = oldest

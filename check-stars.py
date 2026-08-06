@@ -42,19 +42,19 @@ GATE OR REPORT-ONLY — the Makefile decides, not this file. #377 left that open
 observe. Reverting to report-only is dropping `--check` from the Makefile; nothing else
 changes, and `TestStarConvention` pins both directions either way.
 """
+import glob
 import os
 import re
 import sys
-import glob
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EVAL_GLOB = os.path.join(ROOT, "evaluations", "*.md")
 
-STARS_LINE = re.compile(r"^\*\*Stars:\*\*(.*)$", re.M)
-HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
+STARS_LINE = re.compile(r"^\*\*Stars:\*\*(.*)$", re.MULTILINE)
+HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 # A declaration that says "inapplicable" and stops there. Trailing dashes/colons are
 # stripped so `n/a —` (a reason the author meant to write and didn't) still reads as bare.
-BARE_NA = re.compile(r"^n/?a[\s\-—:.]*$", re.I)
+BARE_NA = re.compile(r"^n/?a[\s\-—:.]*$", re.IGNORECASE)
 
 
 def star_value(text):

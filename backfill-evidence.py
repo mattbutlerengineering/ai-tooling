@@ -20,19 +20,27 @@ The COMPARISON column is fully regenerated from the evals each run, so it cannot
   ./backfill-evidence.py          # apply: insert missing fields + rebuild the column
   ./backfill-evidence.py --check  # verify only: exit 1 if anything would change; mutate nothing
 """
-import os, re, sys, glob, importlib.util
+import glob
+import importlib.util
+import os
+import re
+import sys
+from pathlib import Path
+
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Import the derivation + eval model from audit-evals.py (single source of truth).
 _spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+if _spec is None or _spec.loader is None:  # a sibling in this repo — absent means a broken checkout
+    raise ImportError("cannot load audit-evals.py; is the checkout complete?")
 ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 EVAL_GLOB = os.path.join(ROOT, "evaluations", "*.md")
 COMPARISON = os.path.join(ROOT, "COMPARISON.md")
-HOW_HEADING = re.compile(r"^##\s+How we tested it[ \t]*$", re.M)
-H1 = re.compile(r"^#\s+.+$", re.M)
+HOW_HEADING = re.compile(r"^##\s+How we tested it[ \t]*$", re.MULTILINE)
+H1 = re.compile(r"^#\s+.+$", re.MULTILINE)
 
 
 # ---------------------------------------------------------------- eval field backfill
@@ -99,22 +107,22 @@ def main():
     for path in sorted(glob.glob(EVAL_GLOB)):
         if os.path.basename(path) == "TEMPLATE.md":
             continue
-        text = open(path, encoding="utf-8").read()
+        text = Path(path).read_text(encoding="utf-8")
         new = backfill_eval_text(text)
         if new != text:
             changed.append(os.path.relpath(path, ROOT))
             if not check:
-                open(path, "w", encoding="utf-8").write(new)
+                Path(path).write_text(new, encoding="utf-8")
 
     # Built from a fresh DetectorContext AFTER the eval rewrites above, so the
     # map reflects any Evidence fields this run just inserted (#199/#201).
     amap = ae.DetectorContext(ROOT).evidence_alias_map
-    ctext = open(COMPARISON, encoding="utf-8").read()
+    ctext = Path(COMPARISON).read_text(encoding="utf-8")
     cnew = rebuild_comparison(ctext, amap)
     if cnew != ctext:
         changed.append("COMPARISON.md")
         if not check:
-            open(COMPARISON, "w", encoding="utf-8").write(cnew)
+            Path(COMPARISON).write_text(cnew, encoding="utf-8")
 
     if check:
         if changed:

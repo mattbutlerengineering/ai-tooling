@@ -16,18 +16,23 @@ and COMPARISON.md (header + summary rows + Total), plus the eval-file count quot
 in README.md/STACK.md (derived from evaluations/*.md, excluding TEMPLATE.md). Does
 NOT touch plugin/docs/ (run ./sync-plugin-docs.sh for the latter).
 """
-import glob, os, re, sys
+import glob
+import os
+import re
+import sys
+from pathlib import Path
+
 import catalog_lib
 from catalog_lib import comparison_body_counts, comparison_verdict_breakdown
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-def read(p):  return open(os.path.join(ROOT, p), encoding="utf-8").read()
-def write(p, s): open(os.path.join(ROOT, p), "w", encoding="utf-8").write(s)
+def read(p):  return Path(ROOT, p).read_text(encoding="utf-8")
+def write(p, s): Path(ROOT, p).write_text(s, encoding="utf-8")
 
 def catalog_count(root=None):
     # `root` is injectable for tests (#199); the CLI always counts this repo's tree.
-    text = open(os.path.join(root or ROOT, "CATALOG.md"), encoding="utf-8").read()
+    text = Path(root or ROOT, "CATALOG.md").read_text(encoding="utf-8")
     return catalog_lib.catalog_count(text)
 
 def eval_count(root=None):

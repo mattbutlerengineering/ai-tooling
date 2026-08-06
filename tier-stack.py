@@ -18,12 +18,19 @@ hand; this script only rewrites between them.
   ./tier-stack.py          # apply: regenerate the tier block in STACK.md
   ./tier-stack.py --check  # verify only: exit 1 if the block is stale; mutate nothing
 """
-import os, re, sys, importlib.util
+import importlib.util
+import os
+import re
+import sys
+from pathlib import Path
+
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 # Import the eval model directly (#201) — no more reaching through backfill-evidence.
 _spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+if _spec is None or _spec.loader is None:  # a sibling in this repo — absent means a broken checkout
+    raise ImportError("cannot load audit-evals.py; is the checkout complete?")
 ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 STACK = os.path.join(ROOT, "STACK.md")
@@ -75,12 +82,12 @@ def apply(text, amap=None):
         sys.stderr.write(f"tier-stack: markers {START} / {END} not found in STACK.md — add them once by hand.\n")
         sys.exit(2)
     block = render(*stack_tiers(text, amap))
-    return re.sub(re.escape(START) + r".*?" + re.escape(END), lambda m: block, text, flags=re.S)
+    return re.sub(re.escape(START) + r".*?" + re.escape(END), lambda m: block, text, flags=re.DOTALL)
 
 
 def main():
     check = "--check" in sys.argv[1:]
-    text = open(STACK, encoding="utf-8").read()
+    text = Path(STACK).read_text(encoding="utf-8")
     new = apply(text)
     if check:
         if new != text:
@@ -89,7 +96,7 @@ def main():
         print("tier-stack check: OK — STACK.md evidence tiers match the Evidence data")
         sys.exit(0)
     if new != text:
-        open(STACK, "w", encoding="utf-8").write(new)
+        Path(STACK).write_text(new, encoding="utf-8")
         print("tier-stack: regenerated the Evidence tiers block in STACK.md")
     else:
         print("tier-stack: STACK.md already up to date")

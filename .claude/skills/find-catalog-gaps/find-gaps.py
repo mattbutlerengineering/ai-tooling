@@ -16,7 +16,10 @@ model-serving infra, chat UIs, general business automation).
 
   python3 .claude/skills/find-catalog-gaps/find-gaps.py
 """
-import os, re, subprocess, sys
+import os
+import subprocess
+import sys
+from pathlib import Path
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
@@ -37,7 +40,7 @@ CHECKLIST = {
 }
 
 def catalog_text():
-    return open(os.path.join(ROOT, "CATALOG.md"), encoding="utf-8").read().lower()
+    return Path(ROOT, "CATALOG.md").read_text(encoding="utf-8").lower()
 
 def present(name, cat):
     return f"[{name.lower()}](" in cat
@@ -45,8 +48,8 @@ def present(name, cat):
 def run_detector_f():
     try:
         out = subprocess.run([sys.executable, "audit-evals.py", "--overlaps"],
-                             cwd=ROOT, capture_output=True, text=True, timeout=60).stdout
-    except Exception as e:
+                             cwd=ROOT, capture_output=True, text=True, timeout=60, check=False).stdout
+    except Exception as e:  # noqa: BLE001 — report the failure inline; never abort the report
         return f"  (could not run detector F: {e})"
     return "\n".join(l for l in out.splitlines() if l.strip().startswith(("GAP?", "maybe")))
 

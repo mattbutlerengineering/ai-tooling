@@ -19,13 +19,17 @@ The score picks a HEAD, not a total order: 176 leads score zero overlap pressure
 and the 461 collapse into ~83 distinct values, so triage.py uses it to rank within
 a band rather than to sort the whole queue. This file has no CLI — run triage.py.
 """
-import os, importlib.util
+import importlib.util
+import os
+
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 # Load audit-evals as a module (its filename is hyphenated) to reuse the shared
 # overlap-pressure computation — never re-parse the "Overlaps with" cell here.
 _spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+if _spec is None or _spec.loader is None:  # a sibling in this repo — absent means a broken checkout
+    raise ImportError("cannot load audit-evals.py; is the checkout complete?")
 ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 # Formula weights — a starting heuristic (#plan-005); expect tuning after the first

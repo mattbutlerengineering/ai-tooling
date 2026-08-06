@@ -29,7 +29,14 @@ A repo whose license comes back absent gets a few extra calls on EVERY path, not
 That is scoped to the handful of records it applies to, so it costs a few dozen calls in
 a ~600-repo run rather than doubling it.
 """
-import os, re, sys, json, base64, datetime, subprocess
+import base64
+import datetime
+import json
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
 
 import catalog_lib
 
@@ -74,7 +81,7 @@ DISCONTINUED = re.compile(
     # healthy tool is worse than one that misses a dead one, because the miss costs
     # a stale row and the false positive costs trust in every other finding.
     r"|(?:repo|repository|project) is (?:now )?read-only"
-    r"|will receive no further updates)", re.I)
+    r"|will receive no further updates)", re.IGNORECASE)
 README_HEAD = 3000  # the banner is at the top or it is not a banner
 
 # GitHub's licensee detector reads exactly one thing: a root LICENSE file. A repo that
@@ -92,7 +99,7 @@ README_HEAD = 3000  # the banner is at the top or it is not a banner
 # Recorded ONLY when the API reports no license, which is the one state where it changes
 # a disposition, and re-derived on every fetch rather than carried forward: a repo that
 # later adds a real LICENSE file drops the field on its own.
-LICENSE_HEADING = re.compile(r"^#{1,6}[ \t]*licen[cs]e\b.*$", re.I | re.M)
+LICENSE_HEADING = re.compile(r"^#{1,6}[ \t]*licen[cs]e\b.*$", re.IGNORECASE | re.MULTILINE)
 LICENSE_SECTION = 400   # chars after the heading — the name is in the first line or two
 MANIFESTS = ("package.json", "pyproject.toml", "Cargo.toml")
 
@@ -114,7 +121,7 @@ SPDX_TOKEN = re.compile(
     r"\b(AGPL[-\s]?[0-9.]*|LGPL[-\s]?[0-9.]*|GPL[-\s]?[0-9.]*"
     r"|Apache(?:[-\s]License)?[-\s]?[0-9.]*|BSD[-\s]?[0-9]?[-\s]?(?:Clause)?"
     r"|MPL[-\s]?[0-9.]*|CC0[-\s]?[0-9.]*|CC[-\s]BY(?:[-\s]NC)?(?:[-\s]SA)?[-\s]?[0-9.]*"
-    r"|EUPL[-\s]?[0-9.]*|MIT|ISC|Unlicense|Zlib|WTFPL|proprietary)\b", re.I)
+    r"|EUPL[-\s]?[0-9.]*|MIT|ISC|Unlicense|Zlib|WTFPL|proprietary)\b", re.IGNORECASE)
 
 
 def normalize_spdx(token):
@@ -204,10 +211,10 @@ def manifest_license(slug):
         if not text:
             continue
         m = re.search(r'"license"\s*:\s*"([^"]+)"', text) if fn.endswith(".json") \
-            else re.search(r'^\s*license\s*=\s*"([^"]+)"', text, re.M)
+            else re.search(r'^\s*license\s*=\s*"([^"]+)"', text, re.MULTILINE)
         # npm's legacy object form: "license": { "type": "MIT" }
         if not m and fn.endswith(".json"):
-            m = re.search(r'"license"\s*:\s*\{[^}]*"type"\s*:\s*"([^"]+)"', text, re.S)
+            m = re.search(r'"license"\s*:\s*\{[^}]*"type"\s*:\s*"([^"]+)"', text, re.DOTALL)
         if m:
             return normalize_spdx(m.group(1)), f'{fn}: "{m.group(1)}"', fn
     return None
@@ -235,7 +242,7 @@ def declared_license(slug, readme=None):
         return rec
     if from_readme:
         return {"spdx": from_readme[0], "where": "readme", "phrase": from_readme[1]}
-    spdx, phrase, fn = from_manifest
+    spdx, phrase, _fn = from_manifest
     return {"spdx": spdx, "where": "manifest", "phrase": phrase}
 
 
@@ -301,7 +308,7 @@ def write_cache(data):
 def main():
     stale_only = "--stale" in sys.argv[1:]
     maintenance = "--maintenance" in sys.argv[1:]
-    catalog = open(CATALOG, encoding="utf-8").read()
+    catalog = Path(CATALOG).read_text(encoding="utf-8")
     slugs = catalog_slugs(catalog)
     cache = load_cache()
 

@@ -21,15 +21,21 @@ follows. The insert lands in the header metadata block, matching TEMPLATE.md's p
   ./backfill-lastverified.py          # apply: insert the field into every eval missing it
   ./backfill-lastverified.py --check  # verify only: exit 1 listing evals missing the field
 """
-import os, re, sys, glob, datetime, subprocess
+import datetime
+import glob
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EVAL_GLOB = os.path.join(ROOT, "evaluations", "*.md")
 
-LAST_VERIFIED = re.compile(r"^\*\*Last verified:\*\*", re.M)
-DEV_STAGE = re.compile(r"^\*\*Dev loop stage:\*\*.*$", re.M)  # primary anchor (TEMPLATE order)
-EVIDENCE_LINE = re.compile(r"^\*\*Evidence:\*\*.*$", re.M)    # fallback: cluster/landscape evals
-H1 = re.compile(r"^#\s+.+$", re.M)                            # last resort
+LAST_VERIFIED = re.compile(r"^\*\*Last verified:\*\*", re.MULTILINE)
+DEV_STAGE = re.compile(r"^\*\*Dev loop stage:\*\*.*$", re.MULTILINE)  # primary anchor (TEMPLATE order)
+EVIDENCE_LINE = re.compile(r"^\*\*Evidence:\*\*.*$", re.MULTILINE)    # fallback: cluster/landscape evals
+H1 = re.compile(r"^#\s+.+$", re.MULTILINE)                            # last resort
 COMMENT = "<!-- backfilled from last git edit; not a hands-on re-check -->"
 
 
@@ -72,7 +78,7 @@ def main():
     for path in sorted(glob.glob(EVAL_GLOB)):
         if os.path.basename(path) == "TEMPLATE.md":
             continue
-        text = open(path, encoding="utf-8").read()
+        text = Path(path).read_text(encoding="utf-8")
         if LAST_VERIFIED.search(text):
             continue  # already has the field — skip (and skip the git call)
         rel = os.path.relpath(path, ROOT)
@@ -80,7 +86,7 @@ def main():
         if new != text:
             changed.append(rel)
             if not check:
-                open(path, "w", encoding="utf-8").write(new)
+                Path(path).write_text(new, encoding="utf-8")
 
     if check:
         if changed:

@@ -201,7 +201,7 @@ def parse_catalog_rows(text):
         cells = _row_cells(line)
         m = _LINK_CELL.match(cells[0])
         name, url = (m.group(1), m.group(2)) if m else (cells[0], None)
-        cell = lambda i: cells[i] if len(cells) > i else None
+        cell = lambda i, cells=cells: cells[i] if len(cells) > i else None
         rows.append(CatalogRow(name, url, cell(1), cell(2), cell(4), cells))
     return rows
 

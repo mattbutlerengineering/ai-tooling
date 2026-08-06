@@ -14,8 +14,19 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
-import os, datetime, importlib.util, json, re, shutil, subprocess, tempfile, types, unittest
+import datetime
+import importlib.util
+import json
+import os
+import re
+import shutil
+import subprocess
+import tempfile
+import types
+import unittest
 import urllib.error
+from pathlib import Path
+from typing import ClassVar
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -347,7 +358,7 @@ class TestParseCatalogRows(unittest.TestCase):
         # underscore-private names (the retired ae.catalog_lib._BODY_ROW pattern).
         for fn in ("audit-evals.py", "backfill-evidence.py", "tier-stack.py",
                    "reconcile-counts.py"):
-            src = open(os.path.join(ROOT, fn), encoding="utf-8").read()
+            src = Path(ROOT, fn).read_text(encoding="utf-8")
             self.assertNotRegex(src, r"catalog_lib\._", msg=fn)
 
 
@@ -584,7 +595,7 @@ class TestDetectorContext(unittest.TestCase):
             self.assertIs(ctx.catalog, first)  # cached — one read per run
 
     def test_no_root_monkeypatch_left_in_tests(self):
-        src = open(os.path.join(ROOT, "test_automation.py"), encoding="utf-8").read()
+        src = Path(ROOT, "test_automation.py").read_text(encoding="utf-8")
         for needle in ("audit.ROOT" + " = ", "reconcile.ROOT" + " = "):  # split: don't match this line
             self.assertNotIn(needle, src)
 
@@ -603,7 +614,7 @@ class TestReconcileMain(unittest.TestCase):
 
     def _run(self, d, *args):
         return subprocess.run(["python3", "reconcile-counts.py", *args],
-                              cwd=d, capture_output=True, text=True)
+                              cwd=d, capture_output=True, text=True, check=False)
 
     def test_catalog_count_from_fixture_root(self):
         with tempfile.TemporaryDirectory() as d:
@@ -648,7 +659,7 @@ class TestReconcileMain(unittest.TestCase):
             self.assertEqual(self._run(d, "--check").returncode, 1)
             # apply rewrites 999 -> 4 (TEMPLATE.md excluded)
             self.assertEqual(self._run(d).returncode, 0)
-            readme = open(os.path.join(d, "README.md"), encoding="utf-8").read()
+            readme = Path(d, "README.md").read_text(encoding="utf-8")
             self.assertIn("distilled from 4 evaluations, 4 evidence-based evaluations.", readme)
             self.assertNotIn("999", readme)
             # idempotent: --check now clean
@@ -669,7 +680,7 @@ class TestReconcileMain(unittest.TestCase):
             _write(d, "evaluations/TEMPLATE.md", "# template\n")  # excluded from the count
             self.assertEqual(self._run(d, "--check").returncode, 1)
             self.assertEqual(self._run(d).returncode, 0)
-            plugin = open(os.path.join(d, "plugin", "CLAUDE.md"), encoding="utf-8").read()
+            plugin = Path(d, "plugin", "CLAUDE.md").read_text(encoding="utf-8")
             self.assertIn("4 evidence-based evaluation and comparison files", plugin)
             self.assertEqual(self._run(d, "--check").returncode, 0)
 
@@ -686,7 +697,7 @@ class TestValidateCountsHook(unittest.TestCase):
 
     def test_hook_is_silent_on_a_clean_tree(self):
         r = subprocess.run(["bash", os.path.join(ROOT, "plugin", "hooks", "validate-counts.sh")],
-                           cwd=ROOT, capture_output=True, text=True)
+                           cwd=ROOT, capture_output=True, text=True, check=False)
         self.assertEqual(r.stdout, "", msg="hook reported drift on a reconciled tree")
         self.assertEqual(r.returncode, 0, msg=r.stderr)
 
@@ -704,7 +715,7 @@ class TestPluginFrontDoorSignals(unittest.TestCase):
 
     # Anchored on a number word: root CLAUDE.md:7 also says "the quality signals they
     # move", which a bare \w+ would match first.
-    _COUNT = re.compile(r"\b(four|five|six|seven|eight|nine)\s+quality signals\b", re.I)
+    _COUNT = re.compile(r"\b(four|five|six|seven|eight|nine)\s+quality signals\b", re.IGNORECASE)
 
     def _text(self, rel):
         with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
@@ -797,7 +808,7 @@ class TestSyncPluginDocs(unittest.TestCase):
         _sync_fixture_tree(d)
 
     def _run(self, d, *args):
-        return subprocess.run(["bash", "sync-plugin-docs.sh", *args], cwd=d, capture_output=True, text=True)
+        return subprocess.run(["bash", "sync-plugin-docs.sh", *args], cwd=d, capture_output=True, text=True, check=False)
 
     def test_happy_path_roundtrips_and_passes_guard(self):
         with tempfile.TemporaryDirectory() as d:
@@ -837,10 +848,10 @@ class TestSyncPluginDocs(unittest.TestCase):
             self._fixture_tree(d)
             self.assertEqual(self._run(d).returncode, 0)
             cat = os.path.join(d, "plugin/docs/CATALOG.md")
-            before = open(cat, encoding="utf-8").read()
+            before = Path(cat).read_text(encoding="utf-8")
             r = self._run(d, "--check")
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
-            self.assertEqual(open(cat, encoding="utf-8").read(), before, "check mutated plugin/docs")
+            self.assertEqual(Path(cat).read_text(encoding="utf-8"), before, "check mutated plugin/docs")
 
     def test_entry_count_comes_from_catalog_lib(self):
         # #195: the script's entry count must be catalog_lib.catalog_count, not a
@@ -851,7 +862,7 @@ class TestSyncPluginDocs(unittest.TestCase):
             _write(d, "CATALOG.md", CATALOG_OK + "|x | tool | one | two | none |\n")
             r = self._run(d)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
-            want = catalog_lib.catalog_count(open(os.path.join(d, "CATALOG.md"), encoding="utf-8").read())
+            want = catalog_lib.catalog_count(Path(d, "CATALOG.md").read_text(encoding="utf-8"))
             self.assertIn(f"CATALOG.md ({want} entries)", r.stdout,
                           msg=f"count not derived from catalog_lib (want {want}): " + r.stdout)
 
@@ -901,14 +912,14 @@ class TestWatchListSeam(unittest.TestCase):
 
     # The syncable set. Adding a doc to sync-plugin-docs.sh's WATCHED_* arrays
     # must update this pin — the same alerting contract as TestIntegrityMakefile.GATES.
-    WATCHED = {
+    WATCHED: ClassVar[set] = {
         "CATALOG.md", "WORKFLOW.md", "STACK.md", "STACK-LEDGER.md", "NEXT-EVALS.md",
         "WATCHLIST.md", "PLAYBOOK.md", "evaluations/", "discovery/", "methodologies/",
     }
 
     def test_list_watched_emits_the_syncable_set(self):
         r = subprocess.run(["bash", os.path.join(ROOT, "sync-plugin-docs.sh"), "--list-watched"],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, check=False)
         self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
         self.assertEqual(set(r.stdout.split()), self.WATCHED)
 
@@ -918,7 +929,7 @@ class TestWatchListSeam(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _sync_fixture_tree(d)
             fixture_by_dir = {"evaluations": "foo.md", "discovery": "bar.md", "methodologies": "baz.md"}
-            r = subprocess.run(["bash", "sync-plugin-docs.sh"], cwd=d, capture_output=True, text=True)
+            r = subprocess.run(["bash", "sync-plugin-docs.sh"], cwd=d, capture_output=True, text=True, check=False)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
             for entry in self.WATCHED:
                 if entry.endswith("/"):
@@ -933,10 +944,10 @@ class TestWatchListSeam(unittest.TestCase):
         shutil.copy(os.path.join(ROOT, ".claude/hooks/auto-sync.sh"), hook)
         # the hook resolves its JSON helper next to itself (#202) — ship it along
         shutil.copy(os.path.join(ROOT, ".claude/hooks/hook-field.py"), os.path.join(d, "hook-field.py"))
-        payload = '{"tool_input": {"file_path": "%s"}}' % file_path
+        payload = '{"tool_input": {"file_path": "%s"}}'.replace("%s", file_path)
         env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
         return subprocess.run(["bash", hook], input=payload, env=env,
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, check=False)
 
     def test_claude_hook_triggers_on_every_watched_entry(self):
         # An edit to ANY watched entry — including STACK-LEDGER.md, discovery/,
@@ -1004,7 +1015,7 @@ class TestWatchListSeam(unittest.TestCase):
             driver = _write(d, "driver.ts", _OPENCODE_DRIVER)
             r = subprocess.run(
                 ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/auto-sync.ts")],
-                capture_output=True, text=True, cwd=d)
+                capture_output=True, text=True, cwd=d, check=False)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
 
@@ -1082,7 +1093,7 @@ class TestHookTriggerSeam(unittest.TestCase):
 
     def _extract(self, field, payload):
         return subprocess.run(["python3", os.path.join(ROOT, self.HELPER), field],
-                              input=payload, capture_output=True, text=True)
+                              input=payload, capture_output=True, text=True, check=False)
 
     def test_helper_extracts_the_requested_field(self):
         r = self._extract("command", '{"tool_input": {"command": "git commit -m x"}}')
@@ -1106,7 +1117,7 @@ class TestHookTriggerSeam(unittest.TestCase):
         shutil.copy(os.path.join(ROOT, self.HELPER), os.path.join(d, "hook-field.py"))
         env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
         return subprocess.run(["bash", gate], input=payload, env=env,
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, check=False)
 
     _FAILING_AUDIT = "import sys; sys.stderr.write('detector X: fail\\n'); sys.exit(1)\n"
 
@@ -1144,7 +1155,7 @@ class TestHookTriggerSeam(unittest.TestCase):
             driver = _write(d, "driver.ts", _GATE_DRIVER)
             r = subprocess.run(
                 ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/commit-gate.ts")],
-                capture_output=True, text=True, cwd=d)
+                capture_output=True, text=True, cwd=d, check=False)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
 
@@ -1362,8 +1373,8 @@ class TestDetectorLetters(unittest.TestCase):
     in the docs (#317). Nothing misbehaved at runtime, which is exactly why it survived
     — so pin it mechanically instead of relying on review to notice the next one."""
 
-    HEADER = re.compile(r"^# -+ ([A-Z])\. (.+)$", re.M)     # section banners in the code
-    REGISTRY = re.compile(r"^  ([A-Z])\. [A-Z]", re.M)      # the module docstring's list
+    HEADER = re.compile(r"^# -+ ([A-Z])\. (.+)$", re.MULTILINE)     # section banners in the code
+    REGISTRY = re.compile(r"^  ([A-Z])\. [A-Z]", re.MULTILINE)      # the module docstring's list
 
     def _source(self):
         with open(os.path.join(ROOT, "audit-evals.py"), encoding="utf-8") as f:
@@ -1575,7 +1586,7 @@ class TestLastVerifiedBackfill(unittest.TestCase):
 
     def _run_check(self, d):
         return subprocess.run(["python3", "backfill-lastverified.py", "--check"],
-                              cwd=d, capture_output=True, text=True)
+                              cwd=d, capture_output=True, text=True, check=False)
 
     def test_check_flags_missing_and_passes_after_apply(self):
         # End-to-end: a temp eval with no field -> --check exits 1; add the field -> exit 0.
@@ -1701,7 +1712,7 @@ class TestDetectorR(unittest.TestCase):
             _write(d, "repo-metadata.json",
                    json.dumps({"a/x": {"fetched_at": "2001-01-01"}}))
             r = subprocess.run(["python3", "audit-evals.py", "--metadata-staleness"],
-                               cwd=d, capture_output=True, text=True)
+                               cwd=d, capture_output=True, text=True, check=False)
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
             self.assertIn("R. metadata staleness", r.stdout)
 
@@ -1881,7 +1892,7 @@ class TestLinkRotUnknowns(unittest.TestCase):
                    "urllib.request.urlopen = _boom\n")
             r = subprocess.run(["python3", "audit-evals.py", "--links"],
                                cwd=d, capture_output=True, text=True,
-                               env={**os.environ, "PYTHONPATH": d})
+                               env={**os.environ, "PYTHONPATH": d}, check=False)
             self.assertIn("INCONCLUSIVE", r.stdout, msg=r.stdout + r.stderr)
             self.assertIn("0/2 checked", r.stdout)
             self.assertNotIn("OK — all", r.stdout,
@@ -2203,7 +2214,7 @@ class TestTriage(unittest.TestCase):
     STACK = "| [incumbent](https://github.com/x/incumbent) | tool | install |\n"
     # badskill: vendored + no license -> mechanical-skip. runtool: AGPL but EXECUTED,
     # never vendored -> not disposed. oldtool: archived -> successor-check.
-    META = {
+    META: ClassVar[dict] = {
         "x/plainlead": {"license_spdx": "MIT", "archived": False},
         "x/badskill": {"license_spdx": "NONE", "archived": False},
         "x/runtool": {"license_spdx": "AGPL-3.0", "archived": False},
@@ -2360,7 +2371,7 @@ class TestTriage(unittest.TestCase):
 
     def _run(self, d, *args):
         return subprocess.run(["python3", "triage.py", *args],
-                              cwd=d, capture_output=True, text=True)
+                              cwd=d, capture_output=True, text=True, check=False)
 
     def test_check_catches_drift(self):
         with tempfile.TemporaryDirectory() as d:
@@ -2574,7 +2585,7 @@ class TestAuditEvalsCLI(unittest.TestCase):
 
     def _run(self, d, *args):
         return subprocess.run(["python3", "audit-evals.py", *args],
-                              cwd=d, capture_output=True, text=True)
+                              cwd=d, capture_output=True, text=True, check=False)
 
     def _headers(self, res):
         """The `== X. name ==` banner lines — one per detector that actually ran."""
@@ -2703,7 +2714,7 @@ class TestWatchlist(unittest.TestCase):
 
     def _run(self, d, *args):
         return subprocess.run(["python3", "watchlist.py", *args],
-                              cwd=d, capture_output=True, text=True)
+                              cwd=d, capture_output=True, text=True, check=False)
 
     def test_check_catches_drift(self):
         with tempfile.TemporaryDirectory() as d:
@@ -2937,7 +2948,7 @@ class TestCatalogMirror(unittest.TestCase):
                       {"t": self._eval("t", "https://github.com/old/t",
                                        self._row("t", "https://github.com/old/t"))})
             r = subprocess.run(["python3", "audit-evals.py", "--catalog-mirror"],
-                               cwd=d, capture_output=True, text=True)
+                               cwd=d, capture_output=True, text=True, check=False)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("== U. catalog-entry mirror drift", r.stdout)
             self.assertIn("2 LINK", r.stdout)
@@ -3509,7 +3520,7 @@ class TestScopeMismatch(unittest.TestCase):
         # End-to-end against the real tree: the detector must not report a lead that
         # argues it clears the bar as a finding.
         finds, cleared = audit.audit_scope(audit.DetectorContext(ROOT))
-        self.assertEqual(set(f.tool for f in finds) & set(c.tool for c in cleared), set())
+        self.assertEqual({f.tool for f in finds} & {c.tool for c in cleared}, set())
         for f in finds + cleared:
             self.assertIn(f.typ, audit.SCOPE_TYPES)
             self.assertTrue(f.phrase.strip(), f.tool)
@@ -3543,7 +3554,7 @@ class TestAckCarryForward(unittest.TestCase):
 
     PAYLOAD = ('{"license_spdx":"MIT","archived":false,"stars":1,'
                '"pushed_at":"2026-08-05","resolved_name":"o/r"}')
-    ACK = {"phrase": "no longer actively maintained", "why": "said of v2"}
+    ACK: ClassVar[dict] = {"phrase": "no longer actively maintained", "why": "said of v2"}
 
     def test_plain_refresh_preserves_the_ack(self):
         # The common case: a routine refresh with no --maintenance flag must not erase it.
@@ -3736,7 +3747,7 @@ class TestLicenseDeclared(unittest.TestCase):
         _write(d, "repo-metadata.json", json.dumps(records))
         return audit.DetectorContext(d)
 
-    DECLARED = {"o/skl": {"license_spdx": "NONE", "archived": False,
+    DECLARED: ClassVar[dict] = {"o/skl": {"license_spdx": "NONE", "archived": False,
                           "license_declared": {"spdx": "MIT", "where": "readme",
                                                "phrase": "## License MIT"}}}
 

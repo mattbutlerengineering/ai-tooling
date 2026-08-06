@@ -26,7 +26,12 @@ one is the *revisit* page.
 today's date rather than file content, so it is excluded — see render() and
 _without_stale_block. Apply mode always rewrites the whole page.
 """
-import os, re, sys, importlib.util
+import importlib.util
+import os
+import re
+import sys
+from pathlib import Path
+
 import catalog_lib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -34,6 +39,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 # functions directly — never re-implement staleness / savings-claims / skill-backlog
 # here, and never shell out to parse their text output.
 _spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+if _spec is None or _spec.loader is None:  # a sibling in this repo — absent means a broken checkout
+    raise ImportError("cannot load audit-evals.py; is the checkout complete?")
 ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 WATCHLIST = os.path.join(ROOT, "WATCHLIST.md")
@@ -48,8 +55,8 @@ STALE_START, STALE_END = "<!-- WATCHLIST:STALE:START -->", "<!-- WATCHLIST:STALE
 
 # Section 1: the text after "re-evaluate after/when" in a DEFER eval's Verdict is
 # its trigger sentence (TEMPLATE.md: "DEFER = ... re-evaluate after {trigger}").
-_TRIGGER_RE = re.compile(r"re-evaluate\s+(?:after|when)\s+([^\n]*?)\.(?:\s|$)", re.I)
-_VERDICT_SECTION = re.compile(r"##\s*Verdict.*?(?=\n##\s|\Z)", re.S)
+_TRIGGER_RE = re.compile(r"re-evaluate\s+(?:after|when)\s+([^\n]*?)\.(?:\s|$)", re.IGNORECASE)
+_VERDICT_SECTION = re.compile(r"##\s*Verdict.*?(?=\n##\s|\Z)", re.DOTALL)
 _NO_TRIGGER = "trigger not recorded — add one"
 
 # Section 2: the two hand-written STACK.md flag phrases. DELIBERATELY FRAGILE —
@@ -104,7 +111,7 @@ def stack_flagged(ctx):
     # Prefer the ledger if it ever encodes flagged/pending as data (durable path).
     ledger_hdr = next((l for l in ctx.ledger.splitlines()
                        if l.lstrip().startswith("|") and
-                       re.search(r"flagged|pending", l, re.I) and "Tool" in l), None)
+                       re.search(r"flagged|pending", l, re.IGNORECASE) and "Tool" in l), None)
     if ledger_hdr is not None:  # ledger encodes it — not the case today, but ready
         pass  # (no ledger column yet; fall through to the prose grep)
     found, lines = [], []
@@ -276,7 +283,7 @@ def main():
               file=sys.stderr)
         sys.exit(2)
 
-    current = open(WATCHLIST, encoding="utf-8").read() if os.path.exists(WATCHLIST) else None
+    current = Path(WATCHLIST).read_text(encoding="utf-8") if os.path.exists(WATCHLIST) else None
     if check:
         # Compare with section 3 elided; apply mode below still writes the full text, so
         # `make fix` keeps the staleness report fresh even though the gate ignores it.
@@ -286,7 +293,7 @@ def main():
         print("watchlist check: OK — WATCHLIST.md matches the derived watchlist")
         sys.exit(0)
     if new != current:
-        open(WATCHLIST, "w", encoding="utf-8").write(new)
+        Path(WATCHLIST).write_text(new, encoding="utf-8")
         print("watchlist: regenerated WATCHLIST.md")
     else:
         print("watchlist: WATCHLIST.md already up to date")

@@ -34,7 +34,13 @@ they live nowhere in this repo's own files:
   ./triage.py          # apply: regenerate NEXT-EVALS.md
   ./triage.py --check  # verify only: exit 1 if stale; mutate nothing
 """
-import os, re, sys, json, collections, importlib.util
+import collections
+import importlib.util
+import json
+import os
+import re
+import sys
+from pathlib import Path
 
 import catalog_lib
 
@@ -67,7 +73,7 @@ VENDORED_TYPES = frozenset({"skill", "plugin"})
 # that would reach text we copy in. NOASSERTION is EXCLUDED on purpose — it means
 # GitHub could not parse the LICENSE file, not that one is absent; auto-SKIPping those
 # would kill ~48 leads on a reason nobody read.
-DISQUALIFYING_LICENSE = re.compile(r"^(NONE|A?GPL|CC-BY-SA|EUPL)", re.I)
+DISQUALIFYING_LICENSE = re.compile(r"^(NONE|A?GPL|CC-BY-SA|EUPL)", re.IGNORECASE)
 
 
 def effective_license(meta):
@@ -86,7 +92,7 @@ def effective_license(meta):
     declared = (meta.get("license_declared") or {}).get("spdx")
     return declared or meta.get("license_spdx") or ""
 
-LAST_TRIAGED = re.compile(r"^\*\*Last triaged:\*\*\s*(\d{4}-\d{2}-\d{2})", re.M)
+LAST_TRIAGED = re.compile(r"^\*\*Last triaged:\*\*\s*(\d{4}-\d{2}-\d{2})", re.MULTILINE)
 
 BANDS = (
     ("P0 measure", "score-ranked head",
@@ -332,7 +338,7 @@ def main():
     check = "--check" in sys.argv[1:]
     ctx = ae.DetectorContext(ROOT)
     new = apply(ctx)
-    current = open(NEXT, encoding="utf-8").read() if os.path.exists(NEXT) else None
+    current = Path(NEXT).read_text(encoding="utf-8") if os.path.exists(NEXT) else None
     if check:
         if new != current:
             print("triage check: DRIFT — NEXT-EVALS.md is stale; run ./triage.py")
@@ -340,7 +346,7 @@ def main():
         print("triage check: OK — NEXT-EVALS.md matches the derived bands")
         sys.exit(0)
     if new != current:
-        open(NEXT, "w", encoding="utf-8").write(new)
+        Path(NEXT).write_text(new, encoding="utf-8")
         print("triage: regenerated NEXT-EVALS.md")
     else:
         print("triage: NEXT-EVALS.md already up to date")

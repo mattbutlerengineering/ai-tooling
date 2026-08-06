@@ -7,10 +7,11 @@ embedding its own inline one-liner. Fail-open by contract: any parse problem
 hook's `$(...)` capture is empty and the hook no-ops — never breaks the session.
 Pinned by TestHookTriggerSeam in test_automation.py.
 """
+import contextlib
 import json
 import sys
 
-try:
+# A hook must never fail the tool call it observes: a malformed payload, a missing
+# field, or a closed stdin all mean 'nothing to print', not 'abort'.
+with contextlib.suppress(Exception):
     print(json.load(sys.stdin).get("tool_input", {}).get(sys.argv[1], ""))
-except Exception:
-    pass

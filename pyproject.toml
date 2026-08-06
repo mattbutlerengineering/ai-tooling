@@ -55,6 +55,12 @@ ignore = [
     "RUF001",  # ambiguous unicode in a string
     "RUF002",  # ...in a docstring
     "RUF003",  # ...in a comment
+    # The markdown generators (triage.py, watchlist.py) build page prose as
+    # implicitly-concatenated multi-line strings inside the list literal they join. That
+    # is the shape of the code, not a missing comma — which is the bug ISC004 is really
+    # hunting. ISC001-003 stay selected, so a missing comma outside a prose block is
+    # still caught.
+    "ISC004",  # implicit string concat inside a collection literal
 ]
 
 [tool.ruff.lint.isort]
