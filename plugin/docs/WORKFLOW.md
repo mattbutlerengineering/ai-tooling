@@ -120,9 +120,9 @@ Is the code good? This is where maintainability and safety get their primary che
 | **Process** | Run automated review before committing. Review the diff yourself — tools catch patterns, you catch intent. | Maintainability, Safety |
 | **Tooling** | [code-review plugin](evaluations/recommended-tools.md#code-review-plugin-anthropic) — multi-agent review with confidence scoring, filters noise ([eval](evaluations/recommended-tools.md#code-review-plugin-anthropic)) | Correctness, Maintainability |
 | | [pr-review-toolkit](evaluations/recommended-tools.md#pr-review-toolkit-anthropic) — dimension-specific agents: silent failure hunting, type design, test coverage ([eval](evaluations/recommended-tools.md#pr-review-toolkit-anthropic)) | Maintainability, Safety |
-| | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology ([eval](evaluations/trailofbits-skills.md)) | Safety |
+| | [trailofbits/skills](https://github.com/trailofbits/skills) — professional security audit methodology — ⚠️ **SKIP**: CC-BY-SA-4.0 ShareAlike, and a skill is *vendored* into the consuming repo, so ShareAlike attaches to yours. Read the methodology; don't copy the text in ([eval](evaluations/trailofbits-skills.md)) | Safety |
 | | [shadcn/improve](https://github.com/shadcn/improve) — two-model codebase audit: expensive model plans, cheap model executes ([eval](evaluations/shadcn-improve.md)) | Maintainability |
-| | [PR-Agent](https://github.com/The-PR-Agent/pr-agent) — CI-native PR reviewer: auto-describe, review, improve on every push, works for non-Claude-Code users ([eval](evaluations/pr-agent.md)) | Correctness, Speed |
+| | [PR-Agent](https://github.com/The-PR-Agent/pr-agent) — CI-native PR reviewer: auto-describe, review, improve on every push, works for non-Claude-Code users — ⚠️ **SKIP** for a Claude-Code-native stack: redundant with `code-review` in-session and `claude-code-action` in CI, both already STACK ([eval](evaluations/pr-agent.md)) | Correctness, Speed |
 | **Infrastructure** | Review findings tracked by category — are "simplify this" comments decreasing over time? | Maintainability |
 
 **Feedback arc:** If the same category of review finding keeps appearing (e.g., "missing error handling"), that's a CLAUDE.md rule waiting to be written. claude-reflect captures these automatically.
@@ -317,7 +317,7 @@ Safety runs through every stage, but supply chain security is its own concern �
 | Tool | What it does |
 |------|-------------|
 | [SkillSpector](https://github.com/NVIDIA/SkillSpector) — scans skills for prompt injection, data exfiltration, malicious commands ([eval](evaluations/recommended-tools.md#skillspector)) |
-| [hol-guard](https://github.com/hashgraph-online/hol-guard) — AI antivirus: 6-step detection pipeline scans plugins, skills, MCP servers before execution ([eval](evaluations/hol-guard.md)) |
+| [hol-guard](https://github.com/hashgraph-online/hol-guard) — AI antivirus: 6-step detection pipeline scans plugins, skills, MCP servers before execution — ⚠️ **SKIP**: redundant with SkillSpector above (STACK, `MEASURED`) on the job they share ([eval](evaluations/hol-guard.md)) |
 | [reporails/cli](https://github.com/reporails/cli) — validates instruction files for conflicts and anti-patterns ([eval](evaluations/recommended-tools.md#reporailscli)) |
 | **Agent bounding** — set explicit stop rules: token budgets per task, scope limits, auto-termination conditions. Prevents runaway agents from burning tokens or making unbounded changes. |
 
@@ -332,7 +332,7 @@ These tools don't fit a single stage — they change *how much human involvement
 | [ralph-claude-code](https://github.com/frankbria/ralph-claude-code) | Unattended autonomous dev loop with intelligent exit detection and Docker sandboxing ([eval](evaluations/ralph-claude-code.md)) |
 | [bernstein](https://github.com/sipyourdrink-ltd/bernstein) | Audit-grade orchestration with tamper-proof logs for autonomous merges ([eval](evaluations/recommended-tools.md#bernstein)) |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate effort across agent fleets ([eval](evaluations/beads.md)) |
-| [deer-flow](https://github.com/bytedance/deer-flow) | ByteDance's long-horizon agent runtime: sandboxed execution, sub-agent orchestration, persistent memory (71.5K stars) ([eval](evaluations/deer-flow.md)) |
+| [deer-flow](https://github.com/bytedance/deer-flow) | ByteDance's long-horizon agent runtime: sandboxed execution, sub-agent orchestration, persistent memory (71.5K stars) — ⚠️ **SKIP**: a standalone platform that runs *alongside* Claude Code rather than enhancing it; use superpowers or compound-engineering instead ([eval](evaluations/deer-flow.md)) |
 | [plannotator](https://github.com/backnotprop/plannotator) | Visual review of agent proposals — for when raw diffs aren't enough ([eval](evaluations/recommended-tools.md#plannotator)) |
 
 ---
@@ -345,7 +345,7 @@ Knowing what your agents are doing and whether the workflow is improving require
 |------|-----------------|
 | [langfuse](https://github.com/langfuse/langfuse) | LLM tracing, evals, cost tracking, latency monitoring — production-grade observability ([eval](evaluations/recommended-tools.md#langfuse)) |
 | [tokencost](https://github.com/AgentOps-AI/tokencost) | Per-call LLM cost tracking for 400+ models ([eval](evaluations/cost-observability.md#tokencost)) |
-| [Infracost](https://github.com/infracost/infracost) | Cloud infrastructure cost estimates — catch expensive Terraform/CDK before deploy ([eval](evaluations/cost-observability.md#infracost)) |
+| [Infracost](https://github.com/infracost/infracost) | Cloud infrastructure cost estimates — catch expensive Terraform/CDK before deploy — ⚠️ **SKIP** here: it solves *infrastructure* cost, not AI/LLM cost; excellent if you have Terraform, wrong domain for this workflow ([eval](evaluations/cost-observability.md#infracost)) |
 | [abtop](https://github.com/graykode/abtop) | Real-time multi-session agent monitor — htop for AI coding agents ([eval](evaluations/cost-observability.md#abtop)) |
 | [Apache DevLake](https://github.com/apache/incubator-devlake) | DORA metrics, engineering throughput, delivery performance dashboards |
 
@@ -373,7 +373,7 @@ Build the infrastructure that tells you whether the process is working.
 
 - **code-review plugin + pr-review-toolkit** — automated multi-perspective review
 - **claude-reflect** — capture corrections, turn them into persistent rules
-- **trailofbits/skills** — security audit methodology
+- **trailofbits/skills** — security audit methodology (⚠️ **SKIP** as a dependency: CC-BY-SA ShareAlike attaches when vendored — read it, don't copy it in)
 - **Coverage gating in CI** — coverage never regresses
 - **PR acceptance rate tracking** — reveals what AI does well vs. poorly
 - **Flaky test detection** — removes non-determinism
