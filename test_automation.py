@@ -1514,10 +1514,16 @@ class TestDetectorF(unittest.TestCase):
     def _row(self, name, overlaps):
         return f"| [{name}](https://github.com/a/{name}) | tool | one | two | {overlaps} |\n"
 
-    def _run(self, catalog):
+    def _run(self, catalog, home=None):
+        """The counted bucket only — every pre-#398 assertion is about that."""
+        return self._full(catalog, home)[0]
+
+    def _full(self, catalog, home=None):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", catalog)
-            return audit.audit_overlaps(audit.DetectorContext(d))
+            # home defaults to an empty dir, NOT to the real one: a unit test must not
+            # read the developer's own lockfile, or its result changes per machine.
+            return audit.audit_overlaps(audit.DetectorContext(d), home or d)
 
     def test_all_overlaps_resolve_no_findings(self):
         cat = self.HEADER + self._row("a", "b") + self._row("b", "a (fork)") + self._row("c", "none")
@@ -1538,6 +1544,71 @@ class TestDetectorF(unittest.TestCase):
         cat = (self.HEADER + "| OMEGA | tool | one | two | ghost-tool |\n"
                + self._row("a", "OMEGA"))
         self.assertEqual(self._run(cat), [])
+
+    # --- the install join (#398) ---------------------------------------------
+    # CATALOG.md's legend sanctions naming an "installed skill" as a peer, and nothing
+    # checked it — the unchecked install assertion ADR-0006 removed from KEEP, one file
+    # over. Detector Y already reads the records; F never asked them.
+
+    def _home(self, d, lock=None, skills=()):
+        os.makedirs(os.path.join(d, ".agents"), exist_ok=True)
+        os.makedirs(os.path.join(d, ".claude", "skills"), exist_ok=True)
+        if lock is not None:
+            with open(os.path.join(d, ".agents", ".skill-lock.json"), "w",
+                      encoding="utf-8") as fh:
+                json.dump({"skills": lock}, fh)
+        for s in skills:
+            os.makedirs(os.path.join(d, ".claude", "skills", s), exist_ok=True)
+        return d
+
+    def test_installed_token_moves_out_of_the_counted_bucket(self):
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, lock={"ghost-tool": {"source": "vendor/pack"}})
+            gaps, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            self.assertEqual(gaps, [])
+            self.assertEqual(peers, [("ghost-tool", "vendor/pack")])
+            self.assertEqual(records, 1)
+
+    def test_a_skills_directory_entry_also_demonstrates_the_case(self):
+        # `claude install-skill` leaves no lockfile entry; the directory is the record.
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, skills=["ghost-tool"])
+            gaps, peers, _ = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            self.assertEqual(gaps, [])
+            self.assertEqual(peers, [("ghost-tool", "on disk")])
+
+    def test_no_records_leaves_every_token_counted(self):
+        # A machine with no records is a machine we know nothing about. It must behave
+        # exactly as before the join — never as though nothing is installed.
+        with tempfile.TemporaryDirectory() as h:
+            gaps, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            self.assertEqual(gaps, [("ghost-tool", 1)])
+            self.assertEqual((peers, records), ([], 0))
+
+    def test_a_catalogued_token_is_never_reported_even_when_installed(self):
+        # Resolution order: the catalog answers first. An installed skill that IS
+        # catalogued is not a dangling token at all.
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, lock={"b": {"source": "vendor/pack"}})
+            gaps, peers, _ = self._full(self.HEADER + self._row("a", "b") + self._row("b", "a"), h)
+            self.assertEqual((gaps, peers), ([], []))
+
+    def test_installed_peer_is_deduped_not_counted_per_reference(self):
+        # The counted bucket tallies refs because more refs mean a likelier gap. The
+        # peer bucket answers a yes/no question, so a second citer adds nothing.
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, lock={"ghost-tool": {"source": "vendor/pack"}})
+            cat = self.HEADER + self._row("a", "ghost-tool") + self._row("b", "ghost-tool")
+            _, peers, _ = self._full(cat, h)
+            self.assertEqual(peers, [("ghost-tool", "vendor/pack")])
+
+    def test_record_count_is_reported_even_with_no_peers(self):
+        # 0 peers across 3 records is a real answer; 0 peers across 0 records is not.
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, lock={"x": {"source": "v/p"}}, skills=["y", "z"])
+            _, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            self.assertEqual(peers, [])
+            self.assertEqual(records, 3)
 
 
 # ----------------------------------------------------------------- detector M (clusters without a pick, #200)

@@ -1076,14 +1076,34 @@ _ovl_display = lambda s: catalog_lib.strip_parenthetical(s).strip().lower()
 _OVL_SKIP = ("complementary", "different", "approach", "same repo",
              "conceptual", "none", "—", "–")
 
-def audit_overlaps(ctx):
+def audit_overlaps(ctx, home=None):
+    """(gaps, installed_peers, records) — uncatalogued "Overlaps with" tokens split by
+    whether this machine's install records answer to them (#398).
+
+    CATALOG.md's own legend says a token may name "a notable external tool **or installed
+    skill**", so "it's an installed skill" is the sanctioned reason a token doesn't
+    resolve. Nothing checked it: every dangling token got the same hand-off sentence,
+    even though detector Y (#366) already reads the records that answer it — the same
+    unchecked install assertion ADR-0006 removed from `KEEP`.
+
+    An `installed_peer` is the legend's case DEMONSTRATED rather than assumed, so it is
+    printed and not counted (V's `acked`, W's `cleared`, X's `FACETED`, Y's `SHADOWED`).
+    Local-only, like Y: `--overlaps` is opt-in and report-only, and with no records
+    readable this reports exactly as it did before — **0 records, never 0 findings**, so
+    an unreadable lockfile can never present as "nothing is installed"."""
     names, rows = set(), []
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         names.update(catalog_lib.alias_keys(r.name))
         if r.url is not None:
             rows.append(r)  # unlinked entries ("| OMEGA | ...") name-match only
+    by_name, _slugs, on_disk, _fetched = read_install_records(home)
+    # name_key on both sides: these are display names on the catalog side and directory
+    # / lockfile names on the machine side, and only the key form compares them.
+    installed = {catalog_lib.name_key(n): by_name.get(n, "on disk")
+                 for n in list(on_disk) + list(by_name)}
+    installed.pop("", None)
     from collections import Counter
-    miss = Counter()
+    miss, peers = Counter(), {}
     for r in rows:
         if r.overlaps is None:
             continue
@@ -1095,9 +1115,14 @@ def audit_overlaps(ctx):
                     or len(t) > 22 or len(t.split()) > 2
                     or any(x in tl for x in _OVL_SKIP)):
                 continue  # external/conceptual peer or prose fragment, not a gap
-            if not any(k in names for k in catalog_lib.alias_keys(tok)):
+            if any(k in names for k in catalog_lib.alias_keys(tok)):
+                continue
+            src = installed.get(catalog_lib.name_key(catalog_lib.strip_parenthetical(tok)))
+            if src:
+                peers[t] = src
+            else:
                 miss[t] += 1
-    return miss.most_common()
+    return miss.most_common(), sorted(peers.items()), len(installed)
 
 
 def overlap_pressure_map(ctx):
@@ -2372,9 +2397,11 @@ def main():
             if undated:
                 print(f"  ({undated} record(s) carry no fetch date — refresh to stamp them)")
     if do_overlaps:
-        gaps = audit_overlaps(ctx)
+        gaps, peers, inst_records = audit_overlaps(ctx)
         strong = [(t, c) for t, c in gaps if c >= 2]
-        print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer tokens ==")
+        print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer "
+              f"tokens, {len(peers)} installed-skill peer(s) across "
+              f"{inst_records} install record(s) ==")
         if not gaps:
             print("  OK — every 'Overlaps with' token resolves to a catalog entry")
         for t, c in strong:
@@ -2382,6 +2409,11 @@ def main():
         for t, c in gaps:
             if c < 2:
                 print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
+        # Printed, never counted: the legend's installed-skill case, DEMONSTRATED rather
+        # than assumed. 0 records means "this machine keeps none", never "nothing is
+        # installed" — so an empty bucket here is not a clean bill (#398).
+        for t, src in peers:
+            print(f"  installed-peer {t}  (the legend's allowed case — installed from {src})")
     if do_wf_drift:
         wfmiss = audit_workflow_drift(ctx)
         print(f"== P. WORKFLOW↔STACK drift (report-only) — {len(wfmiss)} STACK pick(s) missing from WORKFLOW.md ==")
