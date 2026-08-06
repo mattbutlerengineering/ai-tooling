@@ -316,6 +316,35 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      form — #345's reason for refusing to bulk-fix mirror drift in either direction.
      Offline — it reads files already in the tree.
 
+  AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
+     header restates an upstream fact by hand (`**License:** none specified`) next to
+     `repo-metadata.json`, which holds the same fact for the same repo. Nothing
+     compared them, and 7 of 646 comparable evals disagree — including a SKIP whose
+     whole stated ground is "no declared license" against a record reading MIT (#411).
+       UNGROUNDED — the header asserts an ABSENCE and the record names a license. The
+                    load-bearing kind: an absence is the one ground a mechanical SKIP
+                    may rest on (#372), so contradicting it can invalidate a
+                    disposition, not merely a fact.
+       CONFLICT   — both name a real license and no family is shared. Milder, still
+                    wrong. Families, not strings, and a SET of them: a header reading
+                    `Apache-2.0 (docs CC-BY-4.0)` agrees with a record naming either.
+       redirected — `resolved_name` differs in its OWNER, so the record arrived through
+                    a redirect and describes the DESTINATION. Printed, never counted:
+                    assuming the record wins would pressure a human to copy a
+                    known-false fact into a header (V's rule inverted).
+     This is #372's shape in the file #372 did not look at: detector Z reports when the
+     RECORD understates the license (`NONE` = no LICENSE *file*), and fires only on
+     `NONE` — so it can never see an understatement on the EVAL's side. For the same
+     reason a record reading NONE/NOASSERTION/404 is skipped here rather than
+     re-reported: two detectors scoring one row is how a count stops meaning anything.
+     A vague header (`n/a`, `unknown`) is an honest non-answer and never a conflict —
+     check-stars.py's rule, which refuses to grade a legitimately-`n/a` field.
+     Stars and `Last updated` are deliberately OUT of scope: they are point-in-time
+     facts that SHOULD move as the repo does, and reporting them would be --staleness
+     a second time. A license is a ground, and changes rarely.
+     Report-only: the remedy is a human re-reading a LICENSE file, and the record can
+     be the wrong side. Offline — two files already in the tree.
+
   AA. UNACTIONABLE CONTAINMENT (opt-in, --containment, REPORT-ONLY) — `Ships inside`
      (#343) makes containment machine-readable, and triage.py reads it FIRST to band a
      row P5, whose disposition is "settle the container ... never an independent lead".
@@ -355,6 +384,7 @@ Usage:
   python3 audit-evals.py --license-declared  # 'NONE' licenses declared outside a LICENSE file (offline)
   python3 audit-evals.py --containment  # `Ships inside` declarations P5 cannot act on (offline)
   python3 audit-evals.py --conditional-gate  # CONDITIONAL rows entitled to neither ADR-0005 clause (offline)
+  python3 audit-evals.py --license-header  # eval `**License:**` headers vs repo-metadata.json (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -944,6 +974,20 @@ class Evaluation:
         when the catalog's URL appears anywhere on the line."""
         m = self._REPO_HEADER.search(self.text)
         return self._MD_LINK.findall(m.group(0)) if m else []
+
+    # The `**License:**` header field. It shares a line with `**Stars:**` and
+    # `**Last updated:**` — pipe-separated — so the value stops at the next `|`, and
+    # the field is NOT anchored to the start of a line (#411).
+    _LICENSE_HEADER = re.compile(r"\*\*License:\*\*\s*([^|\n]+)")
+
+    @property
+    def license_header(self):
+        """The declared `**License:**` value as written, or None if the eval has no
+        such field. Free text by convention — `MIT`, `Apache-2.0 (repo) / CC-BY (docs)`,
+        `source-available (repo SPDX returns NOASSERTION)` — so detector AC compares
+        license FAMILIES rather than strings."""
+        m = self._LICENSE_HEADER.search(self.text)
+        return m.group(1).strip() if m else None
 
     # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
     # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
@@ -2426,6 +2470,139 @@ def audit_conditional_gate(ctx):
     return unentitled, ungated, total
 
 
+# ---------------------------------------------------------------- AC. license header vs record (report-only)
+# `repo-metadata.json` is the tree's record of upstream facts, and every eval header
+# restates one of them by hand next to it. Nothing compared the two (#411) — and the
+# license is the one restated fact that DISPOSITIONS rest on: `pi-subagents` carries a
+# SKIP reading "no declared license … text carrying no license grant cannot be copied
+# in" against a record fetched two days earlier reading MIT.
+#
+# This is #372's shape in the file #372 did not look at. Detector Z reports when the
+# RECORD understates the license — `license_spdx: NONE` means "no LICENSE *file*" — and
+# fires only on NONE, so an understatement on the EVAL's side is invisible to it.
+#
+# Stars and `Last updated` are deliberately out of scope. They are point-in-time facts
+# that SHOULD move as the repo does (39 headers hold star counts off by >25%, 172 of 420
+# dates differ from `pushed_at`), and reporting them would be --staleness a second time.
+# A license is a ground: it changes rarely, and `license_lost` already treats a change as
+# an event. The same line detector V draws between dormancy and discontinuation.
+
+# GitHub's licensee detector reads a root LICENSE file and nothing else, so all three of
+# these mean "no readable LICENSE file", never "no license": NONE (live repo, no file),
+# NOASSERTION (a file it could not parse), 404 (unreachable). None is a ground a header
+# can contradict — that gap belongs to detector Z, and re-reporting it here would put
+# #372's rows on a second scoreboard.
+UNREADABLE_SPDX = frozenset({"NONE", "NOASSERTION", "404"})
+
+# An honest non-answer, not a claim — check-stars.py's rule, which refuses to grade a
+# legitimately-`n/a` field rather than pressure an author into inventing a value.
+LICENSE_VAGUE = re.compile(r"^(?:n/?a|unknown|unspecified|not specified|tbd|[-—?])\s*$",
+                           re.IGNORECASE)
+
+# A POSITIVE, checkable claim that the repo grants nothing — the one ground a P4
+# mechanical SKIP may rest on. Unlike the vague values above it is refutable, and a
+# record naming a real SPDX refutes it.
+LICENSE_ABSENT = re.compile(
+    r"noassertion|no licen[cs]e|none specified|unlicensed|not licen[cs]ed"
+    r"|licen[cs]e[ds]? (?:absent|missing)|^none\b", re.IGNORECASE)
+
+# Family, not string equality: `MIT` / `MIT License` / `mit` is not drift. A header may
+# name SEVERAL — `Apache-2.0 (docs CC-BY-4.0)` licenses code and prose differently, and
+# the record can only hold one — so this yields a SET and a conflict means the two sets
+# are disjoint. Comparing a single "first family found" made that header a finding
+# against a record naming one of the two licenses it declares.
+LICENSE_FAMILIES = {
+    "agpl": "AGPL", "lgpl": "LGPL", "gpl": "GPL", "cc-by-sa": "CC-BY-SA",
+    "cc-by": "CC-BY", "cc0": "CC0", "mpl": "MPL", "mozilla": "MPL",
+    "apache": "Apache", "mit": "MIT", "0bsd": "0BSD", "bsd": "BSD",
+    "isc": "ISC", "unlicense": "Unlicense", "busl": "BSL", "bsl": "BSL",
+    "business source": "BSL", "elastic": "Elastic", "eupl": "EUPL",
+    "epl": "EPL", "osl": "OSL", "afl": "AFL", "artistic": "Artistic",
+    "zlib": "Zlib", "wtfpl": "WTFPL", "proprietary": "PROPRIETARY",
+}
+
+# Longest alternative first and non-overlapping, so a longer discriminator always wins:
+# AGPL must never match as GPL nor CC-BY-SA as CC-BY, since those obligations differ and
+# collapsing them would hide a real conflict. The letter guards keep `mit` out of
+# "permitted" and `unlicense` out of "unlicensed" (an absence claim, not The Unlicense).
+_LICENSE_FAMILY_RE = re.compile(
+    r"(?<![a-z])(?:" +
+    "|".join(re.escape(t) for t in sorted(LICENSE_FAMILIES, key=len, reverse=True)) +
+    r")(?![a-z])", re.IGNORECASE)
+
+
+def license_families(text):
+    """Every license family named in `text`, as a set (empty if it names none)."""
+    return {LICENSE_FAMILIES[m.group(0).lower()]
+            for m in _LICENSE_FAMILY_RE.finditer(text or "")}
+
+
+LicenseHeaderFinding = collections.namedtuple(
+    "LicenseHeaderFinding", "kind name slug header spdx")
+
+
+def audit_license_header(ctx):
+    """(findings, redirected, compared) — eval `**License:**` headers against the SPDX
+    `repo-metadata.json` records for the same repo.
+
+    UNGROUNDED (the header asserts an absence the record refutes) sorts ahead of
+    CONFLICT (both name a license, they differ), because only the first can invalidate a
+    disposition rather than merely a fact.
+
+    `redirected` is printed and never counted: a record whose `resolved_name` differs in
+    its OWNER arrived through a redirect and describes the destination, so it is not
+    evidence about this row — `samuraigpt/awesome-hermes-agent` resolves to
+    `Anil-matcha/ai-creator-academy`, and that eval says so by hand. Counting it would
+    pressure a human to copy a known-false fact into a header, which inverts detector V's
+    rule that flagging a healthy row costs more than missing a sick one.
+
+    A missing or unreadable cache yields 0 COMPARED, never 0 findings (V's rule)."""
+    try:
+        records = json.loads(ctx.read("repo-metadata.json"))
+    except (OSError, ValueError):
+        return [], [], 0
+    if not isinstance(records, dict):
+        return [], [], 0
+    by_lower = {k.lower(): (k, v) for k, v in records.items() if isinstance(v, dict)}
+
+    findings, redirected, compared = [], [], 0
+    for ev in ctx.evals:
+        header = ev.license_header
+        if header is None:
+            continue
+        slug = rec = None
+        for url in ev.repo_links:
+            hit = next((by_lower[s.lower()] for s in catalog_lib.github_repos(url)
+                        if s.lower() in by_lower), None)
+            if hit:
+                slug, rec = hit
+                break
+        if not rec:
+            continue
+        resolved = rec.get("resolved_name") or slug
+        spdx = rec.get("license_spdx")
+        if resolved.split("/")[0].lower() != slug.split("/")[0].lower():
+            redirected.append(LicenseHeaderFinding("redirected", ev.name, resolved,
+                                                   header, spdx))
+            continue
+        if not spdx or spdx in UNREADABLE_SPDX:
+            continue
+        compared += 1
+        if LICENSE_VAGUE.match(header):
+            continue
+        if LICENSE_ABSENT.search(header):
+            findings.append(LicenseHeaderFinding("UNGROUNDED", ev.name, slug, header, spdx))
+            continue
+        hf, rf = license_families(header), license_families(spdx)
+        if hf and rf and hf.isdisjoint(rf):
+            findings.append(LicenseHeaderFinding("CONFLICT", ev.name, slug, header, spdx))
+
+    rank = {"UNGROUNDED": 0, "CONFLICT": 1}
+    findings.sort(key=lambda f: (rank[f.kind], f.name))
+    redirected.sort(key=lambda f: f.name)
+    return findings, redirected, compared
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -2435,7 +2612,8 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
-                "--license-declared", "--containment", "--conditional-gate")
+                "--license-declared", "--containment", "--conditional-gate",
+                "--license-header")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2498,6 +2676,7 @@ def main():
     do_licdecl = "--license-declared" in want  # opt-in report (does not affect exit code)
     do_contain = "--containment" in want      # opt-in report (does not affect exit code)
     do_condgate = "--conditional-gate" in want  # opt-in report (does not affect exit code)
+    do_lichdr = "--license-header" in want    # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -2860,6 +3039,27 @@ def main():
         for f in ungated:
             print(f"  no-condition {f.tool} ({f.evidence}) — entitled by the exercised "
                   "clause; ADR-0005 point 1 still wants an `adopt-if:`")
+    if do_lichdr:
+        finds, redirected, compared = audit_license_header(ctx)
+        print(f"== AC. license header vs record (report-only) — {len(finds)} of "
+              f"{compared} comparable eval header(s) contradict repo-metadata.json ==")
+        if not compared:
+            print("  no comparable records — run `python3 refresh-metadata.py` to "
+                  "populate repo-metadata.json (0 records is not 0 findings)")
+        elif not finds:
+            print("  OK — every eval header agrees with the license on record")
+        for f in finds:
+            why = ("the record names a license, so the absence this header asserts is "
+                   "not one — a mechanical SKIP resting on it has no ground (#372)"
+                   if f.kind == "UNGROUNDED"
+                   else "both name a license and they differ — one of the two is wrong")
+            print(f"  {f.kind:10} {f.name} [{f.slug}] header `{f.header}` vs record "
+                  f"`{f.spdx}` — {why}")
+        # Printed, never counted: the record came through a redirect and describes the
+        # DESTINATION, so it is not evidence about this row.
+        for f in redirected:
+            print(f"  redirected {f.name} — record resolves to `{f.slug}`, a different "
+                  f"owner; its `{f.spdx}` is the destination's, not this row's")
     sys.exit(rc)
 
 if __name__ == "__main__":

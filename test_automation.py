@@ -4136,6 +4136,140 @@ class TestUnentitledConditional(unittest.TestCase):
         self.assertTrue(all(f.evidence in ("MEASURED", "RUN") for f in ungated))
 
 
+class TestLicenseHeaderVsRecord(unittest.TestCase):
+    """Pins detector AC (#411). Every eval header restates an upstream fact by hand next
+    to `repo-metadata.json`, which holds the same fact — and nothing compared them, so a
+    SKIP reading "no declared license" stood against a record reading MIT. #372's shape
+    in the file #372 did not look at: detector Z fires only on `license_spdx: NONE`, so
+    an understatement on the EVAL's side is invisible to it."""
+
+    def _run(self, evals, records):
+        """evals is (name, slug, license_header); records is {slug: record}."""
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "COMPARISON.md", "# T\n\n## Implement\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n")
+            _write(d, "repo-metadata.json", json.dumps(records))
+            for name, slug, lic in evals:
+                head = "**Stars:** 1 | **Last updated:** 2026-01-01"
+                if lic is not None:
+                    head += f" | **License:** {lic}"
+                _write(d, f"evaluations/{name}.md",
+                       f"# Evaluation: {name}\n\n"
+                       f"**Repo:** [{slug}](https://github.com/{slug})\n{head}\n\n"
+                       "## How we tested it\n\n**Evidence:** REVIEW\n\nRead it.\n")
+            return audit.audit_license_header(audit.DetectorContext(d))
+
+    @staticmethod
+    def _rec(spdx, resolved=None):
+        return {"license_spdx": spdx, "resolved_name": resolved, "archived": False}
+
+    def test_an_asserted_absence_the_record_refutes_is_ungrounded(self):
+        # The load-bearing kind: an absence is the one ground a P4 mechanical SKIP may
+        # rest on, so contradicting it invalidates a disposition, not merely a fact.
+        finds, redir, compared = self._run(
+            [("pi", "o/pi", "none specified")], {"o/pi": self._rec("MIT")})
+        self.assertEqual([(f.kind, f.name, f.header, f.spdx) for f in finds],
+                         [("UNGROUNDED", "pi", "none specified", "MIT")])
+        self.assertEqual((redir, compared), ([], 1))
+
+    def test_two_named_licenses_that_differ_are_a_conflict(self):
+        finds, _, _ = self._run([("a", "o/a", "MIT")], {"o/a": self._rec("Apache-2.0")})
+        self.assertEqual([(f.kind, f.name) for f in finds], [("CONFLICT", "a")])
+
+    def test_ungrounded_sorts_ahead_of_conflict(self):
+        # Only the first can invalidate a disposition; a reader should meet it first.
+        finds, _, _ = self._run(
+            [("aaa", "o/aaa", "MIT"), ("zzz", "o/zzz", "no license")],
+            {"o/aaa": self._rec("Apache-2.0"), "o/zzz": self._rec("MIT")})
+        self.assertEqual([f.kind for f in finds], ["UNGROUNDED", "CONFLICT"])
+
+    def test_a_header_naming_two_licenses_agrees_with_either(self):
+        # `Apache-2.0 (docs CC-BY-4.0)` licenses code and prose differently and the
+        # record can only hold one. Comparing a single "first family found" made this a
+        # finding against a record naming one of the two it declares.
+        finds, _, _ = self._run([("a", "o/a", "Apache-2.0 (docs CC-BY-4.0)")],
+                                {"o/a": self._rec("Apache-2.0")})
+        self.assertEqual(finds, [])
+
+    def test_family_comparison_ignores_spelling_but_not_obligation(self):
+        for header, spdx, conflict in (("MIT License", "MIT", False),
+                                       ("mit", "MIT", False),
+                                       ("Apache License 2.0", "Apache-2.0", False),
+                                       ("AGPL-3.0", "GPL-3.0", True),
+                                       ("CC-BY-4.0", "CC-BY-SA-4.0", True),
+                                       ("LGPL-3.0", "GPL-3.0", True)):
+            finds, _, _ = self._run([("a", "o/a", header)], {"o/a": self._rec(spdx)})
+            self.assertEqual(bool(finds), conflict, f"{header!r} vs {spdx!r}")
+
+    def test_an_unreadable_record_is_never_a_ground_to_contradict(self):
+        # NONE means "no LICENSE *file*" (#372, detector Z's territory), 404 means
+        # unreachable, NOASSERTION means unparsed. Re-reporting them here would put Z's
+        # rows on a second scoreboard.
+        for spdx in ("NONE", "NOASSERTION", "404"):
+            finds, _, compared = self._run([("a", "o/a", "MIT")], {"o/a": self._rec(spdx)})
+            self.assertEqual((finds, compared), ([], 0), spdx)
+
+    def test_a_vague_header_is_an_honest_non_answer_not_a_conflict(self):
+        # check-stars.py's rule: grading these would fail every legitimately-`n/a` field
+        # and pressure authors into inventing a value. `NOASSERTION` is different — it is
+        # a positive, checkable claim, which is why it lands in UNGROUNDED above.
+        for header in ("n/a", "N/A", "unknown", "unspecified", "TBD", "—"):
+            finds, _, compared = self._run([("a", "o/a", header)], {"o/a": self._rec("MIT")})
+            self.assertEqual(finds, [], header)
+            self.assertEqual(compared, 1, header)
+
+    def test_a_redirected_record_is_printed_never_counted(self):
+        # The record describes the DESTINATION. Counting it would pressure a human to
+        # copy a known-false fact into a header — detector V's rule inverted.
+        finds, redir, compared = self._run(
+            [("a", "old/a", "n/a")], {"old/a": self._rec("MIT", "other/thing")})
+        self.assertEqual(finds, [])
+        self.assertEqual([(f.name, f.slug, f.spdx) for f in redir],
+                         [("a", "other/thing", "MIT")])
+        self.assertEqual(compared, 0)
+
+    def test_a_rename_within_one_owner_is_not_a_redirect(self):
+        # Same owner renaming their own repo still describes this row; only a change of
+        # OWNER means the facts may belong to a different project.
+        finds, redir, _ = self._run(
+            [("a", "o/old", "no license")], {"o/old": self._rec("MIT", "o/new")})
+        self.assertEqual(redir, [])
+        self.assertEqual([f.kind for f in finds], ["UNGROUNDED"])
+
+    def test_an_eval_with_no_license_header_is_skipped(self):
+        finds, _, compared = self._run([("a", "o/a", None)], {"o/a": self._rec("MIT")})
+        self.assertEqual((finds, compared), ([], 0))
+
+    def test_a_missing_cache_yields_zero_compared_not_zero_findings(self):
+        # V's rule: absence of the record file means "not collected", never "everything
+        # agrees". The headline states the comparable count for exactly this reason.
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "COMPARISON.md", "# T\n")
+            self.assertEqual(audit.audit_license_header(audit.DetectorContext(d)),
+                             ([], [], 0))
+
+    def test_the_header_field_is_read_mid_line(self):
+        # `**License:**` shares a pipe-separated line with `**Stars:**` and
+        # `**Last updated:**`, so a start-of-line anchor finds nothing at all — which is
+        # what made a first pass report 630 evals as having no license header.
+        ev = audit.Evaluation("x", "**Stars:** 12 | **Last updated:** 2026-01-01 | "
+                                   "**License:** Apache-2.0\n")
+        self.assertEqual(ev.license_header, "Apache-2.0")
+        self.assertIsNone(audit.Evaluation("x", "no header here\n").license_header)
+
+    def test_live_findings_are_well_formed_and_never_rest_on_an_unreadable_record(self):
+        # Structural, not a pinned backlog count: a human fixes these one at a time and a
+        # count assertion would fail the build for the fix (detector U's rule — pin the
+        # buckets that must stay at zero, never the bucket a human resolves).
+        finds, redir, compared = audit.audit_license_header(audit.DetectorContext(ROOT))
+        self.assertTrue(compared)
+        self.assertTrue(all(f.kind in ("UNGROUNDED", "CONFLICT") for f in finds))
+        self.assertTrue(all(f.spdx not in audit.UNREADABLE_SPDX and f.spdx for f in finds))
+        self.assertEqual({f.name for f in finds} & {f.name for f in redir}, set())
+
+
 class TestScopeMismatch(unittest.TestCase):
     """Pins detector W (#353). next-evals.py's score has no scope term — every term
     measures how much attention a lead attracts — so a row WORKFLOW.md's one-line
