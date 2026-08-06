@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 652 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 653 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -474,6 +474,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | html-anything | tool | | ✓ | SKIP | REVIEW |
 | humanizer | skill | | ✓ | discovery-log | REVIEW |
 | impeccable | skill | | ✓ | discovery-log | REVIEW |
+| frontend-design | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
@@ -743,9 +744,9 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
 | Outer Loop | 44 | 16 | 2 | 36% |
-| Skills & Plugins | 92 | 32 | 4 | 35% |
+| Skills & Plugins | 93 | 32 | 4 | 34% |
 | Memory & Context | 51 | 19 | 2 | 37% |
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **652** | **284** | **34** | **44%** |
+| **Total** | **653** | **284** | **34** | **43%** |
