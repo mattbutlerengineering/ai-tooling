@@ -1,6 +1,6 @@
 # Evaluation: agent-skill-creator
 
-**Repo:** [francyjglisboa/agent-skill-creator](https://github.com/francyjglisboa/agent-skill-creator)
+**Repo:** [francyjglisboa/agent-skill-creator](https://github.com/FrancyJGLisboa/agent-skill-creator)
 **Stars:** 2,135 | **Last updated:** 2026-07-22 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -49,4 +49,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [agent-skill-creator](https://github.com/francyjglisboa/agent-skill-creator) | skill | Turn any workflow into one SKILL.md that installs across 17 agent platforms | Authoring a skill once and getting it into every agent you run, without hand-porting | skill-creator, SkillOpt, plugin-dev |
+| [agent-skill-creator](https://github.com/FrancyJGLisboa/agent-skill-creator) | skill | Turn any workflow into one SKILL.md that installs across 17 agent platforms | Authoring a skill once and getting it into every agent you run, without hand-porting | skill-creator, SkillOpt, plugin-dev |

@@ -1,6 +1,6 @@
 # Evaluation: powerpoint-ppt skill
 
-**Repo:** [practicalswan/agent-skills](https://github.com/practicalswan/agent-skills)
+**Repo:** [practicalswan/agent-skills](https://github.com/PracticalSwan/agent-skills)
 **Stars:** 3 | **Last updated:** 2026-06-15 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / outer loop (communication artifacts)
@@ -69,4 +69,4 @@ The bundled `ppt-automation.py` is a non-functional stub — `PresentationBuilde
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [powerpoint-ppt](https://github.com/practicalswan/agent-skills) | skill | MCP-first PowerPoint skill with process guidance and verification protocol | Generating and updating `.pptx` decks from AI agents | wowerpoint (claude-mem), powerpoint skill (igorwarzocha/opencode-workflows), pitch-deck-skill (ailabs-393) |
+| [powerpoint-ppt](https://github.com/PracticalSwan/agent-skills) | skill | MCP-first PowerPoint skill with process guidance and verification protocol | Generating and updating `.pptx` decks from AI agents | wowerpoint (claude-mem), powerpoint skill (igorwarzocha/opencode-workflows), pitch-deck-skill (ailabs-393) |

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 653 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 654 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -486,7 +486,7 @@ All 653 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-design | platform | | ✓ | SKIP | REVIEW |
 | open-slide | tool | | ✓ | discovery-log | REVIEW |
 | slidev | skill | | ✓ | discovery-log | REVIEW |
-| powerpoint | skill | | ✓ | SKIP | SOURCE-ONLY |
+| powerpoint | skill | | ✓ | SKIP | REVIEW |
 | openskills | tool | | ✓ | discovery-log | REVIEW |
 | vercel-labs/skills | tool | | ✓ | discovery-log | REVIEW |
 | plugin-dev | plugin | | ✓ | discovery-log | REVIEW |
@@ -618,7 +618,7 @@ All 653 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mcp-toolbox | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | prisma | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| sentry | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| sentry | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | supabase | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -626,6 +626,7 @@ All 653 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | figma-mcp-go | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| design-extract | MCP server | | ✓ | CONDITIONAL | REVIEW |
 | pg-aiguide | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp2cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mirage | tool | | ✓ | discovery-log | REVIEW |
@@ -746,7 +747,7 @@ All 653 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Outer Loop | 44 | 16 | 2 | 36% |
 | Skills & Plugins | 93 | 32 | 4 | 34% |
 | Memory & Context | 51 | 19 | 2 | 37% |
-| MCP Servers | 44 | 15 | 2 | 34% |
+| MCP Servers | 45 | 16 | 2 | 36% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **653** | **284** | **34** | **43%** |
+| **Total** | **654** | **285** | **34** | **44%** |

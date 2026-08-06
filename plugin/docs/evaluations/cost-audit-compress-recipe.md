@@ -120,8 +120,15 @@ headroom init --global                                 # durable agent integrati
 
 **Net-savings verdict, stated plainly:** on the workloads where it pays — big git diffs and JSON/API blobs — headroom delivered a **measured 26–29% token reduction (19% aggregate across a mixed bundle)**, and because it is deterministic and local with **no secondary-LLM call**, the **net saving equals that gross reduction**. ccusage is the indispensable other half: it tells you *whether* you have enough such output to bother (and `headroom audit-reads` sizes exactly how much is stale/duplicated waste). The recipe **does NOT pay** in three cases, and we measured or reasoned each: (1) **small high-signal outputs** — the 50 KB source file got 0% and the compression overhead can exceed the saving; (2) **prose/unstructured logs without the `[all]` install** — the git-log artifact got 0% because the Kompress-base model paths require the heavy extras that failed to build here; (3) **low overall volume** — at a few dollars a day the ~$0.09/bundle saving is below the operational-noise floor. Use ccusage unconditionally (it is already ADOPT/MEASURED/in-STACK and free to run); add headroom when ccusage + audit-reads confirm large structured outputs are driving real spend, and verify the `[all]` install succeeds if you need prose/log compression. STACK reconciliation for the individual tools is handled by the parent process; this eval adds only the recipe.
 
-## Catalog entry
+## Catalog entry: n/a
 
-| Name | Type | One-liner | Problem it solves | Overlaps with |
-|------|------|-----------|-------------------|---------------|
-| [cost-audit-compress-recipe](https://github.com/ccusage/ccusage) | reference | Recipe pairing ccusage (cost audit) with headroom (deterministic local output compression) to prove and capture net token savings | Seeing where the token budget goes is useless without a way to cut it before you spend — and an LLM-summarizer compressor muddies the net; this pairs auditing with a no-inference trim | ccusage, headroom, cost-observability, caveman, token-optimizer-mcp |
+This eval is a **recipe** — a pairing of two tools that are each already catalogued in
+their own right ([ccusage](https://github.com/ccusage/ccusage) and
+[headroom](https://github.com/headroomlabs-ai/headroom)). It is not itself an installable
+artifact, so it has no `CATALOG.md` row and should not have one: a row named for the
+recipe would be a third entry for two tools, the counting error #343 exists to prevent.
+
+The mirror this replaces named `cost-audit-compress-recipe` at ccusage's URL, which
+detector U correctly reported as an ORPHAN — an embedded row naming a tool with no
+catalog row (#401). The absence is DECLARED here rather than left to look like an
+omission, the same rule as the `**Stars:** n/a — <reason>` convention.
