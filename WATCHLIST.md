@@ -4,16 +4,17 @@ Everything worth re-evaluating or watching, **derived** (not hand-maintained) fr
 
 <!-- WATCHLIST:START -->
 
-## 1. Deferred — re-evaluate when trigger fires (4)
+## 1. Deferred — re-evaluate when trigger fires (5)
 
-`DEFER` rows from [COMPARISON.md](COMPARISON.md): promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item.
+Every `DEFER` verdict in the repo: promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item. Most are [COMPARISON.md](COMPARISON.md) rows; an _eval-only_ entry is a DEFER carried by an eval with no catalog row — a bake-off or comparison document, whose subjects have their own rows — so it is linked to the eval instead.
 
 | Tool | Stage | Re-evaluate when |
 |------|-------|------------------|
 | 8090 Software Factory | Plan | a hands-on budget is authorized, or when the "Try for Free" entry point is confirmed to be a durable free tier rather than a time-limited trial |
+| [agentmemory-vs-claude-mem-bakeoff](evaluations/agentmemory-vs-claude-mem-bakeoff.md) _(eval-only)_ | Reflect | the three arms are actually run and the per-signal results recorded |
 | Apache DevLake | Outer Loop | working in a team context or when managing multiple repos with CI/CD pipelines |
-| letta | Memory & Context | trigger not recorded — add one |
-| SkillOpt | Skills & Plugins | trigger not recorded — add one |
+| letta | Memory & Context | your goal shifts from *augmenting a coding harness* to *building stateful agents into an application* |
+| SkillOpt | Skills & Plugins | a turnkey path from real dev sessions to a reward signal exists |
 
 ## 2. Flagged for hands-on before promotion (3)
 

@@ -3087,12 +3087,111 @@ class TestWatchlist(unittest.TestCase):
                    "**DEFER** — promising but blocked; re-evaluate after "
                    "the API stabilizes.\n")
             rows, missing = watchlist.deferred(audit.DetectorContext(d))
-            by_tool = {tool: trig for tool, _stage, trig in rows}
+            by_tool = {tool: trig for tool, _stage, trig, _ev in rows}
             self.assertEqual(by_tool["blocked"], "the API stabilizes")
             self.assertEqual(by_tool["orphan"], watchlist._NO_TRIGGER)
             self.assertEqual(missing, 1)
             # stage travels with the row so section 1 can show it
-            self.assertEqual({stage for _t, stage, _tr in rows}, {"Plan"})
+            self.assertEqual({stage for _t, stage, _tr, _ev in rows}, {"Plan"})
+            # a COMPARISON-sourced row carries no Evaluation — that marker is what
+            # distinguishes it from an eval-only DEFER when rendering (#416)
+            self.assertTrue(all(ev is None for *_x, ev in rows))
+
+    # --- #416: the section is sourced from DEFER verdicts, not DEFER rows ---
+
+    TRIGGER_PHRASINGS = (
+        ("re-evaluate after the API stabilizes.", "the API stabilizes"),
+        ("re-evaluate when the license clears.", "the license clears"),
+        ("Revisit once a free tier exists.", "a free tier exists"),
+        ("It becomes a clear ADOPT only if your goal shifts to app-building.",
+         "your goal shifts to app-building"),
+        ("Track it and adopt once a turnkey path exists.", "a turnkey path exists"),
+    )
+
+    def test_trigger_vocabulary_recovers_each_phrasing(self):
+        # The single `re-evaluate (after|when)` pattern this replaces recovered 2 of the
+        # tree's 4 triggers and printed "trigger not recorded — add one" beside two evals
+        # that stated theirs plainly. Widening can only remove a false action item.
+        for sentence, expected in self.TRIGGER_PHRASINGS:
+            ev = audit.Evaluation("x", f"# x\n\n## Verdict\n\n**DEFER** — {sentence}\n")
+            self.assertEqual(watchlist.eval_trigger(ev), expected, sentence)
+
+    def test_trigger_takes_the_earliest_match_not_the_first_pattern(self):
+        # Two phrasings in one Verdict: the eval's own sentence order decides, so the
+        # list order of _TRIGGER_RES is never load-bearing.
+        ev = audit.Evaluation("x", "# x\n\n## Verdict\n\n**DEFER** — adopt once A holds. "
+                                   "Re-evaluate after B lands.\n")
+        self.assertEqual(watchlist.eval_trigger(ev), "A holds")
+
+    def test_trigger_stops_at_a_semicolon(self):
+        # These verdicts join independent clauses with `;` and the trigger is the first —
+        # without this, letta's cell trailed "; for the dev loop it documents, defer".
+        ev = audit.Evaluation("x", "# x\n\n## Verdict\n\n**DEFER** — ADOPT only if "
+                                   "the runtime is yours; for this loop, defer.\n")
+        self.assertEqual(watchlist.eval_trigger(ev), "the runtime is yours")
+
+    def test_trigger_escapes_a_pipe(self):
+        # The cell is a prose sentence an eval author wrote; an unescaped `|` would
+        # silently break the markdown table on a derived page nobody edits by hand.
+        ev = audit.Evaluation("x", "# x\n\n## Verdict\n\n**DEFER** — re-evaluate after "
+                                   "A | B ships.\n")
+        self.assertEqual(watchlist.eval_trigger(ev), r"A \| B ships")
+
+    def test_trigger_outside_the_verdict_section_is_not_read(self):
+        ev = audit.Evaluation("x", "# x\n\n## Notes\n\nre-evaluate after the moon lands.\n"
+                                   "\n## Verdict\n\n**DEFER** — no condition here\n")
+        self.assertIsNone(watchlist.eval_trigger(ev))
+
+    def test_eval_only_defer_is_listed_with_its_own_stage(self):
+        # The tree's one row-less DEFER is a bake-off between two tools that each already
+        # have a row — a comparison document, correctly rowless — and it was the most
+        # actionable item on the page it was missing from.
+        comparison = ("# Tool Comparison\n\n## Plan\n\n"
+                      "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                      "|------|------|------|------|-----------|----------|\n"
+                      "| other | tool | | ✓ | ADOPT | RUN |\n")
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "COMPARISON.md", comparison)
+            _write(d, "evaluations/a-vs-b-bakeoff.md",
+                   "# Bake-off: a vs b\n\n**Dev loop stage:** Reflect\n\n## Verdict\n\n"
+                   "**DEFER** — blocked; re-evaluate after the arms are run.\n")
+            rows, missing = watchlist.deferred(audit.DetectorContext(d))
+            self.assertEqual(len(rows), 1)
+            tool, stage, trigger, ev = rows[0]
+            self.assertEqual(tool, "a-vs-b-bakeoff")
+            self.assertEqual(stage, "Reflect")          # from the eval's own header
+            self.assertEqual(trigger, "the arms are run")
+            self.assertIsNotNone(ev)                     # renders as an eval link
+            self.assertEqual(missing, 0)
+
+    def test_eval_with_a_row_is_not_listed_twice(self):
+        comparison = ("# Tool Comparison\n\n## Plan\n\n"
+                      "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                      "|------|------|------|------|-----------|----------|\n"
+                      "| blocked | tool | | ✓ | DEFER | REVIEW |\n")
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "COMPARISON.md", comparison)
+            _write(d, "evaluations/blocked.md",
+                   "# Evaluation: blocked\n\n**Dev loop stage:** Plan\n\n## Verdict\n\n"
+                   "**DEFER** — re-evaluate after the API stabilizes.\n")
+            rows, _missing = watchlist.deferred(audit.DetectorContext(d))
+            self.assertEqual([r[0] for r in rows], ["blocked"])
+
+    def test_non_defer_eval_is_never_promoted_into_the_section(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "COMPARISON.md", "# Tool Comparison\n")
+            _write(d, "evaluations/skipped.md",
+                   "# Evaluation: skipped\n\n## Verdict\n\n"
+                   "**SKIP** — re-evaluate after nothing.\n")
+            rows, _missing = watchlist.deferred(audit.DetectorContext(d))
+            self.assertEqual(rows, [])
+
+    def test_live_tree_records_every_defer_trigger(self):
+        # Pins the repair: every DEFER in the tree states its trigger, so the section
+        # can never regrow a manufactured "add one" action item unnoticed.
+        rows, missing = watchlist.deferred(audit.DetectorContext(ROOT))
+        self.assertEqual(missing, 0, [r[0] for r in rows if r[2] == watchlist._NO_TRIGGER])
+        self.assertIn("agentmemory-vs-claude-mem-bakeoff", [r[0] for r in rows])
 
     def test_stack_flagged_reads_both_phrase_forms(self):
         # "flagged … — [A](u) and [B](u)": tools FOLLOW the phrase, with URLs.
