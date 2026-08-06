@@ -11,8 +11,8 @@ claude mcp add --transport sse context7 https://mcp.context7.com/sse
 # 2. Output token compression (~60-75% savings)
 claude install-skill JuliusBrussee/caveman
 
-# 3. Structured security audit methodology
-claude install-skill trailofbits/skills
+# 3. In-loop security review (first-party)
+claude install-plugin anthropics/claude-plugins-official
 
 # 4. Visual verification for UI changes
 claude mcp add playwright -- npx @playwright/mcp@latest
@@ -32,9 +32,9 @@ How far each pick below has been validated — derived from its `Evidence` value
 
 context7 (RUN), GSD (MEASURED), feature-dev (MEASURED), github-mcp-server (MEASURED), codegraph (MEASURED), markitdown (MEASURED), caveman (MEASURED), headroom (MEASURED), claude-squad (RUN), beads (MEASURED), mattpocock/skills (MEASURED), playwright (RUN), stryker-js (RUN), code-review (MEASURED), pr-review-toolkit (MEASURED), security-guidance (MEASURED), claude-code-action (RUN), resolving-merge-conflicts (MEASURED), claude-reflect (MEASURED), documentation-and-adrs (MEASURED), claude-mem (MEASURED), abtop (MEASURED), ccusage (MEASURED), last30days (MEASURED), serena (MEASURED), web-quality-skills (MEASURED), fastmcp (RUN), skill-creator (MEASURED), SkillSpector (MEASURED)
 
-**Tier 2 — review-based (2): try at your own risk.** Evaluated by reading docs/source (`REVIEW`) or inferred from catalog metadata (`SOURCE-ONLY`), not run hands-on — graduating an eval ([#68](https://github.com/mattbutlerengineering/ai-tooling/issues/68)) promotes a tool to Tier 1.
+**Tier 2 — review-based (1): try at your own risk.** Evaluated by reading docs/source (`REVIEW`) or inferred from catalog metadata (`SOURCE-ONLY`), not run hands-on — graduating an eval ([#68](https://github.com/mattbutlerengineering/ai-tooling/issues/68)) promotes a tool to Tier 1.
 
-agent-skills (REVIEW), trailofbits/skills (REVIEW)
+agent-skills (REVIEW)
 <!-- TIERS:END -->
 
 ---
@@ -76,7 +76,6 @@ agent-skills (REVIEW), trailofbits/skills (REVIEW)
 |------|-------------|---------|--------|
 | [code-review](https://github.com/anthropics/claude-plugins-official) | 4-agent parallel PR review with confidence scoring | `claude install-plugin anthropics/claude-plugins-official` | Correctness, Safety |
 | [pr-review-toolkit](https://github.com/anthropics/claude-plugins-official) | 6 dimension-specific review agents (silent failures, type design, etc.) | Included in claude-plugins-official | Correctness, Safety |
-| [trailofbits/skills](https://github.com/trailofbits/skills) | Structured security audit methodology | `claude install-skill trailofbits/skills` | Safety |
 | [security-guidance](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance) | First-party in-loop security review (regex + LLM diff review + commit-time cross-file) with self-correction before output | `claude install-plugin anthropics/claude-plugins-official` | Safety |
 
 ## Ship
