@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 654 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 662 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -15,6 +15,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | CLI-Anything | tool | | ✓ | SKIP | REVIEW |
 | claude-code-templates | tool | | ✓ | SKIP | REVIEW |
+| portly | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-hud | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | ccstatusline | plugin | ✓ | ✓ | SKIP | REVIEW |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
@@ -58,6 +59,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
 | repowise | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | discovery-log | REVIEW |
+| project-mentor | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | cocoindex-code | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sem | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -66,6 +68,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | codebase-design | skill | | ✓ | discovery-log | REVIEW |
 | domain-modeling | skill | | ✓ | discovery-log | REVIEW |
 | plannotator | tool | | ✓ | discovery-log | REVIEW |
+| facet | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | SocratiCode | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -348,6 +351,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
+| claude-red | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
@@ -393,8 +397,10 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | ACMM | framework | | ✓ | discovery-log | REVIEW |
 | abtop | tool | | ✓ | CONDITIONAL | MEASURED |
+| hud-mode | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rimz | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| debroid | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
 | agentacct | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Composio | plugin | | ✓/$ | discovery-log | SOURCE-ONLY |
@@ -561,6 +567,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
 | memory-os | tool | ✓ | ✓ | SKIP | REVIEW |
 | pieces-to-agents | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| wife | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Memori | platform | | ✓ | discovery-log | REVIEW |
 | OpenViking | platform | | ✓ | SKIP | REVIEW |
 | RAGFlow | platform | ✓ | ✓ | SKIP | REVIEW |
@@ -639,6 +646,7 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mcp-context-forge | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | gh-aw-mcpg | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-migrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mcp-vision-bridge | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Research & Discovery
 
@@ -738,16 +746,16 @@ All 654 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 59 | 29 | 6 | 49% |
+| Plan | 62 | 30 | 6 | 48% |
 | Implement | 215 | 111 | 4 | 52% |
 | Verify | 23 | 12 | 2 | 52% |
-| Review | 43 | 21 | 3 | 49% |
+| Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
-| Outer Loop | 44 | 16 | 2 | 36% |
+| Outer Loop | 46 | 16 | 2 | 35% |
 | Skills & Plugins | 93 | 32 | 4 | 34% |
-| Memory & Context | 51 | 19 | 2 | 37% |
-| MCP Servers | 45 | 16 | 2 | 36% |
+| Memory & Context | 52 | 19 | 2 | 37% |
+| MCP Servers | 46 | 16 | 2 | 35% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **654** | **285** | **34** | **44%** |
+| **Total** | **662** | **286** | **34** | **43%** |

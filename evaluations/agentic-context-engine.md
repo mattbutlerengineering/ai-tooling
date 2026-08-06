@@ -3,6 +3,7 @@
 **Repo:** [kayba-ai/agentic-context-engine](https://github.com/kayba-ai/agentic-context-engine)
 **Stars:** 2,449 | **Last updated:** 2026-06-13 (pushed) | **License:** Apache-2.0 | **Language:** Python (`ace-framework`; LiteLLM, 100+ providers)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (in-context learning / self-improvement)
 **Layer:** Infrastructure (framework/library; open-source engine behind the hosted Kayba service)
 
@@ -54,6 +55,16 @@ gh api repos/kayba-ai/agentic-context-engine/readme --jq '.content' | base64 -d 
 **discovery-log — tentative read** — ACE is an Apache-2.0 **in-context learning framework** whose distinctive ideas are the **Skillbook** (persistent, curated strategies distilled from execution traces) and the **Recursive Reflector** (writes and runs sandboxed Python to mine traces for actionable patterns instead of one-pass summarizing) — all without fine-tuning or a vector DB. Adopt it when you want an agent that *measurably improves with use* on repeated task types and you can wire it into your loop via LiteLLM, treating the 2×/49%/$1.50 figures as vendor-reported and piloting on your own data. Govern the code-writing reflector and watch what the SkillManager promotes. For Claude-Code-native correction learning, pro-workflow/claude-reflect are lighter; ACE is the choice when you want a programmatic, provider-agnostic learning engine (and its hosted Kayba upsell ships fixes as PRs).
 
 Compared to neighbors: **pro-workflow** is correction-driven Claude Code memory; **hivemind** turns traces into shared skills; **MemOS**/**memind** crystallize experience into reusable policy; **claude-reflect** syncs corrections to CLAUDE.md. ACE's distinguishing pitch is **a curated Skillbook plus a Recursive Reflector that programmatically mines traces — model-agnostic, no fine-tuning, no vector DB.**
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL-shaped read at Evidence REVIEW. None of its named overlaps
+(pro-workflow, hivemind, MemOS, memind, claude-reflect) is a settled ADOPT/KEEP STACK
+incumbent, so there's no clean "redundant with `<incumbent>`" SKIP available. Left for
+the P0/eval-runner lane.
+
+_Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
 ## Catalog entry
 
