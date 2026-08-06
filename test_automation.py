@@ -541,6 +541,71 @@ class TestRowValidation(unittest.TestCase):
             self.assertEqual(audit.audit_row_shapes(audit.DetectorContext(d)), [])
 
 
+# ----------------------------------------------------------------- Ships inside column (#343)
+class TestShipsInsideColumn(unittest.TestCase):
+    """Pins the 6th CATALOG column. Width is derived from each table's OWN header
+    rather than from a constant: bumping CATALOG_COLUMNS to 6 would make every
+    5-column `## Catalog entry` mirror in evaluations/ a finding, and accepting
+    5-or-6 would let a row that LOST a middle cell parse as a valid short row —
+    silently shifting Overlaps into Problem, the exact corruption detector O
+    exists to catch (#198)."""
+
+    SIX = ("| Name | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+           "|---|---|---|---|---|---|\n")
+
+    def test_ships_inside_is_parsed(self):
+        r = catalog_lib.parse_catalog_rows(
+            self.SIX + "| [a](https://github.com/o/a) | skill | one | two | none | o/pack |\n")[0]
+        self.assertEqual(r.ships_inside, "o/pack")
+
+    def test_absent_column_reads_as_empty_not_none(self):
+        # The 5-column form is still the shape of ~520 eval mirrors; a row with no
+        # cell declares no container, which is "" — never None, or every consumer
+        # would need a guard.
+        r = catalog_lib.parse_catalog_rows(CATALOG_OK)[0]
+        self.assertEqual(r.ships_inside, "")
+
+    def test_ships_inside_is_the_last_field(self):
+        # Appended, never inserted. Detector U compares type/one_liner/overlaps
+        # positionally at 1/2/4; inserting anywhere earlier would make every
+        # 5-column mirror a false TEXT finding.
+        self.assertEqual(catalog_lib.CatalogRow._fields[-1], "ships_inside")
+        self.assertEqual(catalog_lib.CatalogRow._fields[:5],
+                         ("name", "url", "type", "one_liner", "overlaps"))
+
+    def test_six_column_table_validates_clean(self):
+        text = self.SIX + "| [a](https://github.com/o/a) | skill | one | two | none | o/pack |\n"
+        self.assertEqual(catalog_lib.validate_catalog_rows(text), [])
+
+    def test_six_column_table_still_flags_a_short_row(self):
+        # The point of header-derived width: under a 6-column header, a 5-cell row
+        # is a hole, not a legacy row.
+        text = self.SIX + "| [a](https://github.com/o/a) | skill | one | two | none |\n"
+        probs = catalog_lib.validate_catalog_rows(text)
+        self.assertEqual(len(probs), 1)
+        self.assertIn("expected 6", probs[0][1])
+
+    def test_five_and_six_column_tables_coexist_in_one_file(self):
+        # Width resets at each header, so a file may carry both — and each table is
+        # judged against its own.
+        text = (CATALOG_OK + "\n## Ship\n\n" + self.SIX
+                + "| [d](https://github.com/o/d) | skill | one | two | none | o/pack |\n")
+        self.assertEqual(catalog_lib.validate_catalog_rows(text), [])
+
+    def test_width_resets_between_tables_not_carried_over(self):
+        # A 6-column table followed by a 5-column one must not inherit 6.
+        text = (self.SIX + "| [d](https://github.com/o/d) | skill | one | two | none | o/pack |\n"
+                + "\n## Plan\n\n" + CATALOG_OK.split("## Plan\n\n", 1)[1])
+        self.assertEqual(catalog_lib.validate_catalog_rows(text), [])
+
+    def test_live_catalog_is_six_columns_and_clean(self):
+        text = Path(ROOT, "CATALOG.md").read_text(encoding="utf-8")
+        self.assertEqual(catalog_lib.validate_catalog_rows(text), [])
+        rows = catalog_lib.parse_catalog_rows(text)
+        self.assertTrue(any(r.ships_inside for r in rows),
+                        "the column exists but nothing declares a container")
+
+
 # ----------------------------------------------------------------- evidence lookup seam (#201)
 class TestEvidenceLookup(unittest.TestCase):
     """catalog_lib.evidence_lookup + DetectorContext.evidence_alias_map — the ONE
@@ -2419,6 +2484,73 @@ class TestTriage(unittest.TestCase):
             bands, _ = self._bands(d)
             self.assertEqual(bands["P4 mechanical-skip"], ["badskill"])
 
+    # ---- #343: P5 ships-inside ----
+    def _contained_tree(self, d, type_="skill", meta=None):
+        """badskill declares a container, so it is not an independent lead."""
+        self._fixture_tree(d)
+        _write(d, "CATALOG.md",
+               "## Plan\n"
+               "| Name | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+               "|------|------|-----------|---------|---------------|--------------|\n"
+               "| [badskill](https://github.com/x/pack) | " + type_ +
+               " | one | two | none | x/pack |\n"
+               "| [plainlead](https://github.com/x/plainlead) | tool | one | two | none | |\n")
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Plan\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n"
+               "| badskill | " + type_ + " | | ✓ | discovery-log | SOURCE-ONLY |\n"
+               "| plainlead | tool | | ✓ | discovery-log | SOURCE-ONLY |\n")
+        _write(d, "repo-metadata.json", json.dumps(meta or {
+            "x/pack": {"license_spdx": "MIT", "archived": False},
+            "x/plainlead": {"license_spdx": "MIT", "archived": False}}))
+
+    def test_declared_container_bands_the_lead_as_ships_inside(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._contained_tree(d)
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P5 ships-inside"], ["badskill"])
+            self.assertEqual(bands["P3 backlog"], ["plainlead"])
+
+    def test_containment_outranks_the_mechanical_bands(self):
+        # A contained row's own license and archival state answer a question about
+        # the WRONG artifact — those facts belong to the container. Banding it P4
+        # would SKIP it for a reason that is not about it.
+        with tempfile.TemporaryDirectory() as d:
+            self._contained_tree(d, meta={
+                "x/pack": {"license_spdx": "NONE", "archived": True},
+                "x/plainlead": {"license_spdx": "MIT", "archived": False}})
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P5 ships-inside"], ["badskill"])
+            self.assertEqual(bands["P4 mechanical-skip"], [])
+            self.assertEqual(bands["P1 successor-check"], [])
+
+    def test_an_empty_ships_inside_cell_bands_nothing(self):
+        # The column is on every row; only a filled cell means containment.
+        with tempfile.TemporaryDirectory() as d:
+            self._contained_tree(d)
+            bands, _ = self._bands(d)
+            self.assertNotIn("plainlead", bands["P5 ships-inside"])
+
+    def test_positive_read_still_shields_a_contained_row(self):
+        # Eliminate-only is unchanged: P5's disposition is a SKIP, so a lead whose
+        # eval already reads ADOPT must not reach it either.
+        with tempfile.TemporaryDirectory() as d:
+            self._contained_tree(d)
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "evaluations/badskill.md",
+                   "# Evaluation: badskill\n\n## Verdict\n\n**ADOPT** — worth it.\n")
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P5 ships-inside"], [])
+            self.assertIn("badskill", bands["P3 backlog"])
+
+    def test_five_column_catalog_produces_no_p5(self):
+        # The column is additive: a catalog without it must band exactly as before.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_tree(d)
+            bands, _ = self._bands(d)
+            self.assertEqual(bands["P5 ships-inside"], [])
+
     def _run(self, d, *args):
         return subprocess.run(["python3", "triage.py", *args],
                               cwd=d, capture_output=True, text=True, check=False)
@@ -3437,13 +3569,15 @@ class TestCollapsedIdentity(unittest.TestCase):
     WHOLE is not an independent lead — mattpocock/skills produced three separate P3 leads
     for skills that all ship in one pack the catalog already ADOPTs."""
 
-    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
-           "|------|------|-----------|-------------------|---------------|\n")
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+           "|------|------|-----------|-------------------|---------------|--------------|\n")
 
     def _ctx(self, d, catalog_rows, verdicts):
+        """catalog_rows is (name, url) or (name, url, ships_inside)."""
         os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
         _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR + "".join(
-            f"| [{n}]({u}) | skill | x | y | z |\n" for n, u in catalog_rows))
+            f"| [{r[0]}]({r[1]}) | skill | x | y | z | {r[2] if len(r) > 2 else ''} |\n"
+            for r in catalog_rows))
         _write(d, "COMPARISON.md",
                "# T\n\n## Implement\n\n"
                "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
@@ -3498,20 +3632,64 @@ class TestCollapsedIdentity(unittest.TestCase):
             self.assertEqual(audit.audit_identity(ctx), ([], []))
 
     def test_flag_is_report_only_and_opt_in(self):
-        # Whether to merge rows, add a "ships inside" column, or exclude facets from the
-        # queue is the DECISION #343 asks for — not something a detector should presume.
+        # #343 chose the `Ships inside` column, and triage.py's P5 band excludes declared
+        # facets from the queue as a consequence. The detector itself stays report-only:
+        # it reports what is NOT yet declared, and merging rows is still not its call.
         self.assertIn("--identity", audit.REPORT_FLAGS)
         self.assertNotIn("--identity", audit.DEFAULT_GATES)
         self.assertNotIn("--identity", audit.OFFLINE_GATES)
 
-    def test_live_run_finds_the_documented_groups(self):
-        # Guards the real tree: mattpocock/skills is the case #343 was filed over, and
-        # claude-plugins-official is the false positive the link-shape split must avoid.
+    # ---- DECLARED: the column is how a finding stops being one (#343)
+    def test_a_group_that_names_its_container_is_declared_not_counted(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("pack", self.PACK), ("skill-a", self.PACK, "o/pack")],
+                            [("pack", "ADOPT"), ("skill-a", "discovery-log")])
+            finds, context = audit.audit_identity(ctx)
+            self.assertEqual(finds, [], "a declared container is not a finding")
+            self.assertEqual([f.kind for f in context], ["DECLARED"])
+
+    def test_the_container_row_s_own_empty_cell_is_not_a_hole(self):
+        # The pack row does not ship inside itself. A group qualifies when every member
+        # either names its container or IS the container the others name.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("pack", self.PACK), ("a", self.PACK, "o/pack"),
+                                ("b", self.PACK, "o/pack")],
+                            [("pack", "ADOPT"), ("a", "discovery-log"), ("b", "discovery-log")])
+            finds, context = audit.audit_identity(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual([f.kind for f in context], ["DECLARED"])
+
+    def test_a_partly_declared_group_is_still_a_finding(self):
+        # Declaring one row does not settle the other. The undeclared lead stays counted,
+        # or the column would let a group half-disappear.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("a", self.PACK, "o/pack"), ("b", self.PACK)],
+                            [("a", "discovery-log"), ("b", "discovery-log")])
+            finds, context = audit.audit_identity(ctx)
+            self.assertEqual([(f.kind, f.tool) for f in finds], [("COLLAPSED", "b")])
+            self.assertEqual(context, [])
+
+    def test_declared_is_checked_before_the_link_shape_split(self):
+        # A monorepo whose rows link distinct subpaths AND declare their container is
+        # reported by the stronger fact: the catalog says so, rather than the detector
+        # inferring it from the link shape.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [("a", self.PACK + "/tree/main/a", "o/pack"),
+                                ("b", self.PACK + "/tree/main/b", "o/pack")],
+                            [("a", "discovery-log"), ("b", "discovery-log")])
+            _, context = audit.audit_identity(ctx)
+            self.assertEqual([f.kind for f in context], ["DECLARED"])
+
+    def test_live_run_has_no_undeclared_collapsed_identity(self):
+        # Guards the real tree. mattpocock/skills is the case #343 was filed over and
+        # claude-plugins-official is the false positive the link-shape split must avoid;
+        # both now carry the column, so the finding count is the number the column was
+        # added to drive to zero. A NEW collapsed group would break this, which is the point.
         finds, context = audit.audit_identity(audit.DetectorContext(ROOT))
-        settled = {f.tool for f in finds if f.kind == "SETTLED"}
-        self.assertIn("implement", settled)
-        faceted = {f.slug for f in context if f.kind == "FACETED"}
-        self.assertIn("anthropics/claude-plugins-official", faceted)
+        self.assertEqual(finds, [], f"undeclared collapsed identity: {finds}")
+        declared = {f.slug for f in context if f.kind == "DECLARED"}
+        self.assertIn("mattpocock/skills", declared)
+        self.assertIn("anthropics/claude-plugins-official", declared)
 
 
 class TestScopeMismatch(unittest.TestCase):

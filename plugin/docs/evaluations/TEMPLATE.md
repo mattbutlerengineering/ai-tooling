@@ -116,3 +116,10 @@ any that regrow.
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
 | [{name}]({url}) | {type} | {description} | {problem} | {overlaps} |
+
+The mirror stays **five columns**. `CATALOG.md` gained a sixth (`Ships inside`, #343),
+but that cell is a fact about the *catalog's* queue — which rows are independent leads —
+not about the tool, and copying it here would restate a fact with no generator behind it,
+which is exactly the drift detector U already reports across these ~520 mirrors (#345).
+Table width is derived from each table's own header, so a five-column mirror is valid;
+widen this one only if you also add the header cell.

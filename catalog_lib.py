@@ -49,10 +49,18 @@ ComparisonRow = collections.namedtuple("ComparisonRow", "tool verdict cells")
 # A CATALOG.md entry row (#196). name is the link text for linked rows, the raw
 # first cell for unlinked ones (OMEGA, server-github); url is None when unlinked.
 # one_liner/overlaps are None when the row is short; cells again carries the full
-# row for #198. The positional fields assume CATALOG's 5-column shape — on a
+# row for #198. The positional fields assume CATALOG's column shape — on a
 # COMPARISON-shaped row only name/type/cells are meaningful (validate_catalog_rows /
 # validate_comparison_rows, #198, enforce shape).
-CatalogRow = collections.namedtuple("CatalogRow", "name url type one_liner overlaps cells")
+#
+# ships_inside (#343) is the LAST field and empty on almost every row: the artifact you
+# actually install to get this one, when that is not this row's own repo. It is appended
+# rather than inserted precisely so that name/type/one_liner/overlaps keep their indices —
+# the ~520 embedded `## Catalog entry` mirrors stay 5-column, and detector U, which
+# compares type/one_liner/overlaps positionally, cannot see the difference. Same reasoning
+# that let COMPARISON.md gain its Evidence column without perturbing detector G.
+CatalogRow = collections.namedtuple(
+    "CatalogRow", "name url type one_liner overlaps cells ships_inside")
 
 # A markdown table separator row: |---|---| (alignment colons allowed).
 _SEPARATOR_ROW = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
@@ -202,38 +210,59 @@ def parse_catalog_rows(text):
         m = _LINK_CELL.match(cells[0])
         name, url = (m.group(1), m.group(2)) if m else (cells[0], None)
         cell = lambda i, cells=cells: cells[i] if len(cells) > i else None
-        rows.append(CatalogRow(name, url, cell(1), cell(2), cell(4), cells))
+        rows.append(CatalogRow(name, url, cell(1), cell(2), cell(4), cells,
+                               cell(SHIPS_INSIDE_COL) or ""))
     return rows
 
 
-# CATALOG.md's documented column count: Name | Type | One-liner | Problem | Overlaps.
+# CATALOG.md's column shape: Name | Type | One-liner | Problem | Overlaps | Ships inside.
+# CATALOG_COLUMNS is the FALLBACK width, used only for text whose table declares no
+# header — the real width comes from each table's own header row (see below), which is
+# how validate_comparison_rows has always worked and why COMPARISON could gain a column
+# without a constant to bump. The ~520 embedded `## Catalog entry` mirrors declare the
+# 5-column header and are validated against it; CATALOG.md declares 6 (#343).
 CATALOG_COLUMNS = 5
+SHIPS_INSIDE_COL = 5          # index of the Ships inside cell when a table carries one
+SHIPS_INSIDE_HEADER = "Ships inside"
 
 
 def validate_catalog_rows(text):
     """(line_no, problem) findings for CATALOG table lines that would otherwise
     be silently skipped or mis-parsed (#198): a pipe-line that isn't a header,
-    separator, or recognized entry row; entry rows whose cell count isn't
-    CATALOG_COLUMNS (a missing cell silently shifts every field after it); an
-    indented row (markdown renders it, the ^|-anchored parsers and counters
-    skip it); and an empty Name cell (counted, but nameless). A clean tree
-    returns []."""
+    separator, or recognized entry row; entry rows whose cell count doesn't match
+    their own table's header (a missing cell silently shifts every field after
+    it); an indented row (markdown renders it, the ^|-anchored parsers and
+    counters skip it); and an empty Name cell (counted, but nameless). A clean
+    tree returns [].
+
+    Width comes from the ENCLOSING TABLE'S HEADER, not from a constant (#343).
+    Adding the Ships inside column could otherwise only be done two ways, and
+    both are worse: bump the constant and every 5-column eval mirror becomes a
+    finding, or accept 5-or-6 and a row that LOST a middle cell parses as a valid
+    short row — silently shifting Overlaps into Problem, which is the exact
+    corruption #198 built this check to catch."""
     problems = []
     lines = text.splitlines()
+    width = None
     for i, line in enumerate(lines):
-        if not line.lstrip().startswith("|") or _SEPARATOR_ROW.match(line):
+        if not line.lstrip().startswith("|"):
+            width = None  # table ended (blank line, heading, prose)
             continue
+        if _SEPARATOR_ROW.match(line):
+            continue
+        cells = _row_cells(line)
         nxt = lines[i + 1] if i + 1 < len(lines) else ""
         if _SEPARATOR_ROW.match(nxt):
-            continue  # header row (structural: the row above a |---| separator)
-        cells = _row_cells(line)
+            width = len(cells)  # header row (structural: the row above a |---| separator)
+            continue
+        expected = width or CATALOG_COLUMNS
         if line != line.lstrip():
             problems.append((i + 1, "indented table row (markdown renders it, but the parsers and counters skip it)"))
         elif not _BODY_ROW.match(line):
             got = repr(cells[1]) if len(cells) > 1 else "missing"
             problems.append((i + 1, f"not a recognized entry row (Type cell {got} not in the Type vocabulary)"))
-        elif len(cells) != CATALOG_COLUMNS:
-            problems.append((i + 1, f"expected {CATALOG_COLUMNS} cells, found {len(cells)} cells"))
+        elif len(cells) != expected:
+            problems.append((i + 1, f"expected {expected} cells, found {len(cells)} cells"))
         elif not cells[0]:
             problems.append((i + 1, "empty Name cell (row is counted, but nameless)"))
     return problems
