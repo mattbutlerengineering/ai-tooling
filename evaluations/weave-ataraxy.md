@@ -3,6 +3,7 @@
 **Repo:** [Ataraxy-Labs/weave](https://github.com/Ataraxy-Labs/weave)
 **Stars:** 1,185 | **Last updated:** 2026-06-13 (pushed) | **License:** Apache-2.0 | **Language:** Rust
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
 **Dev loop stage:** Dev Workflow — git merge conflict resolution
 **Layer:** Tooling (git merge driver)
 
@@ -53,6 +54,16 @@ gh api repos/Ataraxy-Labs/weave/readme --jq '.content' | base64 -d | head -30   
 **discovery-log — tentative read** — weave is a focused, Apache-2.0, Rust **entity-level git merge driver** that uses tree-sitter to dissolve the false conflicts Git invents when two branches edit *different functions* in the same file. Adopt it especially in **parallel-agent / multi-worktree workflows**, where these noise conflicts are common, to cut manual resolution — it's deterministic and slots in as a standard git merge driver. It's CONDITIONAL because it's scoped (it removes false positives, not genuine same-entity conflicts), tree-sitter fidelity bounds it per language, and auto-merging is high-trust (verify it never mis-resolves real conflicts). It pairs naturally with its sibling **sem** (entity-level diffs) for an entity-centric git toolkit.
 
 Compared to neighbors: **sem** gives entity-level diff/blame/impact (same stack); the **resolving-merge-conflicts** skill resolves conflicts via an agent reasoning over both sides; **worktrunk** isolates parallel work. weave's distinguishing pitch is **a deterministic, structure-aware git merge driver that auto-resolves false conflicts.**
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL-shaped read at Evidence REVIEW. Its overlaps (`sem` = sibling tool,
+same stack; `resolving-merge-conflicts` = agent-reasoning approach, not deterministic
+tooling; `worktrunk` = isolation, a different problem) are complementary, not a
+dominating incumbent — not a clean redundancy SKIP. Left for the P0/eval-runner lane.
+
+_Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
 ## Catalog entry
 

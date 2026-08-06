@@ -3,6 +3,7 @@
 **Repo:** [supabase/mcp](https://github.com/supabase/mcp)
 **Stars:** 2,742 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -63,6 +64,17 @@ README-based evaluation. The server is HTTP-hosted by Supabase (`https://mcp.sup
 **discovery-log — tentative read**
 
 Use when building on Supabase. The server's security model (read-only mode, project scoping, feature groups) is the most thoughtful of any MCP server in the catalog and sets a good standard. The 25+ tools cover the full Supabase platform surface. However, it's strictly Supabase-specific — if you're using raw Postgres or another provider, the Prisma MCP server is the better fit. The cloud-hosted requirement for full features and the lack of dedicated RLS tooling are minor gaps that don't block adoption for Supabase projects.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL-shaped read at Evidence REVIEW. Its only named overlap, `prisma`, is a
+generic-Postgres/ORM tool the eval itself distinguishes ("if you're using raw Postgres
+or another provider, Prisma MCP is the better fit") rather than a dominating incumbent
+for Supabase-specific projects — not a clean redundancy SKIP. Left for the
+P0/eval-runner lane.
+
+_Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
 ## Catalog entry
 

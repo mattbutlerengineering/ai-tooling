@@ -3,6 +3,7 @@
 **Repo:** [browser-use/browser-use](https://github.com/browser-use/browser-use)
 **Stars:** 99,580 | **Last updated:** 2026-06-15 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -78,6 +79,18 @@ For the dev-loop comparison I leaned on the existing hands-on evals of the two o
 Use browser-use when the task is **genuinely autonomous web automation** — under-specified, multi-step, or exploratory tasks against external sites where the steps can't be enumerated up front (form-filling from a resume, cross-site research, scraping workflows). For that job it is the strongest OSS option in existence (99.6K stars, MIT, active, benchmarked) and earns a place in the catalog.
 
 For the catalog's *stated* problem — verifying your own UI in the Claude Code Verify loop — it is **redundant with and inferior to** the two ADOPT tools we already have. Playwright MCP gives deterministic, fast, cheap, assertable checks; agent-browser gives zero-setup intent-based exploratory verification driven by the session you already have running. browser-use's autonomous planning loop adds latency, token cost, and non-determinism that verification does not want. It is additive to the catalog (it covers autonomous automation, which neither ADOPT tool targets), but it does not displace either for visual/UI verification. Adopt only when the autonomy is the point; otherwise reach for Playwright MCP or agent-browser. Recommend correcting the catalog Type from "MCP server" to "framework" (or "tool") to reflect what it actually is.
+
+## Triage note
+
+Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
+real CONDITIONAL-shaped read at Evidence REVIEW — the existing analysis concludes
+browser-use is redundant with Playwright MCP/agent-browser for the catalog's *stated*
+Verify-stage job but additive for genuinely autonomous web automation, which neither
+ADOPT tool targets. That nuance isn't a clean "redundant with `<incumbent>`" SKIP, and
+promoting/demoting it further is outside bulk-triage authority. Left for the
+P0/eval-runner lane.
+
+_Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
 ## Catalog entry
 
