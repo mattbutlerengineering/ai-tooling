@@ -49,6 +49,7 @@ nexteval = _load("next_evals", "next-evals.py")
 watchlist = _load("watchlist", "watchlist.py")
 triage = _load("triage", "triage.py")
 checkstars = _load("check_stars", "check-stars.py")
+verifyinstalls = _load("verify_installs", "verify-installs.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -1970,6 +1971,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "backfill-evidence.py --check",
         "backfill-lastverified.py --check",
         "check-stars.py --check",
+        "verify-installs.py --check",
         "tier-stack.py --check",
         "triage.py --check",
         "watchlist.py --check",
@@ -2066,6 +2068,18 @@ class TestIntegrityMakefile(unittest.TestCase):
         body = self._target_body("fix")
         self.assertTrue(body, "Makefile has no `fix:` target body")
         self.assertEqual(body[0], "$(RUFF) check --fix")
+
+    def test_the_local_only_fixers_stay_out_of_fix(self):
+        # `make fix` is the canonical repair and runs in CI's shadow via `check`. Two
+        # apply-mode commands must never be wired into it, for the same reason from
+        # different directions: `verify-installs.py --record` reads ONE laptop's install
+        # records (ADR-0006), and `refresh-metadata.py` needs the network the offline-gate
+        # invariant forbids CI from depending on. Their gates are shape/staleness checks
+        # precisely because the apply side cannot run there.
+        body = "\n".join(self._target_body("fix"))
+        for local_only in ("verify-installs.py --record", "refresh-metadata.py"):
+            self.assertNotIn(local_only, body,
+                             msg=f"`make fix` must not run the local-only {local_only}")
 
     def test_ci_delegates_to_make_check(self):
         with open(os.path.join(ROOT, ".github/workflows/integrity.yml"), encoding="utf-8") as f:
@@ -3993,3 +4007,163 @@ class TestStarConvention(unittest.TestCase):
                 self.assertEqual(checkstars.main(["--check"]), 0)
             finally:
                 checkstars.EVAL_GLOB = saved
+
+
+class TestInstallEvidenceColumn(unittest.TestCase):
+    """Pins verify-installs.py, the `Install evidence` column in STACK-LEDGER.md (ADR-0006,
+    #382).
+
+    The column exists because `KEEP` used to assert installation and nothing checked it.
+    So the two things worth pinning are (a) that the classifier asks the row's own SLUG
+    before its NAME — identity-by-name is the bug the column was built to end, and the
+    first draft committed it inside the fix — and (b) that `--check` gates SHAPE and only
+    shape, because CI has no lockfile and a build must never fail because a laptop
+    changed.
+
+    Fixtures only. Nothing here reads the real ledger or the real machine."""
+
+    LEDGER = (
+        "# Stack Exclusion Ledger\n\nprose\n\n## ADOPT / KEEP tools\n\n"
+        "| Tool | Verdict | Stage | In STACK? | Exclusion reason (required when `no`) |\n"
+        "|------|---------|-------|-----------|----------------------------------------|\n"
+        "| codegraph | ADOPT | Plan | yes | |\n"
+        "| documentation-writer | ADOPT | Reflect | no | Overlaps the pick |\n"
+        "\n## Batch exclusions\n\n"
+        "| Batch | Date | Tools | STACK decision | Rationale | Flagged |\n"
+        "|-------|------|-------|----------------|-----------|---------|\n"
+        "| 2026-06-19 discovery (#37) | 2026-06-19 | 19 | all excluded | prose | x |\n")
+
+    def _records(self, **kw):
+        base = {"slugs": set(), "lock_by_key": {}, "plugin_names": set(),
+                "fetched_keys": {}, "disk_keys": set()}
+        base.update(kw)
+        return verifyinstalls.Records(**base)
+
+    # ---- the classifier: slug first, then the collision guard, then the name records
+    def test_own_slug_settles_the_row_even_when_the_name_belongs_to_another_repo(self):
+        # #366's `caveman`: the row's four skills ARE installed, while the bare name in
+        # the lockfile belongs to mattpocock/skills. Asking the name first reported a
+        # healthy ADOPT as unbacked.
+        rec = self._records(slugs={"juliusbrussee/caveman"},
+                            lock_by_key={"caveman": "mattpocock/skills"})
+        self.assertEqual(
+            verifyinstalls.classify("juliusbrussee/caveman", "caveman", "2026-08-05", rec),
+            "lockfile 2026-08-05")
+
+    def test_a_name_owned_by_another_repo_is_a_collision_not_an_install(self):
+        # `code-review` is ADOPT-as-claude-plugins-official; the code-review on this
+        # machine is mattpocock/skills' own. Every name-keyed record below therefore
+        # belongs to that other tool — recording it here is the bug itself.
+        rec = self._records(lock_by_key={"codereview": "mattpocock/skills"},
+                            disk_keys={"codereview"}, plugin_names={"codereview"})
+        self.assertEqual(
+            verifyinstalls.classify("anthropics/claude-plugins-official", "codereview",
+                                    "2026-08-05", rec),
+            "collision 2026-08-05")
+
+    def test_a_fetched_cache_version_is_its_own_answer_not_no_record(self):
+        # #332's discriminator: a real version means the code was pulled, `unknown` means
+        # only the marketplace was added. A fetch is still not an activation, so this is
+        # neither `none` nor `lockfile`.
+        rec = self._records(fetched_keys={"claudereflect": "3.1.0"})
+        self.assertEqual(
+            verifyinstalls.classify("nixlim/claude-reflect", "claudereflect", "2026-08-05", rec),
+            "cache 3.1.0 2026-08-05")
+
+    def test_multiple_fetched_versions_stay_one_whitespace_free_token(self):
+        # read_install_records joins with ", ", which would break the value regex — and a
+        # lexicographic max would read 13.11.0 as older than 13.4.0, so picking one is
+        # not the fix. Both are kept, slash-joined.
+        rec = self._records(fetched_keys={"claudemem": "13.11.0, 13.4.0"})
+        value = verifyinstalls.classify("t/claude-mem", "claudemem", "2026-08-05", rec)
+        self.assertEqual(value, "cache 13.11.0/13.4.0 2026-08-05")
+        self.assertRegex(value, verifyinstalls.VALUE)
+
+    def test_plugins_json_outranks_a_bare_directory(self):
+        rec = self._records(plugin_names={"x"}, disk_keys={"x"})
+        self.assertTrue(
+            verifyinstalls.classify("o/x", "x", "2026-08-05", rec).startswith("plugins-json"))
+
+    def test_nothing_answering_reads_as_none(self):
+        self.assertEqual(verifyinstalls.classify("o/x", "x", "2026-08-05", self._records()),
+                         "none 2026-08-05")
+
+    # ---- 0 records is 'no data', never 'nothing is installed'
+    def test_a_machine_with_no_records_yields_nothing_rather_than_a_clean_sweep(self):
+        with tempfile.TemporaryDirectory() as home:
+            self.assertIsNone(verifyinstalls.read_records(home))
+            self.assertEqual(verifyinstalls.machine_evidence("2026-08-05", home), ({}, {}))
+
+    # ---- resolution: exact name first, ambiguous key resolves to nothing
+    def test_lookup_prefers_the_exact_name_over_a_colliding_key(self):
+        # `agent-skills` (a skill) and `agentskills` (the SKILL.md spec) share a name_key.
+        # A single map would hand one row the other's install fact.
+        ev = ({"agent-skills": "lockfile 2026-08-05", "agentskills": "n/a"}, {})
+        self.assertEqual(verifyinstalls._lookup(ev, "agent-skills"), "lockfile 2026-08-05")
+        self.assertEqual(verifyinstalls._lookup(ev, "agentskills"), "n/a")
+
+    def test_an_ambiguous_key_resolves_to_nothing_rather_than_a_coin_flip(self):
+        # Detector U's rule. `by_key` is built without keys two rows claim, so a ledger
+        # name that only matches by key gets no answer at all.
+        self.assertIsNone(verifyinstalls._lookup(({}, {}), "agentskills"))
+
+    # ---- the rewriter
+    def test_record_widens_the_header_and_fills_every_row(self):
+        out = verifyinstalls.rewrite(
+            self.LEDGER, ({"codegraph": "n/a",
+                           "documentation-writer": "lockfile 2026-08-05"}, {}))
+        self.assertIn("| Exclusion reason (required when `no`) | Install evidence |", out)
+        self.assertIn("| codegraph | ADOPT | Plan | yes | | n/a |", out)
+        self.assertIn("| documentation-writer | ADOPT | Reflect | no | Overlaps the pick "
+                      "| lockfile 2026-08-05 |", out)
+        self.assertEqual(verifyinstalls.audit(out), [])
+
+    def test_the_batch_exclusion_table_is_left_alone(self):
+        # A different table with a different shape: it records group decisions, not
+        # per-tool install facts.
+        out = verifyinstalls.rewrite(self.LEDGER, ({"codegraph": "n/a"}, {}))
+        self.assertIn("| 2026-06-19 discovery (#37) | 2026-06-19 | 19 | all excluded "
+                      "| prose | x |", out)
+
+    def test_rewriting_is_idempotent(self):
+        ev = ({"codegraph": "n/a", "documentation-writer": "none 2026-08-05"}, {})
+        once = verifyinstalls.rewrite(self.LEDGER, ev)
+        self.assertEqual(verifyinstalls.rewrite(once, ev), once)
+
+    def test_a_row_the_machine_cannot_see_keeps_its_dated_record(self):
+        # A refresh that cannot see a tool must not erase an earlier run's record of it.
+        once = verifyinstalls.rewrite(
+            self.LEDGER, ({"documentation-writer": "lockfile 2026-07-01"}, {}))
+        again = verifyinstalls.rewrite(once, ({"codegraph": "n/a"}, {}))
+        self.assertIn("| lockfile 2026-07-01 |", again)
+
+    # ---- --check gates shape, and only shape
+    def test_check_flags_a_missing_column_and_a_missing_value(self):
+        problems = dict(verifyinstalls.audit(self.LEDGER))
+        self.assertIn("(table header)", problems)
+        self.assertIn("codegraph", problems)
+        self.assertIn("documentation-writer", problems)
+
+    def test_check_rejects_a_value_outside_the_vocabulary(self):
+        bad = verifyinstalls.rewrite(self.LEDGER, ({"codegraph": "n/a",
+                                                    "documentation-writer": "n/a"}, {}))
+        bad = bad.replace("| codegraph | ADOPT | Plan | yes | | n/a |",
+                          "| codegraph | ADOPT | Plan | yes | | yes |")
+        self.assertEqual([n for n, _ in verifyinstalls.audit(bad)], ["codegraph"])
+
+    def test_check_never_asserts_a_value_is_still_true(self):
+        # The whole CI contract: a stale-but-well-formed value passes. A build must not
+        # fail because a laptop changed, and CI has no lockfile to consult anyway.
+        old = verifyinstalls.rewrite(self.LEDGER, ({"codegraph": "lockfile 1999-01-01",
+                                                    "documentation-writer": "none 1999-01-01"}, {}))
+        self.assertEqual(verifyinstalls.audit(old), [])
+
+    # ---- detector J must keep matching the widened row
+    def test_detector_j_still_parses_a_six_column_ledger(self):
+        # _LEDGER_ROW is anchored to end-of-line; before #382 widened it, a sixth column
+        # dropped every row on the floor.
+        widened = verifyinstalls.rewrite(self.LEDGER, ({"codegraph": "n/a",
+                                                        "documentation-writer": "none 2026-08-05"}, {}))
+        for text, why in ((self.LEDGER, "five-column"), (widened, "six-column")):
+            names = [m[0] for m in audit._LEDGER_ROW.findall(text)]
+            self.assertEqual(names, ["codegraph", "documentation-writer"], why)

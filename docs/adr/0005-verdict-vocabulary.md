@@ -44,7 +44,9 @@ A row may only remain `CONDITIONAL` if it declares an `adopt-if:` condition stri
 No genuine condition ⇒ it is **not** a CONDITIONAL. The condition is a single parseable token + free-text gloss.
 
 ### 2. Recommend one tool over its alternatives (the key fix)
-Within each overlap cluster (tools sharing a "Problem it solves"), designate **exactly one** best-in-class `ADOPT` — the pick — and resolve the also-rans to `SKIP` (or `KEEP` if already installed) with a one-line "why not the pick" reason. A cluster that is all-CONDITIONAL with no pick is a smell, not a neutral state.
+Within each overlap cluster (tools sharing a "Problem it solves"), designate **exactly one** best-in-class `ADOPT` — the pick — and resolve the also-rans to `SKIP` (~~or `KEEP` if already installed~~ **or `KEEP` if the tool is still worth having available** — amended by [ADR-0006](0006-install-evidence-in-the-ledger.md), #382) with a one-line "why not the pick" reason. A cluster that is all-CONDITIONAL with no pick is a smell, not a neutral state.
+
+> **Amended by [ADR-0006](0006-install-evidence-in-the-ledger.md) (2026-08-05, #382).** `KEEP` no longer asserts installation. It was doing two jobs — a recommendation *and* an unchecked fact about one laptop — and nothing verified the second until detector Y (#366) looked and found all four `plugin`-Type KEEPs unbacked. The install fact now lives in `STACK-LEDGER.md`'s `Install evidence` column, dated and with its method beside it. Everything else in this ADR stands.
 
 "Best-in-class" is judged on: evidence strength (a MEASURED winner beats a source-only rival), fit to our five quality signals (six since [ADR-0004](0004-verifiability-signal.md) added Verifiability), maintenance/adoption, and **license** (non-permissive tools cannot be the pick — see ADR-adjacent governance below).
 
