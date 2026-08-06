@@ -85,6 +85,8 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [fastmcp](https://github.com/PrefectHQ/fastmcp) — build MCP servers in Python: decorator API, auth, middleware, incorporated into official MCP SDK ([eval](evaluations/fastmcp.md)) | Speed |
 | **Infrastructure** | Coverage gating in CI — reject PRs below threshold so coverage never regresses | Correctness |
 
+**Running a different harness?** The catalog holds 21 standalone terminal coding agents, all at `discovery-log` — none is redundant with another, and the category is saturated on *capability* while the choice gets made on *model and ecosystem*. The [terminal coding agent cluster](evaluations/cluster-terminal-coding-agents.md) is the routing table: name your constraint (model already chosen · want to keep choosing · offline · in-editor) and it names the row. It is source-grounded, not measured — it routes you to an eval to read, not to a pick to install.
+
 **Feedback arc:** If test pass rate on first run is declining, you're either writing shallow tests or skipping TDD for "simple" changes. Neither is simple.
 
 ### Verify
