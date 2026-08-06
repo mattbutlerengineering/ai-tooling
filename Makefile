@@ -26,10 +26,42 @@
 # author knows whether the file has one subject, several contenders, or none. Dropping
 # `--check` there turns it report-only in one word, which is how the gate-vs-report call
 # stays reversible; TestStarConvention pins both modes regardless of which is wired.
+#
+# ruff and mypy (#388) are the ONLY gates that are not pure stdlib — every other one runs
+# on python3 + gh + node. They are pinned in requirements-dev.txt, because an unpinned
+# linter turns an upstream rule addition into a red build on an unrelated PR. Install
+# them once:
+#
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+#
+# and either put .venv/bin on PATH or point the two variables below at it:
+#
+#   make check RUFF=.venv/bin/ruff MYPY=.venv/bin/mypy
+#
+# They run FIRST in both check targets: a syntax error should surface before twelve
+# data gates parse the tree with it.
+RUFF ?= ruff
+MYPY ?= mypy
 
-.PHONY: check check-offline fix
+.PHONY: check check-offline fix lint lint-preflight
 
-check:
+# A missing linter must say what to install, not "command not found: ruff".
+lint-preflight:
+	@command -v $(RUFF) >/dev/null 2>&1 || { \
+	  echo "ruff not found. Install the dev pins:"; \
+	  echo "  python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt"; \
+	  echo "  make check RUFF=.venv/bin/ruff MYPY=.venv/bin/mypy"; exit 1; }
+	@command -v $(MYPY) >/dev/null 2>&1 || { \
+	  echo "mypy not found — see requirements-dev.txt"; exit 1; }
+
+# Runnable alone while iterating on a script.
+lint: lint-preflight
+	$(RUFF) check
+	$(MYPY)
+
+check: lint-preflight
+	$(RUFF) check
+	$(MYPY)
 	python3 audit-evals.py --offline
 	python3 audit-evals.py --selftest
 	python3 -m unittest -q test_automation
@@ -49,7 +81,9 @@ check:
 # `check` remains the canonical gate; this is for iterating without paying ~22s of
 # network round trips per run. CI always runs the full `check`.
 # TestIntegrityMakefile pins that this stays `check` minus exactly that one line.
-check-offline:
+check-offline: lint-preflight
+	$(RUFF) check
+	$(MYPY)
 	python3 audit-evals.py --offline
 	python3 audit-evals.py --selftest
 	python3 -m unittest -q test_automation
@@ -64,7 +98,8 @@ check-offline:
 	-python3 audit-evals.py --staleness
 	-python3 audit-evals.py --metadata-staleness
 
-fix:
+fix: lint-preflight
+	$(RUFF) check --fix
 	python3 reconcile-counts.py
 	python3 backfill-evidence.py
 	python3 backfill-lastverified.py

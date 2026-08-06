@@ -1959,6 +1959,10 @@ class TestIntegrityMakefile(unittest.TestCase):
 
     # The full gate set CI's integrity.yml enforces, in --check/verify mode.
     GATES = (
+        # The two non-stdlib gates (#388). Written as the Makefile variables spell them,
+        # so pointing RUFF/MYPY at a venv doesn't look like a dropped gate.
+        "$(RUFF) check",
+        "$(MYPY)",
         "audit-evals.py --offline",
         "audit-evals.py --selftest",
         "python3 -m unittest -q test_automation",
@@ -2030,6 +2034,38 @@ class TestIntegrityMakefile(unittest.TestCase):
                 self.assertTrue(line.startswith("-"),
                                 msg=f"`make {target}` trailer must stay `-`-prefixed "
                                     f"(report-only, never gating): {line}")
+
+    def test_lint_gates_are_pinned_and_run_first(self):
+        # ruff and mypy are the only non-stdlib gates (#388), so two things must hold or
+        # the build breaks for a reason no code change caused: the versions are pinned to
+        # an exact release, and CI installs them. They run first in both check targets
+        # because a syntax error should surface before twelve data gates parse the tree
+        # with it.
+        reqs = Path(ROOT, "requirements-dev.txt").read_text(encoding="utf-8")
+        pins = [l.strip() for l in reqs.splitlines()
+                if l.strip() and not l.strip().startswith("#")]
+        self.assertTrue(pins, "requirements-dev.txt declares no pins")
+        for pin in pins:
+            self.assertIn("==", pin, msg=f"dev dependency is not pinned exactly: {pin}")
+        self.assertTrue(any(p.startswith("ruff==") for p in pins))
+        self.assertTrue(any(p.startswith("mypy==") for p in pins))
+
+        for target in ("check", "check-offline"):
+            body = self._target_body(target)
+            self.assertEqual(body[:2], ["$(RUFF) check", "$(MYPY)"],
+                             msg=f"`make {target}` must run the lint gates first")
+
+        ci = Path(ROOT, ".github/workflows/integrity.yml").read_text(encoding="utf-8")
+        self.assertIn("requirements-dev.txt", ci,
+                      "CI must install the dev pins or `make check` cannot run the lint gates")
+
+    def test_fix_applies_ruff_before_the_data_fixers(self):
+        # `ruff check --fix` reorders imports and rewrites expressions; the data fixers
+        # then regenerate derived pages from whatever the scripts now produce. Running it
+        # after them would leave the tree needing a second `make fix` to settle.
+        body = self._target_body("fix")
+        self.assertTrue(body, "Makefile has no `fix:` target body")
+        self.assertEqual(body[0], "$(RUFF) check --fix")
 
     def test_ci_delegates_to_make_check(self):
         with open(os.path.join(ROOT, ".github/workflows/integrity.yml"), encoding="utf-8") as f:

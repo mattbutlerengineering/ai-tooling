@@ -266,12 +266,16 @@ gives a vendor-free version you can run against any repo today:
 repo against the model rather than eyeballing it. The result is sharper than the guess that
 originally stood here, and corrects it in two places:
 
-- **Level 1, gate not cleared — 2/4.** README ✅ and 324 unit tests ✅, but **no linter and no
-  type checker** for 8,223 lines of Python. The rigor here is aimed entirely at the *data*
-  (`CATALOG.md`, the evals, the generated pages) and not at all at the *program* that enforces
-  it. `audit-evals.py` is 2,411 lines that have never been linted. "Guardrails are strong" was
-  true of the data plane and false of the code plane, and the distinction was invisible until
-  something scored it.
+- **Level 1 scored 2/4, gate not cleared — and that is what got it fixed.** README ✅ and unit
+  tests ✅, but **no linter and no type checker** for 8,223 lines of Python: the rigor here was
+  aimed entirely at the *data* (`CATALOG.md`, the evals, the generated pages) and not at all at
+  the *program* that enforces it. "Guardrails are strong" was true of the data plane and false
+  of the code plane, and the distinction was invisible until something scored it. Fixed the same
+  day by [#388](https://github.com/mattbutlerengineering/ai-tooling/issues/388) — pinned `ruff` and
+  `mypy`, first line of `make check` and of CI — so **Level 1 is now 4/4**. Worth noting what the
+  linter did *not* find: of 149 findings, zero were live bugs. The payoff was 22 unclosed file
+  handles printing `ResourceWarning` on every gate run in plain sight, plus drift prevention. This
+  is rule 0 working end to end: grade, find a failed fundamental, fix it, re-grade.
 - **Feedback speed was not the gap.** It was un-instrumented, not slow: CI runs a **median of
   34 seconds**, 20/20 green. One command settled it.
 
@@ -343,7 +347,7 @@ destroy the sixth.
 
 | Ideal-workflow rule | Here today | Gap |
 |---|---|---|
-| 0 · readiness grade | [**scored**](../spikes/agent-readiness-score.md): strong primitives, enablers, task discovery; CI median 34s | **Level 1, gate not cleared** — no linter, no type checker for 8,223 lines of Python |
+| 0 · readiness grade | [**scored**](../spikes/agent-readiness-score.md): strong primitives, enablers, task discovery; CI median 34s; **Level 1 cleared 4/4** after #388 wired ruff + mypy | no coverage number; flaky-test detection still absent (L4) |
 | 1 · tickets as queue | GitHub Issues + `triage.py` bands + `/triage` | no label-triggered stage advance |
 | 2 · staged fresh context | [`intent-to-production-recipe.md`](intent-to-production-recipe.md) stage skills | handoffs are prose artifacts, not validated typed ones |
 | 3 · deterministic gates | **`make check` — 15 detectors, CI-gated, offline** | — (this is the repo's strongest asset) |
@@ -353,10 +357,11 @@ destroy the sixth.
 | 7 · autonomy by measurement | verdict/evidence data, Evidence tiers | **no cycle-time or defect-origin metric at all** |
 | 8 · review capacity | Verifiability signal defined and required for new evals | measured per-tool, never for the pipeline itself |
 
-The real gaps are **7** — no cycle-time or defect-origin metric — and, now that **0** has been
-scored, the ungated code plane: the machinery that enforces everything is itself unlinted and
-untyped. By the standards of the corpus the *process* machinery here is unusually good; what is
-missing is the number that would say so, and a linter on the program that produces it.
+The real gap is now **7** — no cycle-time or defect-origin metric. The other one this table
+carried, the ungated code plane, closed when #388 put ruff and mypy in front of every other gate;
+what remains there is a coverage number, not an absence of checking. By the standards of the
+corpus the *process* machinery here is unusually good; what is still missing is the number that
+would say so.
 
 ## Next actions this research argues for
 

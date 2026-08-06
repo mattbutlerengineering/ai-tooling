@@ -1,6 +1,6 @@
 # Spike: score this repo on agent readiness
 
-**Issue:** [#385](https://github.com/mattbutlerengineering/ai-tooling/issues/385) · **Date:** 2026-08-05 · **Outcome:** measured score + one correction to [`methodologies/software-factories.md`](../methodologies/software-factories.md) (no behavior changes made)
+**Issue:** [#385](https://github.com/mattbutlerengineering/ai-tooling/issues/385) · **Date:** 2026-08-05 · **Outcome:** measured score + one correction to [`methodologies/software-factories.md`](../methodologies/software-factories.md). The spike itself made no behavior changes; the Level 1 failure it found was then fixed by [#388](https://github.com/mattbutlerengineering/ai-tooling/issues/388), and both the before and after figures are kept below.
 
 [`software-factories.md`](../methodologies/software-factories.md#agent-readiness-is-the-prerequisite-nobody-sells-you)
 asserted a readiness grade for this repo and said outright that the grade was
@@ -49,36 +49,47 @@ transparently rather than invisibly.
 
 ## The score
 
-### Level 1 — Functional · **2 / 4 = 50% · gate not cleared**
+### Level 1 — Functional · **4 / 4 = 100% · gate cleared** *(was 2/4 — see below)*
 
 > *"Code runs, but requires manual setup and lacks automated validation."*
 
 | Criterion | Verdict | Evidence |
 |---|---|---|
 | README | ✅ | `README.md`, plus `PLAYBOOK.md` as the routed front door and `CLAUDE.md` as the agent entrypoint |
-| Unit tests | ✅ | 324 tests, CI-gated via `make check` |
-| Linter | ❌ | none, for 8,223 lines of Python |
-| Type checker | ❌ | none |
+| Unit tests | ✅ | 333 tests, CI-gated via `make check` |
+| Linter | ✅ | `ruff==0.16.1`, first line of `make check` and of CI ([#388](https://github.com/mattbutlerengineering/ai-tooling/issues/388)) |
+| Type checker | ✅ | `mypy==2.3.0`, same gate |
 
-**50% is below the 80% gate, so under the published rules this repo does not unlock
-Level 2.**
+> **Scored 2/4 when this spike was written on 2026-08-05, and that is the number the
+> spike existed to produce.** The measurement is what got the linter added: it named a
+> failed criterion nobody had noticed, #388 measured what fixing it would actually cost
+> (149 ruff findings, **zero live bugs** — every bug-shaped rule hand-checked and cleared),
+> and the fix landed the same day. Both figures are kept here rather than overwritten,
+> because a readiness score that only ever shows its current value cannot show that it
+> moved anything.
 
-That is the finding, and it is worth sitting with. This repo runs fifteen detectors,
-regenerates six pages from data, gates every push in CI, and refuses to let a count
-be hand-edited — and it scores Level 1 because **the code that enforces all of that
-is itself ungated.** The rigor is aimed entirely at the *data* (`CATALOG.md`,
-`COMPARISON.md`, the evals) and not at all at the *program*. `audit-evals.py` is
-2,411 lines with no linter and no types; a rename inside it is caught only if a test
-happens to cover that path.
+**The finding is still worth sitting with, even though it is now fixed.** This repo ran
+fifteen detectors, regenerated six pages from data, gated every push in CI, and refused
+to let a count be hand-edited — and it scored Level 1 because **the code that enforced
+all of that was itself ungated.** The rigor was aimed entirely at the *data*
+(`CATALOG.md`, `COMPARISON.md`, the evals) and not at all at the *program*.
+`audit-evals.py` is 2,411 lines, and before #388 a rename inside it was caught only if a
+test happened to cover that path.
 
-`software-factories.md` called guardrails "strong." That was true of the data plane
-and false of the code plane, and the distinction was invisible until the score forced
-it.
+`software-factories.md` called guardrails "strong." That was true of the data plane and
+false of the code plane, and the distinction was invisible until the score forced it.
+
+**What the linter did not find is as much the point as what it did.** Of 149 findings,
+none was a live bug. The value was the 22 unclosed-file sites — which had been printing a
+wall of `ResourceWarning` on every `make check` run, in plain sight, for months — and
+drift prevention from here on. A gate that starts green is not a gate that was
+unnecessary.
 
 ### Levels 2–5, scored anyway
 
-The gate says stop at Level 1. Scoring the rest is still the useful part, because the
-*shape* of the result is the real diagnostic.
+The gate no longer stops at Level 1, but the *shape* of the result below is the real
+diagnostic and it has not changed: the levels above are passed on substance and failed
+on literal criteria.
 
 **Level 2 — Documented** · 1 hard pass, 3 substance-passes that fail literally
 
@@ -104,7 +115,7 @@ The gate says stop at Level 1. Scoring the rest is still the useful part, becaus
 | Rapid CI feedback | ✅ | **median 34s**, max 46s across 20 runs. Fast enough that an agent can treat CI as part of the inner loop rather than as a wait. |
 | Flaky-test detection | ❌ | none — though 20/20 green is evidence there is nothing to detect yet |
 
-**Level 5 — Autonomous** · genuinely present, sitting on an ungated Level 1
+**Level 5 — Autonomous** · genuinely present, and no longer sitting on an ungated L1
 
 > *"Systems are self-improving with sophisticated orchestration."*
 
@@ -124,26 +135,30 @@ The gate says stop at Level 1. Scoring the rest is still the useful part, becaus
    L4  █████░░░░░  fast CI ✓ · flaky detection ✗
    L3  █████████░  integration ✓ · secret scanning ✓ · tracing n/a
    L2  ███░░░░░░░  branch protection ✓ · three substance-passes that fail literally
+   L1  ██████████  README ✓ · tests ✓ · linter ✓ · type checker ✓   ← the gate, cleared
+
+   as measured 2026-08-05, before #388:
    L1  █████░░░░░  README ✓ · tests ✓ · linter ✗ · type checker ✗   ← the gate
 ```
 
-**Level-5 orchestration on a Level-1 foundation.** That inversion is the whole
-finding, and it is exactly what the gated model is designed to catch: sophisticated
-process built on top of a program nobody validates. The gate exists to stop a repo
-buying its way past a missing fundamental with one impressive capability, and here it
-does its job.
+**Level-5 orchestration on a Level-1 foundation.** That inversion was the whole finding,
+and it is exactly what the gated model is designed to catch: sophisticated process built
+on top of a program nobody validates. The gate exists to stop a repo buying its way past
+a missing fundamental with one impressive capability, and here it did its job — the
+foundation row is filled in now *because* the gate flagged it.
 
 It also validates the model's own premise from the other direction. The reason the
 orchestration works at all is that this repo's *data* has the deterministic signals
 Factory's model is asking for — `make check` exits non-zero with a file and a line.
-Extending that same discipline to the code is a small, obvious piece of work that was
-invisible until something scored it.
+Extending that same discipline to the code was a small, obvious piece of work that was
+invisible until something scored it — and once scored, it took one issue and one
+afternoon.
 
 ## What this corrects in `software-factories.md`
 
 | Claim there | Status after measuring |
 |---|---|
-| "Guardrails are strong — `make check`…" | **True of the data plane, false of the code plane.** 8,223 lines of Python with no linter, no type checker, no coverage number. |
+| "Guardrails are strong — `make check`…" | **Was true of the data plane, false of the code plane** — 8,223 lines of Python with no linter, no type checker, no coverage number. Fixed by #388 for the first two; coverage is still unmeasured. |
 | "What is missing is feedback speed instrumentation" | **Wrong.** It was un-instrumented, not slow: median 34s, 20/20 green. Measuring it took one command. |
 | "the grade above is asserted, not measured" | Resolved — this spike is the measurement. |
 
@@ -153,10 +168,13 @@ The doc is updated to point here.
 
 Ranked by what the gate actually blocks on:
 
-1. **Add a linter and a type checker for the repo's own Python**, wired into `make check`
-   so they gate in CI like everything else. This is the *only* thing standing between
-   this repo and clearing the Level 1 gate, and it is an afternoon of work on 11 files.
-   Expect real findings: 2,411 lines of `audit-evals.py` have never been linted.
+1. ~~**Add a linter and a type checker for the repo's own Python**, wired into `make check`
+   so they gate in CI like everything else.~~ **Done** — `ruff` and `mypy`, pinned, first
+   line of `make check` and of CI ([#388](https://github.com/mattbutlerengineering/ai-tooling/issues/388)).
+   The prediction that it would take an afternoon held; the prediction of "real findings"
+   did not — 149 findings, **zero live bugs**. The payoff was 22 unclosed-file handles
+   that had been printing `ResourceWarning` on every gate run in plain sight, and drift
+   prevention from here on.
 2. **Declare the environment** — a one-command bootstrap or a devcontainer. Nothing is
    broken; it is undeclared, which is a different failure for an agent that has to
    guess.

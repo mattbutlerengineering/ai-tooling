@@ -1,3 +1,9 @@
 # Python bytecode (generated when running test_automation.py / the audit scripts)
 __pycache__/
 *.pyc
+
+# Lint/type-check caches (#388) — created by `ruff check` / `mypy` in the repo root
+.ruff_cache/
+.mypy_cache/
+# Local dev virtualenv for the pinned lint dependencies (requirements-dev.txt)
+.venv/
