@@ -304,7 +304,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | nanobrowser | tool | | ✓ | SKIP | REVIEW |
 | page-agent | tool | ✓ | ✓ | SKIP | REVIEW |
 | CloakBrowser | tool | | ✓ | SKIP | REVIEW |
-| chrome-devtools-mcp | MCP server | | ✓ | discovery-log | REVIEW |
+| chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL | MEASURED |
 | scenario | framework | ✓ | ✓ | discovery-log | REVIEW |
 | assay | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | aimock | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -738,7 +738,7 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|-------------|-------------|
 | Plan | 59 | 29 | 6 | 49% |
 | Implement | 215 | 111 | 4 | 52% |
-| Verify | 23 | 11 | 2 | 48% |
+| Verify | 23 | 12 | 2 | 52% |
 | Review | 43 | 21 | 3 | 49% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
@@ -748,4 +748,4 @@ All 652 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 44 | 15 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **652** | **283** | **34** | **43%** |
+| **Total** | **652** | **284** | **34** | **44%** |
