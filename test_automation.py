@@ -37,6 +37,7 @@ tier = _load("tier_stack", "tier-stack.py")
 nexteval = _load("next_evals", "next-evals.py")
 watchlist = _load("watchlist", "watchlist.py")
 triage = _load("triage", "triage.py")
+checkstars = _load("check_stars", "check-stars.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -1953,6 +1954,7 @@ class TestIntegrityMakefile(unittest.TestCase):
         "reconcile-counts.py --check",
         "backfill-evidence.py --check",
         "backfill-lastverified.py --check",
+        "check-stars.py --check",
         "tier-stack.py --check",
         "triage.py --check",
         "watchlist.py --check",
@@ -3850,3 +3852,97 @@ class TestLicenseDeclared(unittest.TestCase):
             finds, _, withdrawn = audit.audit_license_declared(ctx)
             self.assertEqual([f.kind for f in finds], ["CONFLICT"])
             self.assertEqual(withdrawn, [])
+
+
+class TestStarConvention(unittest.TestCase):
+    """Pins check-stars.py, the presence gate for **Stars:** (#377).
+
+    The convention (#256/#261) is that every eval DECLARES a value and that what it
+    declares depends on what the file is about. So the gate has exactly two jobs, and
+    these tests pin both directions of each: a missing line fails, and every legitimate
+    declaration — a count, a per-contender list, a reasoned `n/a` — passes.
+
+    The second direction is the load-bearing one. #256's data fix regressed because
+    nothing enforced the field; a gate that over-enforced would regress the other way,
+    by pressuring authors of repo-less evals to invent a star count. Never assert that
+    the value is numeric here."""
+
+    def _write(self, d, name, header):
+        path = os.path.join(d, name)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"# Evaluation: {name[:-3]}\n\n"
+                    "**Repo:** [o/r](https://github.com/o/r)\n"
+                    f"{header}"
+                    "**Last verified:** 2026-08-05\n\n## What it does\n\nx\n")
+        return path
+
+    # ---- the value parser: what counts as the declaration
+    def test_value_stops_at_the_pipe_and_ignores_the_provenance_comment(self):
+        # TEMPLATE's header packs Stars/Last-updated/License onto one line, and the
+        # figure carries a repo-metadata.json stamp. Neither is part of the value.
+        t = "**Stars:** 48,535  <!-- repo-metadata.json, fetched 2026-08-04 --> | **License:** MIT\n"
+        self.assertEqual(checkstars.star_value(t), "48,535")
+
+    def test_no_line_at_all_reads_as_undeclared(self):
+        self.assertIsNone(checkstars.star_value("# Evaluation: x\n\n**Repo:** none\n"))
+
+    # ---- direction 1: a missing line is a finding
+    def test_missing_field_is_flagged(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "forgot.md", "")
+            missing, bare = checkstars.audit([os.path.join(d, "forgot.md")])
+            self.assertEqual(missing, ["forgot.md"])
+            self.assertEqual(bare, [])
+
+    # ---- direction 2: every legitimate shape passes, incl. the non-numeric ones
+    def test_each_legitimate_declaration_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            shapes = {
+                "one-tool.md": "**Stars:** 48,535 | **License:** Apache-2.0\n",
+                "contenders.md": "**Stars:** codegraph 64,594 · serena 27,562\n",
+                "reasoned-na.md": "**Stars:** n/a — methodology, no repo\n",
+                "parenthetical-na.md": "**Stars:** N/A (academic paper) | **License:** arXiv\n",
+                "mixed-na.md": "**Stars:** claude-mem 89,595 · OMEGA n/a — no public repo\n",
+            }
+            for name, header in shapes.items():
+                self._write(d, name, header)
+            missing, bare = checkstars.audit(
+                [os.path.join(d, n) for n in shapes])
+            self.assertEqual(missing, [], "a legitimate declaration was flagged as missing")
+            self.assertEqual(bare, [], "a reasoned n/a was mistaken for a bare one")
+
+    # ---- the printed-not-counted bucket
+    def test_bare_na_is_reported_but_never_a_failure(self):
+        # `n/a` with no reason is half a declaration. It is worth seeing and is not a
+        # build breaker — the same printed-not-counted shape as detector V's `acked`.
+        with tempfile.TemporaryDirectory() as d:
+            for name, header in (("bare.md", "**Stars:** n/a | **License:** proprietary\n"),
+                                 ("dangling.md", "**Stars:** n/a —\n")):
+                self._write(d, name, header)
+            missing, bare = checkstars.audit(
+                [os.path.join(d, "bare.md"), os.path.join(d, "dangling.md")])
+            self.assertEqual(missing, [])
+            self.assertEqual(bare, ["bare.md", "dangling.md"])
+
+    # ---- exit codes: the Makefile picks gate vs report-only, the script supports both
+    def test_exit_codes_differ_by_mode(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "forgot.md", "")
+            self._write(d, "ok.md", "**Stars:** 12\n")
+            saved = checkstars.EVAL_GLOB
+            checkstars.EVAL_GLOB = os.path.join(d, "*.md")
+            try:
+                self.assertEqual(checkstars.main(["--check"]), 1, "gate mode must fail")
+                self.assertEqual(checkstars.main([]), 0, "report mode must never fail")
+            finally:
+                checkstars.EVAL_GLOB = saved
+
+    def test_clean_tree_passes_in_gate_mode(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "ok.md", "**Stars:** n/a — protocol doc, no repo\n")
+            saved = checkstars.EVAL_GLOB
+            checkstars.EVAL_GLOB = os.path.join(d, "*.md")
+            try:
+                self.assertEqual(checkstars.main(["--check"]), 0)
+            finally:
+                checkstars.EVAL_GLOB = saved

@@ -15,8 +15,11 @@
                             subject's output rather than its popularity.
      The absence is DECLARED, never merely missing — the same rule as `**Last triaged:**`
      (never backfilled) and the detectors' "0 records, not 0 findings". A blank field and an
-     inapplicable one look identical; a declared `n/a` distinguishes them, and is what a
-     presence gate could key on later.
+     inapplicable one look identical; a declared `n/a` distinguishes them.
+     ENFORCED by `check-stars.py --check`, which runs inside `make check` (#377). It gates
+     PRESENCE only, never the value: a check that demanded a number would fail every
+     legitimately-`n/a` file and pressure you into inventing a figure, which is what this
+     convention exists to prevent. A reasonless `n/a` is printed as a note, not a failure.
      Figures come from `repo-metadata.json` (refresh-metadata.py), not from a fresh manual
      lookup, so they carry that cache's fetch date. -->
 **Last verified:** {YYYY-MM-DD}  <!-- the date you last checked this eval against reality; staleness sweep (audit-evals.py --staleness) flags evals older than their category threshold -->
