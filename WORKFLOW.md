@@ -103,6 +103,7 @@ Does it actually work? Tests passing is necessary but not sufficient — run the
 | | [diagnosing-bugs](https://github.com/mattpocock/skills) — structured diagnosis loop: build feedback loop first, then bisect and instrument | Correctness, Speed |
 | | [web-quality-skills](https://github.com/addyosmani/web-quality-skills) — six domain-reference skills (accessibility, SEO, performance, Core Web Vitals, best practices, audit) loaded on demand for web quality checks ([eval](evaluations/web-quality-skills.md)) | Correctness, Maintainability |
 | | [playwright](https://github.com/microsoft/playwright-mcp) — MCP-based browser automation: agents drive real browsers to verify UI changes and run E2E flows ([eval](evaluations/playwright-mcp.md)) | Correctness |
+| | [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) — CONDITIONAL, frontend-performance work only: the official DevTools MCP measures what web-quality-skills describes — performance traces with real Core Web Vitals + CrUX field data, and Lighthouse scores ([eval](evaluations/chrome-devtools-mcp.md)). Not a second general browser tool: it overlaps playwright almost entirely on automation, so running both costs 53 tool definitions in context | Correctness, Verifiability |
 
 **Feedback arc:** If bugs regularly escape Verify and get caught in Review or production, your verification step is too shallow. Are you verifying the golden path but not edge cases?
 
