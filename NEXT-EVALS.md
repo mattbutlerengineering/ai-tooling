@@ -110,14 +110,14 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | frontend-design | Skills & Plugins | 12.6 | pressure 3, gap 6.6 | `/triage-lead frontend-design` |
-| prisma | MCP Servers | 10.6 | pressure 2, gap 6.6 | `/triage-lead prisma` |
 | plugin-dev | Skills & Plugins | 10.6 | pressure 1, gap 6.6 | `/triage-lead plugin-dev` |
+| prisma | MCP Servers | 10.4 | pressure 2, gap 6.4 | `/triage-lead prisma` |
 | server-memory | Memory & Context | 10.3 | pressure 1, gap 6.3 | `/triage-lead server-memory` |
 | codebase-design | Plan | 9.1 | pressure 1, gap 5.1 | `/triage-lead codebase-design` |
 | domain-modeling | Plan | 9.1 | pressure 1, gap 5.1 | `/triage-lead domain-modeling` |
-| confluence | MCP Servers | 8.6 | pressure 0, gap 6.6 | `/triage-lead confluence` |
-| jira | MCP Servers | 8.6 | pressure 0, gap 6.6 | `/triage-lead jira` |
 | typescript-mcp-server-generator | Skills & Plugins | 8.6 | pressure 0, gap 6.6 | `/triage-lead typescript-mcp-server-generator` |
+| confluence | MCP Servers | 8.4 | pressure 0, gap 6.4 | `/triage-lead confluence` |
+| jira | MCP Servers | 8.4 | pressure 0, gap 6.4 | `/triage-lead jira` |
 | implement | Implement | 6.8 | pressure 0, gap 4.8 | `/triage-lead implement` |
 | diagnosing-bugs | Verify | 6.8 | pressure 0, gap 4.8 | `/triage-lead diagnosing-bugs` |
 | presentation-creator | Skills & Plugins | 6.6 | pressure 0, gap 6.6 | `/triage-lead presentation-creator` |

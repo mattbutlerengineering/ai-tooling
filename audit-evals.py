@@ -1399,10 +1399,15 @@ def audit_catalog_mirror(ctx):
     # single setdefault map silently handed one eval the OTHER tool's row and reported a
     # LINK against it. Exact name wins; the collapsed key is a fallback, and a fallback
     # key reaching two different rows resolves to nothing rather than to a coin flip.
+    # UNLINKED rows are indexed too (#401). An entry with no repo to link — `server-github`,
+    # "DEPRECATED, archived — superseded by github-mcp-server" — is still a catalogued
+    # tool; excluding it from IDENTITY resolution made its own eval's mirror a false
+    # ORPHAN. Detector F already draws this line and says so: unlinked entries name-match
+    # only. Skipping the URL comparison for such a row is right (there is no URL to
+    # compare); skipping the row is not, and flagging a healthy row costs more than
+    # missing a sick one.
     exact, fuzzy, ambiguous = {}, {}, set()
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        if r.url is None:
-            continue
         exact.setdefault(r.name, r)
         for k in catalog_lib.identity_keys(r.name):
             if k in fuzzy and fuzzy[k].name != r.name:
@@ -1439,7 +1444,9 @@ def audit_catalog_mirror(ctx):
                     ev.name, row.name, "ORPHAN",
                     "embedded row names a tool with no CATALOG.md row"))
                 continue
-            if row.url != crow.url:
+            # `crow.url is None` is an UNLINKED catalog row, not a disagreement: there is
+            # no URL on that side to compare against (#401).
+            if crow.url is not None and row.url != crow.url:
                 findings.append(CatalogMirrorFinding(
                     ev.name, row.name, _link_kind(row.url, crow.url),
                     f"eval row {row.url} != catalog {crow.url}"))

@@ -75,4 +75,4 @@ Use when your project uses Sentry for error tracking. The 35+ tool surface and p
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [sentry-mcp](https://github.com/getsentry/sentry-mcp) | MCP server | Connects coding agents to Sentry for inline error and performance analysis | Context-switching to Sentry dashboard during debugging slows the fix cycle | sentry (plugin) |
+| [sentry](https://github.com/getsentry/sentry-mcp) | MCP server | Error tracking and monitoring integration | Agent needs access to production error data for debugging | langfuse (complementary: sentry = errors, langfuse = LLM behavior) |

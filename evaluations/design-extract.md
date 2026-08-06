@@ -71,4 +71,4 @@ It is not ADOPT-everywhere: the headline "MCP server" surface is a disk-backed r
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [design-extract](https://github.com/Manavarya09/design-extract) | MCP server | Extract any website's complete design system — DTCG tokens, multi-platform emitters, WCAG remediation (3.3K stars) | Manual design-token extraction is slow and error-prone, and Figma-based tools can't help when the source of truth is a live deployed site rather than a Figma file | Figma-Context-MCP (design→code, but from Figma not live sites), web-quality-skills (WCAG/a11y audit overlap) |
+| [design-extract](https://github.com/Manavarya09/design-extract) | MCP server | Extract any website's complete design system — DTCG tokens, multi-platform emitters, WCAG remediation (MIT, ★3.3K) | Manual design-token extraction is slow and error-prone, and Figma-based tools can't help when the source of truth is a live deployed site rather than a Figma file | Figma-Context-MCP (design→code, but from Figma not live sites), plumb-mcp, figma-mcp-go, web-quality-skills |

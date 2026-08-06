@@ -1,6 +1,6 @@
 # Evaluation: company-os-starter-kit
 
-**Repo:** [workflowsio/company-os-starter-kit](https://github.com/workflowsio/company-os-starter-kit)
+**Repo:** [workflowsio/company-os-starter-kit](https://github.com/Workflowsio/company-os-starter-kit)
 **Stars:** 80 | **Last updated:** 2026-04-06 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -43,4 +43,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [company-os-starter-kit](https://github.com/workflowsio/company-os-starter-kit) | plugin | Build a Company OS with Claude Code (MIT, ★72) — CLAUDE.md template, 5 GTM skills, workflow plugin, safety hooks | Starting a whole company workflow on Claude Code from a template rather than from scratch | GSD, compound-engineering, orchestkit |
+| [company-os-starter-kit](https://github.com/Workflowsio/company-os-starter-kit) | plugin | Build a Company OS with Claude Code (MIT, ★72) — CLAUDE.md template, 5 GTM skills, workflow plugin, safety hooks | Starting a whole company workflow on Claude Code from a template rather than from scratch | GSD, compound-engineering, orchestkit |

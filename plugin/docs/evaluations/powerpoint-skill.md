@@ -73,4 +73,4 @@ Use when you need precise pixel-accurate PowerPoint output: brand-compliant deck
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [powerpoint skill](https://github.com/igorwarzocha/opencode-workflows) | skill | HTML-authored slides converted to pixel-accurate PPTX via playwright rendering | PPTX layout is hard to control; raw pptxgenjs requires manual coordinate math | wowerpoint (claude-mem), guizang-ppt-skill, open-slide, html-anything |
+| [powerpoint](https://github.com/igorwarzocha/opencode-workflows) | skill | PowerPoint creation with design principles — layout positioning, template mapping, thumbnail audit (⚠️ repo archived) | Need .pptx files for business contexts where Markdown slides won't work | open-slide, slidev |

@@ -3156,6 +3156,55 @@ class TestCatalogMirror(unittest.TestCase):
                                                     self._row("t", "https://github.com/o/t"))})
             self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["ORPHAN"])
 
+    # --- unlinked catalog rows are still catalogued (#401) --------------------
+    # An entry with no repo to link (`| server-github | MCP server | DEPRECATED, archived
+    # — superseded by github-mcp-server |`) is a catalogued tool. Excluding it from
+    # IDENTITY resolution made its own eval's mirror a false ORPHAN. Detector F already
+    # draws this line: unlinked entries name-match only.
+
+    def test_unlinked_catalog_row_resolves_its_mirror(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, ["| t | tool | does a thing | a pain | x |\n"],
+                            {"t": self._eval("t", "https://github.com/o/t",
+                                             self._row("t", "https://github.com/o/t"))})
+            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], [])
+
+    def test_unlinked_catalog_row_is_never_a_link_finding(self):
+        # There is no URL on the catalog side to compare against, so a mirror that
+        # carries one is not a disagreement — reporting LINK here would demand the eval
+        # drop a working link to match an absence.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, ["| t | tool | does a thing | a pain | x |\n"],
+                            {"t": self._eval("t", "https://github.com/o/other",
+                                             self._row("t", "https://github.com/o/other"))})
+            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], [])
+
+    def test_unlinked_catalog_row_still_reports_text_drift(self):
+        # Indexing the row is not the same as excusing it. Once it resolves, its cells
+        # are compared like any other row's — the finding becomes TRUE, not absent.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, ["| t | tool | catalog wording | a pain | x |\n"],
+                            {"t": self._eval("t", "https://github.com/o/t",
+                                             self._row("t", "https://github.com/o/t"))})
+            finds = audit.audit_catalog_mirror(ctx)
+            self.assertEqual([f.kind for f in finds], ["TEXT"])
+            self.assertIn("one_liner", finds[0].detail)
+
+    def test_a_genuinely_uncatalogued_tool_is_still_ORPHAN(self):
+        # The fix must not swallow the real class: nothing named `t` exists here.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, ["| other | tool | does a thing | a pain | x |\n"],
+                            {"t": self._eval("t", "https://github.com/o/t",
+                                             self._row("t", "https://github.com/o/t"))})
+            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["ORPHAN"])
+
+    def test_live_tree_has_no_orphan_or_case_findings(self):
+        # The #401 backlog, pinned at zero. TEXT is deliberately NOT pinned — #345's
+        # sequencing note is that it stays a human's per-row call.
+        finds = audit.audit_catalog_mirror(audit.DetectorContext(ROOT))
+        self.assertEqual([f"{f.kind} {f.eval_name}" for f in finds
+                          if f.kind in ("ORPHAN", "CASE", "LINK", "AMBIG")], [])
+
     def test_eval_with_no_embedded_row_is_not_a_finding(self):
         # 110 evals carry no `## Catalog entry` block; nothing is mirrored, so nothing drifts.
         with tempfile.TemporaryDirectory() as d:

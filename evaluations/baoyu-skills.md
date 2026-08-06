@@ -1,6 +1,6 @@
 # Evaluation: baoyu-skills
 
-**Repo:** [jimliu/baoyu-skills](https://github.com/jimliu/baoyu-skills)
+**Repo:** [jimliu/baoyu-skills](https://github.com/JimLiu/baoyu-skills)
 **Stars:** 23,360 | **Last updated:** 2026-07-04 (pushed) | **License:** MIT
 **Dev loop stage:** Skills & Plugins (skill collection)
 **Layer:** Process

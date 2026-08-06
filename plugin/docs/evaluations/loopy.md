@@ -1,6 +1,6 @@
 # Evaluation: loopy
 
-**Repo:** [forward-future/loopy](https://github.com/forward-future/loopy)
+**Repo:** [forward-future/loopy](https://github.com/Forward-Future/loopy)
 **Stars:** 2,965 | **Last updated:** 2026-07-26 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -46,4 +46,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [loopy](https://github.com/forward-future/loopy) | skill | Library of practical AI-agent loops (MIT, ★2.3K) + installable skill for finding and designing agent workflows | Knowing which agent loop to reach for, instead of reinventing a workflow per task | softaworks/agent-toolkit, harness, superpowers |
+| [loopy](https://github.com/Forward-Future/loopy) | skill | Library of practical AI-agent loops (MIT, ★2.3K) + installable skill for finding and designing agent workflows | Knowing which agent loop to reach for, instead of reinventing a workflow per task | softaworks/agent-toolkit, harness, superpowers |
