@@ -656,8 +656,14 @@ def audit_verdicts(ctx):
 # or has a logged exclusion reason, and nothing in STACK contradicts its verdict.
 # This kills the hand-maintained drift prior audits kept finding (abtop/codeburn,
 # serena, documentation-writer). Gating, on by default. Consumes the #64 ledger.
+# The trailing `(?:[^|]*\|)?` is the Install evidence column (ADR-0006 / #382), optional so
+# this keeps matching a ledger written before it existed. Without it the regex — anchored to
+# end-of-line — matched ZERO rows the moment a sixth column landed; the failure was loud
+# rather than silent (the COMPARISON cross-check below then flags every ADOPT/KEEP tool as
+# missing from the ledger), but it is a trap worth naming for the next column.
 _LEDGER_ROW = re.compile(
-    r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|\s*$", re.MULTILINE)
+    r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|"
+    r"(?:[^|]*\|)?\s*$", re.MULTILINE)
 
 def _stack_member_keys(stack_text):
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —

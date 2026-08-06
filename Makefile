@@ -27,6 +27,13 @@
 # `--check` there turns it report-only in one word, which is how the gate-vs-report call
 # stays reversible; TestStarConvention pins both modes regardless of which is wired.
 #
+# `verify-installs.py --check` is the second such gate, for the same shape of reason
+# (#382/ADR-0006): it validates that every ADOPT/KEEP ledger row DECLARES a well-formed
+# `Install evidence` value, never that the value is still true. The apply side
+# (`--record`) reads one laptop's install records, so it is deliberately absent from
+# `fix` — CI has no lockfile, and a build that failed because a machine changed would be
+# worse than the drift it caught.
+#
 # ruff and mypy (#388) are the ONLY gates that are not pure stdlib — every other one runs
 # on python3 + gh + node. They are pinned in requirements-dev.txt, because an unpinned
 # linter turns an upstream rule addition into a red build on an unrelated PR. Install
@@ -69,6 +76,7 @@ check: lint-preflight
 	python3 backfill-evidence.py --check
 	python3 backfill-lastverified.py --check
 	python3 check-stars.py --check
+	python3 verify-installs.py --check
 	python3 tier-stack.py --check
 	python3 triage.py --check
 	python3 watchlist.py --check
@@ -91,6 +99,7 @@ check-offline: lint-preflight
 	python3 backfill-evidence.py --check
 	python3 backfill-lastverified.py --check
 	python3 check-stars.py --check
+	python3 verify-installs.py --check
 	python3 tier-stack.py --check
 	python3 triage.py --check
 	python3 watchlist.py --check
