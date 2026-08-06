@@ -1467,7 +1467,29 @@ def _clip(s, n=58):
 # Report-only, and the ordering is the point: a discontinued tool with an ADOPT/KEEP
 # verdict is a live recommendation to install a dead project, which is worth more than a
 # dead `discovery-log` lead nobody was going to reach anyway.
-MaintenanceFinding = collections.namedtuple("MaintenanceFinding", "slug kind detail verdict tool")
+#
+# Each DISCONTINUED finding also carries whether the CATALOG row DISCLOSES it (#395).
+# The verdict lives in COMPARISON.md and the eval; the catalog row is what a reader
+# scans, and all three findings read as live projects — daytona's still advertises
+# ★72K and "secure, elastic sandbox infrastructure" with no hint that core development
+# moved to a private codebase. The catalog already has the convention (23 rows carry a
+# `⚠️ archived` / `⚠️ no license` note, and detector C states the expectation outright);
+# V just never propagated its own findings into it. A sub-signal, not a gate: these
+# findings arrive from upstream's README via the network, so failing the build on one
+# would fail it for a reason no commit caused (detector R's rule).
+MaintenanceFinding = collections.namedtuple(
+    "MaintenanceFinding", "slug kind detail verdict tool disclosed")
+
+# Deliberately GENEROUS. A row that already discloses and is reported anyway pressures a
+# human to re-add a note that is there, and V's own rule is that flagging a healthy row
+# costs more than missing a sick one — the miss costs a stale row, the false positive
+# costs trust in every other finding. Widen this when it flags a row that discloses in
+# words not listed; do not narrow it to make the count look worse.
+DISCLOSED = re.compile(
+    r"discontinued|no longer (?:actively )?(?:maintained|developed)|unmaintained"
+    r"|not maintained|archived|read-only|deprecated|sunset"
+    r"|development .{0,20}moved|moved to a private", re.IGNORECASE)
+
 
 def audit_maintenance(ctx):
     """MaintenanceFindings for every catalogued repo whose metadata records a
@@ -1480,12 +1502,13 @@ def audit_maintenance(ctx):
         return [], 0, []
     if not isinstance(records, dict):
         return [], 0, []
-    # slug -> catalog row name, so a finding names the tool a human recognizes
+    # slug -> catalog row, so a finding names the tool a human recognizes AND can be
+    # asked whether that row says anything about the tool being dead.
     by_slug = {}
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         if r.url:
             for s in catalog_lib.github_repos(r.url):
-                by_slug.setdefault(s.lower(), r.name)
+                by_slug.setdefault(s.lower(), r)
     verd = ctx.comparison_verdict_map
     collected = sum(1 for m in records.values()
                     if isinstance(m, dict) and ("discontinued" in m or "license_lost" in m))
@@ -1493,19 +1516,35 @@ def audit_maintenance(ctx):
     for slug, meta in sorted(records.items()):
         if not isinstance(meta, dict):
             continue
-        tool = by_slug.get(slug, slug)
+        row = by_slug.get(slug)
+        tool = row.name if row else slug
         v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
         phrase = meta.get("discontinued")
         if phrase:
-            f = MaintenanceFinding(slug, "DISCONTINUED", f'README: "{phrase}"', v, tool)
+            f = MaintenanceFinding(slug, "DISCONTINUED", f'README: "{phrase}"', v, tool,
+                                   _discloses(row))
             (acked if _acked(meta, phrase) else findings).append(f)
         if meta.get("license_lost"):
+            # Scoped to DISCONTINUED: the catalog convention is about a project being
+            # dead, and a row already prints its license, so there is nothing here for
+            # a reader to be misled about in the same way.
             findings.append(MaintenanceFinding(slug, "LICENSE-LOST",
-                                               f"now {meta.get('license_spdx')}", v, tool))
+                                               f"now {meta.get('license_spdx')}", v, tool, True))
     rank = {"ADOPT": 0, "KEEP": 0, "CONDITIONAL": 1, "DEFER": 2, "discovery-log": 3, "SKIP": 4}
     for bucket in (findings, acked):
         bucket.sort(key=lambda f: (rank.get(f.verdict, 3), f.slug))
     return findings, collected, acked
+
+
+def _discloses(row):
+    """True when the CATALOG row itself tells a reader the project is dead (#395).
+
+    A row with no catalog entry at all reports as disclosed rather than as a gap: there
+    is no row to fix, so counting it would put a number on the board that nothing in
+    this repo can move."""
+    if row is None:
+        return True
+    return bool(DISCLOSED.search(" ".join(c for c in row.cells if c)))
 
 
 def _acked(meta, phrase):
@@ -2393,15 +2432,20 @@ def main():
             print(f"  {f.kind:6} {f.eval_name} [{f.tool}]: {f.detail}")
     if do_maint:
         finds, collected, acked = audit_maintenance(ctx)
+        undisclosed = sum(1 for f in finds if not f.disclosed)
         print(f"== V. maintenance signal (report-only) — {len(finds)} finding(s) "
-              f"across {collected} record(s) carrying the signal ==")
+              f"across {collected} record(s) carrying the signal, "
+              f"{undisclosed} undisclosed in CATALOG.md ==")
         if not collected:
             print("  no maintenance data — run `python3 refresh-metadata.py --maintenance` "
                   "to collect it (absence of the field is 'not collected', not 'nothing is dead')")
         elif not finds:
             print("  OK — no catalogued repo announces discontinuation or has lost its license")
         for f in finds:
-            print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}")
+            # The catalog row is what a reader scans; the verdict is one file away. An
+            # undisclosed row advertises a dead project in the present tense (#395).
+            note = "" if f.disclosed else "  ← CATALOG.md row does not say so"
+            print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}{note}")
         for f in acked:
             print(f"  acknowledged false positive — {f.tool} ({f.slug}): {f.detail}")
     if do_scope:

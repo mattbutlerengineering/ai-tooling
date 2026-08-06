@@ -3193,11 +3193,11 @@ class TestMaintenanceSignal(unittest.TestCase):
            "|------|------|-----------|-------------------|---------------|\n")
 
     def _ctx(self, d, records, rows=("daytona", "https://github.com/daytonaio/daytona"),
-             verdict="ADOPT"):
+             verdict="ADOPT", one_liner="x"):
         os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
         name, url = rows
         _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR +
-               f"| [{name}]({url}) | tool | x | y | z |\n")
+               f"| [{name}]({url}) | tool | {one_liner} | y | z |\n")
         _write(d, "COMPARISON.md",
                "# Tool Comparison\n\n## Implement\n\n"
                "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
@@ -3318,6 +3318,92 @@ class TestMaintenanceSignal(unittest.TestCase):
                 finds, _, acked = audit.audit_maintenance(ctx)
                 self.assertEqual([f.kind for f in finds], ["DISCONTINUED"], ack)
                 self.assertEqual(acked, [], ack)
+
+    # --- the CATALOG disclosure sub-signal (#395) -----------------------------
+    # The verdict lives in COMPARISON.md and the eval; the catalog row is what a reader
+    # scans. All three live findings advertised dead projects in the present tense.
+
+    def test_undisclosed_row_is_reported_as_such(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {"discontinued": "no longer maintained"}},
+                            one_liner="Secure sandbox infrastructure (AGPL-3.0, 72K stars)")
+            finds, _, _ = audit.audit_maintenance(ctx)
+            self.assertFalse(finds[0].disclosed)
+
+    def test_disclosing_row_is_not_a_gap(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {"discontinued": "no longer maintained"}},
+                            one_liner="⚠️ discontinued (June 2026) — secure sandbox infra")
+            finds, _, _ = audit.audit_maintenance(ctx)
+            self.assertTrue(finds[0].disclosed)
+
+    def test_the_existing_archived_note_convention_counts_as_disclosure(self):
+        # 23 rows already carry a `⚠️ archived` note; the sub-signal must recognize the
+        # convention that is there rather than demand one exact new word.
+        for note in ("⚠️ archived (2024) — browser agents",
+                     "one of the original CLIs (⚠️ repo no longer maintained)",
+                     "an editor (⚠️ main repo archived)",
+                     "sunset by its vendor", "deprecated in favour of X",
+                     "development has moved to a private codebase"):
+            with tempfile.TemporaryDirectory() as d:
+                ctx = self._ctx(d, {"daytonaio/daytona": {"discontinued": "no longer maintained"}},
+                                one_liner=note)
+                finds, _, _ = audit.audit_maintenance(ctx)
+                self.assertTrue(finds[0].disclosed, note)
+
+    def test_disclosure_is_read_from_the_whole_row_not_just_the_one_liner(self):
+        # A row may disclose in its problem statement instead; flagging it would push a
+        # human to re-add a note that is already there.
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR +
+                   "| [daytona](https://github.com/daytonaio/daytona) | tool | sandboxes "
+                   "| historical reference; the repo is discontinued | e2b |\n")
+            _write(d, "COMPARISON.md",
+                   "# T\n\n## Implement\n\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n| daytona | tool | y | y | SKIP | REVIEW |\n")
+            _write(d, "repo-metadata.json",
+                   json.dumps({"daytonaio/daytona": {"discontinued": "no longer maintained"}}))
+            finds, _, _ = audit.audit_maintenance(audit.DetectorContext(d))
+            self.assertTrue(finds[0].disclosed)
+
+    def test_a_record_with_no_catalog_row_is_not_a_disclosure_gap(self):
+        # There is no row to fix, so counting it would put a number on the board that
+        # nothing in this repo can move.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"o/uncatalogued": {"discontinued": "no longer maintained"}})
+            finds, _, _ = audit.audit_maintenance(ctx)
+            self.assertEqual(finds[0].tool, "o/uncatalogued")
+            self.assertTrue(finds[0].disclosed)
+
+    def test_an_acked_false_positive_is_never_pushed_toward_disclosure(self):
+        # V's rule: a match is a candidate, not a disposition. An acked finding is not a
+        # finding, so it cannot contribute to the undisclosed count either.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "discontinued": "no longer maintained",
+                "discontinued_ack": {"phrase": "no longer maintained", "why": "said of v2"}}})
+            finds, _, acked = audit.audit_maintenance(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual(len(acked), 1)
+
+    def test_lost_license_carries_no_disclosure_claim(self):
+        # Scoped to DISCONTINUED: a row already prints its license, so there is nothing
+        # for a reader to be misled about in the same way.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"daytonaio/daytona": {
+                "license_spdx": "404", "license_lost": True}})
+            finds, _, _ = audit.audit_maintenance(ctx)
+            self.assertEqual([f.kind for f in finds], ["LICENSE-LOST"])
+            self.assertTrue(finds[0].disclosed)
+
+    def test_live_findings_all_disclose(self):
+        # The #395 backlog, pinned at zero: a discontinued row must say so where a
+        # reader sees it, not only in the eval one file away.
+        finds, collected, _ = audit.audit_maintenance(audit.DetectorContext(ROOT))
+        if collected:                       # only meaningful once --maintenance has run
+            undisclosed = [f.tool for f in finds if not f.disclosed]
+            self.assertEqual(undisclosed, [])
 
     def test_real_giskard_record_is_acked_in_the_committed_cache(self):
         # Pins the disposition itself: the live record must carry an ack whose phrase
