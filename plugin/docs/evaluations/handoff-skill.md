@@ -46,4 +46,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [handoff-skill](https://github.com/ToolMonsters/handoff-skill) | skill | Turns the current conversation into a complete handoff document so any LLM can resume exactly where you left off | Switching agents or tools mid-task loses conversation state and decisions made so far | storybloq, byterover-cli, getspecstory, cli-continues (ext.) |
+| [handoff-skill](https://github.com/ToolMonsters/handoff-skill) | skill | Turns the current conversation into a complete handoff document so any LLM can resume exactly where you left off | Switching agents or tools mid-task loses conversation state and decisions made so far | storybloq, byterover-cli, getspecstory, cli-continues |

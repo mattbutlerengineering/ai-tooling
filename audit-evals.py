@@ -1066,19 +1066,51 @@ def audit_skill_design(ctx):
 # ---------------------------------------------------------------- F. dangling overlaps (report-only)
 # Each entry's "Overlaps with" cell names peer tools. A token naming a tool that
 # ISN'T itself catalogued is either a deliberate external/conceptual peer (the
-# format allows this — e.g. "aider-style (ext.)") or a real gap: a notable tool we
-# forgot to add. This is exactly how aider, continue, and agenta were found. The
-# more rows reference the same uncatalogued token, the likelier it is a real gap.
+# format allows this — e.g. "e2b (ext.)") or a real gap: a notable tool we forgot
+# to add. This is exactly how aider, continue, and agenta were found. The more
+# rows reference the same uncatalogued token, the likelier it is a real gap.
 # Report-only — surfaces candidates for human review; does not affect exit code.
+#
+# `(ext.)` used to be a silencer F obeyed and never checked (#403) — and a marker
+# is only true on the day it is written. F found `aider`, `aider` was catalogued
+# as a ★46K harness, and the three rows pointing at it kept saying it was outside;
+# this comment held one of them up as the example of a healthy row. Six markers
+# named a catalogued tool. So the marker is now VERIFIED against the one record
+# that answers it: CATALOG.md, already parsed on this same pass.
+#
 # _ovl_display is presentation + heuristics (word counts, report text), NOT a
 # same-tool key — matching goes through catalog_lib.name_key (#197).
 _ovl_display = lambda s: catalog_lib.strip_parenthetical(s).strip().lower()
 _OVL_SKIP = ("complementary", "different", "approach", "same repo",
              "conceptual", "none", "—", "–")
+_OVL_PAREN = re.compile(r"\(([^()]*)\)")
+# How a DEMONSTRATED peer is described in the report. Each kind is printed with its
+# source and never counted — the token resolves to a record, so it is not a lead.
+_OVL_PEER_LABEL = {
+    "installed": "the legend's allowed case — installed from",
+    "contained": "the row discloses its container — catalogued as",
+    "repo": "a skill this repo ships at",
+}
+
+
+def _repo_skill_sources(root):
+    """name_key(skill dir) -> "skills/<dir>/" for every skill THIS repo ships.
+
+    The strongest record F can consult and the only one that is not a property of
+    one laptop: in-tree, versioned, offline, readable in CI. `skills/evaluate-tool/`
+    is a real conceptual peer of a skill-evaluation tool and can never be a catalog
+    row, so without this it is a permanent resident of the counted bucket."""
+    out = {}
+    with contextlib.suppress(OSError):
+        for d in sorted(os.listdir(os.path.join(root, "skills"))):
+            if os.path.isdir(os.path.join(root, "skills", d)):
+                out[catalog_lib.name_key(d)] = f"skills/{d}/"
+    return out
+
 
 def audit_overlaps(ctx, home=None):
-    """(gaps, installed_peers, records) — uncatalogued "Overlaps with" tokens split by
-    whether this machine's install records answer to them (#398).
+    """(gaps, stale_ext, peers, records) — "Overlaps with" tokens that don't resolve to a
+    catalog row, split by which record answers them.
 
     CATALOG.md's own legend says a token may name "a notable external tool **or installed
     skill**", so "it's an installed skill" is the sanctioned reason a token doesn't
@@ -1086,14 +1118,40 @@ def audit_overlaps(ctx, home=None):
     even though detector Y (#366) already reads the records that answer it — the same
     unchecked install assertion ADR-0006 removed from `KEEP`.
 
-    An `installed_peer` is the legend's case DEMONSTRATED rather than assumed, so it is
-    printed and not counted (V's `acked`, W's `cleared`, X's `FACETED`, Y's `SHADOWED`).
+    `(ext.)` was the same shape (#403). F skipped any token carrying it, so a row could
+    assert a tool was outside the catalog and never be contradicted once it was added —
+    which is what happened to `aider`: F found it, `9be01ee` catalogued it, and the three
+    rows that raised the flag still called it external. **The marker is now verified**
+    against CATALOG.md, and a `stale_ext` entry (token, catalogued as, citing row) is
+    COUNTED — it is a defect in the row, not a peer awaiting review.
+
+    Verification keys on `identity_keys`, never `alias_keys` (#374): an alias-keyed run
+    "resolves" `MCP (ext.)` to **mdn/mcp** by slash-basename, and between two rows that
+    each name a tool a basename is not a synonym. `aider-style` is the mirror case — a
+    descriptor rather than a name, so no key resolves it and only a human can repoint it.
+
+    A `peer` is a token DEMONSTRATED to resolve to a record, so it is printed with its
+    source and not counted (V's `acked`, W's `cleared`, X's `FACETED`, Y's `SHADOWED`).
+    Three kinds, asked strongest-record-first — the catalog's own declaration and the
+    repo's own tree are facts about the artifact, an install record is a fact about one
+    laptop (ADR-0006's split):
+
+      contained  the token's own parenthetical names a catalogued row — the `Ships
+                 inside` idea (#343) done informally, in the one column with no such
+                 column. The container is PRINTED because the parenthetical is prose:
+                 it discloses where the peer lives, it does not prove the peer isn't
+                 also a gap, so a human still reads the line.
+      repo       the token names a skill this repo ships under `skills/`.
+      installed  this machine's records answer to it (#398).
+
     Local-only, like Y: `--overlaps` is opt-in and report-only, and with no records
     readable this reports exactly as it did before — **0 records, never 0 findings**, so
     an unreadable lockfile can never present as "nothing is installed"."""
-    names, rows = set(), []
+    names, ident, rows = set(), {}, []
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         names.update(catalog_lib.alias_keys(r.name))
+        for k in catalog_lib.identity_keys(r.name):
+            ident.setdefault(k, r.name)  # identity only — a basename is not a synonym
         if r.url is not None:
             rows.append(r)  # unlinked entries ("| OMEGA | ...") name-match only
     by_name, _slugs, on_disk, _fetched = read_install_records(home)
@@ -1102,27 +1160,43 @@ def audit_overlaps(ctx, home=None):
     installed = {catalog_lib.name_key(n): by_name.get(n, "on disk")
                  for n in list(on_disk) + list(by_name)}
     installed.pop("", None)
+    shipped = _repo_skill_sources(ctx.root)
     from collections import Counter
-    miss, peers = Counter(), {}
+    miss, stale, peers = Counter(), [], {}
     for r in rows:
         if r.overlaps is None:
             continue
         for tok in r.overlaps.split(","):  # the "Overlaps with" cell
             t = _ovl_display(tok)
             tl = tok.lower()
-            if (not t or "ext." in tl or "=" in tok or ";" in tok
-                    or tok.count("(") != tok.count(")")  # mid-parenthetical fragment
+            balanced = tok.count("(") == tok.count(")")  # else a mid-parenthetical fragment
+            if "ext." in tl:
+                # Verify the marker rather than obey it. A prose fragment simply misses:
+                # identity_keys is exact-name matching, so nothing has to be filtered out.
+                hit = next((ident[k] for k in catalog_lib.identity_keys(t)
+                            if k in ident), None) if (t and balanced) else None
+                if hit:
+                    stale.append((t, hit, r.name))
+                continue
+            if (not t or "=" in tok or ";" in tok or not balanced
                     or len(t) > 22 or len(t.split()) > 2
                     or any(x in tl for x in _OVL_SKIP)):
-                continue  # external/conceptual peer or prose fragment, not a gap
+                continue  # conceptual peer or prose fragment, not a gap
             if any(k in names for k in catalog_lib.alias_keys(tok)):
                 continue
-            src = installed.get(catalog_lib.name_key(catalog_lib.strip_parenthetical(tok)))
-            if src:
-                peers[t] = src
+            container = next((ident[k] for p in _OVL_PAREN.findall(tok)
+                              for k in catalog_lib.identity_keys(p.strip())
+                              if k in ident), None)
+            key = catalog_lib.name_key(catalog_lib.strip_parenthetical(tok))
+            if container:
+                peers[t] = ("contained", container)
+            elif key in shipped:
+                peers[t] = ("repo", shipped[key])
+            elif key in installed:
+                peers[t] = ("installed", installed[key])
             else:
                 miss[t] += 1
-    return miss.most_common(), sorted(peers.items()), len(installed)
+    return miss.most_common(), sorted(stale), sorted(peers.items()), len(installed)
 
 
 def overlap_pressure_map(ctx):
@@ -2404,23 +2478,28 @@ def main():
             if undated:
                 print(f"  ({undated} record(s) carry no fetch date — refresh to stamp them)")
     if do_overlaps:
-        gaps, peers, inst_records = audit_overlaps(ctx)
+        gaps, stale_ext, peers, inst_records = audit_overlaps(ctx)
         strong = [(t, c) for t, c in gaps if c >= 2]
         print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer "
-              f"tokens, {len(peers)} installed-skill peer(s) across "
-              f"{inst_records} install record(s) ==")
-        if not gaps:
+              f"tokens, {len(stale_ext)} stale `(ext.)` marker(s), {len(peers)} "
+              f"demonstrated peer(s) across {inst_records} install record(s) ==")
+        if not gaps and not stale_ext:
             print("  OK — every 'Overlaps with' token resolves to a catalog entry")
+        # Counted: a row asserting a tool is outside a catalog that holds it. Not a lead
+        # to review — a defect to repoint, which also restores the overlap pressure the
+        # dangling token was withholding from triage.py (#403).
+        for t, hit, citer in stale_ext:
+            print(f"  STALE-EXT {t}  (cited by {citer} as external — catalogued as {hit})")
         for t, c in strong:
             print(f"  GAP?  {t}  ({c} refs — likely a notable tool missing from the catalog)")
         for t, c in gaps:
             if c < 2:
                 print(f"  maybe {t}  ({c} ref — check: real gap or external/conceptual peer)")
-        # Printed, never counted: the legend's installed-skill case, DEMONSTRATED rather
-        # than assumed. 0 records means "this machine keeps none", never "nothing is
+        # Printed, never counted: a token DEMONSTRATED to resolve to a record rather than
+        # asserted to. 0 records means "this machine keeps none", never "nothing is
         # installed" — so an empty bucket here is not a clean bill (#398).
-        for t, src in peers:
-            print(f"  installed-peer {t}  (the legend's allowed case — installed from {src})")
+        for t, (kind, src) in peers:
+            print(f"  {kind}-peer {t}  ({_OVL_PEER_LABEL[kind]} {src})")
     if do_wf_drift:
         wfmiss = audit_workflow_drift(ctx)
         print(f"== P. WORKFLOW↔STACK drift (report-only) — {len(wfmiss)} STACK pick(s) missing from WORKFLOW.md ==")

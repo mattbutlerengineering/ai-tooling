@@ -47,4 +47,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [json-render](https://github.com/vercel-labs/json-render) | framework | Generative-UI framework (Vercel Labs) — model emits a JSON UI tree rendered to React/Vue/Svelte/Solid/RN (Apache-2.0, ★15.5K) | Driving real UI components from LLM output portably across frontends needs hand-built spec plumbing | tambo, hashbrown, OpenGenerativeUI, openui (ext.) |
+| [json-render](https://github.com/vercel-labs/json-render) | framework | Generative-UI framework (Vercel Labs) — model emits a JSON UI tree rendered to React/Vue/Svelte/Solid/RN (Apache-2.0, ★15.5K) | Driving real UI components from LLM output portably across frontends needs hand-built spec plumbing | tambo, hashbrown, OpenGenerativeUI, openui |
