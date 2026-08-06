@@ -73,4 +73,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [aichat](https://github.com/sigoden/aichat) | harness | All-in-one LLM CLI tool (Apache-2.0, ★10K, Rust) — Shell Assistant (natural-language → shell commands), CMD & REPL modes, RAG, and AI tools/agents in one binary; access OpenAI/Claude/Gemini/Ollama/Groq and more | Want one fast, scriptable CLI for chat, shell assistance, RAG, and agents across providers, not separate tools per task | gptme, opencode, llm (ext.), aider-style (ext.) |
+| [aichat](https://github.com/sigoden/aichat) | harness | All-in-one LLM CLI tool (Apache-2.0, ★10K, Rust) — Shell Assistant (natural-language → shell commands), CMD & REPL modes, RAG, and AI tools/agents in one binary; access OpenAI/Claude/Gemini/Ollama/Groq and more | Want one fast, scriptable CLI for chat, shell assistance, RAG, and agents across providers, not separate tools per task | gptme, opencode, llm (ext.), aider |

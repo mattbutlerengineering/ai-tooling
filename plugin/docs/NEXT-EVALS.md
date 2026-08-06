@@ -2,7 +2,7 @@
 
 The 369 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 99 distinct values across these 369 leads (143 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 101 distinct values across these 369 leads (142 have zero overlap pressure; largest tie: 21) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -44,10 +44,10 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | OpenSpec | Plan | 27.1 | pressure 10, gap 5.1 | `/evaluate-tool OpenSpec` |
 | claude-hud | Plan | 27.1 | pressure 10, gap 5.1 | `/evaluate-tool claude-hud` |
 | sandcastle | Implement | 26.8 | pressure 10, gap 4.8 | `/evaluate-tool sandcastle` |
+| aider | Implement | 30.8 | pressure 13, gap 4.8 | `/evaluate-tool aider` |
 | orca | Implement | 28.8 | pressure 11, gap 4.8 | `/evaluate-tool orca` |
 | ui-ux-pro-max | Skills & Plugins | 26.6 | pressure 9, gap 6.6 | `/evaluate-tool ui-ux-pro-max` |
 | ghostsecurity/skills | Review | 25.1 | pressure 9, gap 5.1 | `/evaluate-tool ghostsecurity/skills` |
-| vet | Review | 25.1 | pressure 9, gap 5.1 | `/evaluate-tool vet` |
 
 ## P1 successor-check — 0 leads
 
@@ -64,7 +64,7 @@ _Listing 12 of 105 — rerun `python3 triage.py` and read the source for the tai
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | browser-use | Verify | 24.8 | pressure 9, gap 4.8 | `/triage-lead browser-use` |
-| aider | Implement | 24.8 | pressure 10, gap 4.8 | `/triage-lead aider` |
+| vet | Review | 25.1 | pressure 9, gap 5.1 | `/triage-lead vet` |
 | gstack | Implement | 24.8 | pressure 9, gap 4.8 | `/triage-lead gstack` |
 | ruflo | Implement | 24.8 | pressure 9, gap 4.8 | `/triage-lead ruflo` |
 | agentmemory | Memory & Context | 24.3 | pressure 8, gap 6.3 | `/triage-lead agentmemory` |
@@ -86,10 +86,10 @@ _Listing 12 of 227 — rerun `python3 triage.py` and read the source for the tai
 |------|-------|-------|--------------------|---------|
 | qwen-code | Implement | 24.8 | pressure 9, gap 4.8 | `/triage-lead qwen-code` |
 | impeccable | Skills & Plugins | 24.6 | pressure 8, gap 6.6 | `/triage-lead impeccable` |
+| ag-ui | Reference | 23.0 | pressure 7, gap 7.0 | `/triage-lead ag-ui` |
 | awesome-claude-skills (Composio) | Reference | 23.0 | pressure 7, gap 7.0 | `/triage-lead awesome-claude-skills (Composio)` |
 | gemini-cli | Implement | 22.8 | pressure 8, gap 4.8 | `/triage-lead gemini-cli` |
 | slidev | Skills & Plugins | 22.6 | pressure 7, gap 6.6 | `/triage-lead slidev` |
-| ag-ui | Reference | 21.0 | pressure 6, gap 7.0 | `/triage-lead ag-ui` |
 | buildwithclaude | Reference | 21.0 | pressure 6, gap 7.0 | `/triage-lead buildwithclaude` |
 | CLIProxyAPI | Implement | 20.8 | pressure 7, gap 4.8 | `/triage-lead CLIProxyAPI` |
 | fast-agent | Implement | 20.8 | pressure 7, gap 4.8 | `/triage-lead fast-agent` |
@@ -110,7 +110,7 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | frontend-design | Skills & Plugins | 12.6 | pressure 3, gap 6.6 | `/triage-lead frontend-design` |
-| plugin-dev | Skills & Plugins | 10.6 | pressure 1, gap 6.6 | `/triage-lead plugin-dev` |
+| plugin-dev | Skills & Plugins | 12.6 | pressure 2, gap 6.6 | `/triage-lead plugin-dev` |
 | prisma | MCP Servers | 10.4 | pressure 2, gap 6.4 | `/triage-lead prisma` |
 | server-memory | Memory & Context | 10.3 | pressure 1, gap 6.3 | `/triage-lead server-memory` |
 | codebase-design | Plan | 9.1 | pressure 1, gap 5.1 | `/triage-lead codebase-design` |

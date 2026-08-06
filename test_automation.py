@@ -1515,12 +1515,14 @@ class TestDetectorF(unittest.TestCase):
         return f"| [{name}](https://github.com/a/{name}) | tool | one | two | {overlaps} |\n"
 
     def _run(self, catalog, home=None):
-        """The counted bucket only — every pre-#398 assertion is about that."""
+        """The counted gap bucket only — every pre-#398 assertion is about that."""
         return self._full(catalog, home)[0]
 
-    def _full(self, catalog, home=None):
+    def _full(self, catalog, home=None, skills=()):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", catalog)
+            for s in skills:  # skills this repo ships, the in-tree record (#403)
+                os.makedirs(os.path.join(d, "skills", s), exist_ok=True)
             # home defaults to an empty dir, NOT to the real one: a unit test must not
             # read the developer's own lockfile, or its result changes per machine.
             return audit.audit_overlaps(audit.DetectorContext(d), home or d)
@@ -1564,24 +1566,24 @@ class TestDetectorF(unittest.TestCase):
     def test_installed_token_moves_out_of_the_counted_bucket(self):
         with tempfile.TemporaryDirectory() as h:
             self._home(h, lock={"ghost-tool": {"source": "vendor/pack"}})
-            gaps, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            gaps, _, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
             self.assertEqual(gaps, [])
-            self.assertEqual(peers, [("ghost-tool", "vendor/pack")])
+            self.assertEqual(peers, [("ghost-tool", ("installed", "vendor/pack"))])
             self.assertEqual(records, 1)
 
     def test_a_skills_directory_entry_also_demonstrates_the_case(self):
         # `claude install-skill` leaves no lockfile entry; the directory is the record.
         with tempfile.TemporaryDirectory() as h:
             self._home(h, skills=["ghost-tool"])
-            gaps, peers, _ = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            gaps, _, peers, _ = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
             self.assertEqual(gaps, [])
-            self.assertEqual(peers, [("ghost-tool", "on disk")])
+            self.assertEqual(peers, [("ghost-tool", ("installed", "on disk"))])
 
     def test_no_records_leaves_every_token_counted(self):
         # A machine with no records is a machine we know nothing about. It must behave
         # exactly as before the join — never as though nothing is installed.
         with tempfile.TemporaryDirectory() as h:
-            gaps, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            gaps, _, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
             self.assertEqual(gaps, [("ghost-tool", 1)])
             self.assertEqual((peers, records), ([], 0))
 
@@ -1590,7 +1592,8 @@ class TestDetectorF(unittest.TestCase):
         # catalogued is not a dangling token at all.
         with tempfile.TemporaryDirectory() as h:
             self._home(h, lock={"b": {"source": "vendor/pack"}})
-            gaps, peers, _ = self._full(self.HEADER + self._row("a", "b") + self._row("b", "a"), h)
+            gaps, _, peers, _ = self._full(
+                self.HEADER + self._row("a", "b") + self._row("b", "a"), h)
             self.assertEqual((gaps, peers), ([], []))
 
     def test_installed_peer_is_deduped_not_counted_per_reference(self):
@@ -1599,16 +1602,81 @@ class TestDetectorF(unittest.TestCase):
         with tempfile.TemporaryDirectory() as h:
             self._home(h, lock={"ghost-tool": {"source": "vendor/pack"}})
             cat = self.HEADER + self._row("a", "ghost-tool") + self._row("b", "ghost-tool")
-            _, peers, _ = self._full(cat, h)
-            self.assertEqual(peers, [("ghost-tool", "vendor/pack")])
+            peers = self._full(cat, h)[2]
+            self.assertEqual(peers, [("ghost-tool", ("installed", "vendor/pack"))])
 
     def test_record_count_is_reported_even_with_no_peers(self):
         # 0 peers across 3 records is a real answer; 0 peers across 0 records is not.
         with tempfile.TemporaryDirectory() as h:
             self._home(h, lock={"x": {"source": "v/p"}}, skills=["y", "z"])
-            _, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
+            _, _, peers, records = self._full(self.HEADER + self._row("a", "ghost-tool"), h)
             self.assertEqual(peers, [])
             self.assertEqual(records, 3)
+
+    # --- `(ext.)` is verified, not obeyed (#403) ------------------------------
+    # A marker is only true on the day it is written. F found `aider`, the catalog
+    # gained it, and the rows that raised the flag kept calling it external — an
+    # assertion F was contractually silent about because it skipped the token.
+
+    def test_marked_external_token_that_is_catalogued_is_a_counted_finding(self):
+        cat = (self.HEADER + self._row("a", "b (ext.)") + self._row("b", "a"))
+        gaps, stale, peers, _ = self._full(cat)
+        self.assertEqual(stale, [("b", "b", "a")])  # token, catalogued as, citing row
+        self.assertEqual((gaps, peers), ([], []))
+
+    def test_a_genuinely_external_marker_stays_silent(self):
+        # The 16 healthy markers (e2b, modal, semgrep, …) must keep passing untouched:
+        # flagging a healthy row costs more than missing a sick one (detector V's rule).
+        self.assertEqual(self._full(self.HEADER + self._row("a", "e2b (ext.)"))[1], [])
+
+    def test_stale_ext_keys_on_identity_never_on_a_basename(self):
+        # #374's trap: an alias-keyed run "resolves" `MCP (ext.)` to **mdn/mcp** by
+        # slash-basename. Between two rows that each name a tool, a basename is not a
+        # synonym — the marker is left alone rather than flagged against a stranger.
+        cat = self.HEADER + self._row("a", "MCP (ext.)") + self._row("mdn/mcp", "a")
+        self.assertEqual(self._full(cat)[1], [])
+
+    def test_stale_ext_reports_each_citing_row_separately(self):
+        # The remedy is per-row (repoint this cell), so two rows asserting the same
+        # stale marker are two edits, not one deduped line.
+        cat = (self.HEADER + self._row("a", "c (ext.)")
+               + self._row("b", "c (ext.)") + self._row("c", "a"))
+        self.assertEqual(self._full(cat)[1], [("c", "c", "a"), ("c", "c", "b")])
+
+    # --- the two disclosures F can already read (#403) ------------------------
+
+    def test_container_disclosed_in_the_parenthetical_is_a_peer_not_a_gap(self):
+        # `systematic-debugging (superpowers)`: the row already says where the peer
+        # lives, and the container is catalogued — the `Ships inside` idea (#343) done
+        # informally, in the one column that has no such column.
+        cat = self.HEADER + self._row("a", "ghost-skill (b)") + self._row("b", "a")
+        gaps, _, peers, _ = self._full(cat)
+        self.assertEqual(gaps, [])
+        self.assertEqual(peers, [("ghost-skill", ("contained", "b"))])
+
+    def test_an_undisclosed_container_stays_a_counted_candidate(self):
+        # The disclosure is what settles it. Drop the parenthetical and the same token
+        # is a lead again — so the bucket can never be reached by wishing.
+        self.assertEqual(self._run(self.HEADER + self._row("a", "ghost-skill")
+                                   + self._row("b", "a")), [("ghost-skill", 1)])
+
+    def test_a_skill_this_repo_ships_is_a_peer_not_a_gap(self):
+        # `skills/evaluate-tool/` is a real conceptual peer of a skill-evaluation tool
+        # and can never be a catalog row. In-tree, versioned, offline — a stronger
+        # record than the lockfile, and the only one readable in CI.
+        gaps, _, peers, _ = self._full(self.HEADER + self._row("a", "evaluate-tool"),
+                                       skills=["evaluate-tool"])
+        self.assertEqual(gaps, [])
+        self.assertEqual(peers, [("evaluate-tool", ("repo", "skills/evaluate-tool/"))])
+
+    def test_the_catalogs_own_declaration_outranks_an_install_record(self):
+        # Strongest record first (ADR-0006's split): a declaration is a fact about the
+        # artifact and reproduces everywhere, an install record is a fact about one
+        # laptop. Same token, both available — the declaration is what gets reported.
+        with tempfile.TemporaryDirectory() as h:
+            self._home(h, lock={"ghost-skill": {"source": "vendor/pack"}})
+            cat = self.HEADER + self._row("a", "ghost-skill (b)") + self._row("b", "a")
+            self.assertEqual(self._full(cat, h)[2], [("ghost-skill", ("contained", "b"))])
 
 
 # ----------------------------------------------------------------- detector M (clusters without a pick, #200)

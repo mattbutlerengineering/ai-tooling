@@ -47,4 +47,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [mcp-ui](https://github.com/MCP-UI-Org/mcp-ui) | framework | De-facto UI-over-MCP SDK — servers attach interactive UI resources rendered in a sandboxed iframe (Apache-2.0, ★5K) | Shipping interactive UI from an MCP server into a host needs a standard render/transport path | OpenGenerativeUI, CopilotKit, ag-ui (ext.), MCP Apps (ext.) |
+| [mcp-ui](https://github.com/MCP-UI-Org/mcp-ui) | framework | De-facto UI-over-MCP SDK — servers attach interactive UI resources rendered in a sandboxed iframe (Apache-2.0, ★5K) | Shipping interactive UI from an MCP server into a host needs a standard render/transport path | OpenGenerativeUI, CopilotKit, ag-ui, MCP Apps |

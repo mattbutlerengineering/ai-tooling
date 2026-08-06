@@ -71,4 +71,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [gptme](https://github.com/gptme/gptme) | harness | Personal terminal agent with local tools (MIT, ★4.3K) — writes code, runs shell, browses the web, edits files; build your own persistent autonomous agent on top, any model, local-first | Want a lightweight, hackable terminal coding agent you fully control and extend, not a heavyweight or cloud-locked harness | opencode, oh-my-pi, tabby, aider-style (ext.) |
+| [gptme](https://github.com/gptme/gptme) | harness | Personal terminal agent with local tools (MIT, ★4.3K) — writes code, runs shell, browses the web, edits files; build your own persistent autonomous agent on top, any model, local-first | Want a lightweight, hackable terminal coding agent you fully control and extend, not a heavyweight or cloud-locked harness | opencode, oh-my-pi, tabby, aider |
