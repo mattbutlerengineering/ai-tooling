@@ -289,6 +289,28 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only: the remedy is a re-read of a human's verdict, not a build failure.
      Offline — it compares two files already in the tree.
 
+  AA. UNACTIONABLE CONTAINMENT (opt-in, --containment, REPORT-ONLY) — `Ships inside`
+     (#343) makes containment machine-readable, and triage.py reads it FIRST to band a
+     row P5, whose disposition is "settle the container ... never an independent lead".
+     Nobody checked that the container is findable: the cell is free text, and its two
+     documented rules (a slug, never a display name; empty means independently
+     installable) are enforced by nothing (#405).
+       UNROWED     — the declared container has no catalog row, so P5's disposition
+                     names something not in the inventory. This is the case CLAUDE.md
+                     records as invisible to X and needing a human — true before the
+                     column existed, a slug compare after it.
+       SELF-LINKED — the row's own link IS the container's repo root, so it asserts
+                     "I am a component of X" while pointing at X. Every fact hanging
+                     off that link then describes the container: prisma's ★46.9K
+                     measures the ORM, not the MCP server.
+     A row can carry either independently, so they are reported apart — UNROWED wants a
+     catalog row, SELF-LINKED wants a narrower link (or no declaration). Resolution keys
+     on the URL SLUG, never the display name: the column stores
+     `anthropics/claude-plugins-official` while the row is named
+     `claude-plugins-official`, and that gap is why this went unlooked-at.
+     Report-only, because each finding's remedy is a human deciding WHICH fact is wrong.
+     Offline — it reads one file already in the tree.
+
 Usage:
   python3 audit-evals.py              # A + B + D + G + J + K + O + Q (all offline but A)
   python3 audit-evals.py --offline    # B + D + G + J + K + O + Q only (no network)
@@ -304,6 +326,7 @@ Usage:
   python3 audit-evals.py --identity   # catalog rows that are facets of one artifact (offline)
   python3 audit-evals.py --installed  # ADOPT/KEEP rows vs this machine's install records (local)
   python3 audit-evals.py --license-declared  # 'NONE' licenses declared outside a LICENSE file (offline)
+  python3 audit-evals.py --containment  # `Ships inside` declarations P5 cannot act on (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -2231,6 +2254,92 @@ def audit_license_declared(ctx):
     return findings, collected, withdrawn
 
 
+# ---------------------------------------------------------------- AA. unactionable containment (report-only)
+# `Ships inside` (#343) exists to make containment machine-readable, and triage.py reads
+# it FIRST — ahead of even the mechanical bands — to put a row in P5, whose disposition is
+# "settle the container, or SKIP `ships inside <container>` — never an independent lead".
+# That remedy has a precondition nobody checked: the container has to be findable. The
+# cell is free text, and its two documented rules (a slug, never a display name; empty
+# means independently installable) are enforced by nothing (#405).
+#
+# Resolution keys on the URL SLUG, never the display name, and that gap is the whole
+# reason this went unlooked-at: the column stores `anthropics/claude-plugins-official`
+# while the row is named `claude-plugins-official`. Same identity discipline as #343 /
+# #366 / #374 — key on what the row *is*, which in slug-space is its link.
+
+ContainmentFinding = collections.namedtuple("ContainmentFinding", "kind tool container verdict")
+
+
+def _repo_path(url):
+    """The github.com path segments of `url`, or [] for a non-GitHub link. `o/r` is the
+    repo identity `Ships inside` names; anything past it is a link to a component."""
+    if not url or "github.com/" not in url.lower():
+        return []
+    return url.lower().rstrip("/").split("github.com/")[-1].split("/")
+
+
+def _repo_root(url):
+    """`https://github.com/o/r/tree/main/x` -> `o/r`; None for a non-GitHub link."""
+    p = _repo_path(url)
+    return "/".join(p[:2]) if len(p) >= 2 else None
+
+
+def _links_repo_root(url):
+    """True when the link points at the repo ROOT rather than at a path inside it.
+    The distinction is the whole SELF-LINKED test: `.../claude-plugins-official/tree/
+    main/plugins/frontend-design` names an artifact, `.../claude-plugins-official`
+    names the pack, and both share a repo root."""
+    return len(_repo_path(url)) == 2
+
+
+def audit_containment(ctx):
+    """(findings, declared) — `Ships inside` declarations P5 cannot act on.
+
+    Two kinds, reported apart because their remedies differ:
+
+      UNROWED      the declared container has no catalog row, so "settle the container"
+                   names something not in the inventory. This is the case CLAUDE.md
+                   records as invisible to detector X and needing a human — true before
+                   the column existed, a slug compare after it (`presentation-creator`
+                   declares `getsentry/skills` in a cell now).
+      SELF-LINKED  the row's own link IS the declared container's repo root, so the row
+                   asserts *I am a component of X* while pointing at X. Every fact hanging
+                   off that link then describes the container, not the artifact — `prisma`'s
+                   ★46.9K measures the ORM, not the MCP server. The fix is a narrower link
+                   or a dropped declaration, which is why it is not folded into UNROWED.
+
+    A row can carry either independently: `modelcontextprotocol/servers`' three rows each
+    link their own subpath and have no container row; the five `mattpocock/skills` rows
+    have a container row they cannot be told apart from.
+
+    Report-only. Each finding's remedy is a human deciding WHICH of the two facts is
+    wrong — the link, the declaration, or the missing row — and that is not a call a bulk
+    lane may make."""
+    rows = list(catalog_lib.parse_catalog_rows(ctx.catalog))
+    # A container row is one that links the repo ROOT and does not itself declare a
+    # container — a row that ships inside something is a member, never the pack.
+    containers = {_repo_root(r.url) for r in rows
+                  if not r.ships_inside and _links_repo_root(r.url)}
+    verd = ctx.comparison_verdict_map
+    findings, declared = [], 0
+    for r in rows:
+        if not r.ships_inside:
+            continue
+        declared += 1
+        c = r.ships_inside.strip().strip("`").lower()
+        v = next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), "—")
+        if c not in containers:
+            findings.append(ContainmentFinding("UNROWED", r.name, c, v))
+        if _links_repo_root(r.url) and _repo_root(r.url) == c:
+            findings.append(ContainmentFinding("SELF-LINKED", r.name, c, v))
+    # UNROWED first: a disposition pointing at nothing outranks one pointing at a row
+    # whose link is merely too coarse. Leads before disposed rows within a kind — a
+    # stalled queue slot is the cost this is about.
+    rank = {"UNROWED": 0, "SELF-LINKED": 1}
+    findings.sort(key=lambda f: (rank[f.kind], f.verdict != "discovery-log", f.container, f.tool))
+    return findings, declared
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -2240,7 +2349,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
-                "--license-declared")
+                "--license-declared", "--containment")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2301,6 +2410,7 @@ def main():
     # silently rebound it, so `--installed` also ran the network install resolver.
     do_instrec = "--installed" in want       # opt-in LOCAL report (never a gate)
     do_licdecl = "--license-declared" in want  # opt-in report (does not affect exit code)
+    do_contain = "--containment" in want      # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -2627,6 +2737,24 @@ def main():
         for f in withdrawn:
             print(f"  ground already withdrawn — {f.tool} ({f.slug}) [{f.verdict}]: "
                   f"{f.spdx} in {f.where}")
+    if do_contain:
+        finds, declared = audit_containment(ctx)
+        unrowed = sum(1 for f in finds if f.kind == "UNROWED")
+        print(f"== AA. unactionable containment (report-only) — {len(finds)} finding(s) "
+              f"across {declared} `Ships inside` declaration(s): {unrowed} UNROWED, "
+              f"{len(finds) - unrowed} SELF-LINKED ==")
+        if not declared:
+            print("  no `Ships inside` declarations — the column is empty, which is its "
+                  "default and means every row is independently installable (#343)")
+        elif not finds:
+            print("  OK — every declared container is a catalog row the row itself "
+                  "does not link")
+        for f in finds:
+            why = ("the catalog holds no row for this container — P5's \"settle the "
+                   "container\" names nothing" if f.kind == "UNROWED"
+                   else "this row's own link IS that container — nothing tells the "
+                        "artifact apart from its pack")
+            print(f"  {f.kind:11} {f.tool} [{f.verdict}] ships inside `{f.container}` — {why}")
     sys.exit(rc)
 
 if __name__ == "__main__":

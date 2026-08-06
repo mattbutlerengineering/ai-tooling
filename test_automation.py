@@ -3966,6 +3966,91 @@ class TestCollapsedIdentity(unittest.TestCase):
         self.assertIn("anthropics/claude-plugins-official", declared)
 
 
+class TestUnactionableContainment(unittest.TestCase):
+    """Pins detector AA (#405). `Ships inside` is what triage.py bands P5 on, and P5's
+    disposition — "settle the container" — has a precondition nobody checked: the
+    container has to be findable. The cell is free text and its documented rules are
+    enforced by nothing."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+           "|------|------|-----------|-------------------|---------------|--------------|\n")
+    PACK = "https://github.com/o/pack"
+
+    def _find(self, rows, verdicts=()):
+        """rows is (name, url, ships_inside)."""
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR + "".join(
+                f"| [{n}]({u}) | skill | x | y | z | {c} |\n" for n, u, c in rows))
+            _write(d, "COMPARISON.md",
+                   "# T\n\n## Implement\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| {n} | skill | y | y | {v} | REVIEW |\n" for n, v in verdicts))
+            return audit.audit_containment(audit.DetectorContext(d))
+
+    def test_a_container_with_no_catalog_row_is_unrowed(self):
+        # `getsentry/skills` holds `presentation-creator` and is not itself catalogued,
+        # so "settle the container" names something not in the inventory.
+        finds, declared = self._find([("skill-a", self.PACK + "/tree/main/a", "o/pack")])
+        self.assertEqual([(f.kind, f.tool, f.container) for f in finds],
+                         [("UNROWED", "skill-a", "o/pack")])
+        self.assertEqual(declared, 1)
+
+    def test_a_catalogued_container_clears_the_row(self):
+        finds, declared = self._find([("pack", self.PACK, ""),
+                                      ("skill-a", self.PACK + "/tree/main/a", "o/pack")])
+        self.assertEqual((finds, declared), ([], 1))
+
+    def test_the_container_row_must_not_itself_be_contained(self):
+        # A row that ships inside something is a member, never the pack — otherwise one
+        # member would vouch for another and the group would clear itself.
+        finds, _ = self._find([("member", self.PACK, "o/other"),
+                               ("skill-a", self.PACK + "/tree/main/a", "o/pack")])
+        self.assertEqual(sorted(f.tool for f in finds if f.kind == "UNROWED"),
+                         ["member", "skill-a"])
+
+    def test_self_linked_fires_only_on_a_root_link(self):
+        # THE precision rule, and the bug this test was written against: both rows share
+        # a repo root, and only the one linking the root is indistinguishable from the
+        # pack. A subpath link names the artifact and is clean.
+        finds, _ = self._find([("pack", self.PACK, ""),
+                               ("root-linked", self.PACK, "o/pack"),
+                               ("subpath", self.PACK + "/tree/main/a", "o/pack")])
+        self.assertEqual([(f.kind, f.tool) for f in finds],
+                         [("SELF-LINKED", "root-linked")])
+
+    def test_both_kinds_can_fire_on_one_row(self):
+        # `prisma` and `jira`: the container has no row AND the row links it. Two facts
+        # are wrong, and they want different fixes, so they are two findings.
+        finds, _ = self._find([("prisma", self.PACK, "o/pack")])
+        self.assertEqual([f.kind for f in finds], ["UNROWED", "SELF-LINKED"])
+
+    def test_an_undeclared_row_is_never_a_finding(self):
+        # Empty is the column's default and means "independently installable" (#343).
+        # A detector that read it as a hole would flag ~630 healthy rows.
+        self.assertEqual(self._find([("a", self.PACK, ""), ("b", "https://github.com/o/b", "")]),
+                         ([], 0))
+
+    def test_leads_sort_ahead_of_disposed_rows_within_a_kind(self):
+        # A stalled queue slot is the cost this detector is about, so a lead outranks a
+        # row that already carries a verdict.
+        finds, _ = self._find(
+            [("done", self.PACK + "/tree/main/done", "o/pack"),
+             ("lead", self.PACK + "/tree/main/lead", "o/pack")],
+            [("done", "SKIP"), ("lead", "discovery-log")])
+        self.assertEqual([f.tool for f in finds], ["lead", "done"])
+
+    def test_live_run_matches_the_documented_backlog(self):
+        # Guards the real tree at the number #405 filed. Not pinned at zero: the remedy
+        # is a human deciding which of two facts is wrong (a missing container row, or a
+        # link that names the pack), which is not a call a bulk lane may make.
+        finds, declared = audit.audit_containment(audit.DetectorContext(ROOT))
+        self.assertEqual(declared, 24)
+        kinds = {k: sum(1 for f in finds if f.kind == k)
+                 for k in ("UNROWED", "SELF-LINKED")}
+        self.assertEqual(kinds, {"UNROWED": 10, "SELF-LINKED": 13})
+
+
 class TestScopeMismatch(unittest.TestCase):
     """Pins detector W (#353). next-evals.py's score has no scope term — every term
     measures how much attention a lead attracts — so a row WORKFLOW.md's one-line
