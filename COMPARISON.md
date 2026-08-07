@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 662 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 667 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -108,6 +108,7 @@ All 662 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -117,6 +118,7 @@ All 662 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-task-master | tool | | ✓ | SKIP | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
+| cc-devenv-doctor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | skill-view | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | align-dev | tool | | ✓ | SKIP | REVIEW |
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
@@ -440,6 +442,8 @@ All 662 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | logfire | platform | ✓ | ✓/$ | discovery-log | REVIEW |
 | textgrad | framework | ✓ | ✓ | SKIP | REVIEW |
 | ping-island | tool | ✓ | ✓ | SKIP | REVIEW |
+| claude-nanny | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| subagent-context | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tokencost | tool | | ✓ | CONDITIONAL | RUN |
 
 ## Skills & Plugins (domain-specific)
@@ -555,6 +559,7 @@ All 662 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MineContext | platform | ✓ | ✓ | SKIP | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
+| memorax-code | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lean-ctx | tool |  | ✓ | CONDITIONAL | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
 | claude-subconscious | plugin | ✓ | ✓ | SKIP | REVIEW |
@@ -747,15 +752,15 @@ All 662 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 62 | 30 | 6 | 48% |
-| Implement | 215 | 111 | 4 | 52% |
+| Implement | 217 | 111 | 4 | 51% |
 | Verify | 23 | 12 | 2 | 52% |
 | Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 5 | 4 | 3 | 80% |
-| Outer Loop | 46 | 16 | 2 | 35% |
+| Outer Loop | 48 | 17 | 2 | 35% |
 | Skills & Plugins | 93 | 32 | 4 | 34% |
-| Memory & Context | 52 | 19 | 2 | 37% |
+| Memory & Context | 53 | 20 | 2 | 38% |
 | MCP Servers | 46 | 16 | 2 | 35% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **662** | **286** | **34** | **43%** |
+| **Total** | **667** | **288** | **34** | **43%** |
