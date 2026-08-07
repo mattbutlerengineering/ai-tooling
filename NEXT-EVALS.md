@@ -2,7 +2,7 @@
 
 The 379 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 102 distinct values across these 379 leads (146 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 101 distinct values across these 379 leads (148 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -36,8 +36,6 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | spec-kit | Plan | 33.2 | pressure 13, gap 5.2 | `/evaluate-tool spec-kit` |
 | mem0 | Memory & Context | 32.2 | pressure 12, gap 6.2 | `/evaluate-tool mem0` |
 | awesome-claude-code | Reference | 31.0 | pressure 11, gap 7.0 | `/evaluate-tool awesome-claude-code` |
-| tech-leads-club/agent-skills | Skills & Plugins | 30.6 | pressure 11, gap 6.6 | `/evaluate-tool tech-leads-club/agent-skills` |
-| vercel-labs/agent-skills | Skills & Plugins | 30.6 | pressure 11, gap 6.6 | `/evaluate-tool vercel-labs/agent-skills` |
 | MemOS | Memory & Context | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool MemOS` |
 | awesome-agent-skills | Reference | 29.0 | pressure 10, gap 7.0 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 29.0 | pressure 10, gap 7.0 | `/evaluate-tool awesome-agent-skills (libukai)` |
@@ -48,6 +46,8 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | orca | Implement | 30.9 | pressure 12, gap 4.9 | `/evaluate-tool orca` |
 | agentmemory | Memory & Context | 28.2 | pressure 10, gap 6.2 | `/evaluate-tool agentmemory` |
 | ui-ux-pro-max | Skills & Plugins | 26.6 | pressure 9, gap 6.6 | `/evaluate-tool ui-ux-pro-max` |
+| ghostsecurity/skills | Review | 25.2 | pressure 9, gap 5.2 | `/evaluate-tool ghostsecurity/skills` |
+| vet | Review | 25.2 | pressure 9, gap 5.2 | `/evaluate-tool vet` |
 
 ## P1 successor-check — 0 leads
 
@@ -63,8 +63,8 @@ _Listing 12 of 108 — rerun `python3 triage.py` and read the source for the tai
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
-| ghostsecurity/skills | Review | 25.2 | pressure 9, gap 5.2 | `/triage-lead ghostsecurity/skills` |
-| vet | Review | 25.2 | pressure 9, gap 5.2 | `/triage-lead vet` |
+| tech-leads-club/agent-skills | Skills & Plugins | 8.6 | pressure 0, gap 6.6 | `/triage-lead tech-leads-club/agent-skills` |
+| vercel-labs/agent-skills | Skills & Plugins | 8.6 | pressure 0, gap 6.6 | `/triage-lead vercel-labs/agent-skills` |
 | gstack | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead gstack` |
 | ruflo | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead ruflo` |
 | browser-use | Verify | 24.8 | pressure 9, gap 4.8 | `/triage-lead browser-use` |

@@ -1324,7 +1324,10 @@ def overlap_pressure_map(ctx):
     filters — the only difference is it counts EVERY cited token, not just the
     uncatalogued ones detector F reports — so next-evals.py can weigh a
     discovery-log candidate by how many peers point at it (#plan-005). A caller
-    unions the sets across a candidate's alias_keys; self-citations are dropped."""
+    unions the sets across a candidate's IDENTITY keys — never alias_keys, whose
+    slash-basename would let `vercel-labs/agent-skills` collect the citations of
+    `addyosmani/agent-skills` (#413, the score half of #374). Self-citations are
+    dropped."""
     cites = {}
     for r in catalog_lib.parse_catalog_rows(ctx.catalog):
         if r.overlaps is None:

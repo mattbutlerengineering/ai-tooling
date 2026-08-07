@@ -67,8 +67,17 @@ def rank(ctx):
         for r in rows:
             if r.verdict != "discovery-log":
                 continue
+            # identity_keys, NEVER alias_keys (#413, the score half of #374). alias_keys
+            # appends the slash-basename so an entry filed under another NAME still
+            # resolves (GSD <- obra/superpowers) — but between two rows that each name a
+            # tool a basename is not a synonym, it is a different tool. Fanned out,
+            # `vercel-labs/agent-skills` and `tech-leads-club/agent-skills` both answered
+            # to `agentskills` and collected the 11 citations of addyosmani/agent-skills,
+            # scoring +22 apiece into P0 — the band reserved for human attention — on
+            # citations nothing pointed at them. #374 fixed the same collision in
+            # triage.py's shield, where it merely WITHHELD a SKIP; here it promotes.
             citing = set()
-            for k in catalog_lib.alias_keys(r.tool):
+            for k in catalog_lib.identity_keys(r.tool):
                 citing |= pressure.get(k, set())
             op = len(citing)
             bonus = EVIDENCE_BONUS if catalog_lib.evidence_lookup(amap, r.tool) == "REVIEW" else 0

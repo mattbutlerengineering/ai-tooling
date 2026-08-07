@@ -2408,6 +2408,38 @@ class TestNextEvals(unittest.TestCase):
             self.assertEqual(lon[3], 0)
             self.assertGreater(pop[0], lon[0])   # score
 
+    def test_a_basename_collision_lends_no_pressure(self):
+        # #413, the score half of #374. `vendor/widget` must NOT collect the citations
+        # of the distinct row its basename spells — a basename is not a synonym between
+        # two rows that each name a tool. Fanned out through alias_keys this scored +22
+        # apiece and put two leads nothing points at into P0, the band reserved for
+        # human attention.
+        catalog = (
+            "## Plan\n"
+            "| Name | Type | One-liner | Problem | Overlaps with |\n"
+            "|------|------|-----------|---------|---------------|\n"
+            "| [widget](https://github.com/addy/widget) | tool | one | two | none |\n"
+            "| [vendor/widget](https://github.com/vendor/widget) | tool | one | two | none |\n"
+            "| [c1](https://github.com/x/c1) | tool | one | two | widget |\n"
+            "| [c2](https://github.com/x/c2) | tool | one | two | widget |\n"
+        )
+        comparison = (
+            "# Tool Comparison\n\n## Plan\n\n"
+            "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+            "|------|------|------|------|-----------|----------|\n"
+            "| widget | tool | | ✓ | ADOPT | MEASURED |\n"
+            "| vendor/widget | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| c1 | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+            "| c2 | tool | | ✓ | discovery-log | SOURCE-ONLY |\n"
+        )
+        with tempfile.TemporaryDirectory() as d:
+            ranked = nexteval.rank(self._ctx(d, catalog, comparison))
+            vendor = next(r for r in ranked if r[1] == "vendor/widget")
+            self.assertEqual(vendor[3], 0,
+                             "a slash-name must not collect its basename's citations")
+            # and gains nothing over the uncited leads it sits beside
+            self.assertEqual({r[0] for r in ranked}, {vendor[0]})
+
     def test_only_discovery_log_rows_are_candidates(self):
         # Evaluated verdicts (ADOPT/KEEP/SKIP/CONDITIONAL/DEFER) are already
         # evaluated and must never appear in the queue.
