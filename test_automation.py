@@ -16,7 +16,9 @@ Exits non-zero on any failure (gates CI / pre-commit).
 """
 import contextlib
 import datetime
+import gc
 import importlib.util
+import inspect
 import json
 import os
 import re
@@ -28,6 +30,7 @@ import tempfile
 import types
 import unittest
 import urllib.error
+import warnings
 from pathlib import Path
 from typing import ClassVar
 from unittest import mock
@@ -2672,6 +2675,66 @@ class TestTierStack(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             tier.apply("# Stack with no markers\n")
         self.assertEqual(cm.exception.code, 2)
+
+
+# ----------------------------------------------------------------- HTTP responses are closed (#455)
+class TestHttpResponsesAreClosed(unittest.TestCase):
+    """An `HTTPError` IS the response object, so the error path holds a socket exactly as
+    the success path does. Both checkers used `with urllib.request.urlopen(...)` and then
+    abandoned the error, which is why it went unseen — on a healthy network almost every
+    reply is a 200. The failure modes that leak are the ones this repo documents as
+    normal: `check_repo`'s own docstring says GitHub answers its ~600-request burst with
+    429, and CLAUDE.md says a local sweep verifies only a few dozen of ~600 links."""
+
+    def setUp(self):
+        self._orig = audit.urllib.request.urlopen
+        self.addCleanup(lambda: setattr(audit.urllib.request, "urlopen", self._orig))
+
+    def _raise(self, code):
+        def fake(req, timeout=None):
+            raise urllib.error.HTTPError(req.full_url, code, "e", {}, None)
+        audit.urllib.request.urlopen = fake
+
+    def _warnings(self, fn, n=25):
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            for i in range(n):
+                fn(i)
+            gc.collect()
+            return [w for w in caught if issubclass(w.category, ResourceWarning)]
+
+    def test_a_rate_limited_burst_leaks_nothing(self):
+        # 50 calls used to produce 50 unclosed responses, 1:1 with no slack.
+        self._raise(429)
+        self.assertEqual(self._warnings(lambda i: audit.check_repo(f"o/r{i}")), [])
+        self.assertEqual(self._warnings(lambda i: audit.http_status(f"https://x/{i}")), [])
+
+    def test_a_404_burst_leaks_nothing(self):
+        # The one status that produces a verdict still has a response to close.
+        self._raise(404)
+        self.assertEqual(self._warnings(lambda i: audit.check_repo(f"o/r{i}")), [])
+        self.assertEqual(self._warnings(lambda i: audit.http_status(f"https://x/{i}")), [])
+
+    def test_closing_did_not_change_a_single_verdict(self):
+        for code, expected in ((404, audit.DEAD), (429, "unknown:HTTP 429"),
+                               (503, "unknown:HTTP 503")):
+            self._raise(code)
+            self.assertEqual(audit.check_repo("o/r"), expected)
+            self.assertEqual(audit.http_status("https://x/y"), expected)
+
+    def test_the_two_checkers_share_one_vocabulary(self):
+        # #447 gave detector A named constants; C built the same three strings by hand
+        # forty lines away. One fact, one implementation (#443's rule).
+        src = inspect.getsource(audit.check_repo)
+        for copy in ('return "dead"', 'f"unknown:HTTP', 'f"unknown:{type(e)'):
+            self.assertNotIn(copy, src, msg=f"check_repo re-builds the tri-state: {copy}")
+        self.assertIn("DEAD", src)
+        self.assertIn("_unknown(", src)
+
+    def test_moved_stays_detector_Cs_own(self):
+        # The one value A has no analogue for, so it is NOT hoisted into the shared set.
+        self.assertFalse(hasattr(audit, "MOVED"))
+        self.assertIn("moved:", inspect.getsource(audit.check_repo))
 
 
 # ----------------------------------------------------------------- detector A: install resolver (#301)
