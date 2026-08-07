@@ -7,7 +7,12 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
 
   A. INSTALL RESOLVER — every install command in STACK.md / CATALOG.md / evaluations/
      should point at an artifact that actually exists (npm / PyPI / crates.io / GitHub).
-     A broken install command is strong evidence the tool was never run.
+     A broken install command is strong evidence the tool was never run. The one
+     GATING detector that touches the network, so it reports n/total CHECKED and
+     three outcomes, not two (#447): only a 404 is BROKEN and fails the build, while
+     a 429 / 5xx / timeout / missing binary is UNCHECKED — printed, counted, and never
+     a build failure, because nothing a commit did caused it. Detector C's rule (#319),
+     which this detector broke in both directions at once.
 
   B. FABRICATION CLASSIFIER — an eval's "How we tested it" section should either
      disclose it was NOT run (honest review) or describe a real hands-on run.
@@ -520,34 +525,70 @@ DEFAULT_STALENESS_DAYS = 180
 METADATA_STALE_DAYS = 120
 
 # ---------------------------------------------------------------- helpers
-def http_ok(url):
+# Detector A's three outcomes. `ok` and `dead` are verdicts about the artifact;
+# `unknown:<reason>` is a fact about the request, and the two must never collapse
+# (#447). Only a 404 means gone — detector C's rule (#319), which lived forty lines
+# from here and which A never learned, in either direction: the HTTP checkers folded
+# every 429/5xx/timeout into BROKEN and failed the build for a reason no commit caused,
+# while the subprocess checkers folded a missing binary into RESOLVED and printed a
+# clean bill of health over targets they never reached.
+OK, DEAD = "ok", "dead"
+
+# How many distinct unreachable targets to name before summarising the rest.
+UNCHECKED_SHOWN = 10
+
+def _unknown(reason): return f"unknown:{reason}"
+
+def http_status(url):
+    """`ok` / `dead` / `unknown:<reason>` for a registry metadata URL.
+
+    A 404 is the only status that means the package is gone. A 429 (PyPI and crates.io
+    both rate-limit a 24-way burst), a 5xx, a timeout, a DNS failure and a TLS error all
+    mean this run could not answer — and a gate that treats them as `dead` is
+    non-deterministic: run 31207021528 failed `make check` on `BROKEN [crates] abtop`
+    while crates.io was answering 200, and re-running the identical tree passed."""
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "ai-tooling-audit"})
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            return r.status == 200
-    except Exception:  # noqa: BLE001 — any failure here means 'cannot verify', not 'broken'
-        return False
+            return OK if r.status == 200 else _unknown(f"HTTP {r.status}")
+    except urllib.error.HTTPError as e:
+        return DEAD if e.code == 404 else _unknown(f"HTTP {e.code}")
+    except Exception as e:  # noqa: BLE001 — every non-404 outcome is inconclusive by design
+        return _unknown(type(e).__name__)
 
-def _run_ok(cmd):
-    """True if `cmd` exits 0. A missing binary or a hung process means 'cannot verify',
-    not 'broken' — detector A gates CI, so a false BROKEN is worse than an unchecked
-    target. Without the timeout a single wedged `npm view` blocks the whole gate
-    indefinitely; without the FileNotFoundError catch, a machine with no `npm` takes the
-    run down with a traceback. A real 404 still exits non-zero and is still reported."""
+# `npm view` and `gh api` exit non-zero for a missing package AND for a registry 5xx,
+# a rate limit or an auth wall, so the exit code alone cannot classify. Both name the
+# 404 explicitly when that is what happened (`npm error code E404` / `404 Not Found`;
+# `gh: Not Found (HTTP 404)`), so the marker is what distinguishes gone from unreachable.
+_NOT_FOUND = re.compile(r"\bE404\b|404 Not Found|HTTP 404|\bNot Found\b", re.IGNORECASE)
+
+def _run_status(cmd):
+    """`ok` / `dead` / `unknown:<reason>` for a CLI existence probe.
+
+    A missing binary and a hung process are `unknown`, not `ok`: returning True there
+    counted 57 of 85 targets as resolved without reaching any of them, which is #319's
+    "silence is not success" inside the detector that gates. Without the timeout a
+    single wedged `npm view` blocks the whole gate; without the FileNotFoundError catch,
+    a machine with no `npm` takes the run down with a traceback."""
     try:
-        return subprocess.run(cmd, capture_output=True, text=True,
-                              timeout=TIMEOUT, check=False).returncode == 0
-    except (subprocess.TimeoutExpired, FileNotFoundError):
-        return True
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=TIMEOUT, check=False)
+    except subprocess.TimeoutExpired:
+        return _unknown("timeout")
+    except FileNotFoundError:
+        return _unknown(f"no {cmd[0]}")
+    if r.returncode == 0:
+        return OK
+    return DEAD if _NOT_FOUND.search(r.stderr + r.stdout) else _unknown("exit "
+                                                                       f"{r.returncode}")
 
 def npm_exists(pkg):
-    return _run_ok(["npm", "view", pkg, "version"])
+    return _run_status(["npm", "view", pkg, "version"])
 
 def gh_repo_exists(slug):
-    return _run_ok(["gh", "api", f"repos/{slug}", "--jq", ".full_name"])
+    return _run_status(["gh", "api", f"repos/{slug}", "--jq", ".full_name"])
 
-def pypi_exists(pkg):   return http_ok(f"https://pypi.org/pypi/{pkg}/json")
-def crates_exists(pkg): return http_ok(f"https://crates.io/api/v1/crates/{pkg}")
+def pypi_exists(pkg):   return http_status(f"https://pypi.org/pypi/{pkg}/json")
+def crates_exists(pkg): return http_status(f"https://crates.io/api/v1/crates/{pkg}")
 
 # ---------------------------------------------------------------- A. installs
 PKG_CLEAN = lambda s: re.sub(r"[<>=].*|\[.*?\]|['\"]|@latest$", "", s).strip()
@@ -583,12 +624,21 @@ def extract_installs(text):
                     yield kind, pkg
 
 def audit_installs(ctx):
-    """Detector A: every install command must point at a real artifact. Resolution runs
-    concurrently (86 unique targets, ~22s serial) — no two lookups depend on each other,
-    so this mirrors audit_links' ThreadPoolExecutor. Mentions are collected first and
-    filtered afterwards, which keeps the reported order and the per-occurrence shape
-    exactly as they were: lookups DEDUPE, findings do NOT, so a broken package cited in
-    three evals is still three findings."""
+    """Detector A: every install command must point at a real artifact.
+
+    Returns (broken, unknown, targets) — the same (rel, kind, pkg) shape for the first
+    two, with a reason appended to each unknown, plus the unique-target count so the
+    caller can report n/total the way detector C does. The split is the whole point
+    (#447): `broken` is a verdict about the artifact and gates, `unknown` is a fact
+    about the request and must not, or the gate becomes non-deterministic — but it is
+    printed and counted, because "could not check" and "checked and fine" being the same
+    value is the defect #319 fixed one detector over.
+
+    Resolution runs concurrently (85 unique targets, ~22s serial) — no two lookups
+    depend on each other, so this mirrors audit_links' ThreadPoolExecutor. Mentions are
+    collected first and filtered afterwards, which keeps the reported order and the
+    per-occurrence shape exactly as they were: lookups DEDUPE, findings do NOT, so a
+    broken package cited in three evals is still three findings."""
     import concurrent.futures
     files = ["STACK.md", "CATALOG.md", *sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))]
     checkers = {"pypi": pypi_exists, "crates": crates_exists, "npm": npm_exists, "gh": gh_repo_exists}
@@ -602,7 +652,10 @@ def audit_installs(ctx):
     # rate-limit, and a 429 would surface as a false BROKEN.
     with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
         seen = dict(zip(targets, ex.map(lambda t: checkers[t[0]](t[1]), targets), strict=True))
-    return [(rel, kind, pkg) for rel, kind, pkg in mentions if not seen[(kind, pkg)]]
+    broken = [(rel, kind, pkg) for rel, kind, pkg in mentions if seen[(kind, pkg)] == DEAD]
+    unknown = [(rel, kind, pkg, seen[(kind, pkg)][len("unknown:"):])
+               for rel, kind, pkg in mentions if seen[(kind, pkg)].startswith("unknown:")]
+    return broken, unknown, len(targets)
 
 # ---------------------------------------------------------------- B. fabrication
 # Disclaimers / review verbs that mark an eval as an HONEST not-run review.
@@ -3085,14 +3138,34 @@ def main():
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
     if do_inst:
-        print("== A. install resolver ==")
-        broken = audit_installs(ctx)
+        broken, unknown, targets = audit_installs(ctx)
+        # n/total checked, detector C's shape: a run that reached 33 of 85 registries
+        # must not read like one that reached all of them.
+        unreached = len({(k, p) for _r, k, p, _why in unknown})
+        print(f"== A. install resolver — {targets - unreached}/{targets} target(s) checked ==")
+        for rel, kind, pkg in broken:
+            print(f"  BROKEN [{kind}] {pkg}  ({rel})")
+        # Deduped by target, unlike BROKEN. A broken package cited in three evals is
+        # three rows to fix; an unreachable registry is one thing to re-run, so printing
+        # it once per citation is noise with no remedy attached. Capped, and the cap is
+        # disclosed rather than silently truncating (the no-silent-caps rule).
+        by_target = {}
+        for rel, kind, pkg, why in unknown:
+            by_target.setdefault((kind, pkg), (rel, why))
+        for i, ((kind, pkg), (rel, why)) in enumerate(by_target.items()):
+            if i == UNCHECKED_SHOWN:
+                print(f"  UNCHECKED …and {len(by_target) - UNCHECKED_SHOWN} more target(s)")
+                break
+            print(f"  UNCHECKED [{kind}] {pkg}  ({rel}) — {why}")
         if broken:
-            rc = 1
-            for rel, kind, pkg in broken:
-                print(f"  BROKEN [{kind}] {pkg}  ({rel})")
-        else:
-            print("  OK — all checked install targets resolve")
+            rc = 1   # a 404 is a defect a commit caused; an unreachable registry is not
+        if unknown:
+            # Never OK while unknowns exist (#319), and never a build failure either:
+            # nothing a commit did caused it and re-running would give a different answer.
+            print(f"  INCONCLUSIVE — {unreached} target(s) could not be checked; "
+                  "not a gate failure (no commit caused it)")
+        elif not broken:
+            print("  OK — every install target resolves")
     if do_fab:
         print("== B. fabrication classifier ==")
         flagged = audit_fabrication(ctx)
