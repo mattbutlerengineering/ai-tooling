@@ -25,7 +25,10 @@ below were confirmed live at that date (metadata pulled directly, and each talk 
 watched end to end). The rest of the page was last confirmed 2026-06-28 — channel
 URLs, listed video links, and web resources confirmed via web fetch. Channels with
 no per-video links had no specific video confirmed at verification time (channel is
-still good; titles were left out rather than link to a guess).
+still good; titles were left out rather than link to a guess). The Anthropic
+harness-design entry added 2026-08-07 was confirmed live at that date via search
+corroboration (official Anthropic X post + third-party coverage); the sandbox this
+pass ran in could not directly fetch anthropic.com to quote it.
 
 ---
 
@@ -179,6 +182,16 @@ than developers can review it, and that PR volume rising alongside a rising
 incident rate per PR is a signal standard velocity metrics miss entirely — it
 shows up 6-18 months later as code nobody can confidently modify. Useful as the
 named-concept companion to the Verifiability rationale already in `WORKFLOW.md`.
+
+### [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) — Anthropic Engineering
+Official Anthropic engineering post on building harnesses for agents that work across many
+sessions with no memory of what came before. Frames a harness as encoded assumptions about what
+the model can't yet do alone, and describes a GAN-inspired multi-agent structure — a generator and
+an evaluator agent dividing planning, generation, and evaluation to hold coherence over multi-hour,
+multi-session runs (demonstrated on autonomous frontend design and application development).
+Directly on-topic for this repo's "harness engineering" framing and cited as a foundational
+influence by [`bushido-ai-dlc-2026.md`](methodologies/bushido-ai-dlc-2026.md)'s own attribution
+section, which is how this pass found it.
 
 ### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
 A measured comparison (not a vendor claim) of 470 real open-source pull requests

@@ -87,7 +87,12 @@ going through async review later. AWS positions this as the difference between a
   a signal worth taking seriously, even though neither maps onto a single-operator stack.
 - **No formalized Operations phase.** Neither AI-DLC's public reference implementation nor our
   stack has a real answer for AI-authored deploy/monitor/remediate yet — see the stage note
-  above.
+  above. **Update (2026-08-07):** a third-party fork of this same methodology,
+  [TheBushidoCollective/ai-dlc](https://github.com/TheBushidoCollective/ai-dlc) (community-authored,
+  not AWS's), fills this gap concretely — declarative Scheduled/Reactive/Process operation specs with
+  explicit `agent`/`human` ownership. See [`bushido-ai-dlc-2026.md`](bushido-ai-dlc-2026.md) for the
+  full reading; our own stack still has no equivalent, but the shape of a filled-in Operations phase is
+  no longer purely hypothetical.
 - **The task-level half is already what we do, per our own evaluation.** Our
   [evaluation](../evaluations/aidlc-workflows.md) of the reference implementation found
   Construction-phase behavior "redundant at the task level" with `superpowers`'s inner loop —
