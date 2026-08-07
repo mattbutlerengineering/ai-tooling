@@ -17,6 +17,7 @@ in README.md/STACK.md (derived from evaluations/*.md, excluding TEMPLATE.md). Do
 NOT touch plugin/docs/ (run ./sync-plugin-docs.sh for the latter).
 """
 import glob
+import importlib.util
 import os
 import re
 import sys
@@ -26,6 +27,15 @@ import catalog_lib
 from catalog_lib import comparison_body_counts, comparison_verdict_breakdown
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# The composition below is derived from each eval's own headline verdict, and that
+# parsing already exists in audit-evals.py. Load it rather than re-implement it
+# (watchlist.py's rule): a second `## Verdict` regex here would drift from detector
+# D's the first time the vocabulary changed.
+_spec = importlib.util.spec_from_file_location("audit_evals", os.path.join(ROOT, "audit-evals.py"))
+if _spec is None or _spec.loader is None:  # a sibling in this repo — absent means a broken checkout
+    raise ImportError("cannot load audit-evals.py from " + ROOT)
+ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 
 def read(p):  return Path(ROOT, p).read_text(encoding="utf-8")
 def write(p, s): Path(ROOT, p).write_text(s, encoding="utf-8")
@@ -40,6 +50,34 @@ def eval_count(root=None):
     # `root` is injectable for tests, mirroring catalog_count().
     files = glob.glob(os.path.join(root or ROOT, "evaluations", "*.md"))
     return sum(1 for f in files if os.path.basename(f) != "TEMPLATE.md")
+
+def eval_composition(root=None):
+    """(verdicts, leads, other) across the same files eval_count() counts.
+
+    `evaluations/` holds three kinds of file and the front page used to call all of
+    them the first kind (#435):
+
+      verdicts  a real `## Verdict` headline — ADOPT / KEEP / CONDITIONAL / SKIP / DEFER.
+      leads     headlines `discovery-log`, the word #324 introduced across 324 files
+                precisely so a lead stops "announcing a verdict it is not entitled to".
+                Counting these as verdicts re-announces it in aggregate.
+      other     no headline verdict at all: bulk-triage stubs with no `## Verdict`
+                section, plus comparison documents whose Verdict names a winner among
+                several tools (`cluster-memory`, `mem0-vs-claude-mem`) — legitimate,
+                and not an evaluation of one tool. Detector AD's rule.
+
+    The three partition the total, so README's line always adds up to eval_count()."""
+    ctx = ae.DetectorContext(root or ROOT)
+    verdicts = leads = other = 0
+    for e in ctx.evals:
+        if e.verdict == "discovery-log":
+            leads += 1
+        elif e.verdict:
+            verdicts += 1
+        else:
+            other += 1
+    return verdicts, leads, other
+
 
 # count strings that quote the catalog total, by file
 TOTAL_PATTERNS = [
@@ -59,18 +97,37 @@ def fix_total_strings(text, C):
 # bare-"evaluations" pattern. Anchored on the word "evaluations" so unrelated
 # numbers (issue refs, dates) are never touched.
 EVAL_PATTERNS = [
-    # plugin/CLAUDE.md phrases the same count as "N evidence-based evaluation and
-    # comparison files". It has always been in FILES_TOTAL, but neither pattern below
-    # matched that wording, so the number drifted 87 behind while the catalog count on
-    # the line above it stayed correct — the most misleading kind of stale number.
-    (r"\b\d+( evidence-based evaluation and comparison files)", r"{E}\g<1>"),
+    # plugin/CLAUDE.md phrases the same count as "N evaluation and comparison files".
+    # It has always been in FILES_TOTAL, but neither pattern below matched that
+    # wording, so the number drifted 87 behind while the catalog count on the line
+    # above it stayed correct — the most misleading kind of stale number.
+    # `evidence-based` is optional because #435 struck it from that line: the phrase
+    # asserted every file carries evidence when 258 of them are leads. The number must
+    # stay reconciled either way, so the adjective may come and go without the count
+    # silently stopping.
+    (r"\b\d+( (?:evidence-based )?evaluation and comparison files)", r"{E}\g<1>"),
     (r"\b\d+( evidence-based evaluations)", r"{E}\g<1>"),
     (r"\b\d+( evaluations)", r"{E}\g<1>"),
+    (r"\b\d+( evaluation files)", r"{E}\g<1>"),
 ]
 
-def fix_eval_strings(text, E):
+# The composition, which is what stops the total carrying a claim the files do not
+# support (#435). Each is anchored on its own trailing phrase, so the three numbers can
+# never be swapped by a regex that matched the wrong one — and because they partition
+# the total, a drifted copy is arithmetic a reader can catch, not just a stale digit.
+# Ordered to match eval_composition()'s (verdicts, leads, other) tuple.
+COMPOSITION_PATTERNS = [
+    r"\b\d+( carrying a verdict)",
+    r"\b\d+( still at `discovery-log`)",
+    r"\b\d+( stubs and comparison documents)",
+]
+
+def fix_eval_strings(text, E, composition=None):
     for pat, repl in EVAL_PATTERNS:
         text = re.sub(pat, repl.replace("{E}", str(E)), text)
+    if composition:
+        for pat, value in zip(COMPOSITION_PATTERNS, composition, strict=True):
+            text = re.sub(pat, f"{value}\\g<1>", text)
     return text
 
 def _pct(num, den):
@@ -148,11 +205,12 @@ def main():
     check = "--check" in sys.argv[1:]
     C = catalog_count()
     E = eval_count()
+    comp = eval_composition()
     changed = []
     for f in FILES_TOTAL:
         if not os.path.exists(os.path.join(ROOT, f)):
             continue
-        s = read(f); s2 = fix_eval_strings(fix_total_strings(s, C), E)
+        s = read(f); s2 = fix_eval_strings(fix_total_strings(s, C), E, comp)
         if s2 != s:
             changed.append(f)
             if not check: write(f, s2)
@@ -162,9 +220,13 @@ def main():
         if not check: write("COMPARISON.md", s2)
     if changed:
         verb = "would update" if check else "updated"
-        print(f"reconcile: catalog count = {C}, eval count = {E}; {verb} {len(changed)} file(s): {', '.join(changed)}")
+        print(f"reconcile: catalog count = {C}, eval count = {E} "
+              f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other); "
+              f"{verb} {len(changed)} file(s): {', '.join(changed)}")
         sys.exit(1 if check else 0)
-    print(f"reconcile: OK — catalog count = {C}, eval count = {E}, all count strings already consistent")
+    print(f"reconcile: OK — catalog count = {C}, eval count = {E} "
+          f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other), "
+          "all count strings already consistent")
     sys.exit(0)
 
 if __name__ == "__main__":
