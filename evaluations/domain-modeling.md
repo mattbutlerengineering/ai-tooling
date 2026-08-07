@@ -1,6 +1,6 @@
 # Evaluation: domain-modeling
 
-**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
+**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling)
 **Stars:** 136,514 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -92,4 +92,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [domain-modeling](https://github.com/mattpocock/skills) | skill | Build CONTEXT.md glossaries and ADRs — pin down ubiquitous language as designs evolve | Teams use inconsistent terminology; decisions aren't recorded for future agents | documentation-and-adrs, codebase-design |
+| [domain-modeling](https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling) | skill | Build CONTEXT.md glossaries and ADRs — pin down ubiquitous language as designs evolve | Teams use inconsistent terminology; decisions aren't recorded for future agents | documentation-and-adrs, codebase-design |

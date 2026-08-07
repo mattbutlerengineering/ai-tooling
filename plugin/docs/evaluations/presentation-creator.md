@@ -1,6 +1,6 @@
 # Evaluation: presentation-creator
 
-**Repo:** [getsentry/skills](https://github.com/getsentry/skills)
+**Repo:** [getsentry/skills](https://github.com/getsentry/skills/tree/main/skills/presentation-creator)
 **Stars:** 850 | **Last updated:** 2026-06-30 (pushed) | **License:** Apache-2.0
 **Dev loop stage:** Skills & Plugins (presentations)
 **Layer:** Process
@@ -46,4 +46,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [presentation-creator](https://github.com/getsentry/skills) | skill | Presentation-creator skill from Sentry's official dev agent-skills collection (Apache-2.0, 850★) | Need an official, maintained agent skill for building presentation decks | slidev, powerpoint, open-slide |
+| [presentation-creator](https://github.com/getsentry/skills/tree/main/skills/presentation-creator) | skill | Presentation-creator skill from Sentry's official dev agent-skills collection (Apache-2.0, 850★) | Need an official, maintained agent skill for building presentation decks | slidev, powerpoint, open-slide |

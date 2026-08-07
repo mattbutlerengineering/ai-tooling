@@ -1,6 +1,6 @@
 # Evaluation: diagnosing-bugs
 
-**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
+**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/diagnosing-bugs)
 **Stars:** 136,415 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -104,4 +104,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [diagnosing-bugs](https://github.com/mattpocock/skills) | skill | Structured diagnosis loop: build feedback loop first, then bisect/hypothesize/instrument | Jumping straight to "staring at code" wastes hours on hard bugs | systematic-debugging (superpowers) |
+| [diagnosing-bugs](https://github.com/mattpocock/skills/tree/main/skills/engineering/diagnosing-bugs) | skill | Structured diagnosis loop: build feedback loop first, then bisect/hypothesize/instrument | Jumping straight to "staring at code" wastes hours on hard bugs | systematic-debugging (superpowers) |

@@ -4243,6 +4243,19 @@ class TestUnactionableContainment(unittest.TestCase):
                 self.assertTrue(audit._links_repo_root(rows[f.tool].url),
                                 f"{f.tool} links a subpath — not its container")
 
+    def test_a_repointed_row_still_resolves_to_the_container_it_declares(self):
+        # #405's SELF-LINKED remedy is a NARROWER link, and narrowing it wrongly is the
+        # way to make things worse: a subpath under the wrong repo clears SELF-LINKED
+        # (it is no longer a root link) while pointing every fact on the row — stars,
+        # license, archival — at a stranger. AA cannot catch that; this can.
+        for r in catalog_lib.parse_catalog_rows(audit.DetectorContext(ROOT).catalog):
+            if not (r.ships_inside and r.url) or audit._links_repo_root(r.url):
+                continue
+            slugs = [s.lower() for s in catalog_lib.github_repos(r.url)]
+            self.assertIn(r.ships_inside.strip().lower(), slugs,
+                          f"{r.name} links a subpath of {slugs} but declares "
+                          f"{r.ships_inside}")
+
 
 class TestUnentitledConditional(unittest.TestCase):
     """Pins detector AB (#407). ADR-0005's rule is a disjunction — a real verdict needs

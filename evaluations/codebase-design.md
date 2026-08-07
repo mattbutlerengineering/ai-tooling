@@ -1,6 +1,6 @@
 # Evaluation: codebase-design
 
-**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
+**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design)
 **Stars:** 136,535 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -105,4 +105,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [codebase-design](https://github.com/mattpocock/skills) | skill | Deep module design vocabulary — interfaces, seams, adapters, depth/leverage/locality | Agent designs shallow modules; need a shared vocabulary for meaningful abstraction | improve-codebase-architecture, domain-modeling |
+| [codebase-design](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design) | skill | Deep module design vocabulary — interfaces, seams, adapters, depth/leverage/locality | Agent designs shallow modules; need a shared vocabulary for meaningful abstraction | improve-codebase-architecture, domain-modeling |

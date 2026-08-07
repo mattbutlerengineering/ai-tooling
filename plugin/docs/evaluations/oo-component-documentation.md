@@ -1,6 +1,6 @@
 # Evaluation: oo-component-documentation (github/awesome-copilot)
 
-**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot)
+**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills/oo-component-documentation)
 **Stars:** community repo | **Last updated:** 2026 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement (generating component docs from code), Reflect (updating docs after refactors)
@@ -71,4 +71,4 @@ The broken external reference problem (`assets/documentation-template.md` not bu
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [oo-component-documentation](https://github.com/github/awesome-copilot) | skill | Generate or refresh OO component docs from source code with create/update mode | Documentation drifts from code as classes evolve; no systematic way to keep component docs current | documentation-writer, documentation (anthropics/knowledge-work-plugins) |
+| [oo-component-documentation](https://github.com/github/awesome-copilot/tree/main/skills/oo-component-documentation) | skill | Generate or refresh OO component docs from source code with create/update mode | Documentation drifts from code as classes evolve; no systematic way to keep component docs current | documentation-writer, documentation (anthropics/knowledge-work-plugins) |

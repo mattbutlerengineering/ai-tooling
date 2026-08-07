@@ -1,6 +1,6 @@
 # Evaluation: documentation-writer (github/awesome-copilot)
 
-**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot)
+**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills/documentation-writer)
 **Stars:** 35,544 | **Last updated:** 2026-06-23 | **License:** MIT
 **Last verified:** 2026-06-22
 **Dev loop stage:** Implement (documentation as deliverable), Reflect (updating docs after changes)
@@ -88,4 +88,4 @@ Verified hands-on: the skill source is byte-identical to upstream (`github/aweso
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [documentation-writer](https://github.com/github/awesome-copilot) | skill | Diátaxis-framework documentation expert: clarify, outline, then generate purpose-specific docs | Agent produces documentation that mixes tutorial steps with reference material, serving no audience well | documentation (anthropics/knowledge-work-plugins), documentation-and-adrs |
+| [documentation-writer](https://github.com/github/awesome-copilot/tree/main/skills/documentation-writer) | skill | Diátaxis-framework documentation expert: clarify, outline, then generate purpose-specific docs | Agent produces documentation that mixes tutorial steps with reference material, serving no audience well | documentation (anthropics/knowledge-work-plugins), documentation-and-adrs |
