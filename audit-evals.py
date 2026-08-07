@@ -1053,6 +1053,23 @@ class Evaluation:
         return cls(os.path.basename(path)[:-3], Path(path).read_text(encoding="utf-8"))
 
     @property
+    def claims(self):
+        """This eval's text with HTML comments removed — what a FIELD is read from.
+
+        A comment carries provenance about a value, not the value (detector AC's rule,
+        #417). Reading a field from the raw text made the guidance in TEMPLATE.md into
+        the fields it describes: detector Q read `**Last triaged:**` out of the comment
+        saying that field is optional, so every eval created the documented way — copy
+        the template, fill it in — failed a gating detector, and the remedy the finding
+        named would have stamped a triage pass that never happened (#451).
+
+        PROVENANCE markers are read from `self.text`, not from here: `<!-- triaged:
+        bulk -->`, `<!-- triaged: human -->` and the backfill marker are themselves
+        comments, so stripping is a thing the caller does to one side of the comparison
+        and never a mode the whole detector runs in."""
+        return catalog_lib.strip_html_comments(self.text)
+
+    @property
     def how(self):
         return how_section(self.text)
 
@@ -1064,7 +1081,7 @@ class Evaluation:
     def evidence_level(self):
         """The declared **Evidence:** field value (issue #62), or None if absent.
         One of EVIDENCE_LEVELS — records how hard we looked, separate from the verdict."""
-        m = EVIDENCE_FIELD.search(self.text)
+        m = EVIDENCE_FIELD.search(self.claims)
         return m.group(1) if m else None
 
     @property
@@ -1097,7 +1114,7 @@ class Evaluation:
     @property
     def last_verified(self):
         """The declared **Last verified:** date (issue #65) as a date, or None if absent/bad."""
-        m = re.search(r"\*\*Last verified:\*\*\s*(\d{4}-\d{2}-\d{2})", self.text)
+        m = re.search(r"\*\*Last verified:\*\*\s*(\d{4}-\d{2}-\d{2})", self.claims)
         if not m:
             return None
         try:
@@ -1124,14 +1141,13 @@ class Evaluation:
         both repos — `[old](…) — **now redirects to** [new](…)` — and that form is
         richer than the catalog's single link, not drift. Detector U accepts the header
         when the catalog's URL appears anywhere on the line."""
-        m = self._REPO_HEADER.search(self.text)
+        m = self._REPO_HEADER.search(self.claims)
         return self._MD_LINK.findall(m.group(0)) if m else []
 
     # The `**License:**` header field. It shares a line with `**Stars:**` and
     # `**Last updated:**` — pipe-separated — so the value stops at the next `|`, and
     # the field is NOT anchored to the start of a line (#411).
     _LICENSE_HEADER = re.compile(r"\*\*License:\*\*\s*([^|\n]+)")
-    _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 
     @property
     def license_header(self):
@@ -1147,10 +1163,8 @@ class Evaluation:
         reading "the header froze at the pre-detection NOASSERTION reading" would
         otherwise make an accurate `AGPL-3.0` header assert an absence (#417). Same
         convention as `**Last verified:**`'s backfill marker."""
-        m = self._LICENSE_HEADER.search(self.text)
-        if not m:
-            return None
-        return self._HTML_COMMENT.sub("", m.group(1)).strip() or None
+        m = self._LICENSE_HEADER.search(self.claims)
+        return m.group(1).strip() if m and m.group(1).strip() else None
 
     # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
     # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
@@ -1679,7 +1693,10 @@ def audit_bulk_triage(ctx):
             # An unattributed stamp is unpoliceable, not innocent: Q cannot tell a lane
             # that left a lead from one that raised it (#327). Reported at the stamp, so
             # the fix is attribution rather than a verdict argument.
-            if TRIAGE_STAMP in ev.text and HUMAN_MARKER not in ev.text:
+            # The stamp is read from `claims` and the markers from `text`, because the
+            # markers ARE comments (#451). Testing the stamp against the raw text made
+            # TEMPLATE.md's guidance comment a stamp on every copy of it.
+            if TRIAGE_STAMP in ev.claims and HUMAN_MARKER not in ev.text:
                 flagged.append((ev.name, UNATTRIBUTED))
             continue
         if ev.verdict and ev.verdict not in BULK_ALLOWED:

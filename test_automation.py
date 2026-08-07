@@ -906,6 +906,91 @@ class TestValidateCountsHook(unittest.TestCase):
             self.assertNotIn(dead, body, msg=f"hook re-extracts counts from prose: {dead!r}")
 
 
+# ----------------------------------------------------------------- comments are not claims (#451)
+class TestCommentsAreNotClaims(unittest.TestCase):
+    """A header field is a CLAIM and is read from comment-stripped text; a marker about
+    that field is PROVENANCE and is read from the raw text. Detector AC settled the rule
+    for `**License:**` in #417 and nothing generalised it, so detector Q — which GATES —
+    read `**Last triaged:**` out of TEMPLATE.md's own guidance comment, and every eval
+    created the documented way (copy the template, fill it in) failed `make check`.
+
+    The template test uses the REAL TEMPLATE.md, because the bug was that the template's
+    text and the parser disagreed; a fixture template would pin the fixture."""
+
+    def _ctx(self, d, **files):
+        for name, text in files.items():
+            _write(d, os.path.join("evaluations", name + ".md"), text)
+        return audit.DetectorContext(d)
+
+    def test_a_filled_in_template_copy_passes_the_gating_detector(self):
+        # The headline regression. The remedy Q named was worse than the finding: one
+        # marker exempts an eval from the verdict ceiling it never earned, the other
+        # forbids an honest hands-on ADOPT.
+        with open(os.path.join(ROOT, "evaluations", "TEMPLATE.md"), encoding="utf-8") as f:
+            filled = re.sub(r"## Verdict\n", "## Verdict\n\n**ADOPT** — ran it hands-on.\n",
+                            f.read(), count=1)
+        with tempfile.TemporaryDirectory() as d:
+            findings = audit.audit_bulk_triage(self._ctx(d, my_new_eval=filled))
+        self.assertEqual(findings, [], msg=f"a copy of TEMPLATE.md fails detector Q: {findings}")
+
+    def test_a_commented_stamp_is_not_a_stamp(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, x="# E\n\n<!-- OPTIONAL: **Last triaged:** 2026-01-01 -->\n")
+            self.assertEqual(audit.audit_bulk_triage(ctx), [])
+
+    def test_a_real_stamp_still_needs_attribution(self):
+        # The detector is not weakened: an unattributed stamp on a real line still fires.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, x="# E\n\n**Last triaged:** 2026-01-01\n")
+            self.assertEqual(audit.audit_bulk_triage(ctx), [("x", audit.UNATTRIBUTED)])
+
+    def test_the_markers_are_still_read_from_the_raw_text(self):
+        # Load-bearing, and the reason this cannot be one flag on the whole detector:
+        # `<!-- triaged: bulk -->` IS a comment. Stripping both sides would silently
+        # retire the eliminate-only shield.
+        real = "# E\n\n**Last triaged:** 2026-01-01  <!-- triaged: bulk -->\n\n## Verdict\n\n**ADOPT** — x\n"
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_bulk_triage(self._ctx(d, x=real)), [("x", "ADOPT")])
+
+    def test_a_human_marker_still_exempts(self):
+        human = "# E\n\n**Last triaged:** 2026-01-01  <!-- triaged: human -->\n\n## Verdict\n\n**ADOPT** — x\n"
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(audit.audit_bulk_triage(self._ctx(d, x=human)), [])
+
+    def test_a_commented_date_never_becomes_the_staleness_anchor(self):
+        # The dangerous direction is the opposite of a stale-looking demo: a comment
+        # carrying a RECENT date would make a genuinely stale eval report fresh, and
+        # detector L, --staleness and WATCHLIST.md all rest on this value.
+        ev = audit.Evaluation("x", "# E\n\n<!-- e.g. **Last verified:** 2020-01-01 -->\n"
+                                   "**Last verified:** 2026-08-01\n")
+        self.assertEqual(ev.last_verified, datetime.date(2026, 8, 1))
+        only = audit.Evaluation("y", "# E\n\n<!-- e.g. **Last verified:** 2020-01-01 -->\n")
+        self.assertIsNone(only.last_verified, msg="a commented example date became the eval's date")
+
+    def test_the_backfill_marker_still_survives_beside_a_real_value(self):
+        # backfill-lastverified.py writes the comment AFTER the value on the same line.
+        ev = audit.Evaluation("x", "**Last verified:** 2026-06-01  "
+                                   "<!-- backfilled from last git edit; not a hands-on re-check -->\n")
+        self.assertEqual(ev.last_verified, datetime.date(2026, 6, 1))
+        self.assertIn(backfill_lv.COMMENT, ev.text)
+
+    def test_a_commented_field_never_satisfies_a_presence_gate(self):
+        commented = "# E\n\n<!--\n**Stars:** 1,234\n**Last verified:** 2026-08-01\n-->\n"
+        self.assertIsNone(checkstars.star_value(commented))
+        self.assertFalse(backfill_lv.declares_last_verified(commented))
+        real = "# E\n\n**Stars:** 1,234\n**Last verified:** 2026-08-01\n"
+        self.assertEqual(checkstars.star_value(real), "1,234")
+        self.assertTrue(backfill_lv.declares_last_verified(real))
+
+    def test_one_stripper_not_four(self):
+        # #443's rule: one fact, one implementation. Three copies of this regex existed.
+        for mod in ("audit-evals.py", "check-stars.py", "backfill-lastverified.py"):
+            with open(os.path.join(ROOT, mod), encoding="utf-8") as f:
+                body = f.read()
+            self.assertNotIn('re.compile(r"<!--.*?-->"', body,
+                             msg=f"{mod} re-implements the comment stripper")
+
+
 # ----------------------------------------------------------------- routine gate contract (#449)
 class TestRoutineGateContract(unittest.TestCase):
     """`docs/agents/routines.md` is what an unattended cloud agent reads before deciding
@@ -2238,7 +2323,10 @@ class TestLastVerifiedBackfill(unittest.TestCase):
     def test_check_flags_missing_and_passes_after_apply(self):
         # End-to-end: a temp eval with no field -> --check exits 1; add the field -> exit 0.
         with tempfile.TemporaryDirectory() as d:
-            shutil.copy(os.path.join(ROOT, "backfill-lastverified.py"), d)
+            # catalog_lib comes along because the script reads the field from
+            # comment-stripped text via the shared stripper (#451).
+            for f in ("backfill-lastverified.py", "catalog_lib.py"):
+                shutil.copy(os.path.join(ROOT, f), d)
             _write(d, "evaluations/missing.md",
                    "# Evaluation: Z\n\n**Dev loop stage:** Plan\n**Layer:** Tooling\n")
             _write(d, "evaluations/TEMPLATE.md", "# Template\n\n**Last verified:** {date}\n")

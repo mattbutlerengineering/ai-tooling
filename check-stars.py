@@ -47,11 +47,12 @@ import os
 import re
 import sys
 
+import catalog_lib
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EVAL_GLOB = os.path.join(ROOT, "evaluations", "*.md")
 
 STARS_LINE = re.compile(r"^\*\*Stars:\*\*(.*)$", re.MULTILINE)
-HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 # A declaration that says "inapplicable" and stops there. Trailing dashes/colons are
 # stripped so `n/a —` (a reason the author meant to write and didn't) still reads as bare.
 BARE_NA = re.compile(r"^n/?a[\s\-—:.]*$", re.IGNORECASE)
@@ -61,12 +62,13 @@ def star_value(text):
     """The declared value, or None if the eval declares no **Stars:** line at all.
 
     Takes the first segment before the `|` that separates Stars from Last-updated/License
-    in TEMPLATE's header line, with any HTML comment (the repo-metadata.json provenance
-    stamp) removed first so the stamp is never mistaken for the value."""
-    m = STARS_LINE.search(text)
+    in TEMPLATE's header line. HTML comments come out FIRST, via the shared stripper, so
+    the repo-metadata.json provenance stamp is never mistaken for the value AND a line
+    that only exists inside a comment can never satisfy the gate (#451)."""
+    m = STARS_LINE.search(catalog_lib.strip_html_comments(text))
     if m is None:
         return None
-    return HTML_COMMENT.sub("", m.group(1)).split("|")[0].strip()
+    return m.group(1).split("|")[0].strip()
 
 
 def audit(paths):

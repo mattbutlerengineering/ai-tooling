@@ -29,10 +29,18 @@ import subprocess
 import sys
 from pathlib import Path
 
+import catalog_lib
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EVAL_GLOB = os.path.join(ROOT, "evaluations", "*.md")
 
 LAST_VERIFIED = re.compile(r"^\*\*Last verified:\*\*", re.MULTILINE)
+
+
+def declares_last_verified(text):
+    """True if the eval declares the field — read from comment-stripped text, so a
+    line that only exists inside a comment can never satisfy the gate (#451)."""
+    return bool(LAST_VERIFIED.search(catalog_lib.strip_html_comments(text)))
 DEV_STAGE = re.compile(r"^\*\*Dev loop stage:\*\*.*$", re.MULTILINE)  # primary anchor (TEMPLATE order)
 EVIDENCE_LINE = re.compile(r"^\*\*Evidence:\*\*.*$", re.MULTILINE)    # fallback: cluster/landscape evals
 H1 = re.compile(r"^#\s+.+$", re.MULTILINE)                            # last resort
@@ -59,7 +67,7 @@ def backfill_text(text, date):
     The line lands in the header block: immediately before **Dev loop stage:** to mirror
     TEMPLATE.md; for cluster/landscape evals that lack that line, right after **Evidence:**;
     else right after the H1 title."""
-    if LAST_VERIFIED.search(text):
+    if declares_last_verified(text):
         return text  # already declared (by hand or a prior run) — never overwrite
     line = f"**Last verified:** {date}  {COMMENT}"
     m = DEV_STAGE.search(text)
@@ -79,7 +87,7 @@ def main():
         if os.path.basename(path) == "TEMPLATE.md":
             continue
         text = Path(path).read_text(encoding="utf-8")
-        if LAST_VERIFIED.search(text):
+        if declares_last_verified(text):
             continue  # already has the field — skip (and skip the git call)
         rel = os.path.relpath(path, ROOT)
         new = backfill_text(text, git_floor_date(rel))
