@@ -360,6 +360,24 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      gating it would fail a build for something no commit caused. 0 records is not 0
      findings. Offline.
 
+  AG. STAGE DRIFT (opt-in, --stage-drift, REPORT-ONLY) — a tool's dev loop stage is
+     written twice: every eval declares `**Dev loop stage:**`, and every COMPARISON.md
+     row sits under a stage section. Nothing compared them and 16 rows sit under a stage
+     their own eval never names (#453). The cost is not the ranking (no lead changes
+     band) but the per-stage Summary, and through it `stage_gap_weight` — the one term
+     whose job is to say which stage is starving. Ship holds THREE rows, one of them
+     `worktrunk`, whose eval says Implement; that bucket produces the largest inner-loop
+     gap weight there is, 6.67, and the headers taken at face value drop it to 5.00 —
+     hungriest by a distance to fourth.
+       DRIFT       — the section is none of the stages the eval's header names. Counted.
+       STACK-DRIFT — STACK.md's stage tables are a third copy of the fact and name a
+                     different stage. Counted.
+     Only the six inner-loop sections are compared (the rest are categories, not
+     stages); a header naming no stage is an honest non-answer; ANY named stage matching
+     the section is agreement, so a multi-stage tool filed under one of its stages is
+     healthy. Never says which side is wrong — the header is quoted and a human reads
+     it. Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -455,6 +473,7 @@ Usage:
   python3 audit-evals.py --duplicate-evals  # COMPARISON rows with more than one eval file (offline)
   python3 audit-evals.py --workflow-skips  # WORKFLOW.md links whose catalog row reads SKIP (offline)
   python3 audit-evals.py --containment-evidence  # `Ships inside` cells npm refutes (offline)
+  python3 audit-evals.py --stage-drift   # rows filed under a stage their eval disowns (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -1111,6 +1130,19 @@ class Evaluation:
         rows = self.catalog_rows
         return rows[0].type if rows else None
 
+    # The `**Dev loop stage:**` header — the eval's own answer to *when do I use this*.
+    # COMPARISON.md answers the same question by which `## Section` the row sits under,
+    # and detector AG compares the two (#453). Read from `claims`, so the template's
+    # commented example line can never be mistaken for a declaration (#451).
+    _STAGE_HEADER = re.compile(r"^\*\*Dev loop stage:\*\*\s*([^\n|]+)", re.MULTILINE)
+
+    @property
+    def dev_loop_stage(self):
+        """The declared **Dev loop stage:** header text, or None. Free prose by design —
+        `named_stages()` is what extracts the loop stages it names."""
+        m = self._STAGE_HEADER.search(self.claims)
+        return m.group(1).strip() if m and m.group(1).strip() else None
+
     @property
     def last_verified(self):
         """The declared **Last verified:** date (issue #65) as a date, or None if absent/bad."""
@@ -1284,6 +1316,55 @@ class DetectorContext:
             for k in catalog_lib.identity_keys(r.tool):
                 m.setdefault(k, r.verdict)
         return m
+
+    @functools.cached_property
+    def eval_claims(self):
+        """COMPARISON row key → the evals CLAIMING it (detector AD's rule, #412/#433).
+
+        An eval claims the row its `## Catalog entry` mirror names — link or no link,
+        #401's ruling that an unlinked entry is still a catalogued tool — or the row its
+        own aliases resolve to. Two precision rules, both read off the corpus:
+
+        * An eval embedding more than one mirror row is a COMPARISON document and its
+          rows are references, not claims (`cost-observability` embeds tokencost,
+          Infracost and abtop).
+        * Resolution is EXACT catalog name first — verify-installs.py's rule.
+          `agent-skills` and `agentskills` collapse to one name_key (detector U's AMBIG
+          example) but are two distinct rows, and a key-only match would resolve one to
+          the other. A key two rows answer to identifies neither, so it resolves to
+          nothing rather than to a coin flip.
+
+        Built once here because AD asks "which rows have more than one eval" and AG
+        (#453) asks "which eval does this row's stage claim belong to" — the same
+        question, and a second implementation of it would drift."""
+        exact = {}
+        for line in self.comparison.splitlines():
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) > 1 and catalog_lib.name_key(cells[0]) in self.comparison_verdict_map:
+                exact.setdefault(cells[0].lower(), catalog_lib.name_key(cells[0]))
+        seen = collections.Counter(exact.values())
+        ambiguous = {k for k, n in seen.items() if n > 1}
+
+        claims = collections.defaultdict(list)
+        for ev in self.evals:
+            keys = set()
+            mirrors = ev.catalog_rows
+            if len(mirrors) == 1:
+                k = exact.get(mirrors[0].name.lower())
+                if k and k not in ambiguous:
+                    keys.add(k)
+            keys |= {a for a in ev.name_aliases
+                     if a in self.comparison_verdict_map and a not in ambiguous}
+            for k in keys:
+                claims[k].append(ev)
+        return claims
+
+    @functools.cached_property
+    def eval_by_row(self):
+        """COMPARISON row key → its ONE claiming eval. A row claimed by several resolves
+        to nothing: which of them speaks for the row is detector AD's open question, and
+        answering it with a coin flip here would put a stranger's header on the row."""
+        return {k: v[0] for k, v in self.eval_claims.items() if len(v) == 1}
 
     @functools.cached_property
     def evidence_alias_map(self):
@@ -2695,6 +2776,134 @@ def audit_containment_evidence(ctx):
     return refuted, confirmed, unchecked, seen
 
 
+# ---------------------------------------------------------------- AG. stage drift (report-only)
+# A tool's dev loop stage is written twice: every eval declares `**Dev loop stage:**` in
+# its header, and every COMPARISON.md row *sits under* a stage section. Nothing compared
+# them, and 16 rows sit under a stage their own eval never names (#453).
+#
+# The cost is not the ranking — recomputing next-evals.py's score with each lead moved to
+# the stage its header names shifts nothing by more than 1.7 and moves no lead between
+# bands. It is the per-stage Summary, and through it `stage_gap_weight`, the one term
+# whose job is to say which stage is starving. Ship holds THREE rows, one of which
+# (`worktrunk`) its own eval assigns to Implement while `commit-commands`, filed under
+# Implement, says Ship; that bucket produces the largest inner-loop gap weight there is,
+# 6.67, and taking the headers at face value drops it to 5.00 — from hungriest by a
+# distance to fourth. "Ship is our thinnest stage" is a claim COMPARISON's Summary makes
+# on the front of a derived page, and one row decides it.
+#
+# The two sources already meet, unchecked, on one page: watchlist.py builds a single
+# `| Tool | Stage |` table whose cell comes from the COMPARISON section for row-backed
+# entries and from the eval's own header for eval-only ones (#416). They happen to agree
+# there today, which is exactly the condition under which this gets found late.
+LOOP_STAGES = ("Plan", "Implement", "Verify", "Review", "Ship", "Reflect")
+
+StageFinding = collections.namedtuple("StageFinding", "kind tool section named header")
+
+
+def named_stages(header):
+    """The loop stages a `**Dev loop stage:**` header names, in loop order.
+
+    Word-anchored, so `Implementation` and `Planning` are prose rather than stage names.
+    A header naming none — `Cross-cutting`, `Mostly off-loop (an SDK for building LLM
+    apps)`, `Outer loop / Discover` — is an honest non-answer and returns []; grading
+    prose into a finding is what check-stars.py refuses to do with a legitimately-`n/a`
+    field."""
+    return [s for s in LOOP_STAGES if re.search(rf"\b{s}\b", header, re.IGNORECASE)]
+
+
+def _comparison_section_map(ctx):
+    """COMPARISON row key → its `## Section`, exact name first, ambiguous keys dropped.
+
+    Mirrors ctx.comparison_verdict_map's identity keying, except that an ambiguous
+    stripped key resolves to NOTHING rather than first-wins: a verdict picked by coin
+    flip is a wrong verdict, but a *section* picked by coin flip would file a pick under
+    a stranger's stage and manufacture a finding — the expensive direction (detector V's
+    rule)."""
+    by_section = catalog_lib.comparison_rows_by_section(ctx.comparison)
+    out, dupes = {}, set()
+    for section, rows in by_section.items():
+        for r in rows:
+            for k in catalog_lib.identity_keys(r.tool):
+                if k in out and out[k] != section:
+                    dupes.add(k)
+                out.setdefault(k, section)
+    return {k: v for k, v in out.items() if k not in dupes}
+
+
+def audit_stage_drift(ctx):
+    """(drift, stack_drift, comparable, unusable) — the stage written in two places.
+
+    Two counted kinds, reported apart because their remedies differ:
+
+      DRIFT        a COMPARISON row under one of the six inner-loop stage sections whose
+                   eval's header names loop stages and the section is none of them.
+      STACK-DRIFT  a STACK.md stage-table pick whose COMPARISON section is also a loop
+                   stage and is a different one. STACK is a THIRD copy of the same fact.
+
+    Four precision rules:
+
+    * Only the six inner-loop stage sections are compared. COMPARISON's other sections
+      (`MCP Servers`, `Reference`, `Skills & Plugins`, …) are *categories*, not stages —
+      a row under `MCP Servers` whose eval says Implement contradicts nothing, and
+      comparing them would flag 316 healthy rows. That rule is also why STACK-DRIFT
+      requires BOTH sides to name a stage: three of STACK's four disagreements are a
+      stage table vs a category section, a different axis and legitimate.
+    * A header naming no loop stage is never a finding — see named_stages().
+    * ANY named stage matching the section is agreement. A tool that spans stages must
+      still be filed under one: `sandboxd` reads `Verify / Ship`, `agnix` reads `Verify
+      … also Ship (CI gate) and Implement (in-editor LSP)`. Generous by construction —
+      detector V's rule. It is already doing work: `resolving-merge-conflicts` reads
+      `Ship … touches Implement` and its section is Implement, so it is NOT a DRIFT
+      finding even though STACK and COMPARISON disagree about it. Widen the stage
+      vocabulary when it misses one; never narrow it to make the count look worse.
+    * The detector never says which side is wrong and bands nothing. The header can be
+      the stale one (written before the tool's scope was understood) or the section can
+      be, so the header is QUOTED (detector V's rule) and a human reads the sentence.
+
+    Report-only: the remedy is a human moving a row or rewriting a header, a judgement
+    call rather than bookkeeping."""
+    stages = frozenset(LOOP_STAGES)
+    sections = _comparison_section_map(ctx)
+    drift, comparable, unusable = [], 0, 0
+    for section, rows in catalog_lib.comparison_rows_by_section(ctx.comparison).items():
+        if section not in stages:
+            continue
+        for r in rows:
+            ev = next((ctx.eval_by_row[k] for k in catalog_lib.identity_keys(r.tool)
+                       if k in ctx.eval_by_row), None)
+            header = ev.dev_loop_stage if ev else None
+            named = named_stages(header) if header else []
+            if not named:
+                unusable += 1
+                continue
+            comparable += 1
+            if section not in named:
+                drift.append(StageFinding("DRIFT", r.tool, section, named, header))
+
+    stack_drift, stack_section = [], None
+    for line in ctx.stack.splitlines():
+        hm = re.match(r"^##\s+(.*)", line)
+        if hm:
+            stack_section = catalog_lib.strip_parenthetical(hm.group(1).strip()).strip()
+            continue
+        if not line.lstrip().startswith("|"):
+            continue  # picks live in the install-command tables, not the prose
+        m = re.match(r"^\|\s*\[([^\]]+)\]", line.strip())
+        if not m or stack_section not in stages:
+            continue
+        pick = m.group(1)
+        row_section = next((sections[k] for k in catalog_lib.identity_keys(pick)
+                            if k in sections), None)
+        if row_section in stages and row_section != stack_section:
+            stack_drift.append(StageFinding(
+                "STACK-DRIFT", pick, row_section, [stack_section],
+                f"STACK.md files it under {stack_section}"))
+
+    drift.sort(key=lambda f: (f.section, f.tool))
+    stack_drift.sort(key=lambda f: f.tool)
+    return drift, stack_drift, comparable, unusable
+
+
 # ---------------------------------------------------------------- AB. unentitled CONDITIONAL (report-only)
 # ADR-0005 collapsed the CONDITIONAL bucket because at 83% of rows the verdict carried no
 # discriminating signal, and its rule is a disjunction: a real verdict requires EITHER the
@@ -3029,29 +3238,7 @@ def audit_duplicate_evals(ctx):
     SHADOWED sorts ahead of DUPLICATE: it is the kind where the row resolves to the
     weaker file, so the row reports less than the tree holds — a wrong record, not merely
     a redundant one."""
-    exact = {}
-    for line in ctx.comparison.splitlines():
-        cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) > 1 and catalog_lib.name_key(cells[0]) in ctx.comparison_verdict_map:
-            exact.setdefault(cells[0].lower(), catalog_lib.name_key(cells[0]))
-    # A key two rows answer to identifies neither — U's rule that an ambiguous fallback
-    # resolves to nothing rather than to a coin flip.
-    seen = collections.Counter(exact.values())
-    ambiguous = {k for k, n in seen.items() if n > 1}
-
-    claims = collections.defaultdict(list)
-    for ev in ctx.evals:
-        keys = set()
-        mirrors = ev.catalog_rows
-        if len(mirrors) == 1:
-            k = exact.get(mirrors[0].name.lower())
-            if k and k not in ambiguous:
-                keys.add(k)
-        keys |= {a for a in ev.name_aliases
-                 if a in ctx.comparison_verdict_map and a not in ambiguous}
-        for k in keys:
-            claims[k].append(ev)
-
+    claims = ctx.eval_claims
     findings = []
     for row, evs in sorted(claims.items()):
         if len(evs) < 2:
@@ -3084,7 +3271,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
-                "--containment-evidence")
+                "--containment-evidence", "--stage-drift")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -3151,6 +3338,7 @@ def main():
     do_dupev = "--duplicate-evals" in want    # opt-in report (does not affect exit code)
     do_wfskip = "--workflow-skips" in want    # opt-in report (does not affect exit code)
     do_contev = "--containment-evidence" in want  # opt-in report (does not affect exit code)
+    do_stage = "--stage-drift" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -3619,6 +3807,23 @@ def main():
             why = ("links the repo root, so there is no component to ask about"
                    if f.path is None else f"no record for {f.path}")
             print(f"  unchecked {f.tool} ships inside `{f.container}` — {why}")
+    if do_stage:
+        drift, stack_drift, comparable, unusable = audit_stage_drift(ctx)
+        print(f"== AG. stage drift (report-only) — {len(drift)} of {comparable} comparable "
+              f"row(s) sit under a stage their eval never names ==")
+        if not comparable:
+            print("  no comparable rows — no COMPARISON row under an inner-loop stage "
+                  "section resolves to an eval whose header names one")
+        elif not drift and not stack_drift:
+            print("  OK — every row's stage section agrees with its eval's own header")
+        for f in drift:
+            print(f"  DRIFT       {f.tool} — COMPARISON files it under {f.section}; its "
+                  f"eval names {'/'.join(f.named)}: \"{f.header}\"")
+        for f in stack_drift:
+            print(f"  STACK-DRIFT {f.tool} — COMPARISON files it under {f.section}; "
+                  f"{f.header}")
+        print(f"  ({unusable} row(s) not compared — the header names no loop stage, an "
+              "honest non-answer)")
     sys.exit(rc)
 
 if __name__ == "__main__":
