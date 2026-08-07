@@ -177,10 +177,34 @@ class TestReconcilePureFns(unittest.TestCase):
         # plugin/CLAUDE.md says "evaluation and comparison files", not "evaluations".
         # It was in FILES_TOTAL all along, so it *looked* maintained while drifting 87
         # behind the real count (#302). The specific phrase must win over the loose ones.
+        # Both wordings are pinned: #435 struck "evidence-based" from that line, and the
+        # count must not quietly stop tracking because an adjective moved.
         self.assertEqual(
             reconcile.fix_eval_strings(
                 "- `evaluations/` — 469 evidence-based evaluation and comparison files", 556),
             "- `evaluations/` — 556 evidence-based evaluation and comparison files")
+        self.assertEqual(
+            reconcile.fix_eval_strings(
+                "- `evaluations/` — 469 evaluation and comparison files", 556),
+            "- `evaluations/` — 556 evaluation and comparison files")
+
+    def test_fix_eval_strings_leaves_composition_alone_without_it(self):
+        # The composition is opt-in: a caller with no counts must not have the three
+        # numbers zeroed or invented. Passing None leaves the prose untouched.
+        s = "682 evaluation files: 293 carrying a verdict, 258 still at `discovery-log`."
+        self.assertEqual(reconcile.fix_eval_strings(s, 682), s)
+
+    def test_fix_eval_strings_rewrites_each_composition_number(self):
+        # Each number is anchored on its own trailing phrase, so the three can never be
+        # swapped by a regex matching the wrong one (#435).
+        s = ("999 evaluation files: 1 carrying a verdict "
+             "(ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 2 still at `discovery-log` — leads, "
+             "not verdicts — and 3 stubs and comparison documents")
+        out = reconcile.fix_eval_strings(s, 682, (293, 258, 131))
+        self.assertIn("682 evaluation files", out)
+        self.assertIn("293 carrying a verdict", out)
+        self.assertIn("258 still at `discovery-log`", out)
+        self.assertIn("131 stubs and comparison documents", out)
 
 
 # ----------------------------------------------------------------- catalog_lib: github_repos
@@ -677,6 +701,9 @@ class TestReconcileMain(unittest.TestCase):
         _write(d, "CLAUDE.md", "An inventory of 3 tools.\n")
         _write(d, "STACK.md", "distilled from 3 catalog entries\n")
         _write(d, "plugin/CLAUDE.md", "An inventory of 3 tools.\n")
+        # reconcile derives the eval composition through audit-evals' verdict parser
+        # rather than a second regex (#435), so the fixture repo carries that sibling too.
+        shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
 
     def _run(self, d, *args):
         return subprocess.run(["python3", "reconcile-counts.py", *args],
@@ -748,6 +775,51 @@ class TestReconcileMain(unittest.TestCase):
             self.assertEqual(self._run(d).returncode, 0)
             plugin = Path(d, "plugin", "CLAUDE.md").read_text(encoding="utf-8")
             self.assertIn("4 evidence-based evaluation and comparison files", plugin)
+            self.assertEqual(self._run(d, "--check").returncode, 0)
+
+    def test_eval_composition_partitions_the_total(self):
+        # README used to call every file in evaluations/ an "evidence-based evaluation
+        # with a verdict" (#435). The three buckets are derived from each file's own
+        # headline verdict and must add up to eval_count(), so a reader can check the
+        # arithmetic rather than trust the adjective.
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "evaluations/a.md", "# a\n\n## Verdict\n\n**ADOPT** — good.\n")
+            _write(d, "evaluations/b.md", "# b\n\n## Verdict\n\n**SKIP** — no license.\n")
+            _write(d, "evaluations/c.md",
+                   "# c\n\n## Verdict\n\n**discovery-log — tentative read** — a lead.\n")
+            _write(d, "evaluations/d.md", "# d\n\nA stub with no Verdict section.\n")
+            _write(d, "evaluations/TEMPLATE.md", "# template\n\n## Verdict\n\n**ADOPT**\n")
+            comp = reconcile.eval_composition(d)
+            self.assertEqual(comp, (2, 1, 1))
+            self.assertEqual(sum(comp), reconcile.eval_count(d))  # partitions the total
+
+    def test_a_lead_is_never_counted_as_a_verdict(self):
+        # #324 relabelled 324 leads precisely so they stop announcing a verdict they are
+        # not entitled to; counting them as verdicts re-announces it in aggregate.
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "evaluations/lead.md",
+                   "# lead\n\n## Verdict\n\n**discovery-log — tentative read** — notes only.\n")
+            self.assertEqual(reconcile.eval_composition(d), (0, 1, 0))
+
+    def test_composition_is_written_and_gated_end_to_end(self):
+        # The number and its label move together: a drifted composition fails --check
+        # exactly like a drifted total, which is what #435 asked for.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d, readme=(
+                "An inventory of 3 tools.\n\nThere are 3 catalog entries.\n\n"
+                "- 999 evaluation files: 9 carrying a verdict, 9 still at `discovery-log` "
+                "and 9 stubs and comparison documents\n"))
+            _write(d, "evaluations/a.md", "# a\n\n## Verdict\n\n**ADOPT** — good.\n")
+            _write(d, "evaluations/b.md",
+                   "# b\n\n## Verdict\n\n**discovery-log — tentative read** — a lead.\n")
+            _write(d, "evaluations/c.md", "# c\n\nno verdict here.\n")
+            self.assertEqual(self._run(d, "--check").returncode, 1)
+            self.assertEqual(self._run(d).returncode, 0)
+            readme = Path(d, "README.md").read_text(encoding="utf-8")
+            self.assertIn("3 evaluation files", readme)
+            self.assertIn("1 carrying a verdict", readme)
+            self.assertIn("1 still at `discovery-log`", readme)
+            self.assertIn("1 stubs and comparison documents", readme)
             self.assertEqual(self._run(d, "--check").returncode, 0)
 
 
