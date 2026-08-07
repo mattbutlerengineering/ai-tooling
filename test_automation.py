@@ -4270,6 +4270,115 @@ class TestLicenseHeaderVsRecord(unittest.TestCase):
         self.assertEqual({f.name for f in finds} & {f.name for f in redir}, set())
 
 
+class TestDuplicateEvals(unittest.TestCase):
+    """Pins detector AD (#412). Eight COMPARISON rows have two eval files, and three
+    resolve to the weaker one — `prisma`'s row reads `discovery-log` / `SOURCE-ONLY`
+    ("a name with no eval") while `prisma-mcp.md` holds a written CONDITIONAL, so the
+    queue asks for an evaluation that exists and detector D cannot see the mismatch."""
+
+    def _run(self, rows, evals):
+        """rows is (tool, verdict); evals is (name, verdict, evidence, mirror_names)."""
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "COMPARISON.md", "# T\n\n## Implement\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| {t} | tool | y | y | {v} | REVIEW |\n" for t, v in rows))
+            for name, verdict, evidence, mirrors in evals:
+                mirror = ""
+                if mirrors:
+                    mirror = ("\n## Catalog entry\n\n"
+                              "| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+                              "|---|---|---|---|---|\n" + "".join(
+                                  f"| {m} | tool | does things | a problem | — |\n"
+                                  for m in mirrors))
+                _write(d, f"evaluations/{name}.md",
+                       f"# Evaluation: {name}\n\n"
+                       f"**Repo:** [{name}](https://github.com/o/{name})\n\n"
+                       f"## How we tested it\n\n**Evidence:** {evidence}\n\nRead it.\n"
+                       + (f"\n## Verdict\n\n**{verdict}**\n\nBecause.\n" if verdict else "")
+                       + mirror)
+            return audit.audit_duplicate_evals(audit.DetectorContext(d))
+
+    def test_an_unlinked_mirror_still_claims_its_row(self):
+        # #401's ruling, in the shared identity path: TEMPLATE.md mirrors carry a bare
+        # name, and excluding them is exactly why a triage lane wrote a second eval.
+        finds, _ = self._run(
+            [("prisma", "discovery-log")],
+            [("prisma", None, "SOURCE-ONLY", ["prisma"]),
+             ("prisma-mcp", "CONDITIONAL", "REVIEW", ["prisma"])])
+        self.assertEqual([(f.kind, f.row, f.resolved[0]) for f in finds],
+                         [("SHADOWED", "prisma", "prisma")])
+        self.assertEqual(finds[0].shadows, [("prisma-mcp", "CONDITIONAL", "REVIEW")])
+
+    def test_the_row_resolving_to_the_stronger_file_is_only_a_duplicate(self):
+        # Still a finding — two evals of one tool — but the record itself is right, so it
+        # must not be reported as a row that misreports. The stronger file wins here
+        # because its mirror carries a LINK, so today's `name_aliases` can already read
+        # it; that link is the only difference between this row and `prisma` above.
+        finds, _ = self._run(
+            [("sentry", "discovery-log")],
+            [("sentry", None, "SOURCE-ONLY", ["sentry"]),
+             ("sentry-mcp", "CONDITIONAL", "REVIEW",
+              ["[sentry](https://github.com/o/sentry-mcp)"])])
+        self.assertEqual([f.kind for f in finds], ["DUPLICATE"])
+
+    def test_shadowed_sorts_ahead_of_duplicate(self):
+        finds, _ = self._run(
+            [("zzz", "discovery-log"), ("aaa", "discovery-log")],
+            [("aaa", "SKIP", "REVIEW", ["aaa"]), ("aaa-two", "SKIP", "REVIEW", ["aaa"]),
+             ("zzz", None, "SOURCE-ONLY", ["zzz"]), ("zzz-two", "SKIP", "REVIEW", ["zzz"])])
+        self.assertEqual([f.kind for f in finds], ["SHADOWED", "DUPLICATE"])
+
+    def test_one_eval_per_row_is_never_a_finding(self):
+        finds, claimed = self._run(
+            [("a", "ADOPT"), ("b", "SKIP")],
+            [("a", "ADOPT", "RUN", ["a"]), ("b", "SKIP", "REVIEW", ["b"])])
+        self.assertEqual(finds, [])
+        self.assertEqual(claimed, 2)
+
+    def test_a_multi_row_eval_is_a_comparison_document_not_a_claimant(self):
+        # cost-observability embeds tokencost, Infracost and abtop. Without this rule it
+        # reads as a second eval of abtop, which it is not.
+        finds, _ = self._run(
+            [("abtop", "CONDITIONAL")],
+            [("abtop", "CONDITIONAL", "MEASURED", ["abtop"]),
+             ("cost-observability", "CONDITIONAL", "RUN", ["tokencost", "abtop"])])
+        self.assertEqual(finds, [])
+
+    def test_an_ambiguous_key_claims_nothing(self):
+        # `agent-skills` and `agentskills` collapse to one name_key — detector U's AMBIG
+        # example — but are two distinct rows with two distinct evals. A key-only match
+        # would report a duplicate that isn't one, so an ambiguous key resolves to
+        # nothing rather than to a coin flip.
+        finds, _ = self._run(
+            [("agent-skills", "ADOPT"), ("agentskills", "ADOPT")],
+            [("agent-skills-addyosmani", "ADOPT", "REVIEW", ["agent-skills"]),
+             ("agentskills", "ADOPT", "REVIEW", ["agentskills"])])
+        self.assertEqual(finds, [])
+
+    def test_strength_ranks_a_verdict_above_evidence(self):
+        # A file that reaches a verdict says more than one that merely looked harder;
+        # SOURCE-ONLY-with-no-verdict is the weakest thing a claimant can be.
+        with_verdict = audit.Evaluation("a", "## How we tested it\n\n**Evidence:** REVIEW\n"
+                                             "\n## Verdict\n\n**SKIP**\n")
+        without = audit.Evaluation("b", "## How we tested it\n\n**Evidence:** MEASURED\n")
+        self.assertGreater(audit._claim_strength(with_verdict),
+                           audit._claim_strength(without))
+
+    def test_live_findings_name_real_rows_and_distinct_claimants(self):
+        # Structural, not a pinned backlog count: a human merges these one at a time.
+        finds, claimed = audit.audit_duplicate_evals(audit.DetectorContext(ROOT))
+        ctx = audit.DetectorContext(ROOT)
+        self.assertTrue(claimed)
+        for f in finds:
+            self.assertIn(f.row, ctx.comparison_verdict_map)
+            self.assertTrue(f.shadows)
+            names = [f.resolved[0]] if f.resolved else []
+            names += [s[0] for s in f.shadows]
+            self.assertEqual(len(names), len(set(names)), f.row)
+
+
 class TestScopeMismatch(unittest.TestCase):
     """Pins detector W (#353). next-evals.py's score has no scope term — every term
     measures how much attention a lead attracts — so a row WORKFLOW.md's one-line

@@ -345,6 +345,29 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only: the remedy is a human re-reading a LICENSE file, and the record can
      be the wrong side. Offline — two files already in the tree.
 
+  AD. DUPLICATE EVALS (opt-in, --duplicate-evals, REPORT-ONLY) — `prisma-mcp.md` carries
+     a written CONDITIONAL while its row reads `discovery-log` / `SOURCE-ONLY` — the
+     value backfill-evidence assigns to "a name with no eval" — so NEXT-EVALS.md queues
+     an evaluation that already exists, and detector D, whose job IS that an eval agrees
+     with its row, cannot see the disagreement because it cannot find the eval (#412).
+       SHADOWED  — the row resolves to the weaker of two claimants (a real verdict where
+                   the resolved one has none, or higher Evidence), so the row reports
+                   less than the tree holds. A wrong record, not merely a redundant one.
+       DUPLICATE — the row already resolves to the stronger file; the second is a
+                   redundant eval of one tool.
+     An eval CLAIMS the row its `## Catalog entry` mirror names, LINK OR NO LINK — #401's
+     ruling that an unlinked entry is still a catalogued tool. The same filter still sits
+     in `name_aliases`, which is why the stubs were written: TEMPLATE.md mirrors carry a
+     bare name, so the clause discards exactly the cell that says which row an eval
+     claims, and three of these stubs were created in ONE triage pass (#339) beside evals
+     that already existed. Two precision rules read off the corpus: an eval embedding
+     more than one mirror row is a COMPARISON document whose rows are references, not
+     claims (`cost-observability` embeds tokencost/Infracost/abtop); and resolution is
+     EXACT catalog name first, since `agent-skills` and `agentskills` collapse to one
+     name_key (U's AMBIG example) but are two rows with two evals.
+     Report-only: merging two evals is a human's call every time — sometimes the stub's
+     triage note is the newer thinking and belongs in the older file. Offline.
+
   AA. UNACTIONABLE CONTAINMENT (opt-in, --containment, REPORT-ONLY) — `Ships inside`
      (#343) makes containment machine-readable, and triage.py reads it FIRST to band a
      row P5, whose disposition is "settle the container ... never an independent lead".
@@ -385,6 +408,7 @@ Usage:
   python3 audit-evals.py --containment  # `Ships inside` declarations P5 cannot act on (offline)
   python3 audit-evals.py --conditional-gate  # CONDITIONAL rows entitled to neither ADR-0005 clause (offline)
   python3 audit-evals.py --license-header  # eval `**License:**` headers vs repo-metadata.json (offline)
+  python3 audit-evals.py --duplicate-evals  # COMPARISON rows with more than one eval file (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -2603,6 +2627,94 @@ def audit_license_header(ctx):
     return findings, redirected, compared
 
 
+# ---------------------------------------------------------------- AD. duplicate evals (report-only)
+# `prisma-mcp.md` carries a written CONDITIONAL and its row reads `discovery-log` /
+# `SOURCE-ONLY` — the value backfill-evidence assigns to "a name with no eval" — so
+# NEXT-EVALS.md queues an evaluation that already exists, and detector D, whose whole job
+# is that an eval agrees with its row, cannot see the disagreement because it cannot find
+# the eval (#412). Eight rows have two eval files and in every one the WEAKER file wins:
+# the row-keyed maps are built with setdefault, so resolution is first-wins in filename
+# order and a later stub sorts first.
+#
+# The lane that wrote those stubs could not resolve the name. `name_aliases` keys an eval
+# by its embedded mirror's Name cell only when that cell carries a github link, and
+# TEMPLATE.md mirrors are written with a bare name — so the clause discards exactly the
+# cell that says which row the eval claims. That is #401's bug in the shared alias
+# function: there it produced a false ORPHAN, here a silently missing finding.
+
+EVIDENCE_STRENGTH = {lvl: i for i, lvl in enumerate(reversed(EVIDENCE_LEVELS))}
+
+DuplicateFinding = collections.namedtuple("DuplicateFinding", "kind row resolved shadows")
+
+
+def _claim_strength(ev):
+    """How much a claimant says. A real verdict outranks none; Evidence breaks ties."""
+    return (ev.verdict in catalog_lib.REAL_VERDICTS,
+            EVIDENCE_STRENGTH.get(ev.effective_evidence, 0))
+
+
+def audit_duplicate_evals(ctx):
+    """(findings, claimed) — COMPARISON rows claimed by more than one eval file.
+
+    An eval CLAIMS the row its `## Catalog entry` mirror names, link or no link — #401's
+    ruling that an unlinked entry is still a catalogued tool — or the row its own aliases
+    resolve to. Two precision rules, both read off the corpus:
+
+    * An eval embedding more than one mirror row is a COMPARISON document and its rows
+      are references, not claims (`cost-observability` embeds tokencost, Infracost and
+      abtop; without this it reads as a second eval of abtop, which it is not).
+    * Resolution is EXACT catalog name first — verify-installs.py's rule. `agent-skills`
+      and `agentskills` collapse to one name_key (detector U's AMBIG example) but are two
+      distinct rows with two distinct evals, and a key-only match would report a
+      duplicate that isn't one.
+
+    SHADOWED sorts ahead of DUPLICATE: it is the kind where the row resolves to the
+    weaker file, so the row reports less than the tree holds — a wrong record, not merely
+    a redundant one."""
+    exact = {}
+    for line in ctx.comparison.splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) > 1 and catalog_lib.name_key(cells[0]) in ctx.comparison_verdict_map:
+            exact.setdefault(cells[0].lower(), catalog_lib.name_key(cells[0]))
+    # A key two rows answer to identifies neither — U's rule that an ambiguous fallback
+    # resolves to nothing rather than to a coin flip.
+    seen = collections.Counter(exact.values())
+    ambiguous = {k for k, n in seen.items() if n > 1}
+
+    claims = collections.defaultdict(list)
+    for ev in ctx.evals:
+        keys = set()
+        mirrors = ev.catalog_rows
+        if len(mirrors) == 1:
+            k = exact.get(mirrors[0].name.lower())
+            if k and k not in ambiguous:
+                keys.add(k)
+        keys |= {a for a in ev.name_aliases
+                 if a in ctx.comparison_verdict_map and a not in ambiguous}
+        for k in keys:
+            claims[k].append(ev)
+
+    findings = []
+    for row, evs in sorted(claims.items()):
+        if len(evs) < 2:
+            continue
+        # What the row-keyed maps see today: first-wins over ctx.evals (filename) order,
+        # and only via name_aliases — the mirror claim is exactly what they cannot read.
+        resolved = next((e for e in evs if row in e.name_aliases), None)
+        shadows = [e for e in evs if e is not resolved]
+        kind = ("SHADOWED" if resolved and any(
+            _claim_strength(s) > _claim_strength(resolved) for s in shadows)
+            else "DUPLICATE")
+        findings.append(DuplicateFinding(
+            kind, row,
+            (resolved.name, resolved.verdict, resolved.effective_evidence)
+            if resolved else None,
+            sorted((s.name, s.verdict, s.effective_evidence) for s in shadows)))
+
+    findings.sort(key=lambda f: (f.kind != "SHADOWED", f.row))
+    return findings, len(claims)
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -2613,7 +2725,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
-                "--license-header")
+                "--license-header", "--duplicate-evals")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2677,6 +2789,7 @@ def main():
     do_contain = "--containment" in want      # opt-in report (does not affect exit code)
     do_condgate = "--conditional-gate" in want  # opt-in report (does not affect exit code)
     do_lichdr = "--license-header" in want    # opt-in report (does not affect exit code)
+    do_dupev = "--duplicate-evals" in want    # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -3060,6 +3173,23 @@ def main():
         for f in redirected:
             print(f"  redirected {f.name} — record resolves to `{f.slug}`, a different "
                   f"owner; its `{f.spdx}` is the destination's, not this row's")
+    if do_dupev:
+        finds, claimed = audit_duplicate_evals(ctx)
+        print(f"== AD. duplicate evals (report-only) — {len(finds)} of {claimed} "
+              f"claimed row(s) have more than one eval file ==")
+        if not claimed:
+            print("  no rows claimed by any eval — check COMPARISON.md parses")
+        elif not finds:
+            print("  OK — every claimed row has exactly one eval")
+        for f in finds:
+            got = (f"resolves to {f.resolved[0]} ({f.resolved[1] or 'no verdict'}, "
+                   f"{f.resolved[2]})" if f.resolved else "resolves to no eval at all")
+            rest = "; ".join(f"{n} ({v or 'no verdict'}, {e})" for n, v, e in f.shadows)
+            why = ("the row reports less than the tree holds — the weaker file wins on "
+                   "filename order" if f.kind == "SHADOWED"
+                   else "the row already resolves to the stronger file; the second is "
+                        "a redundant eval of one tool")
+            print(f"  {f.kind:9} `{f.row}` {got}, shadowing {rest} — {why}")
     sys.exit(rc)
 
 if __name__ == "__main__":
