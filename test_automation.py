@@ -4168,6 +4168,100 @@ class TestUnentitledConditional(unittest.TestCase):
         self.assertTrue(all(f.evidence in ("MEASURED", "RUN") for f in ungated))
 
 
+class TestWorkflowRecommendsSkip(unittest.TestCase):
+    """Pins detector AE (#414). Detector P enforces that every STACK pick appears in
+    WORKFLOW.md and explicitly exempts the reverse — right for CONDITIONAL, wrong for
+    SKIP, which is the catalog concluding don't-use-this. `trailofbits/skills` is listed
+    twice as a Review-stage option and SKIPped because vendoring it attaches CC-BY-SA
+    ShareAlike to the consuming repo."""
+
+    def _run(self, workflow, rows):
+        """rows is (name, slug, verdict)."""
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "WORKFLOW.md", workflow)
+            _write(d, "CATALOG.md", "## Plan\n"
+                   "| Name | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| [{n}](https://github.com/{s}) | tool | one | two | — | |\n"
+                       for n, s, _ in rows))
+            _write(d, "COMPARISON.md", "# T\n\n## Plan\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| {n} | tool | y | y | {v} | REVIEW |\n" for n, _, v in rows))
+            return audit.audit_workflow_skips(audit.DetectorContext(d))
+
+    def test_a_skipped_tool_recommended_without_disclosure_is_the_finding(self):
+        finds, disclosed, linked = self._run(
+            "## Review\n\n| [tob](https://github.com/trailofbits/skills) — audit methodology |\n",
+            [("tob", "trailofbits/skills", "SKIP")])
+        self.assertEqual([(f.tool, f.line) for f in finds], [("tob", 3)])
+        self.assertEqual((disclosed, linked), ([], 1))
+
+    def test_only_skip_counts(self):
+        # CONDITIONAL and discovery-log mentions are the exemption detector P grants;
+        # DEFER means revisit, not don't-use. Reporting them would drown the ones that
+        # matter, and two detectors scoring one row is how a count stops meaning anything.
+        for verdict in ("CONDITIONAL", "discovery-log", "ADOPT", "KEEP", "DEFER"):
+            finds, _, _ = self._run(
+                "## Review\n\n| [t](https://github.com/o/t) — a tool |\n",
+                [("t", "o/t", verdict)])
+            self.assertEqual(finds, [], verdict)
+
+    def test_a_line_that_discloses_is_printed_never_counted(self):
+        for line in ("| [t](https://github.com/o/t) — SKIP, kept for reference |",
+                     "| [t](https://github.com/o/t) — excluded, overlaps superpowers |",
+                     "| [t](https://github.com/o/t) — ⚠️ superseded by u |"):
+            finds, disclosed, _ = self._run(f"## Review\n\n{line}\n",
+                                            [("t", "o/t", "SKIP")])
+            self.assertEqual(finds, [], line)
+            self.assertEqual(len(disclosed), 1, line)
+
+    def test_the_manuals_own_excluded_section_is_a_disclosure(self):
+        # WORKFLOW.md already carries the convention; a link inside that section is an
+        # exclusion notice, not a recommendation.
+        wf = ("## Review\n\n| [t](https://github.com/o/t) — SKIP noted |\n\n"
+              "## Tools Deliberately Excluded\n\n"
+              "| [u](https://github.com/o/u) | overlaps superpowers |\n")
+        finds, disclosed, _ = self._run(wf, [("t", "o/t", "SKIP"), ("u", "o/u", "SKIP")])
+        self.assertEqual(finds, [])
+        self.assertEqual({f.tool for f in disclosed}, {"t", "u"})
+
+    def test_the_excluded_section_ends_at_the_next_heading(self):
+        wf = ("## Tools Deliberately Excluded\n\n| [u](https://github.com/o/u) | why |\n\n"
+              "## Review\n\n| [t](https://github.com/o/t) — use this |\n")
+        finds, disclosed, _ = self._run(wf, [("t", "o/t", "SKIP"), ("u", "o/u", "SKIP")])
+        self.assertEqual([f.tool for f in finds], ["t"])
+        self.assertEqual([f.tool for f in disclosed], ["u"])
+
+    def test_matching_is_by_slug_not_display_name(self):
+        # Detector P's rule: names vary, and "GSD" links to obra/superpowers. A link to a
+        # DIFFERENT repo that happens to share a display name must not be attributed.
+        finds, _, linked = self._run(
+            "## Review\n\n| [skills](https://github.com/other/skills) — unrelated |\n",
+            [("skills", "trailofbits/skills", "SKIP")])
+        self.assertEqual((finds, linked), ([], 0))
+
+    def test_a_missing_workflow_yields_zero_links_not_zero_findings(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "CATALOG.md", "## Plan\n")
+            _write(d, "COMPARISON.md", "# T\n")
+            self.assertEqual(audit.audit_workflow_skips(audit.DetectorContext(d)),
+                             ([], [], 0))
+
+    def test_live_findings_all_name_a_skip_row(self):
+        # Structural, not a pinned count: a human resolves these one at a time.
+        finds, disclosed, linked = audit.audit_workflow_skips(audit.DetectorContext(ROOT))
+        ctx = audit.DetectorContext(ROOT)
+        self.assertTrue(linked)
+        for f in finds + disclosed:
+            v = next((ctx.comparison_verdict_map[k]
+                      for k in audit.catalog_lib.identity_keys(f.tool)
+                      if k in ctx.comparison_verdict_map), None)
+            self.assertEqual(v, "SKIP", f.tool)
+
+
 class TestLicenseHeaderVsRecord(unittest.TestCase):
     """Pins detector AC (#411). Every eval header restates an upstream fact by hand next
     to `repo-metadata.json`, which holds the same fact — and nothing compared them, so a

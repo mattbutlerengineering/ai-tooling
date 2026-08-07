@@ -316,6 +316,24 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      form — #345's reason for refusing to bulk-fix mirror drift in either direction.
      Offline — it reads files already in the tree.
 
+  AE. WORKFLOW RECOMMENDS A SKIP (opt-in, --workflow-skips, REPORT-ONLY) — detector P
+     guards ONE direction of "the manual and the install list must not give a newcomer
+     two different answers", and grants the reverse an explicit exemption: "WORKFLOW
+     legitimately lists non-STACK CONDITIONAL options." Right for CONDITIONAL and
+     `discovery-log`; not right for SKIP, which is the catalog concluding DON'T USE
+     THIS. Five of the manual's 62 catalogued links carry one and none discloses it —
+     including `trailofbits/skills`, listed twice as a Review-stage option and SKIPped
+     because vendoring it attaches CC-BY-SA ShareAlike to the consuming repo (#414).
+       RECOMMENDED — the link's row reads SKIP and the line does not say so. Counted.
+       disclosed   — the line says SKIP/excluded/superseded, or sits in the manual's own
+                     `## Tools Deliberately Excluded` section. Printed, never counted.
+     Matched by slug, never display name (P's rule — "GSD" links to obra/superpowers).
+     The disclosure vocabulary is deliberately GENEROUS: flagging a line that already
+     discloses pressures a human to re-add a note that is there, inverting detector V's
+     rule that flagging a healthy row costs more than missing a sick one. Report-only
+     like P — the remedy is a human choosing to drop the line or disclose on it.
+     Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -409,6 +427,7 @@ Usage:
   python3 audit-evals.py --conditional-gate  # CONDITIONAL rows entitled to neither ADR-0005 clause (offline)
   python3 audit-evals.py --license-header  # eval `**License:**` headers vs repo-metadata.json (offline)
   python3 audit-evals.py --duplicate-evals  # COMPARISON rows with more than one eval file (offline)
+  python3 audit-evals.py --workflow-skips  # WORKFLOW.md links whose catalog row reads SKIP (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -2497,6 +2516,72 @@ def audit_conditional_gate(ctx):
     return unentitled, ungated, total
 
 
+# ---------------------------------------------------------------- AE. WORKFLOW recommends a SKIP (report-only)
+# Detector P guards ONE direction of the "two different answers to what do I use for X"
+# invariant — every STACK pick must appear in WORKFLOW.md — and grants the reverse an
+# explicit exemption: "WORKFLOW legitimately lists non-STACK CONDITIONAL options." That
+# exemption is right for CONDITIONAL and discovery-log; it is not right for SKIP, which
+# is the catalog concluding DON'T USE THIS. Five of the manual's 62 catalogued links
+# carry one, none disclosing it — including `trailofbits/skills`, listed twice as a
+# Review-stage option and SKIPped because vendoring it attaches CC-BY-SA ShareAlike to
+# the consuming repo (#414). P was scoped to a missing pick; a recommended elimination is
+# the louder failure and nothing looked for it. Detector V's shape (#395) one file over.
+
+# WORKFLOW.md already carries the disclosure convention — a `## Tools Deliberately
+# Excluded` section and in-line forms like codeburn's "logged-excluded from STACK" — so a
+# line that discloses is context, not a recommendation. Deliberately GENEROUS: flagging a
+# line that already discloses pressures a human to re-add a note that is there, which
+# inverts detector V's rule that flagging a healthy row costs more than missing a sick
+# one. Widen it when it misses a disclosure phrased differently; never narrow it to make
+# the count look worse.
+WF_DISCLOSED = re.compile(
+    r"\bSKIP\b|excluded|exclude\b|superseded|deliberately not|not recommended"
+    r"|⚠️|do not use|don't use|rejected", re.IGNORECASE)
+_WF_EXCLUDED_SECTION = re.compile(r"^##\s*Tools Deliberately Excluded", re.IGNORECASE)
+
+WorkflowSkipFinding = collections.namedtuple("WorkflowSkipFinding", "tool slug line text")
+
+
+def audit_workflow_skips(ctx):
+    """(findings, disclosed, linked) — WORKFLOW.md links whose catalog row reads SKIP.
+
+    Matched by github slug, NEVER display name — detector P's rule, since names vary
+    ("GSD" links to `obra/superpowers`). Only SKIP counts: CONDITIONAL and
+    `discovery-log` mentions are the exemption P deliberately grants, and DEFER means
+    revisit rather than don't-use, so reporting them would drown the ones that matter.
+
+    Report-only, like P: the remedy is a human choosing between two edits — drop the
+    line, or disclose the verdict on it — and a bulk lane may not make that call."""
+    try:
+        workflow = ctx.read("WORKFLOW.md")
+    except OSError:
+        return [], [], 0
+    by_slug = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        for s in catalog_lib.github_repos(r.url or ""):
+            by_slug.setdefault(s.lower(), r.name)
+    verd = ctx.comparison_verdict_map
+
+    findings, disclosed, linked, in_excluded = [], [], 0, False
+    for n, line in enumerate(workflow.splitlines(), 1):
+        if line.startswith("## "):
+            in_excluded = bool(_WF_EXCLUDED_SECTION.match(line))
+        for slug in {s.lower() for s in catalog_lib.github_repos(line)}:
+            tool = by_slug.get(slug)
+            if not tool:
+                continue
+            linked += 1
+            v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), None)
+            if v != "SKIP":
+                continue
+            f = WorkflowSkipFinding(tool, slug, n, line.strip()[:110])
+            (disclosed if in_excluded or WF_DISCLOSED.search(line) else findings).append(f)
+
+    findings.sort(key=lambda f: (f.tool, f.line))
+    disclosed.sort(key=lambda f: (f.tool, f.line))
+    return findings, disclosed, linked
+
+
 # ---------------------------------------------------------------- AC. license header vs record (report-only)
 # `repo-metadata.json` is the tree's record of upstream facts, and every eval header
 # restates one of them by hand next to it. Nothing compared the two (#411) — and the
@@ -2728,7 +2813,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
-                "--license-header", "--duplicate-evals")
+                "--license-header", "--duplicate-evals", "--workflow-skips")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2793,6 +2878,7 @@ def main():
     do_condgate = "--conditional-gate" in want  # opt-in report (does not affect exit code)
     do_lichdr = "--license-header" in want    # opt-in report (does not affect exit code)
     do_dupev = "--duplicate-evals" in want    # opt-in report (does not affect exit code)
+    do_wfskip = "--workflow-skips" in want    # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -3193,6 +3279,23 @@ def main():
                    else "the row already resolves to the stronger file; the second is "
                         "a redundant eval of one tool")
             print(f"  {f.kind:9} `{f.row}` {got}, shadowing {rest} — {why}")
+    if do_wfskip:
+        finds, disclosed, linked = audit_workflow_skips(ctx)
+        print(f"== AE. WORKFLOW recommends a SKIP (report-only) — {len(finds)} of "
+              f"{linked} catalogued WORKFLOW.md link(s) name a SKIPped tool, "
+              f"{len(disclosed)} disclosed ==")
+        if not linked:
+            print("  no catalogued links in WORKFLOW.md — check the file is present")
+        elif not finds:
+            print("  OK — the manual recommends nothing the catalog eliminated")
+        for f in finds:
+            print(f"  RECOMMENDED {f.tool} [{f.slug}] WORKFLOW.md:{f.line} — the row "
+                  f"reads SKIP and the line does not say so: {f.text}")
+        # Printed, never counted: the line already discloses, or sits in the manual's own
+        # `## Tools Deliberately Excluded` section (V's `acked`, W's `cleared`).
+        for f in disclosed:
+            print(f"  disclosed {f.tool} WORKFLOW.md:{f.line} — named as an exclusion, "
+                  "not a recommendation")
     sys.exit(rc)
 
 if __name__ == "__main__":
