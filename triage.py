@@ -139,19 +139,30 @@ NO_FACTS = CatalogFacts(None, None, "", "")
 
 
 def stack_keys(stack_text):
-    """Alias keys of every STACK pick — reuses detector J's parser so the queue and
-    the drift gate can never disagree about what is 'in STACK'."""
-    return ae._stack_member_keys(stack_text)
+    """alias key -> sorted STACK display names — reuses detector J's parser so the
+    queue and the drift gate can never disagree about what is 'in STACK'."""
+    return ae._stack_member_key_map(stack_text)
 
 
-def overlaps_stack(overlaps_cell, skeys):
-    """True when a lead cites a STACK pick in its 'Overlaps with' cell — i.e. it is
-    a challenger to an incumbent we already install, and therefore decidable fast."""
+def stack_incumbents(overlaps_cell, skeys):
+    """The STACK picks a lead cites in its 'Overlaps with' cell, sorted — i.e. the
+    incumbents it challenges, which is what makes it decidable fast.
+
+    This used to return a bool and drop the answer, so P2's own disposition —
+    `SKIP "redundant with <incumbent>"` — named a value the page never supplied and
+    every agent re-derived it from the citation token (#457). The token is often not
+    the pick's name: `superpowers` is GSD's repo, and `claude-plugins-official` is a
+    pack holding three separate picks that do three different jobs.
+
+    EVERY match is returned, never one of them. 16 leads cite several picks (one
+    cites five), and choosing a winner inside a generator is the coin flip this
+    exists to prevent — an unattended pass may write a SKIP in this band."""
+    found = set()
     for tok in overlaps_cell.split(","):
         key = catalog_lib.name_key(catalog_lib.strip_parenthetical(tok))
         if key and key in skeys:
-            return True
-    return False
+            found.update(skeys[key])
+    return sorted(found)
 
 
 def last_triaged_map(ctx):
@@ -251,7 +262,7 @@ def assign(ctx):
     triaged = last_triaged_map(ctx)
     reads = positive_reads(ctx)
 
-    bands = {}
+    bands, incumbents = {}, {}
     for row in ranked:
         b = band_of(row[1], facts, meta, reads)
         if b:
@@ -266,7 +277,9 @@ def assign(ctx):
         if tool in bands:
             continue
         f = facts.get(catalog_lib.name_key(tool), NO_FACTS)
-        bands[tool] = "P2 challenger" if overlaps_stack(f.overlaps, skeys) else "P3 backlog"
+        picks = stack_incumbents(f.overlaps, skeys)
+        incumbents[tool] = picks
+        bands[tool] = "P2 challenger" if picks else "P3 backlog"
 
     # Within a band, an already-triaged lead sinks: fresh leads first. identity_keys,
     # not alias_keys, for band_of's reason (#374) — last_triaged_map registers under
@@ -279,10 +292,10 @@ def assign(ctx):
 
     ordered = {name: sorted((r for r in ranked if bands[r[1]] == name), key=sort_key)
                for name, _, _ in BANDS}
-    return ordered, ranked
+    return ordered, ranked, incumbents
 
 
-def render(ordered, ranked):
+def render(ordered, ranked, incumbents):
     """NEXT-EVALS.md in full. Bands replace the old flat top-25 table; every band
     prints its true size, and any band listing only a sample says so — the repo's
     no-silent-caps rule."""
@@ -334,12 +347,18 @@ def render(ordered, ranked):
             lines.append(f"_Listing {len(shown)} of {len(rows)} — rerun `python3 triage.py` "
                          "and read the source for the tail (no silent cap)._")
             lines.append("")
-        lines.append("| Tool | Stage | Score | Why (pressure/gap) | Command |")
-        lines.append("|------|-------|-------|--------------------|---------|")
+        lines.append("| Tool | Stage | Score | Why | Command |")
+        lines.append("|------|-------|-------|-----|---------|")
         cmd = "/evaluate-tool" if name == "P0 measure" else "/triage-lead"
         for score, tool, stage, op, gap in shown:
-            lines.append(f"| {tool} | {stage} | {score:.1f} | pressure {op}, gap {gap:.1f} "
-                         f"| `{cmd} {tool}` |")
+            why = f"pressure {op}, gap {gap:.1f}"
+            # In P2 the score terms are not why the lead is here — the incumbent match
+            # is, and it is what the band's disposition asks the agent to name (#457).
+            # Every matched pick is listed; picking one would be the coin flip.
+            picks = incumbents.get(tool) if name == "P2 challenger" else None
+            if picks:
+                why = f"challenges {', '.join(picks)} · {why}"
+            lines.append(f"| {tool} | {stage} | {score:.1f} | {why} | `{cmd} {tool}` |")
         lines.append("")
 
     lines += [END, ""]
