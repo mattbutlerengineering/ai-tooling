@@ -752,11 +752,7 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 62 | 30 | 6 | 48% |
-<<<<<<< HEAD
-| Implement | 217 | 111 | 4 | 51% |
-=======
-| Implement | 215 | 110 | 4 | 51% |
->>>>>>> 432aaa4 (fix(license): void a SKIP whose absence upstream ended, and split AC on what rests on it (#417))
+| Implement | 217 | 110 | 4 | 51% |
 | Verify | 23 | 12 | 2 | 52% |
 | Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -767,8 +763,4 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 46 | 16 | 2 | 35% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-<<<<<<< HEAD
-| **Total** | **667** | **288** | **34** | **43%** |
-=======
-| **Total** | **662** | **285** | **34** | **43%** |
->>>>>>> 432aaa4 (fix(license): void a SKIP whose absence upstream ended, and split AC on what rests on it (#417))
+| **Total** | **667** | **287** | **34** | **43%** |

@@ -52,7 +52,7 @@ gh api repos/repowise-dev/repowise/readme --jq '.content' | base64 -d
 
 **discovery-log — tentative read**
 
-Adopt when you want one MCP layer that both grounds AI agents in your codebase and gives the team trustworthy health/risk/ownership/ADR signals — its dual purpose is the differentiator over context-only tools. Confirm the license and OSS-vs-hosted boundary, and validate the heuristic signals on your repo. Overlaps sourcebot/codebase-memory-mcp for the agent-context half.
+Adopt when you want one MCP layer that both grounds AI agents in your codebase and gives the team trustworthy health/risk/ownership/ADR signals — its dual purpose is the differentiator over context-only tools. The license is settled — AGPL-3.0, full text added upstream on 2026-07-12 so GitHub detects it (this eval's header read `NOASSERTION` until #417). AGPL on a `tool` you merely *run* imposes nothing on your code, so what remains open is the OSS-vs-hosted boundary, not the grant. Validate the heuristic signals on your repo. Overlaps sourcebot/codebase-memory-mcp for the agent-context half.
 
 ## Triage note
 
