@@ -1271,11 +1271,17 @@ class TestDetectorJ(unittest.TestCase):
             "| bar | tool | | ✓ | ADOPT | REVIEW |\n")
     LEDGER_OK = "| foo | ADOPT | Plan | yes | |\n| bar | ADOPT | Plan | no | overlaps foo |\n"
 
-    def _run(self, stack, ledger, comp):
+    CATALOG = ("| Tool | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+               "|---|---|---|---|---|---|\n"
+               "| [foo](https://github.com/x/foo) | tool | l | p | | |\n"
+               "| [bar](https://github.com/x/bar) | tool | l | p | | |\n")
+
+    def _run(self, stack, ledger, comp, catalog=None):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "STACK.md", stack)
             _write(d, "STACK-LEDGER.md", ledger)
             _write(d, "COMPARISON.md", comp)
+            _write(d, "CATALOG.md", self.CATALOG if catalog is None else catalog)
             return audit.audit_stack_drift(audit.DetectorContext(d))
 
     def test_consistent_passes(self):
@@ -1304,7 +1310,54 @@ class TestDetectorJ(unittest.TestCase):
         ledger = "| superpowers | ADOPT | Implement | yes | |\n"
         comp = ("## Implement\n| Tool | Type | Auto | Free | Evaluated |\n|---|---|---|---|---|\n"
                 "| superpowers | skill | | ✓ | ADOPT |\n")
-        self.assertEqual(self._run(stack, ledger, comp), [])  # matched via repo basename
+        catalog = ("| Tool | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+                   "|---|---|---|---|---|---|\n"
+                   "| [superpowers](https://github.com/obra/superpowers) | skill | l | p | | |\n")
+        self.assertEqual(self._run(stack, ledger, comp, catalog), [])  # matched via repo basename
+
+    # --- the reverse direction: a STACK member the catalog SKIPped (#416) ---
+
+    def test_skipped_tool_in_stack_flagged(self):
+        # Every other J check runs ledger->STACK or verdict->STACK. A SKIP verdict never
+        # reaches the ledger (it holds ADOPT/KEEP only), so the install list could
+        # recommend an eliminated tool forever — trailofbits/skills did, for ten months.
+        comp = self.COMP.replace("| foo | tool | | ✓ | ADOPT | RUN |",
+                                 "| foo | tool | | ✓ | SKIP | RUN |")
+        ledger = "| bar | ADOPT | Plan | no | overlaps foo |\n"
+        probs = self._run(self.STACK, ledger, comp)
+        self.assertTrue(any("SKIPped in COMPARISON" in p and "x/foo" in p for p in probs), probs)
+
+    def test_skip_check_resolves_by_slug_not_link_text(self):
+        # The row reads "GSD" and the verdict is filed under "superpowers" — resolution goes
+        # through the URL slug to the catalog row's name, detector P's rule. Keying on the
+        # display text would silently pass every renamed pick.
+        stack = "## Implement\n| [GSD](https://github.com/obra/superpowers) | desc | `cmd` | sig |\n"
+        comp = ("## Implement\n| Tool | Type | Auto | Free | Evaluated |\n|---|---|---|---|---|\n"
+                "| superpowers | skill | | ✓ | SKIP |\n")
+        catalog = ("| Tool | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+                   "|---|---|---|---|---|---|\n"
+                   "| [superpowers](https://github.com/obra/superpowers) | skill | l | p | | |\n")
+        probs = self._run(stack, "", comp, catalog)
+        self.assertTrue(any("SKIPped in COMPARISON" in p for p in probs), probs)
+
+    def test_uncatalogued_stack_pick_is_not_a_skip_finding(self):
+        # A pick whose repo has no catalog row resolves to no verdict. That is a different
+        # gap (and not one this check can name) — reporting it here would flag a healthy row.
+        stack = "## Plan\n| [zzz](https://github.com/x/zzz) | desc | `cmd` | sig |\n"
+        probs = self._run(stack, "", self.COMP)
+        self.assertFalse(any("SKIPped in COMPARISON" in p for p in probs), probs)
+
+    def test_non_skip_verdicts_never_flagged(self):
+        for verdict in ("ADOPT", "KEEP", "CONDITIONAL", "DEFER", "discovery-log"):
+            comp = self.COMP.replace("| foo | tool | | ✓ | ADOPT | RUN |",
+                                     f"| foo | tool | | ✓ | {verdict} | RUN |")
+            probs = self._run(self.STACK, self.LEDGER_OK, comp)
+            self.assertFalse(any("SKIPped in COMPARISON" in p for p in probs), (verdict, probs))
+
+    def test_live_stack_has_no_skipped_pick(self):
+        # Pins the tree: the install list must never recommend an eliminated tool.
+        probs = audit.audit_stack_drift(audit.DetectorContext(ROOT))
+        self.assertEqual([p for p in probs if "SKIPped in COMPARISON" in p], [])
 
 
 # ----------------------------------------------------------------- detector K (verdict evidence, #71)

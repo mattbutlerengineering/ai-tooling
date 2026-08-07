@@ -8,7 +8,7 @@ The front door to this repo. If you build software with AI agents and want a set
 
 - **[context7](evaluations/context7.md)** — live docs lookup, so an agent never reasons from stale API info.
 - **[caveman](evaluations/caveman.md)** — output-token compression (~60–75% fewer tokens) for cost discipline.
-- **[trailofbits/skills](evaluations/trailofbits-skills.md)** — a structured security-audit methodology, not ad-hoc review.
+- **[security-guidance](evaluations/security-guidance.md)** — first-party in-loop security review, not ad-hoc.
 - **[playwright](evaluations/playwright-mcp.md)** — visual, end-to-end verification for UI changes.
 - **[claude-code-action](evaluations/claude-code-action.md)** — CI integration for async, on-every-PR review.
 

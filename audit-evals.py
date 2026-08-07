@@ -806,14 +806,48 @@ def _stack_member_keys(stack_text):
         keys.update(catalog_lib.alias_keys(text, url))
     return keys
 
+def _stack_picks_by_slug(stack_text):
+    """(display text, owner/repo) for every STACK.md table row that links a github repo.
+
+    Resolution downstream keys on the SLUG, never the display text — detector P's rule,
+    since names vary ("GSD" links to obra/superpowers) and a basename is not a synonym
+    between two rows (#374)."""
+    picks = []
+    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
+        for slug in catalog_lib.github_repos(url):
+            picks.append((text, slug.lower()))
+    return picks
+
+
 def audit_stack_drift(ctx):
     """Detector J: cross-check STACK.md against COMPARISON.md verdicts + the ledger.
     Flags: an ADOPT/KEEP tool absent from both STACK and the ledger; a ledger row whose
     verdict disagrees with COMPARISON; an excluded row with no reason; a ledger row
-    marked in-STACK that isn't actually in STACK.md."""
+    marked in-STACK that isn't actually in STACK.md; and a STACK member the catalog
+    SKIPped.
+
+    That last check is the reverse direction, added in #416. Every other check runs
+    ledger -> STACK or verdict -> STACK, so a member of the INSTALL LIST whose verdict is
+    SKIP passed silently: `trailofbits/skills` sat in the table and in the copy-paste
+    install block for ten months after a bulk license triage SKIPped it because
+    `claude install-skill` is precisely the operation that vendors the text and attaches
+    its CC-BY-SA ShareAlike to the consuming repo. Gating, like the rest of J — a SKIP is
+    a conclusion already reached, so agreeing with it is bookkeeping, not judgement."""
     problems = []
     comp = ctx.comparison_verdict_map
     stack = _stack_member_keys(ctx.stack)
+    by_slug = {}
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        for s in catalog_lib.github_repos(r.url or ""):
+            by_slug.setdefault(s.lower(), r.name)
+    for text, slug in _stack_picks_by_slug(ctx.stack):
+        tool = by_slug.get(slug)
+        if not tool:
+            continue
+        if next((comp[k] for k in catalog_lib.identity_keys(tool) if k in comp), None) == "SKIP":
+            problems.append(
+                f"STACK pick '{text}' ({slug}) is SKIPped in COMPARISON — the install "
+                "list recommends a tool the catalog eliminated (#416)")
     ledger_keys = set()
     for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ctx.ledger):
         ids = catalog_lib.identity_keys(name)
