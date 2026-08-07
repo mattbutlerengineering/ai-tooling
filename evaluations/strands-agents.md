@@ -75,6 +75,25 @@ builds a harness rather than assembling one.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 
+**From `strands-agents-harness-sdk.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Twenty-one rows in this slice were SKIPped as app-building frameworks with no dev-loop bridge, per `WORKFLOW.md`'s **Tools Deliberately Excluded** rule and the `langchain` precedent. This row was **not**, and the reason is specific rather than generous.
+
+Its own description is "**Build an agent harness and control it end-to-end**" — and *harness-building*
+is precisely the bridge the `langchain` eval names as an exception. `vercel/ai` was kept at
+`discovery-log` in this same pass because `ToolLoopAgent` is "a documented substrate for building a
+coding harness"; a whole SDK whose stated purpose is that substrate has at least as strong a claim.
+
+Whether the claim survives contact is the open question, and it is a real one: an SDK for building
+*any* agent harness is not the same as one for building a *coding* harness, and the difference is
+exactly what separates the kept row from the twenty-one disposed ones. Settling it needs a read of
+what the SDK actually exposes — measurement work, not a triage guess.
+
+Left at `discovery-log` deliberately rather than by omission. A false SKIP here would remove the
+catalog's clearest example of the exception that makes the scope bar a test instead of a ban.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |

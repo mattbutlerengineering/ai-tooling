@@ -76,6 +76,25 @@ P0/eval-runner lane.
 
 _Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
+**From `supabase.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Left at `discovery-log`. First-party, Apache-2.0, pushed this week — a vendor integration of the
+standard shape: worth a lot to teams on Supabase, worth nothing to everyone else, which is neither
+ADOPT-everywhere nor SKIP.
+
+The DB cluster was examined as a whole in this pass and left intact, because the four rows do genuinely
+different things. `supabase` and `prisma` are the light per-stack options; `mcp-toolbox` (Google) covers
+the broadest set of database types and doubles as a framework for building safe agent-facing DB tools;
+`pg-aiguide` touches no database at all and improves the SQL the agent *writes*. The `mcp-toolbox` eval
+explicitly recommends the lighter servers for a single local Postgres in development, which is a point
+in this row's favour rather than against it.
+
+The standing caveat for every member of the cluster applies here too and is the thing a promotion must
+address: an agent with write access to a development database is a Safety surface, and least-privilege
+scoping is the difference between a useful integration and a bad afternoon.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |

@@ -65,6 +65,16 @@ dominating incumbent — not a clean redundancy SKIP. Left for the P0/eval-runne
 
 _Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
+**From `weave.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Left at `discovery-log`: none of sem, resolving-merge-conflicts, or worktrunk is in STACK, and
+none does what weave does — an automatic, structure-aware git merge *driver* rather than an
+agent skill or worktree manager. Parallel-agent workflows hitting false merge conflicts is a
+real and growing problem; deserves a real hands-on eval rather than a mechanical SKIP. Left for
+the P0/eval-runner lane.
+
+_Triaged 2026-07-31 by the P3 backlog band._
+
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |

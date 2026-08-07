@@ -273,7 +273,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | orchestkit | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
-| strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
 | Aegis | skill | | ✓ | SKIP | REVIEW |
 | superset | tool | | ✓ | SKIP | REVIEW |
 | implement | skill | | ✓ | discovery-log | REVIEW |
@@ -568,7 +568,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cognee | platform | | ✓ | discovery-log | REVIEW |
 | MemOS | platform | | ✓ | discovery-log | REVIEW |
 | memind | platform | ✓ | ✓ | SKIP | REVIEW |
-| ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | evolver | tool | ✓ | ✓ | SKIP | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -631,7 +631,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mcp-atlassian | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jira | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp-toolbox | MCP server | ✓ | ✓ | discovery-log | REVIEW |
-| prisma | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| prisma | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | modelcontextprotocol/servers | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | sentry | MCP server | ✓ | ✓ | discovery-log | REVIEW |

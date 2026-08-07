@@ -2,6 +2,7 @@
 
 **Repo:** [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp)
 **Stars:** 731 | **Last updated:** 2026-06-18 | **License:** Proprietary (Sentry BSL)
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Verify / Reflect
 **Layer:** Infrastructure
@@ -67,9 +68,32 @@ Note: Full tool invocation requires Sentry account authentication (OAuth flow vi
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when your project uses Sentry for error tracking. The 35+ tool surface and plugin integration make this the most complete observability MCP server available — it turns Sentry from a tab you check into context your coding agent can query directly. The setup friction (OAuth + optional LLM key for AI search) and BSL license are the main drawbacks. Skip if you don't use Sentry or prefer a lighter-weight error monitoring integration.
+
+_Headline demoted from `CONDITIONAL` to `discovery-log` (2026-08-07, #433). ADR-0005 grants that word to a tool we exercised (`Evidence` MEASURED/RUN) or one carrying a real `adopt-if:` gate; this is a `REVIEW` read with neither, so the conditional-sounding prose above is a **tentative** read rather than a verdict (detectors T and AB). The row it belongs to reads `discovery-log` and now resolves here — before #433 it resolved to a stub, so the disagreement was invisible to detector D. Nothing about the tool changed; only the claim this file was entitled to make about it._
+
+## Triage note
+
+**From `sentry.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Left at `discovery-log`. Bringing production errors into an agent session is one of the cleaner outer-loop
+capabilities in the catalog: the Reflect stage is where the loop is supposed to learn what actually broke,
+and a stack trace from real traffic is the highest-signal input available for that.
+
+The complement is recorded correctly in the overlaps cell and holds — `sentry` covers application errors,
+`langfuse` covers LLM behaviour. Different failure domains; neither substitutes for the other, and both
+were left standing.
+
+**The licence needs a human look before promotion, not a SKIP.** `repo-metadata.json` records
+`NOASSERTION`, which per CLAUDE.md means GitHub could not parse the LICENSE file — never that one is
+absent, and never a disposition on its own. Sentry ships its products under a source-available
+Functional Source License, which a parser would plausibly fail on. That is a real question for the
+adoption bar and exactly the kind of thing a bulk lane must not guess at: `Memori` in this same slice
+reads `NOASSERTION` and is actually Apache-2.0.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 
