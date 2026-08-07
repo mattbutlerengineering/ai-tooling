@@ -1,7 +1,7 @@
 # Evaluation: kreuzberg
 
 **Repo:** [xberg-io/xberg](https://github.com/xberg-io/xberg) (formerly kreuzberg-dev/kreuzberg; repo renamed)
-**Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** MIT  <!-- relicensed upstream 2026-06-25 (`chore: relicense under MIT (Kreuzberg, Inc.)`); the header froze at the pre-relicense reading -->
 **Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (document ingestion for RAG / Memory & Context)

@@ -1,7 +1,7 @@
 # Evaluation: pi-subagents
 
 **Repo:** [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)
-**Stars:** ~2,260 | **Last updated:** 2026-06-20 | **License:** none specified
+**Stars:** ~2,260 | **Last updated:** 2026-06-20 | **License:** MIT  <!-- LICENSE added upstream 2026-07-29, twenty days AFTER the 2026-07-09 bulk triage SKIPped this row for having none -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-07-09  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (subagent orchestration for Pi)
@@ -19,7 +19,7 @@ Per the README, install is one step (`pi install npm:pi-subagents`), with option
 
 **Evidence:** REVIEW
 
-Architecture review against the README and the documented features (async delegation, truncation, artifacts, session sharing; one-command install). Confirmed it's a Pi-specific extension for fanning out focused child agents. Note: **no license is specified** on the repo — a real adoption caveat. Not run live, so condition-gated.
+Architecture review against the README and the documented features (async delegation, truncation, artifacts, session sharing; one-command install). Confirmed it's a Pi-specific extension for fanning out focused child agents. Note: **no license was specified** on the repo at the time of this review — a real adoption caveat then, and the ground of the 2026-07-09 SKIP. Upstream added an MIT `LICENSE` on 2026-07-29; see the Verdict. Not run live.
 
 ```bash
 gh api repos/nicobailon/pi-subagents --jq '{stars:.stargazers_count,license:.license.spdx_id,pushed:.pushed_at}'
@@ -34,7 +34,7 @@ gh api repos/nicobailon/pi-subagents/readme --jq '.content' | base64 -d
 
 ## What didn't work or surprised us
 
-- **No license specified.** Absence of a license is a genuine blocker for many users/orgs — clarify before relying on it.
+- **~~No license specified.~~** True when reviewed, and the reason this row was SKIPped; upstream added MIT on 2026-07-29 (#417). Struck rather than deleted — an honest correction quotes what it corrects.
 - **Pi-only.** Useful only if you use the Pi coding agent; not portable to other harnesses.
 - **Overlaps general subagent patterns.** Claude Code/others already have subagents; this is the Pi-specific implementation, valuable within that ecosystem.
 
@@ -50,16 +50,14 @@ gh api repos/nicobailon/pi-subagents/readme --jq '.content' | base64 -d
 
 ## Verdict
 
-**SKIP** — no declared license. A skill/plugin is *vendored* — its text is copied into the consuming repo — and text carrying no license grant cannot be copied in.
+**discovery-log — tentative read**
 
-_Superseded the review-based read below on 2026-07-09 (bulk license triage, P4 mechanical-skip). The read was never wrong about the tool's quality — the licence, not the craft, is disqualifying._
+Adopt if you use the Pi coding agent and want async, parallel subagent delegation (review, scouting, parallel audits, background jobs) with sensible context hygiene (truncation/artifacts/session sharing). Not relevant outside Pi; for other harnesses, use their native subagent mechanisms. Never exercised here — a `pi install`-only plugin for a harness this catalog does not run — so this stays a lead until someone does.
 
-**CONDITIONAL**
-
-Adopt if you use the Pi coding agent and want async, parallel subagent delegation (review, scouting, parallel audits, background jobs) with sensible context hygiene (truncation/artifacts/session sharing). The missing license is a real caveat — clarify it before depending on the tool. Not relevant outside Pi; for other harnesses, use their native subagent mechanisms.
+_The license ground is **withdrawn** (2026-08-07). The 2026-07-09 bulk triage SKIPped this row as **~~no declared license~~** — correctly, on the record it had. Upstream then added one: `chore: add MIT LICENSE file`, **2026-07-29**, twenty days later. A P4 mechanical-skip rests on an absence, and this absence ended; with the ground gone the verdict goes back to `discovery-log` rather than forward to anything, since the earlier read was never a hands-on one (detector AC's `UNGROUNDED-SKIP`, #417). Nothing here judges the tool — only that the reason it was eliminated has stopped being true._
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [pi-subagents](https://github.com/nicobailon/pi-subagents) | plugin | Async subagent delegation for the Pi coding agent (no explicit license) — delegate to focused child agents for review, scouting, implementation, parallel audits, saved workflows, and background jobs, with output truncation, artifacts, and session sharing | Pi lacks built-in parallel subagent delegation; want to fan out focused child-agent work with managed artifacts and shared sessions | claude-octopus, agency-agents, phantom, orca |
+| [pi-subagents](https://github.com/nicobailon/pi-subagents) | plugin | Async subagent delegation for the Pi coding agent — delegate to focused child agents for review, scouting, implementation, parallel audits, saved workflows, and background jobs, with output truncation, artifacts, and session sharing | Pi lacks built-in parallel subagent delegation; want to fan out focused child-agent work with managed artifacts and shared sessions | claude-octopus, agency-agents, phantom, orca |

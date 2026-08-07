@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 379 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 380 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 101 distinct values across these 379 leads (148 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 101 distinct values across these 380 leads (149 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -11,7 +11,7 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
 | **P2 challenger** | overlaps a tool already in STACK | 108 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 234 | leave; stamp `**Last triaged:**` only |
+| **P3 backlog** | everything else | 235 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 12 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -76,11 +76,11 @@ _Listing 12 of 108 — rerun `python3 triage.py` and read the source for the tai
 | ACE (agentic-context-engine) | Memory & Context | 22.2 | pressure 8, gap 6.2 | `/triage-lead ACE (agentic-context-engine)` |
 | compound-engineering | Implement | 20.9 | pressure 7, gap 4.9 | `/triage-lead compound-engineering` |
 
-## P3 backlog — 234 leads
+## P3 backlog — 235 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 234 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 235 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|

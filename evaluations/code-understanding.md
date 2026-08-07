@@ -21,7 +21,7 @@ Evaluation date: 2026-06-15
 ### graphify
 
 **Repo:** [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify)
-**Stars:** 67,715 | **Last updated:** 2026-06-16 | **License:** MIT | **Language:** Python
+**Stars:** 67,715 | **Last updated:** 2026-06-16 | **License:** Apache-2.0 | **Language:** Python
 **YC S26 company**
 
 **What it actually does:** A Python CLI/skill invoked via `/graphify .` that processes an entire project — code, docs, PDFs, images, videos — into a knowledge graph. Outputs three files: `graph.html` (interactive browser visualization), `GRAPH_REPORT.md` (key concepts, surprising connections, suggested questions), and `graph.json` (the full graph for querying). Also supports `graphify export callflow-html` for Mermaid call-flow diagrams.

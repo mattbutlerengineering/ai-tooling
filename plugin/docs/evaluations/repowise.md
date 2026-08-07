@@ -1,7 +1,7 @@
 # Evaluation: repowise
 
 **Repo:** [repowise-dev/repowise](https://github.com/repowise-dev/repowise)
-**Stars:** ~2,460 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Stars:** ~2,460 | **Last updated:** 2026-06-20 | **License:** AGPL-3.0  <!-- full license text added upstream 2026-07-12 (`chore: use full AGPL-3.0 license text so GitHub detects it`); the header froze at the pre-detection NOASSERTION reading -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (codebase intelligence)

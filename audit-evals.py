@@ -1056,15 +1056,26 @@ class Evaluation:
     # `**Last updated:**` — pipe-separated — so the value stops at the next `|`, and
     # the field is NOT anchored to the start of a line (#411).
     _LICENSE_HEADER = re.compile(r"\*\*License:\*\*\s*([^|\n]+)")
+    _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 
     @property
     def license_header(self):
         """The declared `**License:**` value as written, or None if the eval has no
         such field. Free text by convention — `MIT`, `Apache-2.0 (repo) / CC-BY (docs)`,
         `source-available (repo SPDX returns NOASSERTION)` — so detector AC compares
-        license FAMILIES rather than strings."""
+        license FAMILIES rather than strings.
+
+        An HTML comment is stripped: it carries PROVENANCE about the value (when the
+        license changed upstream, why the record disagrees), not the claim itself. The
+        distinction is load-bearing because the honest way to record a correction is to
+        quote what you corrected — detector Z's `LICENSE_WITHDRAWN` rule — and a comment
+        reading "the header froze at the pre-detection NOASSERTION reading" would
+        otherwise make an accurate `AGPL-3.0` header assert an absence (#417). Same
+        convention as `**Last verified:**`'s backfill marker."""
         m = self._LICENSE_HEADER.search(self.text)
-        return m.group(1).strip() if m else None
+        if not m:
+            return None
+        return self._HTML_COMMENT.sub("", m.group(1)).strip() or None
 
     # The headline token, drawn from the ONE vocabulary in catalog_lib (#324). An eval
     # whose row is a `discovery-log` lead may headline `discovery-log` and say what it
@@ -2693,7 +2704,29 @@ def audit_license_header(ctx):
 
     UNGROUNDED (the header asserts an absence the record refutes) sorts ahead of
     CONFLICT (both name a license, they differ), because only the first can invalidate a
-    disposition rather than merely a fact.
+    disposition rather than merely a fact — and UNGROUNDED-SKIP sorts ahead of both,
+    because there it *has* (#417).
+
+    That split is the whole point of reporting a header at all. AC used to print all
+    three of the tree's UNGROUNDED findings identically, and they were not the same
+    thing: `pi-subagents` carried a live `SKIP` whose entire stated ground was the
+    absence, while `kreuzberg` and `repowise` carried `discovery-log` open items that the
+    record simply answered. The line already read "a mechanical SKIP resting on it has no
+    ground" while checking nothing about whether one did.
+
+    The grounding test is detector Z's, reused rather than re-implemented (`LICENSE_GROUND`
+    / `LICENSE_WITHDRAWN`), so the two license detectors cannot disagree about what
+    "rests on the license" means. A verdict that has already withdrawn its ground drops
+    back to plain UNGROUNDED — the header is still wrong, but the disposition is a
+    documented repair, and Z's rule is that quoting the claim you retract is the honest
+    way to record one.
+
+    Why this direction needs watching at all: every one of those headers was correct when
+    it was written, and upstream moved afterwards — `pi-subagents` added its MIT LICENSE
+    twenty days *after* the P4 bulk triage SKIPped it for having none. `license_lost`
+    (detector V) already treats a license *disappearing* as an event; a license appearing
+    is the direction that voids a disposition rather than aging a fact, and a header
+    frozen at triage time is exactly the frozen claim that makes it visible.
 
     `redirected` is printed and never counted: a record whose `resolved_name` differs in
     its OWNER arrived through a redirect and describes the destination, so it is not
@@ -2710,6 +2743,7 @@ def audit_license_header(ctx):
     if not isinstance(records, dict):
         return [], [], 0
     by_lower = {k.lower(): (k, v) for k, v in records.items() if isinstance(v, dict)}
+    verd = ctx.comparison_verdict_map
 
     findings, redirected, compared = [], [], 0
     for ev in ctx.evals:
@@ -2737,13 +2771,23 @@ def audit_license_header(ctx):
         if LICENSE_VAGUE.match(header):
             continue
         if LICENSE_ABSENT.search(header):
-            findings.append(LicenseHeaderFinding("UNGROUNDED", ev.name, slug, header, spdx))
+            # Does a disposition rest on the absence the record just refuted? Z's test,
+            # reused: the ROW's verdict (the disposition of record, per detector D) plus
+            # LICENSE_GROUND over the eval's own argument. A verdict that already
+            # withdrew its ground is a documented repair, not a live invalid disposition.
+            v = next((verd[k] for k in ev.name_aliases if k in verd), None) or ev.verdict
+            sec = re.search(r"##\s*Verdict.*?(?=\n##\s|\Z)", ev.text, re.DOTALL)
+            sec = sec.group(0) if sec else ""
+            grounded = (v == "SKIP" and LICENSE_GROUND.search(sec)
+                        and not LICENSE_WITHDRAWN.search(sec))
+            kind = "UNGROUNDED-SKIP" if grounded else "UNGROUNDED"
+            findings.append(LicenseHeaderFinding(kind, ev.name, slug, header, spdx))
             continue
         hf, rf = license_families(header), license_families(spdx)
         if hf and rf and hf.isdisjoint(rf):
             findings.append(LicenseHeaderFinding("CONFLICT", ev.name, slug, header, spdx))
 
-    rank = {"UNGROUNDED": 0, "CONFLICT": 1}
+    rank = {"UNGROUNDED-SKIP": 0, "UNGROUNDED": 1, "CONFLICT": 2}
     findings.sort(key=lambda f: (rank[f.kind], f.name))
     redirected.sort(key=lambda f: f.name)
     return findings, redirected, compared
@@ -3284,13 +3328,16 @@ def main():
                   "populate repo-metadata.json (0 records is not 0 findings)")
         elif not finds:
             print("  OK — every eval header agrees with the license on record")
+        WHY = {
+            "UNGROUNDED-SKIP": "a live SKIP rests on this absence and the record refutes "
+                               "it — the DISPOSITION is void, not just the header (#417)",
+            "UNGROUNDED": "the record names a license, so the absence this header asserts "
+                          "is not one; no disposition rests on it here (#372)",
+            "CONFLICT": "both name a license and they differ — one of the two is wrong",
+        }
         for f in finds:
-            why = ("the record names a license, so the absence this header asserts is "
-                   "not one — a mechanical SKIP resting on it has no ground (#372)"
-                   if f.kind == "UNGROUNDED"
-                   else "both name a license and they differ — one of the two is wrong")
-            print(f"  {f.kind:10} {f.name} [{f.slug}] header `{f.header}` vs record "
-                  f"`{f.spdx}` — {why}")
+            print(f"  {f.kind:16} {f.name} [{f.slug}] header `{f.header}` vs record "
+                  f"`{f.spdx}` — {WHY[f.kind]}")
         # Printed, never counted: the record came through a redirect and describes the
         # DESTINATION, so it is not evidence about this row.
         for f in redirected:
