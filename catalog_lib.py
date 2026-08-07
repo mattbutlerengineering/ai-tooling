@@ -80,6 +80,24 @@ def github_repos(text):
     return sorted(set(_GITHUB_SLUG.findall(text)))
 
 
+# An HTML comment. Stripped before matching a CLAIM, never before matching PROVENANCE
+# about one — detector AC's rule (#417), generalised in #451 after detector Q read
+# TEMPLATE.md's own guidance comment ("OPTIONAL next line: **Last triaged:** …") as a
+# triage stamp, so every eval created the documented way failed a gating detector.
+#
+# The distinction is load-bearing rather than stylistic, because some provenance markers
+# ARE comments: `<!-- triaged: bulk -->` and `<!-- backfilled from last git edit -->` say
+# something about a claim and must stay readable in the raw text. A blanket strip would
+# delete them along with the noise, which is why this is a helper the caller applies to
+# the claim side only, and never a flag on the reader.
+_HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+
+
+def strip_html_comments(text):
+    """`text` with every HTML comment removed."""
+    return _HTML_COMMENT.sub("", text)
+
+
 # The parenthetical qualifier in a tool name: "GSD (Get Shit Done)" → "GSD".
 _PARENTHETICAL = re.compile(r"\s*\(.*?\)")
 
