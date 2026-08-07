@@ -1,7 +1,7 @@
 # Evaluation: kreuzberg
 
 **Repo:** [xberg-io/xberg](https://github.com/xberg-io/xberg) (formerly kreuzberg-dev/kreuzberg; repo renamed)
-**Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** source-available (repo SPDX returns NOASSERTION)
+**Stars:** ~8,500 | **Last updated:** 2026-06-20 | **License:** MIT  <!-- relicensed upstream 2026-06-25 (`chore: relicense under MIT (Kreuzberg, Inc.)`); the header froze at the pre-relicense reading -->
 **Last verified:** 2026-06-29  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (document ingestion for RAG / Memory & Context)
@@ -52,7 +52,7 @@ gh api repos/xberg-io/xberg/readme --jq '.content' | base64 -d
 
 **discovery-log — tentative read**
 
-Adopt as the document-ingestion layer when you need clean text, metadata, and structure (including code intelligence) from many formats to feed RAG or agents — fast and locally, without a GPU. Pin the license terms first, and validate OCR/VLM output quality on your document mix. Pair with a retrieval/index tool (LightRAG/PageIndex); kreuzberg is the extraction front-end, not end-to-end RAG.
+Adopt as the document-ingestion layer when you need clean text, metadata, and structure (including code intelligence) from many formats to feed RAG or agents — fast and locally, without a GPU. The license is settled — MIT, relicensed upstream on 2026-06-25 (this eval's header read `NOASSERTION` until #417). Validate OCR/VLM output quality on your document mix. Pair with a retrieval/index tool (LightRAG/PageIndex); kreuzberg is the extraction front-end, not end-to-end RAG.
 
 ## Triage note
 

@@ -1,7 +1,7 @@
 # Evaluation: graphify
 
 **Repo:** [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify)
-**Stars:** ~74,400 | **Last updated:** 2026-06-17 | **License:** MIT
+**Stars:** ~74,400 | **Last updated:** 2026-06-17 | **License:** Apache-2.0  <!-- `pyproject.toml` declares Apache-2.0; the repo's LICENSE-MIT sits beside NOTICE as a bundled third-party notice, not a dual grant -->
 **Last verified:** 2026-06-29
 **Dev loop stage:** Plan / Reflect
 **Layer:** Tooling

@@ -4421,21 +4421,30 @@ class TestLicenseHeaderVsRecord(unittest.TestCase):
     in the file #372 did not look at: detector Z fires only on `license_spdx: NONE`, so
     an understatement on the EVAL's side is invisible to it."""
 
-    def _run(self, evals, records):
-        """evals is (name, slug, license_header); records is {slug: record}."""
+    def _run(self, evals, records, verdicts=None, verdict_prose=None):
+        """evals is (name, slug, license_header); records is {slug: record}.
+        verdicts/verdict_prose map an eval name to its COMPARISON verdict and its
+        `## Verdict` text — the two inputs the UNGROUNDED-SKIP split reads (#417)."""
+        verdicts, verdict_prose = verdicts or {}, verdict_prose or {}
         with tempfile.TemporaryDirectory() as d:
             os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            rows = "".join(f"| {n} | tool | | ✓ | {v} | REVIEW |\n"
+                           for n, v in verdicts.items())
             _write(d, "COMPARISON.md", "# T\n\n## Implement\n\n"
-                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n")
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+                   + rows)
             _write(d, "repo-metadata.json", json.dumps(records))
             for name, slug, lic in evals:
                 head = "**Stars:** 1 | **Last updated:** 2026-01-01"
                 if lic is not None:
                     head += f" | **License:** {lic}"
+                body = ""
+                if name in verdict_prose:
+                    body = f"\n## Verdict\n\n{verdict_prose[name]}\n"
                 _write(d, f"evaluations/{name}.md",
                        f"# Evaluation: {name}\n\n"
                        f"**Repo:** [{slug}](https://github.com/{slug})\n{head}\n\n"
-                       "## How we tested it\n\n**Evidence:** REVIEW\n\nRead it.\n")
+                       "## How we tested it\n\n**Evidence:** REVIEW\n\nRead it.\n" + body)
             return audit.audit_license_header(audit.DetectorContext(d))
 
     @staticmethod
@@ -4454,6 +4463,71 @@ class TestLicenseHeaderVsRecord(unittest.TestCase):
     def test_two_named_licenses_that_differ_are_a_conflict(self):
         finds, _, _ = self._run([("a", "o/a", "MIT")], {"o/a": self._rec("Apache-2.0")})
         self.assertEqual([(f.kind, f.name) for f in finds], [("CONFLICT", "a")])
+
+    # --- #417: an absence a live SKIP rests on is a void disposition, not a wrong fact ---
+
+    SKIP_GROUND = "**SKIP** — no declared license; text carrying no license grant cannot be copied in."
+
+    def test_absence_a_live_skip_rests_on_is_ungrounded_skip(self):
+        finds, _, _ = self._run(
+            [("pi", "o/pi", "none specified")], {"o/pi": self._rec("MIT")},
+            verdicts={"pi": "SKIP"}, verdict_prose={"pi": self.SKIP_GROUND})
+        self.assertEqual([(f.kind, f.name) for f in finds], [("UNGROUNDED-SKIP", "pi")])
+
+    def test_absence_with_no_disposition_on_it_stays_plain_ungrounded(self):
+        # kreuzberg/repowise shape: the header is wrong and the row is a discovery-log
+        # lead, so an open item is answered — nothing is invalidated.
+        finds, _, _ = self._run(
+            [("k", "o/k", "none specified")], {"o/k": self._rec("MIT")},
+            verdicts={"k": "discovery-log"},
+            verdict_prose={"k": "**discovery-log** — pin the license terms first."})
+        self.assertEqual([(f.kind, f.name) for f in finds], [("UNGROUNDED", "k")])
+
+    def test_a_skip_not_grounded_on_the_license_is_not_ungrounded_skip(self):
+        # Z's LICENSE_GROUND is deliberately narrow: a SKIP for another reason must not
+        # be upgraded just because the header happens to be wrong.
+        finds, _, _ = self._run(
+            [("s", "o/s", "none specified")], {"o/s": self._rec("MIT")},
+            verdicts={"s": "SKIP"},
+            verdict_prose={"s": "**SKIP** — redundant with the incumbent."})
+        self.assertEqual([(f.kind, f.name) for f in finds], [("UNGROUNDED", "s")])
+
+    def test_a_withdrawn_ground_drops_back_to_plain_ungrounded(self):
+        # Z's rule: quoting the claim you retract is the honest way to record a repair,
+        # so a documented retraction must not read as a live invalid disposition.
+        finds, _, _ = self._run(
+            [("w", "o/w", "none specified")], {"o/w": self._rec("MIT")},
+            verdicts={"w": "SKIP"},
+            verdict_prose={"w": "**SKIP** — ~~no declared license~~. The license ground "
+                                "is withdrawn; upstream added MIT."})
+        self.assertEqual([(f.kind, f.name) for f in finds], [("UNGROUNDED", "w")])
+
+    def test_ungrounded_skip_sorts_ahead_of_everything(self):
+        finds, _, _ = self._run(
+            [("c", "o/c", "MIT"), ("u", "o/u", "none specified"),
+             ("z", "o/z", "none specified")],
+            {"o/c": self._rec("Apache-2.0"), "o/u": self._rec("MIT"), "o/z": self._rec("MIT")},
+            verdicts={"z": "SKIP"}, verdict_prose={"z": self.SKIP_GROUND})
+        self.assertEqual([f.kind for f in finds],
+                         ["UNGROUNDED-SKIP", "UNGROUNDED", "CONFLICT"])
+
+    def test_an_html_comment_is_provenance_not_the_claim(self):
+        # An honest correction quotes what it corrected, so a header can carry the word
+        # NOASSERTION in a comment while asserting AGPL-3.0. Without stripping, the
+        # accurate header reports as an asserted absence.
+        header = ("AGPL-3.0  <!-- full license text added upstream 2026-07-12; the "
+                  "header froze at the pre-detection NOASSERTION reading -->")
+        finds, _, compared = self._run([("r", "o/r", header)],
+                                       {"o/r": self._rec("AGPL-3.0")})
+        self.assertEqual(finds, [])
+        self.assertEqual(compared, 1)
+        ev = audit.Evaluation("r", f"**License:** {header}\n")
+        self.assertEqual(ev.license_header, "AGPL-3.0")
+
+    def test_live_tree_has_no_ungrounded_skip(self):
+        # Pins the repair: no live SKIP rests on an absence the record refutes.
+        finds, _, _ = audit.audit_license_header(audit.DetectorContext(ROOT))
+        self.assertEqual([f.name for f in finds if f.kind == "UNGROUNDED-SKIP"], [])
 
     def test_ungrounded_sorts_ahead_of_conflict(self):
         # Only the first can invalidate a disposition; a reader should meet it first.

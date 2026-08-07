@@ -216,7 +216,7 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | TanStack-cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mastra | framework | ✓ | ✓ | SKIP | REVIEW |
 | pydantic-deepagents | framework | ✓ | ✓ | SKIP | REVIEW |
-| pi-subagents | plugin | ✓ | ✓ | SKIP | REVIEW |
+| pi-subagents | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | CopilotKit | framework | ✓ | ✓ | SKIP | REVIEW |
 | tambo | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | agent-native | framework | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -752,7 +752,7 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 62 | 30 | 6 | 48% |
-| Implement | 217 | 111 | 4 | 51% |
+| Implement | 217 | 110 | 4 | 51% |
 | Verify | 23 | 12 | 2 | 52% |
 | Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -763,4 +763,4 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 46 | 16 | 2 | 35% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **667** | **288** | **34** | **43%** |
+| **Total** | **667** | **287** | **34** | **43%** |
