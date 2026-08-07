@@ -991,6 +991,126 @@ class TestCommentsAreNotClaims(unittest.TestCase):
                              msg=f"{mod} re-implements the comment stripper")
 
 
+# ----------------------------------------------------------------- stage drift, detector AG (#453)
+class TestStageDrift(unittest.TestCase):
+    """A tool's dev loop stage is written in the eval header AND in the COMPARISON section
+    it sits under, and nothing compared them. The detector is deliberately generous — the
+    corpus is full of legitimately multi-stage tools — so most of these pin what must NOT
+    be reported."""
+
+    HEAD = "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+
+    def _ctx(self, d, sections, evals, stack=""):
+        comp = ["# Tool Comparison", ""]
+        for sec, rows in sections.items():
+            comp += [f"## {sec}", "", self.HEAD.rstrip()]
+            comp += [f"| {t} | tool | | ✓ | {v} | REVIEW |" for t, v in rows]
+            comp.append("")
+        _write(d, "COMPARISON.md", "\n".join(comp) + "\n")
+        _write(d, "CATALOG.md", "# Catalog\n")
+        _write(d, "STACK.md", stack or "# Stack\n")
+        for name, stage in evals.items():
+            body = f"# Evaluation: {name}\n\n**Dev loop stage:** {stage}\n\n" if stage else f"# Evaluation: {name}\n\n"
+            body += f"## Catalog entry\n\n| Name | Type | One-liner | Problem | Overlaps |\n|---|---|---|---|---|\n| {name} | tool | x | y | z |\n"
+            _write(d, os.path.join("evaluations", name + ".md"), body)
+        return audit.DetectorContext(d)
+
+    def _drift(self, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_stage_drift(self._ctx(d, **kw))
+
+    def test_a_section_the_header_never_names_is_a_finding(self):
+        drift, _stack, comparable, _un = self._drift(
+            sections={"Ship": [("worktrunk", "discovery-log")]},
+            evals={"worktrunk": "Implement"})
+        self.assertEqual([(f.tool, f.section, f.named) for f in drift],
+                         [("worktrunk", "Ship", ["Implement"])])
+        self.assertEqual(comparable, 1)
+
+    def test_the_header_is_quoted_so_a_human_reads_the_sentence(self):
+        # V's rule: the detector cannot resolve which side is stale, so it never says.
+        drift, _s, _c, _u = self._drift(
+            sections={"Review": [("code-on-incus", "discovery-log")]},
+            evals={"code-on-incus": "Cross-cutting / Safety (isolation substrate; touches Implement)"})
+        self.assertIn("touches Implement", drift[0].header)
+
+    def test_any_named_stage_matching_the_section_is_agreement(self):
+        # The generosity rule, and the reason resolving-merge-conflicts is not a finding:
+        # a multi-stage tool must still be filed under ONE of its stages.
+        drift, _s, comparable, _u = self._drift(
+            sections={"Implement": [("rmc", "ADOPT")]},
+            evals={"rmc": "Ship (merge/integration; touches Implement when conflicts arise)"})
+        self.assertEqual(drift, [])
+        self.assertEqual(comparable, 1)
+
+    def test_a_header_naming_no_loop_stage_is_never_a_finding(self):
+        # check-stars.py's rule: an honest non-answer is not graded into a finding.
+        drift, _s, comparable, unusable = self._drift(
+            sections={"Implement": [("vercel-ai", "discovery-log")]},
+            evals={"vercel-ai": "Mostly off-loop (an SDK for building LLM apps)"})
+        self.assertEqual((drift, comparable, unusable), ([], 0, 1))
+
+    def test_category_sections_are_not_stage_claims(self):
+        # 316 rows sit under a category; comparing them would flag every healthy one.
+        drift, _s, comparable, unusable = self._drift(
+            sections={"MCP Servers": [("git-mcp", "discovery-log")]},
+            evals={"git-mcp": "Implement"})
+        self.assertEqual((drift, comparable, unusable), ([], 0, 0))
+
+    def test_stage_names_are_word_anchored(self):
+        # `Planning`/`Implementation` are prose, not a declaration of that stage.
+        self.assertEqual(audit.named_stages("Planning and implementation notes"), [])
+        self.assertEqual(audit.named_stages("Verify / Ship (preview environments)"),
+                         ["Verify", "Ship"])
+
+    def test_stack_is_a_third_copy_and_is_compared_stage_to_stage_only(self):
+        stack = ("# Stack\n\n## Ship\n\n| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [rmc](https://github.com/a/b) | x | y | z |\n"
+                 "| [gh-mcp](https://github.com/c/d) | x | y | z |\n")
+        _drift, stack_drift, _c, _u = self._drift(
+            sections={"Implement": [("rmc", "ADOPT")], "MCP Servers": [("gh-mcp", "ADOPT")]},
+            evals={"rmc": "Ship (touches Implement)", "gh-mcp": "Plan"},
+            stack=stack)
+        # rmc: Ship vs Implement, both stages -> finding. gh-mcp: Ship vs a CATEGORY
+        # section -> a different axis, and legitimate.
+        self.assertEqual([f.tool for f in stack_drift], ["rmc"])
+
+    def test_a_row_claimed_by_two_evals_resolves_to_neither(self):
+        # AD's open question; answering it here would put a stranger's header on the row.
+        with tempfile.TemporaryDirectory() as d:
+            self._ctx(d, sections={"Ship": [("dup", "discovery-log")]},
+                      evals={"dup": "Implement"})
+            _write(d, os.path.join("evaluations", "dup-two.md"),
+                   "# Evaluation: dup\n\n**Dev loop stage:** Plan\n\n## Catalog entry\n\n"
+                   "| Name | Type | One-liner | Problem | Overlaps |\n|---|---|---|---|---|\n"
+                   "| dup | tool | x | y | z |\n")
+            drift, _s, comparable, _u = audit.audit_stage_drift(audit.DetectorContext(d))
+        self.assertEqual((drift, comparable), ([], 0))
+
+    def test_the_stage_header_is_read_from_comment_stripped_text(self):
+        # #451: a commented example line is provenance, never a declaration.
+        ev = audit.Evaluation("x", "# E\n\n<!-- e.g. **Dev loop stage:** Plan -->\n"
+                                   "**Dev loop stage:** Ship\n")
+        self.assertEqual(ev.dev_loop_stage, "Ship")
+        only = audit.Evaluation("y", "# E\n\n<!-- e.g. **Dev loop stage:** Plan -->\n")
+        self.assertIsNone(only.dev_loop_stage)
+
+    def test_watchlist_reads_the_shared_property_not_its_own_regex(self):
+        # The two sources meet in WATCHLIST's Stage column (#416); one implementation.
+        with open(os.path.join(ROOT, "watchlist.py"), encoding="utf-8") as f:
+            body = f.read()
+        self.assertNotIn("Dev loop stage:\\*\\*", body,
+                         msg="watchlist.py re-implements the stage-header regex")
+        self.assertIn("dev_loop_stage", body)
+
+    def test_the_live_tree_reports_a_number_not_an_error(self):
+        drift, stack_drift, comparable, _u = audit.audit_stage_drift(
+            audit.DetectorContext(ROOT))
+        self.assertGreater(comparable, 100, msg="the detector stopped resolving evals")
+        for f in drift + stack_drift:
+            self.assertTrue(f.header, msg=f"{f.tool} reported with no header to quote")
+
+
 # ----------------------------------------------------------------- routine gate contract (#449)
 class TestRoutineGateContract(unittest.TestCase):
     """`docs/agents/routines.md` is what an unattended cloud agent reads before deciding

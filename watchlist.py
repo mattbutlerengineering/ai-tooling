@@ -79,8 +79,12 @@ _TRIGGER_RES = (
 )
 _VERDICT_SECTION = re.compile(r"##\s*Verdict.*?(?=\n##\s|\Z)", re.DOTALL)
 _NO_TRIGGER = "trigger not recorded — add one"
-# An eval-only DEFER has no COMPARISON row to take a stage from; read its own header.
-_EVAL_STAGE = re.compile(r"^\*\*Dev loop stage:\*\*\s*([^\n|]+)", re.MULTILINE)
+# An eval-only DEFER has no COMPARISON row to take a stage from; it reads its own
+# `**Dev loop stage:**` header, via ae.Evaluation.dev_loop_stage. That property is shared
+# rather than re-matched here (#453): the same header is what detector AG compares
+# against the COMPARISON section, and a second regex for one field is the drift this
+# page's own Stage column would show first — its cell comes from the section for
+# row-backed entries and from the header for eval-only ones.
 
 # Section 2: the two hand-written STACK.md flag phrases. DELIBERATELY FRAGILE —
 # section 2 grep-parses prose because STACK-LEDGER.md has no machine-readable
@@ -156,8 +160,7 @@ def deferred(ctx):
             continue
         if any(a in comp for a in ev.name_aliases):
             continue  # has a row; already emitted above (under the row's own name)
-        m = _EVAL_STAGE.search(ev.text)
-        out.append((ev.name, m.group(1).strip() if m else "—",
+        out.append((ev.name, ev.dev_loop_stage or "—",
                     eval_trigger(ev) or _NO_TRIGGER, ev))
     missing = sum(1 for t in out if t[2] == _NO_TRIGGER)
     out.sort(key=lambda t: t[0].lower())
