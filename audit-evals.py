@@ -1129,9 +1129,26 @@ class Evaluation:
         cands = {catalog_lib.name_key(self.name)}
         h = re.search(r"^#\s*Evaluation:\s*(.+)$", self.text, re.MULTILINE)
         if h: cands.add(catalog_lib.name_key(h.group(1)))
-        ce = next((r for r in self.catalog_rows
-                   if r.url and r.url.startswith("https://github")), None)
-        if ce: cands.add(catalog_lib.name_key(ce.name))
+        rows = self.catalog_rows
+        if len(rows) == 1:
+            # An eval's `## Catalog entry` mirror names the row it CLAIMS, link or no
+            # link — #401's ruling that an unlinked entry is still a catalogued tool.
+            # The old `startswith("https://github")` filter discarded exactly the cell
+            # that says so, and TEMPLATE.md mirrors are written with a bare name: that
+            # is why a bulk pass wrote `prisma.md` beside `prisma-mcp.md` and recorded
+            # "no eval file existed before this pass" (#412, #433). It also decided
+            # detector AD's two buckets by markdown formatting alone — `sentry-mcp`'s
+            # mirror happens to carry a link, `prisma-mcp`'s does not.
+            cands.add(catalog_lib.name_key(rows[0].name))
+        else:
+            # More than one mirror row means a COMPARISON DOCUMENT whose rows are
+            # references, not claims (detector AD's rule) — `cost-observability` embeds
+            # tokencost, Infracost and abtop. Claiming the first github-linked one is
+            # arbitrary and pre-dates that rule; kept so this change loses no alias, and
+            # flagged rather than fixed here since dropping it would leave `tokencost`
+            # with no eval at all.
+            ce = next((r for r in rows if r.url and r.url.startswith("https://github")), None)
+            if ce: cands.add(catalog_lib.name_key(ce.name))
         return cands
 
 # ---------------------------------------------------------------- detector context (#199)

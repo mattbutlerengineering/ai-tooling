@@ -2,6 +2,7 @@
 
 **Repo:** [ailabs-393/ai-labs-claude-skills](https://github.com/ailabs-393/ai-labs-claude-skills)
 **Stars:** 412 | **Last updated:** 2026-06-18 | **License:** MIT
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / outer loop (communication artifacts)
 **Layer:** Tooling
@@ -62,6 +63,30 @@ The 10-slide output covers: Title, Problem, Solution, Market, Product, Traction,
 **SKIP**
 
 The skill correctly identifies what a pitch deck should contain but produces visually plain output that founders wouldn't send to investors without significant manual redesign. The content-gathering workflow is the skill's strongest contribution, but it adds marginal value over a direct Claude conversation with a well-structured prompt. For polished AI-generated decks, wowerpoint outperforms on design quality. For precise PPTX layout control, the igorwarzocha/powerpoint skill outperforms on fidelity. This skill occupies the middle — startup-domain-aware but neither visually capable nor layout-sophisticated — without excelling at either dimension.
+
+## Triage note
+
+**From `pitch-deck.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+**SKIP** — dormant, and the weakest entry in an over-supplied cluster.
+
+The source collection was last pushed **2025-11-11** — close to nine months, and the longest gap of anything
+in the Skills & Plugins stage. For a *vendored* skill that matters less than for a service (the text still
+works if you copy it), but a nine-month-old deck template in a field this fast-moving is a claim about
+2025's slide conventions.
+
+The cluster settles it. This catalog already carries `powerpoint`, `wowerpoint`, `slidev`, `open-slide`,
+`frontend-slides`, `guizang-ppt-skill`, `presentation-creator` and `lark-slides` — eight ways to produce a
+deck. A ten-slide investor-pitch template at ★422, inside a collection nobody is maintaining, is not the
+ninth one anybody needs.
+
+Nothing here is off-scope on category grounds: the Skills & Plugins blurb reads *"extensions that add
+domain-specific capabilities to coding agents"*, which admits domain packs by design. The three
+presentation rows disposed in this pass went on adoption and maintenance evidence, not on being about
+slides — `slidev` (★47.6K) and `open-slide` were left standing in the same sweep.
+
+Re-open if the source collection resumes maintenance.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

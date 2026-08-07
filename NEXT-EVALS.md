@@ -2,7 +2,7 @@
 
 The 384 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 101 distinct values across these 384 leads (153 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 100 distinct values across these 384 leads (153 have zero overlap pressure; largest tie: 22) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -71,10 +71,10 @@ _Listing 12 of 112 — rerun `python3 triage.py` and read the source for the tai
 | gstack | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead gstack` |
 | ruflo | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead ruflo` |
 | browser-use | Verify | 24.8 | pressure 9, gap 4.8 | `/triage-lead browser-use` |
+| ACE (agentic-context-engine) | Memory & Context | 24.2 | pressure 8, gap 6.2 | `/triage-lead ACE (agentic-context-engine)` |
 | memU | Memory & Context | 24.2 | pressure 8, gap 6.2 | `/triage-lead memU` |
 | claude-octopus | Review | 23.2 | pressure 8, gap 5.2 | `/triage-lead claude-octopus` |
 | tdd-guard | Review | 23.2 | pressure 8, gap 5.2 | `/triage-lead tdd-guard` |
-| Understand-Anything | Plan | 23.2 | pressure 8, gap 5.2 | `/triage-lead Understand-Anything` |
 
 ## P3 backlog — 236 leads
 
@@ -110,8 +110,8 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
 | frontend-design | Skills & Plugins | 12.6 | pressure 3, gap 6.6 | `/triage-lead frontend-design` |
+| prisma | MCP Servers | 12.7 | pressure 2, gap 6.7 | `/triage-lead prisma` |
 | plugin-dev | Skills & Plugins | 12.6 | pressure 2, gap 6.6 | `/triage-lead plugin-dev` |
-| prisma | MCP Servers | 10.7 | pressure 2, gap 6.7 | `/triage-lead prisma` |
 | codebase-design | Plan | 9.2 | pressure 1, gap 5.2 | `/triage-lead codebase-design` |
 | domain-modeling | Plan | 9.2 | pressure 1, gap 5.2 | `/triage-lead domain-modeling` |
 | confluence | MCP Servers | 8.7 | pressure 0, gap 6.7 | `/triage-lead confluence` |

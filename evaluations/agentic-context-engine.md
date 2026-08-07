@@ -66,6 +66,24 @@ the P0/eval-runner lane.
 
 _Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
 
+**From `ace-agentic-context-engine.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Left at `discovery-log`, not SKIPped — the top-scoring lead in the Memory & Context P2 band
+(overlap pressure 8) and the one whose relationship to a STACK pick most needs a real look.
+
+Its loop — mine execution traces, distil what worked, feed it back as reusable in-context guidance
+— is the same thesis as [`claude-reflect`](https://github.com/BayramAnnakov/claude-reflect) (STACK,
+Tier 1, `MEASURED`), which turns session corrections into persistent `CLAUDE.md` rules. But they
+sit at different altitudes: claude-reflect is a Claude Code plugin editing one file in one harness,
+ACE is a provider-agnostic Python framework you build an agent *inside*. That is not obviously a
+substitution in either direction, and calling it redundant from a README would be guessing.
+
+Two claims make this worth measuring rather than filing: **2× consistency on Tau2** and **49% fewer
+tokens**, both unverified. The second falls squarely under
+`evaluations/token-savings-protocol.md`. A P0/eval-runner candidate.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |

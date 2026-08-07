@@ -2,6 +2,7 @@
 
 **Repo:** [prisma/claude-plugin](https://github.com/prisma/claude-plugin) (plugin manifest) / [prisma/prisma](https://github.com/prisma/prisma) (MCP implementation)
 **Stars:** 46,347 (main Prisma repo) | **Last updated:** 2026-06-18 | **License:** Apache-2.0
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
@@ -69,9 +70,34 @@ cat ~/.claude/plugins/cache/claude-plugins-official/prisma/815dbc4a045a/.mcp.jso
 
 ## Verdict
 
-**CONDITIONAL**
+**discovery-log — tentative read**
 
 Use when your project uses Prisma ORM. The local MCP server is well-designed for the migration lifecycle it covers — zero-install, drift-aware, with good destructive-operation warnings. However, the tool set is narrow (4 tools vs Supabase's 25+) with no query execution, schema introspection, or `db push` support. The agent still needs Bash for most Prisma operations beyond migrations. Choose Supabase MCP if you're on Supabase; choose Prisma MCP if you're on Prisma — they solve complementary problems (Supabase = full database operations, Prisma = migration lifecycle).
+
+_Headline demoted from `CONDITIONAL` to `discovery-log` (2026-08-07, #433). ADR-0005 grants that word to a tool we exercised (`Evidence` MEASURED/RUN) or one carrying a real `adopt-if:` gate; this is a `REVIEW` read with neither, so the conditional-sounding prose above is a **tentative** read rather than a verdict (detectors T and AB). The row it belongs to reads `discovery-log` and now resolves here — before #433 it resolved to a stub, so the disagreement was invisible to detector D. Nothing about the tool changed; only the claim this file was entitled to make about it._
+
+## Triage note
+
+**From `prisma.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+Left at `discovery-log`, with one row-shape observation worth recording.
+
+The CATALOG entry links to `prisma/prisma` — the whole ORM, ★46.9K — while the catalogued artifact is
+the **MCP server that ships inside it**. The star count therefore measures the ORM's adoption, not the
+MCP server's, and reading it as evidence about this integration would be a mistake. It is a milder
+instance of the pattern this triage lane keeps finding (`diagnosing-bugs` and `implement` inside
+`mattpocock/skills`; `confluence` and `jira` inside `mcp-atlassian`): a facet of a larger artifact
+entered as an independent lead.
+
+That is not a reason to SKIP it. If you already use Prisma, the MCP server comes with the tooling you
+have, which makes it the lowest-friction option in the DB cluster — and the `mcp-toolbox` eval says as
+much, naming prisma and supabase as the smaller lift for a single local database.
+
+Left because the promotion question ("does agent-driven migration actually help, and how badly can it
+go wrong") needs a hands-on run against a real schema, and because whether the row should point at the
+ORM or a narrower MCP path is a catalog-shape decision rather than a verdict.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

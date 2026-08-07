@@ -2,6 +2,7 @@
 
 **Repo:** [practicalswan/agent-skills](https://github.com/PracticalSwan/agent-skills)
 **Stars:** 3 | **Last updated:** 2026-06-15 | **License:** MIT
+**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Reflect / outer loop (communication artifacts)
 **Layer:** Tooling
@@ -64,6 +65,27 @@ Compared to `wowerpoint` (claude-mem): wowerpoint takes a document, routes it th
 **SKIP**
 
 The bundled `ppt-automation.py` is a non-functional stub — `PresentationBuilder` methods return Python dictionaries rather than `.pptx` files, and the module has no `python-pptx` import. The fallback the skill's MCP section depends on does not exist in any working form. The process guidance and verification protocol are well-crafted but are not sufficient to differentiate from a good CLAUDE.md rule set. With 3 GitHub stars and minimal maintenance, the risk of it staying broken is high. `igorwarzocha/powerpoint` covers the same use case with a working 978-line generation library; `wowerpoint` covers AI-generated decks end-to-end.
+
+## Triage note
+
+**From `powerpoint-ppt.md`, merged 2026-08-07 (#433).** A second bulk pass wrote a placeholder for this tool beside this file, believing none existed; its reasoning is preserved here verbatim.
+
+**SKIP** — superseded by a catalogued incumbent, and the CATALOG row already says so in its own one-liner:
+*"⚠️ source collection low adoption, 3★"*.
+
+Three stars is not a signal to interpret; it is the absence of one. The catalogued `powerpoint` skill covers
+`.pptx` manipulation, `wowerpoint` covers AI-written business decks, and `open-slide` covers agent-authored
+web decks with a visual edit loop. There is no gap here for a fourth implementation from a collection with
+no adoption behind it.
+
+Worth stating that the disclaimer already in the row is the honest thing to have done at entry time, and
+this verdict is just following it through. A catalog that flags a weak row and then never disposes it
+accumulates exactly the drift this triage band exists to clear.
+
+MIT, pushed 2026-06-23, so it is neither abandoned nor broken — simply redundant.
+
+Re-open if the source collection gains adoption or the skill develops something `powerpoint` lacks.
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 ## Catalog entry
 

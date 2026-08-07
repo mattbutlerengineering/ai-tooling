@@ -4777,16 +4777,30 @@ class TestDuplicateEvals(unittest.TestCase):
                        + mirror)
             return audit.audit_duplicate_evals(audit.DetectorContext(d))
 
-    def test_an_unlinked_mirror_still_claims_its_row(self):
-        # #401's ruling, in the shared identity path: TEMPLATE.md mirrors carry a bare
-        # name, and excluding them is exactly why a triage lane wrote a second eval.
+    def test_an_unlinked_mirror_claims_its_row(self):
+        # #401's ruling in the shared identity path, and the fix #433 applied: a mirror
+        # names the row its eval CLAIMS, link or no link. Before it, `prisma-mcp`'s bare
+        # mirror granted nothing, the row fell through to the stub, and this same fixture
+        # reported SHADOWED — the arrangement that made a bulk lane write "no eval file
+        # existed before this pass" beside a 6 KB eval of the same tool.
         finds, _ = self._run(
             [("prisma", "discovery-log")],
             [("prisma", None, "SOURCE-ONLY", ["prisma"]),
              ("prisma-mcp", "CONDITIONAL", "REVIEW", ["prisma"])])
         self.assertEqual([(f.kind, f.row, f.resolved[0]) for f in finds],
-                         [("SHADOWED", "prisma", "prisma")])
-        self.assertEqual(finds[0].shadows, [("prisma-mcp", "CONDITIONAL", "REVIEW")])
+                         [("DUPLICATE", "prisma", "prisma-mcp")])
+        self.assertEqual(finds[0].shadows, [("prisma", None, "SOURCE-ONLY")])
+
+    def test_a_comparison_document_does_not_claim_its_referenced_rows(self):
+        # AD's own precision rule: an eval embedding MORE than one mirror row is a
+        # comparison document whose rows are references, not claims. Widening the
+        # single-row case must not fan an eval out across every tool it mentions —
+        # `cost-observability` embeds tokencost, Infracost and abtop.
+        finds, _ = self._run(
+            [("tokencost", "CONDITIONAL"), ("abtop", "CONDITIONAL")],
+            [("cost-observability", None, "REVIEW", ["tokencost", "abtop"]),
+             ("abtop", "CONDITIONAL", "MEASURED", ["[abtop](https://github.com/o/abtop)"])])
+        self.assertEqual(finds, [])
 
     def test_the_row_resolving_to_the_stronger_file_is_only_a_duplicate(self):
         # Still a finding — two evals of one tool — but the record itself is right, so it
@@ -4801,10 +4815,13 @@ class TestDuplicateEvals(unittest.TestCase):
         self.assertEqual([f.kind for f in finds], ["DUPLICATE"])
 
     def test_shadowed_sorts_ahead_of_duplicate(self):
+        # Resolution is first-wins over filename order, so the weaker file only wins when
+        # it sorts first — `m-zzz` before `n-zzz`. That is the arrangement in which the
+        # row reports less than the tree holds, and it outranks a merely redundant pair.
         finds, _ = self._run(
             [("zzz", "discovery-log"), ("aaa", "discovery-log")],
             [("aaa", "SKIP", "REVIEW", ["aaa"]), ("aaa-two", "SKIP", "REVIEW", ["aaa"]),
-             ("zzz", None, "SOURCE-ONLY", ["zzz"]), ("zzz-two", "SKIP", "REVIEW", ["zzz"])])
+             ("m-zzz", None, "SOURCE-ONLY", ["zzz"]), ("n-zzz", "SKIP", "REVIEW", ["zzz"])])
         self.assertEqual([f.kind for f in finds], ["SHADOWED", "DUPLICATE"])
 
     def test_one_eval_per_row_is_never_a_finding(self):
@@ -4842,6 +4859,20 @@ class TestDuplicateEvals(unittest.TestCase):
         without = audit.Evaluation("b", "## How we tested it\n\n**Evidence:** MEASURED\n")
         self.assertGreater(audit._claim_strength(with_verdict),
                            audit._claim_strength(without))
+
+    def test_every_single_mirror_eval_answers_to_the_row_it_names(self):
+        # The #433 identity fix stated as a live-tree invariant. An eval's mirror names
+        # the row it CLAIMS; if the eval does not answer to that name, some OTHER file
+        # resolves the row — which is how eight stubs got written beside eight evals.
+        # Pinned structurally rather than by count: AD's remaining backlog is a human's
+        # merge call, but a mirror that does not grant its own name is a code defect.
+        for e in audit.DetectorContext(ROOT).evals:
+            rows = e.catalog_rows
+            if len(rows) != 1:
+                continue
+            self.assertIn(catalog_lib.name_key(rows[0].name), e.name_aliases,
+                          f"{e.name} embeds a mirror naming {rows[0].name!r} but does "
+                          "not answer to it")
 
     def test_live_findings_name_real_rows_and_distinct_claimants(self):
         # Structural, not a pinned backlog count: a human merges these one at a time.
