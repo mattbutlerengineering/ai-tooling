@@ -1,6 +1,6 @@
 # Evaluation: resolving-merge-conflicts
 
-**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
+**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/resolving-merge-conflicts)
 **Stars:** 136,416 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Ship (merge/integration; touches Implement when conflicts arise mid-feature)
@@ -84,4 +84,4 @@ This is a cheap, portable, well-authored process skill that targets a real and c
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [resolving-merge-conflicts](https://github.com/mattpocock/skills) | skill | Intent-preserving merge conflict resolution — trace both sides, resolve, run checks | Agents blindly pick one side of a conflict without understanding original intent | — |
+| [resolving-merge-conflicts](https://github.com/mattpocock/skills/tree/main/skills/engineering/resolving-merge-conflicts) | skill | Intent-preserving merge conflict resolution — trace both sides, resolve, run checks | Agents blindly pick one side of a conflict without understanding original intent | — |

@@ -1,6 +1,6 @@
 # Evaluation: typescript-mcp-server-generator
 
-**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot)
+**Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills/typescript-mcp-server-generator)
 **Stars:** N/A (skill within a collection) | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -108,4 +108,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [typescript-mcp-server-generator](https://github.com/github/awesome-copilot) | skill | Generate TypeScript MCP servers with current SDK patterns — McpServer, Streamable HTTP, Zod validation | Agents use deprecated MCP SDK patterns (old Server class, SSE transport) when generating MCP servers without guidance | fastmcp (Python alternative, not a replacement) |
+| [typescript-mcp-server-generator](https://github.com/github/awesome-copilot/tree/main/skills/typescript-mcp-server-generator) | skill | Generate TypeScript MCP servers with current SDK patterns — McpServer, Streamable HTTP, Zod validation | Agents use deprecated MCP SDK patterns (old Server class, SSE transport) when generating MCP servers without guidance | fastmcp (Python alternative, not a replacement) |

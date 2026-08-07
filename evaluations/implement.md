@@ -1,6 +1,6 @@
 # Evaluation: implement
 
-**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills)
+**Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/implement)
 **Stars:** 136,535 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -99,4 +99,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [implement](https://github.com/mattpocock/skills) | skill | Thin orchestrator: TDD at seams, typecheck regularly, review when done, commit | Need a repeatable implementation flow that enforces quality gates | tdd, feature-dev, GSD (execute-phase), superpowers (executing-plans) |
+| [implement](https://github.com/mattpocock/skills/tree/main/skills/engineering/implement) | skill | Thin orchestrator: TDD at seams, typecheck regularly, review when done, commit | Need a repeatable implementation flow that enforces quality gates | tdd, feature-dev, GSD (execute-phase), superpowers (executing-plans) |

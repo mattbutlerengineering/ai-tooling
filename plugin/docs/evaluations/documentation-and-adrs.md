@@ -1,6 +1,6 @@
 # Evaluation: documentation-and-adrs (addyosmani/agent-skills)
 
-**Repo:** [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
+**Repo:** [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills/tree/main/skills/documentation-and-adrs)
 **Stars:** 65,447 | **Last updated:** 2026-06-22 | **License:** MIT
 **Last verified:** 2026-06-22
 **Dev loop stage:** Implement (inline docs, ADRs during feature work), Reflect (changelogs, retrospective docs)
@@ -87,4 +87,4 @@ Verified hands-on: the skill source is byte-identical to upstream, every claimed
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [documentation-and-adrs](https://github.com/addyosmani/agent-skills) | skill | ADR templates, inline comment philosophy, and agent-context documentation guidelines | Code shows what was built but not why; ADRs capture decision rationale for future engineers and agents | documentation-writer, documentation (anthropics/knowledge-work-plugins) |
+| [documentation-and-adrs](https://github.com/addyosmani/agent-skills/tree/main/skills/documentation-and-adrs) | skill | ADR templates, inline comment philosophy, and agent-context documentation guidelines | Code shows what was built but not why; ADRs capture decision rationale for future engineers and agents | documentation-writer, documentation (anthropics/knowledge-work-plugins) |
