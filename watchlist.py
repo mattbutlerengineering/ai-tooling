@@ -53,11 +53,34 @@ START, END = "<!-- WATCHLIST:START -->", "<!-- WATCHLIST:END -->"
 # 2026-10-21 alone. `make fix` still refreshes the section.
 STALE_START, STALE_END = "<!-- WATCHLIST:STALE:START -->", "<!-- WATCHLIST:STALE:END -->"
 
-# Section 1: the text after "re-evaluate after/when" in a DEFER eval's Verdict is
-# its trigger sentence (TEMPLATE.md: "DEFER = ... re-evaluate after {trigger}").
-_TRIGGER_RE = re.compile(r"re-evaluate\s+(?:after|when)\s+([^\n]*?)\.(?:\s|$)", re.IGNORECASE)
+# Section 1: the conditional clause in a DEFER eval's Verdict is its trigger sentence
+# (TEMPLATE.md: "DEFER = ... re-evaluate after {trigger}").
+#
+# WIDEN THIS VOCABULARY, NEVER NARROW IT (#416). The single `re-evaluate (after|when)`
+# pattern this replaces recovered 2 of 4 triggers, and the two it missed had stated
+# theirs plainly in other words — letta's "becomes a clear ADOPT only if your goal
+# shifts…", SkillOpt's "adopt once a turnkey path … exists". The page then printed
+# `_NO_TRIGGER` beside them under prose reading "A missing trigger is itself an action
+# item", manufacturing a backlog item asking a human to write down what was already
+# written. That is detector V's rule — flagging a healthy row costs more than missing a
+# sick one — and the remedy is the same one `HONEST` and the clearance vocab use: a
+# wider vocabulary can only REMOVE a false action item, never add one.
+#
+# The earliest match across all patterns wins, so the eval's own sentence order decides
+# rather than the order these are listed in. `;` terminates as well as `.`: these
+# verdicts join independent clauses with it, and the trigger is the first — without it
+# letta's cell trails "; for the dev loop it documents, defer" into a "Re-evaluate when"
+# column. No currently-recovered trigger contains one, so this cannot rewrite them.
+_TRIGGER_RES = (
+    re.compile(r"re-?evaluate\s+(?:after|when|once|if)\s+([^\n]*?)[.;](?:\s|$)", re.IGNORECASE),
+    re.compile(r"revisit\s+(?:after|when|once|if)\s+([^\n]*?)[.;](?:\s|$)", re.IGNORECASE),
+    re.compile(r"\bADOPT\b[^.;\n]*?\bonly\s+(?:if|when|once)\s+([^\n]*?)[.;](?:\s|$)", re.IGNORECASE),
+    re.compile(r"\badopts?\s+(?:once|if|when)\s+([^\n]*?)[.;](?:\s|$)", re.IGNORECASE),
+)
 _VERDICT_SECTION = re.compile(r"##\s*Verdict.*?(?=\n##\s|\Z)", re.DOTALL)
 _NO_TRIGGER = "trigger not recorded — add one"
+# An eval-only DEFER has no COMPARISON row to take a stage from; read its own header.
+_EVAL_STAGE = re.compile(r"^\*\*Dev loop stage:\*\*\s*([^\n|]+)", re.MULTILINE)
 
 # Section 2: the two hand-written STACK.md flag phrases. DELIBERATELY FRAGILE —
 # section 2 grep-parses prose because STACK-LEDGER.md has no machine-readable
@@ -71,33 +94,72 @@ _MD_LINK = re.compile(r"\[([^\]]+)\]\((https://github\.com/[^)]+)\)")
 _PENDING_SUBJECT = re.compile(r"([A-Za-z0-9][\w.-]*)\s+is a candidate")
 
 
+def eval_trigger(ev):
+    """The re-evaluate trigger stated in an eval's `## Verdict`, or None. Earliest match
+    across _TRIGGER_RES wins, so the eval's own sentence order decides. A captured `|`
+    would silently break the markdown table this feeds, so it is escaped here — the cell
+    is a prose sentence an eval author wrote, not a controlled value."""
+    if ev is None:
+        return None
+    vsec = _VERDICT_SECTION.search(ev.text)
+    if not vsec:
+        return None
+    best = None
+    for rx in _TRIGGER_RES:
+        m = rx.search(vsec.group(0))
+        if m and (best is None or m.start(1) < best.start(1)):
+            best = m
+    return best.group(1).strip().replace("|", r"\|") if best else None
+
+
 def deferred(ctx):
-    """(tool, stage, trigger) for every DEFER row in COMPARISON, trigger pulled from
-    the matching eval's Verdict section. Returns the list plus the count of DEFER rows
-    whose trigger could not be recovered (no eval / no Verdict section / no sentence) —
-    the caller STOPs if that count is implausibly high (a data problem, not a bug)."""
+    """(tool, stage, trigger, eval_or_None) for every DEFER in the repo, trigger pulled
+    from the eval's Verdict section. Returns the list plus the count whose trigger could
+    not be recovered (no eval / no Verdict section / no sentence) — the caller STOPs if
+    that count is implausibly high (a data problem, not a bug).
+
+    Sourced from DEFER *verdicts*, not DEFER *rows* (#416). Reading COMPARISON alone made
+    this section blind to a DEFER an eval carries without a row, and the one such eval is
+    the most actionable item the page exists to list: `agentmemory-vs-claude-mem-bakeoff`,
+    the tree's only `**Status:** BLOCKED`, a designed three-arm pilot waiting on one
+    attended run. It has no row *correctly* — a bake-off between two tools that each
+    already have one is a comparison document whose rows are references, not claims
+    (detector AD's rule) — so the fix is to widen the source, not to add a row. Same root
+    as #412 one page over: a derived surface asked COMPARISON for something the eval
+    corpus holds more of. This function already opened every eval to fetch the trigger;
+    the index was in hand when it chose the row set.
+
+    An eval-only entry takes its stage from its own `**Dev loop stage:**` header and is
+    returned with its Evaluation so the caller can render it as an eval link — a reader
+    must be able to see why it has no COMPARISON line to click."""
     by_section = catalog_lib.comparison_rows_by_section(ctx.comparison)
-    # alias name_key -> Evaluation, so a COMPARISON tool name finds its eval file.
+    # alias name_key -> Evaluation, so a COMPARISON tool name finds its eval file. This
+    # is an ALIAS map by design (catalog_lib.identity_keys' docstring): a row named GSD
+    # must reach obra/superpowers' eval, so the lookup keeps its basename fallback.
     eval_by_alias = {}
     for ev in ctx.evals:
         for a in ev.name_aliases:
             eval_by_alias.setdefault(a, ev)
-    out, missing = [], 0
+    out, missing, seen = [], 0, set()
     for stage, rows in by_section.items():
         for r in rows:
             if r.verdict != "DEFER":
                 continue
             ev = next((eval_by_alias[k] for k in catalog_lib.alias_keys(r.tool)
                        if k in eval_by_alias), None)
-            trigger = _NO_TRIGGER
             if ev is not None:
-                vsec = _VERDICT_SECTION.search(ev.text)
-                m = _TRIGGER_RE.search(vsec.group(0)) if vsec else None
-                if m:
-                    trigger = m.group(1).strip()
-            if trigger == _NO_TRIGGER:
-                missing += 1
-            out.append((r.tool, stage, trigger))
+                seen.add(ev.name)
+            out.append((r.tool, stage, eval_trigger(ev) or _NO_TRIGGER, None))
+    comp = ctx.comparison_verdict_map
+    for ev in ctx.evals:
+        if ev.verdict != "DEFER" or ev.name in seen:
+            continue
+        if any(a in comp for a in ev.name_aliases):
+            continue  # has a row; already emitted above (under the row's own name)
+        m = _EVAL_STAGE.search(ev.text)
+        out.append((ev.name, m.group(1).strip() if m else "—",
+                    eval_trigger(ev) or _NO_TRIGGER, ev))
+    missing = sum(1 for t in out if t[2] == _NO_TRIGGER)
     out.sort(key=lambda t: t[0].lower())
     return out, missing
 
@@ -166,16 +228,20 @@ def render(ctx):
         "",
         f"## 1. Deferred — re-evaluate when trigger fires ({len(defer_rows)})",
         "",
-        "`DEFER` rows from [COMPARISON.md](COMPARISON.md): promising but blocked, each "
-        "with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's "
-        "DEFER definition). A missing trigger is itself an action item.",
+        "Every `DEFER` verdict in the repo: promising but blocked, each with the "
+        "re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER "
+        "definition). A missing trigger is itself an action item. Most are "
+        "[COMPARISON.md](COMPARISON.md) rows; an _eval-only_ entry is a DEFER carried by "
+        "an eval with no catalog row — a bake-off or comparison document, whose subjects "
+        "have their own rows — so it is linked to the eval instead.",
         "",
         "| Tool | Stage | Re-evaluate when |",
         "|------|-------|------------------|",
     ]
     if defer_rows:
-        for tool, stage, trigger in defer_rows:
-            L.append(f"| {tool} | {stage} | {trigger} |")
+        for tool, stage, trigger, ev in defer_rows:
+            cell = f"[{tool}](evaluations/{ev.name}.md) _(eval-only)_" if ev else tool
+            L.append(f"| {cell} | {stage} | {trigger} |")
     else:
         L.append("| _none_ | | |")
 
