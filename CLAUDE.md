@@ -103,6 +103,21 @@ content fork). Canonical homes per artifact, with the other harness derived/sync
 **Lockstep invariant:** any change to a hook behavior must keep the opencode
 plugins, the Claude Code `.claude/hooks/` scripts, and `.github/workflows/integrity.yml`
 in lockstep — they all gate against the same coupled scripts, so they must not drift.
+The **shipped** plugin hook (`plugin/hooks/validate-counts.sh`) is held to the same rule
+since #443, and it is the one that had escaped it: it re-implemented the count extraction
+in bash, grepping for the *prose phrasing* each number sits in (`inventory of N`,
+`N evidence-based evaluations`) while `reconcile-counts.py` owned the canonical patterns
+for the same numbers. Two extractors for one fact, in two languages, coupled by nothing —
+so a prose rewrite failed the Python loudly and made the bash silently stop matching, and
+**3 of its 5 checks had rotted to no-ops**, two of them within three days (#436 rewrote
+README's eval line; #442 renamed `plugin/CLAUDE.md`). It delegates to
+`reconcile-counts.py --check` and `sync-plugin-docs.sh --check` now, which also picks up
+patterns the bash never knew existed — `COMPOSITION_PATTERNS` landed in #435 and no hook
+was taught it. What let this run for so long is the **test direction**: the hook's only
+test asserted it is *silent on a clean tree*, which is the symptom — a hook with zero live
+checks is maximally silent, so the test passed more easily the more broken the hook got.
+`TestValidateCountsHook` now pins both directions, and pins that the hook does not
+re-extract a count from prose.
 
 ## Integrity audit
 

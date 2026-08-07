@@ -1,74 +1,44 @@
 #!/bin/bash
-# Validate that CLAUDE.md, README.md, CATALOG.md (and plugin/CLAUDE.md) counts agree.
-# Runs after edits to catch drift before commit.
+# Surface count/sync drift after an edit, by running the repo's own canonical gates.
 #
-# NOTE: extractions are BSD/GNU portable. The real /usr/bin/grep on macOS has no
-# -P (PCRE) flag, so `grep -oP '...\K...'` silently returns empty there and every
-# count check it guarded was a dead no-op. Use `grep -oE` + a number pull instead.
+# This hook used to re-implement the count extraction in bash, grepping for the prose
+# phrasing each number sits in ("inventory of N", "N evidence-based evaluations").
+# `reconcile-counts.py` owns the canonical patterns for those same numbers, so one fact
+# had two extractors in two languages with nothing coupling them — and when the prose was
+# rewritten, the Python failed loudly while the bash silently stopped matching. Three of
+# five checks had rotted to no-ops that way, two of them within three days (#443).
+#
+# So it delegates. That is the rule CLAUDE.md already states for every other hook here:
+# the opencode plugins and the .claude/hooks scripts call the SAME scripts CI does, so
+# there is one implementation. Delegating also picks up patterns the bash never knew
+# about — COMPOSITION_PATTERNS arrived in #435 and no hook was taught it.
+#
+# In a repo that is not this one (the installed plugin fires on every Edit/Write), the
+# scripts are absent and the hook stays a silent no-op.
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
 [ -z "$REPO_ROOT" ] && exit 0
 
-CATALOG="$REPO_ROOT/CATALOG.md"
-CLAUDEMD="$REPO_ROOT/CLAUDE.md"
-README="$REPO_ROOT/README.md"
-PLUGIN_CLAUDEMD="$REPO_ROOT/plugin/CLAUDE.md"
-
-[ -f "$CATALOG" ] && [ -f "$CLAUDEMD" ] && [ -f "$README" ] || exit 0
-
-# Pull the integer that follows a phrase, e.g. num_after "inventory of" file -> 477
-num_after()  { grep -oE "$1 [0-9]+" "$2" 2>/dev/null | grep -oE '[0-9]+' | head -1; }
-# Pull the integer that precedes a phrase, e.g. num_before "evidence" file -> 466
-num_before() { grep -oE "[0-9]+ $1" "$2" 2>/dev/null | grep -oE '[0-9]+' | head -1; }
-
 issues=""
 
-# Count actual catalog entries (table rows excluding headers and separators)
-actual_entries=$(grep '^| ' "$CATALOG" | grep -v '^| Name' | grep -v '^|---' | wc -l | tr -d ' ')
-
-# Check CLAUDE.md entry count
-claude_count=$(num_after "inventory of" "$CLAUDEMD")
-if [ -n "$claude_count" ] && [ "$claude_count" != "$actual_entries" ]; then
-  issues="${issues}CLAUDE.md says $claude_count entries but CATALOG.md has $actual_entries\n"
-fi
-
-# Check plugin/CLAUDE.md entry count (hand-maintained, not synced — drifts silently)
-if [ -f "$PLUGIN_CLAUDEMD" ]; then
-  plugin_claude_count=$(num_after "inventory of" "$PLUGIN_CLAUDEMD")
-  if [ -n "$plugin_claude_count" ] && [ "$plugin_claude_count" != "$actual_entries" ]; then
-    issues="${issues}plugin/CLAUDE.md says $plugin_claude_count entries but CATALOG.md has $actual_entries\n"
+# reconcile-counts.py --check: the catalog total and the eval count/composition across
+# README.md, CLAUDE.md, STACK.md and plugin/README.md, plus COMPARISON's summary rows.
+if [ -f "$REPO_ROOT/reconcile-counts.py" ]; then
+  if ! out=$(cd "$REPO_ROOT" && python3 reconcile-counts.py --check 2>&1); then
+    issues="${issues}${out}\n"
   fi
 fi
 
-# Count actual evaluation files. TEMPLATE.md is the eval *template*, not an eval —
-# reconcile-counts.py's eval_count() excludes it, so this must too, or the hook reports
-# a false off-by-one on a tree that is actually correct.
-actual_evals=$(ls "$REPO_ROOT/evaluations/"*.md 2>/dev/null | grep -v '/TEMPLATE\.md$' | wc -l | tr -d ' ')
-
-# Check README.md eval count
-readme_evals=$(num_before "evidence" "$README")
-if [ -n "$readme_evals" ] && [ "$readme_evals" != "$actual_evals" ]; then
-  issues="${issues}README.md says $readme_evals eval files but evaluations/ has $actual_evals\n"
-fi
-
-# Check CLAUDE.md eval count
-claude_evals=$(num_before "evidence" "$CLAUDEMD")
-if [ -n "$claude_evals" ] && [ "$claude_evals" != "$actual_evals" ]; then
-  issues="${issues}CLAUDE.md says $claude_evals eval files but evaluations/ has $actual_evals\n"
-fi
-
-# Check plugin/docs sync
-PLUGIN_CATALOG="$REPO_ROOT/plugin/docs/CATALOG.md"
-if [ -f "$PLUGIN_CATALOG" ]; then
-  plugin_entries=$(grep '^| ' "$PLUGIN_CATALOG" | grep -v '^| Name' | grep -v '^|---' | wc -l | tr -d ' ')
-  if [ "$plugin_entries" != "$actual_entries" ]; then
-    issues="${issues}plugin/docs/CATALOG.md has $plugin_entries entries but root has $actual_entries — run ./sync-plugin-docs.sh\n"
+# sync-plugin-docs.sh --check: plugin/docs/ and skills/ against root.
+if [ -x "$REPO_ROOT/sync-plugin-docs.sh" ]; then
+  if ! out=$(cd "$REPO_ROOT" && ./sync-plugin-docs.sh --check 2>&1); then
+    issues="${issues}${out}\n"
   fi
 fi
 
 if [ -n "$issues" ]; then
   echo ""
-  echo "⚠️  ai-tooling: count drift detected"
-  printf "$issues"
-  echo "Actual: $actual_entries catalog entries, $actual_evals evaluation files"
+  echo "⚠️  ai-tooling: count or sync drift detected"
+  printf '%b' "$issues"
+  echo "Run \`make fix\` to reconcile."
 fi

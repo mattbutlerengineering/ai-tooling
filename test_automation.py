@@ -829,18 +829,76 @@ class TestReconcileMain(unittest.TestCase):
 # ----------------------------------------------------------------- plugin/hooks/validate-counts.sh
 @unittest.skipUnless(shutil.which("bash") and shutil.which("git"),
                      "validate-counts.sh needs bash and git")
+@unittest.skipUnless(shutil.which("git"), "the hook resolves its root with git rev-parse")
 class TestValidateCountsHook(unittest.TestCase):
-    """The one test here that reads the REAL tree (read-only): the hook resolves its
-    own root with `git rev-parse --show-toplevel`, so it cannot be pointed at a
-    fixture. It counted evaluations/*.md including TEMPLATE.md while reconcile's
-    eval_count() excluded it, so it reported a phantom off-by-one on every run —
-    the worst state for a hook whose whole job is to be believed (#302)."""
+    """The PostToolUse count hook. It used to re-implement the count extraction in bash,
+    grepping the prose phrasing each number sits in, so a prose rewrite silently deleted
+    a check: 3 of 5 had rotted to no-ops, two within three days (#443). It delegates to
+    `reconcile-counts.py --check` / `sync-plugin-docs.sh --check` now — the one-
+    implementation rule CLAUDE.md already states for every other hook here.
+
+    Both directions are pinned, and the second is the point. The only test this class
+    used to have asserted the hook is SILENT on a clean tree — which is the *symptom*:
+    a hook with zero live checks is maximally silent, so that test passed more easily
+    the more broken the hook got."""
+
+    HOOK: ClassVar[str] = os.path.join(ROOT, "plugin", "hooks", "validate-counts.sh")
+
+    def _run(self, cwd):
+        return subprocess.run(["bash", self.HOOK], cwd=cwd, capture_output=True,
+                              text=True, check=False)
+
+    def _fixture_repo(self, d, readme):
+        """A temp git repo carrying reconcile-counts.py and what it reads. `git init` is
+        required, not incidental: the hook finds its root with `git rev-parse
+        --show-toplevel`, which is why a bare directory was never enough to test it."""
+        subprocess.run(["git", "init", "-q"], cwd=d, check=True)
+        for f in ("reconcile-counts.py", "catalog_lib.py", "audit-evals.py"):
+            shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        _write(d, "CATALOG.md", CATALOG_OK)
+        _write(d, "COMPARISON.md", COMPARISON_OK)
+        _write(d, "CLAUDE.md", "An inventory of 3 tools.\n")
+        _write(d, "STACK.md", "distilled from 3 catalog entries\n")
+        _write(d, "plugin/README.md", "An inventory of 3 tools.\n")
+        _write(d, "README.md", readme)
 
     def test_hook_is_silent_on_a_clean_tree(self):
-        r = subprocess.run(["bash", os.path.join(ROOT, "plugin", "hooks", "validate-counts.sh")],
-                           cwd=ROOT, capture_output=True, text=True, check=False)
+        r = self._run(ROOT)
         self.assertEqual(r.stdout, "", msg="hook reported drift on a reconciled tree")
         self.assertEqual(r.returncode, 0, msg=r.stderr)
+
+    def test_hook_reports_drift(self):
+        # The direction the old test could not check. Without this, every check in the
+        # hook could be dead and the suite would stay green.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d, readme="An inventory of 99 tools.\n\nThere are 99 catalog entries.\n")
+            r = self._run(d)
+            self.assertIn("drift detected", r.stdout, msg=r.stdout + r.stderr)
+
+    def test_hook_is_silent_when_that_same_tree_is_reconciled(self):
+        # Same fixture, correct numbers: the report above is drift, not noise.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d, readme="An inventory of 3 tools.\n\nThere are 3 catalog entries.\n")
+            self.assertEqual(self._run(d).stdout, "")
+
+    def test_hook_is_a_silent_noop_in_a_foreign_repo(self):
+        # The installed plugin fires this on every Edit/Write in someone else's project.
+        with tempfile.TemporaryDirectory() as d:
+            subprocess.run(["git", "init", "-q"], cwd=d, check=True)
+            _write(d, "unrelated.py", "print(1)\n")
+            r = self._run(d)
+            self.assertEqual(r.stdout, "")
+            self.assertEqual(r.returncode, 0, msg=r.stderr)
+
+    def test_hook_does_not_re_extract_counts_from_prose(self):
+        # The regression that made 3 checks dead: a `grep` for the phrasing a number sits
+        # in is a second extractor for a fact reconcile-counts.py already owns, and it
+        # fails SILENTLY when the prose moves. Delegation is the fix; this keeps it.
+        with open(self.HOOK, encoding="utf-8") as f:
+            body = "\n".join(l for l in f if not l.lstrip().startswith("#"))
+        self.assertIn("reconcile-counts.py --check", body)
+        for dead in ("inventory of", "evidence", "num_after", "num_before"):
+            self.assertNotIn(dead, body, msg=f"hook re-extracts counts from prose: {dead!r}")
 
 
 # ----------------------------------------------------------------- plugin/README.md drift
