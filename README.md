@@ -9,9 +9,12 @@ Evaluates tools against six quality signals (Correctness, Speed, Maintainability
 Add as a Claude Code marketplace:
 
 ```bash
-claude plugins:add-marketplace https://github.com/mattbutlerengineering/ai-tooling.git
-claude plugins:install ai-tooling
+claude plugin marketplace add mattbutlerengineering/ai-tooling
+claude plugin install ai-tooling@ai-tooling
 ```
+
+Or from inside a session: `/plugin marketplace add mattbutlerengineering/ai-tooling`
+then `/plugin install ai-tooling@ai-tooling`.
 
 This gives you five skills:
 

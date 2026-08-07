@@ -1,0 +1,11 @@
+{
+  "name": "ai-tooling",
+  "description": "AI workflow toolkit organized around inner/outer dev loop stages and six quality signals — skills for setup, tool evaluation, and workflow audit, backed by a catalog of evaluated tools",
+  "version": "1.0.0",
+  "author": {
+    "name": "Matt Butler"
+  },
+  "homepage": "https://github.com/mattbutlerengineering/ai-tooling",
+  "repository": "https://github.com/mattbutlerengineering/ai-tooling",
+  "license": "MIT"
+}

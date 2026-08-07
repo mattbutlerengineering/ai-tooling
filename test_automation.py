@@ -52,6 +52,7 @@ checkstars = _load("check_stars", "check-stars.py")
 verifyinstalls = _load("verify_installs", "verify-installs.py")
 checklinks = _load("check_links", "check-links.py")
 rewritelinks = _load("rewrite_doc_links", "rewrite-doc-links.py")
+checkplugin = _load("check_plugin", "check-plugin.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -2308,6 +2309,9 @@ class TestIntegrityMakefile(unittest.TestCase):
         # Offline and deterministic, so it gates from day one rather than after a
         # report-only tenure: a dead relative link is bookkeeping, not judgement (#437).
         "check-links.py --check",
+        # The published package: the README's own install commands were both invented and
+        # `claude plugin validate ./plugin` failed on a missing manifest (#439).
+        "check-plugin.py --check",
         "verify-installs.py --check",
         "tier-stack.py --check",
         "triage.py --check",
@@ -5774,3 +5778,133 @@ class TestDocLinkRewrite(unittest.TestCase):
         self.assertIn("rewrite-doc-links.py", src)
         self.assertLess(src.index("rewrite-doc-links.py"), src.index("--- Skills:"),
                         "the rewrite must run after the docs copy loop")
+
+
+# ----------------------------------------------------------------- check-plugin.py
+class TestPluginPackage(unittest.TestCase):
+    """Pins the offline structural check on the published plugin (#439). `claude plugin
+    validate` is the upstream authority; this mirrors what is checkable from the tree,
+    plus the cross-file agreements upstream cannot know about."""
+
+    MARKET: ClassVar[dict] = {
+        "name": "m", "owner": {"name": "N"}, "metadata": {"description": "d"},
+        "plugins": [{"name": "ai-tooling", "version": "1.0.0", "source": "./plugin",
+                     "description": "d"}]}
+    MANIFEST: ClassVar[dict] = {"name": "ai-tooling", "description": "d", "version": "1.0.0"}
+
+    def _tree(self, d, market=None, manifest=None, skills=("setup-workflow",),
+              front="## Skills\n\n- `/setup-workflow` — bootstrap\n"):
+        os.makedirs(os.path.join(d, ".claude-plugin"), exist_ok=True)
+        os.makedirs(os.path.join(d, "plugin", ".claude-plugin"), exist_ok=True)
+        Path(d, ".claude-plugin", "marketplace.json").write_text(
+            json.dumps(self.MARKET if market is None else market), encoding="utf-8")
+        if manifest is not None:
+            Path(d, "plugin", ".claude-plugin", "plugin.json").write_text(
+                json.dumps(manifest), encoding="utf-8")
+        for s in skills:
+            os.makedirs(os.path.join(d, "plugin", "skills", s), exist_ok=True)
+            Path(d, "plugin", "skills", s, "SKILL.md").write_text(
+                f"---\nname: {s}\ndescription: does a thing\n---\n\n# {s}\n", encoding="utf-8")
+        if front is not None:
+            Path(d, "plugin", "CLAUDE.md").write_text(front, encoding="utf-8")
+
+    def _kinds(self, d):
+        return sorted(f.kind for f in checkplugin.audit_plugin(d))
+
+    def test_a_well_formed_package_is_clean(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            self.assertEqual(checkplugin.audit_plugin(d), [])
+
+    def test_a_missing_plugin_manifest_is_a_finding(self):
+        # The exact failure `claude plugin validate ./plugin` reported: the plugin dir
+        # had skills, hooks and docs but no .claude-plugin/plugin.json.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=None)
+            self.assertIn("MANIFEST", self._kinds(d))
+
+    def test_unparseable_json_is_a_finding_not_a_traceback(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            Path(d, "plugin", ".claude-plugin", "plugin.json").write_text("{oops", encoding="utf-8")
+            self.assertIn("MANIFEST", self._kinds(d))
+
+    def test_a_name_disagreement_is_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest={**self.MANIFEST, "name": "something-else"})
+            self.assertIn("NAME", self._kinds(d))
+
+    def test_versions_must_agree_across_every_declaration(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest={**self.MANIFEST, "version": "2.0.0"})
+            self.assertIn("VERSION", self._kinds(d))
+
+    def test_a_reintroduced_package_json_is_a_third_place_to_drift(self):
+        # #439 deleted plugin/package.json — an npm manifest for a registry this package
+        # is not published to. If one comes back, its version is checked, not ignored.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            Path(d, "plugin", "package.json").write_text('{"name":"x","version":"9.9.9"}', encoding="utf-8")
+            self.assertIn("VERSION", self._kinds(d))
+
+    def test_a_source_pointing_nowhere_is_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            market = json.loads(json.dumps(self.MARKET))
+            market["plugins"][0]["source"] = "./nope"
+            self._tree(d, market=market, manifest=self.MANIFEST)
+            self.assertIn("SOURCE", self._kinds(d))
+
+    def test_source_resolves_from_the_repo_root(self):
+        # `./plugin` means <repo>/plugin, not <repo>/.claude-plugin/plugin — reading it
+        # the other way reported a healthy package as broken.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            self.assertNotIn("SOURCE", self._kinds(d))
+
+    def test_a_skill_whose_frontmatter_name_differs_is_a_finding(self):
+        # The registry keys skills by frontmatter `name:`, not by directory.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            Path(d, "plugin", "skills", "setup-workflow", "SKILL.md").write_text(
+                "---\nname: renamed\ndescription: d\n---\n", encoding="utf-8")
+            self.assertIn("SKILL", self._kinds(d))
+
+    def test_a_skill_missing_description_is_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            Path(d, "plugin", "skills", "setup-workflow", "SKILL.md").write_text(
+                "---\nname: setup-workflow\n---\n", encoding="utf-8")
+            self.assertIn("SKILL", self._kinds(d))
+
+    def test_the_front_door_skills_list_must_match_the_tree(self):
+        # plugin/CLAUDE.md is hand-authored, so its skills list is a restated fact with no
+        # generator — the shape that put its eval count 87 behind (#302).
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST, skills=("setup-workflow", "audit-workflow"))
+            self.assertEqual(self._kinds(d), ["FRONT-DOOR"])   # audit-workflow unlisted
+
+    def test_a_listed_skill_that_does_not_exist_is_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST,
+                       front="- `/setup-workflow` — x\n- `/ghost` — never shipped\n")
+            self.assertEqual(self._kinds(d), ["FRONT-DOOR"])
+
+    def test_check_flag_gates_and_bare_run_reports(self):
+        r = subprocess.run(["python3", "check-plugin.py"], cwd=ROOT,
+                           capture_output=True, text=True, check=False)
+        self.assertEqual(r.returncode, 0)
+        r = subprocess.run(["python3", "check-plugin.py", "--check"], cwd=ROOT,
+                           capture_output=True, text=True, check=False)
+        self.assertEqual(r.returncode, 0, msg=r.stdout)
+
+    def test_live_package_is_clean(self):
+        self.assertEqual([f"{f.kind} {f.detail}" for f in checkplugin.audit_plugin(ROOT)], [])
+
+    def test_readme_install_commands_use_real_subcommands(self):
+        # Both README commands were invented (`claude plugins:add-marketplace`), and
+        # `claude` accepts an unrecognized first arg AS A PROMPT — so the broken command
+        # launches a session instead of erroring, which is why it survived.
+        readme = Path(ROOT, "README.md").read_text(encoding="utf-8")
+        self.assertNotIn("plugins:", readme)
+        self.assertIn("claude plugin marketplace add", readme)
+        self.assertIn("claude plugin install", readme)

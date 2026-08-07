@@ -5,15 +5,14 @@
     "email": "mattwbutler@gmail.com"
   },
   "metadata": {
-    "description": "ACMM-based AI workflow toolkit — evaluate tools, adopt an optimal workflow, and continuously improve",
-    "homepage": "https://github.com/mattbutlerengineering/ai-tooling"
+    "description": "AI workflow toolkit organized around inner/outer dev loop stages and six quality signals — evaluate tools, adopt a recommended stack, and keep improving"
   },
   "plugins": [
     {
       "name": "ai-tooling",
       "version": "1.0.0",
       "source": "./plugin",
-      "description": "ACMM-based AI workflow toolkit with evaluations, recommended tool stack, and skills for setup, audit, and tool evaluation"
+      "description": "AI workflow toolkit with evaluations, a recommended tool stack, and skills for setup, audit, and tool evaluation"
     }
   ]
 }

@@ -77,6 +77,7 @@ check: lint-preflight
 	python3 backfill-lastverified.py --check
 	python3 check-stars.py --check
 	python3 check-links.py --check
+	python3 check-plugin.py --check
 	python3 verify-installs.py --check
 	python3 tier-stack.py --check
 	python3 triage.py --check
@@ -101,6 +102,7 @@ check-offline: lint-preflight
 	python3 backfill-lastverified.py --check
 	python3 check-stars.py --check
 	python3 check-links.py --check
+	python3 check-plugin.py --check
 	python3 verify-installs.py --check
 	python3 tier-stack.py --check
 	python3 triage.py --check
