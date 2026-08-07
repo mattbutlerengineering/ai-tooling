@@ -10,10 +10,10 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 111 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P2 challenger** | overlaps a tool already in STACK | 112 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
 | **P3 backlog** | everything else | 236 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
-| **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 12 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
+| **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 11 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
 <!-- NEXT-EVALS:START -->
 
@@ -55,11 +55,11 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 111 leads
+## P2 challenger — 112 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 111 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 112 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why (pressure/gap) | Command |
 |------|-------|-------|--------------------|---------|
@@ -103,7 +103,7 @@ _SKIP — zero judgement._
 
 _(none)_
 
-## P5 ships-inside — 12 leads
+## P5 ships-inside — 11 leads
 
 _settle the container, or SKIP "ships inside `<container>`" — never an independent lead._
 
@@ -112,7 +112,6 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | frontend-design | Skills & Plugins | 12.6 | pressure 3, gap 6.6 | `/triage-lead frontend-design` |
 | plugin-dev | Skills & Plugins | 12.6 | pressure 2, gap 6.6 | `/triage-lead plugin-dev` |
 | prisma | MCP Servers | 10.7 | pressure 2, gap 6.7 | `/triage-lead prisma` |
-| server-memory | Memory & Context | 10.2 | pressure 1, gap 6.2 | `/triage-lead server-memory` |
 | codebase-design | Plan | 9.2 | pressure 1, gap 5.2 | `/triage-lead codebase-design` |
 | domain-modeling | Plan | 9.2 | pressure 1, gap 5.2 | `/triage-lead domain-modeling` |
 | confluence | MCP Servers | 8.7 | pressure 0, gap 6.7 | `/triage-lead confluence` |

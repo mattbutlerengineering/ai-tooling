@@ -334,6 +334,27 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      like P — the remedy is a human choosing to drop the line or disclose on it.
      Offline.
 
+  AF. UNFALSIFIED CONTAINMENT (opt-in, --containment-evidence, REPORT-ONLY) — `Ships
+     inside` is DEFINED by "empty means independently installable" (#343), so a filled
+     cell asserts an artifact is NOT — and nothing could contradict one. Detector AA
+     checks the other rules (findable container, no self-link); this checks the one the
+     column is defined by. It matters because triage.py reads the cell FIRST and bands
+     the row P5, whose disposition is "never an independent lead": a wrong cell does not
+     misrank a lead, it removes it from the queue. Three were wrong — each
+     `modelcontextprotocol/servers` subpath ships its own package.json while the
+     container's manifest is `"private": true`, so "settle the container" named an
+     operation that cannot be performed (#431).
+       REFUTED   — the declared subpath publishes its own package. Counted.
+       confirmed — checked, publishes nothing. NOT proof of containment (a pack may
+                   publish without per-member manifests), so the test only ever REFUTES.
+                   Printed, never counted.
+       unchecked — no record, or the row links a repo root so there is no component to
+                   ask about (already AA's SELF-LINKED). Printed, never counted.
+     Collected by `refresh-metadata.py --containment` and read here offline — detector
+     V's shape, and for V's reason: the finding comes from upstream's package layout, so
+     gating it would fail a build for something no commit caused. 0 records is not 0
+     findings. Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -428,6 +449,7 @@ Usage:
   python3 audit-evals.py --license-header  # eval `**License:**` headers vs repo-metadata.json (offline)
   python3 audit-evals.py --duplicate-evals  # COMPARISON rows with more than one eval file (offline)
   python3 audit-evals.py --workflow-skips  # WORKFLOW.md links whose catalog row reads SKIP (offline)
+  python3 audit-evals.py --containment-evidence  # `Ships inside` cells npm refutes (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -2503,6 +2525,89 @@ def audit_containment(ctx):
     return findings, declared
 
 
+# ---------------------------------------------------------------- AF. unfalsified containment (report-only)
+# `Ships inside` is DEFINED by "empty is the default and means independently installable"
+# (#343), so every filled cell asserts an artifact is NOT independently installable — and
+# until #431 nothing in the repo could contradict one. Detector AA checks the OTHER rules
+# (the container is findable, the row does not link it); this checks the one the column is
+# defined by.
+#
+# It matters more than an ordinary unvalidated field because of what the cell buys.
+# triage.py reads it FIRST, ahead of even the mechanical bands, and bands the row P5
+# ships-inside, whose disposition is the strongest instruction in the triage system:
+# "never an independent lead". A wrong cell does not misrank a lead; it removes it from
+# the queue and forbids the conclusion.
+#
+# Three cells were wrong. Each `modelcontextprotocol/servers` subpath ships its own
+# package.json — `@modelcontextprotocol/server-memory` and its two siblings each live on
+# npm with their own release stream — while the container's own manifest is `"private":
+# true`, so "settle the container" named an operation that cannot be performed. The
+# catalog said so itself: the container row reads "each independently installable".
+#
+# The signal is collected by `refresh-metadata.py --containment` and read here offline —
+# detector V's exact shape, and for V's reason: this finding arrives from upstream's
+# package layout over the network, so failing a build on one would fail it for a reason
+# no commit caused.
+
+ContainmentEvidenceFinding = collections.namedtuple(
+    "ContainmentEvidenceFinding", "kind tool container path package verdict")
+
+
+def audit_containment_evidence(ctx):
+    """(refuted, confirmed, unchecked, records) — `Ships inside` cells npm contradicts.
+
+    One counted kind:
+
+      REFUTED    the declared subpath publishes its own package, so the artifact IS
+                 independently installable and the cell should be empty. P5 is holding a
+                 lead it has no claim to.
+
+    Two printed and never counted (V's `acked`, W's `cleared`, X's `FACETED`):
+
+      confirmed  checked, and the subpath publishes nothing. This is NOT proof of
+                 containment — a pack could publish to npm without a per-member manifest
+                 — so the absence keeps the row here rather than promoting it to a
+                 finding. The published-package test only ever REFUTES, which makes
+                 detector V's rule (flagging a healthy row costs more than missing a sick
+                 one) structural rather than promised.
+      unchecked  no record for the subpath, or the row links a repo ROOT so there is no
+                 component to ask about (`prisma`, `jira`, `confluence` — already
+                 detector AA's SELF-LINKED). An uncollected signal reports 0 records,
+                 never 0 findings.
+
+    Report-only. The remedy for a REFUTED row is a human deciding whether to empty the
+    cell or narrow the row, which is not a call a bulk lane may make."""
+    try:
+        records = json.loads(ctx.read("repo-metadata.json"))
+    except (OSError, ValueError):
+        records = {}
+    verd = ctx.comparison_verdict_map
+    refuted, confirmed, unchecked, seen = [], [], [], 0
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if not r.ships_inside:
+            continue
+        container = r.ships_inside.strip().strip("`").lower()
+        v = next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), "—")
+        m = re.match(r"https://github\.com/[^/]+/[^/]+/tree/[^/]+/(.+?)/?$",
+                     (r.url or "").strip(), re.IGNORECASE)
+        members = (records.get(container) or {}).get("member_packages") or {}
+        path = m.group(1) if m else None
+        if path is None or path not in members:
+            unchecked.append(ContainmentEvidenceFinding(
+                "unchecked", r.name, container, path, None, v))
+            continue
+        seen += 1
+        pkg = members[path]
+        f = ContainmentEvidenceFinding(
+            "REFUTED" if pkg else "confirmed", r.name, container, path, pkg, v)
+        (refuted if pkg else confirmed).append(f)
+    # Leads first within each bucket: a stalled queue slot is the cost this is about,
+    # and a cell on an already-disposed row is a wrong fact with no queue effect.
+    for bucket in (refuted, confirmed, unchecked):
+        bucket.sort(key=lambda f: (f.verdict != "discovery-log", f.container, f.tool))
+    return refuted, confirmed, unchecked, seen
+
+
 # ---------------------------------------------------------------- AB. unentitled CONDITIONAL (report-only)
 # ADR-0005 collapsed the CONDITIONAL bucket because at 83% of rows the verdict carried no
 # discriminating signal, and its rule is a disjunction: a real verdict requires EITHER the
@@ -2891,7 +2996,8 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
-                "--license-header", "--duplicate-evals", "--workflow-skips")
+                "--license-header", "--duplicate-evals", "--workflow-skips",
+                "--containment-evidence")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2957,6 +3063,7 @@ def main():
     do_lichdr = "--license-header" in want    # opt-in report (does not affect exit code)
     do_dupev = "--duplicate-evals" in want    # opt-in report (does not affect exit code)
     do_wfskip = "--workflow-skips" in want    # opt-in report (does not affect exit code)
+    do_contev = "--containment-evidence" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -3377,6 +3484,34 @@ def main():
         for f in disclosed:
             print(f"  disclosed {f.tool} WORKFLOW.md:{f.line} — named as an exclusion, "
                   "not a recommendation")
+    if do_contev:
+        refuted, confirmed, unchecked, seen = audit_containment_evidence(ctx)
+        total = len(refuted) + len(confirmed) + len(unchecked)
+        print(f"== AF. unfalsified containment (report-only) — {len(refuted)} of {seen} "
+              f"checked `Ships inside` declaration(s) refuted, {len(unchecked)} of "
+              f"{total} unchecked ==")
+        if not total:
+            print("  no `Ships inside` declarations — the column is empty, which is its "
+                  "default and means every row is independently installable (#343)")
+        elif not seen:
+            # 0 records is not 0 findings (detector V's rule): nothing was asked.
+            print("  no member_packages records — run `python3 refresh-metadata.py "
+                  "--containment` to collect them (0 records is not 0 findings)")
+        elif not refuted:
+            print("  OK — every checked declaration survives the one test that can "
+                  "contradict it")
+        for f in refuted:
+            print(f"  REFUTED   {f.tool} [{f.verdict}] declares `{f.container}` but "
+                  f"{f.path} publishes `{f.package}` — it IS independently installable, "
+                  "so the cell should be empty and P5 has no claim on it")
+        # Printed, never counted (V's `acked`, W's `cleared`, X's `FACETED`).
+        for f in confirmed:
+            print(f"  confirmed {f.tool} ships inside `{f.container}` — {f.path} "
+                  "publishes no package of its own")
+        for f in unchecked:
+            why = ("links the repo root, so there is no component to ask about"
+                   if f.path is None else f"no record for {f.path}")
+            print(f"  unchecked {f.tool} ships inside `{f.container}` — {why}")
     sys.exit(rc)
 
 if __name__ == "__main__":
