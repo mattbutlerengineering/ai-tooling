@@ -571,7 +571,11 @@ def http_status(url):
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             return OK if r.status == 200 else _unknown(f"HTTP {r.status}")
     except urllib.error.HTTPError as e:
-        return DEAD if e.code == 404 else _unknown(f"HTTP {e.code}")
+        # An HTTPError IS the response object, so the error path has a socket to close
+        # exactly as the `with` above does. Only this branch leaked, which is why it went
+        # unseen: on a healthy network almost every reply is a 200 (#455).
+        with contextlib.closing(e):
+            return DEAD if e.code == 404 else _unknown(f"HTTP {e.code}")
     except Exception as e:  # noqa: BLE001 — every non-404 outcome is inconclusive by design
         return _unknown(type(e).__name__)
 
@@ -728,14 +732,19 @@ def check_repo(slug):
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
             final = r.geturl().replace("https://github.com/", "").rstrip("/")
             if final.lower() != slug.lower():
-                return f"moved:{final}"
-            return "ok"
+                return f"moved:{final}"   # C's alone — detector A has no analogue
+            return OK
     except urllib.error.HTTPError as e:
-        if e.code == 404:
-            return "dead"          # the one status that genuinely means "gone"
-        return f"unknown:HTTP {e.code}"   # 429 rate limit, 5xx, auth walls — not a verdict
+        # Closed for the same reason as http_status, and this is the checker it matters
+        # for: this docstring's own ~600-request burst comes back 429, so the documented
+        # normal case leaked one response per link (#455).
+        with contextlib.closing(e):
+            # DEAD is the one status that genuinely means "gone"; a 429 rate limit, a
+            # 5xx or an auth wall is not a verdict. Same constants detector A uses —
+            # one vocabulary, not two copies of it forty lines apart.
+            return DEAD if e.code == 404 else _unknown(f"HTTP {e.code}")
     except Exception as e:  # noqa: BLE001 — every non-404 outcome is inconclusive by design
-        return f"unknown:{type(e).__name__}"  # timeout / DNS / TLS — also not a verdict
+        return _unknown(type(e).__name__)   # timeout / DNS / TLS — also not a verdict
 
 def audit_links(ctx):
     """(problems, unknowns, total) — problems are dead/moved links, unknowns are
