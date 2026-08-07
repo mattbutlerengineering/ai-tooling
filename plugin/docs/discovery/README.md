@@ -37,7 +37,7 @@ trail of what was scanned and when; they are no longer the active intake path â€
 
 ## Where scans live now
 
-New tool scans are **GitHub issues labeled [`scan`](../docs/agents/triage-labels.md)**,
+New tool scans are **GitHub issues labeled [`scan`](https://github.com/mattbutlerengineering/ai-tooling/blob/main/docs/agents/triage-labels.md)**,
 not new `new-tools-loopN.md` files in this directory. Each scan issue lists its
 findings (with star counts) in a table and is closed by the pull request that
 catalogs those findings. Exemplars:

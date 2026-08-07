@@ -29,7 +29,7 @@ intent ─▶ /to-prd ─▶ PRD
        … graphify + claude-mem + CONTEXT.md keep it all linked (cross-cutting)
 ```
 
-A worked example of assessing your own setup against the loop, with named gaps: **[spikes/my-dev-workflow-assessment.md](spikes/my-dev-workflow-assessment.md)**.
+A worked example of assessing your own setup against the loop, with named gaps: **[spikes/my-dev-workflow-assessment.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/spikes/my-dev-workflow-assessment.md)**.
 
 Where the "software factory" pitch is right and where it isn't — five commercial platforms and six practitioner talks, reduced to nine rules you can adopt incrementally: **[methodologies/software-factories.md](methodologies/software-factories.md)** (with the source reading in **[software-factory-field-notes.md](methodologies/software-factory-field-notes.md)**). Rule 0 is the one to act on first: grade the repo's *agent readiness* before adding pipeline stages, because the only measured claim in the vendor material is that low-readiness codebases get **slower**.
 
@@ -39,11 +39,11 @@ To bootstrap any repo with these conventions, run `/setup-workflow`.
 
 - **[NEXT-EVALS.md](NEXT-EVALS.md)** — the ranked *evaluate-next* queue: which not-yet-evaluated tools to run first, derived from overlap pressure and per-stage gaps.
 - **[WATCHLIST.md](WATCHLIST.md)** — the *revisit* page: deferred verdicts and their triggers, stale evals, candidates flagged for a hands-on eval, and unverified claims — all derived.
-- **[LEARNING.md](LEARNING.md)** — passive learning: channels, talks, and references worth following.
+- **[LEARNING.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/LEARNING.md)** — passive learning: channels, talks, and references worth following.
 - **Scan intake** — newly-found tools arrive as [GitHub issues labeled `scan`](https://github.com/mattbutlerengineering/ai-tooling/issues?q=is%3Aissue+label%3Ascan), triaged into the catalog.
 
 ## How this stays honest
 
 - **Counts and stacks are derived, never hand-written.** `reconcile-counts.py` propagates the one catalog total; NEXT-EVALS.md, WATCHLIST.md, and STACK's evidence tiers are regenerated from data — nobody edits them by hand.
 - **Every verdict declares how hard we looked.** An Evidence taxonomy (MEASURED / RUN / REVIEW / SOURCE-ONLY) separates *what we concluded* from *how we know*, and honesty gates flag a strong verdict resting on a README skim.
-- **CI enforces all of it.** `make check` runs the full detector set on every push and pull request — see the Integrity audit section of [CLAUDE.md](CLAUDE.md).
+- **CI enforces all of it.** `make check` runs the full detector set on every push and pull request — see the Integrity audit section of [CLAUDE.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/CLAUDE.md).

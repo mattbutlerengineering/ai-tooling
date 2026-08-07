@@ -414,7 +414,7 @@ explainers), and production talks for the outer loop.
 | compound-engineering | Runner-up harness — lighter weight, good compounding philosophy. Consider if superpowers feels too heavy ([eval](evaluations/compound-engineering.md)). |
 | claude-code-staff-engineer | Copy of superpowers with renamed directories and no upstream sync ([eval](evaluations/claude-code-staff-engineer.md)). |
 | agentmemory | Overlap with claude-mem. Pick one memory system. Conflicting context is worse than no memory. |
-| everything-claude-code (251+ skills) | Too broad. Use targeted skills (mattpocock, agent-skills) instead of a kitchen-sink plugin ([eval](evaluations/everything-claude-code.md)). |
+| ECC, formerly `everything-claude-code` (251+ skills) | Too broad. Use targeted skills (mattpocock, agent-skills) instead of a kitchen-sink plugin ([eval](evaluations/ecc.md)). Same repo as the ECC listed one row above — `19435b9` merged the two catalog rows and the two evals; the legacy name is kept here so a search for it still lands. |
 | Flowise, LangGraph | Visual/programmatic agent builders — for building AI products, not for your own dev workflow. |
 | OpenHands | Full platform replacement — you're augmenting Claude Code, not replacing it. |
 | sandcastle, gastown | Overlap with claude-squad for orchestration. |
@@ -431,7 +431,7 @@ All recommendations are backed by evidence. See the full evaluations:
 - [Code Understanding](evaluations/code-understanding.md) — graphify + codegraph > Understand-Anything > repomix
 - [Agent Harnesses](evaluations/agent-harnesses.md) — superpowers > compound-engineering > gstack > ECC > ruflo
 - [Memory Systems](evaluations/memory-systems.md) — claude-mem > agentmemory > OMEGA
-- [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > everything-claude-code
+- [Skills Collections](evaluations/skills-collections.md) — mattpocock/skills + agent-skills > ECC (formerly `everything-claude-code`)
 - [Agent Skills (deep dive)](evaluations/agent-skills-addyosmani.md) — full lifecycle ADOPT with doubt-driven-development
 
 **Individual tools** (justified their slot, no direct competitor):

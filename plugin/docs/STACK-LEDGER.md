@@ -1,7 +1,7 @@
 # Stack Exclusion Ledger
 
 Machine-readable record of **why each ADOPT/KEEP-verdict tool is or is not in [STACK.md](STACK.md)**.
-Verdict data lives in [COMPARISON.md](COMPARISON.md) (what we concluded); STACK.md is the curated
+Verdict data lives in [COMPARISON.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/COMPARISON.md) (what we concluded); STACK.md is the curated
 install list (what we actually recommend). This ledger is the bridge: every ADOPT/KEEP tool maps to
 either *in STACK*, *conditional*, or *excluded with a recorded reason* — so the reasoning is auditable
 as data instead of buried in prose. It is the data foundation the stack-derivation drift gate (issue
@@ -13,7 +13,7 @@ section) · `no` (excluded — a reason is required). Exclusion reasons are grou
 `## Verdict` in `evaluations/`.
 
 `Install evidence` answers the *other* question — **is it actually here, checked how, and when**
-([ADR-0006](docs/adr/0006-install-evidence-in-the-ledger.md), \#382). It used to live inside the
+([ADR-0006](https://github.com/mattbutlerengineering/ai-tooling/blob/main/docs/adr/0006-install-evidence-in-the-ledger.md), \#382). It used to live inside the
 `KEEP` verdict, unchecked and undated, until detector Y looked and found all four `plugin`-Type
 KEEPs unbacked (\#366). A verdict now answers *do we recommend it* and this column answers *is it
 here*; neither asserts the other. Values, joined on the row's `owner/repo` and **never** on its

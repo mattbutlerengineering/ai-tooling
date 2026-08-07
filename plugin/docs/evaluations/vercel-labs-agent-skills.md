@@ -64,7 +64,7 @@ gh api repos/vercel-labs/agent-skills --jq '{forks:.forks_count, openissues:.ope
 
 **discovery-log — tentative read.** Resolves [#259](https://github.com/mattbutlerengineering/ai-tooling/issues/259), which asked whether the no-license bar overrides an eyes-open ADOPT here. Neither half of that question survived a live re-check on 2026-08-05, so the answer is neither of the two it offered.
 
-**The license ground is false.** `vercel-labs/agent-skills` declares **MIT** — a `## License` section in the README and `"license": "MIT"` in both `packages/*/package.json`. There is no root `LICENSE` file, which is the only thing GitHub's licensee detector reads, so the API returns `null` and `repo-metadata.json` caches `license_spdx: NONE`. The adoption bar ([ADR-0005](../docs/adr/0005-verdict-vocabulary.md), #26/#36) disqualifies a repo that *grants nothing*; it does not disqualify a repo that grants MIT in the wrong file. So this is **not** a SKIP.
+**The license ground is false.** `vercel-labs/agent-skills` declares **MIT** — a `## License` section in the README and `"license": "MIT"` in both `packages/*/package.json`. There is no root `LICENSE` file, which is the only thing GitHub's licensee detector reads, so the API returns `null` and `repo-metadata.json` caches `license_spdx: NONE`. The adoption bar ([ADR-0005](https://github.com/mattbutlerengineering/ai-tooling/blob/main/docs/adr/0005-verdict-vocabulary.md), #26/#36) disqualifies a repo that *grants nothing*; it does not disqualify a repo that grants MIT in the wrong file. So this is **not** a SKIP.
 
 ```bash
 gh api repos/vercel-labs/agent-skills --jq '.license'                          # null

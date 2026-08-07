@@ -58,6 +58,13 @@ for dir in "${WATCHED_DIRS[@]}"; do
   rsync -a --delete "$REPO_ROOT/$dir/" "$DEST_DOCS/$dir/"
 done
 
+# --- Repoint links that leave the bundle (#437) ---
+# The copies above are verbatim, so a relative link whose target is NOT in the watch
+# set lands in a tree the target is not in — 16 were dead that way, 3 of them on the
+# bundle's own front page. The rewrite is depth-only: a link broken at ROOT stays
+# broken here, so check-links.py keeps reporting it where the fix belongs.
+python3 "$REPO_ROOT/rewrite-doc-links.py" "$DEST_DOCS" > /dev/null
+
 # --- Skills: plugin/skills/ → DEST_SKILLS (strip ${CLAUDE_PLUGIN_ROOT}/docs/ paths) ---
 for skill_dir in "$PLUGIN_SKILLS"/*/; do
   skill_name=$(basename "$skill_dir")

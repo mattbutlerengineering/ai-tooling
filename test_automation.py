@@ -50,6 +50,8 @@ watchlist = _load("watchlist", "watchlist.py")
 triage = _load("triage", "triage.py")
 checkstars = _load("check_stars", "check-stars.py")
 verifyinstalls = _load("verify_installs", "verify-installs.py")
+checklinks = _load("check_links", "check-links.py")
+rewritelinks = _load("rewrite_doc_links", "rewrite-doc-links.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -927,6 +929,9 @@ def _sync_fixture_tree(d):
     """A minimal repo tree with every synced doc/dir, for exercising sync-plugin-docs.sh."""
     shutil.copy(os.path.join(ROOT, "sync-plugin-docs.sh"), os.path.join(d, "sync-plugin-docs.sh"))
     shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))  # verify block imports it
+    # The sync repoints links that leave the bundle (#437), so the fixture carries that
+    # sibling too — same reason the reconcile fixture carries audit-evals.py.
+    shutil.copy(os.path.join(ROOT, "rewrite-doc-links.py"), os.path.join(d, "rewrite-doc-links.py"))
     _write(d, "CATALOG.md", CATALOG_OK)
     _write(d, "WORKFLOW.md", "# Workflow\n")
     _write(d, "STACK.md", "# Stack\n")
@@ -2300,6 +2305,9 @@ class TestIntegrityMakefile(unittest.TestCase):
         "backfill-evidence.py --check",
         "backfill-lastverified.py --check",
         "check-stars.py --check",
+        # Offline and deterministic, so it gates from day one rather than after a
+        # report-only tenure: a dead relative link is bookkeeping, not judgement (#437).
+        "check-links.py --check",
         "verify-installs.py --check",
         "tier-stack.py --check",
         "triage.py --check",
@@ -5612,3 +5620,157 @@ class TestInstallEvidenceColumn(unittest.TestCase):
         for text, why in ((self.LEDGER, "five-column"), (widened, "six-column")):
             names = [m[0] for m in audit._LEDGER_ROW.findall(text)]
             self.assertEqual(names, ["codegraph", "documentation-writer"], why)
+
+
+# ----------------------------------------------------------------- check-links.py + rewrite-doc-links.py
+class TestInternalLinks(unittest.TestCase):
+    """Pins the offline link gate (#437). Detector C spends ~450 network requests on the
+    links this repo does not control and disclaims its own result; these are free,
+    deterministic, and were never checked — 26 were dead."""
+
+    def _w(self, d, rel, text):
+        p = os.path.join(d, rel)
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        Path(p).write_text(text, encoding="utf-8")
+
+    def test_a_dead_relative_link_is_a_finding(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "see [the eval](evaluations/gone.md) for why\n")
+            f = checklinks.broken_links(d)
+            self.assertEqual([(x.path, x.target) for x in f], [("a.md", "evaluations/gone.md")])
+
+    def test_a_live_relative_link_is_not(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "evaluations/here.md", "# here\n")
+            self._w(d, "a.md", "see [the eval](evaluations/here.md)\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_a_link_inside_a_fence_is_sample_text(self):
+        # evaluations/server-github.md shows illustrative shell output containing a
+        # markdown link. Flagging a healthy row costs more than missing a sick one.
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "```bash\n# -> \"[GitHub](.../servers-archived/src/github)\"\n```\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_a_link_inside_an_inline_span_is_sample_text(self):
+        # evaluations/docmd.md quotes llms.txt's own `- [title](url)` format.
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "writes an index of every page as `- [title](url)` plus descriptions\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_a_template_placeholder_is_exempt(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "TEMPLATE.md", "| [{name}]({url}) | tool |\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_absolute_and_anchor_targets_are_out_of_scope(self):
+        # Anchors are a fuzzier question (slugification varies by renderer); this gate
+        # answers exactly one — does the file exist.
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "[x](https://example.com/y) [y](#some-heading) [z](mailto:a@b.c)\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_a_fragment_on_a_real_file_resolves(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "b.md", "# b\n")
+            self._w(d, "a.md", "[b](b.md#a-heading)\n")
+            self.assertEqual(checklinks.broken_links(d), [])
+
+    def test_the_reported_label_survives_code_stripping(self):
+        # The label comes off the ORIGINAL line: `` [`gone.md`](gone.md) `` would
+        # otherwise be reported with an empty label.
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "see [`gone.md`](gone.md)\n")
+            self.assertEqual(checklinks.broken_links(d)[0].text, "`gone.md`")
+
+    def test_line_numbers_survive_a_fence(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._w(d, "a.md", "intro\n```\nx\n```\n[dead](nope.md)\n")
+            self.assertEqual(checklinks.broken_links(d)[0].line, 5)
+
+    def test_check_flag_gates_and_bare_run_reports(self):
+        # check-stars.py's split: the gate-vs-report call is one word in the Makefile.
+        r = subprocess.run(["python3", "check-links.py"], cwd=ROOT,
+                           capture_output=True, text=True, check=False)
+        self.assertEqual(r.returncode, 0)
+        r = subprocess.run(["python3", "check-links.py", "--check"], cwd=ROOT,
+                           capture_output=True, text=True, check=False)
+        self.assertEqual(r.returncode, 0, msg=r.stdout)
+
+    def test_live_tree_has_no_dead_links(self):
+        self.assertEqual([f"{x.path}:{x.line} -> {x.target}" for x in checklinks.broken_links(ROOT)], [])
+
+
+class TestDocLinkRewrite(unittest.TestCase):
+    """Pins the sync's depth-only link rewrite (#437). The bundle is copied verbatim, so
+    a link whose target is outside the watch set lands in a tree it is not in."""
+
+    def _repo(self, d):
+        Path(d, "docs").mkdir(parents=True, exist_ok=True)
+        Path(d, "CLAUDE.md").write_text("root only\n", encoding="utf-8")
+        Path(d, "docs", "adr.md").write_text("adr\n", encoding="utf-8")
+        dest = os.path.join(d, "plugin", "docs")
+        os.makedirs(os.path.join(dest, "methodologies"), exist_ok=True)
+        return dest
+
+    def test_an_outside_the_bundle_link_is_repointed_at_the_repo(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "PLAYBOOK.md").write_text("see [CLAUDE.md](CLAUDE.md)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertIn(rewritelinks.BLOB + "CLAUDE.md", Path(dest, "PLAYBOOK.md").read_text())
+
+    def test_a_parent_relative_target_resolves_from_the_source_location(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "methodologies", "m.md").write_text("[ADR](../docs/adr.md)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertIn(rewritelinks.BLOB + "docs/adr.md", Path(dest, "methodologies", "m.md").read_text())
+
+    def test_a_link_inside_the_bundle_is_left_relative(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "CATALOG.md").write_text("cat\n", encoding="utf-8")
+            Path(dest, "PLAYBOOK.md").write_text("see [CATALOG.md](CATALOG.md)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertEqual(Path(dest, "PLAYBOOK.md").read_text(), "see [CATALOG.md](CATALOG.md)\n")
+
+    def test_a_link_broken_at_root_is_left_alone(self):
+        # The sync fixes depth, not rot. Minting a URL for a file nobody has would let
+        # the sync launder a dead link into a plausible-looking one — the exact defect
+        # this issue opened with.
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "WORKFLOW.md").write_text("[eval](evaluations/gone.md)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertEqual(Path(dest, "WORKFLOW.md").read_text(), "[eval](evaluations/gone.md)\n")
+
+    def test_a_fragment_is_carried_onto_the_rewritten_url(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "P.md").write_text("[c](CLAUDE.md#integrity-audit)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertIn(rewritelinks.BLOB + "CLAUDE.md#integrity-audit", Path(dest, "P.md").read_text())
+
+    def test_rewriting_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "P.md").write_text("see [CLAUDE.md](CLAUDE.md)\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            once = Path(dest, "P.md").read_text()
+            self.assertEqual(rewritelinks.rewrite_tree(dest, d), 0)
+            self.assertEqual(Path(dest, "P.md").read_text(), once)
+
+    def test_a_fenced_link_is_never_rewritten(self):
+        with tempfile.TemporaryDirectory() as d:
+            dest = self._repo(d)
+            Path(dest, "P.md").write_text("```\n[c](CLAUDE.md)\n```\n", encoding="utf-8")
+            rewritelinks.rewrite_tree(dest, d)
+            self.assertEqual(Path(dest, "P.md").read_text(), "```\n[c](CLAUDE.md)\n```\n")
+
+    def test_sync_runs_the_rewrite(self):
+        # Lockstep: the rewrite must be part of the sync, not a step someone remembers.
+        src = Path(ROOT, "sync-plugin-docs.sh").read_text(encoding="utf-8")
+        self.assertIn("rewrite-doc-links.py", src)
+        self.assertLess(src.index("rewrite-doc-links.py"), src.index("--- Skills:"),
+                        "the rewrite must run after the docs copy loop")
