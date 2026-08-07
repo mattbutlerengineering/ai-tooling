@@ -1,5 +1,15 @@
 # ai-tooling Plugin
 
+## Install
+
+```bash
+claude plugin marketplace add mattbutlerengineering/ai-tooling
+claude plugin install ai-tooling@ai-tooling
+```
+
+Or from inside a session: `/plugin marketplace add mattbutlerengineering/ai-tooling`
+then `/plugin install ai-tooling@ai-tooling`.
+
 AI workflow toolkit organized around inner/outer dev loop stages and six quality signals (Correctness, Speed, Maintainability, Safety, Cost Efficiency, Verifiability).
 
 ## Skills
