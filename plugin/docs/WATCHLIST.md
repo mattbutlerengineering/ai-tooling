@@ -6,7 +6,7 @@ Everything worth re-evaluating or watching, **derived** (not hand-maintained) fr
 
 ## 1. Deferred — re-evaluate when trigger fires (5)
 
-Every `DEFER` verdict in the repo: promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item. Most are [COMPARISON.md](COMPARISON.md) rows; an _eval-only_ entry is a DEFER carried by an eval with no catalog row — a bake-off or comparison document, whose subjects have their own rows — so it is linked to the eval instead.
+Every `DEFER` verdict in the repo: promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item. Most are [COMPARISON.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/COMPARISON.md) rows; an _eval-only_ entry is a DEFER carried by an eval with no catalog row — a bake-off or comparison document, whose subjects have their own rows — so it is linked to the eval instead.
 
 | Tool | Stage | Re-evaluate when |
 |------|-------|------------------|

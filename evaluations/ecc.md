@@ -6,8 +6,10 @@
 **Dev loop stage:** All stages (Plan, Implement, Verify, Review, Ship, Reflect) — a full harness layer
 **Layer:** Tooling + Infrastructure (skills/agents/rules + a hook runtime, memory store, and CLI control-plane)
 
-> **Note on scope / duplication.** A prior evaluation of this same repo already exists at
-> [`everything-claude-code.md`](everything-claude-code.md) (verdict CONDITIONAL, skill-breadth angle).
+> **Note on scope / duplication.** A prior evaluation of this same repo existed as
+> `everything-claude-code.md` (verdict CONDITIONAL, skill-breadth angle) until `19435b9`
+> merged the two catalog rows and the two eval files into this one — `everything-claude-code`
+> redirects to `affaan-m/ECC`, the same repo renamed.
 > This file is the **harness-and-footprint** evaluation requested separately: it focuses on ECC's
 > "instincts"/memory/security layers, its hook runtime, and the conflict surface against this
 > user's existing OMEGA + GSD + claude-mem + superpowers stack — angles the breadth eval barely
@@ -45,7 +47,7 @@ curl -s https://api.npmjs.org/downloads/point/last-month/ecc-universal       # 1
 curl -s https://api.npmjs.org/downloads/point/last-month/ecc-agentshield     # 31,412/mo
 ```
 
-Reviewed: README (English, full), `hooks/hooks.json`, the recursive HEAD tree, the changelog (v1.2 → v2.0.0), the rules layout, contributor/commit distribution, and the two npm packages' download counts. Also cross-checked the existing sibling evaluation [`everything-claude-code.md`](everything-claude-code.md), which spot-read 4 SKILL.md files for content quality.
+Reviewed: README (English, full), `hooks/hooks.json`, the recursive HEAD tree, the changelog (v1.2 → v2.0.0), the rules layout, contributor/commit distribution, and the two npm packages' download counts. Also cross-checked the then-existing sibling evaluation `everything-claude-code.md` — since merged into this file by `19435b9` — which spot-read 4 SKILL.md files for content quality.
 
 ## What worked
 
@@ -57,7 +59,7 @@ Reviewed: README (English, full), `hooks/hooks.json`, the recursive HEAD tree, t
 
 ## What didn't work or surprised us
 
-- **It IS a duplicate of the user's existing setup, twice over.** (1) ECC's `rules/common/` files — `coding-style.md` (immutability/file-org), `testing.md` (80% coverage, TDD), `security.md` (mandatory checks), `git-workflow.md`, `performance.md` (model selection), `patterns.md`, `hooks.md`, `agents.md` — are the *same documents* already present in this user's `~/.claude/rules/common/`. The user is effectively already running a curated subset of ECC's rules. (2) A prior catalog evaluation of this exact repo already exists ([`everything-claude-code.md`](everything-claude-code.md)), and the catalog separately lists `everything-claude-code` as its own entry (CATALOG.md line 143). Installing ECC wholesale would re-add content the user already has.
+- **It IS a duplicate of the user's existing setup, twice over.** (1) ECC's `rules/common/` files — `coding-style.md` (immutability/file-org), `testing.md` (80% coverage, TDD), `security.md` (mandatory checks), `git-workflow.md`, `performance.md` (model selection), `patterns.md`, `hooks.md`, `agents.md` — are the *same documents* already present in this user's `~/.claude/rules/common/`. The user is effectively already running a curated subset of ECC's rules. (2) ~~A prior catalog evaluation of this exact repo already exists (`everything-claude-code.md`), and the catalog separately lists `everything-claude-code` as its own entry (CATALOG.md line 143).~~ Both halves were true when written and stopped being true in `19435b9`, the dedupe that merged the duplicate row and the duplicate eval into this file; struck rather than deleted, because an honest correction quotes what it corrects (#437). Installing ECC wholesale would re-add content the user already has.
 - **Heavy, auto-loading hook runtime collides directly with OMEGA + claude-mem + GSD.** ECC auto-loads ~10 PreToolUse hooks plus SessionStart/PreCompact/Stop. Its `pre:observe`/`evaluate-session` (continuous-learning capture), `session-start-bootstrap` (context injection), and `pre:compact` (state save) occupy the *same lifecycle slots* as the user's OMEGA coordination hooks and claude-mem observation hooks. Running both means double SessionStart context injection (ECC adds up to 8000 chars), two competing memory stores (ECC's `~/.local/share/ecc-homunculus` + `~/.claude` session-data vs OMEGA + claude-mem), and overlapping compaction/Stop handlers — added latency, context bloat, and conflicting "memory" sources of truth. The `gateguard-fact-force` first-edit block in particular would fight any agent the user already drives.
 - **Stars are wildly inflated relative to substance and age.** 218K stars / 33K forks on a repo created **2026-01-18** (five months old) with ~2,180 commits and a single dominant author (`affaan-m`: 1,470 commits; next contributor: 47) is not an organic code-quality signal — it tracks heavy X promotion, a hackathon win, and a sponsorship/Pro funnel (ECC Pro $19/seat/mo, GitHub Sponsors, three business sponsors in the README). npm reality is far smaller: ~13K/mo for `ecc-universal`. Assess on substance, not the headline number.
 - **Effectively a solo project with a commercial surface.** ~242 "contributors" but 97% of commits are one person; the README is a marketing document (pricing table, sponsor logos, "first plugin to maximize every major AI coding tool," X-thread guides as primary docs). Bus-factor and over-promise risk are real.
@@ -76,7 +78,7 @@ Reviewed: README (English, full), `hooks/hooks.json`, the recursive HEAD tree, t
 
 ## Verdict
 
-**discovery-log — tentative read** (cherry-pick, do not install wholesale) — aligning with the prior [`everything-claude-code.md`](everything-claude-code.md) verdict but for footprint/overlap reasons rather than breadth reasons.
+**discovery-log — tentative read** (cherry-pick, do not install wholesale) — aligning with the prior `everything-claude-code` verdict — merged into this file by `19435b9` — but for footprint/overlap reasons rather than breadth reasons.
 
 ECC is the most substantial security-and-self-improvement bundle in the catalog: GateGuard's pre-execution destructive-command blocking, the fact-force investigate-before-edit gate, config-protection, and the standalone AgentShield auditor are real, hook-enforced guardrails, and the instinct→skill continuous-learning loop is a coherent mechanism, not a slogan. The engineering is mature for a five-month-old repo (v2.0.0, ~2,180 commits, documented runtime gates, dry-run uninstall). Those pieces earn a CONDITIONAL.
 

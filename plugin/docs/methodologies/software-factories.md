@@ -11,7 +11,7 @@ documentation, press releases and funding coverage, read on **2026-08-05** — a
 performance figure in it is **self-reported and unaudited**. Where a vendor's own docs give
 detail (Factory's Agent Readiness Model, 8090's five modules, Tembo's pricing) it is quoted;
 where the marketing is thin, this says so rather than inflating it. Under
-[ADR-0005](../docs/adr/0005-verdict-vocabulary.md) that makes this a *methodology reading*, not an evaluation: no verdict
+[ADR-0005](https://github.com/mattbutlerengineering/ai-tooling/blob/main/docs/adr/0005-verdict-vocabulary.md) that makes this a *methodology reading*, not an evaluation: no verdict
 here promotes anything into [STACK.md](../STACK.md). One of the six, 8090, already has both a
 [hands-on-blocked evaluation](../evaluations/8090-software-factory.md) (**DEFER**) and a full
 [stage-by-stage mapping](8090-software-factory-sdlc.md); this doc links to those rather than
@@ -262,7 +262,7 @@ gives a vendor-free version you can run against any repo today:
 | **Task discovery** | Can an agent find work without being told? | tickets with enough context to implement from; labels that trigger stages |
 
 **This repo's own score — measured, not asserted.** See
-[`spikes/agent-readiness-score.md`](../spikes/agent-readiness-score.md) (#385), which scored this
+[`spikes/agent-readiness-score.md`](https://github.com/mattbutlerengineering/ai-tooling/blob/main/spikes/agent-readiness-score.md) (#385), which scored this
 repo against the model rather than eyeballing it. The result is sharper than the guess that
 originally stood here, and corrects it in two places:
 
@@ -347,7 +347,7 @@ destroy the sixth.
 
 | Ideal-workflow rule | Here today | Gap |
 |---|---|---|
-| 0 · readiness grade | [**scored**](../spikes/agent-readiness-score.md): strong primitives, enablers, task discovery; CI median 34s; **Level 1 cleared 4/4** after #388 wired ruff + mypy | no coverage number; flaky-test detection still absent (L4) |
+| 0 · readiness grade | [**scored**](https://github.com/mattbutlerengineering/ai-tooling/blob/main/spikes/agent-readiness-score.md): strong primitives, enablers, task discovery; CI median 34s; **Level 1 cleared 4/4** after #388 wired ruff + mypy | no coverage number; flaky-test detection still absent (L4) |
 | 1 · tickets as queue | GitHub Issues + `triage.py` bands + `/triage` | no label-triggered stage advance |
 | 2 · staged fresh context | [`intent-to-production-recipe.md`](intent-to-production-recipe.md) stage skills | handoffs are prose artifacts, not validated typed ones |
 | 3 · deterministic gates | **`make check` — 15 detectors, CI-gated, offline** | — (this is the repo's strongest asset) |
@@ -366,7 +366,7 @@ would say so.
 ## Next actions this research argues for
 
 1. ~~**Score this repo against the readiness table.**~~ Done —
-   [`spikes/agent-readiness-score.md`](../spikes/agent-readiness-score.md). It produced a sharper
+   [`spikes/agent-readiness-score.md`](https://github.com/mattbutlerengineering/ai-tooling/blob/main/spikes/agent-readiness-score.md). It produced a sharper
    answer than expected and a concrete next step: add a linter and a type checker for this repo's
    own Python, which is the only thing standing between it and the Level 1 gate.
 2. **Catalog the gap.** Factory, Tembo, Qodo (the platform) and Planview have no `CATALOG.md`
