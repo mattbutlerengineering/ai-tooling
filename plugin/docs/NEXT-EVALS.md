@@ -21,8 +21,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 
 _human or `eval-runner` only — the one band that may reach ADOPT._
 
-| Tool | Stage | Score | Why (pressure/gap) | Command |
-|------|-------|-------|--------------------|---------|
+| Tool | Stage | Score | Why | Command |
+|------|-------|-------|-----|---------|
 | opencode | Implement | 54.9 | pressure 24, gap 4.9 | `/evaluate-tool opencode` |
 | cognee | Memory & Context | 40.2 | pressure 16, gap 6.2 | `/evaluate-tool cognee` |
 | agent-browser | Verify | 36.8 | pressure 15, gap 4.8 | `/evaluate-tool agent-browser` |
@@ -61,20 +61,20 @@ _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
 _Listing 12 of 112 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
-| Tool | Stage | Score | Why (pressure/gap) | Command |
-|------|-------|-------|--------------------|---------|
-| tech-leads-club/agent-skills | Skills & Plugins | 8.6 | pressure 0, gap 6.6 | `/triage-lead tech-leads-club/agent-skills` |
-| vercel-labs/agent-skills | Skills & Plugins | 8.6 | pressure 0, gap 6.6 | `/triage-lead vercel-labs/agent-skills` |
-| modelcontextprotocol/servers | MCP Servers | 6.7 | pressure 0, gap 6.7 | `/triage-lead modelcontextprotocol/servers` |
-| getsentry/skills | Skills & Plugins | 6.6 | pressure 0, gap 6.6 | `/triage-lead getsentry/skills` |
-| awesome-copilot | Reflect | 3.3 | pressure 0, gap 3.3 | `/triage-lead awesome-copilot` |
-| gstack | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead gstack` |
-| ruflo | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead ruflo` |
-| browser-use | Verify | 24.8 | pressure 9, gap 4.8 | `/triage-lead browser-use` |
-| ACE (agentic-context-engine) | Memory & Context | 24.2 | pressure 8, gap 6.2 | `/triage-lead ACE (agentic-context-engine)` |
-| memU | Memory & Context | 24.2 | pressure 8, gap 6.2 | `/triage-lead memU` |
-| claude-octopus | Review | 23.2 | pressure 8, gap 5.2 | `/triage-lead claude-octopus` |
-| tdd-guard | Review | 23.2 | pressure 8, gap 5.2 | `/triage-lead tdd-guard` |
+| Tool | Stage | Score | Why | Command |
+|------|-------|-------|-----|---------|
+| tech-leads-club/agent-skills | Skills & Plugins | 8.6 | challenges SkillSpector · pressure 0, gap 6.6 | `/triage-lead tech-leads-club/agent-skills` |
+| vercel-labs/agent-skills | Skills & Plugins | 8.6 | challenges agent-skills, documentation-and-adrs, mattpocock/skills, web-quality-skills · pressure 0, gap 6.6 | `/triage-lead vercel-labs/agent-skills` |
+| modelcontextprotocol/servers | MCP Servers | 6.7 | challenges code-review, fastmcp, feature-dev, pr-review-toolkit · pressure 0, gap 6.7 | `/triage-lead modelcontextprotocol/servers` |
+| getsentry/skills | Skills & Plugins | 6.6 | challenges agent-skills, documentation-and-adrs, mattpocock/skills · pressure 0, gap 6.6 | `/triage-lead getsentry/skills` |
+| awesome-copilot | Reflect | 3.3 | challenges agent-skills, code-review, documentation-and-adrs, feature-dev, pr-review-toolkit · pressure 0, gap 3.3 | `/triage-lead awesome-copilot` |
+| gstack | Implement | 24.9 | challenges GSD · pressure 9, gap 4.9 | `/triage-lead gstack` |
+| ruflo | Implement | 24.9 | challenges GSD · pressure 9, gap 4.9 | `/triage-lead ruflo` |
+| browser-use | Verify | 24.8 | challenges playwright · pressure 9, gap 4.8 | `/triage-lead browser-use` |
+| ACE (agentic-context-engine) | Memory & Context | 24.2 | challenges claude-reflect · pressure 8, gap 6.2 | `/triage-lead ACE (agentic-context-engine)` |
+| memU | Memory & Context | 24.2 | challenges claude-mem · pressure 8, gap 6.2 | `/triage-lead memU` |
+| claude-octopus | Review | 23.2 | challenges code-review · pressure 8, gap 5.2 | `/triage-lead claude-octopus` |
+| tdd-guard | Review | 23.2 | challenges GSD, pr-review-toolkit, stryker-js · pressure 8, gap 5.2 | `/triage-lead tdd-guard` |
 
 ## P3 backlog — 236 leads
 
@@ -82,8 +82,8 @@ _leave; stamp `**Last triaged:**` only._
 
 _Listing 12 of 236 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
-| Tool | Stage | Score | Why (pressure/gap) | Command |
-|------|-------|-------|--------------------|---------|
+| Tool | Stage | Score | Why | Command |
+|------|-------|-------|-----|---------|
 | mcp-atlassian | MCP Servers | 6.7 | pressure 0, gap 6.7 | `/triage-lead mcp-atlassian` |
 | qwen-code | Implement | 24.9 | pressure 9, gap 4.9 | `/triage-lead qwen-code` |
 | impeccable | Skills & Plugins | 24.6 | pressure 8, gap 6.6 | `/triage-lead impeccable` |
@@ -107,8 +107,8 @@ _(none)_
 
 _settle the container, or SKIP "ships inside `<container>`" — never an independent lead._
 
-| Tool | Stage | Score | Why (pressure/gap) | Command |
-|------|-------|-------|--------------------|---------|
+| Tool | Stage | Score | Why | Command |
+|------|-------|-------|-----|---------|
 | frontend-design | Skills & Plugins | 12.6 | pressure 3, gap 6.6 | `/triage-lead frontend-design` |
 | prisma | MCP Servers | 12.7 | pressure 2, gap 6.7 | `/triage-lead prisma` |
 | plugin-dev | Skills & Plugins | 12.6 | pressure 2, gap 6.6 | `/triage-lead plugin-dev` |

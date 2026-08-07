@@ -3331,8 +3331,60 @@ class TestTriage(unittest.TestCase):
     def _bands(self, d):
         triage = _load("triage_fixture", os.path.join(d, "triage.py"))
         ctx = audit.DetectorContext(d)
-        ordered, ranked = triage.assign(ctx)
+        ordered, ranked, _incumbents = triage.assign(ctx)
         return {b: [r[1] for r in rows] for b, rows in ordered.items()}, ranked
+
+    # ---------------------------------------------------- P2 names its incumbent (#457)
+    def test_the_incumbent_is_carried_forward_not_re_derived(self):
+        # The band's disposition is `SKIP "redundant with <incumbent>"` and the page
+        # never said who; the match was computed and thrown away (#457).
+        skeys = triage.stack_keys(
+            "| [GSD](https://github.com/obra/superpowers) | x | y | z |\n")
+        self.assertEqual(triage.stack_incumbents("superpowers, ECC", skeys), ["GSD"])
+
+    def test_the_token_is_not_the_pick_name(self):
+        # `superpowers` is the REPO; the pick is named GSD — detector P's rule, and the
+        # reason an agent copying the citation token writes the wrong name.
+        skeys = triage.stack_keys(
+            "| [GSD](https://github.com/obra/superpowers) | x | y | z |\n")
+        self.assertNotIn("superpowers", triage.stack_incumbents("superpowers", skeys))
+
+    def test_every_matched_pick_is_named_never_one_of_them(self):
+        # One key can reach three picks that do three different jobs; choosing inside a
+        # generator is the coin flip this exists to prevent.
+        stack = ("| [code-review](https://github.com/anthropics/claude-plugins-official) | | | |\n"
+                 "| [feature-dev](https://github.com/anthropics/claude-plugins-official) | | | |\n"
+                 "| [stryker-js](https://github.com/stryker-mutator/stryker-js) | | | |\n")
+        skeys = triage.stack_keys(stack)
+        self.assertEqual(triage.stack_incumbents("claude-plugins-official, stryker-js", skeys),
+                         ["code-review", "feature-dev", "stryker-js"])
+
+    def test_no_lead_changes_band(self):
+        # Membership is still "cites at least one pick"; only the answer is kept.
+        skeys = triage.stack_keys(
+            "| [GSD](https://github.com/obra/superpowers) | x | y | z |\n")
+        self.assertEqual(triage.stack_incumbents("nothing, unrelated", skeys), [])
+        self.assertTrue(triage.stack_incumbents("superpowers", skeys))
+
+    def test_only_P2_rows_name_an_incumbent(self):
+        # The other bands' dispositions contain no placeholder, so their Why cell keeps
+        # meaning the score terms.
+        ranked = [(2.0, "a", "Plan", 3, 1.0)]
+        ordered = {name: [] for name, _, _ in triage.BANDS}
+        ordered["P2 challenger"] = ranked
+        out = triage.render(ordered, ranked, {"a": ["GSD"]})
+        self.assertIn("challenges GSD · pressure 3, gap 1.0", out)
+        ordered = {name: [] for name, _, _ in triage.BANDS}
+        ordered["P3 backlog"] = ranked
+        out = triage.render(ordered, ranked, {"a": ["GSD"]})
+        self.assertNotIn("challenges", out)
+
+    def test_one_stack_parser_not_two(self):
+        # The map and the key set must come from the same parse, or the queue and
+        # detector J could disagree about what is "in STACK".
+        stack = "| [GSD](https://github.com/obra/superpowers) | x | y | z |\n"
+        self.assertEqual(set(audit._stack_member_key_map(stack)),
+                         audit._stack_member_keys(stack))
 
     def test_structural_bands_and_vendored_scope(self):
         with tempfile.TemporaryDirectory() as d:
@@ -3568,14 +3620,14 @@ class TestTriage(unittest.TestCase):
             (1.0, "c", "Plan", 0, 1.0),
         ]
         ordered = {name: [] for name, _, _ in triage.BANDS}
-        out = triage.render(ordered, ranked)
+        out = triage.render(ordered, ranked, {})
         self.assertIn("only 2 distinct values across these 3 leads", out)
         self.assertIn("2 have zero overlap pressure", out)
         self.assertIn("largest tie: 2", out)
 
     def test_render_survives_an_empty_queue(self):
         # max() over no scores would raise; an exhausted queue must still render.
-        out = triage.render({name: [] for name, _, _ in triage.BANDS}, [])
+        out = triage.render({name: [] for name, _, _ in triage.BANDS}, [], {})
         self.assertIn("only 0 distinct values across these 0 leads", out)
         self.assertIn("largest tie: 0", out)
 

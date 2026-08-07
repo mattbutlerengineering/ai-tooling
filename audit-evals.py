@@ -901,13 +901,23 @@ _LEDGER_ROW = re.compile(
     r"^\|\s*([^|]+?)\s*\|\s*(ADOPT|KEEP)\s*\|[^|]*\|\s*(yes|conditional|no)\s*\|\s*([^|]*?)\s*\|"
     r"(?:[^|]*\|)?\s*$", re.MULTILINE)
 
+def _stack_member_key_map(stack_text):
+    """alias key -> sorted STACK display names, for tools recommended in STACK.md.
+
+    Keyed by BOTH link text and repo basename — so an entry installed under another
+    name (GSD ← obra/superpowers) still matches. One key can name SEVERAL picks:
+    `claudepluginsofficial` reaches code-review, feature-dev and pr-review-toolkit,
+    which is why the value is a list and never a winner (#457)."""
+    m = {}
+    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
+        for k in catalog_lib.alias_keys(text, url):
+            m.setdefault(k, set()).add(text)
+    return {k: sorted(v) for k, v in m.items()}
+
 def _stack_member_keys(stack_text):
     """Tools recommended in STACK.md, keyed by BOTH link text and repo basename —
     so an entry installed under another name (GSD ← obra/superpowers) still matches."""
-    keys = set()
-    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
-        keys.update(catalog_lib.alias_keys(text, url))
-    return keys
+    return set(_stack_member_key_map(stack_text))
 
 def _stack_picks_by_slug(stack_text):
     """(display text, owner/repo) for every STACK.md table row that links a github repo.
@@ -2217,7 +2227,7 @@ def audit_scope(ctx):
     # here would recurse. Called from main(), the nested copy never re-enters.
     triage = _load_sibling("triage_bands", "triage.py")
     try:
-        ordered, _ = triage.assign(ctx)
+        ordered, _ranked, _incumbents = triage.assign(ctx)
     except (OSError, ValueError, KeyError):
         return [], []
 
