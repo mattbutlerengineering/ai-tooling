@@ -203,6 +203,9 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "MIT",
+    "member_packages": {
+      "skills/documentation-and-adrs": null
+    },
     "pushed_at": "2026-08-04T04:08:25Z",
     "resolved_name": "addyosmani/agent-skills",
     "stars": 81681
@@ -643,6 +646,16 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "Apache-2.0",
+    "member_packages": {
+      "plugins/code-review": null,
+      "plugins/commit-commands": null,
+      "plugins/feature-dev": null,
+      "plugins/frontend-design": null,
+      "plugins/plugin-dev": null,
+      "plugins/pr-review-toolkit": null,
+      "plugins/security-guidance": null,
+      "plugins/skill-creator": null
+    },
     "pushed_at": "2026-08-05T02:34:02Z",
     "resolved_name": "anthropics/claude-plugins-official",
     "stars": 33072
@@ -2171,6 +2184,9 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "Apache-2.0",
+    "member_packages": {
+      "skills/presentation-creator": null
+    },
     "pushed_at": "2026-08-03T09:16:55Z",
     "resolved_name": "getsentry/skills",
     "stars": 898
@@ -2225,6 +2241,11 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "MIT",
+    "member_packages": {
+      "skills/documentation-writer": null,
+      "skills/oo-component-documentation": null,
+      "skills/typescript-mcp-server-generator": null
+    },
     "pushed_at": "2026-08-05T04:05:56Z",
     "resolved_name": "github/awesome-copilot",
     "stars": 37455
@@ -3433,6 +3454,13 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "MIT",
+    "member_packages": {
+      "skills/engineering/codebase-design": null,
+      "skills/engineering/diagnosing-bugs": null,
+      "skills/engineering/domain-modeling": null,
+      "skills/engineering/implement": null,
+      "skills/engineering/resolving-merge-conflicts": null
+    },
     "pushed_at": "2026-08-04T19:25:42Z",
     "resolved_name": "mattpocock/skills",
     "stars": 203610
@@ -3857,6 +3885,11 @@
     "fetched_at": "2026-08-04",
     "license_lost": false,
     "license_spdx": "NOASSERTION",
+    "member_packages": {
+      "src/filesystem": "@modelcontextprotocol/server-filesystem",
+      "src/memory": "@modelcontextprotocol/server-memory",
+      "src/sequentialthinking": "@modelcontextprotocol/server-sequential-thinking"
+    },
     "pushed_at": "2026-08-04T23:54:25Z",
     "resolved_name": "modelcontextprotocol/servers",
     "stars": 89219

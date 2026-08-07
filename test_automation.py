@@ -4257,6 +4257,118 @@ class TestUnactionableContainment(unittest.TestCase):
                           f"{r.ships_inside}")
 
 
+class TestUnfalsifiedContainment(unittest.TestCase):
+    """Pins detector AF (#431). AA checks that a `Ships inside` container is FINDABLE;
+    this checks the rule the column is DEFINED by — "empty means independently
+    installable" — which nothing could contradict. The cell buys a P5 band whose
+    disposition is "never an independent lead", so a wrong one does not misrank a lead,
+    it removes it from the queue."""
+
+    HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+           "|------|------|-----------|-------------------|---------------|--------------|\n")
+    PACK = "https://github.com/o/pack"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.refresh = _load("refresh_metadata", "refresh-metadata.py")
+
+    def _run(self, rows, members=None, verdicts=()):
+        """rows is (name, url, ships_inside); members is {subpath: package-or-None}."""
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "CATALOG.md", "## Implement\n\n" + self.HDR + "".join(
+                f"| [{n}]({u}) | skill | x | y | z | {c} |\n" for n, u, c in rows))
+            _write(d, "COMPARISON.md",
+                   "# T\n\n## Implement\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| {n} | skill | y | y | {v} | REVIEW |\n" for n, v in verdicts))
+            if members is not None:
+                _write(d, "repo-metadata.json",
+                       json.dumps({"o/pack": {"member_packages": members}}))
+            return audit.audit_containment_evidence(audit.DetectorContext(d))
+
+    def test_a_published_subpath_refutes_the_cell(self):
+        # `src/memory` publishes @modelcontextprotocol/server-memory, which npx installs
+        # and nothing else — so the artifact IS independently installable.
+        ref, conf, unch, seen = self._run(
+            [("member", self.PACK + "/tree/main/a", "o/pack")], {"a": "@scope/member"})
+        self.assertEqual([(f.kind, f.tool, f.package) for f in ref],
+                         [("REFUTED", "member", "@scope/member")])
+        self.assertEqual((conf, unch, seen), ([], [], 1))
+
+    def test_no_manifest_confirms_but_is_never_counted(self):
+        # THE precision rule: absence is not proof of containment — a pack could publish
+        # to npm without per-member manifests — so the test only ever REFUTES. That makes
+        # detector V's rule (a false positive costs more than a miss) structural.
+        ref, conf, _unch, seen = self._run(
+            [("member", self.PACK + "/tree/main/a", "o/pack")], {"a": None})
+        self.assertEqual(ref, [])
+        self.assertEqual([(f.kind, f.tool) for f in conf], [("confirmed", "member")])
+        self.assertEqual(seen, 1)
+
+    def test_a_root_link_has_no_component_to_ask_about(self):
+        # `prisma`, `jira`, `confluence` — already AA's SELF-LINKED, and reporting them
+        # here as a second finding would put one defect on two scoreboards.
+        ref, conf, unch, seen = self._run([("member", self.PACK, "o/pack")], {})
+        self.assertEqual((ref, conf, seen), ([], [], 0))
+        self.assertEqual([(f.kind, f.tool, f.path) for f in unch],
+                         [("unchecked", "member", None)])
+
+    def test_no_records_is_not_zero_findings(self):
+        # Detector V's rule. An uncollected signal must never present as a clean sweep:
+        # nothing was asked, so nothing can be concluded.
+        ref, conf, unch, seen = self._run(
+            [("member", self.PACK + "/tree/main/a", "o/pack")], None)
+        self.assertEqual((ref, conf, seen), ([], [], 0))
+        self.assertEqual(len(unch), 1)
+
+    def test_an_undeclared_row_is_never_examined(self):
+        # Empty is the column's default. A row that never claimed containment cannot
+        # have its containment refuted.
+        self.assertEqual(
+            self._run([("a", self.PACK + "/tree/main/a", "")], {"a": "@scope/a"}),
+            ([], [], [], 0))
+
+    def test_leads_sort_ahead_of_disposed_rows(self):
+        # A stalled queue slot is the cost; a wrong cell on a SKIPped row is a wrong fact
+        # with no queue effect.
+        ref, _, _, _ = self._run(
+            [("done", self.PACK + "/tree/main/d", "o/pack"),
+             ("lead", self.PACK + "/tree/main/l", "o/pack")],
+            {"d": "@scope/d", "l": "@scope/l"},
+            [("done", "SKIP"), ("lead", "discovery-log")])
+        self.assertEqual([f.tool for f in ref], ["lead", "done"])
+
+    def test_live_tree_has_no_refuted_declaration(self):
+        # Pinned at zero, unlike AA's backlog: a REFUTED row is a mechanical fact npm
+        # settles, not a human's judgement call, so it must never regrow. The three
+        # `modelcontextprotocol/servers` cells were emptied in #431.
+        ref, _conf, _unch, seen = audit.audit_containment_evidence(audit.DetectorContext(ROOT))
+        self.assertEqual([f.tool for f in ref], [], f"refuted containment: {ref}")
+        self.assertTrue(seen, "no member_packages records — run refresh-metadata "
+                              "--containment (0 records is not 0 findings)")
+
+    def test_a_private_container_manifest_is_not_a_member_package(self):
+        # npm's own marker for "this is not published". @modelcontextprotocol/servers
+        # carries it, which is why "settle the container" named an impossible operation.
+        self.assertIsNone(self.refresh._manifest_package(
+            'package.json', '{"name": "@scope/pack", "private": true}'))
+        self.assertEqual(self.refresh._manifest_package(
+            'package.json', '{"name": "@scope/member", "version": "1.0.0"}'), "@scope/member")
+        self.assertEqual(self.refresh._manifest_package(
+            'pyproject.toml', '[project]\nname = "member"\n'), "member")
+
+    def test_only_subpath_links_are_collected(self):
+        # The subpath IS the question. A row linking a repo root contributes nothing to
+        # collect, so --containment never spends a call on one.
+        got = self.refresh.declared_subpaths(
+            self.HDR
+            + f"| [root]({self.PACK}) | skill | x | y | z | o/pack |\n"
+            + f"| [sub]({self.PACK}/tree/main/a) | skill | x | y | z | o/pack |\n"
+            + f"| [free]({self.PACK}/tree/main/b) | skill | x | y | z |  |\n")
+        self.assertEqual(got, {"o/pack": {"a": "sub"}})
+
+
 class TestUnentitledConditional(unittest.TestCase):
     """Pins detector AB (#407). ADR-0005's rule is a disjunction — a real verdict needs
     the tool exercised OR a genuine `adopt-if:` condition — and #69 parked point 1 as an

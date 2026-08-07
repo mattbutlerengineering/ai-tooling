@@ -23,6 +23,9 @@ backfilled, since a floor date would assert a fetch that never happened.
   ./refresh-metadata.py --stale         # only fetch slugs missing from the cache
   ./refresh-metadata.py --maintenance   # also read each README head for a discontinuation
                                         #   banner (#351) — DOUBLES the call count
+  ./refresh-metadata.py --containment   # also ask each `Ships inside` subpath whether it
+                                        #   publishes its own package (#431) — ~1 call per
+                                        #   declared row (21 today), not per repo
 
 A repo whose license comes back absent gets a few extra calls on EVERY path, not just
 --maintenance: see LICENSE_HEADING below for why `NONE` cannot be trusted as an absence.
@@ -146,6 +149,66 @@ def catalog_slugs(catalog_text):
         if found:
             slugs[found[0].lower()] = row.name
     return slugs
+
+
+def declared_subpaths(catalog_text):
+    """{container_slug: {subpath: row_name}} for every row that declares a `Ships inside`
+    container AND links a path inside a repo.
+
+    The subpath is the thing to ask about, so a row linking a repo ROOT contributes
+    nothing here — there is no component to look at, which is separately detector AA's
+    SELF-LINKED finding. Keyed on the DECLARED container rather than the link's own repo:
+    the two agreeing is what makes the question meaningful, and where they disagree the
+    declaration is the claim under test."""
+    out = {}
+    for row in catalog_lib.parse_catalog_rows(catalog_text):
+        if not row.ships_inside or not row.url:
+            continue
+        m = re.match(r"https://github\.com/([^/]+/[^/]+)/tree/[^/]+/(.+?)/?$",
+                     row.url.strip(), re.IGNORECASE)
+        if m:
+            out.setdefault(row.ships_inside.strip().strip("`").lower(), {})[m.group(2)] = row.name
+    return out
+
+
+def _manifest_package(filename, text):
+    """The package name a manifest publishes under, or None.
+
+    `"private": true` yields None on purpose: it is npm's own marker for "this is not
+    published", and it is the CONTAINER's answer rather than a member's —
+    `@modelcontextprotocol/servers` carries it, which is why "settle the container" named
+    an operation that cannot be performed."""
+    if filename.endswith(".json"):
+        if re.search(r'"private"\s*:\s*true', text):
+            return None
+        m = re.search(r'"name"\s*:\s*"([^"]+)"', text)
+    else:
+        m = re.search(r'^\s*name\s*=\s*"([^"]+)"', text, re.MULTILINE)
+    return m.group(1) if m else None
+
+
+def member_package(slug, path):
+    """The package name a `Ships inside` subpath publishes under, or None.
+
+    This is the ONE question that can contradict a containment declaration. `Ships
+    inside` is defined by "empty means independently installable" (#343), so a cell
+    asserts an artifact is NOT independently installable — and a subpath shipping its
+    own manifest with its own name refutes that outright: `src/memory` publishes
+    `@modelcontextprotocol/server-memory`, which `npx` installs and nothing else (#431).
+
+    It only ever REFUTES. A subpath with no manifest is not proof of containment — a pack
+    could publish to npm without a per-member manifest — so `None` means "nothing here
+    contradicts the cell", never "confirmed contained". Detector AF counts the refutations
+    and merely prints the rest, which makes detector V's rule (flagging a healthy row
+    costs more than missing a sick one) structural rather than promised.
+
+    Parsing lives in `_manifest_package` so the rule that decides a finding is testable
+    without the network."""
+    for fn in MANIFESTS:
+        text = _gh_file(slug, f"contents/{path}/{fn}")
+        if text:
+            return _manifest_package(fn, text)
+    return None
 
 
 def stamp(record, today=None):
@@ -289,6 +352,15 @@ def fetch(slug, today=None, maintenance=False, previous=None):
     ack = (previous or {}).get("discontinued_ack")
     if ack:
         rec["discontinued_ack"] = ack
+    # Collected by --containment, which is not every path, so a plain refresh must carry
+    # it or it erases itself. Unlike `discontinued` (re-derived each --maintenance run and
+    # dropped otherwise), losing this one silently turns a detector AF REFUTED finding into
+    # an UNCHECKED — a finding disappearing without being fixed, which is the worst thing a
+    # report-only detector can do. --containment re-derives the map, so it cannot go stale
+    # in the other direction either.
+    members = (previous or {}).get("member_packages")
+    if members:
+        rec["member_packages"] = members
     return stamp(rec, today)
 
 
@@ -308,6 +380,7 @@ def write_cache(data):
 def main():
     stale_only = "--stale" in sys.argv[1:]
     maintenance = "--maintenance" in sys.argv[1:]
+    containment = "--containment" in sys.argv[1:]
     catalog = Path(CATALOG).read_text(encoding="utf-8")
     slugs = catalog_slugs(catalog)
     cache = load_cache()
@@ -321,6 +394,22 @@ def main():
         cache[slug] = fetch(slug, maintenance=maintenance, previous=cache.get(slug))
         if i % 50 == 0:
             print(f"  {i}/{len(todo)}")
+
+    if containment:
+        # Written onto the CONTAINER's existing record, keyed by subpath — the same
+        # additive shape `discontinued` / `license_declared` use, so no reader that does
+        # not know the field is disturbed and no phantom slug enters a file whose other
+        # consumers iterate it as repos. A container with no record of its own is skipped
+        # rather than invented: that is detector AA's UNROWED finding, not this one's.
+        declared = declared_subpaths(catalog)
+        rows = sum(len(v) for v in declared.values())
+        print(f"refresh-metadata: --containment — {rows} declared subpath(s) across "
+              f"{len(declared)} container(s) (~{rows} API calls)")
+        for container, paths in sorted(declared.items()):
+            if container not in cache:
+                continue
+            cache[container]["member_packages"] = {
+                p: member_package(container, p) for p in sorted(paths)}
 
     # Drop slugs no longer catalogued so the cache can't outlive its source.
     for gone in set(cache) - set(slugs):
@@ -346,6 +435,11 @@ def main():
         d = cache[s]["license_declared"]
         conflict = f" (manifest says {d['conflict']})" if d.get("conflict") else ""
         print(f"  DECLARED {s}: {d['spdx']} in {d['where']}{conflict} — \"{d['phrase']}\"")
+    for s in sorted(m for m in cache if cache[m].get("member_packages")):
+        for path, pkg in sorted(cache[s]["member_packages"].items()):
+            if pkg:
+                print(f"  PUBLISHED {s}/{path}: {pkg} — declared contained, "
+                      "ships its own package")
     if undated:
         # --stale skips slugs already present, so records written before fetched_at
         # existed keep no date until a FULL refresh re-fetches them. Say so rather
