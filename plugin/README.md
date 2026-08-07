@@ -39,6 +39,8 @@ A SessionStart hook and a PostToolUse hook run automatically:
 - Outputs nothing if everything is current (suppressed)
 
 **PostToolUse (on Edit/Write):**
-- Validates catalog entry count in CLAUDE.md matches actual CATALOG.md rows
-- Validates evaluation file count in README.md and CLAUDE.md matches actual files
+- Runs the repo's own canonical gates — `reconcile-counts.py --check` (catalog total,
+  eval count and composition) and `sync-plugin-docs.sh --check` (`plugin/docs/` and
+  `skills/` against root) — and surfaces whatever they report
 - Alerts on drift so counts stay consistent across commits
+- Silent no-op in a repo that doesn't carry those scripts
