@@ -4040,15 +4040,100 @@ class TestUnactionableContainment(unittest.TestCase):
             [("done", "SKIP"), ("lead", "discovery-log")])
         self.assertEqual([f.tool for f in finds], ["lead", "done"])
 
-    def test_live_run_matches_the_documented_backlog(self):
-        # Guards the real tree at the number #405 filed. Not pinned at zero: the remedy
-        # is a human deciding which of two facts is wrong (a missing container row, or a
-        # link that names the pack), which is not a call a bulk lane may make.
-        finds, declared = audit.audit_containment(audit.DetectorContext(ROOT))
-        self.assertEqual(declared, 24)
-        kinds = {k: sum(1 for f in finds if f.kind == k)
-                 for k in ("UNROWED", "SELF-LINKED")}
-        self.assertEqual(kinds, {"UNROWED": 10, "SELF-LINKED": 13})
+    def test_live_run_produces_no_false_positives(self):
+        # Guards the real tree STRUCTURALLY, not by count. A pinned backlog number would
+        # fail the build the moment a human fixed one row or a discovery pass added a
+        # declared one — U's rule: pin the buckets that must stay at zero, never the
+        # bucket a human resolves. What must hold on any tree: only declaring rows are
+        # ever findings, and SELF-LINKED never fires on a subpath link (the first draft
+        # compared repo roots and flagged all 24 declarations, including the 8
+        # claude-plugins-official plugins that link their own subpath).
+        ctx = audit.DetectorContext(ROOT)
+        finds, declared = audit.audit_containment(ctx)
+        rows = {r.name: r for r in catalog_lib.parse_catalog_rows(ctx.catalog)}
+        self.assertTrue(declared)
+        for f in finds:
+            self.assertIn(f.kind, ("UNROWED", "SELF-LINKED"))
+            self.assertTrue(rows[f.tool].ships_inside, f"{f.tool} declares nothing")
+            if f.kind == "SELF-LINKED":
+                self.assertTrue(audit._links_repo_root(rows[f.tool].url),
+                                f"{f.tool} links a subpath — not its container")
+
+
+class TestUnentitledConditional(unittest.TestCase):
+    """Pins detector AB (#407). ADR-0005's rule is a disjunction — a real verdict needs
+    the tool exercised OR a genuine `adopt-if:` condition — and #69 parked point 1 as an
+    optional follow-up that was never done. Detector T guards the eval-headline direction
+    of the same rule; nothing guarded the verdict data itself."""
+
+    def _run(self, rows):
+        """rows is (tool, evidence, verdict, eval_body_extra)."""
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "COMPARISON.md",
+                   "# T\n\n## Implement\n\n"
+                   "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                   "|---|---|---|---|---|---|\n" + "".join(
+                       f"| {t} | tool | y | y | {v} | {e} |\n" for t, e, v, _ in rows))
+            for t, e, _, extra in rows:
+                if e is None:
+                    continue  # a CONDITIONAL row with no eval at all
+                _write(d, f"evaluations/{t}.md",
+                       f"# {t}\n\n**Repo:** [{t}](https://github.com/o/{t})\n\n"
+                       f"## How we tested it\n\n**Evidence:** {e}\n\nRan it.\n\n"
+                       f"## Verdict\n\n**CONDITIONAL**\n\n{extra}\n")
+            return audit.audit_conditional_gate(audit.DetectorContext(d))
+
+    def test_unexercised_and_ungated_is_the_finding(self):
+        unent, ungated, total = self._run([("a", "REVIEW", "CONDITIONAL", "Use it when.")])
+        self.assertEqual([(f.tool, f.evidence, f.gated) for f in unent],
+                         [("a", "REVIEW", False)])
+        self.assertEqual((ungated, total), ([], 1))
+
+    def test_exercised_without_a_condition_is_context_not_a_finding(self):
+        # Entitled under ADR-0005's second clause, so not a finding — but point 1 still
+        # wants a condition string, and that number should be visible rather than implied.
+        unent, ungated, _ = self._run([("a", "RUN", "CONDITIONAL", "Use it when.")])
+        self.assertEqual(unent, [])
+        self.assertEqual([f.tool for f in ungated], ["a"])
+
+    def test_a_declared_condition_entitles_an_unexercised_row(self):
+        # The whole point of point 1: a gate is the OTHER way to earn the word, so a
+        # REVIEW row that declares one is in neither bucket.
+        unent, ungated, total = self._run(
+            [("a", "REVIEW", "CONDITIONAL", "adopt-if: linux-host — needs a Linux host.")])
+        self.assertEqual((unent, ungated, total), ([], [], 1))
+
+    def test_the_condition_match_tolerates_case_and_spacing(self):
+        for form in ("Adopt-If: x", "adopt-if : x", "ADOPT-IF:x"):
+            unent, _, _ = self._run([("a", "REVIEW", "CONDITIONAL", form)])
+            self.assertEqual(unent, [], f"{form!r} should count as a declared condition")
+
+    def test_only_conditional_rows_are_examined(self):
+        # An unexercised ADOPT is detector K's business, not this one. Two detectors
+        # reporting the same row under different rules is how a count stops meaning
+        # anything.
+        self.assertEqual(self._run([("a", "REVIEW", "ADOPT", ""),
+                                    ("b", "REVIEW", "discovery-log", "")]), ([], [], 0))
+
+    def test_a_conditional_row_with_no_eval_can_never_be_entitled(self):
+        # No eval is the weakest possible ground: SOURCE-ONLY by backfill-evidence's own
+        # rule, and there is no file in which to declare a gate.
+        unent, _, total = self._run([("ghost", None, "CONDITIONAL", "")])
+        self.assertEqual([(f.tool, f.evidence) for f in unent], [("ghost", "SOURCE-ONLY")])
+        self.assertEqual(total, 1)
+
+    def test_live_run_buckets_are_disjoint_and_cover_every_conditional(self):
+        # Structural, not a pinned backlog count: humans will fix these one at a time,
+        # and a count assertion would fail the build for the fix. What must hold on any
+        # tree is that the two buckets partition the CONDITIONAL rows minus the gated
+        # ones, and that no gated row is ever reported.
+        unent, ungated, total = audit.audit_conditional_gate(audit.DetectorContext(ROOT))
+        self.assertTrue(total)
+        self.assertEqual({f.tool for f in unent} & {f.tool for f in ungated}, set())
+        self.assertTrue(all(not f.gated for f in unent + ungated))
+        self.assertTrue(all(f.evidence not in ("MEASURED", "RUN") for f in unent))
+        self.assertTrue(all(f.evidence in ("MEASURED", "RUN") for f in ungated))
 
 
 class TestScopeMismatch(unittest.TestCase):

@@ -289,6 +289,33 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only: the remedy is a re-read of a human's verdict, not a build failure.
      Offline — it compares two files already in the tree.
 
+  AB. UNENTITLED CONDITIONAL (opt-in, --conditional-gate, REPORT-ONLY) — ADR-0005
+     collapsed the CONDITIONAL bucket because at 83% of rows the verdict carried no
+     discriminating signal, and its rule is a DISJUNCTION: a real verdict requires
+     EITHER the tool exercised OR a genuine `adopt-if:` condition ("no genuine
+     condition => it is not a CONDITIONAL"). #69 demoted the 404 rows satisfying
+     neither and parked point 1 — condition strings on the survivors — as an optional
+     follow-up. It was never done, nothing ever asked the verdict data, and the bucket
+     regrew from 12 to 33 (#407).
+       UNENTITLED   — neither exercised nor gated. Counted. Two remedies, both named on
+                      the line because the detector cannot pick between them: declare
+                      the gate (usually a one-line edit by whoever wrote the verdict),
+                      or demote to `discovery-log` — #69's operation, and the
+                      eliminate-only-safe direction, since it removes a verdict rather
+                      than asserting one.
+       no-condition — exercised but carrying no condition string. Entitled under the
+                      second clause, so NOT a finding; printed because point 1 still
+                      wants a condition and that number should be visible rather than
+                      implied (V's `acked`, W's `cleared`, X's `FACETED`).
+     Detector T guards ONE direction of this rule — an eval headlining CONDITIONAL over
+     a `discovery-log` row — and exits early on any other row verdict, so a row reading
+     CONDITIONAL in COMPARISON.md itself was never examined. D, which checks that eval
+     and row AGREE, passes happily when both name a verdict neither is entitled to.
+     Report-only and deliberately not a bulk demotion: blanket-demoting would destroy
+     the real judgment in rows whose gate was merely never written in the parseable
+     form — #345's reason for refusing to bulk-fix mirror drift in either direction.
+     Offline — it reads files already in the tree.
+
   AA. UNACTIONABLE CONTAINMENT (opt-in, --containment, REPORT-ONLY) — `Ships inside`
      (#343) makes containment machine-readable, and triage.py reads it FIRST to band a
      row P5, whose disposition is "settle the container ... never an independent lead".
@@ -327,6 +354,7 @@ Usage:
   python3 audit-evals.py --installed  # ADOPT/KEEP rows vs this machine's install records (local)
   python3 audit-evals.py --license-declared  # 'NONE' licenses declared outside a LICENSE file (offline)
   python3 audit-evals.py --containment  # `Ships inside` declarations P5 cannot act on (offline)
+  python3 audit-evals.py --conditional-gate  # CONDITIONAL rows entitled to neither ADR-0005 clause (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -2340,6 +2368,64 @@ def audit_containment(ctx):
     return findings, declared
 
 
+# ---------------------------------------------------------------- AB. unentitled CONDITIONAL (report-only)
+# ADR-0005 collapsed the CONDITIONAL bucket because at 83% of rows the verdict carried no
+# discriminating signal, and its rule is a disjunction: a real verdict requires EITHER the
+# tool to have been exercised OR a genuine `adopt-if:` condition — "no genuine condition ⇒
+# it is not a CONDITIONAL". #69 demoted the 404 rows that satisfied neither and parked
+# point 1 (condition strings on the survivors) as an optional follow-up. It was never
+# done, and nothing has ever asked the verdict data (#407).
+#
+# Detector T guards ONE direction of the same rule: an eval headlining CONDITIONAL over a
+# `discovery-log` row. It exits early on any other row verdict, so a row reading
+# CONDITIONAL in COMPARISON.md itself is never examined — and D, which checks that eval
+# and row AGREE, passes happily when both name a verdict neither is entitled to.
+ADOPT_IF = re.compile(r"adopt-if\s*:", re.IGNORECASE)
+EXERCISED = frozenset({"MEASURED", "RUN"})
+
+ConditionalFinding = collections.namedtuple("ConditionalFinding", "tool evidence gated")
+
+
+def audit_conditional_gate(ctx):
+    """(unentitled, ungated, total) — CONDITIONAL rows against ADR-0005's two clauses.
+
+    A finding is a row entitled to NEITHER clause: not exercised and carrying no
+    `adopt-if:` condition. Two remedies, and the detector names both because it cannot
+    pick between them — declare the gate (usually a one-line edit by whoever wrote the
+    verdict), or demote to `discovery-log`, which is #69's operation and the
+    eliminate-only-safe direction since it removes a verdict rather than asserting one.
+
+    `ungated` is the exercised-but-conditionless set: entitled to the word under the
+    second clause, so NOT findings, but ADR-0005 point 1 still wants a condition on them
+    and that number should be visible rather than implied (V's `acked`, W's `cleared`,
+    X's `FACETED`, F's demonstrated peers).
+
+    Report-only, and deliberately not a bulk demotion: blanket-demoting would destroy the
+    real judgment inside rows whose gate was merely never written in the parseable form —
+    #345's reason for declining to bulk-fix mirror drift in either direction."""
+    by_alias = {}
+    for ev in ctx.evals:
+        for a in ev.name_aliases:
+            by_alias.setdefault(a, ev)
+    unentitled, ungated, total = [], [], 0
+    for key, verdict in sorted(ctx.comparison_verdict_map.items()):
+        if verdict != "CONDITIONAL":
+            continue
+        total += 1
+        ev = by_alias.get(key)
+        # No eval at all is the weakest possible ground for a verdict, so it can never be
+        # entitled: SOURCE-ONLY by definition (backfill-evidence's rule) and ungateable.
+        level = ev.effective_evidence if ev else "SOURCE-ONLY"
+        gated = bool(ev and ADOPT_IF.search(ev.text))
+        f = ConditionalFinding(ev.name if ev else key, level, gated)
+        if gated or level in EXERCISED:
+            if not gated:
+                ungated.append(f)
+        else:
+            unentitled.append(f)
+    return unentitled, ungated, total
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -2349,7 +2435,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--workflow-drift", "--clusters", "--savings-claims", "--evidence",
                 "--staleness", "--metadata-staleness", "--lead-headlines",
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
-                "--license-declared", "--containment")
+                "--license-declared", "--containment", "--conditional-gate")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -2411,6 +2497,7 @@ def main():
     do_instrec = "--installed" in want       # opt-in LOCAL report (never a gate)
     do_licdecl = "--license-declared" in want  # opt-in report (does not affect exit code)
     do_contain = "--containment" in want      # opt-in report (does not affect exit code)
+    do_condgate = "--conditional-gate" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -2755,6 +2842,24 @@ def main():
                    else "this row's own link IS that container — nothing tells the "
                         "artifact apart from its pack")
             print(f"  {f.kind:11} {f.tool} [{f.verdict}] ships inside `{f.container}` — {why}")
+    if do_condgate:
+        unent, ungated, total = audit_conditional_gate(ctx)
+        print(f"== AB. unentitled CONDITIONAL (report-only) — {len(unent)} of {total} "
+              f"CONDITIONAL row(s) satisfy neither ADR-0005 clause, "
+              f"{total - len(unent) - len(ungated)} declare a condition ==")
+        if not total:
+            print("  no CONDITIONAL rows — the bucket ADR-0005 collapsed is empty")
+        elif not unent:
+            print("  OK — every CONDITIONAL row was exercised or declares an `adopt-if:`")
+        for f in unent:
+            print(f"  UNENTITLED {f.tool} ({f.evidence}, no `adopt-if:`) — declare the gate "
+                  "or demote the row to `discovery-log` (#69's operation)")
+        # Printed, never counted: entitled under ADR-0005's *exercised* clause, so not a
+        # finding — but point 1 still wants a condition string, and that number should be
+        # visible rather than implied.
+        for f in ungated:
+            print(f"  no-condition {f.tool} ({f.evidence}) — entitled by the exercised "
+                  "clause; ADR-0005 point 1 still wants an `adopt-if:`")
     sys.exit(rc)
 
 if __name__ == "__main__":
