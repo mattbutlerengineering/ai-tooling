@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 667 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 671 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -388,6 +388,7 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | claude-reflect | plugin | | ✓ | KEEP | MEASURED |
+| awesome-copilot | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | documentation-writer | skill | | ✓ | ADOPT | MEASURED |
 | documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
 | documentation (anthropics) | skill | | ✓ | discovery-log | REVIEW |
@@ -472,6 +473,7 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | frontend-slides | skill | | ✓ | discovery-log | REVIEW |
 | pitch-deck | skill | | ✓ | SKIP | REVIEW |
 | powerpoint-ppt | skill | | ✓ | SKIP | REVIEW |
+| getsentry/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | presentation-creator | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | lark-slides | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | giving-presentations | skill | | ✓ | SKIP | SOURCE-ONLY |
@@ -626,9 +628,11 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Figma-Context-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | firecrawl-mcp | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | github-mcp-server | MCP server | ✓ | ✓ | ADOPT | MEASURED |
+| mcp-atlassian | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jira | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp-toolbox | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | prisma | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| modelcontextprotocol/servers | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | sentry | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -756,11 +760,11 @@ All 667 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Verify | 23 | 12 | 2 | 52% |
 | Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
-| Reflect | 5 | 4 | 3 | 80% |
+| Reflect | 6 | 4 | 3 | 67% |
 | Outer Loop | 48 | 17 | 2 | 35% |
-| Skills & Plugins | 93 | 32 | 4 | 34% |
+| Skills & Plugins | 94 | 32 | 4 | 34% |
 | Memory & Context | 53 | 20 | 2 | 38% |
-| MCP Servers | 46 | 16 | 2 | 35% |
+| MCP Servers | 48 | 16 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **667** | **287** | **34** | **43%** |
+| **Total** | **671** | **287** | **34** | **43%** |

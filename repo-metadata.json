@@ -59,6 +59,14 @@
     "resolved_name": "0xwilliamortiz/agents-council",
     "stars": 296
   },
+  "0xwilliamortiz/claude-red": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T17:06:40Z",
+    "resolved_name": "0xwilliamortiz/claude-red",
+    "stars": 467
+  },
   "0xwilliamortiz/ponytail-improved": {
     "archived": false,
     "discontinued": null,
@@ -218,6 +226,14 @@
     "pushed_at": "2026-05-29T21:55:22Z",
     "resolved_name": "aden-hive/hive",
     "stars": 10857
+  },
+  "adrida/hud-mode": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-05T04:51:46Z",
+    "resolved_name": "adrida/hud-mode",
+    "stars": 26
   },
   "affaan-m/ecc": {
     "archived": false,
@@ -439,6 +455,14 @@
     "resolved_name": "aishwaryanr/awesome-generative-ai-guide",
     "stars": 28602
   },
+  "aixlehq/flow": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-07T15:17:51Z",
+    "resolved_name": "AixleHQ/flow",
+    "stars": 4
+  },
   "alan-thegentleman/gentleman-book-mcp": {
     "archived": false,
     "discontinued": null,
@@ -538,6 +562,30 @@
     "pushed_at": "2026-07-25T19:14:07Z",
     "resolved_name": "andrewyng/aisuite",
     "stars": 16021
+  },
+  "andy1314chen/architecture-drawer": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T13:37:36Z",
+    "resolved_name": "Andy1314Chen/architecture-drawer",
+    "stars": 24
+  },
+  "anionex/agent-vision-toolkit": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-07T06:11:30Z",
+    "resolved_name": "Anionex/agent-vision-toolkit",
+    "stars": 346
+  },
+  "anivar/decern": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-07T15:44:27Z",
+    "resolved_name": "anivar/decern",
+    "stars": 12
   },
   "anomalyco/opencode": {
     "archived": false,
@@ -648,6 +696,14 @@
     "pushed_at": "2026-08-03T13:43:29Z",
     "resolved_name": "apache/devlake",
     "stars": 3094
+  },
+  "app-brew/claude-nanny": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T14:30:13Z",
+    "resolved_name": "app-brew/claude-nanny",
+    "stars": 3
   },
   "ar9av/paperorchestra": {
     "archived": false,
@@ -788,6 +844,14 @@
     "pushed_at": "2026-08-05T01:32:54Z",
     "resolved_name": "awslabs/mcp",
     "stars": 9551
+  },
+  "backendarchitect/gospect-mcp": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T07:19:10Z",
+    "resolved_name": "backendArchitect/gospect-mcp",
+    "stars": 2
   },
   "backnotprop/plannotator": {
     "archived": false,
@@ -1390,6 +1454,14 @@
     "resolved_name": "crewAIInc/crewAI",
     "stars": 56634
   },
+  "cristicretu/diri": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-07T11:15:43Z",
+    "resolved_name": "cristicretu/diri",
+    "stars": 218
+  },
   "dair-ai/prompt-engineering-guide": {
     "archived": false,
     "discontinued": null,
@@ -1469,6 +1541,14 @@
     "pushed_at": "2026-07-24T07:12:07Z",
     "resolved_name": "daytonaio/daytona",
     "stars": 72054
+  },
+  "deepaksinghcs14/deadeye-cc": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T10:07:33Z",
+    "resolved_name": "deepaksinghcs14/deadeye-cc",
+    "stars": 3
   },
   "deeplethe/forkd": {
     "archived": false,
@@ -2199,6 +2279,14 @@
     "resolved_name": "gmickel/flow-next",
     "stars": 671
   },
+  "godfaddaai/multiplayer-ai": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-03T15:30:25Z",
+    "resolved_name": "godfaddaai/multiplayer-ai",
+    "stars": 17
+  },
   "goldentrii/agentrecall-x": {
     "archived": false,
     "discontinued": null,
@@ -2333,6 +2421,14 @@
     "pushed_at": "2026-07-27T03:52:44Z",
     "resolved_name": "graykode/abtop",
     "stars": 3420
+  },
+  "gui-gou/claude-statusline-burnrate": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-01T17:51:07Z",
+    "resolved_name": "Gui-Gou/claude-statusline-burnrate",
+    "stars": 20
   },
   "h0ngcha0/hubo": {
     "archived": false,
@@ -2939,6 +3035,14 @@
     "resolved_name": "khoj-ai/khoj",
     "stars": 36205
   },
+  "killernay/cc-devenv-doctor": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T00:19:55Z",
+    "resolved_name": "killernay/cc-devenv-doctor",
+    "stars": 13
+  },
   "kilo-org/kilocode": {
     "archived": false,
     "discontinued": null,
@@ -2978,6 +3082,14 @@
     "pushed_at": "2026-08-03T17:26:26Z",
     "resolved_name": "krishagarwal314/CodeJury",
     "stars": 136
+  },
+  "kuaamu/mcp-vision-bridge": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T13:17:53Z",
+    "resolved_name": "KuaaMU/mcp-vision-bridge",
+    "stars": 9
   },
   "kuberwastaken/claurst": {
     "archived": false,
@@ -3239,6 +3351,14 @@
     "resolved_name": "luongnv89/claude-howto",
     "stars": 40842
   },
+  "ma-nucho-pro/wife": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-07T04:46:07Z",
+    "resolved_name": "ma-nucho-pro/wife",
+    "stars": 50
+  },
   "maciek-roboblog/claude-code-usage-monitor": {
     "archived": false,
     "discontinued": null,
@@ -3248,6 +3368,14 @@
     "pushed_at": "2026-07-05T04:52:21Z",
     "resolved_name": "Maciek-roboblog/Claude-Code-Usage-Monitor",
     "stars": 8589
+  },
+  "manavarya09/design-extract": {
+    "archived": null,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "404",
+    "pushed_at": null,
+    "resolved_name": null,
+    "stars": null
   },
   "mastra-ai/mastra": {
     "archived": false,
@@ -3379,6 +3507,14 @@
     "resolved_name": "mdn/mcp",
     "stars": 178
   },
+  "melvynx/portly": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-04T03:08:30Z",
+    "resolved_name": "Melvynx/portly",
+    "stars": 30
+  },
   "mem0ai/mem0": {
     "archived": false,
     "discontinued": null,
@@ -3398,6 +3534,14 @@
     "pushed_at": "2026-07-14T18:35:09Z",
     "resolved_name": "memodb-io/Acontext",
     "stars": 3656
+  },
+  "memorax-ai/memorax-code": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-03T10:07:22Z",
+    "resolved_name": "memorax-ai/memorax-code",
+    "stars": 33
   },
   "memorilabs/memori": {
     "archived": false,
@@ -3458,6 +3602,14 @@
     "pushed_at": "2026-08-05T00:30:06Z",
     "resolved_name": "MervinPraison/PraisonAI",
     "stars": 8552
+  },
+  "metahub-ai/assay": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-06T17:13:31Z",
+    "resolved_name": "metahub-ai/assay",
+    "stars": 4
   },
   "metalbear-co/mirrord": {
     "archived": false,
@@ -3768,6 +3920,14 @@
     "pushed_at": "2026-07-30T21:06:53Z",
     "resolved_name": "msitarzewski/agency-agents",
     "stars": 138611
+  },
+  "msshives-gif/subagent-context": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-03T02:55:39Z",
+    "resolved_name": "msshives-gif/subagent-context",
+    "stars": 2
   },
   "mudler/localai": {
     "archived": false,
@@ -4343,6 +4503,14 @@
     "pushed_at": "2026-01-26T15:27:49Z",
     "resolved_name": "parcadei/Continuous-Claude-v3",
     "stars": 3879
+  },
+  "patilshreyas/debroid": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-08-06T15:50:14Z",
+    "resolved_name": "PatilShreyas/debroid",
+    "stars": 80
   },
   "pbakaus/impeccable": {
     "archived": false,
@@ -4999,6 +5167,14 @@
     "resolved_name": "slopus/happy",
     "stars": 23127
   },
+  "smitner-studio/facet": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-08-03T17:36:35Z",
+    "resolved_name": "Smitner-Studio/facet",
+    "stars": 4
+  },
   "smtg-ai/claude-squad": {
     "archived": false,
     "discontinued": null,
@@ -5419,6 +5595,14 @@
     "resolved_name": "thesysdev/openui",
     "stars": 8285
   },
+  "tiagolauer/pieces-to-agents": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-06T20:51:45Z",
+    "resolved_name": "tiagolauer/pieces-to-agents",
+    "stars": 11
+  },
   "tianyilt/claude-fleet": {
     "archived": false,
     "discontinued": null,
@@ -5548,6 +5732,14 @@
     "pushed_at": "2026-08-04T16:26:13Z",
     "resolved_name": "tygryso/hypotree",
     "stars": 7
+  },
+  "uczltw6/project-mentor": {
+    "archived": false,
+    "fetched_at": "2026-08-07",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-02T09:57:50Z",
+    "resolved_name": "uczltw6/project-mentor",
+    "stars": 71
   },
   "uczltw6/trace-file-lineage": {
     "archived": false,
