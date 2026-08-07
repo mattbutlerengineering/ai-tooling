@@ -22,12 +22,14 @@ import re
 import shlex
 import shutil
 import subprocess
+import sys
 import tempfile
 import types
 import unittest
 import urllib.error
 from pathlib import Path
 from typing import ClassVar
+from unittest import mock
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -2517,35 +2519,120 @@ class TestInstallResolver(unittest.TestCase):
             _write(d, rel, f"# {rel}\n\nRun `pip install {self.PKG}` to get it.\n")
         return audit.DetectorContext(d)
 
-    def test_missing_binary_is_not_broken(self):
+    def test_missing_binary_is_unchecked_not_broken_and_not_ok(self):
         # A checker that cannot run at all ("npm isn't installed") must resolve to
-        # "cannot verify", never BROKEN — detector A gates CI, so a false BROKEN is worse
-        # than an unchecked target. Before #301 this raised FileNotFoundError and took
-        # down the whole run with a traceback.
-        self.assertTrue(audit._run_ok(["definitely-not-a-real-binary-ai-tooling"]))
+        # "cannot verify". Both wrong answers are live regressions: BROKEN fails the
+        # build for a reason no commit caused, and OK — which is what this returned
+        # until #447 — counted 57 of 85 targets as resolved without reaching any of
+        # them. Before #301 it raised FileNotFoundError and took the run down.
+        r = audit._run_status(["definitely-not-a-real-binary-ai-tooling"])
+        self.assertTrue(r.startswith("unknown:"), msg=r)
+        self.assertNotIn(r, (audit.OK, audit.DEAD))
+
+    def test_a_cli_probe_separates_404_from_any_other_failure(self):
+        # `npm view` and `gh api` exit non-zero for a missing package AND for a 5xx, a
+        # rate limit or an auth wall, so the exit code alone cannot classify. The 404
+        # marker in the output is what distinguishes gone from unreachable.
+        self.assertEqual(audit._run_status(["bash", "-c", "exit 0"]), audit.OK)
+        self.assertEqual(audit._run_status(["bash", "-c", "echo 'npm error code E404' >&2; exit 1"]),
+                         audit.DEAD)
+        self.assertEqual(audit._run_status(["bash", "-c", "echo 'gh: Not Found (HTTP 404)' >&2; exit 1"]),
+                         audit.DEAD)
+        rate = audit._run_status(["bash", "-c", "echo 'API rate limit exceeded' >&2; exit 1"])
+        self.assertTrue(rate.startswith("unknown:"), msg=rate)
 
     def test_reports_every_occurrence(self):
         # Lookups dedupe; FINDINGS do not. One broken package cited in two files is two
         # findings, one per mention. The concurrent rewrite resolves unique targets, so
         # this is the property most at risk of silently collapsing to a single finding.
-        audit.pypi_exists = lambda pkg: False
+        audit.pypi_exists = lambda pkg: audit.DEAD
         with tempfile.TemporaryDirectory() as d:
-            broken = audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md"))
+            broken, unknown, targets = audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md"))
         self.assertEqual(broken, [("STACK.md", "pypi", self.PKG),
                                   ("CATALOG.md", "pypi", self.PKG)])
+        self.assertEqual((unknown, targets), ([], 1))
+
+    def test_an_unreachable_registry_is_unknown_not_broken(self):
+        # The #447 regression: a rate-limited crates.io failed the whole `make check`
+        # on a PR that touched no eval, and re-running the identical tree passed.
+        audit.pypi_exists = lambda pkg: "unknown:HTTP 429"
+        with tempfile.TemporaryDirectory() as d:
+            broken, unknown, targets = audit.audit_installs(self._ctx(d, "STACK.md"))
+        self.assertEqual(broken, [])
+        self.assertEqual(unknown, [("STACK.md", "pypi", self.PKG, "HTTP 429")])
+        self.assertEqual(targets, 1)
 
     def test_resolves_each_unique_target_once(self):
         # The whole point of the `seen` dedupe: two mentions, one network round trip.
         calls = []
-        audit.pypi_exists = lambda pkg: calls.append(pkg) or False
+        audit.pypi_exists = lambda pkg: calls.append(pkg) or audit.DEAD
         with tempfile.TemporaryDirectory() as d:
             audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md"))
         self.assertEqual(calls, [self.PKG])
 
     def test_ok_target_is_not_reported(self):
-        audit.pypi_exists = lambda pkg: True
+        audit.pypi_exists = lambda pkg: audit.OK
         with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md")), [])
+            self.assertEqual(audit.audit_installs(self._ctx(d, "STACK.md", "CATALOG.md")),
+                             ([], [], 1))
+
+    def test_http_status_calls_only_a_404_dead(self):
+        # Detector C's rule (#319), which this detector never learned: only a 404 means
+        # gone. The old http_ok folded every one of these into False -> BROKEN.
+        class _Resp:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+        with mock.patch("urllib.request.urlopen", return_value=_Resp()):
+            self.assertEqual(audit.http_status("https://x/y"), audit.OK)
+        for code, want in ((404, audit.DEAD), (429, "unknown:HTTP 429"), (503, "unknown:HTTP 503")):
+            err = urllib.error.HTTPError("https://x/y", code, "e", {}, None)
+            with mock.patch("urllib.request.urlopen", side_effect=err):
+                self.assertEqual(audit.http_status("https://x/y"), want)
+        with mock.patch("urllib.request.urlopen", side_effect=TimeoutError()):
+            self.assertEqual(audit.http_status("https://x/y"), "unknown:TimeoutError")
+
+    def _cli(self, d, fake):
+        """`audit-evals.py --installs` in a fixture tree, with pypi_exists replaced.
+
+        A subprocess because the exit code IS the gate — asserting on the return value
+        of audit_installs would not have caught #447, whose whole defect was in what the
+        CLI did with it."""
+        self._ctx(d, "STACK.md")
+        return subprocess.run(
+            [sys.executable, "-c",
+             "import importlib.util,sys;"
+             "spec=importlib.util.spec_from_file_location('ae',sys.argv[1]);"
+             "ae=importlib.util.module_from_spec(spec);spec.loader.exec_module(ae);"
+             # ae.ROOT is where main() builds its DetectorContext, so this is what
+             # isolates the run from the real tree; every checker is faked so the
+             # test never touches the network.
+             f"ae.ROOT=sys.argv[2];ae.pypi_exists=ae.crates_exists=ae.npm_exists="
+             f"ae.gh_repo_exists=lambda p:{fake};"
+             "sys.argv=['audit-evals.py','--installs'];sys.exit(ae.main())",
+             os.path.join(ROOT, "audit-evals.py"), d],
+            cwd=d, capture_output=True, text=True, check=False,
+            env=dict(os.environ, PYTHONPATH=ROOT))
+
+    def test_an_unchecked_target_never_prints_ok_and_never_fails_the_build(self):
+        # Both halves matter and they pull opposite ways. Not a build failure: nothing a
+        # commit did caused it, and re-running gives a different answer. Not OK either:
+        # "could not check" and "checked and fine" must not be the same value (#319).
+        with tempfile.TemporaryDirectory() as d:
+            r = self._cli(d, "'unknown:HTTP 429'")
+        self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+        self.assertIn("UNCHECKED", r.stdout)
+        self.assertIn("INCONCLUSIVE", r.stdout)
+        self.assertIn("0/1 target(s) checked", r.stdout)
+        self.assertNotIn("OK —", r.stdout)
+
+    def test_a_dead_target_still_fails_the_build(self):
+        # The gate is not weakened: a 404 install command is a defect a commit caused,
+        # and #416's reason stands — STACK.md is the page whose purpose is to be executed.
+        with tempfile.TemporaryDirectory() as d:
+            r = self._cli(d, "ae.DEAD")
+        self.assertEqual(r.returncode, 1, msg=r.stdout + r.stderr)
+        self.assertIn("BROKEN", r.stdout)
 
 
 # ----------------------------------------------------------------- make check entrypoint (#114)
