@@ -19,6 +19,7 @@ import importlib.util
 import json
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import tempfile
@@ -53,6 +54,7 @@ verifyinstalls = _load("verify_installs", "verify-installs.py")
 checklinks = _load("check_links", "check-links.py")
 rewritelinks = _load("rewrite_doc_links", "rewrite-doc-links.py")
 checkplugin = _load("check_plugin", "check-plugin.py")
+freshness = _load("freshness", "freshness.py")
 
 
 # ----------------------------------------------------------------- fixtures
@@ -899,6 +901,207 @@ class TestValidateCountsHook(unittest.TestCase):
         self.assertIn("reconcile-counts.py --check", body)
         for dead in ("inventory of", "evidence", "num_after", "num_before"):
             self.assertNotIn(dead, body, msg=f"hook re-extracts counts from prose: {dead!r}")
+
+
+# ----------------------------------------------------------------- freshness (#445)
+class TestFreshness(unittest.TestCase):
+    """freshness.py answers the SessionStart hook's two questions. The hook used to
+    answer them itself and got both wrong (#445): staleness from file **mtime** against
+    a flat 30 days, and "is this star catalogued?" from the bare repo **basename** as a
+    substring of the whole catalog.
+
+    The star tests are the #445 corpus, not invented cases. Each one is a starred repo
+    the old hook hid, and each hid for a different reason, which is why they are pinned
+    separately: a fix that only handled same-name-different-owner would leave the prose
+    matches live."""
+
+    CATALOG = (
+        "| Tool | Type | One-liner | Problem | Overlaps | Ships inside |\n"
+        "|---|---|---|---|---|---|\n"
+        "| [agent-skills](https://github.com/addyosmani/agent-skills) | skill | "
+        "one-command containerized runs, its own computer | p | conductor, Docling (ext.) | |\n"
+        "| [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) | reference | o | p | q | |\n"
+        "| [codebase-design](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design)"
+        " | skill | o | p | q | mattpocock/skills |\n"
+        "\nNote: the `x` record now redirects to "
+        "[ai-creator-academy](https://github.com/Anil-matcha/ai-creator-academy).\n"
+    )
+
+    def _gaps(self, *slugs):
+        return freshness.uncatalogued("\n".join(slugs), self.CATALOG)
+
+    def test_a_bare_basename_in_prose_never_hides_a_repo(self):
+        # `apple/container` matched "containerized"; `cloudflare/computer` matched the
+        # word "computer" in a one-liner. Neither is a github link to anything.
+        self.assertEqual(self._gaps("apple/container", "cloudflare/computer"),
+                         ["apple/container", "cloudflare/computer"])
+
+    def test_a_basename_in_an_overlaps_cell_never_hides_a_repo(self):
+        # Two unrelated repos both named `conductor` were hidden by a bare `conductor`
+        # token. #374's rule: between two rows that each name a tool, a basename is not
+        # a synonym.
+        self.assertEqual(self._gaps("Netflix/conductor", "gemini-cli-extensions/conductor"),
+                         ["Netflix/conductor", "gemini-cli-extensions/conductor"])
+
+    def test_an_external_marker_never_hides_the_repo_it_excludes(self):
+        # `Docling (ext.)` exists to say the tool is NOT catalogued, and it is what
+        # convinced the old hook the tool WAS (detector F's STALE-EXT shape, #403).
+        self.assertEqual(self._gaps("docling-project/docling"), ["docling-project/docling"])
+
+    def test_same_name_different_owner_is_a_gap(self):
+        self.assertEqual(self._gaps("appcypher/awesome-mcp-servers"),
+                         ["appcypher/awesome-mcp-servers"])
+
+    def test_a_catalogued_slug_is_not_a_gap(self):
+        self.assertEqual(self._gaps("punkpeye/awesome-mcp-servers"), [])
+
+    def test_resolution_is_case_insensitive(self):
+        # GitHub slugs are case-preserving but case-insensitive; `gh` returns the
+        # canonical casing and a catalog link may not match it.
+        self.assertEqual(self._gaps("PunkPeye/Awesome-MCP-Servers"), [])
+
+    def test_a_subpath_link_resolves_to_its_owner_repo(self):
+        # Starring the container of a catalogued subpath is not a gap. This is the bug
+        # latent in /sync-stars' own `github\.com/[^)]+` extraction (#445).
+        self.assertEqual(self._gaps("mattpocock/skills"), [])
+
+    def test_resolution_is_generous_beyond_the_name_cell(self):
+        # Any github link anywhere counts, not only a row's Name cell: a repo LINKED
+        # from a redirect note is one a human has already looked at, and re-offering it
+        # as a new lead costs more than missing it (detector V's rule). A repo merely
+        # *named* in prose is a different thing and stays a gap — that is the case the
+        # old basename grep got wrong.
+        self.assertEqual(self._gaps("Anil-matcha/ai-creator-academy"), [])
+
+    def test_read_slugs_drops_anything_that_is_not_owner_repo(self):
+        # A `gh` error line or a stray URL on stdin must never become a lead.
+        self.assertEqual(
+            freshness.read_slugs("a/b\n\n# comment\nnot-a-slug\nhttps://x/y/z\n/leading\ntrailing/\nA/B\nc/d"),
+            ["a/b", "c/d"])
+
+    def test_report_is_empty_when_there_is_nothing_to_say(self):
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "evaluations/x.md", "| [x](https://github.com/a/x) | tool | o | p | q |\n")
+            self.assertEqual(freshness.report("", self.CATALOG, root=d), [])
+
+    def test_staleness_comes_from_the_repos_own_sweep(self):
+        # Not mtime: the fixture files are written milliseconds ago and are still stale,
+        # because the field that decides is **Last verified:** against the Type's
+        # threshold. The reverse case is the one mtime got structurally wrong — a fresh
+        # clone made every eval zero minutes old and the check silent.
+        # 200 days: past the harness threshold (120), inside the reference one (365).
+        old = (datetime.date.today() - datetime.timedelta(days=200)).isoformat()
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "evaluations/h.md",
+                   f"**Last verified:** {old}\n\n| [h](https://github.com/a/h) | harness | o | p | q |\n")
+            _write(d, "evaluations/r.md",
+                   f"**Last verified:** {old}\n\n| [r](https://github.com/a/r) | reference | o | p | q |\n")
+            lines = freshness.report("", self.CATALOG, root=d)
+        self.assertEqual(len(lines), 1, msg=lines)
+        self.assertIn("threshold 120d", lines[0])   # the harness Type's, not a flat 30
+        self.assertIn("h", lines[0])                # the reference at 400d is NOT stale
+
+    def test_the_detail_cap_is_disclosed_not_silent(self):
+        old = (datetime.date.today() - datetime.timedelta(days=400)).isoformat()
+        with tempfile.TemporaryDirectory() as d:
+            for i in range(5):
+                _write(d, f"evaluations/e{i}.md",
+                       f"**Last verified:** {old}\n\n| [e{i}](https://github.com/a/e{i}) | harness | o | p | q |\n")
+            lines = freshness.report("", self.CATALOG, root=d, limit=2)
+        self.assertEqual(len(lines), 3)
+        self.assertIn("and 3 more", lines[-1])
+
+    def test_the_network_stays_out_of_this_script(self):
+        # refresh-metadata.py is documented as the only script that calls `gh`. Keeping
+        # the fetch in the caller is also what makes this file testable offline.
+        with open(os.path.join(ROOT, "freshness.py"), encoding="utf-8") as f:
+            body = "\n".join(l for l in f if not l.lstrip().startswith("#"))
+        code = body.split('"""', 2)[-1]
+        for net in ("gh api", "subprocess", "urllib", "requests"):
+            self.assertNotIn(net, code, msg=f"freshness.py reaches the network: {net!r}")
+
+
+class TestFreshnessHook(unittest.TestCase):
+    """The SessionStart hook. Both directions are pinned, and the structural test is the
+    one that matters: the defects #445 fixed were a bash re-implementation of two facts
+    the repo already owns, and a re-implementation regrows the moment someone wants the
+    hook to "still say something" outside the repo."""
+
+    HOOK: ClassVar[str] = os.path.join(ROOT, "plugin", "hooks", "check-freshness.sh")
+    QUIET: ClassVar[str] = '{"continue":true,"suppressOutput":true}'
+
+    def _run(self, cwd, stars=""):
+        """Runs the hook with a `gh` shim on PATH, so no test touches the network."""
+        with tempfile.TemporaryDirectory() as bin_d:
+            shim = os.path.join(bin_d, "gh")
+            with open(shim, "w", encoding="utf-8") as f:
+                f.write("#!/bin/bash\nprintf '%s' " + shlex.quote(stars) + "\n")
+            os.chmod(shim, 0o755)
+            env = dict(os.environ, PATH=bin_d + os.pathsep + os.environ["PATH"])
+            return subprocess.run(["bash", self.HOOK], cwd=cwd, env=env,
+                                  capture_output=True, text=True, check=False)
+
+    def _fixture_repo(self, d):
+        subprocess.run(["git", "init", "-q"], cwd=d, check=True)
+        for f in ("freshness.py", "catalog_lib.py", "audit-evals.py"):
+            shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        _write(d, "CATALOG.md", TestFreshness.CATALOG)
+        _write(d, "evaluations/x.md", "| [x](https://github.com/a/x) | tool | o | p | q |\n")
+
+    def test_a_foreign_repo_gets_the_quiet_payload_and_nothing_else(self):
+        # The installed plugin fires this at every session start in someone else's
+        # project, where the advice ("run /update-catalog") names an operation on a
+        # catalog they do not have.
+        with tempfile.TemporaryDirectory() as d:
+            subprocess.run(["git", "init", "-q"], cwd=d, check=True)
+            r = self._run(d, stars="some/repo\n")
+            self.assertEqual(r.stdout.strip(), self.QUIET, msg=r.stdout + r.stderr)
+            self.assertEqual(r.returncode, 0, msg=r.stderr)
+
+    def test_outside_any_git_repo_it_is_quiet(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(self._run(d).stdout.strip(), self.QUIET)
+
+    def test_it_reports_an_uncatalogued_star(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d)
+            r = self._run(d, stars="Netflix/conductor\n")
+            self.assertIn("1 starred repo(s) with no catalog row", r.stdout, msg=r.stdout + r.stderr)
+
+    def test_it_is_quiet_when_every_star_is_catalogued(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d)
+            r = self._run(d, stars="punkpeye/awesome-mcp-servers\n")
+            self.assertEqual(r.stdout.strip(), self.QUIET, msg=r.stdout + r.stderr)
+
+    def test_output_is_never_a_control_payload_concatenated_with_text(self):
+        # The old hook printed the JSON line AND 100 lines of text, so the payload did
+        # not parse (`Extra data: line 3 column 1`) and the control line was simply the
+        # first thing the user saw. Either shape alone is fine; both together is not.
+        with tempfile.TemporaryDirectory() as d:
+            self._fixture_repo(d)
+            for stars in ("Netflix/conductor\n", "punkpeye/awesome-mcp-servers\n"):
+                out = self._run(d, stars=stars).stdout
+                if out.strip().startswith("{"):
+                    json.loads(out)          # a control payload must be parseable alone
+                else:
+                    self.assertNotIn("{", out)
+
+    def test_the_hook_does_not_re_answer_either_question_in_bash(self):
+        # The #445 regression guard. `stat`/mtime is the staleness re-implementation and
+        # `cut -d/ -f2` is the identity-by-name one; either returning is the whole bug.
+        with open(self.HOOK, encoding="utf-8") as f:
+            body = "\n".join(l for l in f if not l.lstrip().startswith("#"))
+        self.assertIn("freshness.py", body)
+        for dead in ("stat -f", "stat -c", "STALE_DAYS", "cut -d/", "grep -qi"):
+            self.assertNotIn(dead, body, msg=f"hook re-answers in bash: {dead!r}")
+
+    def test_session_start_is_async(self):
+        # ~9s of paginated `gh` on startup|clear|compact, previously on the critical path.
+        with open(os.path.join(ROOT, "plugin", "hooks", "hooks.json"), encoding="utf-8") as f:
+            hooks = json.load(f)
+        entry = hooks["hooks"]["SessionStart"][0]["hooks"][0]
+        self.assertTrue(entry["async"], msg="SessionStart hook blocks the session")
 
 
 # ----------------------------------------------------------------- plugin/README.md drift

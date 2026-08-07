@@ -16,15 +16,16 @@ Find starred repos missing from the catalog, classify them, and generate ready-t
 ### 1. Diff stars against catalog
 
 ```bash
-# Get all starred repos
-gh api user/starred --paginate --jq '.[].full_name' | sort > /tmp/starred.txt
-
-# Extract all GitHub links from catalog
-grep -oP 'github\.com/[^)]+' CATALOG.md | sed 's|github.com/||' | sort -u > /tmp/cataloged.txt
-
-# Find gaps
-comm -23 /tmp/starred.txt /tmp/cataloged.txt > /tmp/gaps.txt
+gh api user/starred --paginate --jq '.[].full_name' \
+  | python3 freshness.py --uncatalogued > /tmp/gaps.txt
 ```
+
+`freshness.py` owns this comparison, and it is resolved by **slug** — never by repo
+name. The SessionStart hook used to make the same comparison by grepping the bare
+basename and hid 52 of 277 real leads behind matches in prose (#445); one implementation
+is the point. The pipeline this replaced (`grep -oP 'github\.com/[^)]+'` into `comm`)
+also treated a subpath link as its own slug, so starring the *container* of a catalogued
+subpath would have been re-offered as a gap.
 
 ### 2. Classify each gap
 
