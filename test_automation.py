@@ -14,6 +14,7 @@ Run:
   python3 -m unittest test_automation -v      # or: python3 test_automation.py
 Exits non-zero on any failure (gates CI / pre-commit).
 """
+import contextlib
 import datetime
 import importlib.util
 import json
@@ -903,6 +904,53 @@ class TestValidateCountsHook(unittest.TestCase):
         self.assertIn("reconcile-counts.py --check", body)
         for dead in ("inventory of", "evidence", "num_after", "num_before"):
             self.assertNotIn(dead, body, msg=f"hook re-extracts counts from prose: {dead!r}")
+
+
+# ----------------------------------------------------------------- routine gate contract (#449)
+class TestRoutineGateContract(unittest.TestCase):
+    """`docs/agents/routines.md` is what an unattended cloud agent reads before deciding
+    whether to merge its own PR. It carried the repo's only standing licence to proceed
+    past a red gate — "a detector-A-only failure is not a blocker" — written when the
+    install resolver reported *could not check* as BROKEN.
+
+    #448 removed the reason; this removes the licence and keeps it removed. The risk was
+    never the stale sentence: the carve-out named a **detector** rather than a **cause**,
+    so it also excused a genuine 404 install command — the one thing detector A exists to
+    catch, in the one lane that writes install commands into CATALOG.md and evaluations/
+    and is least able to notice a bad one.
+
+    Reads the real doc, because the drift is *in* that file and a fixture would pin
+    nothing (TestPluginFrontDoorSignals' rule)."""
+
+    DOC: ClassVar[str] = os.path.join(ROOT, "docs", "agents", "routines.md")
+
+    # The exact shape of the exception, not the word "detector": the doc must stay free
+    # to explain WHY there is no exception, and does.
+    _EXCUSED = re.compile(r"not a blocker|is not blocking|except(ion)? .{0,40}\bdetector\b",
+                          re.IGNORECASE)
+
+    def _text(self):
+        with open(self.DOC, encoding="utf-8") as f:
+            return f.read()
+
+    def test_no_gate_failure_is_excused(self):
+        for i, line in enumerate(self._text().splitlines(), 1):
+            if line.lstrip().startswith(("*", ">")) or "used to" in line:
+                continue   # quoting the retracted rule is how the doc explains itself
+            self.assertIsNone(self._EXCUSED.search(line),
+                              msg=f"routines.md:{i} excuses a red gate: {line.strip()!r}")
+
+    def test_the_do_not_merge_list_gates_every_check(self):
+        text = self._text()
+        self.assertIn("**`make check` is red.**", text)
+        self.assertNotIn("on anything other than", text)
+
+    def test_it_tells_the_agent_what_an_offline_run_looks_like(self):
+        # Without this the next reader sees UNCHECKED/INCONCLUSIVE, reads it as red, and
+        # re-adds the carve-out. Naming the shape is what makes "no exception" workable.
+        text = self._text()
+        for token in ("UNCHECKED", "INCONCLUSIVE", "#448"):
+            self.assertIn(token, text, msg=f"routines.md never mentions {token}")
 
 
 # ----------------------------------------------------------------- freshness (#445)
@@ -2586,8 +2634,10 @@ class TestInstallResolver(unittest.TestCase):
         with mock.patch("urllib.request.urlopen", return_value=_Resp()):
             self.assertEqual(audit.http_status("https://x/y"), audit.OK)
         for code, want in ((404, audit.DEAD), (429, "unknown:HTTP 429"), (503, "unknown:HTTP 503")):
-            err = urllib.error.HTTPError("https://x/y", code, "e", {}, None)
-            with mock.patch("urllib.request.urlopen", side_effect=err):
+            # HTTPError is file-like; closing it keeps this from adding to the
+            # ResourceWarning noise ruff cleared out of every gate run (#388).
+            with contextlib.closing(urllib.error.HTTPError("https://x/y", code, "e", {}, None)) as err, \
+                 mock.patch("urllib.request.urlopen", side_effect=err):
                 self.assertEqual(audit.http_status("https://x/y"), want)
         with mock.patch("urllib.request.urlopen", side_effect=TimeoutError()):
             self.assertEqual(audit.http_status("https://x/y"), "unknown:TimeoutError")

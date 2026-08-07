@@ -40,10 +40,30 @@ trivial to revert, instead of *before* it, on a branch that rots while it waits.
    from the same lane open at once.** This is the rule that would have saved #293.
 
 3. **Do the work, then gate it.** `make fix && make check`.
-   One expected exception in the cloud sandbox: detector A (the network install
-   resolver) needs the `gh` CLI and cannot run there. A detector-A-only failure is not a
-   blocker — note it in the PR body and continue. CI runs it with a token. **Any other
-   red gate is a blocker.**
+   **Every red gate is a blocker.** There is no exception, including detector A.
+
+   This step used to carve one out — *"a detector-A-only failure is not a blocker … note
+   it in the PR body and continue"* — because the network install resolver reported
+   *could not check* as `BROKEN`, so an unreachable sandbox failed the build. #448 ended
+   that: only a 404 is `BROKEN` now, and an unreachable registry is `UNCHECKED`. With no
+   network the detector reports its gap and exits 0, so `make check` is simply green:
+
+   ```
+   == A. install resolver — 52/85 target(s) checked ==
+     UNCHECKED [pypi] markitdown  (STACK.md) — URLError
+     UNCHECKED …and 23 more target(s)
+     INCONCLUSIVE — 33 target(s) could not be checked; not a gate failure (no commit caused it)
+   ```
+
+   That block is a **disclosed gap, not a failure** — do not read `UNCHECKED` or
+   `INCONCLUSIVE` as red, and do not re-add the exception on seeing them. What is left
+   under `BROKEN` is a real 404, which is the one thing this detector exists to catch and
+   which this lane is least able to notice: a discovery pass writes install commands into
+   `CATALOG.md` and `evaluations/`, the files detector A reads. The old carve-out named a
+   *detector* rather than a *cause*, so it excused that too.
+
+   Expect it to be **slow** rather than fast when the network is unreachable —
+   `TIMEOUT = 15` across 85 targets means tens of seconds. Slow is not hung.
 
 4. **Open the PR.** Conventional-commit title, body stating what changed and the gate
    result.
@@ -84,7 +104,7 @@ an agent running with owner credentials. The do-not-merge list below is still bi
 
 Leave the PR open, comment on it with the reason, and notify. Do not merge if:
 
-- **`make check` is red** on anything other than the detector-A network resolver.
+- **`make check` is red.** Any gate, no exceptions — see step 3 for why detector A no longer has one.
 - **CI is red.** Check whether it reproduces on `main` first: if it does, say so once in
   the thread and wait for recovery — it is not this PR's fault. If it is the PR's, fix
   and push.
