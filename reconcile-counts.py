@@ -11,7 +11,7 @@ propagate every count. Idempotent — a no-op when everything already agrees.
   python3 reconcile-counts.py            # apply fixes, print what changed
   python3 reconcile-counts.py --check    # report drift, change nothing, exit 1 if any
 
-Updates the catalog tool-count in README.md, CLAUDE.md, STACK.md, plugin/CLAUDE.md,
+Updates the catalog tool-count in README.md, CLAUDE.md, STACK.md, plugin/README.md,
 and COMPARISON.md (header + summary rows + Total), plus the eval-file count quoted
 in README.md/STACK.md (derived from evaluations/*.md, excluding TEMPLATE.md). Does
 NOT touch plugin/docs/ (run ./sync-plugin-docs.sh for the latter).
@@ -97,7 +97,7 @@ def fix_total_strings(text, C):
 # bare-"evaluations" pattern. Anchored on the word "evaluations" so unrelated
 # numbers (issue refs, dates) are never touched.
 EVAL_PATTERNS = [
-    # plugin/CLAUDE.md phrases the same count as "N evaluation and comparison files".
+    # plugin/README.md phrases the same count as "N evaluation and comparison files".
     # It has always been in FILES_TOTAL, but neither pattern below matched that
     # wording, so the number drifted 87 behind while the catalog count on the line
     # above it stayed correct — the most misleading kind of stale number.
@@ -199,7 +199,7 @@ def fix_comparison(text, C):
         result += "\n"
     return result
 
-FILES_TOTAL = ["README.md", "CLAUDE.md", "STACK.md", "plugin/CLAUDE.md"]
+FILES_TOTAL = ["README.md", "CLAUDE.md", "STACK.md", "plugin/README.md"]
 
 def main():
     check = "--check" in sys.argv[1:]

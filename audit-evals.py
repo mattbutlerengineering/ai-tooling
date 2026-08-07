@@ -1669,7 +1669,7 @@ def audit_lead_headlines(ctx):
 # TEMPLATE.md has every eval close with a `## Catalog entry` section holding that tool's
 # CATALOG.md row. It is a mirror — a fact restated in two places with no generator and no
 # test — so it drifts, and 62% of it had (#345). This is the same class root CLAUDE.md
-# calls out for plugin/CLAUDE.md: *gate the shared facts, not the file*.
+# calls out for plugin/README.md: *gate the shared facts, not the file*.
 #
 # Two kinds, reported apart because they are not equally dangerous:
 #

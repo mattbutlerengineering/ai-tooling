@@ -177,7 +177,7 @@ class TestReconcilePureFns(unittest.TestCase):
         self.assertEqual(reconcile.fix_eval_strings(s, 487), s)
 
     def test_fix_eval_strings_plugin_phrasing(self):
-        # plugin/CLAUDE.md says "evaluation and comparison files", not "evaluations".
+        # plugin/README.md says "evaluation and comparison files", not "evaluations".
         # It was in FILES_TOTAL all along, so it *looked* maintained while drifting 87
         # behind the real count (#302). The specific phrase must win over the loose ones.
         # Both wordings are pinned: #435 struck "evidence-based" from that line, and the
@@ -703,7 +703,7 @@ class TestReconcileMain(unittest.TestCase):
         _write(d, "README.md", readme)
         _write(d, "CLAUDE.md", "An inventory of 3 tools.\n")
         _write(d, "STACK.md", "distilled from 3 catalog entries\n")
-        _write(d, "plugin/CLAUDE.md", "An inventory of 3 tools.\n")
+        _write(d, "plugin/README.md", "An inventory of 3 tools.\n")
         # reconcile derives the eval composition through audit-evals' verdict parser
         # rather than a second regex (#435), so the fixture repo carries that sibling too.
         shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
@@ -762,13 +762,13 @@ class TestReconcileMain(unittest.TestCase):
             self.assertEqual(self._run(d, "--check").returncode, 0)
 
     def test_plugin_claudemd_eval_count_is_reconciled(self):
-        # The regression for #302: plugin/CLAUDE.md is in FILES_TOTAL but its wording
+        # The regression for #302: plugin/README.md is in FILES_TOTAL but its wording
         # matched no EVAL_PATTERN, so the eval count on line 18 sat frozen while the
         # catalog count on line 17 was rewritten by the same run. End-to-end so the
         # file-list membership and the pattern are pinned together, not just the regex.
         with tempfile.TemporaryDirectory() as d:
             self._fixture_repo(d)
-            _write(d, "plugin/CLAUDE.md",
+            _write(d, "plugin/README.md",
                    "An inventory of 3 tools.\n"
                    "- `evaluations/` — 999 evidence-based evaluation and comparison files\n")
             for i in range(4):                                   # K = 4 real evals
@@ -776,7 +776,7 @@ class TestReconcileMain(unittest.TestCase):
             _write(d, "evaluations/TEMPLATE.md", "# template\n")  # excluded from the count
             self.assertEqual(self._run(d, "--check").returncode, 1)
             self.assertEqual(self._run(d).returncode, 0)
-            plugin = Path(d, "plugin", "CLAUDE.md").read_text(encoding="utf-8")
+            plugin = Path(d, "plugin", "README.md").read_text(encoding="utf-8")
             self.assertIn("4 evidence-based evaluation and comparison files", plugin)
             self.assertEqual(self._run(d, "--check").returncode, 0)
 
@@ -843,9 +843,9 @@ class TestValidateCountsHook(unittest.TestCase):
         self.assertEqual(r.returncode, 0, msg=r.stderr)
 
 
-# ----------------------------------------------------------------- plugin/CLAUDE.md drift
+# ----------------------------------------------------------------- plugin/README.md drift
 class TestPluginFrontDoorSignals(unittest.TestCase):
-    """plugin/CLAUDE.md is HAND-maintained — unlike plugin/docs/, which
+    """plugin/README.md is HAND-maintained — unlike plugin/docs/, which
     sync-plugin-docs.sh mirrors and gates — so it drifts from root CLAUDE.md in
     silence. Its eval count sat 87 behind (#302) and its quality-signal list stayed
     at five for the entire life of ADR-0004's sixth signal, so anyone installing the
@@ -869,9 +869,9 @@ class TestPluginFrontDoorSignals(unittest.TestCase):
 
     def test_signal_count_matches_root(self):
         root = self._count_word(self._text("CLAUDE.md"), "CLAUDE.md")
-        plugin = self._count_word(self._text("plugin/CLAUDE.md"), "plugin/CLAUDE.md")
+        plugin = self._count_word(self._text("plugin/README.md"), "plugin/README.md")
         self.assertEqual(plugin, root,
-                         msg="plugin/CLAUDE.md quotes a different signal count than root")
+                         msg="plugin/README.md quotes a different signal count than root")
 
     def test_plugin_names_every_root_signal(self):
         # Root lists them after a colon, up to the parenthetical gloss on the last one.
@@ -880,9 +880,9 @@ class TestPluginFrontDoorSignals(unittest.TestCase):
         # ", and X" splits on the comma first, so the optional "and " is consumed there too.
         names = [s for s in re.split(r",\s*(?:and\s+)?|\s+and\s+", m.group(1)) if s]
         self.assertGreaterEqual(len(names), 5, msg=f"parsed too few signals: {names}")
-        plugin = self._text("plugin/CLAUDE.md")
+        plugin = self._text("plugin/README.md")
         for n in names:
-            self.assertIn(n, plugin, msg=f"plugin/CLAUDE.md omits the {n} signal")
+            self.assertIn(n, plugin, msg=f"plugin/README.md omits the {n} signal")
 
 
 # ----------------------------------------------------------------- detector G (audit_comparison)
@@ -5806,7 +5806,7 @@ class TestPluginPackage(unittest.TestCase):
             Path(d, "plugin", "skills", s, "SKILL.md").write_text(
                 f"---\nname: {s}\ndescription: does a thing\n---\n\n# {s}\n", encoding="utf-8")
         if front is not None:
-            Path(d, "plugin", "CLAUDE.md").write_text(front, encoding="utf-8")
+            Path(d, "plugin", "README.md").write_text(front, encoding="utf-8")
 
     def _kinds(self, d):
         return sorted(f.kind for f in checkplugin.audit_plugin(d))
@@ -5877,7 +5877,7 @@ class TestPluginPackage(unittest.TestCase):
             self.assertIn("SKILL", self._kinds(d))
 
     def test_the_front_door_skills_list_must_match_the_tree(self):
-        # plugin/CLAUDE.md is hand-authored, so its skills list is a restated fact with no
+        # plugin/README.md is hand-authored, so its skills list is a restated fact with no
         # generator — the shape that put its eval count 87 behind (#302).
         with tempfile.TemporaryDirectory() as d:
             self._tree(d, manifest=self.MANIFEST, skills=("setup-workflow", "audit-workflow"))
@@ -5888,6 +5888,22 @@ class TestPluginPackage(unittest.TestCase):
             self._tree(d, manifest=self.MANIFEST,
                        front="- `/setup-workflow` — x\n- `/ghost` — never shipped\n")
             self.assertEqual(self._kinds(d), ["FRONT-DOOR"])
+
+    def test_a_claude_md_back_at_the_plugin_root_is_the_mistake_returning(self):
+        # `claude plugin validate` warns that Claude Code never loads it, which is why
+        # the front door is README.md (#441). A reappearing CLAUDE.md is a finding, not
+        # a second front door.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, manifest=self.MANIFEST)
+            Path(d, "plugin", "CLAUDE.md").write_text("# ai-tooling Plugin\n", encoding="utf-8")
+            self.assertIn("FRONT-DOOR", self._kinds(d))
+
+    def test_the_plugin_ships_a_readme(self):
+        # The plugin docs name README.md as the documented place for install and usage
+        # instructions, and it is what GitHub renders when someone opens plugin/.
+        readme = Path(ROOT, "plugin", "README.md").read_text(encoding="utf-8")
+        self.assertIn("claude plugin marketplace add", readme)
+        self.assertFalse(os.path.exists(os.path.join(ROOT, "plugin", "CLAUDE.md")))
 
     def test_check_flag_gates_and_bare_run_reports(self):
         r = subprocess.run(["python3", "check-plugin.py"], cwd=ROOT,

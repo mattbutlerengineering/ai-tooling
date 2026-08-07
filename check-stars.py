@@ -5,7 +5,7 @@ check-stars.py — the presence gate for the **Stars:** header field (#377).
 #256 fixed the data twice and the field kept going missing, because nothing stopped a
 new eval from omitting it: 10 evals lacked it when #256 was filed and 20 lacked it when
 #256 closed, every one of the new ones written while the issue was open. That is the
-failure root `CLAUDE.md` names for `plugin/CLAUDE.md` — **gate the shared facts, not the
+failure root `CLAUDE.md` names for `plugin/README.md` — **gate the shared facts, not the
 file**. A convention with no generator and no test drifts back.
 
 WHAT IT CHECKS — presence, and only presence. The star convention (#256/#261, recorded in

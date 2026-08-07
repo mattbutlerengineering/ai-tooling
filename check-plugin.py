@@ -16,9 +16,9 @@ It cannot be: CI has no `claude` binary, and the offline-gate invariant forbids 
 on one. This mirrors offline the parts that are checkable from the tree, and adds the
 cross-file agreements upstream has no way to know about — the plugin name against the
 marketplace entry, every declared version against every other, and the skills list in
-`plugin/CLAUDE.md` against `plugin/skills/` on disk. That last one is a fact restated in
+`plugin/README.md` against `plugin/skills/` on disk. That last one is a fact restated in
 a hand-authored file with no generator, which is the shape that put its eval count 87
-behind (#302); `plugin/CLAUDE.md`'s own rule is to gate the shared facts, not the file.
+behind (#302); the repo's own rule is to gate the shared facts, not the file.
 
 Run `claude plugin validate ./plugin` by hand before publishing. This gate is what keeps
 the tree from drifting between those runs.
@@ -34,7 +34,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 Finding = collections.namedtuple("Finding", "kind detail")
 
 _FRONTMATTER = re.compile(r"\A---\n(.*?)\n---", re.DOTALL)
-# `plugin/CLAUDE.md` lists each skill as "- `/name` — description".
+# `plugin/README.md` lists each skill as "- `/name` — description".
 _LISTED_SKILL = re.compile(r"^-\s*`/([a-z0-9][a-z0-9-]*)`", re.MULTILINE)
 
 
@@ -125,14 +125,20 @@ def audit_plugin(root=None):
         if not frontmatter_field(text, "description"):
             findings.append(Finding("SKILL", f"{name}/SKILL.md declares no `description:` frontmatter"))
 
-    front = os.path.join(root, "plugin", "CLAUDE.md")
+    # A `CLAUDE.md` back at the plugin root is the mistake returning, not a second
+    # front door: `claude plugin validate` warns that Claude Code never loads it (#441).
+    stray = os.path.join(root, "plugin", "CLAUDE.md")
+    if os.path.exists(stray):
+        findings.append(Finding("FRONT-DOOR", "plugin/CLAUDE.md is never loaded by Claude Code — "
+                                              "the plugin's documented front door is plugin/README.md"))
+    front = os.path.join(root, "plugin", "README.md")
     if os.path.exists(front):
         with open(front, encoding="utf-8") as fh:
             listed = sorted(set(_LISTED_SKILL.findall(fh.read())))
         for name in sorted(set(listed) - set(on_disk)):
-            findings.append(Finding("FRONT-DOOR", f"plugin/CLAUDE.md lists /{name}, which is not in plugin/skills/"))
+            findings.append(Finding("FRONT-DOOR", f"plugin/README.md lists /{name}, which is not in plugin/skills/"))
         for name in sorted(set(on_disk) - set(listed)):
-            findings.append(Finding("FRONT-DOOR", f"plugin/skills/{name}/ is not listed in plugin/CLAUDE.md"))
+            findings.append(Finding("FRONT-DOOR", f"plugin/skills/{name}/ is not listed in plugin/README.md"))
 
     return findings
 
