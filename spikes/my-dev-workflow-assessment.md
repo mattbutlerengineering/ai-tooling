@@ -13,7 +13,7 @@ Sources walked on 2026-06-29 (host: this machine):
 | Global skills | `~/.claude/skills/` | 55 |
 | Global agents | `~/.claude/agents/` | **0** (empty — all subagents come from plugins) |
 | Global rules | `~/.claude/rules/common/` | 10 |
-| Repo skills | `.claude/skills/` + `.agents/skills/` | 3 (`add-catalog-entry`, `find-catalog-gaps`, `find-skills`) |
+| Repo skills | `.claude/skills/` + `.agents/skills/` | 4 discoverable — 3 repo-authored (`add-catalog-entry`, `find-catalog-gaps`, `triage-lead`) + 1 vendored (`find-skills`, from `vercel-labs/skills`; see `skills-lock.json`) |
 | Installed plugins | `~/.claude/plugins/` | 40 |
 | Workflow scaffolding | global `CLAUDE.md`, slash-commands (`/loop`, `/implement-issue`, `/to-issues`, `/review`, `/tdd`, …) | — |
 

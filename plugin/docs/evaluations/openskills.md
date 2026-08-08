@@ -88,14 +88,31 @@ plausibly meets. The eval holds it below ADOPT "for the same scope reason capa d
 it solves is multi-editor** … Adopt when you drive two or more agents from one shared set of
 SKILL.md skills."
 
-This repo drives exactly two: Claude Code and opencode are both supported harnesses (ADR-0002), and
-`.claude/skills/` ↔ `.agents/skills/` is currently kept in step by a hand-made symlink and a sync
-script. A versionable CLI installer for that is the shape of a real answer, not a duplicate of
-[`skill-creator`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator),
-which authors skills and never installs them.
+This repo drives exactly two: Claude Code and opencode are both supported harnesses (ADR-0002). The
+rest of what this note used to say about that was wrong in every particular, and #473 measured it
+(the corrected version is kept rather than deleted, because the claim is what made this lead look
+un-served):
 
-So this one is a P0 candidate rather than a challenger: whether it actually beats the symlink is a
-question you answer by running it.
+- It said the two skill homes are *"kept in step by a hand-made symlink and a sync script."* There is
+  **no sync script** — `sync-plugin-docs.sh` syncs `plugin/skills/` → `skills/`, a different pair —
+  and nothing in the `Makefile`, CI, the hooks or the opencode plugins touches these two directories.
+- They are not *kept in step* at all, and do not need to be. Asking opencode 1.17.20 directly
+  (`GET /skill?directory=…`) returns all four project skills, three from `.claude/skills/` and one
+  from `.agents/skills/` — the `+` in ADR-0002 is a **union of two auto-discovered homes**, not a
+  mirror.
+- The symlink is not hand-made. `1daecae` added `.agents/skills/find-skills/` and `skills-lock.json`
+  in one commit: it is the *"symlink-by-default"* behaviour of
+  [`vercel-labs/skills`](https://github.com/vercel-labs/skills) (`npx skills`).
+
+So the *"versionable CLI installer"* this note called "the shape of a real answer" is a tool the repo
+**already runs**, with its lockfile committed at the root — and openskills' own catalog row did not
+cite it, so the incumbent contributed zero `overlap_pressure`. That citation is added now.
+
+The band claim was wrong too: `triage.py` bands this **P2 challenger** (score 18.5625, pressure 5),
+not P0, and the incumbent it resolves against is `skill-creator` — which this eval says to *pair*
+with, not replace. Still left at `discovery-log`: the honest open question is now narrower and
+sharper — whether openskills beats the `npx skills` installer already in the tree, which is a
+question you answer by settling that lead first.
 
 Note: `license: NOASSERTION` on the metadata record — GitHub could not parse the LICENSE, which
 never disposes a lead on its own. Read the actual file before installing.
@@ -106,4 +123,4 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [openskills](https://github.com/numman-ali/openskills) | tool | Universal skills loader — one CLI installs Anthropic SKILL.md to any agent (Claude Code, Cursor, Codex, Aider) and emits the AGENTS.md `<available_skills>` block (10K stars) | Skills are editor-specific; need a universal, scriptable installer + load shim that works across all AI editors | refly, skill-creator, skills-manage (GUI install side), capa (broader config fan-out) |
+| [openskills](https://github.com/numman-ali/openskills) | tool | Universal skills loader — one CLI installs Anthropic SKILL.md to any agent (Claude Code, Cursor, Codex, Aider) and emits the AGENTS.md `<available_skills>` block (10K stars) | Skills are editor-specific; need a universal, scriptable installer + load shim that works across all AI editors | refly, skill-creator, vercel-labs/skills, skills-manage (GUI install side), capa (broader config fan-out) |
