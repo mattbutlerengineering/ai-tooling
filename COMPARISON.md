@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 671 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 679 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -37,6 +37,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-my-workflow | tool | | ✓ | SKIP | SOURCE-ONLY |
 | design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | ccpm | skill | | ✓ | discovery-log | REVIEW |
+| featherspec | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | OpenSpec | framework | | ✓ | discovery-log | REVIEW |
 | BMAD-METHOD | framework | | ✓ | SKIP | REVIEW |
 | 8090 Software Factory | platform | ✓ | | DEFER | REVIEW |
@@ -108,6 +109,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| conflux-agent-workflow-2026 | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -236,6 +238,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Trellis | harness | | ✓ | SKIP | SOURCE-ONLY |
 | software-factory-harness | harness | | ✓ | SKIP | SOURCE-ONLY |
 | command-code | harness | | ✓ | SKIP | SOURCE-ONLY |
+| phi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -457,6 +460,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-rules-books | skill |  | ✓ | CONDITIONAL | REVIEW |
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
+| coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
 | andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
@@ -507,6 +511,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
+| biks-claude-loader-update | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Skill_Seekers | tool | | ✓ | discovery-log | REVIEW |
 | skill-recorder | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | video-to-skill | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -551,6 +556,7 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agentmemory | tool | | ✓ | discovery-log | REVIEW |
+| open-index | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | kaas | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | PageIndex | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | Acontext | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -649,6 +655,8 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Pare | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | warden | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ref-tools-mcp | MCP server | ✓ | ✓/$ | SKIP | REVIEW |
+| Mintlify Index | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| exeora | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | DesktopCommanderMCP | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | DebugMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | google-workspace-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -755,16 +763,16 @@ All 671 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 62 | 30 | 6 | 48% |
-| Implement | 217 | 110 | 4 | 51% |
+| Plan | 63 | 30 | 6 | 48% |
+| Implement | 219 | 111 | 4 | 51% |
 | Verify | 23 | 12 | 2 | 52% |
 | Review | 44 | 21 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
 | Outer Loop | 48 | 17 | 2 | 35% |
-| Skills & Plugins | 94 | 32 | 4 | 34% |
-| Memory & Context | 53 | 20 | 2 | 38% |
-| MCP Servers | 48 | 16 | 2 | 33% |
+| Skills & Plugins | 96 | 33 | 4 | 34% |
+| Memory & Context | 54 | 20 | 2 | 37% |
+| MCP Servers | 50 | 17 | 2 | 34% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **671** | **287** | **34** | **43%** |
+| **Total** | **679** | **290** | **34** | **43%** |

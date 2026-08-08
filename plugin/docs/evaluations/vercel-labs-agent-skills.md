@@ -3,6 +3,7 @@
 **Repo:** [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
 **Stars:** 29,775 | **Last updated:** 2026-07-24 (pushed; created 2025-12-08) | **License:** MIT, declared in the README and in both `packages/*/package.json` — but there is **no `LICENSE` file**, so GitHub's API reports `null` and `repo-metadata.json` caches `NONE` (see Verdict)
 **Last verified:** 2026-08-05
+**Last triaged:** 2026-08-08  <!-- triaged: bulk -->
 **Dev loop stage:** Implement + Review — the skills are coding guidance (React/Next.js, React Native, view transitions, web design, prose) applied while writing and reviewing UI/docs, plus a Verify-adjacent Vercel cost/perf audit. Frontend- and Vercel-leaning, not a general-purpose roster.
 **Layer:** Process (a small collection of `SKILL.md` instruction-and-script packages installed into an agent's skills directory; no runtime of its own — installed via the sibling `npx skills` CLI)
 
@@ -82,6 +83,17 @@ gh api repos/vercel-labs/agent-skills/contents/packages/react-best-practices-bui
 **One caveat worth carrying forward.** The cached `NONE` that grounded this whole question is wrong for **8 of the 28** repos it is recorded against, and `openreview` is already SKIPped on that false premise — filed separately, since the fix belongs in `refresh-metadata.py` rather than in this eval.
 
 Compared to neighbors: **addyosmani/agent-skills** is broader "production-grade engineering" coverage but markdown-only (not test-backed); Vercel wins on verification, addy on breadth. **mattpocock/skills** is a working dev's general-purpose kit (TDD, module design, debugging) — more stack-agnostic, less specialized. **gstack** is a *harness* (~53 curated skills + CLIs) — a whole setup vs. a focused 9-skill collection. **wshobson/agents** and **agency-agents** are large persona rosters you curate down; vercel-labs/agent-skills is the opposite philosophy — few skills, each tested. For Vercel/React work specifically, this beats all of them on trust per skill.
+
+## Triage note
+
+Left at `discovery-log` (P2 challenger band): the eval above already concluded this is
+"the highest-trust [collection] on the shelf" among source-inspected skill packs, with a
+named promotion path (install + skill-dimension A/B). A build-backed, test-validated
+9-skill set from the platform vendor itself is not redundant with the broader
+addyosmani/mattpocock packs it's compared against — it's a different, narrower bet. Left
+for that promotion run rather than a mechanical SKIP against a much broader incumbent.
+
+_Triaged 2026-08-08 by the P2 challenger band._
 
 ## Catalog entry
 
