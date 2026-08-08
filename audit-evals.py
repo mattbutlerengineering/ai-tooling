@@ -920,16 +920,83 @@ def _stack_member_keys(stack_text):
     return set(_stack_member_key_map(stack_text))
 
 def _stack_picks_by_slug(stack_text):
-    """(display text, owner/repo) for every STACK.md table row that links a github repo.
+    """(display text, link, owner/repo) for every STACK.md row that links a github repo.
 
     Resolution downstream keys on the SLUG, never the display text — detector P's rule,
     since names vary ("GSD" links to obra/superpowers) and a basename is not a synonym
-    between two rows (#374)."""
+    between two rows (#374). The LINK comes along because a slug is not always an
+    identity: see `_catalog_link_index`."""
     picks = []
     for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
         for slug in catalog_lib.github_repos(url):
-            picks.append((text, slug.lower()))
+            picks.append((text, url, slug.lower()))
     return picks
+
+
+def _norm_link(url):
+    """A github link in the one form two files can be compared on."""
+    return url.strip().rstrip("/").lower()
+
+
+CatalogLinks = collections.namedtuple("CatalogLinks", "by_link by_slug shared")
+
+
+def _catalog_link_index(catalog_text):
+    """Three ways to reach a catalog row from a link, strongest first (#463).
+
+    A slug is NOT an identity inside a monorepo: `anthropics/claude-plugins-official` is
+    claimed by nine rows whose verdicts span all four values, so the old
+    `by_slug.setdefault(...)` resolved nine STACK picks to whichever row CATALOG.md
+    happens to list first. That is the coin flip detector U (#401), detector AG (#453)
+    and `verify-installs.py` each refuse by name — and here it sat inside a GATING check,
+    which made `make check` depend on catalog row ORDER: swapping the `frontend-design`
+    and `commit-commands` rows past each other turns a green tree into five failures,
+    every one naming a KEEP tool for a SKIP that belongs to neither.
+
+    `shared` maps a slug claimed by several rows to those rows' names, so an ambiguous
+    slug can resolve to NOTHING and say so, rather than to a stranger."""
+    by_link, slug_rows = {}, collections.defaultdict(list)
+    for r in catalog_lib.parse_catalog_rows(catalog_text):
+        url = (r.url or "").strip()
+        if not url.startswith("https://github.com/"):
+            continue
+        by_link.setdefault(_norm_link(url), r.name)
+        for s in catalog_lib.github_repos(url):
+            if r.name not in slug_rows[s.lower()]:
+                slug_rows[s.lower()].append(r.name)
+    return CatalogLinks(by_link,
+                        {s: n[0] for s, n in slug_rows.items() if len(n) == 1},
+                        {s: n for s, n in slug_rows.items() if len(n) > 1})
+
+
+def resolve_stack_pick(index, text, url, slug):
+    """(catalog row name, candidates) for a STACK pick. Exactly one is ever set.
+
+    An unshared slug is an identity and settles it. A shared one narrows to a candidate
+    SET, and inside that set the questions run strongest-first:
+
+    1. the pick's own text exactly naming one candidate. `verify-installs.py`'s "exact
+       catalog name first" rule, and detector P's warning (names vary — "GSD" links to
+       obra/superpowers) does not reach it: the text is not naming a tool from scratch
+       here, only telling nine already-slug-matched siblings apart.
+    2. the link exactly matching one candidate's own URL. Weaker than the name **because
+       STACK links a component pick at the pack root** — `[resolving-merge-conflicts]
+       (github.com/mattpocock/skills)` — so the link identifies the container while the
+       text identifies the pick, and answering "is mattpocock/skills SKIPped" is not the
+       question that was asked.
+
+    Neither: return the candidates. The check cannot say which row it would be checking,
+    and silence there is #319's "silence is not success" inside a gate. A pick with no
+    catalog row at all returns (None, None) — a different gap, and flagging it here would
+    flag a healthy row (detector V's rule)."""
+    candidates = index.shared.get(slug)
+    if not candidates:
+        return index.by_slug.get(slug), None
+    exact = [c for c in candidates if c.lower() == text.strip().lower()]
+    if len(exact) == 1:
+        return exact[0], None
+    row = index.by_link.get(_norm_link(url))
+    return (row, None) if row in candidates else (None, candidates)
 
 
 def audit_stack_drift(ctx):
@@ -949,18 +1016,22 @@ def audit_stack_drift(ctx):
     problems = []
     comp = ctx.comparison_verdict_map
     stack = _stack_member_keys(ctx.stack)
-    by_slug = {}
-    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        for s in catalog_lib.github_repos(r.url or ""):
-            by_slug.setdefault(s.lower(), r.name)
-    for text, slug in _stack_picks_by_slug(ctx.stack):
-        tool = by_slug.get(slug)
+    index = _catalog_link_index(ctx.catalog)
+    for text, url, slug in _stack_picks_by_slug(ctx.stack):
+        tool, candidates = resolve_stack_pick(index, text, url, slug)
+        if candidates:
+            problems.append(
+                f"STACK pick '{text}' links {slug}, which {len(candidates)} catalog rows "
+                f"claim ({', '.join(candidates)}) — narrow the link to the row's own "
+                "subpath, or the SKIP check cannot say which one it checked (#463)")
+            continue
         if not tool:
             continue
         if next((comp[k] for k in catalog_lib.identity_keys(tool) if k in comp), None) == "SKIP":
             problems.append(
-                f"STACK pick '{text}' ({slug}) is SKIPped in COMPARISON — the install "
-                "list recommends a tool the catalog eliminated (#416)")
+                f"STACK pick '{text}' resolves to catalog row '{tool}' ({slug}), which is "
+                "SKIPped in COMPARISON — the install list recommends a tool the catalog "
+                "eliminated (#416)")
     ledger_keys = set()
     for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ctx.ledger):
         ids = catalog_lib.identity_keys(name)
