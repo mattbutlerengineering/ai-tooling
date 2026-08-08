@@ -21,18 +21,22 @@
 # field presence is gated; L (evals) and R (repo-metadata.json) age on the calendar,
 # and their only fix needs the network CI must not depend on.
 #
-# `check-stars.py --check` is the one gate with no counterpart in `fix`, and that is
-# deliberate (#377): a missing **Stars:** value cannot be generated, only declared — the
+# `check-stars.py --check` has no counterpart in `fix`, and that is deliberate (#377): a missing **Stars:** value cannot be generated, only declared — the
 # author knows whether the file has one subject, several contenders, or none. Dropping
 # `--check` there turns it report-only in one word, which is how the gate-vs-report call
 # stays reversible; TestStarConvention pins both modes regardless of which is wired.
 #
-# `verify-installs.py --check` is the second such gate, for the same shape of reason
+# `verify-installs.py --check` likewise has none, for a different shape of reason
 # (#382/ADR-0006): it validates that every ADOPT/KEEP ledger row DECLARES a well-formed
 # `Install evidence` value, never that the value is still true. The apply side
 # (`--record`) reads one laptop's install records, so it is deliberately absent from
 # `fix` — CI has no lockfile, and a build that failed because a machine changed would be
 # worse than the drift it caught.
+#
+# Which gates have no fixer is DECLARED, not counted in prose: TestIntegrityMakefile's
+# NO_APPLY_MODE holds the set with a reason each, and derives from this file which gates
+# must have one (#461). The three ordinals that used to live here and in CLAUDE.md gave
+# three different answers for a set of four.
 #
 # ruff and mypy (#388) are the ONLY gates that are not pure stdlib — every other one runs
 # on python3 + gh + node. They are pinned in requirements-dev.txt, because an unpinned

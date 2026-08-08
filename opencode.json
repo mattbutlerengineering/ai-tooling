@@ -35,7 +35,7 @@
     "fix": {
       "description": "Apply the repo's offline fixers then re-verify (make fix). Use when make check reports drift that has an apply-mode fixer.",
       "agent": "build",
-      "template": "Run the repo's apply-mode fixers in dependency order, then re-verify:\n\n    make fix\n\n`make fix` runs reconcile-counts → backfill-evidence → tier-stack → sync-plugin-docs, then re-runs `make check`, so a clean exit means the tree is actually green. Report which fixers applied and the final `make check` status."
+      "template": "Run the repo's apply-mode fixers in dependency order, then re-verify:\n\n    make fix\n\n`make fix` runs the apply-mode fixers in dependency order — `ruff --fix` → `reconcile-counts` → `backfill-evidence` → `backfill-lastverified` → `tier-stack` → `triage` → `watchlist` → `sync-plugin-docs` — then re-runs `make check`, so a clean exit means the tree is actually green. Report which of those fixers applied and the final `make check` status."
     },
     "sync": {
       "description": "Re-sync plugin/docs/ from the authoritative root docs (./sync-plugin-docs.sh). Use after editing CATALOG.md/WORKFLOW.md/STACK.md/evaluations.",

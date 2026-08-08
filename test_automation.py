@@ -3031,6 +3031,29 @@ class TestIntegrityMakefile(unittest.TestCase):
     # pins the commit predicate across).
     COMMIT_HOOKS = (".claude/hooks/audit-gate.sh", ".opencode/plugins/commit-gate.ts")
 
+    # The gates whose `--check` has NO apply-mode counterpart, each with the reason it
+    # cannot have one. DECLARED here, and deliberately never counted: the prose used to
+    # state an *ordinal* for this set — "the only", "the second", "the second" — in three
+    # places, three different answers, none of them right, with nothing that could check
+    # any of them (#461). A set with reasons is checkable; an ordinal in prose is not.
+    NO_APPLY_MODE = (
+        ("audit-evals.py", "a detector reports; there is nothing to regenerate"),
+        ("check-stars.py", "a missing **Stars:** value cannot be generated, only declared"),
+        ("check-links.py", "a dead link can be repointed or its file restored — only an author knows which"),
+        ("check-plugin.py", "the manifests and the plugin front door are hand-authored"),
+        ("verify-installs.py", "the apply side (--record) reads ONE laptop's records (ADR-0006)"),
+    )
+
+    # The sentence both prose copies of the repair chain open with. Anchoring on it (not
+    # on "the longest arrow-chain in the file") keeps the extractor from wandering onto
+    # one of the four other `a → b` chains in CLAUDE.md.
+    FIX_CHAIN_ANCHOR = "apply-mode fixers in dependency order"
+
+    # Where the chain is restated outside the Makefile. Both are facts copied from the
+    # recipe, so both get a test — `reconcile-counts.py` and TestPluginFrontDoorSignals
+    # are the precedent for gating a restated fact rather than the file restating it.
+    CHAIN_PROSE = ("CLAUDE.md", "opencode.json")
+
     def _raw_target_body(self, target):
         """The literal recipe lines of `target:`, delegation unexpanded. Prefix-safe —
         `check-offline:` does not start with `check:`, so the two targets never capture
@@ -3135,6 +3158,85 @@ class TestIntegrityMakefile(unittest.TestCase):
                           msg=f"{rel} must probe for python3 before blocking on it")
             self.assertIn("^check-data:", text,
                           msg=f"{rel} must probe that the target exists before running it")
+
+    # ---- the repair chain (#461)
+    @staticmethod
+    def _gate_script(line):
+        """The script a `check-data` recipe line invokes, or None."""
+        m = re.match(r"^(?:python3\s+|\./)([\w.-]+\.(?:py|sh))\s+--", line)
+        return m.group(1) if m else None
+
+    def _fix_chain(self):
+        """The fixers `make fix` runs, in order, named as the prose names them."""
+        names = []
+        for line in self._raw_target_body("fix"):
+            if line.startswith("@$(MAKE)"):
+                continue  # the trailing re-verify, not a fixer
+            if line == "$(RUFF) check --fix":
+                names.append("ruff --fix")
+                continue
+            m = re.match(r"^(?:python3\s+|\./)([\w.-]+)\.(?:py|sh)$", line)
+            self.assertIsNotNone(m, msg=f"unrecognized `fix:` recipe line: {line}")
+            names.append(m.group(1))
+        return names
+
+    def _prose_chain(self, rel):
+        """The `a` → `b` → `c` chain a doc states for `make fix`, after the anchor."""
+        text = Path(ROOT, rel).read_text(encoding="utf-8")
+        at = text.find(self.FIX_CHAIN_ANCHOR)
+        self.assertNotEqual(at, -1, msg=f"{rel} no longer states the repair chain")
+        m = re.search(r"(?:`[^`]+`\s*(?:→|\\u2192)\s*)+`[^`]+`", text[at:])
+        self.assertIsNotNone(m, msg=f"{rel} names no fixer chain after the anchor")
+        return re.findall(r"`([^`]+)`", m.group(0))
+
+    def test_every_gate_has_a_fixer_or_a_declared_reason(self):
+        # `make check`'s gate set is pinned in both directions; the repair chain was
+        # pinned in NO direction, and deleting backfill-evidence, triage and watchlist
+        # from `fix:` left all 581 tests green (#461). Derived from the Makefile rather
+        # than hand-listed, so adding a gate forces an explicit decision instead of
+        # silently landing in neither the chain nor the declared exemptions.
+        fix_lines = set(self._raw_target_body("fix"))
+        exempt = dict(self.NO_APPLY_MODE)
+        seen = set()
+        for line in self._raw_target_body("check-data"):
+            script = self._gate_script(line)
+            self.assertIsNotNone(script, msg=f"unrecognized `check-data` line: {line}")
+            seen.add(script)
+            apply_form = ("python3 " if script.endswith(".py") else "./") + script
+            if script in exempt:
+                self.assertTrue(exempt[script].strip(),
+                                msg=f"{script} is exempt with no reason given")
+                self.assertNotIn(apply_form, fix_lines,
+                                 msg=f"{script} runs in `fix` but is declared exempt — "
+                                     f"drop it from NO_APPLY_MODE")
+            else:
+                self.assertIn(apply_form, fix_lines,
+                              msg=f"`{apply_form}` gates in check-data but never runs in "
+                                  f"`make fix` — wire it in, or declare why it cannot be")
+        stale = set(exempt) - seen
+        self.assertFalse(stale, msg=f"NO_APPLY_MODE names gates check-data no longer runs: {stale}")
+
+    def test_every_fixer_answers_a_gate(self):
+        # The reverse direction: a fixer whose gate was dropped regenerates a page nothing
+        # verifies. `ruff --fix` is the one exception — the linter gates from `check`
+        # directly, since it needs the dev venv `check-data` deliberately does not.
+        gates = {self._gate_script(l) for l in self._raw_target_body("check-data")}
+        for name in self._fix_chain():
+            if name == "ruff --fix":
+                continue
+            self.assertTrue(any(g and g.startswith(name + ".") for g in gates),
+                            msg=f"`make fix` runs {name} but nothing in check-data gates it")
+
+    def test_the_prose_chains_match_the_recipe(self):
+        # CLAUDE.md and the opencode `/fix` template each restate the chain, and both said
+        # four of its eight steps (#461) — omitting `ruff --fix`, whose POSITION is a
+        # documented invariant with its own test. The `/fix` one is prose fed to a model
+        # and ends "Report which fixers applied", so a four-item chain meant `/fix` could
+        # regenerate NEXT-EVALS.md and correctly report that it had not.
+        recipe = self._fix_chain()
+        for rel in self.CHAIN_PROSE:
+            self.assertEqual(self._prose_chain(rel), recipe,
+                             msg=f"{rel} states a repair chain that is not `make fix`'s")
 
     def test_report_only_trailers_run_in_both_targets(self):
         for target in ("check", "check-offline"):
