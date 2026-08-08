@@ -83,7 +83,7 @@ Execute the protocol: define 3-5 memory-recall tasks with mechanical oracles (e.
 
 ### Step 4: Propagate the result
 
-If a verdict changed (e.g. challenger ADOPT, or incumbent's KEEP condition sharpened): update the eval files' Verdict sections, then `make fix` (runs reconcile → backfill-evidence → tier-stack → sync in order), then `make check`. Add the cluster + result + link to WORKFLOW.md's overlap-groups list.
+If a verdict changed (e.g. challenger ADOPT, or incumbent's KEEP condition sharpened): update the eval files' Verdict sections, then `make fix`, which runs every apply-mode fixer in dependency order and re-runs `make check` itself. Add the cluster + result + link to WORKFLOW.md's overlap-groups list.
 
 **Verify**: `make check` → exit 0; WORKFLOW.md overlap-groups section includes the pilot with a link to the bake-off eval.
 
