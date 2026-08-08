@@ -430,6 +430,32 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      verbatim rather than normalised — the name is the finding. Report-only: every remedy
      is a human choosing between two judgements. Offline.
 
+  AJ. LINK IDENTITY (opt-in, --link-identity, REPORT-ONLY) — every identity fix this repo
+     has landed asked the same question in ONE direction: given a slug, which catalog row
+     is it about (#343/#366/#374/#413/#457/#463/#465). Nothing asked the other one — given
+     the NAME a link puts in front of a reader, does the URL under it point at that tool.
+     It does not, 8 times, and 4 are in `STACK.md`, the page whose whole purpose is to be
+     executed (#416): `| [GSD](github.com/obra/superpowers) | ... |
+     claude install-plugin obra/superpowers |`, so a reader who wants GSD installs
+     `superpowers` — a different catalogued tool, different owner, different verdict, and
+     it ships none of GSD's skills. GSD's own MEASURED eval calls that framing "mistaken".
+       MISNAMED — the link's text resolves to catalogued row A; its URL's slug resolves to
+                  a set of rows not containing A. Counted.
+     Every other detector passes, and all for one reason: they resolve by SLUG, and
+     `obra/superpowers` is a good ADOPT row. J derives STACK from the ledger and finds it
+     ADOPT. P demands every STACK pick appear in WORKFLOW.md and finds `superpowers` on
+     line 77 — note what that agreement is worth, since the manual never names GSD at all,
+     so the two pages agree about a tool the install list is not recommending. AE asks
+     whether a WORKFLOW link carries a SKIP. U never reads STACK. The one fact none of
+     them holds is the link's own TEXT.
+     Both sides must resolve or the link is not walked (907 do), which is what keeps it
+     conservative. The precision rule is that the healthy set is EVERY row behind the slug
+     (`rows_for_slug`), never the one a single-answer resolver picks: STACK and the evals
+     link a pack member at the pack ROOT, #465's documented healthy shape, and 85 walked
+     links sit behind a shared slug — a first-row resolver flags 49 of them, all healthy.
+     Report-only and not a fixer: the repair reaches STACK, the ledger, CATALOG prose and
+     8 SKIP verdicts, which is a per-item human read (#345). Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -528,6 +554,7 @@ Usage:
   python3 audit-evals.py --stage-drift   # rows filed under a stage their eval disowns (offline)
   python3 audit-evals.py --repo-installs  # sources this repo vendors but never judged (offline)
   python3 audit-evals.py --layer-drift   # Process/Tooling/Infrastructure disagreements (offline)
+  python3 audit-evals.py --link-identity  # links naming one tool and pointing at another (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -3380,6 +3407,122 @@ def audit_layer_drift(ctx):
     return drift, self_drift, undeclared, no_layer, cover
 
 
+# ---------------------------------------------------------------- AJ. link identity mismatch (report-only)
+# Every identity fix this repo has landed asked the same question in one direction: given a
+# SLUG, which catalog row is it about (#343, #366, #374, #413, #457, #463, #465). Nothing
+# ever asked the other one — given the NAME a link puts in front of a reader, does the URL
+# under it point at that tool. It does not, 8 times, and 4 of them are in `STACK.md`, the
+# page whose whole purpose is to be executed (#416): the Plan-stage row reads
+# `| [GSD](https://github.com/obra/superpowers) | ... | claude install-plugin obra/superpowers |`,
+# so a reader who wants GSD installs `superpowers`, a different catalogued tool with a
+# different verdict, a different owner and none of GSD's skills.
+#
+# Every detector passes on it, and they pass for the same reason: they all resolve by slug,
+# and `obra/superpowers` is a perfectly good ADOPT row. Detector J derives STACK from the
+# ledger and finds `superpowers` ADOPT — fine. Detector P demands every STACK pick appear in
+# `WORKFLOW.md` and finds `superpowers` on line 77 — fine, and note what that agreement is
+# worth: the manual never names GSD at all, so the two pages "agree" about a tool the
+# install list is not actually recommending. Detector AE asks whether a WORKFLOW link
+# carries a SKIP — `superpowers` is ADOPT. Detector U compares an eval's mirror against its
+# catalog row and never reads STACK. The one fact none of them holds is the link's own TEXT.
+LinkIdentityFinding = collections.namedtuple(
+    "LinkIdentityFinding", "rel line text named slug rows")
+
+
+def _text_row_index(catalog_text):
+    """(by_name, by_key) for resolving a link's TEXT to a catalog row.
+
+    Exact name first, `identity_keys` second — `verify-installs.py`'s rule, and the key
+    fallback keeps `identity_keys` rather than `alias_keys` because a URL basename is not
+    a synonym between two rows that each name a tool (#374). A key two rows claim resolves
+    to NOTHING rather than to a coin flip (detector U's AMBIG rule).
+    """
+    by_name, by_key = {}, collections.defaultdict(list)
+    for r in catalog_lib.parse_catalog_rows(catalog_text):
+        by_name.setdefault(r.name.strip().lower(), r)
+        for k in catalog_lib.identity_keys(r.name):
+            if not any(x.name == r.name for x in by_key[k]):
+                by_key[k].append(r)
+    return by_name, dict(by_key)
+
+
+def _resolve_link_text(by_name, by_key, text):
+    """The one catalog row a link's text names, or None. Markdown emphasis is stripped —
+    the corpus cites this tool as ``GSD`` as often as GSD — and nothing else is guessed."""
+    t = re.sub(r"[`*_]", "", text).strip()
+    if not t:
+        return None
+    row = by_name.get(t.lower())
+    if row:
+        return row
+    seen = []
+    for k in catalog_lib.identity_keys(t):
+        for c in by_key.get(k, []):
+            if not any(x.name == c.name for x in seen):
+                seen.append(c)
+    return seen[0] if len(seen) == 1 else None
+
+
+# Where a link RECOMMENDS or CITES a tool by name. `CATALOG.md` is deliberately out of
+# scope: a row's Name cell names its own row by construction, so it could never be a
+# finding, and eval-vs-catalog link disagreement is detector U's `LINK` bucket already.
+LINK_IDENTITY_FILES = ("STACK.md", "WORKFLOW.md")
+_MD_LINK = re.compile(r"\[([^\]\n]+)\]\((https://github\.com/[^)\s]+)\)")
+
+
+def audit_link_identity(ctx):
+    """(findings, walked) — links whose TEXT names catalogued row A while their URL points
+    at a repo row A is not behind.
+
+    Both sides must resolve to something catalogued or the link is not walked, which is
+    what keeps this conservative: prose text that is not a tool name resolves to nothing,
+    and an uncatalogued repo has no rows to compare against. 907 of the corpus's links
+    clear both bars today.
+
+    The precision rule is that the healthy set is EVERY row behind the slug
+    (`catalog_lib.rows_for_slug`), never the one row a single-answer resolver would pick.
+    `STACK.md` and the evals link a pack member at the pack ROOT — `[feature-dev](.../
+    claude-plugins-official)`, `[resolving-merge-conflicts](.../mattpocock/skills)` — which
+    #465 documents as the healthy shape, and 85 walked links sit behind a shared slug. A
+    first-row resolver flags 49 of them; asking the whole set flags none.
+
+    Report-only, and it bands and fixes nothing. The detector cannot say which side is
+    wrong — the link may need repointing or the text may need renaming — and here it is
+    the harder direction: the 8 live findings are one conflated pair whose repair reaches
+    `STACK.md`, `STACK-LEDGER.md`, `CATALOG.md`'s own "now redirects here" prose and 8 SKIP
+    verdicts that name one tool as the incumbent while citing the other. That is a per-item
+    human read (#345's rule against bulk-fixing in either direction), not a fixer.
+    """
+    idx = catalog_lib.link_index(ctx.catalog)
+    by_name, by_key = _text_row_index(ctx.catalog)
+    files = [*LINK_IDENTITY_FILES,
+             *sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))]
+    findings, walked = [], 0
+    for rel in files:
+        if not os.path.exists(ctx.path(rel)):
+            continue
+        for i, line in enumerate(ctx.read(rel).splitlines(), 1):
+            for text, url in _MD_LINK.findall(line):
+                slugs = catalog_lib.github_repos(url)
+                if not slugs:
+                    continue
+                rows = catalog_lib.rows_for_slug(idx, slugs[0])
+                named = _resolve_link_text(by_name, by_key, text)
+                if named is None or not rows:
+                    continue
+                walked += 1
+                if not any(x.name == named.name for x in rows):
+                    findings.append(LinkIdentityFinding(
+                        rel, i, text.strip(), named.name, slugs[0],
+                        [x.name for x in rows]))
+    # Reported in WALK order, which is detector A's shape ("in file order — this IS the
+    # reported order") and which already puts `STACK.md` first: an executed page outranks
+    # a cited one, the same ordering detector V uses when it sorts a dead tool we still
+    # recommend above a dead lead nobody was going to reach. A `sort()` here would be a
+    # second expression of the same intent, agreeing with `files` until one of them moved.
+    return findings, walked
+
+
 # ---------------------------------------------------------------- AH. unread repo install record (report-only)
 # `skills-lock.json` is the one install record that lives INSIDE the tree, and nothing in
 # the repo read it (#473). Detector F (#398) and detector Y (#366) both want an install
@@ -3858,7 +4001,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
                 "--containment-evidence", "--stage-drift", "--repo-installs",
-                "--layer-drift")
+                "--layer-drift", "--link-identity")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -3928,6 +4071,7 @@ def main():
     do_stage = "--stage-drift" in want  # opt-in report (does not affect exit code)
     do_repoinst = "--repo-installs" in want  # opt-in report (does not affect exit code)
     do_layer = "--layer-drift" in want  # opt-in report (does not affect exit code)
+    do_linkid = "--link-identity" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -4521,6 +4665,19 @@ def main():
         for f in no_layer:
             print(f"  no-layer   {f.tool} declares no `**Layer:**` — an honest "
                   "non-answer, not a finding")
+    if do_linkid:
+        mism, walked = audit_link_identity(ctx)
+        print(f"== AJ. link identity (report-only) — {len(mism)} of {walked} "
+              f"catalogued link(s) name one tool and point at another ==")
+        if not walked:
+            print("  no catalogued links — no link resolves on BOTH sides (a text naming "
+                  "a catalog row, a URL behind one), so nothing was compared")
+        elif not mism:
+            print("  OK — every link whose text names a catalogued tool points at a repo "
+                  "that tool is catalogued behind")
+        for f in mism:
+            print(f"  MISNAMED   {f.rel}:{f.line} — text \"{f.text}\" names "
+                  f"{f.named}; `{f.slug}` is {'/'.join(f.rows)}")
     sys.exit(rc)
 
 if __name__ == "__main__":
