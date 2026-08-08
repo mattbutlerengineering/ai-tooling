@@ -909,9 +909,9 @@ def _stack_member_key_map(stack_text):
     `claudepluginsofficial` reaches code-review, feature-dev and pr-review-toolkit,
     which is why the value is a list and never a winner (#457)."""
     m = {}
-    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
-        for k in catalog_lib.alias_keys(text, url):
-            m.setdefault(k, set()).add(text)
+    for pick in catalog_lib.stack_picks(stack_text):
+        for k in catalog_lib.alias_keys(pick.text, pick.url):
+            m.setdefault(k, set()).add(pick.text)
     return {k: sorted(v) for k, v in m.items()}
 
 def _stack_member_keys(stack_text):
@@ -925,12 +925,12 @@ def _stack_picks_by_slug(stack_text):
     Resolution downstream keys on the SLUG, never the display text — detector P's rule,
     since names vary ("GSD" links to obra/superpowers) and a basename is not a synonym
     between two rows (#374). The LINK comes along because a slug is not always an
-    identity: see `catalog_lib.resolve_link`."""
-    picks = []
-    for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
-        for slug in catalog_lib.github_repos(url):
-            picks.append((text, url, slug.lower()))
-    return picks
+    identity: see `catalog_lib.resolve_link`.
+
+    A thin alias for `catalog_lib.stack_picks` — the ONE definition of a pick, which this
+    and `_stack_member_key_map` used to spell out as byte-identical regexes one file
+    apart, with a third copy in tier-stack.py and two more rules elsewhere (#469)."""
+    return catalog_lib.stack_picks(stack_text)
 
 
 # Resolving a link to a catalog row lives in catalog_lib, next to identity_keys and
@@ -1640,16 +1640,29 @@ def overlap_pressure_map(ctx):
 # insensitive: STACK links NVIDIA/SkillSpector but clones NVIDIA/skillspector).
 # Report-only, not a gate — prints a count so it's "a number to shrink" (plan 003).
 def audit_workflow_drift(ctx):
-    """Detector P: STACK picks absent from WORKFLOW.md. Returns (slug, stack_line) for
-    each STACK-pick github slug that appears nowhere in WORKFLOW.md, first STACK line."""
+    """Detector P: ([(slug, stack_line)], picks) — STACK picks absent from WORKFLOW.md.
+
+    `picks` is the POPULATION, and it is returned because the headline used to print only
+    the findings while CLAUDE.md described P as *"prints a count so it's a number to
+    shrink"* — the same confusion #467 fixed in detector U, where `0 … across 0` read
+    identically to *nothing was checked*.
+
+    A pick is `catalog_lib.stack_picks`' definition and no longer this function's own
+    (#469). Reading any github link on any `|`-line counted `graphify`, out of a row
+    whose third cell reads *"graphify is not in STACK — evaluations/ only"*, so P was one
+    WORKFLOW.md edit away from demanding the manual document a tool STACK disclaims —
+    flagging a healthy row, which detector V's rule calls the expensive direction."""
     wf = {s.lower() for s in catalog_lib.github_repos(ctx.workflow)}
+    lines = ctx.stack.splitlines()
     first_line = {}
-    for i, line in enumerate(ctx.stack.splitlines(), 1):
-        if not line.lstrip().startswith("|"):
-            continue  # picks live in the install-command tables, not the prose
-        for slug in catalog_lib.github_repos(line):
-            first_line.setdefault(slug.lower(), i)
-    return [(slug, ln) for slug, ln in sorted(first_line.items()) if slug not in wf]
+    for pick in catalog_lib.stack_picks(ctx.stack):
+        # `stack_picks` is order-preserving but not line-numbered; the first line whose
+        # text contains this pick's URL is the row to point a human at.
+        if pick.slug not in first_line:
+            first_line[pick.slug] = next(
+                (i for i, ln in enumerate(lines, 1) if pick.url in ln), 0)
+    missing = [(slug, ln) for slug, ln in sorted(first_line.items()) if slug not in wf]
+    return missing, len(first_line)
 
 # ---------------------------------------------------------------- M. clusters without a pick (report-only)
 # ADR 0001 / #69: when several catalogued tools solve the same problem (an overlap
@@ -3674,8 +3687,12 @@ def main():
         for t, (kind, src) in peers:
             print(f"  {kind}-peer {t}  ({_OVL_PEER_LABEL[kind]} {src})")
     if do_wf_drift:
-        wfmiss = audit_workflow_drift(ctx)
-        print(f"== P. WORKFLOW↔STACK drift (report-only) — {len(wfmiss)} STACK pick(s) missing from WORKFLOW.md ==")
+        wfmiss, picks = audit_workflow_drift(ctx)
+        print(f"== P. WORKFLOW↔STACK drift (report-only) — {len(wfmiss)} of {picks} "
+              f"STACK pick(s) missing from WORKFLOW.md ==")
+        if not picks:
+            print("  no STACK picks found — nothing was compared, which is not the same "
+                  "as nothing being wrong")
         if not wfmiss:
             print("  OK — every STACK pick appears somewhere in WORKFLOW.md")
         for slug, ln in wfmiss:

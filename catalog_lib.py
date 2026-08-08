@@ -522,3 +522,34 @@ def resolve_link(index, text, url, slug=None):
         return exact[0], None
     row = index.by_link.get(norm_link(url))
     return (row, None) if row in candidates else (None, candidates)
+
+
+# --- which tools does STACK.md recommend (#469) --------------------------------
+#
+# One fact with five implementations, three of them the literal regex below written out
+# again: detector J's ledger check and its gating SKIP check (byte-identical copies, one
+# file apart), `tier-stack.py`'s `_LINK`, detector P's own `|`-line rule, and detector
+# AG's first-cell rule. #443 states the rule this broke — *"Two extractors for one fact,
+# in two languages, coupled by nothing"* — and here the consumers are load-bearing:
+# `triage.py`'s P2 band, which is a band an unattended pass may SKIP from.
+#
+# A pick is a markdown link to a github repo at the START of a table cell. That anchor is
+# what distinguishes a recommendation from a mention: STACK.md:117 reads
+# `… [GSD](…) planning + [graphify](…) knowledge-graph views | … graphify is not in STACK`,
+# and only the cell-initial link is the row's subject. Detector P's looser rule counted
+# `graphify` and would have demanded WORKFLOW.md document a tool STACK disclaims.
+StackPick = collections.namedtuple("StackPick", "text url slug")
+
+_STACK_PICK = re.compile(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)")
+
+
+def stack_picks(stack_text):
+    """Every StackPick in STACK.md, in appearance order, duplicates included.
+
+    One link can yield several picks only if `github_repos` reads several slugs from one
+    URL; callers that want tools rather than slugs dedupe by `text` (tier-stack) or by
+    `slug` (detectors J and P). Order is preserved because `tier-stack.py` renders the
+    Evidence tiers in STACK appearance order."""
+    return [StackPick(text, url, slug.lower())
+            for text, url in _STACK_PICK.findall(stack_text)
+            for slug in github_repos(url)]
