@@ -1098,6 +1098,151 @@ class TestStageDrift(unittest.TestCase):
         only = audit.Evaluation("y", "# E\n\n<!-- e.g. **Dev loop stage:** Plan -->\n")
         self.assertIsNone(only.dev_loop_stage)
 
+
+class TestRepoInstallRecord(unittest.TestCase):
+    """`skills-lock.json` is the one install record inside the tree, and nothing read it
+    (#473). Detectors F and Y read the HOME lockfile and are local-only for that reason;
+    this one is committed, so it is as readable in CI as CATALOG.md."""
+
+    CHEAD = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+             "|---|---|---|---|---|---|\n")
+    VHEAD = "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+
+    def _ctx(self, d, lock, rows, verdicts):
+        if lock is not None:
+            _write(d, "skills-lock.json", json.dumps(lock))
+        cat = ["# Catalog", "", "## Skills & Plugins", "", self.CHEAD.rstrip()]
+        cat += [f"| [{n}]({u}) | tool | x | y | z |  |" for n, u in rows]
+        _write(d, "CATALOG.md", "\n".join(cat) + "\n")
+        comp = ["# Tool Comparison", "", "## Skills & Plugins", "", self.VHEAD.rstrip()]
+        comp += [f"| {t} | tool | | ✓ | {v} | REVIEW |" for t, v in verdicts]
+        _write(d, "COMPARISON.md", "\n".join(comp) + "\n")
+        _write(d, "STACK.md", "# Stack\n")
+        return audit.DetectorContext(d)
+
+    def _run(self, lock, rows, verdicts):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_repo_installs(self._ctx(d, lock, rows, verdicts))
+
+    LOCK: ClassVar[dict] = {"skills": {"find-skills": {"source": "vercel-labs/skills"}}}
+
+    def test_a_vendored_source_still_at_discovery_log_is_the_counted_finding(self):
+        # The shape #473 measured: the repo runs it, and the queue holds a lead for it.
+        f, ev, records = self._run(
+            self.LOCK, [("vercel-labs/skills", "https://github.com/vercel-labs/skills")],
+            [("vercel-labs/skills", "discovery-log")])
+        self.assertEqual([(x.kind, x.tool, x.key) for x in f],
+                         [("UNEVALUATED-INCUMBENT", "vercel-labs/skills", "find-skills")])
+        self.assertEqual((ev, records), ([], 1))
+
+    def test_a_settled_source_is_printed_and_never_counted(self):
+        # V's `acked` / W's `cleared` / X's `FACETED`: this is the outcome the detector
+        # exists to produce, so counting it would leave the headline unable to reach zero.
+        f, ev, records = self._run(
+            self.LOCK, [("vercel-labs/skills", "https://github.com/vercel-labs/skills")],
+            [("vercel-labs/skills", "ADOPT")])
+        self.assertEqual(f, [])
+        self.assertEqual([(x.kind, x.verdict) for x in ev], [("evaluated", "ADOPT")])
+        self.assertEqual(records, 1)
+
+    def test_a_vendored_source_with_no_catalog_row_is_counted(self):
+        # Found from the install side — the only side that can see it (detector Y's rule).
+        f, _ev, records = self._run(self.LOCK, [], [])
+        self.assertEqual([(x.kind, x.slug) for x in f],
+                         [("UNCATALOGUED", "vercel-labs/skills")])
+        self.assertEqual(records, 1)
+
+    def test_resolution_is_by_slug_never_by_the_lockfile_key(self):
+        # `find-skills` is a skill NAME several packs ship; the identity is the source
+        # slug (#343/#366/#374). A key-keyed lookup would answer about a stranger.
+        f, _ev, _r = self._run(
+            self.LOCK,
+            [("find-skills", "https://github.com/someone-else/find-skills"),
+             ("vercel-labs/skills", "https://github.com/vercel-labs/skills")],
+            [("find-skills", "SKIP"), ("vercel-labs/skills", "discovery-log")])
+        self.assertEqual([(x.kind, x.tool) for x in f],
+                         [("UNEVALUATED-INCUMBENT", "vercel-labs/skills")])
+
+    def test_a_shared_slug_resolves_to_the_row_linking_the_repo_root(self):
+        # #465: several rows can sit behind one slug, and the lockfile's `source` names
+        # the whole artifact — so the container row is the subject, not row order.
+        f, _ev, _r = self._run(
+            self.LOCK,
+            [("member", "https://github.com/vercel-labs/skills/tree/main/skills/a"),
+             ("vercel-labs/skills", "https://github.com/vercel-labs/skills")],
+            [("member", "SKIP"), ("vercel-labs/skills", "discovery-log")])
+        self.assertEqual([(x.kind, x.tool) for x in f],
+                         [("UNEVALUATED-INCUMBENT", "vercel-labs/skills")])
+
+    def test_a_missing_lockfile_reports_zero_records_not_zero_findings(self):
+        # Detector V's rule: vendoring nothing is a different statement from a clean
+        # sweep, so the headline must be able to say which one it saw.
+        self.assertEqual(self._run(None, [], []), ([], [], 0))
+        self.assertEqual(self._run({"skills": {}}, [], []), ([], [], 0))
+
+    def test_a_malformed_lockfile_is_not_a_crash(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, {"skills": "not-a-dict"}, [], [])
+            self.assertEqual(audit.audit_repo_installs(ctx), ([], [], 0))
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, None, [], [])
+            _write(d, "skills-lock.json", "{ this is not json")
+            self.assertEqual(audit.audit_repo_installs(ctx), ([], [], 0))
+
+    def test_an_entry_with_no_source_is_not_a_record(self):
+        # No slug means nothing to resolve; counting it would put a number on the board
+        # that nothing here can move.
+        self.assertEqual(self._run({"skills": {"x": {"skillPath": "a/SKILL.md"}}}, [], []),
+                         ([], [], 0))
+
+    @staticmethod
+    def _live(*parts):
+        with open(os.path.join(ROOT, *parts), encoding="utf-8") as fh:
+            return fh.read()
+
+    HOMES = (".agents/skills", ".claude/skills")
+
+    def test_live_tree_lockfile_entries_resolve_to_a_real_skill_directory(self):
+        # The invariant that makes the record trustworthy at all: a lockfile naming a
+        # skill the tree does not contain would make every finding above unfalsifiable.
+        lock = json.loads(self._live("skills-lock.json"))
+        homes = self.HOMES
+        for key in lock.get("skills", {}):
+            self.assertTrue(
+                any(os.path.isfile(os.path.join(ROOT, h, key, "SKILL.md")) for h in homes),
+                f"skills-lock.json names `{key}` but no SKILL.md exists under {homes}")
+
+    def test_live_tree_opencode_skill_permissions_name_a_real_skill(self):
+        # `permission.skill` is `{"*": "allow", "add-catalog-entry": "ask"}` — so renaming
+        # or moving the skill does not break the rule loudly, it silently downgrades a
+        # deliberate confirmation gate to auto-allow under the `*` default.
+        cfg = json.loads(self._live("opencode.json"))
+        named = [k for k in (cfg.get("permission", {}).get("skill") or {}) if k != "*"]
+        homes = self.HOMES
+        for name in named:
+            self.assertTrue(
+                any(os.path.isfile(os.path.join(ROOT, h, name, "SKILL.md")) for h in homes),
+                f"opencode.json gates skill `{name}`, which no home defines — the rule is "
+                "dead and `*` decides instead")
+
+    def test_live_tree_every_project_skill_declares_its_own_name(self):
+        # Both harnesses key a skill by its frontmatter `name:`, not its folder, and
+        # opencode drops any skill with no `description:` before the model ever sees it.
+        for home in self.HOMES:
+            base = os.path.join(ROOT, home)
+            for folder in sorted(os.listdir(base)) if os.path.isdir(base) else []:
+                path = os.path.join(base, folder, "SKILL.md")
+                if not os.path.isfile(path):
+                    continue
+                text = self._live(home, folder, "SKILL.md")
+                head = text.split("---")[1] if "---" in text else ""
+                self.assertRegex(head, rf"(?m)^name:\s*{re.escape(folder)}\s*$",
+                                 f"{home}/{folder}/SKILL.md: frontmatter `name:` must "
+                                 "match the folder")
+                self.assertRegex(head, r"(?m)^description:\s*\S",
+                                 f"{home}/{folder}/SKILL.md: a skill with no "
+                                 "`description:` is filtered out and never surfaced")
+
     def test_watchlist_reads_the_shared_property_not_its_own_regex(self):
         # The two sources meet in WATCHLIST's Stage column (#416); one implementation.
         with open(os.path.join(ROOT, "watchlist.py"), encoding="utf-8") as f:

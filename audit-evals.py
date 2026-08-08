@@ -378,6 +378,31 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      healthy. Never says which side is wrong — the header is quoted and a human reads
      it. Offline.
 
+  AH. UNREAD REPO INSTALL RECORD (opt-in, --repo-installs, REPORT-ONLY) — `skills-lock.json`
+     is the one install record that lives INSIDE the tree, and nothing read it (#473).
+     Detectors F and Y both want an install fact and both read `~/.agents/.skill-lock.json`
+     — a fact about one laptop, which is exactly why Y is local-only and never runs in CI.
+     That reasoning is right about the HOME lockfile and does not transfer: this one is
+     committed, so it is as readable in CI as CATALOG.md. The cost is that "we already run
+     this" reaches no derived surface. `vercel-labs/skills` — vendored here, its symlink and
+     lockfile added in one commit — sits at `discovery-log` in P3 backlog (score 12.56),
+     while `openskills`, which does the same job and which nobody here has run, sits in P2
+     challenger at 18.56: six points and one band apart, in the wrong order. next-evals.py
+     scores `2*overlap_pressure + stage_gap_weight + evidence_bonus`, and none of the three
+     terms can see use — detector W's observation in a second dimension.
+       UNEVALUATED-INCUMBENT — the repo runs it and its row is a `discovery-log` lead.
+                               Counted. The queue holds a lead for a tool already in use.
+       UNCATALOGUED          — the vendored source has no catalog row at all. Counted.
+       evaluated             — the row carries a real verdict. This is the outcome the
+                               detector exists to produce, so it is printed and never
+                               counted (V's `acked`, W's `cleared`, X's `FACETED`) — the
+                               headline could not reach zero otherwise.
+     Resolved by SLUG, never by the lockfile KEY: `find-skills` is a skill name four packs
+     use, `vercel-labs/skills` is the identity (#343/#366/#374). A missing or empty lockfile
+     reports 0 records, never 0 findings — vendoring nothing is a different statement from a
+     clean sweep. Report-only and staying that way: the remedy is a human running an eval,
+     which is work rather than bookkeeping. Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -474,6 +499,7 @@ Usage:
   python3 audit-evals.py --workflow-skips  # WORKFLOW.md links whose catalog row reads SKIP (offline)
   python3 audit-evals.py --containment-evidence  # `Ships inside` cells npm refutes (offline)
   python3 audit-evals.py --stage-drift   # rows filed under a stage their eval disowns (offline)
+  python3 audit-evals.py --repo-installs  # sources this repo vendors but never judged (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -3016,6 +3042,100 @@ def audit_stage_drift(ctx):
     return drift, stack_drift, comparable, unusable
 
 
+# ---------------------------------------------------------------- AH. unread repo install record (report-only)
+# `skills-lock.json` is the one install record that lives INSIDE the tree, and nothing in
+# the repo read it (#473). Detector F (#398) and detector Y (#366) both want an install
+# fact and both read `~/.agents/.skill-lock.json` — the HOME lockfile, a fact about one
+# laptop. Y is documented local-only for exactly that reason: "CI has no lockfile, and a
+# build that fails for a reason no code change caused is worse than the drift it would
+# catch." That is right about the home lockfile and does NOT transfer here: this file is
+# committed, so it is as readable in CI as CATALOG.md is.
+#
+# What the silence cost is that "we already run this" reaches no derived surface:
+#
+#   lead                 band            score   overlap_pressure   run here?
+#   openskills           P2 challenger   18.5625        5           no
+#   vercel-labs/skills   P3 backlog      12.5625        2           YES (lockfile at root)
+#
+# Six points and one band apart, in the wrong order — and the bands compound it. P3's
+# disposition is "leave; stamp **Last triaged:** only", so the tool in use sits in the one
+# band that cannot dispose of anything, while its un-run competitor sits in P2, whose
+# disposition is SKIP "redundant with <incumbent>". next-evals.py scores
+# `2*overlap_pressure + stage_gap_weight + evidence_bonus`; all three terms measure how
+# much attention a lead attracts and none asks whether we are already running it, which is
+# detector W's observation ("none asks whether it is a tool this catalog is for") in a
+# second dimension.
+
+RepoInstallFinding = collections.namedtuple(
+    "RepoInstallFinding", "kind key slug verdict tool")
+
+# The `npx skills` project lockfile (vercel-labs/skills). Same record shape detector Y
+# reads from the home lockfile — a `source` slug per entry — one directory over.
+REPO_SKILL_LOCK = "skills-lock.json"
+
+
+def audit_repo_installs(ctx):
+    """(findings, evaluated, records) — vendored sources this repo runs but never judged.
+
+    Two counted kinds:
+
+      UNEVALUATED-INCUMBENT  the repo vendors it and its catalog row is still a
+                             `discovery-log` lead. The strongest kind: the queue holds a
+                             lead for a tool already in use here, and ranks it purely on
+                             the attention it attracts.
+      UNCATALOGUED           the vendored source has no catalog row at all — found from
+                             the INSTALL side, which is the only side that can see it
+                             (detector Y's rule: a scan looks at what exists, never at
+                             what is already running here).
+
+    One printed and never counted (V's `acked`, W's `cleared`, X's `FACETED`):
+
+      evaluated              the row carries a real verdict. This is the healthy state and
+                             the outcome the detector exists to produce; counting it would
+                             leave the headline unable to reach zero.
+
+    Resolution is by SLUG, never by the lockfile KEY. `find-skills` is the key and is a
+    skill NAME several packs ship; `vercel-labs/skills` is the identity (#343/#366/#374).
+
+    A missing, empty or unparseable lockfile yields 0 records, and 0 records is never 0
+    findings (detector V's rule): vendoring nothing is a different statement from a clean
+    sweep. Report-only, and staying that way — the remedy for the live finding is a human
+    running an eval, which is work rather than bookkeeping, so unlike check-links.py this
+    does not gate."""
+    try:
+        lock = json.loads(ctx.read(REPO_SKILL_LOCK))
+    except (OSError, ValueError):
+        lock = {}
+    entries = lock.get("skills") or {}
+    if not isinstance(entries, dict):
+        entries = {}
+
+    index = catalog_lib.link_index(ctx.catalog)
+    verd = ctx.comparison_verdict_map
+    findings, evaluated, records = [], [], 0
+    for key, rec in sorted(entries.items()):
+        slug = ((rec or {}).get("source") or "").strip().lower()
+        if not slug:
+            continue
+        records += 1
+        rows = catalog_lib.rows_for_slug(index, slug)
+        if not rows:
+            findings.append(RepoInstallFinding("UNCATALOGUED", key, slug, "—", None))
+            continue
+        # A slug can carry several rows (#465). The container row — the one linking the
+        # repo root — is what the lockfile's `source` names, so it is the subject; with no
+        # such row, fall back to the first rather than to a coin flip between the rest.
+        row = catalog_lib.container_row(index, slug) or rows[0]
+        v = next((verd[k] for k in catalog_lib.identity_keys(row.name) if k in verd), "—")
+        kind = "UNEVALUATED-INCUMBENT" if v == "discovery-log" else "evaluated"
+        f = RepoInstallFinding(kind, key, slug, v, row.name)
+        (findings if kind != "evaluated" else evaluated).append(f)
+
+    findings.sort(key=lambda f: (f.kind, f.slug))
+    evaluated.sort(key=lambda f: f.slug)
+    return findings, evaluated, records
+
+
 # ---------------------------------------------------------------- AB. unentitled CONDITIONAL (report-only)
 # ADR-0005 collapsed the CONDITIONAL bucket because at 83% of rows the verdict carried no
 # discriminating signal, and its rule is a disjunction: a real verdict requires EITHER the
@@ -3399,7 +3519,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
-                "--containment-evidence", "--stage-drift")
+                "--containment-evidence", "--stage-drift", "--repo-installs")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -3467,6 +3587,7 @@ def main():
     do_wfskip = "--workflow-skips" in want    # opt-in report (does not affect exit code)
     do_contev = "--containment-evidence" in want  # opt-in report (does not affect exit code)
     do_stage = "--stage-drift" in want  # opt-in report (does not affect exit code)
+    do_repoinst = "--repo-installs" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -3969,6 +4090,31 @@ def main():
                   f"{f.header}")
         print(f"  ({unusable} row(s) not compared — the header names no loop stage, an "
               "honest non-answer)")
+    if do_repoinst:
+        findings, evaluated, records = audit_repo_installs(ctx)
+        print(f"== AH. unread repo install record (report-only) — {len(findings)} of "
+              f"{records} vendored source(s) this repo runs but never judged ==")
+        if not records:
+            # 0 records is not 0 findings (detector V's rule): vendoring nothing is a
+            # different statement from every vendored source being settled.
+            print(f"  no `{REPO_SKILL_LOCK}` records — this repo vendors nothing into its "
+                  "own tree (0 records is not 0 findings)")
+        elif not findings:
+            print("  OK — every source this repo vendors carries a real verdict")
+        for f in findings:
+            if f.kind == "UNCATALOGUED":
+                print(f"  UNCATALOGUED          `{f.slug}` is vendored here as "
+                      f"`{f.key}` and has no CATALOG.md row — found from the install "
+                      "side, the only side that can see it")
+            else:
+                print(f"  UNEVALUATED-INCUMBENT {f.tool} [`{f.slug}`] is vendored here "
+                      f"as `{f.key}`, and its row is still a `{f.verdict}` lead — the "
+                      "queue ranks it on attention alone, never on the fact we run it")
+        # Printed, never counted (V's `acked`, W's `cleared`, X's `FACETED`): a settled
+        # source is the outcome this detector exists to produce.
+        for f in evaluated:
+            print(f"  evaluated {f.tool} [`{f.slug}`] vendored as `{f.key}` — "
+                  f"row reads {f.verdict}")
     sys.exit(rc)
 
 if __name__ == "__main__":
