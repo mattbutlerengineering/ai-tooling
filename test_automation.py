@@ -3434,15 +3434,16 @@ class TestWorkflowDrift(unittest.TestCase):
                  "| [b](https://github.com/own/b) | y | `pip install b` | Speed |\n")
         workflow = "### Plan\n| [a](https://github.com/own/a) — x |\n"
         with tempfile.TemporaryDirectory() as d:
-            miss = audit.audit_workflow_drift(self._ctx(d, stack, workflow))
+            miss, picks = audit.audit_workflow_drift(self._ctx(d, stack, workflow))
             self.assertEqual(miss, [("own/b", 5)])  # slug + first STACK line
+            self.assertEqual(picks, 2)              # the POPULATION, not the findings
 
     def test_all_picks_present_is_empty(self):
         stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
                  "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n")
         workflow = "the manual mentions [a](https://github.com/own/a) here\n"
         with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow))[0], [])
 
     def test_excluded_prose_slug_is_not_a_pick(self):
         # A github slug named only in STACK prose (an *excluded* tool) is not a pick
@@ -3452,7 +3453,7 @@ class TestWorkflowDrift(unittest.TestCase):
                  "- **excluded batch** — [b](https://github.com/own/b) didn't meet the bar.\n")
         workflow = "[a](https://github.com/own/a)\n"
         with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow))[0], [])
 
     def test_slug_match_is_case_insensitive(self):
         # GitHub slugs are case-insensitive: STACK links Own/Repo, WORKFLOW own/repo.
@@ -3460,8 +3461,63 @@ class TestWorkflowDrift(unittest.TestCase):
                  "| [a](https://github.com/Own/Repo) | x | `pip install a` | Correctness |\n")
         workflow = "[a](https://github.com/own/repo)\n"
         with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow)), [])
+            self.assertEqual(audit.audit_workflow_drift(self._ctx(d, stack, workflow))[0], [])
 
+
+    # --- one definition of a pick, shared with detector J and tier-stack (#469) ---
+
+    def test_a_link_mid_cell_is_a_mention_not_a_pick(self):
+        # STACK.md:117 reads `[GSD](…) planning + [graphify](…) views | … graphify is not
+        # in STACK — evaluations/ only`. Reading any github link on any |-line counted it,
+        # so P was one WORKFLOW.md edit away from demanding the manual document a tool
+        # STACK disclaims — flagging a healthy row, the expensive direction (V's rule).
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) plus [b](https://github.com/own/b) "
+                 "views | x | `pip install a` | b is not in STACK |\n")
+        with tempfile.TemporaryDirectory() as d:
+            miss, picks = audit.audit_workflow_drift(self._ctx(d, stack, "nothing here\n"))
+            self.assertEqual(picks, 1)
+            self.assertEqual(miss, [("own/a", 3)])
+
+    def test_the_population_is_reported_even_when_nothing_is_missing(self):
+        # CLAUDE.md describes P as "prints a count so it's a number to shrink"; the count
+        # it printed was the FINDINGS. `0 of 0` and `0 of 24` are different reports and
+        # only one of them is a pass — #467's rule, in the detector that stated it.
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n")
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(
+                audit.audit_workflow_drift(self._ctx(d, stack, "[a](https://github.com/own/a)"))[1], 1)
+            self.assertEqual(
+                audit.audit_workflow_drift(self._ctx(d, "no table here\n", ""))[1], 0)
+
+    def test_every_consumer_reads_one_definition(self):
+        # Five implementations, three of them the same regex written out again. A cell
+        # rewritten `| Use [GSD](…)` used to drop obra/superpowers from J's gating SKIP
+        # check and from triage.py's P2 band — 9 leads moved to P3, a band an unattended
+        # pass may NOT SKIP from — while P still counted it.
+        stack = ("| Tool | What | Install | Signal |\n|---|---|---|---|\n"
+                 "| [a](https://github.com/own/a) | x | `pip install a` | Correctness |\n"
+                 "| [b](https://github.com/own/b) | y | `pip install b` | Speed |\n")
+        picks = catalog_lib.stack_picks(stack)
+        self.assertEqual([p.slug for p in picks], ["own/a", "own/b"])
+        # detector J's helper and tier-stack's renderer are the same list
+        self.assertEqual(audit._stack_picks_by_slug(stack), picks)
+        t1, t2 = tier.stack_tiers(stack, {})
+        self.assertEqual([t for t, _e in [*t1, *t2]], ["a", "b"])
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(
+                audit.audit_workflow_drift(self._ctx(d, stack, ""))[1], len(picks))
+
+    def test_live_tree_pick_populations_agree_and_are_not_empty(self):
+        # The property that, had it existed, would have caught the divergence: P counted
+        # 25 slugs and J counted 24. A `for` loop over an empty pick list also passes
+        # every existing assertion, so the floor is pinned here too.
+        ctx = audit.DetectorContext(ROOT)
+        picks = catalog_lib.stack_picks(ctx.stack)
+        self.assertGreater(len(picks), 20, "STACK.md picks stopped parsing")
+        self.assertEqual(audit.audit_workflow_drift(ctx)[1],
+                         len({p.slug for p in picks}))
 
 # ----------------------------------------------------------------- next-evals (#plan-005)
 class TestNextEvals(unittest.TestCase):

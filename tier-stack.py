@@ -36,7 +36,6 @@ ae = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(ae)
 STACK = os.path.join(ROOT, "STACK.md")
 START, END = "<!-- TIERS:START -->", "<!-- TIERS:END -->"
 TIER1 = ("MEASURED", "RUN")
-_LINK = re.compile(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)")
 
 
 def stack_tiers(text, amap=None):
@@ -47,12 +46,14 @@ def stack_tiers(text, amap=None):
     if amap is None:
         amap = ae.DetectorContext(ROOT).evidence_alias_map
     tier1, tier2, seen = [], [], set()
-    for text_, url in _LINK.findall(text):
-        if text_ in seen:
+    # The ONE definition of a STACK pick (#469). This used to carry a third literal copy
+    # of the cell-initial-link regex, a file away from the two in audit-evals.py.
+    for pick in catalog_lib.stack_picks(text):
+        if pick.text in seen:
             continue
-        seen.add(text_)
-        ev = catalog_lib.evidence_lookup(amap, text_, url)
-        (tier1 if ev in TIER1 else tier2).append((text_, ev))
+        seen.add(pick.text)
+        ev = catalog_lib.evidence_lookup(amap, pick.text, pick.url)
+        (tier1 if ev in TIER1 else tier2).append((pick.text, ev))
     return tier1, tier2
 
 
