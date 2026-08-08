@@ -1273,6 +1273,169 @@ class TestLayerDrift(unittest.TestCase):
         self.assertTrue(no_layer, "the printed-not-counted bucket lost its members")
 
 
+class TestLinkIdentity(unittest.TestCase):
+    """Every identity fix landed here asked "given a slug, which row" (#343/#366/#374/
+    #413/#457/#463/#465). AJ asks the other direction — given the NAME a link shows a
+    reader, does the URL point at that tool — and `STACK.md` tells a reader to run
+    `claude install-plugin obra/superpowers` to get GSD (#483)."""
+
+    CHEAD = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+             "|---|---|---|---|---|---|\n")
+
+    def _ctx(self, d, rows, stack="", workflow="", evals=None):
+        cat = ["# Catalog", "", "## Skills & Plugins", "", self.CHEAD.rstrip()]
+        for n, u in rows:
+            link = f"[{n}]({u})" if u else n
+            cat.append(f"| {link} | tool | x | y | z |  |")
+        _write(d, "CATALOG.md", "\n".join(cat) + "\n")
+        _write(d, "STACK.md", stack or "# Stack\n")
+        _write(d, "WORKFLOW.md", workflow or "# Workflow\n")
+        for name, body in (evals or {}).items():
+            _write(d, os.path.join("evaluations", name + ".md"), body)
+        return audit.DetectorContext(d)
+
+    def _run(self, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_link_identity(self._ctx(d, **kw))
+
+    # The live shape: two catalogued tools, a link naming one and pointing at the other.
+    GSD = ("GSD (Get Shit Done)", "https://github.com/open-gsd/gsd-core")
+    SUP = ("superpowers", "https://github.com/obra/superpowers")
+
+    def test_a_link_naming_one_tool_and_pointing_at_another_is_a_finding(self):
+        find, walked = self._run(
+            rows=[self.GSD, self.SUP],
+            stack="| [GSD](https://github.com/obra/superpowers) | plan | `x` | Speed |\n")
+        self.assertEqual([(f.rel, f.named, f.slug) for f in find],
+                         [("STACK.md", "GSD (Get Shit Done)", "obra/superpowers")])
+        self.assertEqual(find[0].rows, ["superpowers"])
+        self.assertEqual(walked, 1)
+
+    def test_a_link_naming_the_tool_it_points_at_is_not_a_finding(self):
+        find, walked = self._run(
+            rows=[self.GSD, self.SUP],
+            stack="| [GSD](https://github.com/open-gsd/gsd-core) | plan | `x` | Speed |\n")
+        self.assertEqual(find, [])
+        self.assertEqual(walked, 1, "the healthy link must still be WALKED, not skipped")
+
+    def test_a_pack_member_linked_at_the_pack_root_is_healthy(self):
+        """#465's documented shape, and the whole precision story: 85 live links sit behind
+        a shared slug and a FIRST-ROW resolver flags 49 of them. The healthy set is every
+        row behind the slug, never the one row a single-answer resolver picks."""
+        pack = "https://github.com/mattpocock/skills"
+        find, walked = self._run(
+            # `mattpocock/skills` deliberately FIRST, so a first-row resolver answers with
+            # the container for the member link and the test fails.
+            rows=[("mattpocock/skills", pack),
+                  ("resolving-merge-conflicts", pack + "/tree/main/skills/git")],
+            stack=f"| [resolving-merge-conflicts]({pack}) | ship | `x` | Speed |\n")
+        self.assertEqual(find, [])
+        self.assertEqual(walked, 1)
+
+    def test_findings_do_not_depend_on_catalog_row_order(self):
+        """The property #463 violated inside the detector that GATES. Same two rows, both
+        orders, same answer."""
+        stack = "| [GSD](https://github.com/obra/superpowers) | plan | `x` | Speed |\n"
+        a, _ = self._run(rows=[self.GSD, self.SUP], stack=stack)
+        b, _ = self._run(rows=[self.SUP, self.GSD], stack=stack)
+        self.assertEqual([f.named for f in a], [f.named for f in b])
+        self.assertEqual([f.rows for f in a], [f.rows for f in b])
+
+    def test_text_that_names_no_catalogued_tool_is_not_walked(self):
+        """Conservative by construction: prose text resolves to nothing, so the link is
+        never compared. Flagging a healthy row costs more than missing a sick one."""
+        find, walked = self._run(
+            rows=[self.SUP],
+            stack="| [the harness we use](https://github.com/obra/superpowers) | x |\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_a_url_no_catalog_row_is_behind_is_not_walked(self):
+        find, walked = self._run(
+            rows=[self.GSD],
+            stack="| [GSD](https://github.com/some/stranger) | plan | `x` |\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_an_ambiguous_text_key_resolves_to_nothing_not_a_coin_flip(self):
+        """Detector U's AMBIG rule. `agent-skills` and `agentskills` collapse to one
+        `identity_key`; with two rows claiming it, a text matching neither by NAME resolves
+        to nothing rather than to whichever row CATALOG.md happens to list first."""
+        rows = [("agent-skills", "https://github.com/vercel-labs/agent-skills"),
+                ("agentskills", "https://github.com/tech-leads-club/agentskills"),
+                self.SUP]
+        find, walked = self._run(
+            rows=rows,
+            stack="| [Agent Skills](https://github.com/obra/superpowers) | x |\n")
+        self.assertEqual((find, walked), ([], 0))
+        # ...and an EXACT name still wins over the ambiguous key, which is the reason the
+        # fallback can be dropped at all (verify-installs.py's exact-name-first rule).
+        find2, walked2 = self._run(
+            rows=rows,
+            stack="| [agentskills](https://github.com/obra/superpowers) | x |\n")
+        self.assertEqual(walked2, 1)
+        self.assertEqual([f.named for f in find2], ["agentskills"])
+
+    def test_markdown_emphasis_in_the_text_is_stripped(self):
+        """The corpus cites this tool as ``GSD`` as often as GSD — 4 of the 8 live
+        findings are inside backticks. `identity_keys` drops backticks on its own, so the
+        strip is load-bearing on the EXACT-NAME path only: this row is reachable by name
+        and its key is ambiguous, so an unstripped text resolves to nothing."""
+        rows = [("agentskills", "https://github.com/tech-leads-club/agentskills"),
+                ("agent-skills", "https://github.com/vercel-labs/agent-skills"),
+                self.SUP]
+        find, walked = self._run(
+            rows=rows,
+            evals={"bmad-method": "# x\n\nredundant with "
+                                  "[`agentskills`](https://github.com/obra/superpowers)\n"})
+        self.assertEqual(walked, 1)
+        self.assertEqual([(f.rel, f.text, f.named) for f in find],
+                         [("evaluations/bmad-method.md", "`agentskills`", "agentskills")])
+
+    def test_the_text_index_keys_on_identity_never_alias(self):
+        """#374: `alias_keys` deliberately adds the URL basename so an entry installed
+        under another name resolves — but between two rows that each NAME a tool a
+        basename is not a synonym. An unrelated row at `foo/gsd` must not make the text
+        `GSD` ambiguous and silently withhold the finding."""
+        find, walked = self._run(
+            rows=[self.GSD, self.SUP,
+                  ("unrelated-row", "https://github.com/foo/gsd")],
+            stack="| [GSD](https://github.com/obra/superpowers) | plan | `x` |\n")
+        self.assertEqual(walked, 1)
+        self.assertEqual([f.named for f in find], ["GSD (Get Shit Done)"])
+
+    def test_findings_are_reported_in_walk_order_STACK_first(self):
+        """An EXECUTED page outranks a cited one (detector V's ordering). This is the walk
+        order rather than a `sort()`, so it is `files` that must keep STACK first."""
+        bad = "[GSD](https://github.com/obra/superpowers)"
+        find, _ = self._run(
+            rows=[self.GSD, self.SUP],
+            stack=f"| {bad} | plan | `x` |\n",
+            workflow=f"| {bad} | tooling |\n",
+            evals={"a-lead": f"# x\n\nredundant with {bad}\n"})
+        self.assertEqual([f.rel for f in find],
+                         ["STACK.md", "WORKFLOW.md", "evaluations/a-lead.md"])
+
+    def test_CATALOG_is_out_of_scope(self):
+        """A row's Name cell names its own row by construction, so it could never be a
+        finding; eval-vs-catalog link disagreement is detector U's `LINK` bucket."""
+        self.assertNotIn("CATALOG.md", audit.LINK_IDENTITY_FILES)
+        find, walked = self._run(rows=[self.GSD, self.SUP])
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_it_is_report_only_and_never_gates(self):
+        self.assertIn("--link-identity", audit.REPORT_FLAGS)
+        self.assertNotIn("--link-identity", audit.OFFLINE_GATES)
+        self.assertNotIn("--link-identity", audit.DEFAULT_GATES)
+
+    def test_live_tree_findings_never_exceed_the_population(self):
+        """#467's rule: the headline's second number is what was WALKED, so a finding set
+        larger than it would mean the detector is reporting outside its own population."""
+        find, walked = audit.audit_link_identity(audit.DetectorContext(audit.ROOT))
+        self.assertLessEqual(len(find), walked)
+        self.assertGreater(walked, 0, "the live tree walks no links at all")
+        for f in find:
+            self.assertNotIn(f.named, f.rows, "a finding whose text row IS behind the slug")
+
+
 class TestRepoInstallRecord(unittest.TestCase):
     """`skills-lock.json` is the one install record inside the tree, and nothing read it
     (#473). Detectors F and Y read the HOME lockfile and are local-only for that reason;
