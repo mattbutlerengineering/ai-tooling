@@ -50,7 +50,7 @@
 RUFF ?= ruff
 MYPY ?= mypy
 
-.PHONY: check check-offline fix lint lint-preflight
+.PHONY: check check-data check-offline fix lint lint-preflight
 
 # A missing linter must say what to install, not "command not found: ruff".
 lint-preflight:
@@ -66,12 +66,24 @@ lint: lint-preflight
 	$(RUFF) check
 	$(MYPY)
 
-check: lint-preflight
-	$(RUFF) check
-	$(MYPY)
+# The data gates alone — every offline `--check`, minus the two linters (they need the
+# pinned dev venv, and a contributor without it must not be blocked from committing) and
+# minus the unit suite (15.9s of regression net for the *scripts*, not a check on the
+# *tree*). Median 4.0s over 5 runs against 0.55s for the one gate the hooks used to run,
+# so full coverage costs ~3.5s per commit — the reason the two heavy exclusions above are
+# exclusions rather than an oversight.
+#
+# This is the ONE definition of that set, and both commit hooks call it
+# (`.claude/hooks/audit-gate.sh`, `.opencode/plugins/commit-gate.ts`). Before #459 they
+# ran `audit-evals.py --offline` alone — 1 of these 13 — while both described themselves
+# as running "the offline subset of make check", so every gate added since #153 silently
+# widened the hole: a stale NEXT-EVALS.md, a desynced plugin/docs/, a missing **Stars:**
+# line, a dead relative link and a stale WATCHLIST.md all passed the commit gate and
+# failed CI. A gate added here now reaches the Makefile, CI and both hooks at once, which
+# is what the lockstep invariant asks for and what nothing enforced.
+check-data:
 	python3 audit-evals.py --offline
 	python3 audit-evals.py --selftest
-	python3 -m unittest -q test_automation
 	python3 reconcile-counts.py --check
 	python3 backfill-evidence.py --check
 	python3 backfill-lastverified.py --check
@@ -83,6 +95,12 @@ check: lint-preflight
 	python3 triage.py --check
 	python3 watchlist.py --check
 	./sync-plugin-docs.sh --check
+
+check: lint-preflight
+	$(RUFF) check
+	$(MYPY)
+	@$(MAKE) check-data
+	python3 -m unittest -q test_automation
 	python3 audit-evals.py --installs
 	-python3 audit-evals.py --staleness
 	-python3 audit-evals.py --metadata-staleness
@@ -94,20 +112,8 @@ check: lint-preflight
 check-offline: lint-preflight
 	$(RUFF) check
 	$(MYPY)
-	python3 audit-evals.py --offline
-	python3 audit-evals.py --selftest
+	@$(MAKE) check-data
 	python3 -m unittest -q test_automation
-	python3 reconcile-counts.py --check
-	python3 backfill-evidence.py --check
-	python3 backfill-lastverified.py --check
-	python3 check-stars.py --check
-	python3 check-links.py --check
-	python3 check-plugin.py --check
-	python3 verify-installs.py --check
-	python3 tier-stack.py --check
-	python3 triage.py --check
-	python3 watchlist.py --check
-	./sync-plugin-docs.sh --check
 	-python3 audit-evals.py --staleness
 	-python3 audit-evals.py --metadata-staleness
 

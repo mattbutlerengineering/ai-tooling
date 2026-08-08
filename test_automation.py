@@ -1784,29 +1784,45 @@ class TestHookTriggerSeam(unittest.TestCase):
 
     _FAILING_AUDIT = "import sys; sys.stderr.write('detector X: fail\\n'); sys.exit(1)\n"
 
+    def _fixture(self, d, script):
+        """A minimal repo both halves of the gate can run: a fake gate script plus the
+        `check-data` target they now delegate to (#459)."""
+        _write(d, "audit-evals.py", script)
+        _write(d, "Makefile", "check-data:\n\tpython3 audit-evals.py --offline\n")
+
     def test_gate_blocks_commit_when_audit_fails(self):
         with tempfile.TemporaryDirectory() as d:
-            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            self._fixture(d, self._FAILING_AUDIT)
             r = self._run_gate(d, '{"tool_input": {"command": "git commit -m x"}}')
             self.assertEqual(r.returncode, 2, msg=r.stdout + r.stderr)
             self.assertIn("BLOCKED", r.stderr)
 
     def test_gate_passes_non_commit_despite_failing_audit(self):
         with tempfile.TemporaryDirectory() as d:
-            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            self._fixture(d, self._FAILING_AUDIT)
             r = self._run_gate(d, '{"tool_input": {"command": "git status"}}')
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
     def test_gate_passes_commit_when_audit_clean(self):
         with tempfile.TemporaryDirectory() as d:
-            _write(d, "audit-evals.py", "import sys; sys.exit(0)\n")
+            self._fixture(d, "import sys; sys.exit(0)\n")
             r = self._run_gate(d, '{"tool_input": {"command": "git commit -m x"}}')
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
     def test_gate_fails_open_on_garbage_payload(self):
         with tempfile.TemporaryDirectory() as d:
-            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            self._fixture(d, self._FAILING_AUDIT)
             r = self._run_gate(d, "not json at all")
+            self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
+
+    def test_gate_fails_open_when_the_target_is_absent(self):
+        # "Could not run" is not "failed" (#319's rule, #459). A tree with no `check-data`
+        # target — someone else's repo, an old checkout — must let the commit through.
+        # Delegating to `make` makes this reachable in a way `python3 script.py` was not,
+        # so it is pinned rather than assumed.
+        with tempfile.TemporaryDirectory() as d:
+            _write(d, "audit-evals.py", self._FAILING_AUDIT)  # no Makefile
+            r = self._run_gate(d, '{"tool_input": {"command": "git commit -m x"}}')
             self.assertEqual(r.returncode, 0, msg=r.stdout + r.stderr)
 
     @unittest.skipUnless(shutil.which("bun"), "bun not installed; opencode gate covered by the predicate pin only")
@@ -1814,7 +1830,7 @@ class TestHookTriggerSeam(unittest.TestCase):
         # Executes the REAL commit-gate plugin under bun against a fixture whose
         # audit always fails — the behavioral counterpart to the predicate pin.
         with tempfile.TemporaryDirectory() as d:
-            _write(d, "audit-evals.py", self._FAILING_AUDIT)
+            self._fixture(d, self._FAILING_AUDIT)
             driver = _write(d, "driver.ts", _GATE_DRIVER)
             r = subprocess.run(
                 ["bun", "run", driver, d, os.path.join(ROOT, ".opencode/plugins/commit-gate.ts")],
@@ -2999,9 +3015,26 @@ class TestIntegrityMakefile(unittest.TestCase):
         "audit-evals.py --metadata-staleness",
     )
 
-    def _target_body(self, target="check"):
-        """The recipe lines of `target:`. Prefix-safe — `check-offline:` does not start
-        with `check:`, so the two targets never capture each other's bodies."""
+    # `check-data` (#459) — the offline data gates alone: GATES minus the two linters
+    # (they need the pinned dev venv, and a contributor without it must not be blocked
+    # from committing), minus the unit suite (it tests the *scripts*, not the tree, and
+    # costs 15.9s), minus the network resolver. It is what both commit hooks run, so
+    # this tuple is the thing that keeps the hooks from drifting behind CI again.
+    DATA_GATES = tuple(g for g in GATES if g not in (
+        "$(RUFF) check",
+        "$(MYPY)",
+        "python3 -m unittest -q test_automation",
+        "audit-evals.py --installs",
+    ))
+
+    # Both halves of the commit gate, held in lockstep (the same pair TestHookTriggerSeam
+    # pins the commit predicate across).
+    COMMIT_HOOKS = (".claude/hooks/audit-gate.sh", ".opencode/plugins/commit-gate.ts")
+
+    def _raw_target_body(self, target):
+        """The literal recipe lines of `target:`, delegation unexpanded. Prefix-safe —
+        `check-offline:` does not start with `check:`, so the two targets never capture
+        each other's bodies."""
         with open(os.path.join(ROOT, "Makefile"), encoding="utf-8") as f:
             lines = f.read().splitlines()
         body, capturing = [], False
@@ -3015,6 +3048,24 @@ class TestIntegrityMakefile(unittest.TestCase):
                 else:
                     break  # recipe ends at the first non-tab line
         return body
+
+    def _target_body(self, target="check", _seen=None):
+        """The recipe lines of `target:`, with `$(MAKE) <other>` delegation expanded in
+        place. `check` and `check-offline` both delegate their thirteen data gates to
+        `check-data` (#459), so a gate-set assertion must follow the delegation or it
+        would read a shared list as a dropped one. Cycle-guarded."""
+        _seen = set() if _seen is None else _seen
+        if target in _seen:
+            return []
+        _seen.add(target)
+        out = []
+        for line in self._raw_target_body(target):
+            m = re.match(r"^[-@]*\$\(MAKE\)\s+(?:--\S+\s+)*(\S+)$", line)
+            if m:
+                out.extend(self._target_body(m.group(1), _seen))
+            else:
+                out.append(line)
+        return out
 
     def test_check_target_runs_every_gate(self):
         body = "\n".join(self._target_body())
@@ -3035,6 +3086,55 @@ class TestIntegrityMakefile(unittest.TestCase):
             if gate == "audit-evals.py --installs":
                 continue
             self.assertIn(gate, joined, msg=f"`make check-offline` is missing gate: {gate}")
+
+    def test_check_data_is_the_offline_gates_minus_lint_and_the_unit_suite(self):
+        # `check-data` is the ONE definition of the set both commit hooks run (#459).
+        # Pinned in both directions: every offline gate must be in it, and the four
+        # deliberate exclusions must stay out — each for a stated reason. Adding the unit
+        # suite would put 15.9s on every commit; adding ruff/mypy would block a
+        # contributor without the pinned dev venv; adding --installs would put the
+        # network on the commit path.
+        body = "\n".join(self._raw_target_body("check-data"))
+        self.assertTrue(body, "Makefile has no `check-data:` target body")
+        for gate in self.DATA_GATES:
+            self.assertIn(gate, body, msg=f"`make check-data` is missing gate: {gate}")
+        for excluded in ("$(RUFF)", "$(MYPY)", "unittest", "--installs"):
+            self.assertNotIn(excluded, body,
+                             msg=f"`make check-data` must not run {excluded}")
+
+    def test_both_commit_hooks_run_the_shared_target(self):
+        # The hooks ran `audit-evals.py --offline` alone — 1 of the 13 gates — while both
+        # described themselves as running "the offline subset of `make check`" (#459).
+        # Nothing coupled their list to the Makefile's, so every gate added since #153
+        # widened the hole in silence. They delegate now, which is the rule CLAUDE.md
+        # already states for every other hook here: one implementation.
+        for rel in self.COMMIT_HOOKS:
+            text = Path(ROOT, rel).read_text(encoding="utf-8")
+            self.assertIn("check-data", text,
+                          msg=f"{rel} must run the shared `make check-data` target")
+            # Read the CODE, not the comments: both files narrate the gate they used to
+            # run, and a header explaining the history is not a header re-running it —
+            # detector AC's rule that a comment carries provenance, not the claim (#451).
+            code = "\n".join(l for l in text.splitlines()
+                             if not l.lstrip().startswith(("#", "//")))
+            self.assertNotIn("audit-evals.py --offline", code,
+                             msg=f"{rel} must not keep a private gate list — delegate")
+
+    def test_both_commit_hooks_fail_open_when_the_gate_cannot_run(self):
+        # "Could not run" is not "failed" (detector C's rule, #319, applied to the hooks).
+        # A missing toolchain must let the commit through, and `make` cannot signal that
+        # through its exit code — it exits non-zero for an absent target and for a real
+        # finding alike — so both hooks decide it BEFORE the run, by probing the same
+        # three preconditions. Without this the delegation would turn a machine without
+        # `make` into one that can never commit.
+        for rel in self.COMMIT_HOOKS:
+            text = Path(ROOT, rel).read_text(encoding="utf-8")
+            self.assertIn("command -v make", text,
+                          msg=f"{rel} must probe for make before blocking on it")
+            self.assertIn("command -v python3", text,
+                          msg=f"{rel} must probe for python3 before blocking on it")
+            self.assertIn("^check-data:", text,
+                          msg=f"{rel} must probe that the target exists before running it")
 
     def test_report_only_trailers_run_in_both_targets(self):
         for target in ("check", "check-offline"):
