@@ -80,7 +80,7 @@ run here would be caught by detector B, and would be worse than this honest bloc
 - **Reproduce (install commands — both resolve; verified via detector A):**
 
 ```
-claude install-plugin thedotmack/claude-mem
+claude plugin marketplace add thedotmack/claude-mem && claude plugin install claude-mem@thedotmack
 npm install -g @agentmemory/agentmemory
 ```
 

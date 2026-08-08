@@ -46,7 +46,7 @@ Not hands-on installed — evaluation is architecture-review-based due to the he
 
 ## What didn't work or surprised us
 
-- **Massive installation footprint.** 1,176+ files, 40 skills, Go compilation required, complex hooks.json (63KB). This is a lifestyle choice, not a tool you add to an existing workflow. Compare superpowers which installs via one `claude install-plugin` command.
+- **Massive installation footprint.** 1,176+ files, 40 skills, Go compilation required, complex hooks.json (63KB). This is a lifestyle choice, not a tool you add to an existing workflow. Compare superpowers which installs via `claude plugin marketplace add` + `claude plugin install`.
 - **Primary documentation in Japanese.** While English translations exist, the skill files (harness-plan, harness-work, harness-review) have their detailed logic in Japanese. The English descriptions in frontmatter are summaries, not translations of the full skill body. This limits accessibility for English-only teams.
 - **Hook interception is aggressive.** Every Write/Edit/Bash/Read call routes through the Go binary — adding latency to every tool invocation. The 10-second timeouts suggest this is a known concern.
 - **Not composable.** Like Continuous-Claude-v3, this replaces your workflow rather than enhancing it. You can't cherry-pick the planning skill without the hooks and Go engine. Superpowers' individual skills (TDD, debugging, verification) work independently.

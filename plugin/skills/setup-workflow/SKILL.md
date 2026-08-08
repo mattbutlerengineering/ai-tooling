@@ -61,8 +61,8 @@ Install all missing? Or pick specific stages?
 
 For each selected tool, run the install command from STACK.md:
 - MCP servers: `claude mcp add ...`
-- Skills: `claude install-skill ...`
-- Plugins: `claude install-plugin ...`
+- Plugins and plugin-packaged skills: `claude plugin marketplace add <owner/repo>` then `claude plugin install <plugin>@<marketplace>`
+- Standalone skills: `npx skills add <owner/repo>`
 - npm packages: `npm install -D ...`
 - GitHub Actions: create workflow YAML file
 

@@ -768,7 +768,11 @@ def extract_installs(text):
         for pat, kind in [
             (r"^cargo install +([A-Za-z0-9._-]+)", "crates"),
             (r"^npx +(?:-y +)?(@?[A-Za-z0-9._/-]+)", "npm"),
-            (r"claude install-(?:plugin|skill) +([A-Za-z0-9._-]+/[A-Za-z0-9._-]+)", "gh"),
+            # `claude plugin marketplace add <owner/repo>` is the real form. `claude
+            # install-plugin` / `install-skill` — what STACK.md told a reader to run for
+            # ten months — are not subcommands at all, and this pattern resolved their
+            # ARGUMENT (the repo exists) while never asking whether the VERB does (#487).
+            (r"claude plugins? marketplace add +([A-Za-z0-9._-]+/[A-Za-z0-9._-]+)", "gh"),
         ]:
             mm = re.match(pat, cmd)
             if mm:
