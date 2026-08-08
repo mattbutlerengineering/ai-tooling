@@ -4441,6 +4441,12 @@ class TestCatalogMirror(unittest.TestCase):
     HDR = ("| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
            "|------|------|-----------|-------------------|---------------|\n")
 
+
+    def _find(self, ctx):
+        """Just the findings. `audit_catalog_mirror` also returns coverage —
+        how many evals it walked and why the rest were not (#467)."""
+        return audit.audit_catalog_mirror(ctx)[0]
+
     def _row(self, name, url, type_="tool", one="does a thing", prob="a pain", ovl="x"):
         return f"| [{name}]({url}) | {type_} | {one} | {prob} | {ovl} |\n"
 
@@ -4461,7 +4467,7 @@ class TestCatalogMirror(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("t", url)],
                             {"t": self._eval("t", url, self._row("t", url))})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_renamed_repo_is_a_LINK_finding(self):
         # The #336 failure: CATALOG gets repointed on a rename, the eval never does.
@@ -4469,7 +4475,7 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, [self._row("t", "https://github.com/new/t")],
                             {"t": self._eval("t", "https://github.com/old/t",
                                              self._row("t", "https://github.com/old/t"))})
-            kinds = [f.kind for f in audit.audit_catalog_mirror(ctx)]
+            kinds = [f.kind for f in self._find(ctx)]
             self.assertEqual(kinds, ["LINK", "LINK"])  # embedded row + **Repo:** header
 
     def test_case_only_link_diff_is_CASE_not_LINK(self):
@@ -4479,14 +4485,14 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, [self._row("t", "https://github.com/Owner/T")],
                             {"t": self._eval("t", "https://github.com/owner/t",
                                              self._row("t", "https://github.com/owner/t"))})
-            self.assertEqual({f.kind for f in audit.audit_catalog_mirror(ctx)}, {"CASE"})
+            self.assertEqual({f.kind for f in self._find(ctx)}, {"CASE"})
 
     def test_one_liner_drift_is_a_TEXT_finding(self):
         url = "https://github.com/o/t"
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("t", url, one="catalog wording")],
                             {"t": self._eval("t", url, self._row("t", url, one="eval wording"))})
-            f, = audit.audit_catalog_mirror(ctx)
+            f, = self._find(ctx)
             self.assertEqual(f.kind, "TEXT")
             self.assertTrue(f.detail.startswith("one_liner:"))
 
@@ -4497,14 +4503,14 @@ class TestCatalogMirror(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("t", url, ovl="incumbent")],
                             {"t": self._eval("t", url, self._row("t", url, ovl="something else"))})
-            f, = audit.audit_catalog_mirror(ctx)
+            f, = self._find(ctx)
             self.assertEqual((f.kind, f.detail.split(":")[0]), ("TEXT", "overlaps"))
 
     def test_embedded_row_with_no_catalog_row_is_ORPHAN(self):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [], {"t": self._eval("t", "https://github.com/o/t",
                                                     self._row("t", "https://github.com/o/t"))})
-            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["ORPHAN"])
+            self.assertEqual([f.kind for f in self._find(ctx)], ["ORPHAN"])
 
     # --- unlinked catalog rows are still catalogued (#401) --------------------
     # An entry with no repo to link (`| server-github | MCP server | DEPRECATED, archived
@@ -4517,7 +4523,7 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, ["| t | tool | does a thing | a pain | x |\n"],
                             {"t": self._eval("t", "https://github.com/o/t",
                                              self._row("t", "https://github.com/o/t"))})
-            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], [])
+            self.assertEqual([f.kind for f in self._find(ctx)], [])
 
     def test_unlinked_catalog_row_is_never_a_link_finding(self):
         # There is no URL on the catalog side to compare against, so a mirror that
@@ -4527,7 +4533,7 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, ["| t | tool | does a thing | a pain | x |\n"],
                             {"t": self._eval("t", "https://github.com/o/other",
                                              self._row("t", "https://github.com/o/other"))})
-            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], [])
+            self.assertEqual([f.kind for f in self._find(ctx)], [])
 
     def test_unlinked_catalog_row_still_reports_text_drift(self):
         # Indexing the row is not the same as excusing it. Once it resolves, its cells
@@ -4536,7 +4542,7 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, ["| t | tool | catalog wording | a pain | x |\n"],
                             {"t": self._eval("t", "https://github.com/o/t",
                                              self._row("t", "https://github.com/o/t"))})
-            finds = audit.audit_catalog_mirror(ctx)
+            finds = self._find(ctx)
             self.assertEqual([f.kind for f in finds], ["TEXT"])
             self.assertIn("one_liner", finds[0].detail)
 
@@ -4546,21 +4552,110 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, ["| other | tool | does a thing | a pain | x |\n"],
                             {"t": self._eval("t", "https://github.com/o/t",
                                              self._row("t", "https://github.com/o/t"))})
-            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["ORPHAN"])
+            self.assertEqual([f.kind for f in self._find(ctx)], ["ORPHAN"])
 
     def test_live_tree_has_no_orphan_or_case_findings(self):
         # The #401 backlog, pinned at zero. TEXT is deliberately NOT pinned — #345's
         # sequencing note is that it stays a human's per-row call.
-        finds = audit.audit_catalog_mirror(audit.DetectorContext(ROOT))
+        finds = self._find(audit.DetectorContext(ROOT))
         self.assertEqual([f"{f.kind} {f.eval_name}" for f in finds
                           if f.kind in ("ORPHAN", "CASE", "LINK", "AMBIG")], [])
 
+    # --- coverage: what U walked, and what it never reached (#467) -------------
+
+    def _cover(self, ctx):
+        return audit.audit_catalog_mirror(ctx)[1]
+
+    def test_the_headline_denominator_is_the_population_not_the_finding_set(self):
+        # It used to print `len({f.eval_name for f in drift})` — the evals it FOUND
+        # something in — where every other detector here prints n/total. Two clean evals
+        # and one drifted must report a population of 3, not 1.
+        with tempfile.TemporaryDirectory() as d:
+            rows = [self._row(n, f"https://github.com/o/{n}") for n in ("a", "b", "c")]
+            evals = {n: (f"# Evaluation: {n}\n\n**Repo:** [s](https://github.com/o/{n})\n\n"
+                         f"## Catalog entry\n\n{self.HDR}"
+                         f"{self._row(n, f'https://github.com/o/{n}')}")
+                     for n in ("a", "b")}
+            evals["c"] = (f"# Evaluation: c\n\n**Repo:** [s](https://github.com/o/c)\n\n"
+                          f"## Catalog entry\n\n{self.HDR}"
+                          f"{self._row('c', 'https://github.com/o/c', one='drifted')}")
+            ctx = self._ctx(d, rows, evals)
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(len({f.eval_name for f in finds}), 1)
+            self.assertEqual(cover.walked, 3)      # the number the headline must print
+            self.assertEqual(sum(cover.skipped.values()), 0)
+
+    def test_an_empty_walk_is_distinguishable_from_a_clean_one(self):
+        # "0 disagreement(s) across 0 eval(s)" read identically to "0 evals were checked":
+        # #319's silence-is-not-success, inside the report that exists to count drift.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\nno mirror here.\n"})
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual((finds, cover.walked), ([], 0))
+            self.assertEqual(sum(cover.skipped.values()), 1)
+
+    def test_a_missing_mirror_is_split_by_whether_the_tool_is_catalogued(self):
+        # 88 of the 99 name a tool CATALOG.md lists; the other 11 do not, and only the
+        # first bucket is plausibly a defect. Printed, never counted either way — whether
+        # a missing mirror is wrong is a human's call, and 88 findings would be a backlog
+        # manufactured out of a question nobody asked.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\nno mirror.\n",
+                             "stranger": "# Evaluation: stranger\n\nno mirror.\n"})
+            cover = self._cover(ctx)
+            self.assertEqual(cover.skipped[audit.SKIP_NO_SECTION_CATALOGUED], 1)
+            self.assertEqual(cover.skipped[audit.SKIP_NO_SECTION], 1)
+
+    def test_a_declared_na_is_bucketed_apart_from_a_missing_section(self):
+        # `cost-audit-compress-recipe` is a recipe that correctly has no row and says so.
+        # Reporting it beside 88 genuine gaps would make the honest path look like one.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\n## Catalog entry: n/a\n\nA recipe.\n"})
+            self.assertEqual(self._cover(ctx).skipped[audit.SKIP_NA], 1)
+
+    def test_a_section_with_no_parseable_row_is_its_own_bucket(self):
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\n## Catalog entry\n\nprose, no table.\n"})
+            self.assertEqual(self._cover(ctx).skipped[audit.SKIP_NO_ROW], 1)
+
+    # --- an UNLINKED embedded row is indexed, not dropped (#401's rule, #467) ---
+
+    def _unlinked(self, name, one="does a thing", ovl="x"):
+        """An embedded row with no link — cells otherwise identical to `_row`'s."""
+        return f"| {name} | tool | {one} | a pain | {ovl} |\n"
+
+    def test_an_unlinked_embedded_row_is_compared_not_skipped(self):
+        # The filter read `if r.url is not None`, the exact mirror of the one #401 removed
+        # on the CATALOG side: a row with no repo to link still names a tool and its other
+        # cells are still a mirror. Two live disagreements were invisible behind it.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t", ovl="a, b")],
+                            {"t": f"# Evaluation: t\n\n## Catalog entry\n\n{self.HDR}"
+                                  f"{self._unlinked('t', ovl='a, b, c')}"})
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(cover.walked, 1)
+            self.assertEqual([(f.kind, f.tool) for f in finds], [("TEXT", "t")])
+            self.assertIn("overlaps", finds[0].detail)
+
+    def test_an_unlinked_embedded_row_never_produces_a_link_finding(self):
+        # Skipping the URL comparison is right; skipping the row is not. There is no URL
+        # on the eval's side, so there is nothing to disagree about.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": f"# Evaluation: t\n\n## Catalog entry\n\n{self.HDR}"
+                                  f"{self._unlinked('t')}"})
+            self.assertEqual(self._find(ctx), [])
+
     def test_eval_with_no_embedded_row_is_not_a_finding(self):
-        # 110 evals carry no `## Catalog entry` block; nothing is mirrored, so nothing drifts.
+        # 107 evals reach no embedded row; nothing is mirrored, so nothing drifts.
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
                             {"t": "# Evaluation: t\n\n**Repo:** [s](https://github.com/o/t)\n"})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_site_headed_eval_reports_no_header_finding(self):
         # A commercial platform heads with **Site:**, not **Repo:** — absence is not drift.
@@ -4569,7 +4664,7 @@ class TestCatalogMirror(unittest.TestCase):
             text = (f"# Evaluation: t\n\n**Site:** [x](https://example.com)\n\n"
                     f"## Catalog entry\n\n{self.HDR}{self._row('t', url)}")
             ctx = self._ctx(d, [self._row("t", url)], {"t": text})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_pack_eval_checks_every_embedded_row(self):
         # A pack eval embeds its siblings' rows too; each mirrors a catalog row.
@@ -4579,7 +4674,7 @@ class TestCatalogMirror(unittest.TestCase):
                     f"{self.HDR}{self._row('a', a)}{self._row('b', b, one='eval wording')}")
             ctx = self._ctx(d, [self._row("a", a), self._row("b", b, one="catalog wording")],
                             {"pack": text})
-            f, = audit.audit_catalog_mirror(ctx)
+            f, = self._find(ctx)
             self.assertEqual((f.tool, f.kind), ("b", "TEXT"))
 
     def test_parenthetical_name_resolves_to_its_catalog_row(self):
@@ -4588,7 +4683,7 @@ class TestCatalogMirror(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("GSD (gsd-core)", url)],
                             {"gsd": self._eval("GSD", url, self._row("GSD (gsd-core)", url))})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_flag_is_report_only_and_exits_zero(self):
         # Report-only, per #345: a bulk fix in either direction destroys real work in
@@ -4620,7 +4715,7 @@ class TestCatalogMirror(unittest.TestCase):
             ctx = self._ctx(d, [self._row("agent-skills", a), self._row("agentskills", b)],
                             {"agentskills": self._eval("agentskills", b,
                                                        self._row("agentskills", b))})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_collapsed_key_reaching_two_rows_is_AMBIG_not_a_guess(self):
         # No exact match, and the fallback key reaches two distinct tools: resolve to
@@ -4630,7 +4725,7 @@ class TestCatalogMirror(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("agent-skills", a), self._row("agent_skills", b)],
                             {"e": self._eval("e", a, self._row("agentskills", a))})
-            f, = audit.audit_catalog_mirror(ctx)
+            f, = self._find(ctx)
             self.assertEqual(f.kind, "AMBIG")
             self.assertIn("agentskills", f.detail)
 
@@ -4642,7 +4737,7 @@ class TestCatalogMirror(unittest.TestCase):
             text = (f"# Evaluation: t\n\n**Repo:** [old]({old}) — **now redirects to** "
                     f"[new]({new})\n\n## Catalog entry\n\n{self.HDR}{self._row('t', new)}")
             ctx = self._ctx(d, [self._row("t", new)], {"t": text})
-            self.assertEqual(audit.audit_catalog_mirror(ctx), [])
+            self.assertEqual(self._find(ctx), [])
 
     def test_header_naming_only_the_old_repo_is_still_drift(self):
         old, new = "https://github.com/o/old", "https://github.com/o/new"
@@ -4651,7 +4746,7 @@ class TestCatalogMirror(unittest.TestCase):
                     f"## Catalog entry\n\n{self.HDR}{self._row('t', new)}")
             ctx = self._ctx(d, [self._row("t", new)], {"t": text})
             # only the header is stale here — the embedded row already matches
-            self.assertEqual([f.kind for f in audit.audit_catalog_mirror(ctx)], ["LINK"])
+            self.assertEqual([f.kind for f in self._find(ctx)], ["LINK"])
 
 
 class TestMaintenanceSignal(unittest.TestCase):
