@@ -1436,6 +1436,95 @@ class TestLinkIdentity(unittest.TestCase):
             self.assertNotIn(f.named, f.rows, "a finding whose text row IS behind the slug")
 
 
+class TestInstallExtractor(unittest.TestCase):
+    """Detector A GATES, and its extractor had no tests at all — which is how it came to
+    require the literal word `install` and leave 10 real commands invisible to a headline
+    reading `86/86 target(s) checked` (#485). Pinned in BOTH directions: what it must now
+    see, and what it must still refuse to mint a target from."""
+
+    @staticmethod
+    def _ex(cmd):
+        return list(audit.extract_installs("`" + cmd + "`"))
+
+    # --- what the literal-`install` requirement used to hide -------------------------
+    def test_npm_i_and_npm_add_are_installs(self):
+        for cmd in ("npm i -g promptfoo", "npm add -g promptfoo"):
+            self.assertEqual(self._ex(cmd), [("npm", "promptfoo")], cmd)
+
+    def test_every_package_on_the_line_is_checked_not_just_the_first(self):
+        """`npm install a b c` installs three packages; the extractor checked `a`, so
+        `strands-agents-tools` had never been verified once."""
+        self.assertEqual(
+            self._ex("npm i -D jest @stryker-mutator/core @stryker-mutator/jest-runner"),
+            [("npm", "jest"), ("npm", "@stryker-mutator/core"),
+             ("npm", "@stryker-mutator/jest-runner")])
+        self.assertEqual(self._ex("pip install strands-agents strands-agents-tools"),
+                         [("pypi", "strands-agents"), ("pypi", "strands-agents-tools")])
+
+    # --- the precision rules: a false BROKEN fails the build for a HEALTHY eval -------
+    def test_a_shell_operator_ends_the_package_list(self):
+        """A naive whitespace split mints targets named `&&`, `npx` and `start`. All four
+        corpus lines that continue past the packages must behave exactly as before."""
+        self.assertEqual(self._ex("npm install -g flowise && npx flowise start"),
+                         [("npm", "flowise")])
+        self.assertEqual(self._ex("npm install -g squish-memory && squish install --all"),
+                         [("npm", "squish-memory")])
+        self.assertEqual(self._ex("npm install && npm run build"), [])
+        self.assertEqual(self._ex("cargo install --git"), [])
+
+    def test_extras_quotes_and_version_pins_are_stripped_not_lost(self):
+        """The first prototype LOST these two: the package is `markitdown`, not
+        `markitdown[all]`. A coverage regression in a gating detector is worse than the
+        gap being fixed, so the lost-nothing direction is pinned too."""
+        self.assertEqual(self._ex("pip install 'markitdown[all]'"), [("pypi", "markitdown")])
+        self.assertEqual(self._ex("pipx install 'cocoindex-code[full]'"),
+                         [("pypi", "cocoindex-code")])
+        self.assertEqual(self._ex("npm install ccusage@latest"), [("npm", "ccusage")])
+
+    def test_a_url_or_path_install_target_is_not_minted_as_a_registry_name(self):
+        """npm genuinely accepts a git URL, a tarball or a local path where a registry
+        name goes. None of those is a package to look up, and inside a GATE an
+        unrecognized token becoming a target means a false BROKEN and a red build."""
+        for cmd in ("npm i git+https://github.com/o/r.git",
+                    "npm install file:./local-pkg",
+                    "npm i https://example.com/pkg.tgz"):
+            self.assertEqual(self._ex(cmd), [], cmd)
+
+    def test_a_scoped_package_keeps_its_leading_at(self):
+        """The version-pin strip must never eat an npm scope."""
+        self.assertEqual(self._ex("npm i -g @qwen-code/qwen-code"),
+                         [("npm", "@qwen-code/qwen-code")])
+
+    def test_the_other_forms_are_untouched(self):
+        self.assertEqual(self._ex("npx ccusage@latest daily --json"), [("npm", "ccusage")])
+        self.assertEqual(self._ex("cargo install ripgrep"), [("crates", "ripgrep")])
+        self.assertEqual(self._ex("claude install-plugin obra/superpowers"),
+                         [("gh", "obra/superpowers")])
+
+    def test_a_command_framed_as_the_wrong_one_is_still_skipped(self):
+        """The NEGATION window is what keeps correction notes from becoming findings."""
+        self.assertEqual(
+            list(audit.extract_installs("this does not exist: `npm i -g nope-nope`")), [])
+
+    def test_the_live_tree_gains_coverage_and_loses_none(self):
+        """The invariant the fix is FOR: every target the old extractor found is still
+        found, and the ten alias lines are now among them."""
+        ctx = audit.DetectorContext(audit.ROOT)
+        import glob
+        files = ["STACK.md", "CATALOG.md",
+                 *sorted(glob.glob("evaluations/*.md", root_dir=ctx.root))]
+        found = set()
+        for rel in files:
+            if os.path.exists(ctx.path(rel)):
+                found |= set(audit.extract_installs(ctx.read(rel)))
+        for gained in [("npm", "@qwen-code/qwen-code"), ("npm", "claurst"),
+                       ("npm", "inngest"), ("pypi", "strands-agents-tools")]:
+            self.assertIn(gained, found, "an alias-form install went unchecked again")
+        for kept in [("pypi", "markitdown"), ("pypi", "cocoindex-code"),
+                     ("gh", "obra/superpowers")]:
+            self.assertIn(kept, found, "the widened extractor LOST a target")
+
+
 class TestRepoInstallRecord(unittest.TestCase):
     """`skills-lock.json` is the one install record inside the tree, and nothing read it
     (#473). Detectors F and Y read the HOME lockfile and are local-only for that reason;

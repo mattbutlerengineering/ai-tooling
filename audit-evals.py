@@ -706,6 +706,45 @@ PLACEHOLDER = re.compile(r"^\.+$|\.\.\.|[<>{}|&]|^-|,$|"
 NEGATION = re.compile(r"\b(not|non-?existent|does ?n.?t exist|do(es)? not exist|no such|wrong|"
                       r"instead of|isn.?t|rather than|earlier draft|was wrong|404|nonexistent)\b", re.IGNORECASE)
 
+# A package name, after PKG_CLEAN has taken quotes, PEP 508 extras and a version pin off.
+# Anything else on an install line ends the package list — see `_install_packages`.
+_PKG_TOKEN = re.compile(r"^@?[A-Za-z0-9._][A-Za-z0-9._/-]*$")
+
+# `npm install`, and the two aliases npm documents for it. Requiring the literal word left
+# 10 real install commands invisible to a GATE whose headline read "86/86 checked" (#485).
+_NPM_INSTALL = re.compile(r"^npm +(?:install|i|add) +(.*)$")
+_PIP_INSTALL = re.compile(r"^pip(?:x| install| ) *install +(.*)$")
+
+
+def _install_packages(rest):
+    """Every package on the tail of an install command, in order.
+
+    `npm install a b c` installs three packages and the extractor used to check `a`, so
+    `strands-agents-tools` had never been verified at all. Two rules keep this safe inside
+    a detector that GATES, where a false BROKEN fails the build for a healthy eval:
+
+      * a `-flag` is skipped, never treated as a package;
+      * the FIRST token that is not package-shaped ENDS the list, rather than being
+        skipped over. Four lines in the corpus continue past the packages with a shell
+        operator (`npm install -g flowise && npx flowise start`), and a naive split would
+        mint targets named `&&`, `npx` and `start`. Stopping leaves all four behaving
+        exactly as they did.
+
+    Cleaning is `PKG_CLEAN`/`PLACEHOLDER`, the same pair the single-package patterns use
+    rather than a second copy — quotes, PEP 508 extras and version pins all come off there,
+    which is what keeps `pip install 'markitdown[all]'` resolving as `markitdown`.
+    """
+    out = []
+    for tok in rest.split():
+        if tok.startswith("-"):
+            continue
+        pkg = PKG_CLEAN(tok)
+        if not pkg or PLACEHOLDER.search(pkg) or not _PKG_TOKEN.match(pkg):
+            break
+        out.append(pkg)
+    return out
+
+
 def extract_installs(text):
     """Yield (kind, package) from install-like commands in markdown."""
     for m in re.finditer(r"`([^`]*)`", text):
@@ -714,10 +753,20 @@ def extract_installs(text):
         window = text[max(0, m.start() - 70):m.end() + 60]
         if NEGATION.search(window):
             continue
+        # Multi-package forms first: these consume the whole tail of the command.
+        multi = ((_PIP_INSTALL, "pypi"), (_NPM_INSTALL, "npm"))
+        matched = False
+        for pat, kind in multi:
+            mm = pat.match(cmd)
+            if mm:
+                matched = True
+                for pkg in _install_packages(mm.group(1)):
+                    yield kind, pkg
+                break
+        if matched:
+            continue
         for pat, kind in [
-            (r"^pip(?:x| install| ) *install +'?([A-Za-z0-9._-]+)", "pypi"),
             (r"^cargo install +([A-Za-z0-9._-]+)", "crates"),
-            (r"^npm install +(?:-[gD] +)?(@?[A-Za-z0-9._/-]+)", "npm"),
             (r"^npx +(?:-y +)?(@?[A-Za-z0-9._/-]+)", "npm"),
             (r"claude install-(?:plugin|skill) +([A-Za-z0-9._-]+/[A-Za-z0-9._-]+)", "gh"),
         ]:
