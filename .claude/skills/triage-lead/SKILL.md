@@ -1,14 +1,29 @@
 ---
 name: triage-lead
-description: Drive ONE discovery-log lead to a durable state — SKIP with a stated reason, or leave at discovery-log — under the eliminate-only rule. Never writes ADOPT/KEEP/CONDITIONAL. Use when disposing a single lead from a bulk band. Triggers - "/triage-lead <tool>", "triage this lead", the command NEXT-EVALS.md prints for P1/P2/P3.
+description: Drive ONE discovery-log lead to a durable state — SKIP with a stated reason, or leave at discovery-log — under the eliminate-only rule. Never writes ADOPT/KEEP/CONDITIONAL. Use when disposing a single lead from a bulk band. Triggers - "/triage-lead <tool>", "triage this lead", the command NEXT-EVALS.md prints for every band except P0 measure.
 disable-model-invocation: true
 ---
 
 # Triage Lead
 
-Disposes **one** `discovery-log` lead end-to-end. This is the tool the P1/P2/P3
-bands in `NEXT-EVALS.md` point at, so the protocol lives here once instead of being
-re-derived in every fan-out prompt.
+Disposes **one** `discovery-log` lead end-to-end. `triage.py` prints
+`/triage-lead <tool>` for **every band except `P0 measure`** — P1, P2, P3, P4 and P5 —
+so the protocol lives here once instead of being re-derived in every fan-out prompt.
+
+Each band states a different disposition, and this skill has to be able to write all of
+them. It named three for its whole life (#477): P4 already existed when it was written
+and P5 arrived with the `Ships inside` column (#343), so two bands routed here to a
+procedure whose only SKIP vocabulary was *redundancy* — the one verdict #343 says is
+**meaningless** against a lead's own container. `TestSkillContracts` now derives the
+routed set from `triage.py` and fails if a band is missing from the table below.
+
+| Band | The lead is here because | A SKIP here reads |
+|------|--------------------------|-------------------|
+| **P1 successor-check** | `archived == true` | `archived — superseded by <successor>`; archived usually means *moved*, so check for one first and never auto-SKIP |
+| **P2 challenger** | it cites a STACK pick in `Overlaps with` | `redundant with <incumbent>` — the row names every pick it challenges |
+| **P3 backlog** | nothing structural | usually nothing: leave it and stamp |
+| **P4 mechanical-skip** | vendored Type (`skill`/`plugin`) under a disqualifying license | `<license> — a vendored artifact is copied into the consuming repo`; zero judgement, the license *is* the reason |
+| **P5 ships-inside** | its row declares a `Ships inside` container | `ships inside <container>` — **never** a redundancy claim; see step 4 |
 
 ## The eliminate-only contract (read first)
 
@@ -40,8 +55,10 @@ may reach any verdict; that marker is not yours to write.
 1. **Resolve the lead.** Find its `CATALOG.md` row (`grep -inE "\[?<tool>\b" CATALOG.md`)
    and its `COMPARISON.md` row. If the COMPARISON row's Evaluated cell is **not**
    `discovery-log`, this lead is already dispositioned — **stop**, it is not a triage
-   candidate. Note its CATALOG "Overlaps with" cell and its `repo-metadata.json` record
-   (`license_spdx`, `archived`, `pushed_at`, `stars`).
+   candidate. Note its CATALOG "Overlaps with" **and `Ships inside`** cells and its
+   `repo-metadata.json` record (`license_spdx`, `archived`, `pushed_at`, `stars`).
+   `Ships inside` is what bands a lead P5, and `NEXT-EVALS.md` prints the container in
+   the row's Why column (`ships inside \`mattpocock/skills\``) so you do not re-derive it.
 
 2. **Read the eval, if any** (`evaluations/<slug>.md`). Take its **headline** verdict —
    the first non-blank line under `## Verdict`. Key on that line only, **never** on
@@ -73,12 +90,28 @@ may reach any verdict; that marker is not yours to write.
    Proceed only when there is **no eval**, or the eval's headline is `discovery-log` / `SKIP`
    / genuinely tentative in the sense just defined.
 
-4. **Decide the disposition** (judgement, inside eliminate-only authority):
+4. **Decide the disposition** (judgement, inside eliminate-only authority). **Write the
+   reason your band's disposition asks for**, from the table above — a SKIP with no
+   recorded reason is the evidence-free verdict this repo exists to prevent, and a SKIP
+   carrying the *wrong band's* reason is worse, because it reads as a judgement nobody
+   made.
    - **SKIP** when the lead is clearly not worth a first-time hands-on eval —
-     *redundant* with a named STACK/catalog incumbent that already covers the same job,
-     *archived with its successor already catalogued*, or otherwise plainly dominated.
-     The reason must **name the incumbent or successor**. A SKIP with no recorded
-     reason is the evidence-free verdict this repo exists to prevent.
+     *redundant* with a named STACK/catalog incumbent that already covers the same job
+     (P2), *archived with its successor already catalogued* (P1), *vendored under a
+     disqualifying license* (P4), *shipping inside a catalogued container* (P5), or
+     otherwise plainly dominated. The reason must **name** the incumbent, successor,
+     license or container it turns on.
+   - **P5 is not a redundancy call.** A contained row is a *component* of the artifact
+     its container names, not a competitor to it — `CLAUDE.md` puts it plainly under
+     detector X: *"a redundancy verdict between the two is meaningless — that is the
+     same thing, not a competitor."* So `SKIP — redundant with <container>` is wrong
+     even when the container is a STACK pick. The two legitimate outcomes are
+     `SKIP — ships inside \`<container>\`` and **settling the container**, which is a
+     decision about the container's own row and therefore *not* this lane's to make:
+     if the container is itself an un-disposed lead, leave the component and say so.
+   - **P4 is not a judgement call.** The license and the vendored Type *are* the reason;
+     state them and stop. Do not argue quality, and do not extend it to a Type that is
+     merely *run* rather than copied in — copyleft on a CLI you invoke imposes nothing.
    - **Leave at `discovery-log`** when the lead is significant or differentiated enough
      to deserve a real eval (don't SKIP a major tool as "redundant"), or when you can't
      make a defensible call. Stamping records that it was examined; the absence of a
@@ -156,16 +189,25 @@ offers none.
 
 ## Verdict
 
-**SKIP** — redundant with `<incumbent>` (<why the incumbent dominates>). <incumbent>
-already covers this job in STACK; a second tool for it earns nothing.
+**SKIP** — <the reason your band's disposition asks for, from the table above>.
 
-_Triaged <today> by the P2 challenger band._
+_Triaged <today> by the <band> band._
 ```
+
+Both bracketed values come from **the band this lead was actually in**, not from a
+default. The `## Verdict` line for a P2 lead reads `redundant with \`<incumbent>\`
+(<why the incumbent dominates>) — <incumbent> already covers this job in STACK; a
+second tool for it earns nothing`, and for a P5 lead it reads ``ships inside
+`<container>` — installing the container settles it; it is a component of that
+artifact, not a competitor to it``. Copying the P2 sentence onto a P5 lead is the
+specific mistake this template used to hardcode (#477).
 
 For the **leave** outcome, drop the `## Verdict` section and replace it with a
 `## Triage note` explaining why the lead was left at `discovery-log` (e.g. "significant
 standalone tool — deserves a real hands-on eval, not a mechanical SKIP; left for the
-P0/eval-runner lane").
+P0/eval-runner lane"). For a **P5** lead the note says which container settles it and
+what state that container's own row is in — the remedy is a decision about the
+container, not an eval of the component, so `P0/eval-runner` is the wrong hand-off.
 
 ## Guardrails recap
 

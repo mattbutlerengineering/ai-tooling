@@ -1480,6 +1480,96 @@ class TestRoutineGateContract(unittest.TestCase):
             self.assertIn(token, text, msg=f"routines.md never mentions {token}")
 
 
+# ------------------------------------------------- agent-facing skill contracts (#477)
+class TestSkillContracts(unittest.TestCase):
+    """A project skill is a procedure an agent follows instead of deriving one, so a fact
+    it restates from the code is load-bearing in the way `plugin/README.md`'s facts are —
+    *gate the shared facts, not the file*. Project skills were pinned for frontmatter
+    shape only (`name:` matches the folder, a `description:` exists), never for what the
+    body claims, and both claims below had rotted:
+
+      `/triage-lead`        said it served P1/P2/P3 while `triage.py` routed FIVE bands to
+                            it. Wrong the day it was written — #269 created the bands
+                            including P4 and the command line, #271 wrote the skill two
+                            issues later — and wrong again when #343/#394 added P5. Three
+                            edits since (#323, #330, #358) left the list untouched.
+      `/add-catalog-entry`  named `plugin/CLAUDE` as a reconcile target. That file was
+                            renamed in #441/#442, and its REAPPEARANCE is a check-plugin
+                            `FRONT-DOOR` finding — so the skill pointed at a write target
+                            whose existence fails `make check`.
+
+    Both derive from the code rather than hand-listing, so adding a band or a count target
+    fails here instead of silently outdating the skill."""
+
+    @staticmethod
+    def _skill(name):
+        with open(os.path.join(ROOT, ".claude", "skills", name, "SKILL.md"),
+                  encoding="utf-8") as fh:
+            return fh.read()
+
+    def test_the_skill_names_every_band_routed_to_it(self):
+        # Keyed on a ROW of the skill's band table, not on the bare token appearing
+        # somewhere in the file: prose discussing P5 is not a procedure for P5, and a
+        # substring pin would pass more easily the more of the table was deleted — the
+        # test direction #443 caught in the counts hook.
+        routed = [n for n, _, _ in triage.BANDS if n != "P0 measure"]
+        rows = [ln for ln in self._skill("triage-lead").splitlines()
+                if ln.startswith("| **P")]
+        for band in routed:
+            match = [r for r in rows if r.startswith(f"| **{band}**")]
+            self.assertEqual(len(match), 1,
+                             msg=f"NEXT-EVALS.md prints `/triage-lead` for {band!r}; the "
+                                 "skill's band table has no row for it, so an agent "
+                                 "handed a lead from it follows another band's procedure")
+            # Three cells of content: why the lead is here, and what a SKIP here reads.
+            self.assertGreaterEqual(len([c for c in match[0].split("|") if c.strip()]), 3,
+                                    msg=f"{band!r}'s row states no disposition")
+
+    def test_the_skill_points_at_the_test_that_pins_it(self):
+        # The skill tells a reader which check keeps its table honest. A renamed class
+        # would leave it citing a test that does not exist — this PR's own defect class.
+        self.assertIn(type(self).__name__, self._skill("triage-lead"))
+
+    def test_the_routing_rule_itself_is_pinned(self):
+        # The test above derives `routed` from BANDS on the premise that every band but
+        # P0 prints /triage-lead. If that line changes and nothing reads it, the pin goes
+        # on passing while measuring the wrong set — #443's rule that a check must not
+        # rest on a fact it does not verify.
+        with open(os.path.join(ROOT, "triage.py"), encoding="utf-8") as fh:
+            src = fh.read()
+        self.assertIn('cmd = "/evaluate-tool" if name == "P0 measure" else "/triage-lead"',
+                      src, msg="the band->command rule moved; re-derive `routed` from it")
+
+    def test_a_band_whose_disposition_names_a_value_supplies_it(self):
+        # P2's disposition reads `<incumbent>` and P5's `<container>`. Both were computed
+        # to assign the band and then dropped, so the page named a value it never gave
+        # (#457, then #477). A NEW placeholder band must make a decision here rather than
+        # landing in neither — same shape as the Makefile's NO_APPLY_MODE set.
+        placeholder = {n for n, _, disp in triage.BANDS if re.search(r"<\w+>", disp)}
+        self.assertEqual(placeholder, {"P2 challenger", "P5 ships-inside"},
+                         msg="a band's disposition gained or lost a placeholder — teach "
+                             "render() to supply it, then update this set")
+        ranked = [(2.0, "a", "Plan", 3, 1.0)]
+        for band, incumbents, containers, expect in (
+                ("P2 challenger", {"a": ["GSD"]}, {}, "challenges GSD"),
+                ("P5 ships-inside", {}, {"a": "o/pack"}, "ships inside `o/pack`")):
+            ordered = {n: [] for n, _, _ in triage.BANDS}
+            ordered[band] = ranked
+            out = triage.render(ordered, ranked, incumbents, containers)
+            row = next(ln for ln in out.splitlines() if ln.startswith("| a |"))
+            self.assertIn(expect, row, msg=f"{band} does not supply its own placeholder")
+
+    def test_the_reconcile_targets_are_named_by_path(self):
+        # `README/CLAUDE/STACK/plugin/CLAUDE` is a slash-joined shorthand, so a rename
+        # leaves it looking plausible. Naming the real paths makes it checkable.
+        reconcile = _load("reconcile_counts", os.path.join(ROOT, "reconcile-counts.py"))
+        text = self._skill("add-catalog-entry")
+        for path in reconcile.FILES_TOTAL:
+            self.assertIn(path, text,
+                          msg=f"reconcile-counts.py rewrites {path}; the skill that tells "
+                              "an agent to run it does not say so")
+
+
 # ----------------------------------------------------------------- freshness (#445)
 class TestFreshness(unittest.TestCase):
     """freshness.py answers the SessionStart hook's two questions. The hook used to
@@ -3999,7 +4089,7 @@ class TestTriage(unittest.TestCase):
     def _bands(self, d):
         triage = _load("triage_fixture", os.path.join(d, "triage.py"))
         ctx = audit.DetectorContext(d)
-        ordered, ranked, _incumbents = triage.assign(ctx)
+        ordered, ranked, _incumbents, _containers = triage.assign(ctx)
         return {b: [r[1] for r in rows] for b, rows in ordered.items()}, ranked
 
     # ---------------------------------------------------- P2 names its incumbent (#457)
@@ -4035,8 +4125,9 @@ class TestTriage(unittest.TestCase):
         self.assertTrue(triage.stack_incumbents("superpowers", skeys))
 
     def test_only_P2_rows_name_an_incumbent(self):
-        # The other bands' dispositions contain no placeholder, so their Why cell keeps
-        # meaning the score terms.
+        # A band whose disposition holds no placeholder keeps the score terms in its Why
+        # cell. P3 is such a band; P5 is NOT, which is what this test's own premise —
+        # "the other bands' dispositions contain no placeholder" — got wrong (#477).
         ranked = [(2.0, "a", "Plan", 3, 1.0)]
         ordered = {name: [] for name, _, _ in triage.BANDS}
         ordered["P2 challenger"] = ranked
@@ -4046,6 +4137,47 @@ class TestTriage(unittest.TestCase):
         ordered["P3 backlog"] = ranked
         out = triage.render(ordered, ranked, {"a": ["GSD"]})
         self.assertNotIn("challenges", out)
+
+    # ------------------------------------------------ P5 names its container (#477)
+    def test_P5_rows_name_the_container_the_disposition_asks_for(self):
+        # P5's disposition reads `SKIP "ships inside <container>"`; band_of read the cell
+        # to assign the band and dropped it, so the row printed the score terms and an
+        # agent went back to CATALOG.md for the one fact the verdict needs — #457's
+        # defect in the band that landed after the fix.
+        ranked = [(2.0, "a", "Plan", 3, 1.0)]
+        ordered = {name: [] for name, _, _ in triage.BANDS}
+        ordered["P5 ships-inside"] = ranked
+        out = triage.render(ordered, ranked, {}, {"a": "mattpocock/skills"})
+        self.assertIn("ships inside `mattpocock/skills` · pressure 3, gap 1.0", out)
+
+    def test_the_container_is_not_offered_to_other_bands(self):
+        # A P3 lead has no container to name; leaking one would assert containment the
+        # row never declared. Asserted on the ROW, not the document — the band-summary
+        # table quotes P5's disposition verbatim, so the phrase is always on the page.
+        ranked = [(2.0, "a", "Plan", 3, 1.0)]
+        ordered = {name: [] for name, _, _ in triage.BANDS}
+        ordered["P3 backlog"] = ranked
+        out = triage.render(ordered, ranked, {}, {"a": "mattpocock/skills"})
+        row = next(ln for ln in out.splitlines() if ln.startswith("| a |"))
+        self.assertEqual(row, "| a | Plan | 2.0 | pressure 3, gap 1.0 | `/triage-lead a` |")
+
+    def test_the_container_comes_from_the_cell_that_banded_the_lead(self):
+        # Backticks are stripped (the catalog writes the cell as code) and the value is
+        # the declared slug — never the row's own name, which is the #343/#366 error.
+        facts = {"a": triage.CatalogFacts("skill", "o/r", "", "`mattpocock/skills`")}
+        self.assertEqual(triage.container_of("a", facts), "mattpocock/skills")
+        self.assertEqual(triage.container_of("absent", facts), "")
+
+    def test_assign_returns_the_container_for_every_P5_lead(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._contained_tree(d)
+            tr = _load("triage_fixture", os.path.join(d, "triage.py"))
+            ordered, _ranked, _inc, containers = tr.assign(audit.DetectorContext(d))
+            p5 = [r[1] for r in ordered["P5 ships-inside"]]
+            self.assertEqual(p5, ["badskill"], msg="fixture no longer exercises P5")
+            self.assertEqual(containers["badskill"], "x/pack")
+            # The annotation is scoped to the band that asks for it.
+            self.assertNotIn("plainlead", containers)
 
     def test_one_stack_parser_not_two(self):
         # The map and the key set must come from the same parse, or the queue and

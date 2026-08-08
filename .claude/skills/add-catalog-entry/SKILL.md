@@ -37,7 +37,7 @@ judgement (category, one-liner, overlaps). Detector G then verifies the result.
    `awk '/^## /{s=$0} /^\| <peer> /{print s}' COMPARISON.md`
    Insert `| <name> | <type> | <auto ✓/blank> | <free ✓/blank> | discovery-log | SOURCE-ONLY |` under that same `## section`. An add with no hands-on eval is a **lead, not a verdict** — `discovery-log` is the vocabulary for that (COMPARISON.md's legend), and `SOURCE-ONLY` is what `backfill-evidence.py` derives for a row with no eval file. Do **not** write `CONDITIONAL`: the legend reserves it for a tool actually exercised (`Evidence` MEASURED/RUN) or one carrying a genuine `adopt-if:` condition, and eliminate-only forbids an unattended pass from reaching any positive verdict. The Evidence cell is not optional — a 5-cell row fails gating detector O on row shape.
 
-7. **Propagate counts.** `python3 reconcile-counts.py` — rewrites the catalog total in README/CLAUDE/STACK/plugin/CLAUDE and rebuilds COMPARISON's summary + Total from the new body rows. Never hand-edit counts.
+7. **Propagate counts.** `python3 reconcile-counts.py` — rewrites the catalog total in `README.md`, `CLAUDE.md`, `STACK.md` and `plugin/README.md` (its `FILES_TOTAL`) and rebuilds COMPARISON's summary + Total from the new body rows. Never hand-edit counts. The plugin's front door was `plugin/CLAUDE.md` until #441/#442; a file by that name reappearing at the plugin root is itself a `check-plugin.py` `FRONT-DOOR` finding, so never write one.
 
 8. **Sync the plugin copy.** `./sync-plugin-docs.sh`
 

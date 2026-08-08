@@ -247,6 +247,19 @@ def band_of(tool, facts, meta, reads):
     return None
 
 
+def container_of(tool, facts):
+    """The `Ships inside` container a P5 lead declares, as a bare `owner/repo`.
+
+    P5's disposition reads `SKIP "ships inside <container>"`, and until #477 that
+    placeholder named a value the page never supplied: `band_of` read the cell to
+    assign the band and then dropped it, so the row printed `pressure 2, gap 6.6`
+    and an agent had to go back to CATALOG.md for the one fact the verdict needs.
+    That is #457's defect — `overlaps_stack` computing the match and returning a
+    bool — in the band that landed after the fix. Backticks are stripped because the
+    cell is written as code in the catalog and the caller re-adds them."""
+    return facts.get(catalog_lib.name_key(tool), NO_FACTS).ships_inside.strip().strip("`")
+
+
 def assign(ctx):
     """tool -> band for every discovery-log lead, plus the ranked rows.
 
@@ -254,6 +267,9 @@ def assign(ctx):
     lead first, because they rest on facts rather than a heuristic score. The score
     head (P0 measure) is taken from what remains — so a top-ranked lead is never
     demoted into P2 challenger, where an agent could SKIP it as 'redundant'.
+
+    Returns the two per-band annotations alongside, never a bool: a band whose
+    disposition names a value has to supply it (#457, and #477 for the container).
     """
     ranked = nexteval.rank(ctx)
     facts = catalog_facts(ctx.catalog)
@@ -262,11 +278,15 @@ def assign(ctx):
     triaged = last_triaged_map(ctx)
     reads = positive_reads(ctx)
 
-    bands, incumbents = {}, {}
+    bands, incumbents, containers = {}, {}, {}
     for row in ranked:
         b = band_of(row[1], facts, meta, reads)
         if b:
             bands[row[1]] = b
+            if b == "P5 ships-inside":
+                # band_of reached P5 only by reading a non-empty cell out of this same
+                # `facts` map, so the lookup cannot miss.
+                containers[row[1]] = container_of(row[1], facts)
 
     head = [r for r in ranked if r[1] not in bands][:MEASURE_HEAD]
     for r in head:
@@ -292,10 +312,10 @@ def assign(ctx):
 
     ordered = {name: sorted((r for r in ranked if bands[r[1]] == name), key=sort_key)
                for name, _, _ in BANDS}
-    return ordered, ranked, incumbents
+    return ordered, ranked, incumbents, containers
 
 
-def render(ordered, ranked, incumbents):
+def render(ordered, ranked, incumbents, containers=None):
     """NEXT-EVALS.md in full. Bands replace the old flat top-25 table; every band
     prints its true size, and any band listing only a sample says so — the repo's
     no-silent-caps rule."""
@@ -352,12 +372,18 @@ def render(ordered, ranked, incumbents):
         cmd = "/evaluate-tool" if name == "P0 measure" else "/triage-lead"
         for score, tool, stage, op, gap in shown:
             why = f"pressure {op}, gap {gap:.1f}"
-            # In P2 the score terms are not why the lead is here — the incumbent match
-            # is, and it is what the band's disposition asks the agent to name (#457).
-            # Every matched pick is listed; picking one would be the coin flip.
+            # Two bands name a value in their disposition, and for those the score terms
+            # are not why the lead is here. P2's is the incumbent it challenges (#457);
+            # every matched pick is listed, since picking one would be the coin flip.
+            # P5's is the container the SKIP has to cite (#477) — the same defect, in the
+            # band added after that fix, which is why they are handled side by side here
+            # rather than one being a special case of the other.
             picks = incumbents.get(tool) if name == "P2 challenger" else None
+            held_by = (containers or {}).get(tool) if name == "P5 ships-inside" else None
             if picks:
                 why = f"challenges {', '.join(picks)} · {why}"
+            elif held_by:
+                why = f"ships inside `{held_by}` · {why}"
             lines.append(f"| {tool} | {stage} | {score:.1f} | {why} | `{cmd} {tool}` |")
         lines.append("")
 
