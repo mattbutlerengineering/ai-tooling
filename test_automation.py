@@ -2562,6 +2562,154 @@ class TestDetectorB(unittest.TestCase):
         self.assertEqual(self._run({"bare.md": "## Verdict\n\n**SKIP**\n"}), [])
 
 
+# ----------------------------------------------------------------- gate coverage (#481)
+class TestGateCoverage(unittest.TestCase):
+    """#467's rule — a check reports the population it walked — reached all thirteen
+    report-only detectors and none of the seven gates, where a bare `OK` is the
+    strongest claim in the file and the line CI goes green on (#481)."""
+
+    HEADER = "## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+    CAT = ("## Plan\n\n| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+           "|---|---|---|---|---|---|\n"
+           "| [t](https://github.com/o/t) | tool | does a thing | a pain | x |  |\n")
+
+    def _tree(self, d, comparison, evals, catalog=None):
+        _write(d, "CATALOG.md", catalog if catalog is not None else self.CAT)
+        _write(d, "COMPARISON.md", comparison)
+        # Detector J reads both of these unconditionally, so a tree without them
+        # cannot reach the gate at all — a fixture requirement, not a J finding.
+        _write(d, "STACK.md", "# Stack\n")
+        _write(d, "STACK-LEDGER.md", "# Ledger\n")
+        for name, text in evals.items():
+            _write(d, os.path.join("evaluations", name), text)
+        return d
+
+    def _cli(self, d, *flags):
+        for fn in ("audit-evals.py", "catalog_lib.py"):
+            shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+        return subprocess.run(["python3", "audit-evals.py", *flags],
+                              cwd=d, capture_output=True, text=True, check=False)
+
+    # --- the rule, applied to every gate ------------------------------------
+
+    def test_every_offline_gate_headline_states_a_population(self):
+        # Derived from OFFLINE_GATES, not hand-listed: an eighth gate added without a
+        # population must fail here rather than inherit the silence this issue removed.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER + "| t | tool | | ✓ | SKIP | REVIEW |\n",
+                       {"t.md": "**Evidence:** REVIEW\n\n## Verdict\n\n**SKIP**\n"})
+            r = self._cli(d, "--offline")
+            heads = [ln for ln in r.stdout.splitlines() if ln.startswith("== ")]
+            self.assertEqual(len(heads), len(audit.OFFLINE_GATES), r.stdout)
+            for h in heads:
+                # `== <letter>. <title> — <...N...> ==` — a headline whose only digits
+                # are the detector letter is the bare `OK` claim this issue is about.
+                self.assertIn("—", h, msg=f"gate headline states no population: {h}")
+                self.assertRegex(h.split("—", 1)[1], r"\d", msg=h)
+
+    def test_coverage_never_reaches_the_exit_code(self):
+        # THE invariant. A population is a report; only a finding may fail a build.
+        # This tree is full of abstentions — an eval with a verdict and no COMPARISON
+        # row, an eval with no `## How we tested` — and must still exit 0.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER + "| t | tool | | ✓ | SKIP | REVIEW |\n",
+                       {"t.md": "**Evidence:** REVIEW\n\n## Verdict\n\n**SKIP**\n",
+                        "rowless.md": "**Evidence:** REVIEW\n\n## Verdict\n\n**SKIP**\n",
+                        "bare.md": "## Verdict\n\n**SKIP**\n"})
+            r = self._cli(d, "--verdicts", "--fabrication")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn("no COMPARISON.md row at all", r.stdout)
+            self.assertIn("rowless", r.stdout)
+
+    def test_a_real_finding_still_fails_the_build(self):
+        # The other direction: the refactor must not have turned a gate into a report.
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER + "| t | tool | | ✓ | ADOPT | MEASURED |\n",
+                       {"t.md": "**Evidence:** MEASURED\n\n## Verdict\n\n**SKIP**\n"})
+            r = self._cli(d, "--verdicts")
+            self.assertEqual(r.returncode, 1, r.stdout)
+            self.assertIn("MISMATCH t", r.stdout)
+
+    # --- D: the two abstentions, one of which was never stated --------------
+
+    def _cov(self, comparison, evals):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, comparison, evals)
+            return audit.verdict_coverage(audit.DetectorContext(d))
+
+    def test_D_splits_leads_from_evals_with_no_row_at_all(self):
+        # `discovery-log` was documented in code; "name didn't map" was an unchecked
+        # assertion, and it is the one thing a verdict-sync gate cannot check about
+        # itself — `design-extract` carried a real verdict with no row and D passed.
+        cov = self._cov(self.HEADER + "| lead | tool | | ✓ | discovery-log | REVIEW |\n"
+                        + "| real | tool | | ✓ | SKIP | REVIEW |\n",
+                        {"lead.md": "## Verdict\n\n**discovery-log — tentative read**\n",
+                         "real.md": "## Verdict\n\n**SKIP**\n",
+                         "rowless.md": "## Verdict\n\n**ADOPT**\n",
+                         "noverdict.md": "just prose.\n"})
+        self.assertEqual(cov.declared, 3)          # evals carrying a `## Verdict`
+        self.assertEqual(cov.compared, 1)          # only `real` reaches the comparison
+        self.assertEqual(cov.leads, ["lead"])
+        self.assertEqual(cov.unmapped, ["rowless"])
+
+    def test_the_buckets_partition_the_declared_population(self):
+        # compared + leads + unmapped == declared, so a reader can check the arithmetic
+        # rather than trust the headline — the reason #435 gates a partition, not a total.
+        cov = audit.verdict_coverage(audit.DetectorContext(ROOT))
+        self.assertEqual(cov.compared + len(cov.leads) + len(cov.unmapped), cov.declared)
+        self.assertGreater(cov.compared, 0)
+
+    # --- the populations each gate walks ------------------------------------
+
+    def test_fabrication_population_excludes_evals_asserting_nothing(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER, {"has.md": "## How we tested it\n\nsource review only.\n",
+                                        "bare.md": "## Verdict\n\n**SKIP**\n"})
+            ctx = audit.DetectorContext(d)
+            self.assertEqual([e.name for e in audit.fabrication_population(ctx)], ["has"])
+            self.assertEqual(len(ctx.evals), 2)   # the denominator the headline prints
+
+    def test_verdict_evidence_population_is_adopt_keep_only(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER, {"a.md": "## Verdict\n\n**ADOPT**\n",
+                                        "k.md": "## Verdict\n\n**KEEP**\n",
+                                        "s.md": "## Verdict\n\n**SKIP**\n"})
+            pop = audit.verdict_evidence_population(audit.DetectorContext(d))
+            self.assertEqual(sorted(e.name for e in pop), ["a", "k"])
+
+    def test_bulk_coverage_reports_the_human_exemption_apart(self):
+        # An exemption folded into `OK` is indistinguishable from a check that ran.
+        stamp = "**Last triaged:** 2026-01-01"
+        with tempfile.TemporaryDirectory() as d:
+            self._tree(d, self.HEADER, {
+                "b.md": f"{stamp}  <!-- triaged: bulk -->\n\n## Verdict\n\n**SKIP**\n",
+                "h.md": f"{stamp}  <!-- triaged: human -->\n\n## Verdict\n\n**ADOPT**\n",
+                "none.md": "## Verdict\n\n**SKIP**\n"})
+            cov = audit.bulk_triage_coverage(audit.DetectorContext(d))
+            self.assertEqual((cov.bulk, cov.human, cov.stamped), (1, 1, 2))
+
+    # --- O: the shared row-walk, and the direction that would overstate ------
+
+    def test_comparison_body_rows_excludes_tables_the_gate_does_not_validate(self):
+        # Counting every body row here would claim coverage O does not have — the
+        # direction that makes a population worse than none. A foreign table (no
+        # `Evaluated` column) and the `## Summary` block are scope, not findings.
+        text = (self.HEADER + "| t | tool | | ✓ | SKIP | REVIEW |\n\n"
+                "## Notes\n| a | b |\n|---|---|\n| one | two |\n\n"
+                "## Summary\n| Stage | Tools | Validated |\n|---|---|---|\n| Plan | 1 | 1 |\n")
+        self.assertEqual(len(list(catalog_lib.comparison_body_rows(text))), 1)
+        self.assertEqual(catalog_lib.validate_comparison_rows(text), [])
+
+    def test_catalog_body_rows_is_the_population_its_validator_walks(self):
+        # One definition, two readers (#443): every row the validator can flag must be
+        # a row the count includes, or the headline understates its own findings.
+        bad = self.CAT + "| [u](https://github.com/o/u) | tool | short |\n"
+        walked = [ln for ln, *_ in catalog_lib.catalog_body_rows(bad)]
+        flagged = [ln for ln, _ in catalog_lib.validate_catalog_rows(bad)]
+        self.assertEqual(len(walked), 2)
+        self.assertTrue(set(flagged) <= set(walked), (flagged, walked))
+
+
 # ----------------------------------------------------------------- detector E (skill evidence, #200)
 class TestDetectorE(unittest.TestCase):
     SKILL_ROW = "| [{n}](https://github.com/a/{n}) | skill | x | y | z |\n"

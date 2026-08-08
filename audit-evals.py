@@ -760,14 +760,32 @@ def how_section(text):
     m = re.search(r"#+\s*How we tested.*?(?=\n#+\s|\Z)", text, re.DOTALL | re.IGNORECASE)
     return m.group(0) if m else ""
 
+# --- gate coverage (#481) --------------------------------------------------------
+# #467's rule — a check reports the population it walked, because `0 findings` and
+# `0 examined` print identically — reached all thirteen report-only detectors and NONE
+# of the seven gates, where a bare `OK` is the strongest claim in the file and the line
+# CI goes green on. Each population below lives in ONE function read by both the gate
+# and its headline: two extractors for one fact is #443, and a headline recomputing a
+# detector's own filter would drift from it on the first edit.
+#
+# A gate that runs SEVERAL checks reports SEVERAL numbers. Forcing one `walked/total`
+# onto J's three checks or O's two files would reintroduce the exact defect #479 just
+# removed from detector U — one number standing for two populations.
+#
+# The invariant, pinned in both directions: coverage never reaches `rc`. A gate's exit
+# code is a function of its findings alone, so adding a population here is observably
+# free of behaviour change. That is the whole difference between this and a new gate.
+
+
+def fabrication_population(ctx):
+    """The evals B can examine. One with no `## How we tested` section asserts nothing
+    about a run, so there is nothing to classify — an abstention, not a silent pass."""
+    return [ev for ev in ctx.evals if ev.how]
+
+
 def audit_fabrication(ctx):
-    flagged = []
-    for ev in ctx.evals:
-        if not ev.how:
-            continue
-        if ev.evidence.is_fabrication_candidate:
-            flagged.append(ev.name)
-    return flagged
+    return [ev.name for ev in fabrication_population(ctx)
+            if ev.evidence.is_fabrication_candidate]
 
 # ---------------------------------------------------------------- C. link rot
 def check_repo(slug):
@@ -917,20 +935,46 @@ def audit_archived(ctx):
 # CONDITIONAL read is the lead's notes, not a promoted verdict to enforce.
 VERDICTS = catalog_lib.VERDICTS  # vocabulary defined once, in catalog_lib (#193)
 
+VerdictCoverage = collections.namedtuple(
+    "VerdictCoverage", "compared declared leads unmapped")
+
+
+def verdict_pairs(ctx):
+    """(eval, its COMPARISON.md verdict or None) for every eval carrying a `## Verdict`.
+    One classification, read by both the gate and its headline (#443)."""
+    comp = ctx.comparison_verdict_map
+    return [(ev, next((comp[c] for c in ev.name_aliases if c in comp), None))
+            for ev in ctx.evals if ev.verdict]
+
+
+def verdict_coverage(ctx):
+    """What D compared and what it declined to (#481). Two abstentions, and only one of
+    them was ever stated: `leads` is the documented skip (a `discovery-log` row is a
+    lead, not a verdict), while `unmapped` sat behind `# name didn't map — not a
+    verdict-sync problem`, an UNCHECKED ASSERTION and the one thing a verdict-sync gate
+    cannot check about itself. `design-extract` is the precedent — a tool carrying a
+    written CONDITIONAL with no CATALOG.md row and no COMPARISON.md row, so D had
+    nothing to sync against and passed, silently, until a report-only detector noticed
+    it as a formatting disagreement. Both buckets are PRINTED and never counted: all six
+    live ones are protocol, recipe and comparison documents that correctly have no row,
+    and turning them into findings would flag healthy files (detector V's rule)."""
+    pairs = verdict_pairs(ctx)
+    leads = [ev.name for ev, cv in pairs if cv == "discovery-log"]
+    unmapped = [ev.name for ev, cv in pairs if cv is None]
+    return VerdictCoverage(len(pairs) - len(leads) - len(unmapped),
+                           len(pairs), leads, unmapped)
+
+
 def audit_verdicts(ctx):
     """Flag evals whose ## Verdict disagrees with their COMPARISON.md row.
     Tolerates: KEEP (installed/validated status) vs ADOPT, and dual verdicts
     ("ADOPT for X — CONDITIONAL otherwise") where COMPARISON matches either."""
-    comp = ctx.comparison_verdict_map
     compatible = {frozenset(("KEEP", "ADOPT"))}  # installed-tool status ~ adopt
     flagged = []
-    for ev in ctx.evals:
-        if not ev.verdict:
-            continue
+    for ev, cv in verdict_pairs(ctx):
         ev_set = ev.verdict_set  # every verdict word — handles dual verdicts
-        cv = next((comp[c] for c in ev.name_aliases if c in comp), None)
         if cv is None:
-            continue  # name didn't map — not a verdict-sync problem
+            continue  # name didn't map — reported as coverage, never as a pass (#481)
         if cv == "discovery-log":
             continue  # lead, not a verdict — the eval's tentative read isn't synced
         if cv in ev_set:
@@ -1060,6 +1104,14 @@ def audit_row_shapes(ctx):
     return problems
 
 # ---------------------------------------------------------------- K. verdict evidence gate
+def verdict_evidence_population(ctx):
+    """The evals K examines. Only ADOPT/KEEP asserts something strong enough to gate,
+    so the other verdicts are out of scope by design rather than skipped — which is
+    exactly why the number belongs in the headline: `38 of 693` says the gate is narrow,
+    where a bare `OK` implies it swept the corpus."""
+    return [ev for ev in ctx.evals if ev.verdict in ("ADOPT", "KEEP")]
+
+
 def audit_verdict_evidence(ctx):
     """Detector K (#71): a strong verdict can't rest on a README skim. An ADOPT/KEEP
     eval must be run-backed (Evidence MEASURED or RUN) OR carry an explicit honesty
@@ -1067,9 +1119,7 @@ def audit_verdict_evidence(ctx):
     hatch). A REVIEW/SOURCE-ONLY ADOPT/KEEP with no disclaimer is flagged. Generalizes
     the skills-only report-only detector E into a catalog-wide gate. Offline, gating."""
     flagged = []
-    for ev in ctx.evals:
-        if ev.verdict not in ("ADOPT", "KEEP"):
-            continue
+    for ev in verdict_evidence_population(ctx):
         if ev.evidence_level in ("MEASURED", "RUN"):
             continue  # run-backed
         if ev.evidence.honest:
@@ -1869,6 +1919,26 @@ BULK_ALLOWED = frozenset({"SKIP", "discovery-log"})
 TRIAGE_STAMP = "**Last triaged:**"
 HUMAN_MARKER = "<!-- triaged: human -->"
 UNATTRIBUTED = "unattributed"  # the second finding kind audit_bulk_triage returns
+
+BulkCoverage = collections.namedtuple("BulkCoverage", "bulk human stamped")
+
+
+def bulk_triage_coverage(ctx):
+    """Q's population is the STAMPED evals (#481). One with no `**Last triaged:**` was
+    never triaged, so there is no lane to police — that is scope, not an abstention.
+    `human` is the exemption a human pass earns (reaching a real verdict is what it is
+    for), and it is disclosed rather than folded into the pass, because an exemption
+    silently included in `OK` is indistinguishable from a check that ran.
+
+    The stamp is read from `claims` and the markers from `text`, mirroring the gate
+    itself — the markers ARE comments (#451), so stripping them here would make the two
+    disagree about which evals are marked."""
+    stamped = [ev for ev in ctx.evals if TRIAGE_STAMP in ev.claims]
+    bulk = [ev for ev in ctx.evals if BULK_MARKER in ev.text]
+    human = [ev for ev in ctx.evals
+             if HUMAN_MARKER in ev.text and BULK_MARKER not in ev.text]
+    return BulkCoverage(len(bulk), len(human), len(stamped))
+
 
 def audit_bulk_triage(ctx):
     """(eval name, verdict) for every bulk-marked eval whose verdict exceeds the
@@ -3891,7 +3961,8 @@ def main():
         elif not broken:
             print("  OK — every install target resolves")
     if do_fab:
-        print("== B. fabrication classifier ==")
+        pop = fabrication_population(ctx)
+        print(f"== B. fabrication classifier — {len(pop)}/{len(ctx.evals)} eval(s) checked ==")
         flagged = audit_fabrication(ctx)
         if flagged:
             rc = 1
@@ -3901,7 +3972,9 @@ def main():
         else:
             print("  OK — every 'How we tested' either discloses not-run or shows a verified run")
     if do_verd:
-        print("== D. verdict sync (eval ## Verdict vs COMPARISON.md) ==")
+        vcov = verdict_coverage(ctx)
+        print(f"== D. verdict sync (eval ## Verdict vs COMPARISON.md) — "
+              f"{vcov.compared}/{vcov.declared} eval(s) with a verdict compared ==")
         vflag = audit_verdicts(ctx)
         if vflag:
             rc = 1
@@ -3909,8 +3982,24 @@ def main():
                 print(f"  MISMATCH {name}: eval={ev}  COMPARISON={cv}")
         else:
             print("  OK — eval verdicts agree with COMPARISON (dual verdicts & KEEP tolerated)")
+        # Printed and never counted: both buckets are documented abstentions, and a
+        # `discovery-log` lead has no verdict to sync. `unmapped` is the one that was
+        # never stated — see verdict_coverage's note on `design-extract`.
+        if vcov.leads:
+            print(f"  not compared  {len(vcov.leads):4d}  COMPARISON row reads `discovery-log` "
+                  "— a lead, not a verdict")
+        if vcov.unmapped:
+            print(f"  not compared  {len(vcov.unmapped):4d}  no COMPARISON.md row at all — "
+                  "a tool with a verdict and no row is invisible to this gate (#481)")
+            for name in sorted(vcov.unmapped):
+                print(f"                      - {name}")
     if do_comp:
-        print("== G. comparison consistency (COMPARISON.md vs CATALOG.md) ==")
+        # G's population is the whole file — it is an arithmetic identity, not a walk —
+        # so the number says "the gate ran on a corpus this size", which is what tells
+        # a clean `OK` apart from an `OK` on an empty tree (#319).
+        print(f"== G. comparison consistency (COMPARISON.md vs CATALOG.md) — "
+              f"{sum(catalog_lib.comparison_body_counts(ctx.comparison).values())} body row(s) "
+              f"vs {catalog_lib.catalog_count(ctx.catalog)} catalog entr(ies) ==")
         cprob = audit_comparison(ctx)
         if cprob:
             rc = 1
@@ -3919,7 +4008,12 @@ def main():
         else:
             print("  OK — COMPARISON summary sums to its body rows and Total matches CATALOG.md")
     if do_rows:
-        print("== O. row shape (CATALOG.md / COMPARISON.md table rows) ==")
+        # Two files, two numbers. One `walked/total` across both would be the defect
+        # #479 removed from detector U — a single figure standing for two populations.
+        print(f"== O. row shape — "
+              f"{len(list(catalog_lib.catalog_body_rows(ctx.catalog)))} CATALOG.md + "
+              f"{len(list(catalog_lib.comparison_body_rows(ctx.comparison)))} COMPARISON.md "
+              f"body row(s) validated ==")
         rprob = audit_row_shapes(ctx)
         if rprob:
             rc = 1
@@ -3928,7 +4022,9 @@ def main():
         else:
             print("  OK — every table row parses as a well-formed entry row")
     if do_bulk:
-        print("== Q. eliminate-only bulk triage ==")
+        bcov = bulk_triage_coverage(ctx)
+        print(f"== Q. eliminate-only bulk triage — {bcov.bulk}/{bcov.stamped} stamped eval(s) "
+              f"held to the ceiling, {bcov.human} human-marked (exempt) ==")
         bprob = audit_bulk_triage(ctx)
         if bprob:
             rc = 1
@@ -3943,7 +4039,13 @@ def main():
         else:
             print("  OK — every bulk-triaged eval stays within eliminate-only authority")
     if do_drift:
-        print("== J. stack-derivation drift (STACK.md vs verdicts + ledger) ==")
+        # Three checks, three numbers — J runs picks->verdict, ledger->STACK/verdict and
+        # ADOPT/KEEP->ledger, and one figure could only stand for one of them (#479).
+        print(f"== J. stack-derivation drift — "
+              f"{len(_stack_picks_by_slug(ctx.stack))} STACK pick(s), "
+              f"{len(_LEDGER_ROW.findall(ctx.ledger))} ledger row(s), "
+              f"{sum(1 for r in ctx.comparison_rows if r.verdict in ('ADOPT', 'KEEP'))} "
+              f"ADOPT/KEEP row(s) ==")
         dprob = audit_stack_drift(ctx)
         if dprob:
             rc = 1
@@ -3952,7 +4054,8 @@ def main():
         else:
             print("  OK — every ADOPT/KEEP tool is in STACK or the ledger; STACK & ledger agree with verdicts")
     if do_vev:
-        print("== K. verdict evidence (ADOPT/KEEP must be run-backed or disclaimered) ==")
+        print(f"== K. verdict evidence (ADOPT/KEEP must be run-backed or disclaimered) — "
+              f"{len(verdict_evidence_population(ctx))}/{len(ctx.evals)} eval(s) checked ==")
         vev = audit_verdict_evidence(ctx)
         if vev:
             rc = 1

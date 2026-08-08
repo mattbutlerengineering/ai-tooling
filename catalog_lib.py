@@ -244,22 +244,13 @@ SHIPS_INSIDE_COL = 5          # index of the Ships inside cell when a table carr
 SHIPS_INSIDE_HEADER = "Ships inside"
 
 
-def validate_catalog_rows(text):
-    """(line_no, problem) findings for CATALOG table lines that would otherwise
-    be silently skipped or mis-parsed (#198): a pipe-line that isn't a header,
-    separator, or recognized entry row; entry rows whose cell count doesn't match
-    their own table's header (a missing cell silently shifts every field after
-    it); an indented row (markdown renders it, the ^|-anchored parsers and
-    counters skip it); and an empty Name cell (counted, but nameless). A clean
-    tree returns [].
+def catalog_body_rows(text):
+    """(line_no, line, cells, table_width) for every CATALOG body row — a pipe-line that
+    is neither a separator nor the header above one. `table_width` is the enclosing
+    table's own header width, or None outside any table (#343).
 
-    Width comes from the ENCLOSING TABLE'S HEADER, not from a constant (#343).
-    Adding the Ships inside column could otherwise only be done two ways, and
-    both are worse: bump the constant and every 5-column eval mirror becomes a
-    finding, or accept 5-or-6 and a row that LOST a middle cell parses as a valid
-    short row — silently shifting Overlaps into Problem, which is the exact
-    corruption #198 built this check to catch."""
-    problems = []
+    The population detector O walks, shared by its validator and its coverage line so
+    the two cannot disagree about what was examined (#481)."""
     lines = text.splitlines()
     width = None
     for i, line in enumerate(lines):
@@ -273,29 +264,17 @@ def validate_catalog_rows(text):
         if _SEPARATOR_ROW.match(nxt):
             width = len(cells)  # header row (structural: the row above a |---| separator)
             continue
-        expected = width or CATALOG_COLUMNS
-        if line != line.lstrip():
-            problems.append((i + 1, "indented table row (markdown renders it, but the parsers and counters skip it)"))
-        elif not _BODY_ROW.match(line):
-            got = repr(cells[1]) if len(cells) > 1 else "missing"
-            problems.append((i + 1, f"not a recognized entry row (Type cell {got} not in the Type vocabulary)"))
-        elif len(cells) != expected:
-            problems.append((i + 1, f"expected {expected} cells, found {len(cells)} cells"))
-        elif not cells[0]:
-            problems.append((i + 1, "empty Name cell (row is counted, but nameless)"))
-    return problems
+        yield i + 1, line, cells, width
 
 
-def validate_comparison_rows(text):
-    """(line_no, problem) findings for COMPARISON per-stage table rows (#198):
-    inside any table whose header carries an 'Evaluated' column — the same
-    anchor comparison_verdict_rows uses, so a table the parser consumes is
-    always validated — every body row must match the header's width, hold a
-    verdict token in its Evaluated cell, and name a tool in its first cell.
-    The '## Summary' section is excluded by section (its header also says
-    'Evaluated' but its rows are aggregate counts, not tool rows — the same
-    exclusion comparison_body_counts applies). A clean tree returns []."""
-    problems = []
+def comparison_body_rows(text):
+    """(line_no, cells, hdr_cols, vcol) for every COMPARISON row inside a table the
+    verdict parser consumes — one carrying an `Evaluated` column, outside `## Summary`.
+
+    Narrower than `catalog_body_rows` on purpose: a row in a foreign table is out of
+    scope rather than unchecked, so counting every body row here would overstate what
+    detector O examined — which is the direction that makes a coverage number worse
+    than none (#481)."""
     lines = text.splitlines()
     hdr_cols = vcol = None
     in_summary = False
@@ -318,12 +297,61 @@ def validate_comparison_rows(text):
             continue
         if hdr_cols is None:
             continue
-        if len(cells) != hdr_cols:
-            problems.append((i + 1, f"expected {hdr_cols} cells, found {len(cells)} cells"))
-        elif cells[vcol] not in _VERDICT_SET:
-            problems.append((i + 1, f"Evaluated cell {cells[vcol]!r} is not a verdict token"))
+        yield i + 1, cells, hdr_cols, vcol
+
+
+def validate_catalog_rows(text):
+    """(line_no, problem) findings for CATALOG table lines that would otherwise
+    be silently skipped or mis-parsed (#198): a pipe-line that isn't a header,
+    separator, or recognized entry row; entry rows whose cell count doesn't match
+    their own table's header (a missing cell silently shifts every field after
+    it); an indented row (markdown renders it, the ^|-anchored parsers and
+    counters skip it); and an empty Name cell (counted, but nameless). A clean
+    tree returns [].
+
+    Width comes from the ENCLOSING TABLE'S HEADER, not from a constant (#343).
+    Adding the Ships inside column could otherwise only be done two ways, and
+    both are worse: bump the constant and every 5-column eval mirror becomes a
+    finding, or accept 5-or-6 and a row that LOST a middle cell parses as a valid
+    short row — silently shifting Overlaps into Problem, which is the exact
+    corruption #198 built this check to catch."""
+    # The row-walking loop lives in `catalog_body_rows` so detector O's coverage line
+    # counts the population this validator actually walks rather than re-deriving it
+    # (#481). Two extractors for one fact is #443, and a coverage number that overstates
+    # what a gate examined is the defect the number exists to remove.
+    problems = []
+    for i, line, cells, width in catalog_body_rows(text):
+        expected = width or CATALOG_COLUMNS
+        if line != line.lstrip():
+            problems.append((i, "indented table row (markdown renders it, but the parsers and counters skip it)"))
+        elif not _BODY_ROW.match(line):
+            got = repr(cells[1]) if len(cells) > 1 else "missing"
+            problems.append((i, f"not a recognized entry row (Type cell {got} not in the Type vocabulary)"))
+        elif len(cells) != expected:
+            problems.append((i, f"expected {expected} cells, found {len(cells)} cells"))
         elif not cells[0]:
-            problems.append((i + 1, "empty Tool cell (row carries a verdict, but no name)"))
+            problems.append((i, "empty Name cell (row is counted, but nameless)"))
+    return problems
+
+
+def validate_comparison_rows(text):
+    """(line_no, problem) findings for COMPARISON per-stage table rows (#198):
+    inside any table whose header carries an 'Evaluated' column — the same
+    anchor comparison_verdict_rows uses, so a table the parser consumes is
+    always validated — every body row must match the header's width, hold a
+    verdict token in its Evaluated cell, and name a tool in its first cell.
+    The '## Summary' section is excluded by section (its header also says
+    'Evaluated' but its rows are aggregate counts, not tool rows — the same
+    exclusion comparison_body_counts applies). A clean tree returns []."""
+    # Row-walking lives in `comparison_body_rows` — see the note on the catalog half.
+    problems = []
+    for i, cells, hdr_cols, vcol in comparison_body_rows(text):
+        if len(cells) != hdr_cols:
+            problems.append((i, f"expected {hdr_cols} cells, found {len(cells)} cells"))
+        elif cells[vcol] not in _VERDICT_SET:
+            problems.append((i, f"Evaluated cell {cells[vcol]!r} is not a verdict token"))
+        elif not cells[0]:
+            problems.append((i, "empty Tool cell (row carries a verdict, but no name)"))
     return problems
 
 
