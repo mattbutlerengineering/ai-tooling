@@ -1972,6 +1972,89 @@ class TestDetectorJ(unittest.TestCase):
         probs = audit.audit_stack_drift(audit.DetectorContext(ROOT))
         self.assertEqual([p for p in probs if "SKIPped in COMPARISON" in p], [])
 
+    # --- resolving a pick when one slug is claimed by several rows (#463) ---
+
+    # A monorepo: three rows behind one `owner/repo`, each linking its own subpath, with
+    # DIFFERENT verdicts — the live shape of anthropics/claude-plugins-official (9 rows,
+    # all four verdict values) reduced to the three cases that matter.
+    MONO = ("| Tool | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+            "|---|---|---|---|---|---|\n"
+            "| [alpha](https://github.com/x/pack/tree/main/plugins/alpha) | plugin | l | p | | x/pack |\n"
+            "| [beta](https://github.com/x/pack/tree/main/plugins/beta) | plugin | l | p | | x/pack |\n"
+            "| [pack](https://github.com/x/pack) | plugin | l | p | | |\n")
+    MONO_COMP = ("## Plan\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                 "|---|---|---|---|---|---|\n"
+                 "| alpha | plugin | | ✓ | SKIP | REVIEW |\n"
+                 "| beta | plugin | | ✓ | KEEP | REVIEW |\n"
+                 "| pack | plugin | | ✓ | KEEP | REVIEW |\n")
+
+    def _resolve(self, text, url, catalog=None):
+        index = audit._catalog_link_index(catalog or self.MONO)
+        slug = next(iter(catalog_lib.github_repos(url)))
+        return audit.resolve_stack_pick(index, text, url, slug.lower())
+
+    def test_unshared_slug_resolves_to_its_row(self):
+        self.assertEqual(self._resolve("foo", "https://github.com/x/foo", self.CATALOG),
+                         ("foo", None))
+
+    def test_shared_slug_resolves_by_the_picks_own_name(self):
+        # STACK links a component pick at the PACK ROOT, so the link identifies the
+        # container while the text identifies the pick. The text wins: answering "is pack
+        # SKIPped" is not the question that was asked.
+        self.assertEqual(self._resolve("beta", "https://github.com/x/pack"), ("beta", None))
+
+    def test_shared_slug_falls_back_to_an_exact_link(self):
+        # No candidate is named "GSD", but one candidate's own URL is linked exactly.
+        self.assertEqual(
+            self._resolve("GSD", "https://github.com/x/pack/tree/main/plugins/beta"),
+            ("beta", None))
+
+    def test_shared_slug_matching_neither_resolves_to_nothing(self):
+        # Not to whichever row the catalog lists first. The check cannot say which row it
+        # would be checking, so it says so instead (#319's "silence is not success").
+        row, candidates = self._resolve("gamma", "https://github.com/x/pack/tree/main/other")
+        self.assertIsNone(row)
+        self.assertEqual(candidates, ["alpha", "beta", "pack"])
+
+    def test_ambiguous_pick_is_reported_not_skipped(self):
+        stack = "## Plan\n| [gamma](https://github.com/x/pack/tree/main/other) | d | `c` | s |\n"
+        probs = self._run(stack, "", self.MONO_COMP, self.MONO)
+        self.assertTrue(any("3 catalog rows claim" in p and "gamma" in p for p in probs), probs)
+
+    def test_the_skip_check_names_the_row_it_checked(self):
+        stack = "## Plan\n| [alpha](https://github.com/x/pack) | d | `c` | s |\n"
+        probs = self._run(stack, "", self.MONO_COMP, self.MONO)
+        self.assertTrue(any("SKIPped in COMPARISON" in p and "'alpha'" in p for p in probs), probs)
+
+    def test_a_sibling_of_the_skipped_row_is_not_flagged(self):
+        # `beta` is KEEP and shares `alpha`'s slug. Resolving by slug alone reported this
+        # as a SKIP whenever the catalog happened to list alpha first (#463).
+        stack = "## Plan\n| [beta](https://github.com/x/pack) | d | `c` | s |\n"
+        probs = self._run(stack, "", self.MONO_COMP, self.MONO)
+        self.assertFalse(any("SKIPped in COMPARISON" in p for p in probs), probs)
+
+    def test_findings_do_not_depend_on_catalog_row_order(self):
+        # The property that was violated. Swapping two rows past each other is a pure
+        # reorder, and on the live tree it turned a green `make check` into five gating
+        # failures, each naming a KEEP tool for a SKIP belonging to neither.
+        stack = ("## Plan\n| [alpha](https://github.com/x/pack) | d | `c` | s |\n"
+                 "| [beta](https://github.com/x/pack) | d | `c` | s |\n")
+        rows = self.MONO.splitlines(keepends=True)
+        reordered = "".join([*rows[:2], rows[4], rows[3], rows[2]])
+        self.assertEqual(self._run(stack, "", self.MONO_COMP, self.MONO),
+                         self._run(stack, "", self.MONO_COMP, reordered))
+
+    def test_live_stack_picks_all_resolve(self):
+        # Nine of the tree's thirty picks link a slug several rows claim. Every one must
+        # resolve to its OWN row — an unresolved pick is a check that silently did not run.
+        ctx = audit.DetectorContext(ROOT)
+        index = audit._catalog_link_index(ctx.catalog)
+        for text, url, slug in audit._stack_picks_by_slug(ctx.stack):
+            row, candidates = audit.resolve_stack_pick(index, text, url, slug)
+            self.assertIsNone(candidates, msg=f"STACK pick '{text}' ({slug}) is ambiguous")
+            if slug in index.shared:
+                self.assertEqual(row, text, msg=f"'{text}' resolved to a sibling: {row}")
+
 
 # ----------------------------------------------------------------- detector K (verdict evidence, #71)
 class TestDetectorK(unittest.TestCase):
