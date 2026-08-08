@@ -403,6 +403,33 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      clean sweep. Report-only and staying that way: the remedy is a human running an eval,
      which is work rather than bookkeeping. Offline.
 
+  AI. LAYER DRIFT (opt-in, --layer-drift, REPORT-ONLY) — `**Layer:**` was the one eval
+     header field NOTHING read (#475). Every other one has a consumer: `**Stars:**`
+     (check-stars.py), `**Last verified:**` (backfill-lastverified.py + the staleness
+     sweep), `**Evidence:**` (backfill-evidence.py, tier-stack.py), `**Last triaged:**`
+     (detector Q), `**Dev loop stage:**` (detector AG). Layer had a comment and three test
+     fixtures. It is not decorative — CLAUDE.md's opening states the three-layer model and
+     TEMPLATE.md declares a CLOSED set — and the fact is written in three places, all
+     drifted.
+       DRIFT      — a WORKFLOW.md `| Layer |` row whose eval header names a different
+                    layer. 18 of 34 comparable rows, 53%, against AG's 5% for the STAGE
+                    axis of the very same tables. Counted.
+       SELF-DRIFT — a tool the `## Adopting This Workflow` ladder and a stage table file
+                    differently: 12 of the 15 named twice. Internal to one file, so it
+                    cannot be a resolution artifact, and it is the copy a newcomer acts
+                    on — the ladder's Process heading reads "NO INFRASTRUCTURE NEEDED"
+                    over four tools the tables file under Tooling. Counted.
+       UNDECLARED — an eval whose `**Layer:**` names none of the three: 30, in five
+                    invented vocabularies (Harness x12, Reference x9, Platform, Skill
+                    pack, N/A). Counted.
+       no-layer   — no `**Layer:**` line at all. Printed, never counted.
+     AG's rules carry over verbatim: ANY named layer matching is agreement (`Process /
+     Tooling` filed under either is healthy), the header is QUOTED because the detector
+     cannot say which side is stale, and it bands nothing. The ladder's FOURTH layer name
+     (`Orchestration`, in no template, no eval header and no stage table) is reported
+     verbatim rather than normalised — the name is the finding. Report-only: every remedy
+     is a human choosing between two judgements. Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -500,6 +527,7 @@ Usage:
   python3 audit-evals.py --containment-evidence  # `Ships inside` cells npm refutes (offline)
   python3 audit-evals.py --stage-drift   # rows filed under a stage their eval disowns (offline)
   python3 audit-evals.py --repo-installs  # sources this repo vendors but never judged (offline)
+  python3 audit-evals.py --layer-drift   # Process/Tooling/Infrastructure disagreements (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
   python3 audit-evals.py --skills     # skill-evidence backlog report (offline)
@@ -1197,6 +1225,19 @@ class Evaluation:
         """The declared **Dev loop stage:** header text, or None. Free prose by design —
         `named_stages()` is what extracts the loop stages it names."""
         m = self._STAGE_HEADER.search(self.claims)
+        return m.group(1).strip() if m and m.group(1).strip() else None
+
+    # The `**Layer:**` header — the OTHER coordinate of the same 2-D map. WORKFLOW.md
+    # answers the same question twice more (a `| Layer |` column on every stage table,
+    # and the `## Adopting This Workflow` ladder), and detector AI compares all three
+    # (#475). Read from `claims` for #451's reason, exactly as the stage header is.
+    _LAYER_HEADER = re.compile(r"^\*\*Layer:\*\*\s*([^\n|]+)", re.MULTILINE)
+
+    @property
+    def layer(self):
+        """The declared **Layer:** header text, or None. Free prose by design —
+        `named_layers()` is what extracts the layers it names."""
+        m = self._LAYER_HEADER.search(self.claims)
         return m.group(1).strip() if m and m.group(1).strip() else None
 
     @property
@@ -3042,6 +3083,202 @@ def audit_stage_drift(ctx):
     return drift, stack_drift, comparable, unusable
 
 
+# ---------------------------------------------------------------- AI. layer drift (report-only)
+# `**Layer:**` was the one eval header field NOTHING read (#475). Every other field has a
+# consumer — `**Stars:**` (check-stars.py), `**Last verified:**` (backfill-lastverified.py
+# + the staleness sweep), `**Evidence:**` (backfill-evidence.py, tier-stack.py),
+# `**Last triaged:**` (detector Q), `**Dev loop stage:**` (detector AG since #453). Layer
+# had a comment and three test fixtures.
+#
+# It is not decorative: CLAUDE.md's opening states the model ("three layers per stage —
+# process, tooling, infrastructure") and TEMPLATE.md declares a CLOSED set. The fact is
+# then written in three places and all three drifted:
+#
+#   1. 30 evals name a layer TEMPLATE.md does not define (Harness ×12, Reference ×9,
+#      Platform, Skill pack, N/A), and 9 carry no `**Layer:**` line at all.
+#   2. 18 of 34 resolvable WORKFLOW.md layer-table rows sit under a layer their own eval
+#      never names — 53%, against detector AG's 5% for the STAGE axis of the same table.
+#   3. `## Adopting This Workflow` is a third copy and contradicts the stage tables on 11
+#      of the 14 tools it names twice, using a FOURTH layer name (`Orchestration`) that
+#      appears in no template, no eval header and no stage table.
+#
+# (3) is the one a newcomer acts on: the ladder's Process heading reads "install the
+# skills that enforce discipline — NO INFRASTRUCTURE NEEDED" and lists four tools the
+# stage tables all file under Tooling. Detector P exists on the sentence "the operating
+# manual and the install list must not give a newcomer two different answers"; here both
+# answers are inside the operating manual, 300 lines apart.
+#
+# AG checked the stage axis of this 2-D map and stopped there, because #453 was scoped to
+# `**Dev loop stage:**`: the layer is the other axis of the same table, one cell to the
+# left, in the same file.
+
+LAYERS = ("Process", "Tooling", "Infrastructure")
+
+LayerFinding = collections.namedtuple(
+    "LayerFinding", "kind tool declared named header line")
+# Every bucket reports n/total, never a bare finding count (#467): "12 within WORKFLOW.md
+# itself" reads identically whether 14 tools were compared or none were.
+LayerCoverage = collections.namedtuple("LayerCoverage", "rows filed_twice declaring")
+
+# A layer table is any markdown table whose header row's first cell is `Layer`. The layer
+# cell is bold (`| **Process** |`) and continuation rows leave it empty, so it carries
+# forward — which is why this is a line-by-line walk rather than a regex.
+_LAYER_CELL = re.compile(r"^\**\s*(Process|Tooling|Infrastructure)\s*\**$", re.IGNORECASE)
+# `### Start here: Process`, `### Add when you want data: Infrastructure`.
+_LADDER_HEAD = re.compile(r"^###\s+(?:Start here|Add when you want\s+\w+):\s*(\w+)\s*$")
+_BOLD = re.compile(r"\*\*(.+?)\*\*")
+_MD_LINK_TEXT = re.compile(r"\[([^\]]+)\]\(")
+
+
+def named_layers(header):
+    """The layers a `**Layer:**` header names, in model order.
+
+    Word-anchored, and generous by construction: `Process / Tooling` names both, so a row
+    filed under either is agreement. Detector V's rule — flagging a healthy row costs more
+    than missing a sick one — so widen this when it misses a layer and never narrow it to
+    make the count look worse. A header naming none (`Harness`, `Reference`, `N/A`) is
+    what UNDECLARED reports; it is deliberately NOT treated as an honest non-answer, the
+    way `named_stages` treats `Cross-cutting`, because TEMPLATE.md declares a closed set
+    here and an absent header is the honest way to decline it."""
+    return [ly for ly in LAYERS if re.search(rf"\b{ly}\b", header, re.IGNORECASE)]
+
+
+def _workflow_layer_rows(text):
+    """[(line, layer, cell)] — every tool row under a `| Layer |` table's layer cell."""
+    rows, cur, in_table = [], None, False
+    for i, ln in enumerate(text.splitlines(), 1):
+        if ln.startswith("#"):
+            cur, in_table = None, False
+            continue
+        if not ln.lstrip().startswith("|"):
+            in_table = False
+            continue
+        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if not cells:
+            continue
+        if cells[0].strip("* ").lower() == "layer":  # the table's own header row
+            cur, in_table = None, True
+            continue
+        if not in_table or len(cells) < 2:
+            continue
+        m = _LAYER_CELL.match(cells[0])
+        if m:
+            cur = m.group(1).capitalize()
+        if cur and cells[1]:
+            rows.append((i, cur, cells[1]))
+    return rows
+
+
+def _ladder_entries(text):
+    """{tool-key: layer} from `## Adopting This Workflow`'s bulleted ladder.
+
+    Its headings carry a FOURTH layer name (`Orchestration`) that exists nowhere else, so
+    the value is kept verbatim rather than normalised into the closed set — reporting the
+    name it actually uses is the finding."""
+    out, head = {}, None
+    for ln in text.splitlines():
+        m = _LADDER_HEAD.match(ln)
+        if m:
+            head = m.group(1)
+            continue
+        if ln.startswith("##") and not ln.startswith("###"):
+            head = None
+        if not head or not ln.startswith("- **"):
+            continue
+        for name in _BOLD.findall(ln):
+            # `code-review plugin + pr-review-toolkit` and `headroom + context-mode` name
+            # two tools in one bullet; a trailing `plugin`/`skill` is a noun, not a name.
+            for part in re.split(r"\s*\+\s*", name):
+                tool = re.sub(r"\s+(plugin|skill)$", "", part.strip(), flags=re.IGNORECASE)
+                if tool:
+                    out.setdefault(catalog_lib.name_key(tool), (tool, head))
+    return out
+
+
+def audit_layer_drift(ctx):
+    """(drift, self_drift, undeclared, no_layer, comparable) — the layer axis of the map.
+
+    Three counted kinds:
+
+      DRIFT       a WORKFLOW.md layer-table row whose eval's `**Layer:**` header names a
+                  different layer. The eval defines the tool; the table files it.
+      SELF-DRIFT  a tool the adoption ladder and a stage table file differently. Purely
+                  internal to WORKFLOW.md, so it needs no join and cannot be a resolution
+                  artifact — the strongest kind for that reason, and the one a newcomer
+                  actually acts on.
+      UNDECLARED  an eval whose `**Layer:**` names none of TEMPLATE.md's three.
+
+    One printed and never counted (V's `acked`, W's `cleared`, X's `FACETED`):
+
+      no-layer    an eval with no `**Layer:**` line. 8 of the 9 are comparison, collection
+                  or scan documents with no single subject, so declining the field is the
+                  honest answer and check-stars.py's rule against grading a legitimately-
+                  `n/a` field applies verbatim. The ninth (`composio`) is a single-subject
+                  eval whose field is simply absent — which is why the bucket is PRINTED
+                  rather than dropped: a human can see the one that differs.
+
+    Two rules carried straight from AG. ANY named layer matching is agreement, so
+    `Process / Tooling` filed under either is healthy (detector V's rule). And the detector
+    never says WHICH side is wrong — the eval header can be the stale one or the table can
+    be — so the header is QUOTED and it bands nothing. Report-only: every remedy is a human
+    choosing between two judgements."""
+    index = catalog_lib.link_index(ctx.catalog)
+    drift, self_drift, undeclared, no_layer = [], [], [], []
+
+    # --- UNDECLARED / no-layer: the eval corpus against TEMPLATE.md's closed set.
+    for ev in ctx.evals:
+        hdr = ev.layer
+        if not hdr:
+            no_layer.append(LayerFinding("no-layer", ev.name, None, [], "", 0))
+        elif not named_layers(hdr):
+            undeclared.append(LayerFinding("UNDECLARED", ev.name, None, [], hdr, 0))
+
+    # --- DRIFT: WORKFLOW.md's layer tables against each row's own eval.
+    table = {}
+    comparable = 0
+    for line, layer, cell in _workflow_layer_rows(ctx.workflow):
+        # A linked row identifies its tool by link text; an unlinked one (`**Beads**
+        # — …`) still names it, and the ladder cites those by name, so both are indexed.
+        lm = _MD_LINK_TEXT.search(cell)
+        text = lm.group(1) if lm else re.sub(r"\s+—.*", "", cell).strip("* ")
+        if text:
+            table.setdefault(catalog_lib.name_key(text), (text, layer, line))
+        url = re.search(r"\((https://github\.com/[^)]+)\)", cell)
+        if not url:
+            continue
+        slug = next(iter(catalog_lib.github_repos(url.group(1))), "")
+        row, _ambig = catalog_lib.resolve_link(index, text, url.group(1), slug)
+        if not row:
+            continue
+        ev = ctx.eval_by_row.get(catalog_lib.name_key(row.name))
+        hdr = ev.layer if ev else None
+        named = named_layers(hdr) if hdr else []
+        if not named:
+            continue
+        comparable += 1
+        if layer not in named:
+            drift.append(LayerFinding("DRIFT", row.name, layer, named, hdr, line))
+
+    # --- SELF-DRIFT: WORKFLOW.md against itself, no join at all.
+    filed_twice = 0
+    for key, (name, head) in sorted(_ladder_entries(ctx.workflow).items()):
+        if key not in table:
+            continue
+        filed_twice += 1
+        if table[key][1] != head:
+            self_drift.append(
+                LayerFinding("SELF-DRIFT", name, head, [table[key][1]],
+                             f"its own stage table files it under {table[key][1]}",
+                             table[key][2]))
+
+    drift.sort(key=lambda f: (f.declared, f.tool))
+    undeclared.sort(key=lambda f: (f.header.lower(), f.tool))
+    no_layer.sort(key=lambda f: f.tool)
+    cover = LayerCoverage(comparable, filed_twice,
+                          len(ctx.evals) - len(no_layer))
+    return drift, self_drift, undeclared, no_layer, cover
+
+
 # ---------------------------------------------------------------- AH. unread repo install record (report-only)
 # `skills-lock.json` is the one install record that lives INSIDE the tree, and nothing in
 # the repo read it (#473). Detector F (#398) and detector Y (#366) both want an install
@@ -3519,7 +3756,8 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--catalog-mirror", "--maintenance", "--scope", "--identity", "--installed",
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
-                "--containment-evidence", "--stage-drift", "--repo-installs")
+                "--containment-evidence", "--stage-drift", "--repo-installs",
+                "--layer-drift")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -3588,6 +3826,7 @@ def main():
     do_contev = "--containment-evidence" in want  # opt-in report (does not affect exit code)
     do_stage = "--stage-drift" in want  # opt-in report (does not affect exit code)
     do_repoinst = "--repo-installs" in want  # opt-in report (does not affect exit code)
+    do_layer = "--layer-drift" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -4115,6 +4354,35 @@ def main():
         for f in evaluated:
             print(f"  evaluated {f.tool} [`{f.slug}`] vendored as `{f.key}` — "
                   f"row reads {f.verdict}")
+    if do_layer:
+        drift, self_drift, undecl, no_layer, cover = audit_layer_drift(ctx)
+        n = len(drift) + len(self_drift) + len(undecl)
+        print(f"== AI. layer drift (report-only) — {n} disagreement(s): {len(drift)} of "
+              f"{cover.rows} comparable WORKFLOW.md row(s), {len(self_drift)} of "
+              f"{cover.filed_twice} tool(s) WORKFLOW.md files twice, {len(undecl)} of "
+              f"{cover.declaring} eval(s) declaring a layer ==")
+        if not cover.rows and not undecl and not self_drift:
+            print("  no comparable rows — no WORKFLOW.md `| Layer |` row resolves to an "
+                  "eval whose header names one of the three")
+        elif not n:
+            print("  OK — every layer table, the adoption ladder and every eval header "
+                  "agree, and no eval names a layer TEMPLATE.md does not define")
+        # SELF-DRIFT first: it is internal to one file, so it cannot be a resolution
+        # artifact, and it is the copy a newcomer acts on.
+        for f in self_drift:
+            print(f"  SELF-DRIFT {f.tool} — the adoption ladder files it under "
+                  f"{f.declared}; {f.header} (WORKFLOW.md:{f.line})")
+        for f in drift:
+            print(f"  DRIFT      {f.tool} WORKFLOW.md:{f.line} — filed under "
+                  f"{f.declared}; its eval names {'/'.join(f.named)}: \"{f.header}\"")
+        for f in undecl:
+            print(f"  UNDECLARED {f.tool} — `**Layer:** {f.header}` names none of "
+                  f"{'/'.join(LAYERS)} (TEMPLATE.md declares a closed set)")
+        # Printed, never counted (V's `acked`, W's `cleared`, X's `FACETED`): declining
+        # the field is the honest way to have no single subject.
+        for f in no_layer:
+            print(f"  no-layer   {f.tool} declares no `**Layer:**` — an honest "
+                  "non-answer, not a finding")
     sys.exit(rc)
 
 if __name__ == "__main__":
