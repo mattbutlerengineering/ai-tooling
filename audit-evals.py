@@ -1869,6 +1869,37 @@ def audit_lead_headlines(ctx):
 # decides per row which side is right.
 CatalogMirrorFinding = collections.namedtuple("CatalogMirrorFinding", "eval_name tool kind detail")
 
+# How many evals U actually walked, and why the rest were not (#467). The headline used
+# to print `len({f.eval_name for f in drift})` — the evals it FOUND something in — where
+# every other detector here prints `n/total`. That is a second cardinality of the
+# numerator, and it made "0 disagreement(s) across 0 eval(s)" on a clean tree read
+# identically to "0 evals were checked": #319's *silence is not success*, and the reason
+# detector C reports `n/total target(s) checked` at all. `walked` is the population;
+# `skipped` is printed and NEVER counted (V's `acked`, W's `cleared`, X's `FACETED`),
+# because some evals correctly have no mirror and turning 88 of them into a backlog would
+# put a number on the board for a question nobody has asked.
+MirrorCoverage = collections.namedtuple("MirrorCoverage", "walked skipped")
+
+_MIRROR_SECTION = re.compile(r"^##\s*Catalog entry\b[^\n]*", re.MULTILINE)
+_MIRROR_NA = re.compile(r"\bn/?a\b", re.IGNORECASE)
+
+SKIP_NA = "declares `## Catalog entry: n/a` with a reason (the documented way to have none)"
+SKIP_NO_ROW = "`## Catalog entry` section holds no parseable row (a comparison document)"
+SKIP_NO_SECTION_CATALOGUED = "no `## Catalog entry` section — and the tool HAS a CATALOG.md row"
+SKIP_NO_SECTION = "no `## Catalog entry` section, and no CATALOG.md row either"
+
+
+def _mirror_skip_reason(ev, lookup):
+    """Why this eval never reached the comparison. Whether a missing mirror is a defect
+    is a human's call — `cost-audit-compress-recipe` is a recipe that correctly has none
+    — so the split names the one bucket where it probably is: a tool the catalog lists."""
+    section = _MIRROR_SECTION.search(ev.text)
+    if section:
+        return SKIP_NA if _MIRROR_NA.search(section.group(0)) else SKIP_NO_ROW
+    row, _ambig = lookup(ev.name)
+    return SKIP_NO_SECTION_CATALOGUED if row else SKIP_NO_SECTION
+
+
 def audit_catalog_mirror(ctx):
     """CatalogMirrorFindings for every eval whose embedded `## Catalog entry` row (or
     `**Repo:**` header) disagrees with CATALOG.md's row for the same tool. Offline —
@@ -1905,11 +1936,18 @@ def audit_catalog_mirror(ctx):
                 return fuzzy[k], None
         return None, None
 
-    findings = []
+    findings, walked, skipped = [], 0, collections.Counter()
     for ev in ctx.evals:
-        rows = [r for r in ev.catalog_rows if r.url is not None]
+        # An UNLINKED embedded row is indexed too, and only its URL comparison is skipped
+        # (#467). This filter used to read `if r.url is not None`, the exact mirror of the
+        # one #401 removed on the CATALOG side for the same reason: a row with no repo to
+        # link still names a tool, its other cells are still a mirror, and only the URL
+        # has nothing to compare against. #401 fixed one half of a symmetric filter.
+        rows = ev.catalog_rows
         if not rows:
-            continue  # no embedded row: nothing mirrored, nothing to drift
+            skipped[_mirror_skip_reason(ev, lookup)] += 1
+            continue
+        walked += 1
         # A pack eval embeds several rows (8090-software-factory carries the platform's);
         # every one of them mirrors some catalog row, so check each against its own.
         for row in rows:
@@ -1924,9 +1962,9 @@ def audit_catalog_mirror(ctx):
                     ev.name, row.name, "ORPHAN",
                     "embedded row names a tool with no CATALOG.md row"))
                 continue
-            # `crow.url is None` is an UNLINKED catalog row, not a disagreement: there is
-            # no URL on that side to compare against (#401).
-            if crow.url is not None and row.url != crow.url:
+            # An UNLINKED row on EITHER side is not a disagreement: there is no URL on
+            # that side to compare against (#401 for the catalog side, #467 for the eval's).
+            if row.url is not None and crow.url is not None and row.url != crow.url:
                 findings.append(CatalogMirrorFinding(
                     ev.name, row.name, _link_kind(row.url, crow.url),
                     f"eval row {row.url} != catalog {crow.url}"))
@@ -1944,7 +1982,7 @@ def audit_catalog_mirror(ctx):
             findings.append(CatalogMirrorFinding(
                 ev.name, rows[0].name, _link_kind(heads[0], crow.url),
                 f"**Repo:** header {heads[0]} != catalog {crow.url}"))
-    return findings
+    return findings, MirrorCoverage(walked, skipped)
 
 
 def _link_kind(a, b):
@@ -3670,14 +3708,21 @@ def main():
             print(f"  OVERREACH {name}: row=discovery-log but eval headlines {verd} at {lvl} evidence "
                   f"(relabel it a tentative read, or promote the row with a run behind it)")
     if do_mirror:
-        drift = audit_catalog_mirror(ctx)
+        drift, cover = audit_catalog_mirror(ctx)
         kinds = collections.Counter(f.kind for f in drift)
         evals_hit = len({f.eval_name for f in drift})
         print(f"== U. catalog-entry mirror drift (report-only) — {len(drift)} disagreement(s) "
-              f"across {evals_hit} eval(s): {kinds['LINK']} LINK, {kinds['ORPHAN']} ORPHAN, "
-              f"{kinds['TEXT']} TEXT, {kinds['CASE']} CASE, {kinds['AMBIG']} AMBIG ==")
-        if not drift:
+              f"in {evals_hit} of {cover.walked} mirrored eval(s): {kinds['LINK']} LINK, "
+              f"{kinds['ORPHAN']} ORPHAN, {kinds['TEXT']} TEXT, {kinds['CASE']} CASE, "
+              f"{kinds['AMBIG']} AMBIG ==")
+        if not cover.walked:
+            print("  no embedded catalog rows — nothing was compared, which is not the "
+                  "same as nothing being wrong")
+        elif not drift:
             print("  OK — every embedded catalog row matches CATALOG.md")
+        # Printed, never counted: what U did NOT look at. Silence here reads as coverage.
+        for reason, n in sorted(cover.skipped.items(), key=lambda kv: (-kv[1], kv[0])):
+            print(f"  not compared  {n:4}  {reason}")
         # LINK first: a stale slug makes an eval assert facts about the wrong repo (#336),
         # where TEXT drift is a disagreement about wording that a human resolves per row.
         order = {"LINK": 0, "ORPHAN": 1, "AMBIG": 2, "TEXT": 3, "CASE": 4}
