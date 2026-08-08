@@ -1099,6 +1099,180 @@ class TestStageDrift(unittest.TestCase):
         self.assertIsNone(only.dev_loop_stage)
 
 
+class TestLayerDrift(unittest.TestCase):
+    """`**Layer:**` was the one eval header field nothing read, and all three copies of the
+    fact drifted (#475). AI is AG's twin on the other axis of the same 2-D map, so most of
+    these pin what must NOT be reported."""
+
+    CHEAD = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+             "|---|---|---|---|---|---|\n")
+
+    VHEAD = "| Tool | Type | Auto | Free | Evaluated | Evidence |\n|---|---|---|---|---|---|\n"
+
+    def _ctx(self, d, workflow, evals, rows=()):
+        cat = ["# Catalog", "", "## Skills & Plugins", "", self.CHEAD.rstrip()]
+        cat += [f"| [{n}]({u}) | tool | x | y | z |  |" for n, u in rows]
+        _write(d, "CATALOG.md", "\n".join(cat) + "\n")
+        # eval_by_row is keyed off COMPARISON rows (detector AD's claim map), so a
+        # fixture with no rows resolves nothing at all.
+        comp = ["# Tool Comparison", "", "## Implement", "", self.VHEAD.rstrip()]
+        comp += [f"| {n} | tool | | ✓ | discovery-log | REVIEW |" for n, _u in rows]
+        _write(d, "COMPARISON.md", "\n".join(comp) + "\n")
+        _write(d, "STACK.md", "# Stack\n")
+        _write(d, "WORKFLOW.md", workflow)
+        for name, layer in evals.items():
+            body = f"# Evaluation: {name}\n\n"
+            if layer:
+                body += f"**Layer:** {layer}\n"
+            body += (f"\n## Catalog entry\n\n| Name | Type | One-liner | Problem | Overlaps |\n"
+                     f"|---|---|---|---|---|\n| {name} | tool | x | y | z |\n")
+            _write(d, os.path.join("evaluations", name + ".md"), body)
+        return audit.DetectorContext(d)
+
+    def _run(self, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_layer_drift(self._ctx(d, **kw))
+
+    @staticmethod
+    def _table(*rows):
+        out = ["## Plan", "", "| Layer | What | Signals |", "|---|---|---|"]
+        out += [f"| {ly} | {what} | Speed |" for ly, what in rows]
+        return "\n".join(out) + "\n"
+
+    def test_a_table_layer_the_eval_header_never_names_is_a_finding(self):
+        wf = self._table(("**Infrastructure**",
+                          "[github-mcp-server](https://github.com/github/github-mcp-server) — x"))
+        drift, _sd, _u, _nl, cover = self._run(
+            workflow=wf, evals={"github-mcp-server": "Tooling"},
+            rows=[("github-mcp-server", "https://github.com/github/github-mcp-server")])
+        self.assertEqual([(f.tool, f.declared, f.named) for f in drift],
+                         [("github-mcp-server", "Infrastructure", ["Tooling"])])
+        self.assertEqual(cover.rows, 1)
+
+    def test_any_named_layer_matching_is_agreement(self):
+        # AG's generosity rule: `Process / Tooling` filed under either is healthy, and
+        # flagging a healthy row costs more than missing a sick one (detector V).
+        wf = self._table(("**Tooling**", "[t](https://github.com/o/t) — x"))
+        drift, _sd, _u, _nl, cover = self._run(
+            workflow=wf, evals={"t": "Process / Tooling (a skill that ships a CLI)"},
+            rows=[("t", "https://github.com/o/t")])
+        self.assertEqual((drift, cover.rows), ([], 1))
+
+    def test_the_header_is_quoted_so_a_human_reads_it(self):
+        wf = self._table(("**Process**", "[t](https://github.com/o/t) — x"))
+        drift, _sd, _u, _nl, _c = self._run(
+            workflow=wf, evals={"t": "Infrastructure (a running MCP server, not a habit)"},
+            rows=[("t", "https://github.com/o/t")])
+        self.assertIn("not a habit", drift[0].header)
+
+    def test_the_layer_cell_carries_forward_across_continuation_rows(self):
+        # Only the first row of a layer group fills the cell; the rest are blank, which is
+        # why this is a line walk. Reading a blank cell as "no layer" would lose 2 of 3.
+        wf = self._table(("**Tooling**", "[a](https://github.com/o/a) — x"),
+                         ("", "[b](https://github.com/o/b) — x"),
+                         ("", "[c](https://github.com/o/c) — x"))
+        drift, _sd, _u, _nl, cover = self._run(
+            workflow=wf, evals={"a": "Tooling", "b": "Process", "c": "Process"},
+            rows=[("a", "https://github.com/o/a"), ("b", "https://github.com/o/b"),
+                  ("c", "https://github.com/o/c")])
+        self.assertEqual(cover.rows, 3)
+        self.assertEqual(sorted(f.tool for f in drift), ["b", "c"])
+
+    def test_a_new_table_does_not_inherit_the_previous_tables_layer(self):
+        # The tables are separated by PROSE, not a heading — the case the header-row reset
+        # exists for. With only a heading between them the reset is unreachable, so a
+        # fixture that used one would pin nothing.
+        wf = (self._table(("**Infrastructure**", "[a](https://github.com/o/a) — x"))
+              + "\nSome prose between two tables.\n\n| Layer | What | Signals |\n|---|---|---|\n"
+              + "| | [b](https://github.com/o/b) — x | Speed |\n")
+        _d, _sd, _u, _nl, cover = self._run(
+            workflow=wf, evals={"a": "Infrastructure", "b": "Process"},
+            rows=[("a", "https://github.com/o/a"), ("b", "https://github.com/o/b")])
+        # `b` sits under no layer cell at all, so it is not comparable — never compared
+        # against the previous table's Infrastructure.
+        self.assertEqual(cover.rows, 1)
+
+    def test_the_adoption_ladder_is_compared_against_the_stage_tables(self):
+        # SELF-DRIFT needs no join and cannot be a resolution artifact.
+        wf = (self._table(("**Tooling**", "[caveman](https://github.com/o/caveman) — x"))
+              + "\n## Adopting This Workflow\n\n### Start here: Process\n\n"
+                "- **caveman** — reduce token waste from day one\n")
+        _d, self_drift, _u, _nl, cover = self._run(
+            workflow=wf, evals={"caveman": "Tooling"},
+            rows=[("caveman", "https://github.com/o/caveman")])
+        self.assertEqual([(f.tool, f.declared, f.named) for f in self_drift],
+                         [("caveman", "Process", ["Tooling"])])
+        self.assertEqual(cover.filed_twice, 1)
+
+    def test_a_ladder_bullet_naming_two_tools_is_split(self):
+        # `headroom + context-mode` and `code-review plugin + pr-review-toolkit` each name
+        # two; taking the bullet whole would silently drop one of every pair.
+        wf = (self._table(("**Tooling**", "[headroom](https://github.com/o/headroom) — x"),
+                          ("", "[context-mode](https://github.com/o/cm) — x"))
+              + "\n## Adopting This Workflow\n\n### Add when you want autonomy: Orchestration\n\n"
+                "- **headroom + context-mode** — token compression\n")
+        _d, self_drift, _u, _nl, cover = self._run(
+            workflow=wf, evals={"headroom": "Tooling", "context-mode": "Tooling"},
+            rows=[("headroom", "https://github.com/o/headroom"),
+                  ("context-mode", "https://github.com/o/cm")])
+        self.assertEqual(sorted(f.tool for f in self_drift), ["context-mode", "headroom"])
+        self.assertEqual(cover.filed_twice, 2)
+
+    def test_the_ladders_fourth_layer_name_is_reported_verbatim(self):
+        # `Orchestration` exists in no template, no eval header and no stage table.
+        # Normalising it into the closed set would erase the finding.
+        wf = (self._table(("**Tooling**", "[gsd](https://github.com/o/gsd) — x"))
+              + "\n## Adopting This Workflow\n\n### Add when you want autonomy: Orchestration\n\n"
+                "- **gsd** — structured project orchestration\n")
+        _d, self_drift, _u, _nl, _c = self._run(
+            workflow=wf, evals={"gsd": "Tooling"},
+            rows=[("gsd", "https://github.com/o/gsd")])
+        self.assertEqual(self_drift[0].declared, "Orchestration")
+
+    def test_a_ladder_entry_in_no_stage_table_is_not_compared(self):
+        wf = ("## Adopting This Workflow\n\n### Start here: Process\n\n"
+              "- **beads** — issue tracking\n")
+        _d, self_drift, _u, _nl, cover = self._run(workflow=wf, evals={})
+        self.assertEqual((self_drift, cover.filed_twice), ([], 0))
+
+    def test_a_layer_outside_the_closed_set_is_undeclared(self):
+        _d, _sd, undecl, _nl, cover = self._run(
+            workflow="# W\n", evals={"ralph": "Harness", "ok": "Tooling"})
+        self.assertEqual([(f.tool, f.header) for f in undecl], [("ralph", "Harness")])
+        self.assertEqual(cover.declaring, 2)
+
+    def test_a_missing_layer_line_is_printed_and_never_counted(self):
+        # check-stars.py's rule: an honest non-answer is not graded into a finding.
+        _d, _sd, undecl, no_layer, cover = self._run(
+            workflow="# W\n", evals={"memory-systems": None})
+        self.assertEqual(undecl, [])
+        self.assertEqual([f.tool for f in no_layer], ["memory-systems"])
+        self.assertEqual(cover.declaring, 0)
+
+    def test_named_layers_is_word_anchored(self):
+        self.assertEqual(audit.named_layers("Processing pipeline"), [])
+        self.assertEqual(audit.named_layers("Infrastructure (MCP server)"),
+                         ["Infrastructure"])
+        self.assertEqual(audit.named_layers("Process / Tooling"), ["Process", "Tooling"])
+
+    def test_the_layer_header_is_read_from_comment_stripped_text(self):
+        # #451: a commented example is provenance, never a declaration.
+        ev = audit.Evaluation("x", "# E\n\n<!-- **Layer:** Process -->\n"
+                                   "**Layer:** Tooling\n")
+        self.assertEqual(ev.layer, "Tooling")
+        self.assertIsNone(audit.Evaluation("y", "# E\n\n<!-- **Layer:** Process -->\n").layer)
+
+    def test_live_tree_reports_every_bucket_with_a_population(self):
+        # #467's rule: a bare finding count reads identically whether anything was checked.
+        drift, self_drift, undecl, no_layer, cover = audit.audit_layer_drift(
+            audit.DetectorContext(ROOT))
+        self.assertTrue(cover.rows and cover.filed_twice and cover.declaring)
+        self.assertLessEqual(len(drift), cover.rows)
+        self.assertLessEqual(len(self_drift), cover.filed_twice)
+        self.assertLessEqual(len(undecl), cover.declaring)
+        self.assertTrue(no_layer, "the printed-not-counted bucket lost its members")
+
+
 class TestRepoInstallRecord(unittest.TestCase):
     """`skills-lock.json` is the one install record inside the tree, and nothing read it
     (#473). Detectors F and Y read the HOME lockfile and are local-only for that reason;
