@@ -5157,8 +5157,9 @@ class TestCatalogMirror(unittest.TestCase):
                                   f"{self._unlinked('t')}"})
             self.assertEqual(self._find(ctx), [])
 
-    def test_eval_with_no_embedded_row_is_not_a_finding(self):
-        # 107 evals reach no embedded row; nothing is mirrored, so nothing drifts.
+    def test_eval_with_no_embedded_row_has_no_CELLS_to_compare(self):
+        # 107 evals reach no embedded row, so no CELL can drift. The `**Repo:**` header
+        # still can, and is still checked — see the #479 block below.
         with tempfile.TemporaryDirectory() as d:
             ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
                             {"t": "# Evaluation: t\n\n**Repo:** [s](https://github.com/o/t)\n"})
@@ -5172,6 +5173,103 @@ class TestCatalogMirror(unittest.TestCase):
                     f"## Catalog entry\n\n{self.HDR}{self._row('t', url)}")
             ctx = self._ctx(d, [self._row("t", url)], {"t": text})
             self.assertEqual(self._find(ctx), [])
+
+    # --- the header check has its OWN precondition, and its own population (#479) ---
+    #
+    # U checks two facts. The CELLS need a mirror to compare against; the `**Repo:**`
+    # header needs only a header. The header comparison used to sit inside the branch
+    # that runs when a mirror parses, so it inherited the mirror's precondition and ran
+    # on 580 of the 677 evals that declare a header. One live CASE sat in the other 90.
+
+    def _headed(self, name, url):
+        """An eval with a `**Repo:**` header and deliberately NO `## Catalog entry`."""
+        return f"# Evaluation: {name}\n\n**Repo:** [s]({url})\n\nprose, no mirror.\n"
+
+    def test_a_header_is_checked_even_with_no_mirror_to_hang_it_on(self):
+        # The defect itself. Before #479 this eval was bucketed as skipped and its
+        # header was never looked at, so a stale catalog link was invisible.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/new/t")],
+                            {"t": self._headed("t", "https://github.com/old/t")})
+            self.assertEqual([(f.kind, f.tool) for f in self._find(ctx)], [("LINK", "t")])
+
+    def test_the_live_agentgpt_shape_is_a_CASE_finding(self):
+        # What the widening actually found: the eval header canonical, the CATALOG row
+        # the stale side, differing only in case. Every metadata join lowercases, so no
+        # band, score or record moves — which is exactly why nothing else could see it.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/agentgpt")],
+                            {"t": self._headed("t", "https://github.com/o/AgentGPT")})
+            self.assertEqual([f.kind for f in self._find(ctx)], ["CASE"])
+
+    def test_a_mirrorless_eval_is_still_bucketed_as_skipped(self):
+        # Checking the header must not make the eval look mirrored: `walked` counts
+        # mirrors, and the skip bucket is what tells a human the mirror is missing.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/new/t")],
+                            {"t": self._headed("t", "https://github.com/old/t")})
+            cover = self._cover(ctx)
+            self.assertEqual(cover.walked, 0)
+            self.assertEqual(cover.skipped[audit.SKIP_NO_SECTION_CATALOGUED], 1)
+
+    def test_the_header_population_is_the_headers_not_the_mirrors(self):
+        # #467's rule, one clause over: two checks, two populations. One eval mirrors,
+        # two only declare a header — a single number cannot honestly stand for both.
+        urls = {n: f"https://github.com/o/{n}" for n in ("a", "b", "c")}
+        with tempfile.TemporaryDirectory() as d:
+            evals = {"a": self._eval("a", urls["a"], self._row("a", urls["a"])),
+                     "b": self._headed("b", urls["b"]),
+                     "c": self._headed("c", urls["c"])}
+            ctx = self._ctx(d, [self._row(n, u) for n, u in urls.items()], evals)
+            cover = self._cover(ctx)
+            self.assertEqual(cover.walked, 1)          # mirrors
+            self.assertEqual(cover.headers, 3)         # headers compared
+            self.assertEqual(cover.header_total, 3)    # headers declared
+
+    def test_an_eval_with_no_header_is_absent_from_the_header_population(self):
+        # Not a 0-of-1 abstention — a **Site:**-headed eval asserts no repo at all, so
+        # counting it as an unchecked header would manufacture a coverage gap.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"t": "# Evaluation: t\n\n**Site:** [x](https://example.com)\n"})
+            cover = self._cover(ctx)
+            self.assertEqual((cover.headers, cover.header_total), (0, 0))
+
+    def test_an_unlinked_catalog_row_is_a_declared_but_unchecked_header(self):
+        # #401's rule on the OTHER side: `server-github` has no repo to link, so there
+        # is no URL to compare. It declares a header (counted) and cannot be compared
+        # (not checked) — the gap must be visible, not silently closed either way.
+        with tempfile.TemporaryDirectory() as d:
+            catalog = "| t | tool | does a thing | a pain | x |\n"
+            ctx = self._ctx(d, [catalog],
+                            {"t": self._headed("t", "https://github.com/o/t")})
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual((cover.headers, cover.header_total), (0, 1))
+
+    def test_a_header_naming_an_uncatalogued_tool_is_not_a_finding(self):
+        # The six comparison and collection documents (`agent-harnesses`,
+        # `recommended-tools`, …). No row resolves, so there is nothing to disagree
+        # with — flagging one would flag a healthy file (detector V's rule).
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/o/t")],
+                            {"stranger": self._headed("stranger", "https://github.com/o/s")})
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(finds, [])
+            self.assertEqual((cover.headers, cover.header_total), (0, 1))
+
+    def test_the_no_mirror_branch_resolves_by_the_same_name_as_its_skip_bucket(self):
+        # The bucket and the comparison must not be able to disagree about which row an
+        # eval is about — they are one `lookup(ev.name)` call apart. Asserted together:
+        # resolving the header off a different name leaves the bucket saying the tool IS
+        # catalogued while the header check silently abstains.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._ctx(d, [self._row("t", "https://github.com/new/t")],
+                            {"t": self._headed("t", "https://github.com/old/t")})
+            finds, cover = audit.audit_catalog_mirror(ctx)
+            self.assertEqual(cover.skipped[audit.SKIP_NO_SECTION_CATALOGUED], 1)
+            self.assertEqual(cover.headers, 1)
+            self.assertEqual([f.tool for f in finds], ["t"])
 
     def test_pack_eval_checks_every_embedded_row(self):
         # A pack eval embeds its siblings' rows too; each mirrors a catalog row.
@@ -5206,6 +5304,24 @@ class TestCatalogMirror(unittest.TestCase):
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("== U. catalog-entry mirror drift", r.stdout)
             self.assertIn("2 LINK", r.stdout)
+
+    def test_the_printed_headline_carries_BOTH_populations(self):
+        # The headline is the surface a human reads, and #467 is about this exact line:
+        # a coverage number that stands for the wrong population reads as a clean sweep.
+        # Two checks, two denominators — one mirrored eval, three declaring a header.
+        urls = {n: f"https://github.com/o/{n}" for n in ("a", "b", "c")}
+        with tempfile.TemporaryDirectory() as d:
+            for fn in ("audit-evals.py", "catalog_lib.py"):
+                shutil.copy(os.path.join(ROOT, fn), os.path.join(d, fn))
+            self._ctx(d, [self._row(n, u) for n, u in urls.items()],
+                      {"a": self._eval("a", urls["a"], self._row("a", urls["a"])),
+                       "b": self._headed("b", urls["b"]),
+                       "c": self._headed("c", urls["c"])})
+            r = subprocess.run(["python3", "audit-evals.py", "--catalog-mirror"],
+                               cwd=d, capture_output=True, text=True, check=False)
+            head = r.stdout.splitlines()[0]
+            self.assertIn("of 1 mirrored eval(s)", head, msg=head)
+            self.assertIn("header checked in 3 of 3 declaring one", head, msg=head)
 
     def test_flag_is_not_in_the_default_or_offline_gate_set(self):
         self.assertNotIn("--catalog-mirror", audit.DEFAULT_GATES)

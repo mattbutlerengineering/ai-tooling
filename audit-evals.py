@@ -1958,7 +1958,8 @@ CatalogMirrorFinding = collections.namedtuple("CatalogMirrorFinding", "eval_name
 # `skipped` is printed and NEVER counted (V's `acked`, W's `cleared`, X's `FACETED`),
 # because some evals correctly have no mirror and turning 88 of them into a backlog would
 # put a number on the board for a question nobody has asked.
-MirrorCoverage = collections.namedtuple("MirrorCoverage", "walked skipped")
+MirrorCoverage = collections.namedtuple(
+    "MirrorCoverage", "walked skipped headers header_total")
 
 _MIRROR_SECTION = re.compile(r"^##\s*Catalog entry\b[^\n]*", re.MULTILINE)
 _MIRROR_NA = re.compile(r"\bn/?a\b", re.IGNORECASE)
@@ -1978,6 +1979,23 @@ def _mirror_skip_reason(ev, lookup):
         return SKIP_NA if _MIRROR_NA.search(section.group(0)) else SKIP_NO_ROW
     row, _ambig = lookup(ev.name)
     return SKIP_NO_SECTION_CATALOGUED if row else SKIP_NO_SECTION
+
+
+def _header_finding(ev, crow, tool):
+    """(finding-or-None, was-compared) for an eval's `**Repo:**` header against `crow`.
+
+    Two abstentions, neither a finding. An eval with **no header** asserts no repo —
+    commercial platforms head with `**Site:**` — and an **unlinked** catalog row has no
+    URL to compare, which is #401's rule (an entry with no repo to link is still a
+    catalogued tool; only its URL comparison is skipped)."""
+    heads = ev.repo_links
+    if not heads or crow is None or not crow.url:
+        return None, False
+    if crow.url in heads:
+        return None, True
+    return CatalogMirrorFinding(
+        ev.name, tool, _link_kind(heads[0], crow.url),
+        f"**Repo:** header {heads[0]} != catalog {crow.url}"), True
 
 
 def audit_catalog_mirror(ctx):
@@ -2017,7 +2035,9 @@ def audit_catalog_mirror(ctx):
         return None, None
 
     findings, walked, skipped = [], 0, collections.Counter()
+    headers = header_total = 0
     for ev in ctx.evals:
+        header_total += bool(ev.repo_links)
         # An UNLINKED embedded row is indexed too, and only its URL comparison is skipped
         # (#467). This filter used to read `if r.url is not None`, the exact mirror of the
         # one #401 removed on the CATALOG side for the same reason: a row with no repo to
@@ -2026,6 +2046,19 @@ def audit_catalog_mirror(ctx):
         rows = ev.catalog_rows
         if not rows:
             skipped[_mirror_skip_reason(ev, lookup)] += 1
+            # The CELLS need a mirror; the `**Repo:**` header needs only a header. The
+            # header check used to sit inside this loop's other branch, so it inherited
+            # the MIRROR's population and ran on 580 of the 677 evals that assert a repo
+            # (#479) — #467's lesson (a check reporting the population it walked) one
+            # clause over, and #401's (one half of a symmetric filter fixed, the other
+            # never looked at) one file over. Resolution is `lookup(ev.name)`, the SAME
+            # call that just chose this eval's skip bucket, so the bucket and the
+            # comparison cannot disagree about which row the eval is about.
+            crow, _ = lookup(ev.name)
+            finding, ran = _header_finding(ev, crow, ev.name)
+            headers += ran
+            if finding:
+                findings.append(finding)
             continue
         walked += 1
         # A pack eval embeds several rows (8090-software-factory carries the platform's);
@@ -2054,15 +2087,13 @@ def audit_catalog_mirror(ctx):
                     findings.append(CatalogMirrorFinding(
                         ev.name, row.name, "TEXT", f"{field}: {_clip(mine)} != {_clip(theirs)}"))
         # The header link is checked against the FIRST embedded row's catalog match: that
-        # row is the eval's own subject (pack evals lead with theirs), and an eval with no
-        # `**Repo:**` header is not a finding — commercial platforms head with `**Site:**`.
-        heads = ev.repo_links
+        # row is the eval's own subject (pack evals lead with theirs).
         crow, _ = lookup(rows[0].name)
-        if heads and crow and crow.url and crow.url not in heads:
-            findings.append(CatalogMirrorFinding(
-                ev.name, rows[0].name, _link_kind(heads[0], crow.url),
-                f"**Repo:** header {heads[0]} != catalog {crow.url}"))
-    return findings, MirrorCoverage(walked, skipped)
+        finding, ran = _header_finding(ev, crow, rows[0].name)
+        headers += ran
+        if finding:
+            findings.append(finding)
+    return findings, MirrorCoverage(walked, skipped, headers, header_total)
 
 
 def _link_kind(a, b):
@@ -4088,8 +4119,12 @@ def main():
         drift, cover = audit_catalog_mirror(ctx)
         kinds = collections.Counter(f.kind for f in drift)
         evals_hit = len({f.eval_name for f in drift})
+        # Two populations, reported apart because they ARE apart: the cells need a mirror,
+        # the `**Repo:**` header needs only a header (#479). One number for both would be
+        # the coverage claim #467 removed from this same headline.
         print(f"== U. catalog-entry mirror drift (report-only) — {len(drift)} disagreement(s) "
-              f"in {evals_hit} of {cover.walked} mirrored eval(s): {kinds['LINK']} LINK, "
+              f"in {evals_hit} of {cover.walked} mirrored eval(s), header checked in "
+              f"{cover.headers} of {cover.header_total} declaring one: {kinds['LINK']} LINK, "
               f"{kinds['ORPHAN']} ORPHAN, {kinds['TEXT']} TEXT, {kinds['CASE']} CASE, "
               f"{kinds['AMBIG']} AMBIG ==")
         if not cover.walked:
