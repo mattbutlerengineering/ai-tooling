@@ -3,6 +3,7 @@
 **Repo:** [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills)
 **Stars:** 4,631 | **Last updated:** 2026-06-19 (pushed; created 2026-01-19) | **License:** NOASSERTION ("Other" — per-skill upstream attribution)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-08-08  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the whole loop by *category*, not by stage — 81 skills across architecture, cloud, creation (ADR/RFC/design-doc), development, design, performance, quality, security, tooling (Nx-heavy), web-automation, and a large GTM/go-to-market band. Engineering-relevant clusters touch Plan (tlc-spec-driven, create-adr/rfc), Implement (nestjs-modular-monolith, react patterns), Verify/Review (security-*, web-quality-audit, perf-*), and Ship (vercel/netlify/cloudflare-deploy).
 **Layer:** Tooling + Infrastructure (the skills are Process, but the headline artifact is a published npm CLI `@tech-leads-club/agent-skills` and an MCP server that install/update skills across 19 agents, with a security-scanning CI/CD pipeline behind publishing)
 
@@ -61,6 +62,16 @@ gh api "...contents/packages/skills-catalog/skills/(security)/security-best-prac
 **discovery-log — tentative read: adopt for the distribution CLI and the security/validation posture; cherry-pick the engineering/process skills and ignore the GTM band.** tech-leads-club/agent-skills is less a skill *collection* than a skill *platform*: the differentiator over every neighbor is the published, well-engineered npm CLI + MCP server that install/update/audit skills across 19 agents through a security-scanning pipeline. That tooling is genuinely the best install experience in this catalog's skill-pack cohort. The caveats are that the security claims are vendor-asserted (unverified here), a big slice of the 81 skills is off-axis go-to-market/Nx content, and the catalog is an aggregator under a murky `NOASSERTION` license. The right use is: install the CLI, pull the architecture/spec/security/quality skills, skip the marketing skills.
 
 Compared to neighbors: where **Jeffallan/claude-skills**, **mattpocock/skills**, **antfu/skills**, and **addyosmani/agent-skills** ship *content* you install by hand or via a single plugin, TLC ships a *registry + multi-agent installer + validation pipeline* — it competes on distribution and trust, not on having the best individual skills (many are aggregated from those very sources). Closest in spirit to a "SkillSpector / validated-marketplace" play than to a one-author skill set. Adopt the platform; don't treat its 81-skill count as 81 things worth installing.
+
+## Triage note
+
+Left at `discovery-log` (P2 challenger band): named overlap is SkillSpector, a marketplace
+*scanner* rather than a competing registry+CLI+MCP distribution platform — not the same job,
+so this is not a mechanical redundancy SKIP. The registry/CLI/security-scanning combination
+is differentiated enough to deserve the hands-on install/audit run the eval above already
+recommends, not disposal.
+
+_Triaged 2026-08-08 by the P2 challenger band._
 
 ## Catalog entry
 
