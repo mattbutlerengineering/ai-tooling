@@ -1498,13 +1498,51 @@ class TestInstallExtractor(unittest.TestCase):
     def test_the_other_forms_are_untouched(self):
         self.assertEqual(self._ex("npx ccusage@latest daily --json"), [("npm", "ccusage")])
         self.assertEqual(self._ex("cargo install ripgrep"), [("crates", "ripgrep")])
-        self.assertEqual(self._ex("claude install-plugin obra/superpowers"),
-                         [("gh", "obra/superpowers")])
+
+    def test_the_marketplace_form_is_the_one_that_resolves(self):
+        """`claude install-plugin` / `install-skill` are not subcommands — `claude --help`
+        lists neither, and the extractor keyed on them resolved their ARGUMENT while never
+        asking whether the VERB exists (#487). Keying on the fake verb also meant the REAL
+        commands already in the corpus went unchecked; three targets joined the gate when
+        the pattern was repointed."""
+        for cmd in ("claude plugin marketplace add obra/superpowers",
+                    "claude plugins marketplace add obra/superpowers",
+                    "claude plugin marketplace add obra/superpowers && "
+                    "claude plugin install superpowers@superpowers-dev"):
+            self.assertEqual(self._ex(cmd), [("gh", "obra/superpowers")], cmd)
+        self.assertEqual(self._ex("claude install-plugin obra/superpowers"), [])
 
     def test_a_command_framed_as_the_wrong_one_is_still_skipped(self):
         """The NEGATION window is what keeps correction notes from becoming findings."""
         self.assertEqual(
             list(audit.extract_installs("this does not exist: `npm i -g nope-nope`")), [])
+
+    def test_no_reader_facing_page_tells_anyone_to_run_a_fake_subcommand(self):
+        """`claude` accepts an unrecognized first argument AS A PROMPT (#439), so a
+        fabricated subcommand does not error — it opens a session with the command as the
+        user's message and sits there. `STACK.md` carried ten of them for ten months, the
+        `setup-workflow` skill handed two to an agent, and detector A passed on all of
+        them because it checked the repo and never the verb (#487).
+
+        Scoped to the pages a reader or an agent EXECUTES. `CLAUDE.md`, `audit-evals.py`
+        and this file all name the fake verbs on purpose — documenting a defect is not
+        committing it, the same line detector B's HONEST vocabulary draws."""
+        import glob as _g
+        pages = ["STACK.md", "WORKFLOW.md", "CATALOG.md", "README.md", "PLAYBOOK.md",
+                 *_g.glob("evaluations/*.md", root_dir=audit.ROOT),
+                 *_g.glob("skills/**/*.md", root_dir=audit.ROOT, recursive=True),
+                 *_g.glob("plugin/docs/**/*.md", root_dir=audit.ROOT, recursive=True),
+                 *_g.glob("plugin/skills/**/*.md", root_dir=audit.ROOT, recursive=True)]
+        offenders = []
+        for rel in pages:
+            path = os.path.join(audit.ROOT, rel)
+            if not os.path.exists(path):
+                continue
+            with open(path, encoding="utf-8") as fh:
+                for i, line in enumerate(fh, 1):
+                    if "claude install-plugin" in line or "claude install-skill" in line:
+                        offenders.append(f"{rel}:{i}")
+        self.assertEqual(offenders, [], "a `claude` subcommand that does not exist")
 
     def test_the_live_tree_gains_coverage_and_loses_none(self):
         """The invariant the fix is FOR: every target the old extractor found is still

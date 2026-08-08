@@ -38,7 +38,7 @@ Examined: setup wizard flow (`make setup`), config.yaml model provider system (8
 
 ## What didn't work or surprised us
 
-- **Heavyweight deployment.** Docker recommended, Python 3.12+, Node.js 22+, a `make setup` wizard, LangGraph backend, and optional PostgreSQL for checkpointing. Compared to `pip install superpowers` or `claude install-plugin`, this is a significant commitment.
+- **Heavyweight deployment.** Docker recommended, Python 3.12+, Node.js 22+, a `make setup` wizard, LangGraph backend, and optional PostgreSQL for checkpointing. Compared to `claude plugin install`, this is a significant commitment.
 - **Not a Claude Code enhancer.** The `claude-to-deerflow` skill sends tasks to a running DeerFlow instance — it doesn't make Claude Code itself better. You're running two systems (Claude Code + DeerFlow) rather than enhancing one.
 - **ByteDance ecosystem pull.** README prominently features Volcengine "Coding Plan" and InfoQuest integrations. Recommended models are Doubao-Seed-2.0-Code, DeepSeek v3.2, and Kimi 2.5 — valid models, but the Claude/GPT support reads as afterthought despite being technically complete.
 - **Not tested hands-on.** The Docker/Python/Node setup is too heavy for a quick evaluation pass. Architecture review only.

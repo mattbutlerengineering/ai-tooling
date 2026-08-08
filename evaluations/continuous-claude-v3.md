@@ -49,7 +49,7 @@ gh api "repos/parcadei/Continuous-Claude-v3/git/trees/main?recursive=1" --jq '[.
 
 ## What didn't work or surprised us
 
-- **Heavy infrastructure requirements** — Docker, PostgreSQL, Python 3.12+, uv package manager, and a 12-step setup wizard. This is not a "clone and go" experience despite the README's claim. Compare with superpowers (`claude install-plugin obra/superpowers`) or caveman (single skill install).
+- **Heavy infrastructure requirements** — Docker, PostgreSQL, Python 3.12+, uv package manager, and a 12-step setup wizard. This is not a "clone and go" experience despite the README's claim. Compare with superpowers (`claude plugin marketplace add obra/superpowers && claude plugin install superpowers@superpowers-dev`) or caveman (single skill install).
 - **Massive dependency surface** — pyproject.toml includes scipy, matplotlib, plotly, shapely, tiktoken, openai SDK, fastapi, uvicorn, and more. The MCP server alone pulls in a significant dependency tree that most dev workflows won't need.
 - **108 skills is likely too many** — at scale, skill selection becomes noisy. The skill router hook tries to solve this but adds yet another layer of indirection. Compare with superpowers (focused set of ~15 well-integrated skills) or mattpocock/skills (~10 curated skills).
 - **"Agentica" subsystem ties to external proprietary infrastructure** — several skills reference `symbolica-agentica` SDK (a dependency in pyproject.toml), suggesting tight coupling with an external platform.
