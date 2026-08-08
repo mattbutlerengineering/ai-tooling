@@ -1989,9 +1989,10 @@ class TestDetectorJ(unittest.TestCase):
                  "| pack | plugin | | ✓ | KEEP | REVIEW |\n")
 
     def _resolve(self, text, url, catalog=None):
-        index = audit._catalog_link_index(catalog or self.MONO)
-        slug = next(iter(catalog_lib.github_repos(url)))
-        return audit.resolve_stack_pick(index, text, url, slug.lower())
+        row, cands = catalog_lib.resolve_link(
+            catalog_lib.link_index(catalog or self.MONO), text, url)
+        return (row.name if row else None,
+                [c.name for c in cands] if cands else None)
 
     def test_unshared_slug_resolves_to_its_row(self):
         self.assertEqual(self._resolve("foo", "https://github.com/x/foo", self.CATALOG),
@@ -2015,6 +2016,13 @@ class TestDetectorJ(unittest.TestCase):
         row, candidates = self._resolve("gamma", "https://github.com/x/pack/tree/main/other")
         self.assertIsNone(row)
         self.assertEqual(candidates, ["alpha", "beta", "pack"])
+
+    def test_container_row_is_the_one_linking_the_repo_root(self):
+        # Deterministic where "the first row" was arbitrary: exactly one of the three
+        # names the pack itself rather than an artifact inside it (#465).
+        index = catalog_lib.link_index(self.MONO)
+        self.assertEqual(catalog_lib.container_row(index, "x/pack").name, "pack")
+        self.assertIsNone(catalog_lib.container_row(index, "x/nothing"))
 
     def test_ambiguous_pick_is_reported_not_skipped(self):
         stack = "## Plan\n| [gamma](https://github.com/x/pack/tree/main/other) | d | `c` | s |\n"
@@ -2048,12 +2056,12 @@ class TestDetectorJ(unittest.TestCase):
         # Nine of the tree's thirty picks link a slug several rows claim. Every one must
         # resolve to its OWN row — an unresolved pick is a check that silently did not run.
         ctx = audit.DetectorContext(ROOT)
-        index = audit._catalog_link_index(ctx.catalog)
+        index = catalog_lib.link_index(ctx.catalog)
         for text, url, slug in audit._stack_picks_by_slug(ctx.stack):
-            row, candidates = audit.resolve_stack_pick(index, text, url, slug)
+            row, candidates = catalog_lib.resolve_link(index, text, url, slug)
             self.assertIsNone(candidates, msg=f"STACK pick '{text}' ({slug}) is ambiguous")
-            if slug in index.shared:
-                self.assertEqual(row, text, msg=f"'{text}' resolved to a sibling: {row}")
+            if len(catalog_lib.rows_for_slug(index, slug)) > 1:
+                self.assertEqual(row.name, text, msg=f"'{text}' resolved to a sibling: {row}")
 
 
 # ----------------------------------------------------------------- detector K (verdict evidence, #71)
@@ -4679,6 +4687,45 @@ class TestMaintenanceSignal(unittest.TestCase):
             self.assertEqual(finds[0].verdict, "ADOPT")
             self.assertEqual(finds[0].tool, "daytona")
 
+    # --- a record is a fact about a REPO, and a pack has several rows (#465) ---
+
+    PACK = ("## Implement\n\n| Name | Type | One-liner | Problem it solves | Overlaps with |\n"
+            "|---|---|---|---|---|\n"
+            "| [alpha](https://github.com/x/pack/tree/main/plugins/alpha) | tool | live tool | y | z |\n"
+            "| [pack](https://github.com/x/pack) | tool | the pack ⚠️ discontinued | y | z |\n")
+    PACK_COMP = ("# T\n\n## Implement\n\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                 "|---|---|---|---|---|---|\n"
+                 "| alpha | tool | y | y | ADOPT | REVIEW |\n"
+                 "| pack | tool | y | y | SKIP | REVIEW |\n")
+
+    def _pack_ctx(self, d, catalog):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", catalog)
+        _write(d, "COMPARISON.md", self.PACK_COMP)
+        _write(d, "repo-metadata.json", json.dumps(
+            {"x/pack": {"archived": False, "license_spdx": "MIT",
+                        "discontinued": "no longer maintained"}}))
+        return audit.DetectorContext(d)
+
+    def test_a_shared_slug_asks_every_row_about_disclosure(self):
+        # `pack` discloses and `alpha` does not. Asking one row called this disclosed;
+        # if the repo is dead, every row that advertises it needs the note (#465).
+        with tempfile.TemporaryDirectory() as d:
+            finds, _, _ = audit.audit_maintenance(self._pack_ctx(d, self.PACK))
+            self.assertEqual(len(finds), 1)
+            self.assertFalse(finds[0].disclosed)
+            self.assertEqual(finds[0].silent, ("alpha",))
+            self.assertEqual(finds[0].tool, "pack")          # the row that links the root
+            self.assertEqual(finds[0].verdict, "ADOPT, SKIP")  # every verdict behind it
+
+    def test_maintenance_findings_do_not_depend_on_row_order(self):
+        rows = self.PACK.splitlines(keepends=True)
+        flipped = "".join([*rows[:4], rows[5], rows[4]])
+        with tempfile.TemporaryDirectory() as d1, tempfile.TemporaryDirectory() as d2:
+            a, _, _ = audit.audit_maintenance(self._pack_ctx(d1, self.PACK))
+            b, _, _ = audit.audit_maintenance(self._pack_ctx(d2, flipped))
+            self.assertEqual(a, b)
+
     def test_archived_false_is_not_a_free_pass(self):
         # The whole point: this record would never reach the P1 successor-check band.
         with tempfile.TemporaryDirectory() as d:
@@ -5565,6 +5612,53 @@ class TestWorkflowRecommendsSkip(unittest.TestCase):
         self.assertEqual([(f.tool, f.line) for f in finds], [("tob", 3)])
         self.assertEqual((disclosed, linked), ([], 1))
 
+    # --- a WORKFLOW link into a pack is told apart by its text (#465) ---
+
+    PACK_ROWS = ("## Plan\n"
+                 "| Name | Type | One-liner | Problem | Overlaps with | Ships inside |\n"
+                 "|---|---|---|---|---|---|\n"
+                 "| [alpha](https://github.com/x/pack/tree/main/plugins/alpha) | tool | o | t | — | |\n"
+                 "| [beta](https://github.com/x/pack/tree/main/plugins/beta) | tool | o | t | — | |\n")
+    PACK_VERDICTS = ("# T\n\n## Plan\n\n| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+                     "|---|---|---|---|---|---|\n"
+                     "| alpha | tool | y | y | ADOPT | REVIEW |\n"
+                     "| beta | tool | y | y | SKIP | REVIEW |\n")
+
+    def _pack_run(self, workflow, catalog=None):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+            _write(d, "WORKFLOW.md", workflow)
+            _write(d, "CATALOG.md", catalog or self.PACK_ROWS)
+            _write(d, "COMPARISON.md", self.PACK_VERDICTS)
+            return audit.audit_workflow_skips(audit.DetectorContext(d))
+
+    def test_a_pack_root_link_is_resolved_by_its_text(self):
+        # The manual links a component at the pack root — nine live WORKFLOW lines do.
+        # Reading the slug alone asked whichever row came first, so the SKIPped `beta`
+        # was reported or missed depending on CATALOG.md's row order (#465).
+        finds, _, linked = self._pack_run(
+            "## Review\n\n| [beta](https://github.com/x/pack) — a component |\n")
+        self.assertEqual([(f.tool, f.line) for f in finds], [("beta", 3)])
+        self.assertEqual(linked, 1)
+
+    def test_a_healthy_sibling_of_a_skip_is_not_flagged(self):
+        finds, _, linked = self._pack_run(
+            "## Review\n\n| [alpha](https://github.com/x/pack) — a component |\n")
+        self.assertEqual((finds, linked), ([], 1))
+
+    def test_an_unidentifiable_pack_link_is_not_a_finding(self):
+        # Neither the text nor the link names a candidate. Report-only, so silence beats
+        # naming a stranger — flagging a healthy row costs more than missing a sick one.
+        finds, _, linked = self._pack_run(
+            "## Review\n\n| [the pack](https://github.com/x/pack) — everything |\n")
+        self.assertEqual((finds, linked), ([], 0))
+
+    def test_workflow_skip_findings_do_not_depend_on_row_order(self):
+        rows = self.PACK_ROWS.splitlines(keepends=True)
+        flipped = "".join([*rows[:3], rows[4], rows[3]])
+        wf = "## Review\n\n| [beta](https://github.com/x/pack) — a component |\n"
+        self.assertEqual(self._pack_run(wf), self._pack_run(wf, flipped))
+
     def test_only_skip_counts(self):
         # CONDITIONAL and discovery-log mentions are the exemption detector P grants;
         # DEFER means revisit, not don't-use. Reporting them would drown the ones that
@@ -6324,6 +6418,73 @@ class TestLicenseDeclared(unittest.TestCase):
             _write(d, "CATALOG.md", ""); _write(d, "COMPARISON.md", "")
             self.assertEqual(
                 audit.audit_license_declared(audit.DetectorContext(d)), ([], 0, []))
+
+    # --- the subject of a shared slug (#465) -----------------------------------
+    # A `license_declared` record is a fact about the REPO, and six catalog rows can sit
+    # behind one. Reading "the first row" made the finding's tool, verdict and — through
+    # the verdict's prose — its whole GROUNDED/RECORDED classification a function of
+    # CATALOG.md's row order.
+
+    def _pack_ctx(self, d, catalog=None, evals=()):
+        os.makedirs(os.path.join(d, "evaluations"), exist_ok=True)
+        _write(d, "CATALOG.md", catalog or (
+            "## Plan\n\n" + self.HDR +
+            "| [pack](https://github.com/o/pack) | skill | one | two | none |\n"
+            "| [alpha](https://github.com/o/pack/tree/main/skills/alpha) | skill | o | t | none |\n"
+            "| [beta](https://github.com/o/pack/tree/main/skills/beta) | skill | o | t | none |\n"))
+        _write(d, "COMPARISON.md",
+               "# Tool Comparison\n\n## Plan\n\n"
+               "| Tool | Type | Auto | Free | Evaluated | Evidence |\n"
+               "|------|------|------|------|-----------|----------|\n"
+               "| pack | skill | | \u2713 | discovery-log | SOURCE-ONLY |\n"
+               "| alpha | skill | | \u2713 | discovery-log | SOURCE-ONLY |\n"
+               "| beta | skill | | \u2713 | SKIP | REVIEW |\n")
+        for name, text in evals:
+            _write(d, f"evaluations/{name}.md",
+                   f"# Evaluation: {name}\n\n## Verdict\n\n{text}\n")
+        _write(d, "repo-metadata.json", json.dumps(
+            {"o/pack": {"license_spdx": "NONE", "archived": False,
+                        "license_declared": {"spdx": "MIT", "where": "readme",
+                                             "phrase": "## License MIT"}}}))
+        return audit.DetectorContext(d)
+
+    GROUND: ClassVar[str] = ("**SKIP** — no declared license. A skill is *vendored* into "
+                             "the consuming repo, and text carrying no license grant "
+                             "cannot be copied in.")
+
+    def test_the_subject_is_the_row_whose_verdict_rests_on_the_license(self):
+        # `beta` is the row the declaration refutes; `pack` and `alpha` are leads it
+        # merely corrects. Reporting the pack would file the strongest kind Z has under
+        # a row that never claimed anything.
+        with tempfile.TemporaryDirectory() as d:
+            ctx = self._pack_ctx(d, evals=[("beta", self.GROUND)])
+            finds, _, _ = audit.audit_license_declared(ctx)
+            self.assertEqual([(f.kind, f.tool, f.verdict) for f in finds],
+                             [("GROUNDED", "beta", "SKIP")])
+
+    def test_with_no_grounded_row_the_subject_is_the_one_naming_the_repo(self):
+        # Nothing to refute, so the record is about the artifact — and among rows sharing
+        # a slug the one linking the repo ROOT is the row that names it (detector X's
+        # container test), never whichever came first.
+        with tempfile.TemporaryDirectory() as d:
+            finds, _, _ = audit.audit_license_declared(self._pack_ctx(d))
+            self.assertEqual([(f.kind, f.tool) for f in finds], [("RECORDED", "pack")])
+
+    def test_license_findings_do_not_depend_on_row_order(self):
+        base = ("## Plan\n\n" + self.HDR +
+                "| [pack](https://github.com/o/pack) | skill | one | two | none |\n"
+                "| [alpha](https://github.com/o/pack/tree/main/skills/alpha) | skill | o | t | none |\n"
+                "| [beta](https://github.com/o/pack/tree/main/skills/beta) | skill | o | t | none |\n")
+        lines = base.splitlines(keepends=True)
+        head = len(lines) - 3          # "## Plan", blank, and the two header lines
+        flipped = "".join([*lines[:head], lines[head + 2], lines[head + 1], lines[head]])
+        # Both branches: with a grounded row to find, and with none (the container path).
+        for evals in ([("beta", self.GROUND)], []):
+            with (tempfile.TemporaryDirectory() as d1,
+                  tempfile.TemporaryDirectory() as d2):
+                a = audit.audit_license_declared(self._pack_ctx(d1, evals=evals))
+                b = audit.audit_license_declared(self._pack_ctx(d2, flipped, evals=evals))
+                self.assertEqual(a, b, evals)
 
     def test_flag_is_report_only_and_opt_in(self):
         self.assertIn("--license-declared", audit.REPORT_FLAGS)

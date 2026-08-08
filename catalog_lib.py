@@ -434,3 +434,91 @@ def comparison_rows_by_section(text):
         if cells[vcol] in _VERDICT_SET:
             out[sec].append(ComparisonRow(cells[0], cells[vcol], cells))
     return out
+
+
+# --- resolving a link to the catalog row it names (#463, #465) -----------------
+#
+# A catalog row is identified by its LINK, and several rows can sit behind one
+# `owner/repo`: 30 rows share 7 slugs today, because a pack's members each get a row
+# (`mattpocock/skills` holds 6, `anthropics/claude-plugins-official` 8). Every consumer
+# that starts from a link — detector J's STACK picks, detector V's metadata records,
+# detector Z's license records, detector AE's WORKFLOW lines — has to answer the same
+# question, and each of them used to answer it by taking whichever row `parse_catalog_rows`
+# yielded first.
+#
+# That is a coin flip, and #463 showed it is not a theoretical one: reordering CATALOG.md
+# turned a green `make check` into 5 gating failures naming KEEP tools for a SKIP. The
+# rule is the one #401/#374/#457 keep arriving at — **an ambiguous lookup resolves to
+# NOTHING, never to a candidate** — so this returns `(row, None)` when it is sure and
+# `(None, candidates)` when it is not, and the caller decides whether ambiguity is a
+# finding (J gates it) or a silence (AE skips it, since flagging a healthy row costs
+# more than missing a sick one).
+CatalogLinks = collections.namedtuple("CatalogLinks", "by_link by_slug")
+
+
+def norm_link(url):
+    """A github URL flattened for comparison: no trailing slash, case-folded. GitHub
+    itself redirects on case, which is why detector U holds CASE out of LINK."""
+    return (url or "").strip().rstrip("/").lower()
+
+
+def link_index(catalog_text):
+    """CatalogLinks over every github-linked CATALOG.md row: exact URL → row, and
+    `owner/repo` → every row behind it (in catalog order, deduped by name)."""
+    by_link, by_slug = {}, collections.defaultdict(list)
+    for r in parse_catalog_rows(catalog_text):
+        url = (r.url or "").strip()
+        if not url.lower().startswith("https://github.com/"):
+            continue
+        by_link.setdefault(norm_link(url), r)
+        for s in github_repos(url):
+            if not any(x.name == r.name for x in by_slug[s.lower()]):
+                by_slug[s.lower()].append(r)
+    return CatalogLinks(by_link, dict(by_slug))
+
+
+def rows_for_slug(index, slug):
+    """Every catalog row behind `owner/repo`. A metadata record or an archival flag is
+    a fact about the REPO, so it is about all of them — asking one row on their behalf
+    is how detector V reported one row's disclosure as nine rows' (#465)."""
+    return index.by_slug.get((slug or "").lower(), [])
+
+
+def _links_repo_root(url):
+    """True when the URL is `github.com/owner/repo` with no subpath."""
+    if not url or "github.com/" not in url.lower():
+        return False
+    return len(norm_link(url).split("github.com/")[-1].split("/")) == 2
+
+
+def container_row(index, slug):
+    """The row that links the repo ROOT, or None. Among rows sharing a slug this is the
+    one naming the whole artifact — detector X's `Ships inside` container test — so it
+    is the honest subject of a repo-level fact. Never "the first row"."""
+    return next((r for r in rows_for_slug(index, slug) if _links_repo_root(r.url)), None)
+
+
+def resolve_link(index, text, url, slug=None):
+    """(row, None) when one catalog row is identifiable, else (None, candidates).
+
+    Precedence — narrowest evidence first:
+      1. a unique row behind the slug (the 99% case: nothing to disambiguate);
+      2. the link TEXT matching exactly one candidate's Name — a WORKFLOW line or a
+         STACK pick links a pack member at the pack root and names it in the text,
+         which is the only thing that tells `code-review` from `feature-dev`;
+      3. the exact URL, when it names a candidate — a row linking its own subpath.
+    Anything else is ambiguous and resolves to nothing.
+
+    Name-before-link is deliberate and was wrong in the first draft: link-first sent
+    `code-review`, `feature-dev`, `pr-review-toolkit` and `resolving-merge-conflicts`
+    to the CONTAINER row, whose verdict is a different tool's."""
+    if slug is None:
+        slug = next(iter(github_repos(url or "")), "")
+    candidates = rows_for_slug(index, slug)
+    if len(candidates) <= 1:
+        return (candidates[0] if candidates else None), None
+    exact = [c for c in candidates if c.name.lower() == (text or "").strip().lower()]
+    if len(exact) == 1:
+        return exact[0], None
+    row = index.by_link.get(norm_link(url))
+    return (row, None) if row in candidates else (None, candidates)

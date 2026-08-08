@@ -925,7 +925,7 @@ def _stack_picks_by_slug(stack_text):
     Resolution downstream keys on the SLUG, never the display text — detector P's rule,
     since names vary ("GSD" links to obra/superpowers) and a basename is not a synonym
     between two rows (#374). The LINK comes along because a slug is not always an
-    identity: see `_catalog_link_index`."""
+    identity: see `catalog_lib.resolve_link`."""
     picks = []
     for text, url in re.findall(r"\|\s*\[([^\]]+)\]\((https://github\.com/[^)]+)\)", stack_text):
         for slug in catalog_lib.github_repos(url):
@@ -933,70 +933,10 @@ def _stack_picks_by_slug(stack_text):
     return picks
 
 
-def _norm_link(url):
-    """A github link in the one form two files can be compared on."""
-    return url.strip().rstrip("/").lower()
-
-
-CatalogLinks = collections.namedtuple("CatalogLinks", "by_link by_slug shared")
-
-
-def _catalog_link_index(catalog_text):
-    """Three ways to reach a catalog row from a link, strongest first (#463).
-
-    A slug is NOT an identity inside a monorepo: `anthropics/claude-plugins-official` is
-    claimed by nine rows whose verdicts span all four values, so the old
-    `by_slug.setdefault(...)` resolved nine STACK picks to whichever row CATALOG.md
-    happens to list first. That is the coin flip detector U (#401), detector AG (#453)
-    and `verify-installs.py` each refuse by name — and here it sat inside a GATING check,
-    which made `make check` depend on catalog row ORDER: swapping the `frontend-design`
-    and `commit-commands` rows past each other turns a green tree into five failures,
-    every one naming a KEEP tool for a SKIP that belongs to neither.
-
-    `shared` maps a slug claimed by several rows to those rows' names, so an ambiguous
-    slug can resolve to NOTHING and say so, rather than to a stranger."""
-    by_link, slug_rows = {}, collections.defaultdict(list)
-    for r in catalog_lib.parse_catalog_rows(catalog_text):
-        url = (r.url or "").strip()
-        if not url.startswith("https://github.com/"):
-            continue
-        by_link.setdefault(_norm_link(url), r.name)
-        for s in catalog_lib.github_repos(url):
-            if r.name not in slug_rows[s.lower()]:
-                slug_rows[s.lower()].append(r.name)
-    return CatalogLinks(by_link,
-                        {s: n[0] for s, n in slug_rows.items() if len(n) == 1},
-                        {s: n for s, n in slug_rows.items() if len(n) > 1})
-
-
-def resolve_stack_pick(index, text, url, slug):
-    """(catalog row name, candidates) for a STACK pick. Exactly one is ever set.
-
-    An unshared slug is an identity and settles it. A shared one narrows to a candidate
-    SET, and inside that set the questions run strongest-first:
-
-    1. the pick's own text exactly naming one candidate. `verify-installs.py`'s "exact
-       catalog name first" rule, and detector P's warning (names vary — "GSD" links to
-       obra/superpowers) does not reach it: the text is not naming a tool from scratch
-       here, only telling nine already-slug-matched siblings apart.
-    2. the link exactly matching one candidate's own URL. Weaker than the name **because
-       STACK links a component pick at the pack root** — `[resolving-merge-conflicts]
-       (github.com/mattpocock/skills)` — so the link identifies the container while the
-       text identifies the pick, and answering "is mattpocock/skills SKIPped" is not the
-       question that was asked.
-
-    Neither: return the candidates. The check cannot say which row it would be checking,
-    and silence there is #319's "silence is not success" inside a gate. A pick with no
-    catalog row at all returns (None, None) — a different gap, and flagging it here would
-    flag a healthy row (detector V's rule)."""
-    candidates = index.shared.get(slug)
-    if not candidates:
-        return index.by_slug.get(slug), None
-    exact = [c for c in candidates if c.lower() == text.strip().lower()]
-    if len(exact) == 1:
-        return exact[0], None
-    row = index.by_link.get(_norm_link(url))
-    return (row, None) if row in candidates else (None, candidates)
+# Resolving a link to a catalog row lives in catalog_lib, next to identity_keys and
+# alias_keys — the other two answers to "which row is this?" (#463, generalized in #465).
+# It used to be a private `by_slug.setdefault(...)` here and in three more detectors, so
+# whichever row CATALOG.md listed first answered for every row behind a shared slug.
 
 
 def audit_stack_drift(ctx):
@@ -1016,21 +956,21 @@ def audit_stack_drift(ctx):
     problems = []
     comp = ctx.comparison_verdict_map
     stack = _stack_member_keys(ctx.stack)
-    index = _catalog_link_index(ctx.catalog)
+    index = catalog_lib.link_index(ctx.catalog)
     for text, url, slug in _stack_picks_by_slug(ctx.stack):
-        tool, candidates = resolve_stack_pick(index, text, url, slug)
+        row, candidates = catalog_lib.resolve_link(index, text, url, slug)
         if candidates:
             problems.append(
                 f"STACK pick '{text}' links {slug}, which {len(candidates)} catalog rows "
-                f"claim ({', '.join(candidates)}) — narrow the link to the row's own "
-                "subpath, or the SKIP check cannot say which one it checked (#463)")
+                f"claim ({', '.join(c.name for c in candidates)}) — narrow the link to the "
+                "row's own subpath, or the SKIP check cannot say which one it checked (#463)")
             continue
-        if not tool:
+        if not row:
             continue
-        if next((comp[k] for k in catalog_lib.identity_keys(tool) if k in comp), None) == "SKIP":
+        if next((comp[k] for k in catalog_lib.identity_keys(row.name) if k in comp), None) == "SKIP":
             problems.append(
-                f"STACK pick '{text}' resolves to catalog row '{tool}' ({slug}), which is "
-                "SKIPped in COMPARISON — the install list recommends a tool the catalog "
+                f"STACK pick '{text}' resolves to catalog row '{row.name}' ({slug}), which "
+                "is SKIPped in COMPARISON — the install list recommends a tool the catalog "
                 "eliminated (#416)")
     ledger_keys = set()
     for name, verdict, in_stack, reason in _LEDGER_ROW.findall(ctx.ledger):
@@ -2050,7 +1990,7 @@ def _clip(s, n=58):
 # findings arrive from upstream's README via the network, so failing the build on one
 # would fail it for a reason no commit caused (detector R's rule).
 MaintenanceFinding = collections.namedtuple(
-    "MaintenanceFinding", "slug kind detail verdict tool disclosed")
+    "MaintenanceFinding", "slug kind detail verdict tool disclosed silent")
 
 # Deliberately GENEROUS. A row that already discloses and is reported anyway pressures a
 # human to re-add a note that is there, and V's own rule is that flagging a healthy row
@@ -2074,13 +2014,11 @@ def audit_maintenance(ctx):
         return [], 0, []
     if not isinstance(records, dict):
         return [], 0, []
-    # slug -> catalog row, so a finding names the tool a human recognizes AND can be
-    # asked whether that row says anything about the tool being dead.
-    by_slug = {}
-    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        if r.url:
-            for s in catalog_lib.github_repos(r.url):
-                by_slug.setdefault(s.lower(), r)
+    # slug -> EVERY catalog row behind it, because a record is a fact about a REPO and a
+    # pack has several rows. "Does the row disclose?" (#395) is the wrong question for a
+    # shared slug: if `mattpocock/skills` were discontinued, six rows would need the note
+    # and asking `by_slug.setdefault(...)` asked one of them (#465).
+    index = catalog_lib.link_index(ctx.catalog)
     verd = ctx.comparison_verdict_map
     collected = sum(1 for m in records.values()
                     if isinstance(m, dict) and ("discontinued" in m or "license_lost" in m))
@@ -2088,23 +2026,34 @@ def audit_maintenance(ctx):
     for slug, meta in sorted(records.items()):
         if not isinstance(meta, dict):
             continue
-        row = by_slug.get(slug)
-        tool = row.name if row else slug
-        v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
+        rows = catalog_lib.rows_for_slug(index, slug)
+        container = catalog_lib.container_row(index, slug)
+        # The pack's own row names the repo; with none, the slug does. Never "the first
+        # row", which is what made this arbitrary.
+        tool = container.name if container else (rows[0].name if len(rows) == 1 else slug)
+        vs = sorted({next((verd[k] for k in catalog_lib.identity_keys(r.name) if k in verd), "—")
+                     for r in rows}) or ["—"]
+        v = ", ".join(vs)
+        silent = tuple(r.name for r in rows if not _discloses(r))
         phrase = meta.get("discontinued")
         if phrase:
             f = MaintenanceFinding(slug, "DISCONTINUED", f'README: "{phrase}"', v, tool,
-                                   _discloses(row))
+                                   not silent, silent)
             (acked if _acked(meta, phrase) else findings).append(f)
         if meta.get("license_lost"):
             # Scoped to DISCONTINUED: the catalog convention is about a project being
             # dead, and a row already prints its license, so there is nothing here for
             # a reader to be misled about in the same way.
             findings.append(MaintenanceFinding(slug, "LICENSE-LOST",
-                                               f"now {meta.get('license_spdx')}", v, tool, True))
+                                               f"now {meta.get('license_spdx')}", v, tool,
+                                               True, ()))
     rank = {"ADOPT": 0, "KEEP": 0, "CONDITIONAL": 1, "DEFER": 2, "discovery-log": 3, "SKIP": 4}
+    # Strongest verdict first, and a shared slug carries several — a dead tool we still
+    # RECOMMEND outranks a dead lead nobody was going to reach, whatever its siblings say.
+    def strongest(f):
+        return min(rank.get(x, 3) for x in f.verdict.split(", "))
     for bucket in (findings, acked):
-        bucket.sort(key=lambda f: (rank.get(f.verdict, 3), f.slug))
+        bucket.sort(key=lambda f: (strongest(f), f.slug))
     return findings, collected, acked
 
 
@@ -2638,6 +2587,29 @@ LicenseFinding = collections.namedtuple(
     "LicenseFinding", "kind tool slug verdict spdx where phrase conflict")
 
 
+def _license_subject(index, slug, verd, grounds):
+    """(tool, verdict, verdict-section, grounded) for the row a license record is ABOUT.
+
+    Every row behind the slug is asked; the first whose SKIP rests on the license wins,
+    because that is the disposition the declaration refutes. With none, the pack's own
+    row names the repo, then a lone row, then the slug — never "whichever came first"."""
+    rows = catalog_lib.rows_for_slug(index, slug)
+
+    def read(name):
+        v = next((verd[k] for k in catalog_lib.identity_keys(name) if k in verd), "—")
+        sec = next((grounds[a] for a in catalog_lib.alias_keys(name) if a in grounds), "")
+        return v, sec, bool(v == "SKIP" and LICENSE_GROUND.search(sec))
+
+    for r in rows:
+        v, sec, grounded = read(r.name)
+        if grounded:
+            return r.name, v, sec, True
+    container = catalog_lib.container_row(index, slug)
+    subject = container.name if container else (rows[0].name if len(rows) == 1 else slug)
+    v, sec, _ = read(subject)
+    return subject, v, sec, False
+
+
 def audit_license_declared(ctx):
     """(findings, records) — catalogued repos whose metadata records a license declared
     outside a LICENSE file, plus the number of records carrying the field.
@@ -2652,11 +2624,7 @@ def audit_license_declared(ctx):
     if not isinstance(records, dict):
         return [], 0, []
 
-    by_slug = {}
-    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        if r.url:
-            for s in catalog_lib.github_repos(r.url):
-                by_slug.setdefault(s.lower(), r.name)
+    index = catalog_lib.link_index(ctx.catalog)
     verd = ctx.comparison_verdict_map
     # alias -> the eval's Verdict section, so "is the license the stated ground?" reads
     # the argument rather than the whole file (a How-we-tested `gh api ... .license` line
@@ -2677,10 +2645,13 @@ def audit_license_declared(ctx):
         d = meta.get("license_declared")
         if not isinstance(d, dict) or not d.get("spdx"):
             continue
-        tool = by_slug.get(slug, slug)
-        v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), "—")
-        sec = next((grounds[a] for a in catalog_lib.alias_keys(tool) if a in grounds), "")
-        grounded = v == "SKIP" and LICENSE_GROUND.search(sec)
+        # A record is a fact about a REPO, and several rows can sit behind one slug —
+        # `modelcontextprotocol/servers` holds two SKIPs and a container. Asking
+        # `by_slug.setdefault(...)` asked whichever row CATALOG.md listed first, so a
+        # mechanical SKIP grounded in a license absence could hide behind a sibling
+        # (#465). Ask them all, and report the GROUNDED one: that is the row whose
+        # disposition the declaration voids.
+        tool, v, sec, grounded = _license_subject(index, slug, verd, grounds)
         if grounded:
             kind = "GROUNDED"
         elif d.get("conflict"):
@@ -3078,6 +3049,20 @@ _WF_EXCLUDED_SECTION = re.compile(r"^##\s*Tools Deliberately Excluded", re.IGNOR
 WorkflowSkipFinding = collections.namedtuple("WorkflowSkipFinding", "tool slug line text")
 
 
+_MD_LINK = re.compile(r"\[([^\]]+)\]\((https://github\.com/[^)\s]+)\)")
+
+
+def _line_links(line):
+    """(text, url) for every markdown github link on a line, plus ('', url) for a bare
+    one. The text is not decoration: it is what distinguishes `[codebase-design]
+    (github.com/mattpocock/skills)` from the five other rows behind that slug."""
+    links = _MD_LINK.findall(line)
+    linked = {u for _t, u in links}
+    bare = [("", "https://github.com/" + s) for s in catalog_lib.github_repos(line)
+            if not any(("github.com/" + s).lower() in u.lower() for u in linked)]
+    return links + bare
+
+
 def audit_workflow_skips(ctx):
     """(findings, disclosed, linked) — WORKFLOW.md links whose catalog row reads SKIP.
 
@@ -3092,25 +3077,27 @@ def audit_workflow_skips(ctx):
         workflow = ctx.read("WORKFLOW.md")
     except OSError:
         return [], [], 0
-    by_slug = {}
-    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        for s in catalog_lib.github_repos(r.url or ""):
-            by_slug.setdefault(s.lower(), r.name)
+    index = catalog_lib.link_index(ctx.catalog)
     verd = ctx.comparison_verdict_map
 
     findings, disclosed, linked, in_excluded = [], [], 0, False
     for n, line in enumerate(workflow.splitlines(), 1):
         if line.startswith("## "):
             in_excluded = bool(_WF_EXCLUDED_SECTION.match(line))
-        for slug in {s.lower() for s in catalog_lib.github_repos(line)}:
-            tool = by_slug.get(slug)
-            if not tool:
+        for text, url in _line_links(line):
+            # The manual links a component at the pack root too — nine WORKFLOW lines do
+            # — so the link text is what tells the candidates apart. Reading the slug
+            # alone asked whichever row CATALOG.md listed first, and three of the seven
+            # shared slugs hold a SKIP (#465).
+            row, candidates = catalog_lib.resolve_link(index, text, url)
+            if candidates or not row:
                 continue
             linked += 1
-            v = next((verd[k] for k in catalog_lib.identity_keys(tool) if k in verd), None)
+            v = next((verd[k] for k in catalog_lib.identity_keys(row.name) if k in verd), None)
             if v != "SKIP":
                 continue
-            f = WorkflowSkipFinding(tool, slug, n, line.strip()[:110])
+            f = WorkflowSkipFinding(row.name, next(iter(catalog_lib.github_repos(url)), ""),
+                                    n, line.strip()[:110])
             (disclosed if in_excluded or WF_DISCLOSED.search(line) else findings).append(f)
 
     findings.sort(key=lambda f: (f.tool, f.line))
@@ -3710,7 +3697,13 @@ def main():
         for f in finds:
             # The catalog row is what a reader scans; the verdict is one file away. An
             # undisclosed row advertises a dead project in the present tense (#395).
-            note = "" if f.disclosed else "  ← CATALOG.md row does not say so"
+            # A pack has several rows and every one of them advertises the repo, so the
+            # note names them: "the row" is the wrong question for a shared slug (#465).
+            note = ""
+            if not f.disclosed:
+                note = ("  ← CATALOG.md row does not say so" if len(f.silent) == 1
+                        else f"  ← {len(f.silent)} CATALOG.md rows do not say so: "
+                             + ", ".join(f.silent))
             print(f"  {f.kind} [{f.verdict}] {f.tool} ({f.slug}): {f.detail}{note}")
         for f in acked:
             print(f"  acknowledged false positive — {f.tool} ({f.slug}): {f.detail}")
