@@ -456,6 +456,33 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
      Report-only and not a fixer: the repair reaches STACK, the ledger, CATALOG prose and
      8 SKIP verdicts, which is a per-item human read (#345). Offline.
 
+  AK. CLAIM DRIFT (opt-in, --claim-drift, REPORT-ONLY) — a tool's headline NUMBER is a
+     fact restated on the reader-facing pages, and nothing compared the restatements to
+     each other or to the measurement they came from (#490). `caveman` is MEASURED: its
+     eval measured ~49-59% and RETRACTS the older headline by name, twice. That retracted
+     figure still ships on four pages in five values — PLAYBOOK ~60-75% (the front door),
+     STACK ~60-75% (the install list), WORKFLOW ~75% (the top of the range as a point
+     estimate), WORKFLOW ~65-75% (a range in no eval at all), CATALOG 65% — while exactly
+     two surfaces carry the measurement.
+       DRIFT   — a TOOL whose link-anchored claims disagree across pages. Counted.
+       REFUTED — a LINE restating a figure its own eval withdraws. Counted, and sorted
+                 first: independent of DRIFT, since pages that all agree on a withdrawn
+                 figure are uniformly wrong and never drift.
+     Detector N asks whether a numeric claim has EVIDENCE, never whether it AGREES with
+     that evidence — `caveman` is MEASURED, so N's question is answered "yes" while the
+     number is wrong (#481/#485/#487's family). U reads CATALOG only, so the 65%-vs-49-59%
+     disagreement is 1 of 500 unpinned TEXT findings and the other three pages are outside
+     it. P/AE/AJ read those pages' LINKS, never their prose numbers.
+     Number-presence is not agreement: `75` appears in caveman's eval ONLY inside the
+     sentence retracting it, so REFUTED keys on the retraction sentence (Z's
+     LICENSE_WITHDRAWN shape) and containment runs one way — a withdrawn `~60-75%` refutes
+     `~75%` and not `~65-75%`, which is drift and nothing stronger. Attributed only when a
+     line resolves to EXACTLY ONE tool, through `eval_by_row` so a row two evals claim
+     resolves to neither. Both link forms resolve, because PLAYBOOK links only evals by
+     design and a slug-only detector reads the front door as claim-free.
+     It never says which side is right — the figure is quoted and it bands nothing.
+     Report-only. Offline.
+
   AC. LICENSE HEADER vs RECORD (opt-in, --license-header, REPORT-ONLY) — every eval
      header restates an upstream fact by hand (`**License:** none specified`) next to
      `repo-metadata.json`, which holds the same fact for the same repo. Nothing
@@ -554,6 +581,7 @@ Usage:
   python3 audit-evals.py --stage-drift   # rows filed under a stage their eval disowns (offline)
   python3 audit-evals.py --repo-installs  # sources this repo vendors but never judged (offline)
   python3 audit-evals.py --layer-drift   # Process/Tooling/Infrastructure disagreements (offline)
+  python3 audit-evals.py --claim-drift   # a tool's headline number, restated and drifting (offline)
   python3 audit-evals.py --link-identity  # links naming one tool and pointing at another (offline)
   python3 audit-evals.py --links      # link-rot sweep only (slow, ~450 requests)
   python3 audit-evals.py --archived   # archived-repo report (slow, ~450 gh-api calls)
@@ -3576,6 +3604,204 @@ def audit_link_identity(ctx):
     return findings, walked
 
 
+# ---------------------------------------------------------------- AK. claim drift (report-only)
+# A tool's headline NUMBER is a fact restated on the reader-facing pages, and nothing
+# compared the restatements — to each other, or to the measurement they came from (#490).
+#
+# `caveman` is MEASURED. Its eval measured ~49-59% and RETRACTS the older headline by name,
+# twice ("The headline \u201c~60\u201375%\u201d is optimistic for natural register", "the repo's
+# earlier \u201c~60\u201375%\u201d was optimistic"). That retracted figure still ships on four pages
+# in five different values: `PLAYBOOK.md` ~60-75% (the front door), `STACK.md` ~60-75% (the
+# install list), `WORKFLOW.md` ~75% (the top of the retracted range as a point estimate),
+# `WORKFLOW.md` ~65-75% (a range in no eval at all) and `CATALOG.md` 65%. Exactly two
+# surfaces agree with the measurement: one WORKFLOW row and the eval's own mirror.
+#
+# Why nothing catches it. Detector N (`--savings-claims`) asks whether a numeric claim has
+# EVIDENCE and never whether it AGREES with that evidence — `caveman` is MEASURED, so N's
+# whole question is already answered "yes" while the number is wrong. That is the family of
+# #481/#485/#487: a gate validating one property while the adjacent one goes unasked.
+# Detector U reads `CATALOG.md` only, so the 65%-vs-49-59% disagreement is genuinely visible
+# to it as 1 of 500 unpinned TEXT findings, and `STACK.md`/`WORKFLOW.md`/`PLAYBOOK.md` are
+# outside it entirely. Detectors P/AE/AJ read those two files' LINKS, never their prose
+# numbers — the same blind spot AJ found for link text, one column over.
+#
+# `PLAYBOOK.md` states the invariant itself on line 3: "every claim below is a link, not a
+# restatement, so the numbers and tiers live in the derived pages that stay honest on their
+# own." It holds that line exactly once — the page contains one numeric claim, and it is the
+# retracted one. `plugin/README.md`'s root cause verbatim: gate the shared facts, not the file.
+ClaimFinding = collections.namedtuple("ClaimFinding", "rel line claim tool kind detail")
+
+CLAIM_PAGES = ("CATALOG.md", "STACK.md", "WORKFLOW.md", "PLAYBOOK.md", "README.md")
+
+# A claim keeps its RANGE whole: `60-75%` is one statement, not two numbers, and splitting
+# it would let a page "agree" with an eval that shares only an endpoint. `(?<!\d)` keeps a
+# date or a star count from donating its trailing digits to a percentage that follows.
+_CLAIM = re.compile(r"(?<!\d)(\d{1,3}(?:\.\d+)?)\s*(?:[-\u2013\u2014]\s*(\d{1,3}(?:\.\d+)?))?\s*(%|\u00d7)")
+_CLAIM_LINK = re.compile(r"\[([^\]\n]+)\]\(([^)\s]+)\)")
+_EVAL_LINK = re.compile(r"(?:\./)?evaluations/([^)#]+)\.md$")
+
+# An honest retraction QUOTES the claim it withdraws — detector Z's LICENSE_WITHDRAWN shape,
+# applied to numbers. Widen this when it misses an honest retraction; never narrow it, which
+# is the one-directional rule `watchlist.py` states for its trigger vocabulary: a wider
+# vocabulary can only remove a false claim of health, never manufacture a finding.
+_RETRACT = re.compile(
+    r"[^.]*?\b(?:was|is|were|are|proved|turned out|seems?|looks?)\s+(?:too\s+)?"
+    r"(?:optimistic|overstated|generous|inflated|unreproducible)[^.]*\.|"
+    r"[^.]*?\b(?:overstates?|overstated|could not reproduce|couldn't reproduce|"
+    r"did not reproduce|not reproducible|failed to reproduce)\b[^.]*\.", re.IGNORECASE)
+
+
+def _claim_tokens(text):
+    """Normalized claims on a line, ranges kept whole: ['60-75%', '49-59%']."""
+    return [f"{a}-{b}{u}" if b else f"{a}{u}" for a, b, u in _CLAIM.findall(text)]
+
+
+def _claim_numbers(tok):
+    return frozenset(_CLAIM.match(tok).group(1, 2)) - {None} if _CLAIM.match(tok) else frozenset()
+
+
+def _claim_subject(ctx, idx, ev_by_name, url):
+    """(key, eval-or-None) for the tool a link is about, or None.
+
+    BOTH link forms resolve — a GitHub slug and a relative `evaluations/*.md` path — and
+    that is not a convenience: `PLAYBOOK.md` links only evals, BY DESIGN ("every claim below
+    is a link"), so a slug-only detector reads the front door as claim-free, which is how
+    this survived. An eval link and a repo link naming one tool collapse to one key.
+
+    Resolution goes through `ctx.eval_by_row`, the claim map detectors AD and AG read, so a
+    row claimed by two evals resolves to NEITHER rather than to a coin flip that would put a
+    stranger's measurement on it (#412's rule). A first version of this probe keyed on the
+    tool NAME as a substring and attributed `headroom`'s 95% to a recipe eval that merely
+    links it — the identity-by-name error #343/#366/#374 are all about.
+    """
+    m = _EVAL_LINK.match(url)
+    if m:
+        ev = ev_by_name.get(m.group(1).lower())
+        if ev is None:
+            return None
+        for u in (ev.repo_links or []):
+            for s in catalog_lib.github_repos(u):
+                if catalog_lib.rows_for_slug(idx, s.lower()):
+                    return s.lower(), ev
+        return "eval:" + ev.name.lower(), ev
+    for s in catalog_lib.github_repos(url):
+        rows = catalog_lib.rows_for_slug(idx, s.lower())
+        if not rows:
+            continue
+        evs = {e.name: e for r in rows
+               if (e := ctx.eval_by_row.get(catalog_lib.name_key(r.name)))}
+        return s.lower(), (next(iter(evs.values())) if len(evs) == 1 else None)
+    return None
+
+
+def audit_claim_drift(ctx):
+    """(drift, refuted, tools, lines) — the NUMBER axis of the map, after AG's stage axis
+    and AI's layer axis: a fact written in several places with nothing comparing them.
+
+    Two counted kinds, in two different units, because one number cannot honestly stand for
+    two checks (#481's rule — several checks means several numbers):
+
+      DRIFT    a TOOL whose link-anchored numeric claims disagree across reader-facing
+               pages. Needs no eval and cannot be a resolution artifact: the pages simply
+               contradict each other.
+      REFUTED  a LINE restating a figure the tool's own eval withdraws. Sharper than DRIFT
+               and independent of it — a tool whose pages all agree on a withdrawn figure is
+               uniformly wrong and never drifts.
+
+    Precision rules, each read off the corpus rather than invented:
+
+    A claim is attributed only when the line resolves to EXACTLY ONE tool. A catalog row
+    citing three tools in `Overlaps with` is not a claim about any of them, and a first
+    probe that ignored this reported four findings of which three were its own arithmetic.
+
+    NUMBER-PRESENCE IS NOT AGREEMENT, which is why REFUTED keys on the retraction sentence
+    and not on the eval's text as a whole: `75` appears in `caveman`'s eval ONLY inside the
+    sentence retracting it, so a set-membership test over the eval reports the wrong lines as
+    healthy. Verified against the corpus before this rule was chosen.
+
+    A page claim is REFUTED when its numbers are CONTAINED in a withdrawn figure's, so
+    `~75%` is refuted by a withdrawn `~60-75%` (the top of the range restated as a point
+    estimate) while `~65-75%` is not (it shares one endpoint and is a different claim, so it
+    is drift and nothing stronger). Containment rather than equality, in that direction only
+    — the conservative side, detector V's rule that flagging a healthy row costs more than
+    missing a sick one.
+
+    The detector NEVER says which side is right: the page may be stale or the eval may be, so
+    the figure is quoted and it bands nothing (AG's and AI's rule).
+
+    What it cannot see is disclosed rather than left to be noticed (the no-silent-caps rule):
+    a claim needs a LINK on its line to be attributed, so `STACK.md`'s Quick Start comment
+    `# 2. Output token compression (~60-75% savings)` — a sixth restatement of the retracted
+    figure, INSIDE the copy-paste block — is invisible here. Attributing an unlinked number
+    would mean guessing its subject from surrounding prose, which is the identity-by-name
+    error this file rejects everywhere else.
+
+    Report-only: every remedy is a human deciding which of two numbers is right, and for
+    `caveman` that reaches four files plus a Quick Start block. Offline.
+    """
+    idx = catalog_lib.link_index(ctx.catalog)
+    ev_by_name = {e.name.lower(): e for e in ctx.evals}
+    per = collections.defaultdict(list)
+    lines = 0
+    for rel in CLAIM_PAGES:
+        if not os.path.exists(ctx.path(rel)):
+            continue
+        for i, line in enumerate(ctx.read(rel).splitlines(), 1):
+            toks = _claim_tokens(line)
+            if not toks:
+                continue
+            subs, ev = set(), None
+            for _, url in _CLAIM_LINK.findall(line):
+                got = _claim_subject(ctx, idx, ev_by_name, url)
+                if got:
+                    subs.add(got[0])
+                    ev = ev or got[1]
+            if len(subs) != 1:
+                continue
+            lines += 1
+            per[next(iter(subs))].append((rel, i, toks, ev))
+
+    drift, refuted = [], []
+    for key, rows in sorted(per.items()):
+        stated = {tuple(t) for _, _, t, _ in rows}
+        if len(stated) > 1:
+            drift.append(ClaimFinding(
+                rows[0][0], rows[0][1], sorted({t for _, _, ts, _ in rows for t in ts}),
+                key, "DRIFT",
+                [f"{r}:{i} {'/'.join(t)}" for r, i, t, _ in rows]))
+        ev = next((e for _, _, _, e in rows if e), None)
+        if ev is None:
+            continue
+        # Scanned PER LINE, not over the whole text: `[^.]*?` crosses a markdown heading
+        # happily (no period in it), so a text-wide scan quotes "## What didn't work or
+        # surprised us - **The headline ... is optimistic" and attributes a heading to the
+        # author as part of their retraction. The quote is the evidence a human judges
+        # (detector V's rule), so it has to be the sentence they actually wrote.
+        withdrawn = set()
+        for src_line in ev.text.splitlines():
+            for m in _RETRACT.finditer(src_line):
+                sentence = " ".join(m.group(0).split())
+                for tok in _claim_tokens(sentence):
+                    if _claim_numbers(tok):
+                        withdrawn.add((tok, sentence[:200]))
+        # Deduped by (file, line, claim): `caveman` withdraws one figure in TWO sentences,
+        # and reporting the same line once per sentence counted 3 defects as 6. One defect
+        # is one finding — the count is what a human works down, so inflating it by the
+        # eval's thoroughness would make the headline a worse number than none.
+        seen = set()
+        for tok, sentence in sorted(withdrawn):
+            wn = _claim_numbers(tok)
+            for rel, i, toks, _ in rows:
+                for t in toks:
+                    if _claim_numbers(t) <= wn and (rel, i, t) not in seen:
+                        seen.add((rel, i, t))
+                        refuted.append(ClaimFinding(
+                            rel, i, t, ev.name, "REFUTED", sentence))
+    # REFUTED first: a page restating a figure its own eval withdrew is a stronger statement
+    # than two pages merely disagreeing, and detector V's ordering puts the louder one on top.
+    return drift, refuted, len(per), lines
+
+
 # ---------------------------------------------------------------- AH. unread repo install record (report-only)
 # `skills-lock.json` is the one install record that lives INSIDE the tree, and nothing in
 # the repo read it (#473). Detector F (#398) and detector Y (#366) both want an install
@@ -4054,7 +4280,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
                 "--containment-evidence", "--stage-drift", "--repo-installs",
-                "--layer-drift", "--link-identity")
+                "--layer-drift", "--link-identity", "--claim-drift")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -4125,6 +4351,7 @@ def main():
     do_repoinst = "--repo-installs" in want  # opt-in report (does not affect exit code)
     do_layer = "--layer-drift" in want  # opt-in report (does not affect exit code)
     do_linkid = "--link-identity" in want  # opt-in report (does not affect exit code)
+    do_claim = "--claim-drift" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -4731,6 +4958,23 @@ def main():
         for f in mism:
             print(f"  MISNAMED   {f.rel}:{f.line} — text \"{f.text}\" names "
                   f"{f.named}; `{f.slug}` is {'/'.join(f.rows)}")
+    if do_claim:
+        drift, refuted, tools, lines = audit_claim_drift(ctx)
+        print(f"== AK. claim drift (report-only) — {len(refuted)} of {lines} claim line(s) "
+              f"restate a withdrawn figure, {len(drift)} of {tools} tool(s) stated more "
+              f"than one way ==")
+        if not lines:
+            print("  no attributable claims — no line carries a numeric claim beside a "
+                  "link resolving to exactly one catalogued tool, so nothing was compared")
+        elif not refuted and not drift:
+            print("  OK — every tool's numeric claim reads the same on every page that "
+                  "states it, and none restates a figure its own eval withdraws")
+        for f in refuted:
+            print(f"  REFUTED    {f.rel}:{f.line} — {f.claim} for {f.tool}; its eval "
+                  f"withdraws that figure: \"{f.detail}\"")
+        for f in drift:
+            print(f"  DRIFT      {f.tool} — {len(f.claim)} distinct claim(s) "
+                  f"{'/'.join(f.claim)}: {'; '.join(f.detail)}")
     sys.exit(rc)
 
 if __name__ == "__main__":
