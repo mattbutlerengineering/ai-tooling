@@ -1273,6 +1273,189 @@ class TestLayerDrift(unittest.TestCase):
         self.assertTrue(no_layer, "the printed-not-counted bucket lost its members")
 
 
+class TestClaimDrift(unittest.TestCase):
+    """AG did the stage axis, AI the layer axis; AK does the NUMBER axis — a fact written
+    in several places with nothing comparing them. `caveman` is MEASURED, its eval retracts
+    "~60-75%" by name, and that retracted figure still ships on the front door, the install
+    list and the manual (#490)."""
+
+    CHEAD = ("| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |\n"
+             "|---|---|---|---|---|---|\n")
+
+    def _ctx(self, d, rows, pages=None, evals=None):
+        cat = ["# Catalog", "", "## Skills & Plugins", "", self.CHEAD.rstrip()]
+        for n, u, one in rows:
+            cat.append(f"| [{n}]({u}) | tool | {one} | y | z |  |")
+        _write(d, "CATALOG.md", "\n".join(cat) + "\n")
+        comp = ["## Plan", "| Tool | Type | Auto | Free | Evaluated | Evidence |",
+                "|---|---|---|---|---|---|"]
+        for n, _, _ in rows:
+            comp.append(f"| {n} | tool | - | - | ADOPT | MEASURED |")
+        _write(d, "COMPARISON.md", "\n".join(comp) + "\n")
+        for f in ("STACK.md", "WORKFLOW.md", "PLAYBOOK.md", "README.md"):
+            _write(d, f, (pages or {}).get(f, "# x\n"))
+        for name, body in (evals or {}).items():
+            _write(d, os.path.join("evaluations", name + ".md"), body)
+        return audit.DetectorContext(d)
+
+    def _run(self, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_claim_drift(self._ctx(d, **kw))
+
+    CAVE = ("caveman", "https://github.com/JuliusBrussee/caveman", "cuts tokens")
+
+    @staticmethod
+    def _eval(name, url, body):
+        return (f"# {name}\n\n**Repo:** [{name}]({url})\n\n"
+                f"**Evidence:** MEASURED\n\n## Verdict\n\n**ADOPT** — x\n\n{body}\n")
+
+    RETRACT = '- **The headline "~60-75%" is optimistic for natural register.** We measured ~49%.\n'
+
+    # ---- REFUTED -------------------------------------------------------------
+    def test_a_page_restating_a_withdrawn_figure_is_refuted(self):
+        _, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% cut |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman", self.RETRACT)})
+        self.assertEqual([(f.rel, f.line, f.claim) for f in ref], [("STACK.md", 1, "60-75%")])
+
+    def test_the_top_of_a_withdrawn_range_restated_as_a_point_estimate_is_refuted(self):
+        """`WORKFLOW.md:81` says "cuts ~75% of agent output tokens" — the top of the
+        retracted ~60-75% band, restated as if it were the measurement."""
+        _, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"WORKFLOW.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~75% |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman", self.RETRACT)})
+        self.assertEqual([f.claim for f in ref], ["75%"])
+
+    def test_a_range_merely_overlapping_the_withdrawn_one_is_drift_and_nothing_stronger(self):
+        """`~65-75%` shares an endpoint with the retracted `~60-75%` and is a different
+        claim. Containment runs ONE way — the conservative side, detector V's rule."""
+        dr, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"WORKFLOW.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~65-75% |\n",
+                   "STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49-59% |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman", self.RETRACT)})
+        self.assertEqual(ref, [], "an overlapping range is not the withdrawn figure")
+        self.assertEqual(len(dr), 1, "but the two pages still disagree")
+
+    def test_a_number_present_in_the_eval_but_not_withdrawn_is_not_refuted(self):
+        """The rule that made REFUTED possible at all: `75` appears in caveman's eval ONLY
+        inside the retraction, so a set-membership test over the eval TEXT reports the
+        wrong lines as healthy. Keying on the retraction SENTENCE is what separates them."""
+        _, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49% |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman",
+                                         self.RETRACT)})
+        self.assertEqual(ref, [], "~49% is the MEASURED figure, not the withdrawn one")
+
+    def test_one_line_is_one_finding_however_many_sentences_withdraw_it(self):
+        """`caveman` retracts one figure in TWO sentences; counting the line twice made 3
+        defects read as 6. The count is what a human works down."""
+        _, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% |\n"},
+            evals={"caveman": self._eval(
+                "caveman", "https://github.com/JuliusBrussee/caveman",
+                self.RETRACT + '\nThe earlier "~60-75%" was optimistic; budget ~50%.\n')})
+        self.assertEqual(len(ref), 1)
+
+    def test_a_retraction_quote_never_spans_a_heading(self):
+        """`[^.]*?` crosses a markdown heading happily. The quote is the evidence a human
+        judges, so it must be the sentence the author actually wrote."""
+        _, ref, _, _ = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman",
+                                         "## What didn't work\n\n" + self.RETRACT)})
+        self.assertEqual(len(ref), 1)
+        self.assertNotIn("What didn't work", ref[0].detail)
+
+    # ---- DRIFT ---------------------------------------------------------------
+    def test_pages_disagreeing_about_one_tool_are_drift(self):
+        dr, _, tools, lines = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% |\n",
+                   "WORKFLOW.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49-59% |\n"})
+        self.assertEqual([f.tool for f in dr], ["juliusbrussee/caveman"])
+        self.assertEqual(dr[0].claim, ["49-59%", "60-75%"])
+        self.assertEqual((tools, lines), (1, 2))
+
+    def test_pages_agreeing_are_not_drift_but_are_still_walked(self):
+        dr, _, tools, lines = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49-59% |\n",
+                   "WORKFLOW.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49-59% |\n"})
+        self.assertEqual(dr, [])
+        self.assertEqual((tools, lines), (1, 2), "agreement must be WALKED, not skipped")
+
+    # ---- attribution ---------------------------------------------------------
+    def test_a_line_naming_several_tools_attributes_its_number_to_none_of_them(self):
+        """A row citing other tools in `Overlaps with` is not a claim about them. A first
+        probe that ignored this reported 4 findings of which 3 were its own arithmetic."""
+        dr, _, tools, lines = self._run(
+            rows=[self.CAVE, ("headroom", "https://github.com/headroomlabs-ai/headroom", "x")],
+            pages={"STACK.md": ("| [caveman](https://github.com/JuliusBrussee/caveman) | 95% | "
+                                "[headroom](https://github.com/headroomlabs-ai/headroom) |\n")})
+        self.assertEqual((dr, tools, lines), ([], 0, 0))
+
+    def test_an_eval_link_and_a_repo_link_are_one_tool(self):
+        """PLAYBOOK links only EVALS, by design ("every claim below is a link"), so a
+        slug-only detector reads the front door as claim-free — which is how this survived."""
+        dr, _, tools, lines = self._run(
+            rows=[self.CAVE],
+            pages={"PLAYBOOK.md": "- **[caveman](evaluations/caveman.md)** — ~60-75% fewer tokens\n",
+                   "STACK.md": "| [caveman](https://github.com/JuliusBrussee/caveman) | ~49-59% |\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman", "x")})
+        self.assertEqual(lines, 2)
+        self.assertEqual(tools, 1, "an eval link and a repo link must collapse to ONE tool")
+        self.assertEqual(len(dr), 1)
+
+    def test_a_number_with_no_link_on_its_line_is_not_attributed(self):
+        """Disclosed rather than silent: STACK's Quick Start comment restates the retracted
+        figure with no link, and guessing its subject from prose is the identity-by-name
+        error this file rejects everywhere else."""
+        dr, ref, tools, lines = self._run(
+            rows=[self.CAVE],
+            pages={"STACK.md": "# 2. Output token compression (~60-75% savings)\n"},
+            evals={"caveman": self._eval("caveman", "https://github.com/JuliusBrussee/caveman",
+                                         self.RETRACT)})
+        self.assertEqual((dr, ref, tools, lines), ([], [], 0, 0))
+
+    def test_a_longer_number_donates_no_tail_digits_to_a_following_percentage(self):
+        """Without `(?<!\\d)` the pattern reads `1250%` as `250%` — a claim nobody wrote,
+        attributed to a real tool. A date is the same shape and yields nothing either."""
+        self.assertEqual(audit._claim_tokens("1250% faster"), [])
+        self.assertEqual(audit._claim_tokens("2026-06-18"), [])
+        self.assertEqual(audit._claim_tokens("★9700 and 95% saved"), ["95%"])
+
+    def test_a_slug_several_rows_sit_behind_resolves_to_no_single_eval(self):
+        """#465's shared-slug shape: a pack root is linked by several rows, each with its
+        own eval. Taking the first would put a SIBLING's retraction on this claim — the
+        coin flip #463/#465 forbid. Resolving to nothing costs a missed finding; resolving
+        to a stranger flags a healthy line, and that is the expensive direction (V's rule)."""
+        pack = "https://github.com/mattpocock/skills"
+        rmc = ("resolving-merge-conflicts", pack, "a")
+        cr = ("code-review", pack, "b")
+        evals = {"resolving-merge-conflicts": self._eval("resolving-merge-conflicts", pack, "x"),
+                 "code-review": self._eval("code-review", pack, self.RETRACT)}
+        page = {"STACK.md": f"| [resolving-merge-conflicts]({pack}) | ~60-75% |\n"}
+        # BOTH orders, because a first-row resolver picks whichever `CATALOG.md` lists
+        # first: asserting one order lets the coin flip pass whenever it lands heads.
+        for rows in ([rmc, cr], [cr, rmc]):
+            _, ref, _, lines = self._run(rows=rows, pages=page, evals=evals)
+            self.assertEqual(lines, 1, "the line is still WALKED")
+            self.assertEqual(ref, [], "a sibling's retraction must not reach this claim")
+
+    # ---- live tree -----------------------------------------------------------
+    def test_live_tree_counts_never_exceed_their_populations(self):
+        dr, ref, tools, lines = audit.audit_claim_drift(audit.DetectorContext(audit.ROOT))
+        self.assertLessEqual(len(dr), tools)
+        self.assertLessEqual(len(ref), lines)
+        self.assertGreater(lines, 0, "0 lines walked reads exactly like 0 findings (#319)")
+
+
 class TestLinkIdentity(unittest.TestCase):
     """Every identity fix landed here asked "given a slug, which row" (#343/#366/#374/
     #413/#457/#463/#465). AJ asks the other direction — given the NAME a link shows a
