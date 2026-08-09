@@ -78,8 +78,8 @@ Write code test-first. Use current docs, not training data. Minimize token waste
 | | [mattpocock/skills](https://github.com/mattpocock/skills) — engineering conventions, grilling, architecture improvement ([eval](evaluations/skills-collections.md)) | Maintainability |
 | | [agent-skills](https://github.com/addyosmani/agent-skills) — lifecycle structure with verification gates at each step ([eval](evaluations/skills-collections.md)) | Correctness |
 | | [context7](https://github.com/upstash/context7) — live docs during coding ([eval](evaluations/recommended-tools.md#context7)) | Correctness |
-| | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~75% of agent output tokens ([eval](evaluations/caveman.md)) | Cost Efficiency |
-| | [context-mode](https://github.com/mksglu/context-mode) — 98% input token reduction via MCP-layer sandboxing ([eval](evaluations/context-mode.md)) | Cost Efficiency |
+| | [caveman](https://github.com/JuliusBrussee/caveman) — cuts ~49–59% of agent output tokens on prose ([eval](evaluations/caveman.md)) | Cost Efficiency |
+| | [context-mode](https://github.com/mksglu/context-mode) — 96% blended input token reduction via MCP-layer sandboxing ([eval](evaluations/context-mode.md)) | Cost Efficiency |
 | | [headroom](https://github.com/headroomlabs-ai/headroom) — compresses tool outputs 60-95% before they reach the LLM ([eval](evaluations/headroom.md)) | Cost Efficiency |
 | | [typescript-mcp-server-generator](https://github.com/github/awesome-copilot) — skill-driven MCP server scaffolding: generates working TypeScript MCP project from a description ([eval](evaluations/typescript-mcp-server-generator.md)) | Speed |
 | | [fastmcp](https://github.com/PrefectHQ/fastmcp) — build MCP servers in Python: decorator API, auth, middleware, incorporated into official MCP SDK ([eval](evaluations/fastmcp.md)) | Speed |
@@ -256,7 +256,7 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 
 | Tool | Mechanism & reduction |
 |------|----------------------|
-| [context-mode](https://github.com/mksglu/context-mode) | MCP-layer sandbox of tool output (~98%) ([eval](evaluations/context-mode.md)) |
+| [context-mode](https://github.com/mksglu/context-mode) | MCP-layer sandbox of tool output (~96% blended) ([eval](evaluations/context-mode.md)) |
 | [headroom](https://github.com/headroomlabs-ai/headroom) | Compresses tool output/logs/file reads, reversible via local cache (60–95%) ([eval](evaluations/headroom.md)) |
 | [token-optimizer-mcp](https://github.com/ooples/token-optimizer-mcp) | MCP that reduces tool outputs (95%+) ([eval](evaluations/token-optimizer-mcp.md)) |
 | [rtk](https://github.com/rtk-ai/rtk) | CLI proxy trimming verbose dev-command output (60–90%) ([eval](evaluations/rtk.md)) |
@@ -269,7 +269,7 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 
 | Tool | Mechanism & reduction |
 |------|----------------------|
-| [caveman](https://github.com/JuliusBrussee/caveman) | Drops filler/articles/pleasantries from responses (~65–75%) ([eval](evaluations/caveman.md)) |
+| [caveman](https://github.com/JuliusBrussee/caveman) | Drops filler/articles/pleasantries from responses (~49–59% measured on prose) ([eval](evaluations/caveman.md)) |
 
 **Layer 3 — what gets *built*** (code restraint — a *different axis*: this isn't a token tool, the savings are a side effect of writing less code):
 
