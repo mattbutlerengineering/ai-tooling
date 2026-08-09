@@ -1454,6 +1454,23 @@ class TestClaimDrift(unittest.TestCase):
         self.assertLessEqual(len(dr), tools)
         self.assertLessEqual(len(ref), lines)
         self.assertGreater(lines, 0, "0 lines walked reads exactly like 0 findings (#319)")
+        self.assertGreater(tools, 0)
+
+    def test_live_tree_ships_no_figure_its_own_eval_withdrew(self):
+        """REFUTED is pinned at zero and DRIFT deliberately is not — detector U's own split
+        between the buckets a mechanical fact settles and the ones a human calls per row.
+
+        A withdrawn figure is settled by the eval that withdrew it: there is no reading on
+        which a page should advertise a number its own measurement retracted, so a new one
+        is a regression and belongs in a red build. DRIFT is weaker — two pages could
+        legitimately state different figures for a tool measured on two axes (input vs
+        output tokens), and pinning it would turn that into a build failure, which is
+        detector V's expensive direction with the strongest possible lever behind it.
+        """
+        _, ref, _, lines = audit.audit_claim_drift(audit.DetectorContext(audit.ROOT))
+        self.assertEqual([f"{f.rel}:{f.line} {f.claim} ({f.tool})" for f in ref], [],
+                         "a reader-facing page restates a figure its own eval withdraws")
+        self.assertGreater(lines, 0, "0 claim lines walked would pass this vacuously")
 
 
 class TestLinkIdentity(unittest.TestCase):

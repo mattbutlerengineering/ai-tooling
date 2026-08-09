@@ -8,7 +8,7 @@ The ~25 tools worth installing on every project, distilled from 679 catalog entr
 # 1. Live docs lookup (never use stale API info again)
 claude mcp add --transport sse context7 https://mcp.context7.com/sse
 
-# 2. Output token compression (~60-75% savings)
+# 2. Output token compression (~49-59% measured on prose)
 claude plugin marketplace add JuliusBrussee/caveman
 claude plugin install caveman@caveman
 
@@ -59,7 +59,7 @@ agent-skills (REVIEW)
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [agent-skills](https://github.com/addyosmani/agent-skills) | Full lifecycle skills: /spec → /plan → /build → /test → /review → /ship, with autonomous mode | `npx skills add addyosmani/agent-skills -g -y` | Correctness, Speed |
-| [caveman](https://github.com/JuliusBrussee/caveman) | ~60-75% output token reduction, no accuracy loss | `claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman` | Cost Efficiency, Speed |
+| [caveman](https://github.com/JuliusBrussee/caveman) | ~49–59% output token reduction on prose (measured), no accuracy loss | `claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman` | Cost Efficiency, Speed |
 | [headroom](https://github.com/headroomlabs-ai/headroom) | Compresses tool output before it reaches context window | `pip install "headroom-ai[all]"` (or `npm install headroom-ai`) | Cost Efficiency |
 | [claude-squad](https://github.com/smtg-ai/claude-squad) | TUI for managing parallel agent sessions | `go install github.com/smtg-ai/claude-squad@latest` | Speed |
 | [beads](https://github.com/gastownhall/beads) | Work coordination ledger — prevents duplicate agent effort | `npm install -g @beads/bd` | Correctness, Speed |

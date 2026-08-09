@@ -7,7 +7,7 @@ The front door to this repo. If you build software with AI agents and want a set
 → **[STACK.md](STACK.md)** — the curated stack worth installing on every project, tiered by evidence (Tier 1 measured, Tier 2 review-based). The five highest-impact picks from its Quick Start:
 
 - **[context7](evaluations/context7.md)** — live docs lookup, so an agent never reasons from stale API info.
-- **[caveman](evaluations/caveman.md)** — output-token compression (~60–75% fewer tokens) for cost discipline.
+- **[caveman](evaluations/caveman.md)** — output-token compression (~49–59% measured on prose) for cost discipline.
 - **[security-guidance](evaluations/security-guidance.md)** — first-party in-loop security review, not ad-hoc.
 - **[playwright](evaluations/playwright-mcp.md)** — visual, end-to-end verification for UI changes.
 - **[claude-code-action](evaluations/claude-code-action.md)** — CI integration for async, on-every-PR review.
