@@ -942,6 +942,13 @@ def audit_links(ctx):
     return problems, unknowns, len(slugs)
 
 # ---------------------------------------------------------------- L. staleness sweep
+def staleness_population(ctx):
+    """The evals L examines — every one of them. `0 stale` and `0 examined` print
+    identically, and L is the `-`-prefixed trailer `make check` runs on every gate run,
+    so it is the populationless line this repo showed itself most often (#494)."""
+    return ctx.evals
+
+
 def audit_staleness(ctx, today=None):
     """Detector L (#65, REPORT-ONLY): flag evals whose **Last verified:** date is older
     than its category threshold (STALENESS_DAYS, keyed by Type) — fast-moving harnesses/
@@ -950,7 +957,7 @@ def audit_staleness(ctx, today=None):
     threshold) and undated is the count of evals carrying no last-verified date."""
     today = today or datetime.date.today()
     stale, undated = [], 0
-    for ev in ctx.evals:
+    for ev in staleness_population(ctx):
         d = ev.last_verified
         if d is None:
             undated += 1
@@ -1734,8 +1741,13 @@ def _repo_skill_sources(root):
 
 
 def audit_overlaps(ctx, home=None):
-    """(gaps, stale_ext, peers, records) — "Overlaps with" tokens that don't resolve to a
-    catalog row, split by which record answers them.
+    """(gaps, stale_ext, peers, records, walked) — "Overlaps with" tokens that don't
+    resolve to a catalog row, split by which record answers them.
+
+    `walked` is the token population. The headline used to state only the INSTALL record
+    count, which is a population for the resolution step and not for the counted bucket:
+    "1 uncatalogued peer token" reads the same whether 2 tokens were examined or 1,855
+    were (#494).
 
     CATALOG.md's own legend says a token may name "a notable external tool **or installed
     skill**", so "it's an installed skill" is the sanctioned reason a token doesn't
@@ -1787,11 +1799,12 @@ def audit_overlaps(ctx, home=None):
     installed.pop("", None)
     shipped = _repo_skill_sources(ctx.root)
     from collections import Counter
-    miss, stale, peers = Counter(), [], {}
+    miss, stale, peers, walked = Counter(), [], {}, 0
     for r in rows:
         if r.overlaps is None:
             continue
         for tok in r.overlaps.split(","):  # the "Overlaps with" cell
+            walked += 1
             t = _ovl_display(tok)
             tl = tok.lower()
             balanced = tok.count("(") == tok.count(")")  # else a mid-parenthetical fragment
@@ -1821,7 +1834,8 @@ def audit_overlaps(ctx, home=None):
                 peers[t] = ("installed", installed[key])
             else:
                 miss[t] += 1
-    return miss.most_common(), sorted(stale), sorted(peers.items()), len(installed)
+    return (miss.most_common(), sorted(stale), sorted(peers.items()),
+            len(installed), walked)
 
 
 def overlap_pressure_map(ctx):
@@ -1942,7 +1956,7 @@ def audit_clusters(ctx):
         awaiting = "CONDITIONAL" in verds or "discovery-log" in verds
         if awaiting and not has_pick:
             flagged.append(sorted(disp[m] for m in members))
-    return sorted(flagged, key=lambda c: (-len(c), c[0].lower()))
+    return sorted(flagged, key=lambda c: (-len(c), c[0].lower())), len(clusters)
 
 # ---------------------------------------------------------------- N. token-savings claims (report-only)
 # Nearly every Optimize-cluster entry advertises a self-reported "% token savings"
@@ -1972,15 +1986,22 @@ def _has_savings_claim(one_liner):
             return True
     return False
 
+def savings_claim_rows(ctx):
+    """The rows N examines: CATALOG rows whose one-liner makes a numeric token-savings
+    headline. Without it "13 unverified" has no denominator — unreadable as good or bad
+    without knowing whether 17 rows make such a claim or 700 do (#494)."""
+    return [r for r in catalog_lib.parse_catalog_rows(ctx.catalog)
+            if r.url is not None and r.one_liner is not None
+            and _has_savings_claim(r.one_liner)]
+
+
 def audit_savings_claims(ctx):
     """Return (name, evidence_level, disclosed) for every CATALOG row making a numeric
     token-savings claim that is NOT run-backed. Verified rows (MEASURED/RUN) drop out;
     rows with no eval surface as '(no eval)'. Sorted by name. Report-only."""
     levels = ctx.evidence_alias_map  # normalized catalog name -> effective evidence level
     flagged = []
-    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
-        if r.url is None or r.one_liner is None or not _has_savings_claim(r.one_liner):
-            continue
+    for r in savings_claim_rows(ctx):
         # NOT catalog_lib.evidence_lookup: N distinguishes "(no eval)" (None) from an
         # eval-derived SOURCE-ONLY, which the lookup's SOURCE-ONLY default would erase.
         lvl = next((levels[k] for k in catalog_lib.alias_keys(r.name) if k in levels), None)
@@ -2085,23 +2106,33 @@ def audit_bulk_triage(ctx):
 # decision for a human, not a headline this detector can call wrong.
 LEAD_ALLOWED_HEADLINES = frozenset({"discovery-log", "SKIP"})  # "it's a lead" / "we rejected it"
 
+def lead_headline_population(ctx):
+    """The leads T examines: evals carrying a `## Verdict` whose COMPARISON row reads
+    `discovery-log`. T keeps #324's relabel of 324 files from regrowing, and a T whose
+    resolution silently stopped matching — a renamed alias, a changed vocabulary, a
+    `comparison_verdict_map` miss — prints the same `0` as a clean tree (#494)."""
+    comp = ctx.comparison_verdict_map
+    return [ev for ev in ctx.evals if ev.verdict
+            and next((comp[c] for c in ev.name_aliases if c in comp), None) == "discovery-log"]
+
+
 def audit_lead_headlines(ctx):
     """(eval name, headline verdict, evidence level) for every `discovery-log` row whose
     unexercised eval headlines a verdict word it is not entitled to. Report-only: the
     survivors are escalations awaiting a human verdict (#259), not build breakers."""
-    comp = ctx.comparison_verdict_map
-    flagged = []
-    for ev in ctx.evals:
-        if not ev.verdict or ev.verdict in LEAD_ALLOWED_HEADLINES:
-            continue
-        cv = next((comp[c] for c in ev.name_aliases if c in comp), None)
-        if cv != "discovery-log":
+    flagged, earned = [], []
+    for ev in lead_headline_population(ctx):
+        if ev.verdict in LEAD_ALLOWED_HEADLINES:
             continue
         level = ev.effective_evidence
         if level in ("MEASURED", "RUN"):
-            continue  # earned the word; the row is the stale half — a human call
+            # Earned the word; the row is the stale half — a human call, not a headline
+            # defect T can name. Printed and never counted (V's `acked`, W's `cleared`),
+            # where it used to be dropped in silence.
+            earned.append((ev.name, ev.verdict, level))
+            continue
         flagged.append((ev.name, ev.verdict, level))
-    return flagged
+    return flagged, earned
 
 
 # ---------------------------------------------------------------- U. catalog-entry mirror drift (report-only)
@@ -2574,9 +2605,16 @@ def audit_scope(ctx):
     # here would recurse. Called from main(), the nested copy never re-enters.
     triage = _load_sibling("triage_bands", "triage.py")
     try:
-        ordered, _ranked, _incumbents = triage.assign(ctx)
-    except (OSError, ValueError, KeyError):
-        return [], []
+        bands = triage.assign(ctx)
+    except (OSError, KeyError):
+        return [], [], 0
+    # Indexed, never unpacked. `assign` returned 3 values when W was written and returns 4
+    # since #478 (P5 gained `containers`), so the tuple unpack raised ValueError — which
+    # THIS function's own `except` swallowed, and W reported `OK — no framework/platform
+    # lead concedes it is out of scope` while examining nothing, for as long as that
+    # commit has been in main. ValueError is off the list for the same reason: a data
+    # condition W must tolerate is a missing metadata cache, not a signature it misread.
+    ordered = bands[0]
 
     types = {catalog_lib.name_key(r.name): (r.type or "").strip()
              for r in catalog_lib.parse_catalog_rows(ctx.catalog)}
@@ -2585,13 +2623,14 @@ def audit_scope(ctx):
         for k in catalog_lib.identity_keys(ev.name):
             by_key.setdefault(k, ev)
 
-    findings, cleared = [], []
+    findings, cleared, examined = [], [], 0
     for band, rows in ordered.items():
         for row in rows:
             tool = row[1]
             typ = types.get(catalog_lib.name_key(tool), "")
             if typ not in SCOPE_TYPES:
                 continue
+            examined += 1
             ev = next((by_key[k] for k in catalog_lib.identity_keys(tool) if k in by_key), None)
             if ev is None:
                 continue
@@ -2605,7 +2644,7 @@ def audit_scope(ctx):
     # one that stays stuck until a human looks.
     for bucket in (findings, cleared):
         bucket.sort(key=lambda f: (0 if f.band.startswith("P0") else 1, f.band, f.tool))
-    return findings, cleared
+    return findings, cleared, examined
 
 
 def _scope_quote(text, match, width=110):
@@ -2653,6 +2692,20 @@ def _names_container(row, declared):
                or catalog_lib.name_key(c.split("/")[-1]) in keys for c in declared)
 
 
+def slug_groups(ctx):
+    """The groups X examines: catalogued rows sharing one resolved `owner/repo`. A group
+    of one is not an identity question, so the population is the multi-row groups — and
+    `0 findings` over 7 groups says something `0` alone cannot (#494)."""
+    groups = collections.defaultdict(list)
+    for r in catalog_lib.parse_catalog_rows(ctx.catalog):
+        if not r.url:
+            continue
+        slug = next(iter(catalog_lib.github_repos(r.url)), None)
+        if slug:
+            groups[slug.lower()].append(r)
+    return {s: m for s, m in groups.items() if len(m) >= 2}
+
+
 def audit_identity(ctx):
     """(findings, faceted) — leads that are facets of one catalogued artifact, plus the
     multi-row groups that are NOT findings, carried so neither goes unmentioned.
@@ -2662,22 +2715,13 @@ def audit_identity(ctx):
     that is the #343 pattern. Where each row links its own subpath, the group is a
     monorepo of independently-installable artifacts (`claude-plugins-official`: 8 rows,
     8 subpaths), which is a different thing and must not be counted as drift."""
-    rows = [r for r in catalog_lib.parse_catalog_rows(ctx.catalog) if r.url]
-    groups = collections.defaultdict(list)
-    for r in rows:
-        slug = next(iter(catalog_lib.github_repos(r.url)), None)
-        if slug:
-            groups[slug.lower()].append(r)
-
     verd = ctx.comparison_verdict_map
 
     def verdict_of(name):
         return next((verd[k] for k in catalog_lib.identity_keys(name) if k in verd), "—")
 
     findings, context = [], []
-    for slug, members in sorted(groups.items()):
-        if len(members) < 2:
-            continue
+    for slug, members in sorted(slug_groups(ctx).items()):
         by_verdict = [(r.name, verdict_of(r.name)) for r in members]
         names = tuple(n for n, _ in by_verdict)
         # DECLARED (#343) is checked FIRST, ahead of the link-shape split below, because
@@ -4553,7 +4597,12 @@ def main():
                   f"→ {backed}/{strong_tot} run-backed (the rest are review-only — #68 graduates them, #71 gates)")
     if do_staleness:
         stale, undated = audit_staleness(ctx)
-        print(f"== L. staleness sweep (report-only) — {len(stale)} stale eval(s), {undated} undated ==")
+        dated = len(staleness_population(ctx)) - undated
+        print(f"== L. staleness sweep (report-only) — {len(stale)} of {dated} dated "
+              f"eval(s) stale, {undated} undated ==")
+        if not dated:
+            print("  no dated evals — nothing was aged, which is not the same as nothing "
+                  "being stale")
         for name, typ, d, age, thr in sorted(stale, key=lambda r: -r[3]):
             print(f"  STALE {name} ({typ}) last verified {d} — {age}d old > {thr}d threshold")
         if not stale:
@@ -4582,11 +4631,12 @@ def main():
             if undated:
                 print(f"  ({undated} record(s) carry no fetch date — refresh to stamp them)")
     if do_overlaps:
-        gaps, stale_ext, peers, inst_records = audit_overlaps(ctx)
+        gaps, stale_ext, peers, inst_records, ovl_walked = audit_overlaps(ctx)
         strong = [(t, c) for t, c in gaps if c >= 2]
-        print(f"== F. dangling overlaps (report-only) — {len(gaps)} uncatalogued peer "
-              f"tokens, {len(stale_ext)} stale `(ext.)` marker(s), {len(peers)} "
-              f"demonstrated peer(s) across {inst_records} install record(s) ==")
+        print(f"== F. dangling overlaps (report-only) — {len(gaps)} of {ovl_walked} "
+              f"'Overlaps with' token(s) uncatalogued, {len(stale_ext)} stale `(ext.)` "
+              f"marker(s), {len(peers)} demonstrated peer(s) across {inst_records} "
+              f"install record(s) ==")
         if not gaps and not stale_ext:
             print("  OK — every 'Overlaps with' token resolves to a catalog entry")
         # Counted: a row asserting a tool is outside a catalog that holds it. Not a lead
@@ -4616,17 +4666,26 @@ def main():
         for slug, ln in wfmiss:
             print(f"  MISSING {slug}  (STACK.md:{ln} — add it to the appropriate WORKFLOW stage)")
     if do_clusters:
-        cl = audit_clusters(ctx)
-        print(f"== M. clusters without a pick (report-only, #69) — {len(cl)} overlap cluster(s) all-CONDITIONAL, no ADOPT/KEEP pick ==")
+        cl, nclusters = audit_clusters(ctx)
+        print(f"== M. clusters without a pick (report-only, #69) — {len(cl)} of {nclusters} "
+              f"overlap cluster(s) all-CONDITIONAL, no ADOPT/KEEP pick ==")
+        if not nclusters:
+            print("  no overlap clusters — nothing was compared, which is not the same "
+                  "as nothing being wrong")
         if not cl:
             print("  OK — every overlap cluster with a CONDITIONAL member also has an ADOPT/KEEP pick")
         for members in cl:
             print(f"  PICK?  {' / '.join(members)}")
     if do_savings:
         sav = audit_savings_claims(ctx)
+        claiming = len(savings_claim_rows(ctx))
         silent = [r for r in sav if not r[2]]
-        print(f"== N. token-savings claims (report-only) — {len(silent)} unverified savings claim(s), "
-              f"{len(sav) - len(silent)} self-reported ==")
+        print(f"== N. token-savings claims (report-only) — {len(silent)} of {claiming} "
+              f"numeric savings claim(s) unverified, {len(sav) - len(silent)} self-reported, "
+              f"{claiming - len(sav)} run-backed ==")
+        if not claiming:
+            print("  no numeric savings claims — nothing was compared, which is not the "
+                  "same as nothing being wrong")
         if not sav:
             print("  OK — every numeric token-savings headline is run-backed (MEASURED/RUN)")
         for name, lvl, disclosed in sav:
@@ -4634,14 +4693,21 @@ def main():
                   "  (run the token-savings protocol to graduate to MEASURED)"
             print(f"  UNVERIFIED {name}  ({lvl}){tag}")
     if do_lead_head:
-        leads = audit_lead_headlines(ctx)
-        print(f"== T. lead headline overreach (report-only) — {len(leads)} lead(s) "
-              f"headlining a verdict they are not entitled to ==")
-        if not leads:
+        leads, earned = audit_lead_headlines(ctx)
+        lead_pop = len(lead_headline_population(ctx))
+        print(f"== T. lead headline overreach (report-only) — {len(leads)} of {lead_pop} "
+              f"discovery-log lead(s) headline a verdict they are not entitled to ==")
+        if not lead_pop:
+            print("  no discovery-log leads resolved — nothing was compared, which is not "
+                  "the same as nothing being wrong")
+        elif not leads:
             print("  OK — every discovery-log lead headlines discovery-log or SKIP")
         for name, verd, lvl in leads:
             print(f"  OVERREACH {name}: row=discovery-log but eval headlines {verd} at {lvl} evidence "
                   f"(relabel it a tentative read, or promote the row with a run behind it)")
+        for name, verd, lvl in earned:
+            print(f"  earned     {name} headlines {verd} at {lvl} evidence — the run is behind "
+                  f"it, so the row is the stale half (a human call, not counted)")
     if do_mirror:
         drift, cover = audit_catalog_mirror(ctx)
         kinds = collections.Counter(f.kind for f in drift)
@@ -4692,10 +4758,13 @@ def main():
         for f in acked:
             print(f"  acknowledged false positive — {f.tool} ({f.slug}): {f.detail}")
     if do_scope:
-        finds, cleared = audit_scope(ctx)
+        finds, cleared, examined = audit_scope(ctx)
         p0 = sum(1 for f in finds if f.band.startswith("P0"))
-        print(f"== W. P0 scope mismatch (report-only) — {len(finds)} lead(s) whose eval "
-              f"concedes the scope exclusion, {p0} in P0 ==")
+        print(f"== W. P0 scope mismatch (report-only) — {len(finds)} of {examined} "
+              f"framework/platform lead(s) concede the scope exclusion, {p0} in P0 ==")
+        if not examined:
+            print("  no framework/platform leads banded — nothing was compared, which is "
+                  "not the same as nothing being wrong")
         if not finds:
             print("  OK — no framework/platform lead concedes it is out of scope")
         for f in finds:
@@ -4705,8 +4774,13 @@ def main():
     if do_ident:
         finds, context = audit_identity(ctx)
         settled = sum(1 for f in finds if f.kind == "SETTLED")
-        print(f"== X. collapsed catalog identity (report-only) — {len(finds)} lead(s) that "
-              f"are facets of one artifact, {settled} already settled ==")
+        ngroups = len(slug_groups(ctx))
+        print(f"== X. collapsed catalog identity (report-only) — {len(finds)} lead(s) in "
+              f"{ngroups} multi-row slug group(s) are facets of one artifact, "
+              f"{settled} already settled ==")
+        if not ngroups:
+            print("  no shared slugs — nothing was compared, which is not the same as "
+                  "nothing being wrong")
         if not finds:
             print("  OK — no lead shares a catalog link with another row")
         for f in finds:
@@ -4736,9 +4810,9 @@ def main():
     if do_licdecl:
         finds, records, withdrawn = audit_license_declared(ctx)
         grounded = sum(1 for f in finds if f.kind == "GROUNDED")
-        print(f"== Z. unread license declaration (report-only) — {len(finds)} record(s) "
-              f"whose 'NONE' license is declared elsewhere, {grounded} carrying a "
-              f"license-grounded SKIP ==")
+        print(f"== Z. unread license declaration (report-only) — {len(finds)} of "
+              f"{records} record(s) whose 'NONE' license is declared elsewhere, "
+              f"{grounded} carrying a license-grounded SKIP ==")
         if not records:
             print("  no license_declared data — run `python3 refresh-metadata.py` to "
                   "collect it (absence of the field is 'not collected', never 'every "
