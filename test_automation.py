@@ -1273,6 +1273,62 @@ class TestLayerDrift(unittest.TestCase):
         self.assertTrue(no_layer, "the printed-not-counted bucket lost its members")
 
 
+class TestDetectorPopulations(unittest.TestCase):
+    """#467's rule — a check reports what it examined, because `0 findings` and
+    `0 examined` print identically — and #481 carried it to the seven gates while
+    recording the report-only side as already done. It was not: eight detectors printed a
+    finding count with no denominator, and `CLAUDE.md` said the work was finished, which
+    is why nobody looked (#494).
+
+    The pin is what makes it stay done. A claim of completeness with nothing checking it
+    is the shape `plugin/README.md`'s rotted facts and `validate-counts.sh`'s three no-op
+    checks both had — *gate the shared facts, not the file*."""
+
+    # Every offline report-only flag. The network ones (`--links`, `--archived`) and the
+    # local-only `--installed` are out: a unit test must not depend on the network or on
+    # one laptop's lockfile (detector Y's own reason for never entering `make check`).
+    OFFLINE_REPORT_FLAGS = (
+        "--skills", "--skill-design", "--overlaps", "--workflow-drift", "--clusters",
+        "--savings-claims", "--evidence", "--staleness", "--metadata-staleness",
+        "--lead-headlines", "--catalog-mirror", "--maintenance", "--scope", "--identity",
+        "--license-declared", "--containment", "--conditional-gate", "--license-header",
+        "--duplicate-evals", "--workflow-skips", "--containment-evidence", "--stage-drift",
+        "--repo-installs", "--layer-drift", "--link-identity", "--claim-drift")
+
+    # A denominator in any of the shapes the corpus uses: `6/8`, `0 of 693`, `across 619
+    # record(s)`, `in 318 of 583`, `644 record(s)`.
+    POPULATION = re.compile(r"\d+\s*/\s*\d+|\bof\s+\d+|\bacross\s+\d+|\bin\s+\d+"
+                            r"|\d+\s+record\(s\)")
+
+    def _headlines(self):
+        r = subprocess.run(["python3", "audit-evals.py", *self.OFFLINE_REPORT_FLAGS],
+                           cwd=ROOT, capture_output=True, text=True, check=False)
+        return [ln for ln in r.stdout.splitlines() if ln.startswith("== ")]
+
+    def test_every_offline_report_flag_prints_exactly_one_headline(self):
+        """Guards the test below from passing vacuously: if a flag stopped emitting a
+        headline, a per-headline assertion would simply have one fewer line to check."""
+        heads = self._headlines()
+        self.assertEqual(len(heads), len(self.OFFLINE_REPORT_FLAGS),
+                         "one headline per flag:\n" + "\n".join(heads))
+
+    def test_every_report_only_headline_states_the_population_it_walked(self):
+        offenders = [h for h in self._headlines() if not self.POPULATION.search(h)]
+        self.assertEqual(offenders, [],
+                         "a report-only headline with no denominator — `0 findings` and "
+                         "`0 examined` print identically (#319/#467/#481)")
+
+    def test_the_flag_list_is_the_whole_offline_report_set(self):
+        """Derived, not hand-listed: a detector added to `REPORT_FLAGS` must arrive here
+        too, or the sweep above silently stops covering it — the same rot `check-plugin.py`
+        pins for the front-door skills list."""
+        known_excluded = {"--links", "--archived", "--installed"}
+        self.assertEqual(set(audit.REPORT_FLAGS) - known_excluded,
+                         set(self.OFFLINE_REPORT_FLAGS),
+                         "REPORT_FLAGS changed — add the new flag here (or to the "
+                         "network/local exclusion set, with a reason)")
+
+
 class TestClaimDrift(unittest.TestCase):
     """AG did the stage axis, AI the layer axis; AK does the NUMBER axis — a fact written
     in several places with nothing comparing them. `caveman` is MEASURED, its eval retracts
@@ -3329,7 +3385,7 @@ class TestDetectorF(unittest.TestCase):
                 os.makedirs(os.path.join(d, "skills", s), exist_ok=True)
             # home defaults to an empty dir, NOT to the real one: a unit test must not
             # read the developer's own lockfile, or its result changes per machine.
-            return audit.audit_overlaps(audit.DetectorContext(d), home or d)
+            return audit.audit_overlaps(audit.DetectorContext(d), home or d)[:4]
 
     def test_all_overlaps_resolve_no_findings(self):
         cat = self.HEADER + self._row("a", "b") + self._row("b", "a (fork)") + self._row("c", "none")
@@ -3498,7 +3554,7 @@ class TestDetectorM(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _write(d, "CATALOG.md", catalog)
             _write(d, "COMPARISON.md", comparison)
-            return audit.audit_clusters(audit.DetectorContext(d))
+            return audit.audit_clusters(audit.DetectorContext(d))[0]
 
     def test_all_conditional_cluster_flagged(self):
         cat = self.CAT_HEADER + self._row("a", "b") + self._row("b", "a")
@@ -5179,7 +5235,7 @@ class TestDetectorT(unittest.TestCase):
             _write(d, f"evaluations/{name}.md",
                    f"# Evaluation: {row}\n\n**Evidence:** {evidence}\n\n"
                    f"## Verdict\n\n**{verdict}** — because.\n")
-            return audit.audit_lead_headlines(audit.DetectorContext(d))
+            return audit.audit_lead_headlines(audit.DetectorContext(d))[0]
 
     def test_conditional_headline_on_a_lead_is_overreach(self):
         self.assertEqual(self._run("lead", "CONDITIONAL", "REVIEW"),
@@ -7482,11 +7538,34 @@ class TestScopeMismatch(unittest.TestCase):
     def test_live_run_separates_findings_from_cleared(self):
         # End-to-end against the real tree: the detector must not report a lead that
         # argues it clears the bar as a finding.
-        finds, cleared = audit.audit_scope(audit.DetectorContext(ROOT))
+        finds, cleared, examined = audit.audit_scope(audit.DetectorContext(ROOT))
         self.assertEqual({f.tool for f in finds} & {c.tool for c in cleared}, set())
         for f in finds + cleared:
             self.assertIn(f.typ, audit.SCOPE_TYPES)
             self.assertTrue(f.phrase.strip(), f.tool)
+        # THIS assertion is the one that was missing, and its absence is why W's outage
+        # ran from #478 to #494 unnoticed. Everything above iterates `finds + cleared`,
+        # so a detector returning nothing satisfied all of it VACUOUSLY — a test that
+        # passes more easily the more broken the detector is, which is exactly the test
+        # direction #443 caught in the counts hook.
+        self.assertGreater(examined, 0,
+                           "W examined no framework/platform lead — a silent outage "
+                           "reads identically to a clean sweep")
+
+    def test_a_wider_assign_return_cannot_silence_the_detector(self):
+        """`triage.assign` gained a fourth return value in #478 and W unpacked three, so
+        the ValueError landed in W's own `except` and it reported OK while examining
+        nothing. Indexing rather than unpacking is what makes that unrepeatable."""
+        import types as _t
+        mod = audit._load_sibling("triage_bands", "triage.py")
+        real = mod.assign
+        try:
+            mod.assign = lambda ctx: (*real(ctx), "a fifth value")
+            _, _, examined = audit.audit_scope(audit.DetectorContext(ROOT))
+            self.assertGreater(examined, 0, "a wider return must not empty the detector")
+        finally:
+            mod.assign = real
+        self.assertIsInstance(mod, _t.ModuleType)
 
 
 class TestAckCarryForward(unittest.TestCase):
