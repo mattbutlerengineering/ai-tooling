@@ -45,13 +45,11 @@ def stack_tiers(text, amap=None):
     SOURCE-ONLY → Tier 2."""
     if amap is None:
         amap = ae.DetectorContext(ROOT).evidence_alias_map
-    tier1, tier2, seen = [], [], set()
-    # The ONE definition of a STACK pick (#469). This used to carry a third literal copy
-    # of the cell-initial-link regex, a file away from the two in audit-evals.py.
-    for pick in catalog_lib.stack_picks(text):
-        if pick.text in seen:
-            continue
-        seen.add(pick.text)
+    tier1, tier2 = [], []
+    # The ONE definition of a STACK pick (#469), and since #502 of how many the page
+    # recommends: the dedup-by-display-text used to live here, so `reconcile-counts.py`
+    # had no way to state the same population and the prose count drifted alone.
+    for pick in catalog_lib.distinct_stack_picks(text):
         ev = catalog_lib.evidence_lookup(amap, pick.text, pick.url)
         (tier1 if ev in TIER1 else tier2).append((pick.text, ev))
     return tier1, tier2

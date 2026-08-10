@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The ~25 tools worth installing on every project, distilled from 688 catalog entries and 704 evaluations. Each tool earned its slot by moving a quality signal — see the Evidence tiers below for how far each one was actually validated.
+The 30 tools worth installing on every project, distilled from 688 catalog entries and 704 evaluations. Each tool earned its slot by moving a quality signal — see the Evidence tiers below for how far each one was actually validated.
 
 ## Quick Start — 5 Highest Impact
 

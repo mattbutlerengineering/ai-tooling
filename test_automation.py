@@ -3887,6 +3887,92 @@ class TestTierStack(unittest.TestCase):
         self.assertEqual(cm.exception.code, 2)
 
 
+class TestStackCount(unittest.TestCase):
+    """#502 — STACK.md's own size is derived, from the same call the tiers block uses.
+
+    `~25` was typed when the page held 22 picks and never moved while the list grew to
+    30, twelve lines above a generated block printing the true total the whole time. It
+    is the third number on that sentence; `reconcile-counts.py` already derived and gated
+    the other two."""
+
+    # Two rows for one tool (a pick listed under two stages), one repo shipping two
+    # separately-installed picks. Three tools, four rows, two slugs — the three counts
+    # that disagreed live.
+    STACK = ("# Stack\n\nThe ~25 tools worth installing on every project.\n\n"
+             "| [foo](https://github.com/x/foo) | d | `c` | s |\n"
+             "| [bar](https://github.com/x/pack) | d | `c` | s |\n"
+             "| [baz](https://github.com/x/pack) | d | `c` | s |\n"
+             "| [foo](https://github.com/x/foo) | d | `c` | s |\n")
+
+    def test_dedup_is_by_display_text_in_appearance_order(self):
+        picks = catalog_lib.distinct_stack_picks(self.STACK)
+        self.assertEqual([p.text for p in picks], ["foo", "bar", "baz"])
+
+    def test_a_pack_shipping_several_picks_counts_once_per_pick(self):
+        # The unit is what a reader installs, NOT the slug. Deduping by slug answers
+        # detectors J/P's question and undercounts an install list — the miscount that
+        # let a prior audit clear `~25` as "26 unique GitHub slugs".
+        picks = catalog_lib.distinct_stack_picks(self.STACK)
+        self.assertEqual(len({p.slug for p in picks}), 2)
+        self.assertEqual(len(picks), 3)
+
+    def test_prose_count_rewrites_and_consumes_the_tilde(self):
+        out = reconcile.fix_stack_strings(self.STACK, 3)
+        self.assertIn("The 3 tools worth installing", out)
+        self.assertNotIn("~", out)
+
+    def test_both_phrasings_are_reached(self):
+        # STACK.md/README.md say "worth installing"; CLAUDE.md says "to actually install".
+        src = "the ~25 tools worth installing, and ~25 tools to actually install"
+        self.assertEqual(reconcile.fix_stack_strings(src, 30),
+                         "the 30 tools worth installing, and 30 tools to actually install")
+
+    def test_an_unrelated_number_is_never_touched(self):
+        # Anchored on the trailing phrase, like every other pattern in the script.
+        src = "679 catalog entries, 693 evaluations, 25 tools are cataloged, issue #25"
+        self.assertEqual(reconcile.fix_stack_strings(src, 30), src)
+
+    def test_stack_count_reads_the_repo_stack_file(self):
+        with tempfile.TemporaryDirectory() as d:
+            Path(d, "STACK.md").write_text(self.STACK, encoding="utf-8")
+            self.assertEqual(reconcile.stack_count(d), 3)
+
+    def test_live_tree_prose_count_equals_the_generated_tiers_block(self):
+        """The invariant the fix buys: the sentence and the block below it are one
+        population. Both call `distinct_stack_picks`, so they cannot drift."""
+        text = Path(ROOT, "STACK.md").read_text(encoding="utf-8")
+        n = reconcile.stack_count(ROOT)
+        tiers = [int(x) for x in re.findall(r"\*\*Tier \d — [a-z-]+ \((\d+)\)", text)]
+        self.assertEqual(len(tiers), 2, "STACK.md should render exactly two tiers")
+        self.assertEqual(sum(tiers), n)
+        self.assertIn(f"The {n} tools worth installing", text)
+
+    def test_the_two_consumers_render_the_same_population(self):
+        """The "one definition" claim, pinned against the two implementations rather than
+        against the committed text — a stale block in STACK.md would satisfy the test
+        above while the two calls had silently diverged.
+
+        `amap={}` sends every pick to Tier 2 (no eval -> SOURCE-ONLY); the tier *split* is
+        not the subject here, the population is, and it skips building a DetectorContext."""
+        text = Path(ROOT, "STACK.md").read_text(encoding="utf-8")
+        t1, t2 = tier.stack_tiers(text, {})
+        self.assertEqual(len(t1) + len(t2), reconcile.stack_count(ROOT))
+
+    def test_live_tree_no_two_tools_share_a_display_name(self):
+        """The one thing to watch about a text key: two distinct tools sharing a display
+        name collapse into one and the count silently undercounts. None do today."""
+        text = Path(ROOT, "STACK.md").read_text(encoding="utf-8")
+        by_text = {}
+        for p in catalog_lib.stack_picks(text):
+            by_text.setdefault(p.text, set()).add(p.slug)
+        collided = {t: s for t, s in by_text.items() if len(s) > 1}
+        self.assertEqual(collided, {}, f"display name(s) covering two repos: {collided}")
+
+    def test_live_tree_is_reconciled(self):
+        text = Path(ROOT, "STACK.md").read_text(encoding="utf-8")
+        self.assertEqual(reconcile.fix_stack_strings(text, reconcile.stack_count(ROOT)), text)
+
+
 # ----------------------------------------------------------------- HTTP responses are closed (#455)
 class TestHttpResponsesAreClosed(unittest.TestCase):
     """An `HTTPError` IS the response object, so the error path holds a socket exactly as
