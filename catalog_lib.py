@@ -581,3 +581,27 @@ def stack_picks(stack_text):
     return [StackPick(text, url, slug.lower())
             for text, url in _STACK_PICK.findall(stack_text)
             for slug in github_repos(url)]
+
+
+def distinct_stack_picks(stack_text):
+    """The picks STACK.md recommends — first occurrence per display text, in order.
+
+    The ONE definition of *how many tools the page recommends* (#502), shared by
+    `tier-stack.py`'s Evidence tiers block and `reconcile-counts.py`'s prose count so
+    the sentence at the top of the page and the generated block twelve lines below it
+    are the same population by construction and cannot drift (#443/#469).
+
+    The key is the **display text**, not the slug, because the question is how many
+    things a reader installs: `anthropics/claude-plugins-official` ships five separately
+    installed picks, so the 35 rows here are 30 tools and only 24 slugs. Deduping by slug
+    answers a different question — the one detectors J and P ask, where a verdict is a
+    fact about a repo — and answering it here is what let `~25` stand for two months
+    (#502). Two genuinely distinct tools sharing a display name would collapse into one;
+    none do today, and a test pins it.
+    """
+    seen, out = set(), []
+    for pick in stack_picks(stack_text):
+        if pick.text not in seen:
+            seen.add(pick.text)
+            out.append(pick)
+    return out

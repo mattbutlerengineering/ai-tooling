@@ -51,6 +51,20 @@ def eval_count(root=None):
     files = glob.glob(os.path.join(root or ROOT, "evaluations", "*.md"))
     return sum(1 for f in files if os.path.basename(f) != "TEMPLATE.md")
 
+def stack_count(root=None):
+    """How many tools STACK.md recommends — the size of the page's own list (#502).
+
+    The third number on `STACK.md`'s opening sentence, and the only one of the three
+    that describes STACK itself. It was hand-typed as `~25` when the page held 22 picks
+    and never moved while the list grew to 30, so it was wrong for nearly the whole life
+    of the page — twelve lines above a generated tiers block that printed the true total
+    the entire time.
+
+    Counted by `catalog_lib.distinct_stack_picks`, the same call `tier-stack.py` renders
+    the tiers from, so the prose and the block below it cannot disagree."""
+    text = Path(root or ROOT, "STACK.md").read_text(encoding="utf-8")
+    return len(catalog_lib.distinct_stack_picks(text))
+
 def eval_composition(root=None):
     """(verdicts, leads, other) across the same files eval_count() counts.
 
@@ -121,6 +135,22 @@ COMPOSITION_PATTERNS = [
     r"\b\d+( still at `discovery-log`)",
     r"\b\d+( stubs and comparison documents)",
 ]
+
+# The size of STACK's own list, quoted in STACK.md/README.md/CLAUDE.md (#502). Anchored
+# on the trailing phrase like every pattern above, so no unrelated number is touched, and
+# the optional `~` is consumed rather than preserved: an approximation is what you write
+# when nothing derives the value, and an exact count over a tiers block reading `(29)` and
+# `(1)` is arithmetic a reader can catch — #435's property, the reason the composition
+# numbers are on the front page at all.
+STACK_PATTERNS = [
+    r"~?\d+( tools worth installing)",
+    r"~?\d+( tools to actually install)",
+]
+
+def fix_stack_strings(text, S):
+    for pat in STACK_PATTERNS:
+        text = re.sub(pat, f"{S}\\g<1>", text)
+    return text
 
 def fix_eval_strings(text, E, composition=None):
     for pat, repl in EVAL_PATTERNS:
@@ -205,12 +235,13 @@ def main():
     check = "--check" in sys.argv[1:]
     C = catalog_count()
     E = eval_count()
+    S = stack_count()
     comp = eval_composition()
     changed = []
     for f in FILES_TOTAL:
         if not os.path.exists(os.path.join(ROOT, f)):
             continue
-        s = read(f); s2 = fix_eval_strings(fix_total_strings(s, C), E, comp)
+        s = read(f); s2 = fix_stack_strings(fix_eval_strings(fix_total_strings(s, C), E, comp), S)
         if s2 != s:
             changed.append(f)
             if not check: write(f, s2)
@@ -221,11 +252,11 @@ def main():
     if changed:
         verb = "would update" if check else "updated"
         print(f"reconcile: catalog count = {C}, eval count = {E} "
-              f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other); "
+              f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other), stack picks = {S}; "
               f"{verb} {len(changed)} file(s): {', '.join(changed)}")
         sys.exit(1 if check else 0)
     print(f"reconcile: OK — catalog count = {C}, eval count = {E} "
-          f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other), "
+          f"({comp[0]} verdicts / {comp[1]} leads / {comp[2]} other), stack picks = {S}, "
           "all count strings already consistent")
     sys.exit(0)
 
