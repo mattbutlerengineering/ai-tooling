@@ -458,6 +458,7 @@ Tools for automated code review, quality checks, and codebase improvement.
 | [hubo](https://github.com/h0ngcha0/hubo) | skill | Two agents spar over one codebase until every review finding is reconciled | Single-pass AI review misses issues an adversarial second pass would catch | code-review, claude-octopus, vet |  |
 | [Assumptions](https://github.com/Teycir/Assumptions) | skill | Turns a code diff into an evidence-backed ledger of hidden assumptions, failure modes, and falsification tests | Diffs hide unstated assumptions that surface later as bugs | vet, brooks-lint, tdd-guard |  |
 | [anti-slop](https://github.com/AgriciDaniel/anti-slop) | tool | Finds and repairs substance defects in AI-assisted prose, code, and docs via structural tests, not LLM judgment | LLM-as-judge agrees with human "slop" labels only at chance; want structural detection instead | skylos, brooks-lint, vet |  |
+| [juror](https://github.com/Juror-AI/juror) | tool | Self-hosted AI PR reviewer (MIT) running on your own GitHub Actions — a cheaper, self-hosted Greptile alternative | Hosted AI PR-review services charge per-seat and run off your infra; want a self-hosted reviewer on GitHub Actions you already run | PR-Agent, open-code-review, kodus-ai, code-review |  |
 
 ## Maturity Frameworks
 
@@ -664,6 +665,7 @@ Tools for monitoring, debugging, and understanding AI agent behavior and perform
 | [claude-code-agent-monitor](https://github.com/hoangsonww/claude-code-agent-monitor) | tool | Real-time dashboard for Claude Code (Node/React/WebSockets) — tracks sessions, agent/tool activity, and subagent orchestration with live analytics + a Kanban status board | Can't see live what sessions, agents, tools, and subagents Claude Code is running | claude-code-hooks-multi-agent-observability, claude-devtools, claude-hud, ccusage |  |
 | [hud-mode](https://github.com/adrida/hud-mode) | tool | Compact heads-up display for your coding agent (MIT) — instruments while it works, shows the answer when it stops; Claude Code, Codex, OpenCode | Agent progress is a wall of scrolling text; want a compact live status view instead of reading the whole transcript | claude-hud, ccstatusline, abtop |  |
 | [debroid](https://github.com/PatilShreyas/debroid) | tool | Autonomous, headless Android debugger for AI coding agents (Apache-2.0) — inspect runtime memory, set breakpoints, and debug live apps | Agents debugging Android apps can't set breakpoints or inspect runtime state, only read logs after the fact | DebugMCP, dev3000, chrome-devtools-mcp |  |
+| [roundtable](https://github.com/Kostakurta8/roundtable) | tool | Pixel-art visual replay of Claude Code agent sessions (MIT) — replay any second exactly, see per-agent cost; read-only, 100% local | Agent progress is a scrolling transcript with no visual replay or per-agent cost breakdown, and no local-only option | claude-fleet, peek, abtop, claude-devtools |  |
 
 ## Research & Discovery
 

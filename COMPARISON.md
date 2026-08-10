@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 686 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 688 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -342,6 +342,7 @@ All 686 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | hubo | skill | | ✓ | SKIP | SOURCE-ONLY |
 | Assumptions | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| juror | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | kodus-ai | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
 | gospect-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -411,6 +412,7 @@ All 686 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | rimz | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | debroid | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| roundtable | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
 | agentacct | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Composio | plugin | | ✓/$ | discovery-log | SOURCE-ONLY |
@@ -773,13 +775,13 @@ All 686 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 63 | 30 | 6 | 48% |
 | Implement | 221 | 112 | 4 | 51% |
 | Verify | 24 | 12 | 2 | 50% |
-| Review | 45 | 21 | 3 | 47% |
+| Review | 46 | 22 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
-| Outer Loop | 49 | 17 | 2 | 35% |
+| Outer Loop | 50 | 17 | 2 | 34% |
 | Skills & Plugins | 96 | 34 | 4 | 35% |
 | Memory & Context | 55 | 21 | 2 | 38% |
 | MCP Servers | 51 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 53 | 16 | 4 | 30% |
-| **Total** | **686** | **293** | **34** | **43%** |
+| **Total** | **688** | **294** | **34** | **43%** |
