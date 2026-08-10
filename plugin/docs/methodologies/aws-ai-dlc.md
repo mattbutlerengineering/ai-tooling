@@ -6,7 +6,21 @@ blog](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/), ex
 [building with AI-DLC using Amazon Q Developer](https://aws.amazon.com/blogs/devops/building-with-ai-dlc-using-amazon-q-developer/)
 and an [AWS for Industries deep dive for financial services](https://aws.amazon.com/blogs/industries/ai-driven-development-lifecycle-for-financial-services/))
 — translated into this repo's [inner/outer dev loop](../WORKFLOW.md) and the catalogued
-tools/skills that fill each role. Unlike 8090's Software Factory, AI-DLC is not a paid product:
+tools/skills that fill each role.
+
+**Update (2026-08-10):** AWS [announced](https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/)
+on 2026-04-30 that Amazon Q Developer — the product the "expanded" post linked above
+demonstrates AI-DLC against — is being sunset in favor of **Kiro**, AWS's newer agentic IDE:
+new Q Developer signups blocked from 2026-05-15, the latest coding models Kiro-exclusive from
+2026-05-29, full end of support 2027-04-30. AI-DLC the *methodology* is vehicle-agnostic —
+Bolts, Units of Work, and Mob Elaboration/Construction are process concepts, not features of
+any one product — so the mapping below is unaffected. But the worked example the methodology
+was originally demonstrated against is now a product AWS itself is retiring, which is worth
+knowing before pointing anyone at that specific post. Kiro has no `CATALOG.md` row of its own
+yet (only mentioned in passing, as one of several config formats `agnix` lints) — worth a
+discovery-lane look given it is now AWS's flagship agentic IDE.
+
+Unlike 8090's Software Factory, AI-DLC is not a paid product:
 AWS ships it as methodology plus an open rule-file reference implementation,
 [`awslabs/aidlc-workflows`](https://github.com/awslabs/aidlc-workflows) (catalogued, evaluated —
 see the [evaluation](../evaluations/aidlc-workflows.md), verdict **SKIP**, redundant with

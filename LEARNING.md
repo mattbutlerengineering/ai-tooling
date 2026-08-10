@@ -28,7 +28,15 @@ no per-video links had no specific video confirmed at verification time (channel
 still good; titles were left out rather than link to a guess). The Anthropic
 harness-design entry added 2026-08-07 was confirmed live at that date via search
 corroboration (official Anthropic X post + third-party coverage); the sandbox this
-pass ran in could not directly fetch anthropic.com to quote it.
+pass ran in could not directly fetch anthropic.com to quote it. The five entries
+added 2026-08-10 (Osmani's Agentic Autonomy Levels, Hashimoto's harness-engineering
+origin post, Fowler's harness-engineering series, and the "Debt Behind the AI Boom"
+arXiv paper) were confirmed live via web search corroboration only — this run's
+sandbox had no route to mitchellh.com, martinfowler.com, addyosmani.com, or
+arxiv.org (network egress policy blocked each with a 403), and youtube.com was
+blocked outright, so no video search or transcript pull ran this pass. Every fact
+above is paraphrased from search-engine summaries rather than quoted from a
+directly-fetched page; nothing is presented as a verbatim quote.
 
 ---
 
@@ -183,6 +191,19 @@ incident rate per PR is a signal standard velocity metrics miss entirely — it
 shows up 6-18 months later as code nobody can confidently modify. Useful as the
 named-concept companion to the Verifiability rationale already in `WORKFLOW.md`.
 
+### [Agentic Autonomy Levels](https://addyosmani.com/blog/agentic-autonomy-levels/) — Addy Osmani
+Published 2026-07-03. A different shape than the autonomy ladders already read into this
+repo's own [software-factory-field-notes.md](methodologies/software-factory-field-notes.md)
+(Zakariasson's six stages, Reyes's three ages) and
+[bushido-ai-dlc-2026.md](methodologies/bushido-ai-dlc-2026.md)'s per-Unit HITL/OHOTL/AHOTL
+mode selector: Osmani frames scaling autonomy as expansion along
+orthogonal directions rather than a single rung to climb — starting from one supervised agent
+on one scoped task, then outward into parallel read-heavy exploration, separate write agents on
+their own worktrees, and recurring automations/agent-led orchestration. Each expansion is paired
+with the new failure mode it opens (context rot on longer runs, stale assumptions from
+background work, merge conflicts from parallelism, silent token spend from recurring jobs)
+rather than presented as pure upside. Same author as the Comprehension Debt post above.
+
 ### [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) — Anthropic Engineering
 Official Anthropic engineering post on building harnesses for agents that work across many
 sessions with no memory of what came before. Frames a harness as encoded assumptions about what
@@ -193,6 +214,31 @@ Directly on-topic for this repo's "harness engineering" framing and cited as a f
 influence by [`bushido-ai-dlc-2026.md`](methodologies/bushido-ai-dlc-2026.md)'s own attribution
 section, which is how this pass found it.
 
+### [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey) — Mitchell Hashimoto
+Published 2026-02-05. The originating post for "harness engineering" and the formula this
+repo's own vocabulary assumes without ever naming its source — **Agent = Model + Harness**.
+Hashimoto (HashiCorp co-founder, Terraform/Ghostty) describes a practice: every time an agent
+is caught making the same category of mistake, engineer a permanent fix into its environment
+(a rule in `CLAUDE.md`/`AGENTS.md`, a guard script, a changed default) rather than re-prompting
+around it each time. The term and formula spread widely enough in the months after that the
+Martin Fowler piece below credits it as the starting point.
+
+### [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) — Martin Fowler
+The most substantive practitioner treatment of harness engineering found this pass, from a
+source with no product to sell — part of a longer
+[exploring-gen-ai series](https://martinfowler.com/articles/exploring-gen-ai/) that also
+includes ["Maintainability sensors for coding agents"](https://martinfowler.com/articles/sensors-for-coding-agents.html)
+and ["Humans and Agents in Software Engineering Loops"](https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html).
+Frames a harness as everything around an agent except the model itself, built from **guides**
+and **sensors** (computational or inferential) that a team can share as templates across a
+codebase. Its sharpest claim: a good harness should not aim to eliminate human input but to
+direct it to where it matters most, and a harness regulates three dimensions — maintainability,
+architecture fitness, and functional behavior, the last of which it calls the hardest unsolved
+problem. Complements rather than duplicates the Anthropic post above: that one is a single
+company's internal architecture for long-running agents, this is the vendor-neutral vocabulary
+for the discipline this repo's own `CLAUDE.md` already calls "harness engineering" throughout
+its integrity-tooling section.
+
 ### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
 A measured comparison (not a vendor claim) of 470 real open-source pull requests
 (320 AI-coauthored, 150 human-only): AI-generated code averaged 1.7x more issues
@@ -201,6 +247,19 @@ and logic/correctness issues 75% more common. The most concrete evidence found
 this pass for why unreviewed AI output is the wrong default — it's a data point
 for the Verifiability signal's premise, not a reason to distrust AI coding tools
 outright; the gap is exactly what review process closes.
+
+### ["Debt Behind the AI Boom": A Large-Scale Empirical Study of AI-Generated Code in the Wild](https://arxiv.org/abs/2603.28592) — Yue Liu, Ratnadira Widyasari, Yanjie Zhao, Ivana Clairine Irsan, David Lo (arXiv, 2026-03)
+A far larger version of the CodeRabbit claim above, on public data rather than a vendor sample:
+304,362 verified AI-authored commits across 6,275 GitHub repositories from five AI coding
+assistants, with before/after static analysis run on each commit to attribute exactly which
+code smells, bugs, and security issues the AI introduced, then tracked forward to the latest
+repository revision. Findings: more than 15% of commits from every tool studied introduce at
+least one issue (code smells are 89.1% of the total); **24.2% of AI-introduced issues are still
+present at the latest observed revision** — not caught, not fixed, not a burst that gets cleaned
+up later. The paper's own framing is persistent technical debt rather than transient defects
+that review naturally clears. The strongest counter-evidence found this pass, and exactly the
+failure mode [Verifiability](WORKFLOW.md#why-verifiability-is-its-own-signal) exists to catch —
+worth weighing against this repo's own optimism about review closing the gap.
 
 ---
 
