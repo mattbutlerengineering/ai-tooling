@@ -4113,6 +4113,169 @@ class TestLinkRotUnknowns(unittest.TestCase):
                              msg="a fully rate-limited sweep must never print an all-clear")
 
 
+class TestArchivedProbe(unittest.TestCase):
+    """Pins detector H's could-not-check state (#504) — detector C's #319 defect, still
+    live in C's sibling. `check_archived` returned `None` for a 404, a 451, a 429, a
+    missing `gh` binary and a malformed payload alike, and `audit_archived` folded every
+    one into *not archived*, so a total blackout printed
+    `OK — none of 661 catalog repos are archived`."""
+
+    CATALOG = (
+        "## Plan\n"
+        "| Name | Type | One-liner | Problem | Overlaps with |\n"
+        "|------|------|-----------|---------|---------------|\n"
+        "| [a](https://github.com/x/a) | tool | one | two | none |\n"
+        "| [b](https://github.com/x/b) | tool | one | two | none |\n"
+    )
+
+    def _fake_gh(self, d, body):
+        """Install a fake `gh` on PATH so the real subprocess path — including the
+        marker parsing — is what runs, not a stubbed function."""
+        bindir = os.path.join(d, "bin")
+        os.makedirs(bindir, exist_ok=True)
+        p = os.path.join(bindir, "gh")
+        with open(p, "w", encoding="utf-8") as f:
+            f.write("#!/bin/sh\n" + body + "\n")
+        os.chmod(p, 0o755)
+        return bindir
+
+    def _run(self, gh_body=None):
+        """(stdout) of a real `--archived` run against a 2-row catalog."""
+        with tempfile.TemporaryDirectory() as d:
+            shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
+            shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))
+            _write(d, "CATALOG.md", self.CATALOG)
+            # No `gh` in PATH at all when gh_body is None — the missing-binary case.
+            bindir = self._fake_gh(d, gh_body) if gh_body else os.path.join(d, "emptybin")
+            os.makedirs(bindir, exist_ok=True)
+            # sys.executable, not "python3": PATH is stripped to the fake-gh dir so
+            # the missing-binary case is real, and the interpreter must not need it.
+            r = subprocess.run([sys.executable, "audit-evals.py", "--archived"], cwd=d,
+                               capture_output=True, text=True, check=False,
+                               env={**os.environ, "PATH": bindir})
+            return r.stdout + r.stderr
+
+    def test_a_missing_gh_binary_is_unchecked_not_a_clean_sweep(self):
+        out = self._run(None)
+        self.assertIn("0/2 checked", out)
+        self.assertIn("INCONCLUSIVE", out)
+        self.assertNotIn("OK — none of", out,
+                         msg="a sweep that reached nothing must never print an all-clear")
+
+    def test_a_rate_limit_is_unchecked(self):
+        out = self._run('echo "gh: API rate limit exceeded (HTTP 429)" >&2; exit 1')
+        self.assertIn("0/2 checked", out)
+        self.assertIn("INCONCLUSIVE", out)
+        self.assertNotIn("OK — none of", out)
+
+    def test_a_malformed_payload_is_unchecked(self):
+        out = self._run('echo "not json"; exit 0')
+        self.assertIn("0/2 checked", out)
+        self.assertIn("INCONCLUSIVE", out)
+
+    def test_a_404_is_gone_and_counts_as_checked(self):
+        # A definitive answer about the repo: not archived, and detector C reports DEAD.
+        out = self._run('echo "gh: Not Found (HTTP 404)" >&2; exit 1')
+        self.assertIn("2/2 checked", out)
+        self.assertIn("GONE x/a — 404 not found", out)
+        self.assertNotIn("INCONCLUSIVE", out)
+
+    def test_a_451_block_is_gone_not_unchecked(self):
+        # vkhanhqui/figma-mcp-go is permanently DMCA-blocked; treating it as unchecked
+        # would park the detector at INCONCLUSIVE forever over one entry.
+        out = self._run('echo "gh: Repository access blocked (HTTP 451)" >&2; exit 1')
+        self.assertIn("2/2 checked", out)
+        self.assertIn("451 access blocked", out)
+        self.assertNotIn("INCONCLUSIVE", out)
+
+    def test_a_live_repo_renders_the_all_clear_with_its_population(self):
+        out = self._run('echo "[false, \\"2026-08\\"]"')
+        self.assertIn("2/2 checked", out)
+        self.assertIn("OK — none of 2 catalog repos are archived", out)
+
+    def test_an_archived_repo_is_reported_with_the_population(self):
+        out = self._run('echo "[true, \\"2025-01\\"]"')
+        self.assertIn("2 archived (2 undisclosed), 2/2 checked", out)
+        self.assertIn("ARCHIVED x/a", out)
+
+    def test_the_headline_states_a_population(self):
+        """#481/#494's rule, unmet in one of the three flags TestDetectorPopulations
+        excludes by construction — so that sweep structurally could not see it."""
+        out = self._run('echo "[false, \\"2026-08\\"]"')
+        headline = next(ln for ln in out.splitlines() if ln.startswith("== H."))
+        self.assertRegex(headline, r"\d+/\d+ checked")
+
+
+class TestSweepWorkflow(unittest.TestCase):
+    """The weekly sweep decides whether to open a tracking issue by grepping the
+    detectors' prose. That is #443's two-extractors shape — a bash pattern coupled to
+    Python output by nothing — and it had already rotted: C's INCONCLUSIVE line did not
+    match, so a 160-link hole reported as a clean bill of health (#504).
+
+    These pins read the workflow's real regex and test it against the detectors' real
+    emitted lines, in both directions."""
+
+    WF = os.path.join(ROOT, ".github", "workflows", "link-archive-sweep.yml")
+
+    @classmethod
+    def setUpClass(cls):
+        cls.text = Path(cls.WF).read_text(encoding="utf-8")
+        m = re.search(r"if grep -qE '([^']+)' sweep\.txt", cls.text)
+        assert m, "the sweep's findings regex moved — update this test with it"
+        # `grep -E` and Python's `re` agree on this subset; anchors are per-line.
+        cls.pattern = re.compile(m.group(1), re.MULTILINE)
+
+    def _matches(self, line):
+        return bool(self.pattern.search(line))
+
+    def test_actionable_detector_lines_match(self):
+        for line in [
+            "  DEAD 0xwilliamortiz/agents-council",
+            "  MOVED old/name -> new/name",
+            "  GONE x/a — 404 not found; not archived, and the entry still lists it",
+            "  ARCHIVED foo/bar (last push 2025-01)  <- NOT disclosed in the entry; "
+            "add a ⚠️ archived note or repoint",
+            "  INCONCLUSIVE — 160 link(s) could not be verified (160x HTTP 429).",
+            "  INCONCLUSIVE — 2 repo(s) could not be checked (2x gh not installed).",
+        ]:
+            self.assertTrue(self._matches(line), msg=f"must be actionable: {line!r}")
+
+    def test_a_clean_run_is_not_actionable(self):
+        for line in [
+            "== C. link rot (CATALOG.md repo links) — 659/659 checked ==",
+            "  OK — all 659 catalog repo links resolve to their canonical names",
+            "== H. archived repos (report-only) — 5 archived (0 undisclosed), 661/661 checked ==",
+            "  ARCHIVED AntonOsika/gpt-engineer (last push 2025-05)",
+            "  (5 archived, all already disclosed with a ⚠️ note)",
+            "  OK — none of 661 catalog repos are archived",
+        ]:
+            self.assertFalse(self._matches(line), msg=f"must not be actionable: {line!r}")
+
+    def test_an_incomplete_sweep_is_not_read_as_clean(self):
+        """`|| true` means a crash lands as a traceback that matches nothing, which used
+        to render identically to a clean run."""
+        self.assertIn("did not run to completion", self.text)
+        self.assertRegex(self.text, r"grep -q '\^== C\\\.'")
+        self.assertRegex(self.text, r"grep -q '\^== H\\\.'")
+
+    def test_the_token_comment_does_not_claim_C_is_authenticated(self):
+        """The comment asserted `detectors C/H shell out to gh api`; C issues an
+        unauthenticated urllib HEAD, so ~24% of its population went unverified weekly
+        while the workflow believed otherwise."""
+        env_comment = self.text.split("GH_TOKEN:")[0].split("env:")[-1]
+        self.assertNotIn("detectors C/H shell out to `gh api`", env_comment)
+        self.assertIn("Detector C does NOT", env_comment)
+
+    def test_detector_c_still_uses_an_unauthenticated_head(self):
+        """The premise of the comment above. If C ever moves to `gh api`, the comment and
+        the INCONCLUSIVE handling both need revisiting — fail here rather than let the
+        workflow quietly describe a transport it no longer uses."""
+        src = inspect.getsource(audit.check_repo)
+        self.assertIn('method="HEAD"', src)
+        self.assertIn("urllib.request.urlopen", src)
+        self.assertNotIn("subprocess.run", src)
+
+
 class TestInstallResolver(unittest.TestCase):
     """Pins audit_installs' output shape across the serial -> concurrent rewrite (#301).
     The risk of that change is a silent detection change hiding inside a perf change, so

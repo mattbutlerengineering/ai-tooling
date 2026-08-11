@@ -19,8 +19,13 @@ jobs:
   sweep:
     runs-on: ubuntu-latest
     env:
-      # detectors C/H shell out to `gh api`; GITHUB_TOKEN authenticates so they
-      # aren't rate-limited across ~450 repo lookups.
+      # Authenticates detector H only. H shells out to `gh api`, so the token lifts its
+      # rate limit across ~660 repo lookups. Detector C does NOT: it issues an
+      # unauthenticated urllib HEAD to github.com because it detects renames from the
+      # redirect target, so this token does nothing for it and C is routinely
+      # rate-limited here (499/659 checked, 160x HTTP 429 on 2026-08-10). That is why
+      # C's INCONCLUSIVE line is treated as actionable below rather than as a pass —
+      # this comment used to claim both detectors were authenticated (#504).
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -37,9 +42,22 @@ jobs:
           python3 audit-evals.py --links --archived > sweep.txt 2>&1 || true
           echo "----- sweep output -----"
           cat sweep.txt
-          # Actionable findings: a dead/moved link, or an archived repo not yet
-          # disclosed in its entry. An already-disclosed ARCHIVED line is not actionable.
-          if grep -qE '^  (DEAD|MOVED) |NOT disclosed' sweep.txt; then
+          # Actionable: a dead/moved/gone repo, an archived repo not yet disclosed in its
+          # entry, or a run that could not verify part of its population. An
+          # already-disclosed ARCHIVED line is not actionable.
+          #
+          # INCONCLUSIVE is in this list because leaving it out made the sweep report a
+          # 160-link hole as a clean bill of health (#504) — the detectors print
+          # "absence of findings is NOT a pass" in the very output this grep was reading
+          # as a pass. Pinned against the detectors' real emitted lines by
+          # `TestSweepWorkflow`; these patterns must not be edited without it.
+          if grep -qE '^  (DEAD|MOVED|GONE) |NOT disclosed|^  INCONCLUSIVE ' sweep.txt; then
+            echo "findings=true" >> "$GITHUB_OUTPUT"
+          # `|| true` above means a crash lands here as an empty-ish sweep.txt, which
+          # matches nothing and used to read exactly like a clean run. A sweep that did
+          # not print both headlines did not complete.
+          elif ! grep -q '^== C\.' sweep.txt || ! grep -q '^== H\.' sweep.txt; then
+            echo "sweep did not run to completion — no detector headline in output" >&2
             echo "findings=true" >> "$GITHUB_OUTPUT"
           else
             echo "findings=false" >> "$GITHUB_OUTPUT"
