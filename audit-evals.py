@@ -1019,29 +1019,69 @@ def audit_metadata_staleness(ctx, today=None):
 # (incl. gpt-engineer ★55K and a same-named superseded chrome-devtools fork's cousin)
 # were found. Opt-in (uses authenticated `gh api`, so not rate-limited), report-only:
 # keep notable/historical tools but expect the entry to carry a ⚠️ archived note.
+ArchivedProbe = collections.namedtuple("ArchivedProbe", "state pushed reason")
+
+# A repo GitHub will not tell us about is not a repo we checked. `check_archived` used to
+# return `None` for a 404, a 451, a 429, a 5xx, a timeout, a missing `gh` binary and a
+# malformed payload alike, and `audit_archived`'s `if res and res[0]` folded every one of
+# them into *not archived* — so with every lookup failing H printed
+# `OK — none of 661 catalog repos are archived` (#504). The correct word was already in
+# this function's own comment ("'unknown', not a crash") and was discarded one function
+# later, which is #447's shape exactly: the rule stated one line above the code that
+# contradicts it. Classification keys on the marker `gh` prints, and only a definitive
+# one is a verdict:
+#   gone      404 (deleted/renamed) or 451 (access blocked — DMCA, as vkhanhqui/figma-mcp-go).
+#             A real fact and not archived; detector C reports the 404s as DEAD. 451 is
+#             held apart from `_NOT_FOUND` on purpose — detector A uses that pattern to
+#             mean *does not exist*, and a blocked repo does exist. Both are permanent, so
+#             neither is allowed to park H at INCONCLUSIVE forever over one entry.
+#   unchecked everything else. Never "not archived": #319's silence-is-not-success.
+_BLOCKED = re.compile(r"\bHTTP 451\b|access blocked", re.IGNORECASE)
+
 def check_archived(slug):
-    r = subprocess.run(["gh", "api", f"repos/{slug}", "--jq", "[.archived, .pushed_at[0:7]]"],
-                       capture_output=True, text=True, check=False)
+    """`ArchivedProbe` — archived / live / gone / unchecked, with a reason."""
+    try:
+        r = subprocess.run(["gh", "api", f"repos/{slug}", "--jq", "[.archived, .pushed_at[0:7]]"],
+                           capture_output=True, text=True, check=False, timeout=TIMEOUT * 2)
+    except FileNotFoundError:
+        # `gh` absent is the case `_run_status` calls out: returning a verdict here counted
+        # targets as resolved without reaching any of them.
+        return ArchivedProbe("unchecked", None, "gh not installed")
+    except subprocess.TimeoutExpired:
+        return ArchivedProbe("unchecked", None, "timeout")
     if r.returncode != 0:
-        return None
+        blob = r.stderr + r.stdout
+        if _NOT_FOUND.search(blob):
+            return ArchivedProbe("gone", None, "404 not found")
+        if _BLOCKED.search(blob):
+            return ArchivedProbe("gone", None, "451 access blocked")
+        return ArchivedProbe("unchecked", None, f"gh exit {r.returncode}")
     try:
         arch, pushed = json.loads(r.stdout)
-        return (bool(arch), pushed)
-    except Exception:  # noqa: BLE001 — a malformed `gh` payload means 'unknown', not a crash
-        return None
+    except Exception:  # noqa: BLE001 — a malformed `gh` payload means 'unchecked', not a crash
+        return ArchivedProbe("unchecked", None, "malformed gh payload")
+    return ArchivedProbe("archived" if arch else "live", pushed, "")
 
 def audit_archived(ctx):
+    """(archived, gone, unchecked, total) — see `check_archived` for the three states.
+
+    `total` is every catalogued slug; `total - len(unchecked)` is what this run actually
+    reached, which is the number the headline must state (#481/#494)."""
     import concurrent.futures
     text = ctx.catalog
     slugs = catalog_lib.github_repos(text)
-    archived = []
+    archived, gone, unchecked = [], [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
-        for slug, res in zip(slugs, ex.map(check_archived, slugs), strict=True):
-            if res and res[0]:
+        for slug, p in zip(slugs, ex.map(check_archived, slugs), strict=True):
+            if p.state == "archived":
                 # already disclosed in the entry? (a ⚠️ near the link)
                 flagged = bool(re.search(re.escape(slug) + r".{0,400}?(?:archived|⚠️)", text, re.DOTALL | re.IGNORECASE))
-                archived.append((slug, res[1], flagged))
-    return archived, len(slugs)
+                archived.append((slug, p.pushed, flagged))
+            elif p.state == "gone":
+                gone.append((slug, p.reason))
+            elif p.state == "unchecked":
+                unchecked.append((slug, p.reason))
+    return archived, gone, unchecked, len(slugs)
 
 # ---------------------------------------------------------------- D. verdict sync
 # discovery-log (ADR 0001 / #69): a COMPARISON status for catalogued tools that were
@@ -4552,13 +4592,29 @@ def main():
         elif not problems:
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
     if do_archived:
-        print("== H. archived repos (report-only) ==")
-        arch, total = audit_archived(ctx)
+        arch, gone, unchecked, total = audit_archived(ctx)
         undisclosed = [(s, p) for s, p, flagged in arch if not flagged]
+        checked = total - len(unchecked)
+        print(f"== H. archived repos (report-only) — {len(arch)} archived "
+              f"({len(undisclosed)} undisclosed), {checked}/{total} checked ==")
         for s, p, flagged in arch:
             tag = "" if flagged else "  <- NOT disclosed in the entry; add a ⚠️ archived note or repoint"
             print(f"  ARCHIVED {s} (last push {p}){tag}")
-        if not arch:
+        for s, reason in gone:
+            # Printed, never counted as archived: a gone repo is not an archived one, and
+            # detector C reports the 404s as DEAD in the same output.
+            print(f"  GONE {s} — {reason}; not archived, and the entry still lists it")
+        if unchecked:
+            # C's rule, in C's words, because the two print into one report: an
+            # inconclusive sweep is not a passing one (#319).
+            reasons = collections.Counter(r for _, r in unchecked)
+            summary = ", ".join(f"{n}x {r}" for r, n in reasons.most_common())
+            print(f"  INCONCLUSIVE — {len(unchecked)} repo(s) could not be checked ({summary}).")
+            shown = [s for s, _ in unchecked[:10]]
+            extra = f" (+{len(unchecked) - len(shown)} more)" if len(unchecked) > len(shown) else ""
+            print(f"  unchecked: {', '.join(shown)}{extra}")
+            print("  Findings above are still real; absence of findings is NOT a pass.")
+        elif not arch:
             print(f"  OK — none of {total} catalog repos are archived")
         elif not undisclosed:
             print(f"  ({len(arch)} archived, all already disclosed with a ⚠️ note)")
