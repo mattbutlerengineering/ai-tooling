@@ -2,8 +2,8 @@
 
 **Repo:** [mikehasa/agentacct](https://github.com/mikehasa/agentacct)
 **Stars:** 534 | **Last updated:** 2026-07-30 (pushed) | **License:** MIT
-**Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last verified:** 2026-08-12
+**Last triaged:** 2026-08-12  <!-- triaged: bulk -->
 **Dev loop stage:** Outer Loop
 **Layer:** Tooling
 

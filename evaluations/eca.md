@@ -2,8 +2,8 @@
 
 **Repo:** [editor-code-assistant/eca](https://github.com/editor-code-assistant/eca)
 **Stars:** 909 | **Last updated:** 2026-07-08 (pushed) | **License:** Apache-2.0
-**Last verified:** 2026-07-27
-**Last triaged:** 2026-07-27  <!-- triaged: bulk -->
+**Last verified:** 2026-08-12
+**Last triaged:** 2026-08-12  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

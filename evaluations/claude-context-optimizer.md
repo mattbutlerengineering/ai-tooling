@@ -2,8 +2,8 @@
 
 **Repo:** [egorfedorov/claude-context-optimizer](https://github.com/egorfedorov/claude-context-optimizer)
 **Stars:** 71 | **Last updated:** 2026-07-06 (pushed) | **License:** MIT
-**Last verified:** 2026-07-10
-**Last triaged:** 2026-07-10  <!-- triaged: bulk -->
+**Last verified:** 2026-08-12
+**Last triaged:** 2026-08-12  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Tooling (Claude Code plugin)
 
