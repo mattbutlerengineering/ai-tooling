@@ -36,7 +36,17 @@ sandbox had no route to mitchellh.com, martinfowler.com, addyosmani.com, or
 arxiv.org (network egress policy blocked each with a 403), and youtube.com was
 blocked outright, so no video search or transcript pull ran this pass. Every fact
 above is paraphrased from search-engine summaries rather than quoted from a
-directly-fetched page; nothing is presented as a verbatim quote.
+directly-fetched page; nothing is presented as a verbatim quote. The three entries
+added 2026-08-12 (Horthy's HumanLayer talk and Osmani's Light and Dark / Own the
+Outer Loop posts) hit the same wall — this pass's sandbox had no route to
+addyosmani.com, arxiv.org, or any of the pages hosting the Horthy talk
+(daily.dev, finance.biggo.com), and youtube.com was blocked outright — so all
+three are confirmed live via web search corroboration only, cross-checked against
+multiple independent search results per claim. One number initially surfaced for
+the Horthy talk (a specific incident-rate percentage across a named developer
+count) could not be corroborated on a second, differently-worded search and is
+deliberately not repeated below — only the qualitative outcome (dark-factory run,
+codebase degraded, project rebuilt) that multiple independent sources agree on.
 
 ---
 
@@ -144,6 +154,7 @@ DeepMind, Cursor, Cognition, and more. Among the best for applied AI engineering
 - [Claude Code & the evolution of agentic coding — Boris Cherny, Anthropic](https://www.youtube.com/watch?v=Lue8K2jqfKk)
 - [Claude Agent SDK [Full Workshop] — Thariq Shihipar, Anthropic](https://www.youtube.com/watch?v=TqC1qOfiVcQ)
 - [Building your own software factory — Eric Zakariasson, Cursor](https://www.youtube.com/watch?v=rnDm57Py54A) — the levels-of-autonomy ladder, and the primitives/guardrails/enablers/environment checklist for building one on a team
+- [Harness Engineering is not Enough: Why Software Factories Fail — Dex Horthy, HumanLayer](https://www.youtube.com/watch?v=Ib5GBkD555M) — counter-evidence to the dark-factory pitch, from someone who ran one: Horthy (HumanLayer's founder) describes a "lights-off" factory he ran roughly July–November 2025 where agents wrote, reviewed, and merged code with no human reading any of it; within a few months a single bug took weeks of human debugging to trace through code nobody had ever read, and the project was shut down and rebuilt. His stated reason coding agents degrade a codebase this way: they're rewarded for passing tests, not for preserving design quality, and maintainability has no fast oracle a training loop can reward. The prescription is the opposite of dark-factory: keep humans reading code, and move planning/architecture review earlier rather than eliminating oversight at the end.
 
 ### [Arize AI](https://www.youtube.com/@arizeai)
 The Observe conference channel — AI observability and evaluation talks, with the
@@ -203,6 +214,30 @@ their own worktrees, and recurring automations/agent-led orchestration. Each exp
 with the new failure mode it opens (context rot on longer runs, stale assumptions from
 background work, merge conflicts from parallelism, silent token spend from recurring jobs)
 rather than presented as pure upside. Same author as the Comprehension Debt post above.
+
+### [Software Factories, Light and Dark](https://addyosmani.com/blog/software-factories/) — Addy Osmani
+Published 2026-07-22. Names the deliberate counterpart to "dark factory" (Dan Shapiro's January
+2026 term for the top rung of his five-level autonomy ladder — the same ladder Zakariasson
+attributes to Shapiro in
+[`software-factory-field-notes.md`](methodologies/software-factory-field-notes.md#eric-zakariasson-cursor--the-ladder-the-checklist-and-the-silo-problem)):
+a **lit factory** is the same agent-run pipeline with the lights left on wherever judgment lives —
+not review tacked onto the end, but human judgment moved upstream into design and architecture
+before an agent starts a loop. Its central claim is that the binding constraint on a factory is
+not how much code can be produced but how quickly it can be verified — independently reaching this
+repo's own [Verifiability](WORKFLOW.md#why-verifiability-is-its-own-signal) rationale and rule 8 of
+[`software-factories.md`](methodologies/software-factories.md#the-ideal-workflow)'s ideal workflow.
+Same author as the two Osmani entries above.
+
+### [Own the Outer Loop](https://addyosmani.com/blog/own-the-outer-loop/) — Addy Osmani
+Published 2026-07-09 as the written form of Osmani's AI Engineer World's Fair 2026 closing
+keynote. Uses this repo's own inner/outer-loop vocabulary for an accountability model: agents run
+the **inner loop** (investigate, implement, test, report); the engineer owns the **outer loop** —
+deciding whether the work is worth doing, verifying the evidence (diffs, tests, logs, a short
+why), rendering a verdict (ship, block, redirect, add a guardrail), and staying answerable for it.
+Cites a trust gap as the reason this matters: roughly 96% of developers say they don't fully trust
+AI-generated code, but only about 48% say they always verify before committing — skepticism
+running well ahead of verification in practice, the same gap the Comprehension Debt entry above
+names from the volume side.
 
 ### [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) — Anthropic Engineering
 Official Anthropic engineering post on building harnesses for agents that work across many
