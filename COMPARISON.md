@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 705 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 711 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -239,6 +239,7 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | eino | framework | ✓ | ✓ | SKIP | REVIEW |
 | vercel/workflow | framework | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | proof-of-done-loop | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| maintainer-autopilot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | osaurus | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aichat | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aider | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -368,6 +369,8 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ratchet | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | HERO-Anti-OverDefense | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| unlazy | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -433,6 +436,7 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
+| tokentab | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -484,6 +488,7 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| godmode | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
 | andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
@@ -534,6 +539,7 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
+| repo2skill | tool | | ✓ | SKIP | SOURCE-ONLY |
 | biks-claude-loader-update | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Skill_Seekers | tool | | ✓ | discovery-log | REVIEW |
 | skill-recorder | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -790,15 +796,15 @@ All 705 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 65 | 30 | 6 | 46% |
-| Implement | 227 | 112 | 4 | 49% |
+| Implement | 228 | 112 | 4 | 49% |
 | Verify | 26 | 12 | 2 | 46% |
-| Review | 50 | 22 | 3 | 44% |
+| Review | 52 | 23 | 3 | 44% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
-| Outer Loop | 51 | 17 | 2 | 33% |
-| Skills & Plugins | 97 | 34 | 4 | 35% |
+| Outer Loop | 52 | 17 | 2 | 33% |
+| Skills & Plugins | 99 | 35 | 4 | 35% |
 | Memory & Context | 55 | 21 | 2 | 38% |
 | MCP Servers | 51 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 54 | 16 | 4 | 30% |
-| **Total** | **705** | **294** | **34** | **42%** |
+| **Total** | **711** | **296** | **34** | **42%** |
