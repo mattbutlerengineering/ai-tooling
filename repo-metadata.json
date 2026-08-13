@@ -2601,6 +2601,16 @@
     "resolved_name": "HezaoHezao/poirot",
     "stars": 149
   },
+  "hhhkarimi/repo2skill": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-12T12:53:13Z",
+    "resolved_name": "Hhhkarimi/repo2skill",
+    "stars": 3
+  },
   "hidai25/eval-view": {
     "archived": false,
     "discontinued": null,
@@ -3251,6 +3261,16 @@
     "pushed_at": "2026-07-23T16:01:24Z",
     "resolved_name": "Leonxlnx/taste-skill",
     "stars": 72022
+  },
+  "leonxlnx/unlazy": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-11T15:40:17Z",
+    "resolved_name": "Leonxlnx/unlazy",
+    "stars": 37
   },
   "letta-ai/claude-subconscious": {
     "archived": false,
@@ -4595,6 +4615,16 @@
     "resolved_name": "pezzolabs/pezzo",
     "stars": 3262
   },
+  "phungkaizen/maintainer-autopilot": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-12T14:55:24Z",
+    "resolved_name": "phungkaizen/maintainer-autopilot",
+    "stars": 67
+  },
   "phuryn/pm-skills": {
     "archived": false,
     "discontinued": null,
@@ -5628,6 +5658,16 @@
     "resolved_name": "thesysdev/openui",
     "stars": 8285
   },
+  "thiientv/godmode": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-13T08:55:21Z",
+    "resolved_name": "thiientv/godmode",
+    "stars": 63
+  },
   "tiagolauer/pieces-to-agents": {
     "archived": false,
     "fetched_at": "2026-08-07",
@@ -5695,6 +5735,16 @@
     "pushed_at": "2026-08-04T17:23:39Z",
     "resolved_name": "trailofbits/skills",
     "stars": 6433
+  },
+  "transcendr/slopware-skills": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "NOASSERTION",
+    "pushed_at": "2026-08-12T06:26:43Z",
+    "resolved_name": "transcendr/slopware-skills",
+    "stars": 30
   },
   "travisvn/awesome-claude-skills": {
     "archived": false,
@@ -6221,6 +6271,16 @@
     "pushed_at": "2026-07-24T16:20:59Z",
     "resolved_name": "Wynelson94/longhand",
     "stars": 12
+  },
+  "wzchav/tokentab": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-08-13",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-12T16:23:30Z",
+    "resolved_name": "wzchav/tokentab",
+    "stars": 111
   },
   "x1xhlol/system-prompts-and-models-of-ai-tools": {
     "archived": false,
