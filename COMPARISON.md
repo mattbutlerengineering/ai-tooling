@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 711 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 717 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -124,6 +124,7 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
 | claude-task-master | tool | | ✓ | SKIP | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
+| ai-rules-sync | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skills-manage | tool | | ✓ | SKIP | REVIEW |
 | cc-devenv-doctor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | skill-view | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -207,6 +208,7 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
 | omnigent | framework | | ✓ | discovery-log | REVIEW |
 | opencode | platform | | ✓ | discovery-log | REVIEW |
+| deepseek-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
@@ -436,6 +438,7 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
+| token-step-tracker | tool | | ✓ | SKIP | SOURCE-ONLY |
 | tokentab | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -459,12 +462,14 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | SKIP | REVIEW |
+| multi-agent-workflow-lab | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | decern | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agent-safe-pipeline | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | pezzo | platform | ✓ | ✓ | SKIP | REVIEW |
 | ragas | tool | ✓ | ✓ | discovery-log | REVIEW |
 | Helicone | platform | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -766,6 +771,7 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | buildwithclaude | reference | | ✓ | discovery-log | REVIEW |
 | agent-skills-collection | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-mcp-servers | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-deepseek-harness | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | karpathy-llm-wiki | skill | | ✓ | discovery-log | REVIEW |
 | ctx | tool | | ✓ | discovery-log | REVIEW |
 | system-prompts-leaks | reference | | ✓ | discovery-log | REVIEW |
@@ -796,15 +802,15 @@ All 711 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 65 | 30 | 6 | 46% |
-| Implement | 228 | 112 | 4 | 49% |
+| Implement | 230 | 112 | 4 | 49% |
 | Verify | 26 | 12 | 2 | 46% |
 | Review | 52 | 23 | 3 | 44% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
-| Outer Loop | 52 | 17 | 2 | 33% |
+| Outer Loop | 55 | 18 | 2 | 33% |
 | Skills & Plugins | 99 | 35 | 4 | 35% |
 | Memory & Context | 55 | 21 | 2 | 38% |
 | MCP Servers | 51 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
-| Reference | 54 | 16 | 4 | 30% |
-| **Total** | **711** | **296** | **34** | **42%** |
+| Reference | 55 | 16 | 4 | 29% |
+| **Total** | **717** | **297** | **34** | **41%** |
