@@ -47,6 +47,14 @@ the Horthy talk (a specific incident-rate percentage across a named developer
 count) could not be corroborated on a second, differently-worded search and is
 deliberately not repeated below — only the qualitative outcome (dark-factory run,
 codebase degraded, project rebuilt) that multiple independent sources agree on.
+The two arXiv papers added 2026-08-14 (the Microsoft CLI-agent rollout study and
+the developer-agent misalignment study) hit the same wall from the other side:
+this pass's sandbox egress proxy blocked `arxiv.org` outright (`EGRESS_BLOCKED`),
+and `youtube.com` was blocked outright too, so neither paper's PDF/HTML was
+directly read and no video search ran this pass. Both papers' figures below are
+paraphrased from multiple independent, differently-worded search results that
+themselves quote the papers' own abstracts — not from a directly-fetched page —
+cross-checked the same way the three entries above were.
 
 ---
 
@@ -295,6 +303,40 @@ up later. The paper's own framing is persistent technical debt rather than trans
 that review naturally clears. The strongest counter-evidence found this pass, and exactly the
 failure mode [Verifiability](WORKFLOW.md#why-verifiability-is-its-own-signal) exists to catch —
 worth weighing against this repo's own optimism about review closing the gap.
+
+### [Adoption and Impact of Command-Line AI Coding Agents: A Study of Microsoft's Early 2026 Rollout of Claude Code and GitHub Copilot CLI](https://arxiv.org/abs/2607.01418) (arXiv, 2026-07)
+The first field study to use developer-level telemetry to measure both adoption and productivity
+impact of agentic CLI coding tools — Claude Code and GitHub Copilot CLI, specifically — inside one
+large engineering organization: tens of thousands of Microsoft engineers over a roughly four-month
+rollout window. Findings: first use spread mainly through social/team networks rather than
+top-down mandate; retention tracked with how much an engineer already codes, not with demographics;
+and adopters merged roughly **24% more pull requests** than a matched counterfactual (reported
+range +14.5% to +33.7%), a gain that held steady across the full four months rather than fading.
+The authors ran a placebo check — testing as if the rollout had started earlier than it actually
+did — and found no matching jump, a falsification test none of the vendor throughput claims this
+repo already treats skeptically (8090's "80x", EY's "70%" — see
+[`software-factories.md`](methodologies/software-factories.md)) ever run. Directly on point for the
+practitioner-vs-vendor number gap
+[`software-factory-field-notes.md`](methodologies/software-factory-field-notes.md#where-they-disagree--and-which-side-to-take)
+tracks: a telemetry-grounded number sitting between van Riel's 30–60% estimate and the vendor
+multiples, and — unlike either — measured on Claude Code itself rather than on a comparable tool.
+
+### [How Coding Agents Fail Their Users: A Large-Scale Analysis of Developer-Agent Misalignment in 20,574 Real-World Sessions](https://arxiv.org/abs/2605.29442) (arXiv, 2026-05)
+Counter-evidence to weigh against the productivity number above, from the same evidence class —
+real telemetry, not a vendor benchmark. An observational study (Notre Dame, Vanderbilt, and Google,
+per the paper's own listing) of 20,574 coding-agent sessions across 1,639 repositories, spanning
+both IDE and CLI workflows. It operationalizes "misalignment" as any breakdown made visible through
+developer pushback and reports seven recurring forms — spanning how an agent reads a project,
+interprets developer intent, follows stated rules, bounds its own actions, implements and executes
+code, and reports its own progress. Most episodes (reported 90.50%) cost effort and trust rather
+than causing irreversible damage, but the reported **91.49%** of visible resolutions still needed
+an explicit user correction — verification is not an occasional fallback here, it is the default
+path back to a working state. Overall misalignment rates reportedly decline session-over-session,
+but constraint violations and inaccurate self-reporting reportedly *grow* in share even as the
+total shrinks — a shift a raw incident-rate trend line would hide. This is squarely the evidence
+this repo's [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the
+Comprehension Debt / Own the Outer Loop entries above already argue for: the failure mode is not
+agents going rogue, it is agents needing a human to keep catching the same shapes of mistake.
 
 ---
 
