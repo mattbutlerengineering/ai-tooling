@@ -1,6 +1,6 @@
 # Evaluation: rogue
 
-**Repo:** [qualifire-dev/rogue](https://github.com/qualifire-dev/rogue)
+**Repo:** [rogue-security/rogue](https://github.com/rogue-security/rogue) (transferred from `qualifire-dev/rogue`)
 **Stars:** ~1,040 | **Last updated:** 2026-05-04 | **License:** source-available (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -78,4 +78,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [rogue](https://github.com/qualifire-dev/rogue) | tool | AI-agent evaluator + red-team platform (★1K; SPDX unverified) — automatic evaluation against business policies/expected behaviors plus adversarial red-team scenarios that probe for unsafe or non-compliant agent behavior | Agents may violate business rules or break under adversarial input; want compliance evaluation and red-teaming in one platform | garak, superagent, promptfoo, NeMo-Guardrails |
+| [rogue](https://github.com/rogue-security/rogue) | tool | AI-agent evaluator + red-team platform (★1K; SPDX unverified) — automatic evaluation against business policies/expected behaviors plus adversarial red-team scenarios that probe for unsafe or non-compliant agent behavior | Agents may violate business rules or break under adversarial input; want compliance evaluation and red-teaming in one platform | garak, superagent, promptfoo, NeMo-Guardrails |

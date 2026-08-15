@@ -1,6 +1,6 @@
 # Evaluation: Antigravity Awesome Skills
 
-**Repo:** [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
+**Repo:** [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) (renamed from `sickn33/antigravity-awesome-skills`)
 **Stars:** 41,059 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Last triaged:** 2026-08-04  <!-- triaged: bulk -->
@@ -87,4 +87,4 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | reference | 1,595 installable agentic skills with npm CLI, 51 plugin bundles, and 10+ runtime support (41K stars) | Hard to discover and install skills across multiple AI editors; need a single installable catalog | awesome-agent-skills, awesome-openclaw-skills |
+| [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | reference | 1,595 installable agentic skills with npm CLI, 51 plugin bundles, and 10+ runtime support (41K stars) | Hard to discover and install skills across multiple AI editors; need a single installable catalog | awesome-agent-skills, awesome-openclaw-skills |

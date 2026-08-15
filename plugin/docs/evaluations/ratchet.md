@@ -19,8 +19,17 @@ A git-hook compliance monitor for coding agents: intercepts agent edits via a `P
 
 We did **not** install or run this tool. This evaluation is source-grounded only: README, install instructions, and test-suite description gathered via web fetch (115 passing tests reported by the project, not independently re-run here).
 
-## Triage note
+## Verdict
 
-Left at `discovery-log` rather than SKIPped: `tdd-guard` enforces test-first discipline and `cc-safety-net` blocks destructive commands, but neither grades mid-session complexity/duplication/dependency drift the way this tool claims to. The differentiation (a graded, ledger-tracked complexity monitor rather than a binary test/safety gate) is worth a real hands-on eval.
+**SKIP** — the repo and its author account (`0xwilliamortiz`) are both gone (404 via the GitHub
+API) as of 2026-08-15, caught by the link-rot sweep after detector C moved onto authenticated
+`gh api` (#498). Nothing left to install or evaluate, and no successor is evident.
 
-_Triaged 2026-08-02 by the daily discovery routine (today's new lead)._
+_Triaged 2026-08-15 after the account/repo was found gone during a repo audit._
+
+## Triage note (superseded)
+
+Previously left at `discovery-log` (triaged 2026-08-02): `tdd-guard` enforces test-first
+discipline and `cc-safety-net` blocks destructive commands, but neither graded mid-session
+complexity/duplication/dependency drift the way this tool claimed to — the differentiation looked
+worth a real hands-on eval. Moot now that the repo is gone.

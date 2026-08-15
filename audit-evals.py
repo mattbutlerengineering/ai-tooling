@@ -21,12 +21,19 @@ Fifteen detectors (A-O), each proven to catch real problems (see git history,
 
   C. LINK ROT (opt-in, --links) — every github.com/owner/repo link in CATALOG.md
      should resolve to its canonical current name. Flags 404s (dead) and silent
-     renames (moved). ~450 network requests, so it is off by default. Reports
-     n/total CHECKED and says INCONCLUSIVE rather than OK when any link could not
-     be verified: only a 404 means "gone", and every other failure (429 rate limit,
-     5xx, timeout) is "could not check". Folding those into "ok" once made the
-     sweep print a clean bill of health for 612 links while GitHub 429'd all of
-     them (#319).
+     renames (moved). ~450 requests via authenticated `gh api` (#498), so it is
+     off by default. Reports n/total CHECKED and says INCONCLUSIVE rather than OK
+     when any link could not be verified: only a 404 means "gone", and every
+     other failure (rate limit, 5xx, timeout, missing `gh`) is "could not check".
+     Folding those into "ok" once made the sweep print a clean bill of health for
+     612 links while GitHub 429'd all of them (#319). Before #498 the transport
+     was an unauthenticated HEAD to github.com, which is what let a live ★25.9K
+     repo (ahujasid/blender-mcp) come back a false 404 under the ~600-request
+     burst — GitHub's abuse defenses can answer anonymous scraping with 404
+     instead of 429, so "only a 404 means gone" was not actually true for that
+     transport. `gh api` makes the same authenticated call detector H already
+     does and follows GitHub's redirect for a rename, so "moved" still resolves
+     in one request.
 
   D. VERDICT SYNC — each eval's "## Verdict" should agree with its COMPARISON.md
      row. Tolerates dual verdicts ("ADOPT for X — CONDITIONAL otherwise") and the
@@ -898,33 +905,35 @@ def audit_fabrication(ctx):
 # ---------------------------------------------------------------- C. link rot
 def check_repo(slug):
     """Return 'ok', 'dead', 'moved:<new>', or 'unknown:<reason>' for a github
-    owner/repo slug.
+    owner/repo slug, via authenticated `gh api` (#498).
 
-    'unknown' exists because this used to fold every non-404 into 'ok' (#319).
-    GitHub answers this detector's ~600-request unauthenticated burst with HTTP
-    429, so EVERY link — including live ones like torvalds/linux — came back
-    'ok' and the sweep printed a clean bill of health having verified nothing.
-    "Could not check" and "checked and fine" must not be the same value: silence
-    is not success."""
-    url = f"https://github.com/{slug}"
+    Used to issue an unauthenticated HEAD to github.com on the theory that only a
+    404 is a verdict and everything else (429, 5xx, timeout) is "could not check"
+    (#319). That theory broke: a live ★25.9K repo (ahujasid/blender-mcp) came back
+    a definitive 404 under this detector's ~600-request unauthenticated burst, and
+    the sweep filed it as DEAD (#498) — GitHub's abuse defenses can answer an
+    anonymous scraping burst with 404 instead of 429, so "only a 404 means gone"
+    was not actually true for that transport. `gh api` makes the same
+    authenticated call detector H already does (`check_archived`) and follows
+    GitHub's redirect for a renamed repo, so a moved slug still resolves to its
+    canonical `full_name` in one request — no separate rename probe needed."""
     try:
-        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "ai-tooling-audit"})
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            final = r.geturl().replace("https://github.com/", "").rstrip("/")
-            if final.lower() != slug.lower():
-                return f"moved:{final}"   # C's alone — detector A has no analogue
-            return OK
-    except urllib.error.HTTPError as e:
-        # Closed for the same reason as http_status, and this is the checker it matters
-        # for: this docstring's own ~600-request burst comes back 429, so the documented
-        # normal case leaked one response per link (#455).
-        with contextlib.closing(e):
-            # DEAD is the one status that genuinely means "gone"; a 429 rate limit, a
-            # 5xx or an auth wall is not a verdict. Same constants detector A uses —
-            # one vocabulary, not two copies of it forty lines apart.
-            return DEAD if e.code == 404 else _unknown(f"HTTP {e.code}")
-    except Exception as e:  # noqa: BLE001 — every non-404 outcome is inconclusive by design
-        return _unknown(type(e).__name__)   # timeout / DNS / TLS — also not a verdict
+        r = subprocess.run(["gh", "api", f"repos/{slug}", "--jq", ".full_name"],
+                           capture_output=True, text=True, timeout=TIMEOUT, check=False)
+    except subprocess.TimeoutExpired:
+        return _unknown("timeout")
+    except FileNotFoundError:
+        return _unknown("gh not installed")
+    if r.returncode != 0:
+        blob = r.stderr + r.stdout
+        # DEAD is the one status that genuinely means "gone"; a rate limit or an auth
+        # wall is not a verdict. Same `_NOT_FOUND` marker detectors A and H key on —
+        # one vocabulary, not a second copy of it.
+        return DEAD if _NOT_FOUND.search(blob) else _unknown(f"gh exit {r.returncode}")
+    final = r.stdout.strip()
+    if final.lower() != slug.lower():
+        return f"moved:{final}"   # C's alone — detector A has no analogue
+    return OK
 
 def audit_links(ctx):
     """(problems, unknowns, total) — problems are dead/moved links, unknowns are
@@ -933,7 +942,7 @@ def audit_links(ctx):
     import concurrent.futures
     slugs = catalog_lib.github_repos(ctx.catalog)
     problems, unknowns = [], []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as ex:
         for slug, res in zip(slugs, ex.map(check_repo, slugs), strict=True):
             if res.startswith("unknown:"):
                 unknowns.append((slug, res[len("unknown:"):]))
@@ -4586,9 +4595,9 @@ def main():
             reasons = collections.Counter(r for _, r in unknowns)
             summary = ", ".join(f"{n}x {r}" for r, n in reasons.most_common())
             print(f"  INCONCLUSIVE — {len(unknowns)} link(s) could not be verified ({summary}).")
-            print("  Re-run later, or authenticate: an unauthenticated burst of ~600 HEAD "
-                  "requests is rate-limited. Findings above are still real; absence of "
-                  "findings is NOT a pass.")
+            print("  Re-run later: an authenticated `gh api` burst of ~600 requests can "
+                  "still hit a rate limit or timeout under load. Findings above are "
+                  "still real; absence of findings is NOT a pass.")
         elif not problems:
             print(f"  OK — all {total} catalog repo links resolve to their canonical names")
     if do_archived:

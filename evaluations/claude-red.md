@@ -19,14 +19,19 @@ Curated library of offensive-security skills for **authorized** engagements — 
 
 We did **not** install or run this tool. This evaluation is source-grounded only: repo metadata (README, topics, license) via the GitHub API, plus the CATALOG "Overlaps with" cell.
 
-## Triage note
+## Verdict
 
-Left at `discovery-log`: overlaps `pentest-ai-agents` (already SKIPped — not a settled
-incumbent to be redundant with) and `Claude-BugHunter`/`ctf-skills`, both themselves
-unevaluated leads. No settled ADOPT/KEEP incumbent covers this exact per-attack-surface
-skill-library niche; leave for a first-time eval.
+**SKIP** — the repo and its author account (`0xwilliamortiz`) are both gone (404 via the GitHub
+API) as of 2026-08-15, caught by the link-rot sweep after detector C moved onto authenticated
+`gh api` (#498). Nothing left to install or evaluate, and no successor is evident.
 
-_Triaged 2026-08-06 by the daily discovery routine._
+_Triaged 2026-08-15 after the account/repo was found gone during a repo audit._
+
+## Triage note (superseded)
+
+Previously left at `discovery-log` (triaged 2026-08-06): overlapped `pentest-ai-agents` (already
+SKIPped — not a settled incumbent to be redundant with) and `Claude-BugHunter`/`ctf-skills`, both
+themselves unevaluated leads. Moot now that the repo is gone.
 
 ## Catalog entry
 
