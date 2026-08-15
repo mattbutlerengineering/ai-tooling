@@ -4,7 +4,7 @@
 **Stars:** 502  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
 **Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-15  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -35,3 +35,7 @@ verify hands-on, not to wave through or dismiss from source alone. Left for the 
 lane.
 
 _Triaged 2026-07-30 by the P3 backlog band._
+
+_Re-confirmed 2026-08-15 by the daily discovery routine (oldest-stamped pass): still no STACK
+incumbent for the provenance+collaboration niche; the ~95% token-waste claim remains
+unverified. Disposition unchanged — left at `discovery-log` for the P0/eval-runner lane._

@@ -3,7 +3,7 @@
 **Repo:** [perplexityai/numbat](https://github.com/perplexityai/numbat)
 **Stars:** 256 | **Last updated:** 2026-07-29 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-15  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Infrastructure
 
@@ -33,3 +33,7 @@ major AI lab (Perplexity) rather than an unknown author. Significant enough to d
 eval, not a mechanical SKIP.
 
 _Triaged 2026-07-30 as part of a new discovery-log intake, not a P1/P2/P3 bulk-band pass._
+
+_Re-confirmed 2026-08-15 by the daily discovery routine (oldest-stamped pass): still a distinct
+endpoint-level vantage point from the static skill scanners and runtime guardrails already
+catalogued. Disposition unchanged — left at `discovery-log` for the P0/eval-runner lane._
