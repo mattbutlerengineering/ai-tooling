@@ -3,7 +3,7 @@
 **Repo:** [krishagarwal314/CodeJury](https://github.com/krishagarwal314/CodeJury)
 **Stars:** 114 | **Last updated:** 2026-07-30 (pushed) | **License:** MIT
 **Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-15  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Process
 
@@ -33,3 +33,7 @@ STACK pick already covers this specific "gated multi-agent SDLC pipeline" niche,
 clean redundancy SKIP — left for the P0/eval-runner lane.
 
 _Triaged 2026-07-30 as part of a new discovery-log intake, not a P1/P2/P3 bulk-band pass._
+
+_Re-confirmed 2026-08-15 by the daily discovery routine (oldest-stamped pass): `BMAD-METHOD`
+and `ccpm` remain `discovery-log`, no STACK pick has moved into this niche; disposition
+unchanged — left at `discovery-log` for the P0/eval-runner lane._

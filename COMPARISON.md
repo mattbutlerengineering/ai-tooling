@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 717 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 720 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -385,6 +385,8 @@ All 717 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
 | SkillSpector | tool | | ✓ | CONDITIONAL | MEASURED |
 | skill-scanner | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| skilldoctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| skill-safety-checker | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -441,6 +443,7 @@ All 717 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | token-step-tracker | tool | | ✓ | SKIP | SOURCE-ONLY |
 | tokentab | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-log-cli | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -804,13 +807,13 @@ All 717 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 65 | 30 | 6 | 46% |
 | Implement | 230 | 112 | 4 | 49% |
 | Verify | 26 | 12 | 2 | 46% |
-| Review | 52 | 23 | 3 | 44% |
+| Review | 54 | 24 | 3 | 44% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
-| Outer Loop | 55 | 18 | 2 | 33% |
+| Outer Loop | 56 | 18 | 2 | 32% |
 | Skills & Plugins | 99 | 35 | 4 | 35% |
 | Memory & Context | 55 | 21 | 2 | 38% |
 | MCP Servers | 51 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 55 | 16 | 4 | 29% |
-| **Total** | **717** | **297** | **34** | **41%** |
+| **Total** | **720** | **298** | **34** | **41%** |

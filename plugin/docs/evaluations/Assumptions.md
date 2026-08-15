@@ -3,7 +3,7 @@
 **Repo:** [Teycir/Assumptions](https://github.com/Teycir/Assumptions)
 **Stars:** 17 | **Last updated:** 2026-07-27 (pushed) | **License:** MIT
 **Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-15  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Process (skill)
 
@@ -32,3 +32,7 @@ different review lens, not a rehash of an existing catalog entry. Left for the P
 lane rather than a mechanical SKIP.
 
 _Triaged 2026-07-30 as part of a new discovery-log intake, not a P1/P2/P3 bulk-band pass._
+
+_Re-confirmed 2026-08-15 by the daily discovery routine (oldest-stamped pass): no STACK or
+license change since; still the oldest genuinely un-examined lead's disposition — left at
+`discovery-log` for the P0/eval-runner lane._
