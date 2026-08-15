@@ -293,7 +293,7 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | implement | skill | | ✓ | discovery-log | REVIEW |
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
 | codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
-| agents-council | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| agents-council | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | vibecode-pro-max-kit | harness | | ✓ | SKIP | REVIEW |
 | re_gent | tool | | ✓ | discovery-log | REVIEW |
 | h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -368,7 +368,7 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
 | tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
-| ratchet | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| ratchet | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | HERO-Anti-OverDefense | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | unlazy | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -379,7 +379,7 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | toolpermit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
-| claude-red | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-red | skill | | ✓ | SKIP | SOURCE-ONLY |
 | pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
@@ -687,7 +687,7 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | figma-mcp-go | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| design-extract | MCP server | | ✓ | CONDITIONAL | REVIEW |
+| design-extract | MCP server | | ✓ | SKIP | REVIEW |
 | pg-aiguide | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp2cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mirage | tool | | ✓ | discovery-log | REVIEW |
@@ -805,9 +805,9 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 65 | 30 | 6 | 46% |
-| Implement | 230 | 112 | 4 | 49% |
+| Implement | 230 | 113 | 4 | 49% |
 | Verify | 26 | 12 | 2 | 46% |
-| Review | 54 | 24 | 3 | 44% |
+| Review | 54 | 26 | 3 | 48% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 6 | 4 | 3 | 67% |
 | Outer Loop | 56 | 18 | 2 | 32% |
@@ -816,4 +816,4 @@ All 720 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 51 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 55 | 16 | 4 | 29% |
-| **Total** | **720** | **298** | **34** | **41%** |
+| **Total** | **720** | **301** | **34** | **42%** |

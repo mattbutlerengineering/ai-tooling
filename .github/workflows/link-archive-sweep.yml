@@ -19,13 +19,15 @@ jobs:
   sweep:
     runs-on: ubuntu-latest
     env:
-      # Authenticates detector H only. H shells out to `gh api`, so the token lifts its
-      # rate limit across ~660 repo lookups. Detector C does NOT: it issues an
-      # unauthenticated urllib HEAD to github.com because it detects renames from the
-      # redirect target, so this token does nothing for it and C is routinely
-      # rate-limited here (499/659 checked, 160x HTTP 429 on 2026-08-10). That is why
-      # C's INCONCLUSIVE line is treated as actionable below rather than as a pass —
-      # this comment used to claim both detectors were authenticated (#504).
+      # Authenticates both detectors. H has always shelled out to `gh api`; C did too
+      # until #498, when an unauthenticated HEAD burst returned a false DEAD for a live
+      # ★25.9K repo (ahujasid/blender-mcp) — GitHub's abuse defenses can answer
+      # anonymous scraping with 404 instead of 429, so "only a 404 means gone" was not
+      # actually true for that transport. C now makes the same authenticated call H
+      # does, so both lift their rate limit across the ~660-repo sweep together. C's
+      # INCONCLUSIVE line stays actionable below regardless — an authenticated burst
+      # can still hit a rate limit or timeout under load, and #504's lesson (absence of
+      # findings is NOT a pass when part of the population went unchecked) still holds.
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4

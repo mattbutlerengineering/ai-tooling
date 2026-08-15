@@ -22,19 +22,23 @@ We did **not** install or run this. Source-grounded only: GitHub metadata (fetch
 the CATALOG one-liner and its "Overlaps with" cell. Enough to place and to band it; not enough for
 any verdict, and none is offered.
 
-## Triage note
+## Verdict
 
-Left at `discovery-log`. It belongs to the cross-model-review cluster with `codex-plugin-cc` (OpenAI
-official, thin, one second opinion) and `claude-octopus` (heavy consensus engine, up to nine models)
-— and **every member of that cluster is `discovery-log`**. With no incumbent decided, there is no
-"redundant with X" to write, and picking a winner is a measured comparison rather than an
-elimination. All three were left in this pass for that reason.
+**SKIP** — the repo and its author account (`0xwilliamortiz`) are both gone (404 via the GitHub
+API) as of 2026-08-15, caught by the link-rot sweep after detector C moved onto authenticated
+`gh api` (#498). Nothing left to install or evaluate, and no successor is evident. It belonged to
+the cross-model-review cluster with `codex-plugin-cc` and `claude-octopus`, both still
+`discovery-log` — this SKIP is about this repo's own disappearance, not a redundancy call against
+either of them.
 
-MIT, ★296, pushed 2026-07-30. The open question, common to the cluster, is whether the cross-model
-payoff is real or asserted — nobody has benchmarked it, and it costs a second vendor's budget per
-run.
+_Triaged 2026-08-15 after the account/repo was found gone during a repo audit._
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+## Triage note (superseded)
+
+Previously left at `discovery-log` (triaged 2026-08-04): it belonged to the cross-model-review
+cluster with `codex-plugin-cc` (OpenAI official, thin, one second opinion) and `claude-octopus`
+(heavy consensus engine, up to nine models) — and every member of that cluster was
+`discovery-log`, so there was no "redundant with X" to write. Moot now that the repo is gone.
 
 ## Catalog entry
 

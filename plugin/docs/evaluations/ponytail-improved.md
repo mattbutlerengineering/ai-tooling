@@ -31,3 +31,8 @@ offers none.
 entry for the identical skill earns nothing beyond noting the fork exists.
 
 _Triaged 2026-08-03 as part of today's discovery intake, not a P1/P2/P3 bulk-band pass._
+
+**Update 2026-08-15:** the repo and its author account (`0xwilliamortiz`) are now gone (404 via the
+GitHub API), caught by the link-rot sweep after detector C moved onto authenticated `gh api`
+(#498). Doesn't change the verdict — already SKIP, now doubly so — but the redundancy reasoning
+above is moot; noted for the record.

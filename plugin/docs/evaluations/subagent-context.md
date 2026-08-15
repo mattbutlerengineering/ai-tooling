@@ -1,6 +1,6 @@
 # Evaluation: subagent-context
 
-**Repo:** [msshives-gif/subagent-context](https://github.com/msshives-gif/subagent-context)
+**Repo:** [msshives-gif/claude-plugins](https://github.com/msshives-gif/claude-plugins) (renamed from `msshives-gif/subagent-context`)
 **Stars:** 2 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
 **Last verified:** 2026-08-07
 **Last triaged:** 2026-08-07  <!-- triaged: bulk -->
@@ -36,4 +36,4 @@ _Triaged 2026-08-07 by the daily discovery routine (today's new lead)._
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [subagent-context](https://github.com/msshives-gif/subagent-context) | plugin | Claude Code plugin (MIT) reporting subagent context-size to the orchestrator and guarding against re-tasking an already near-overloaded subagent | Orchestrators re-task subagents without knowing they're near their context limit, risking silent truncation or failure | claude-fleet, abtop, headroom |
+| [subagent-context](https://github.com/msshives-gif/claude-plugins) | plugin | Claude Code plugin (MIT) reporting subagent context-size to the orchestrator and guarding against re-tasking an already near-overloaded subagent | Orchestrators re-task subagents without knowing they're near their context limit, risking silent truncation or failure | claude-fleet, abtop, headroom |

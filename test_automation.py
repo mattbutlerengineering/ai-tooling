@@ -3976,11 +3976,10 @@ class TestStackCount(unittest.TestCase):
 # ----------------------------------------------------------------- HTTP responses are closed (#455)
 class TestHttpResponsesAreClosed(unittest.TestCase):
     """An `HTTPError` IS the response object, so the error path holds a socket exactly as
-    the success path does. Both checkers used `with urllib.request.urlopen(...)` and then
-    abandoned the error, which is why it went unseen — on a healthy network almost every
-    reply is a 200. The failure modes that leak are the ones this repo documents as
-    normal: `check_repo`'s own docstring says GitHub answers its ~600-request burst with
-    429, and CLAUDE.md says a local sweep verifies only a few dozen of ~600 links."""
+    the success path does. `http_status` uses `with urllib.request.urlopen(...)` and used
+    to abandon the error, which is why it went unseen — on a healthy network almost every
+    reply is a 200. `check_repo` moved off urllib entirely in #498 (authenticated `gh api`
+    via subprocess, which has no such leak class); its own shape is pinned below instead."""
 
     def setUp(self):
         self._orig = audit.urllib.request.urlopen
@@ -4002,20 +4001,17 @@ class TestHttpResponsesAreClosed(unittest.TestCase):
     def test_a_rate_limited_burst_leaks_nothing(self):
         # 50 calls used to produce 50 unclosed responses, 1:1 with no slack.
         self._raise(429)
-        self.assertEqual(self._warnings(lambda i: audit.check_repo(f"o/r{i}")), [])
         self.assertEqual(self._warnings(lambda i: audit.http_status(f"https://x/{i}")), [])
 
     def test_a_404_burst_leaks_nothing(self):
         # The one status that produces a verdict still has a response to close.
         self._raise(404)
-        self.assertEqual(self._warnings(lambda i: audit.check_repo(f"o/r{i}")), [])
         self.assertEqual(self._warnings(lambda i: audit.http_status(f"https://x/{i}")), [])
 
     def test_closing_did_not_change_a_single_verdict(self):
         for code, expected in ((404, audit.DEAD), (429, "unknown:HTTP 429"),
                                (503, "unknown:HTTP 503")):
             self._raise(code)
-            self.assertEqual(audit.check_repo("o/r"), expected)
             self.assertEqual(audit.http_status("https://x/y"), expected)
 
     def test_the_two_checkers_share_one_vocabulary(self):
@@ -4035,11 +4031,15 @@ class TestHttpResponsesAreClosed(unittest.TestCase):
 
 # ----------------------------------------------------------------- detector A: install resolver (#301)
 class TestLinkRotUnknowns(unittest.TestCase):
-    """Pins detector C's could-not-check state (#319). It used to fold every non-404
-    into 'ok', so GitHub's 429 on the ~600-request unauthenticated burst turned the
-    whole sweep into a silent no-op that still printed "OK — all 612 links resolve".
-    A clean bill of health and a total blackout must never render identically.
-    Network-free: urlopen is monkeypatched."""
+    """Pins detector C's could-not-check state (#319), and its transport (#498): a
+    live ★25.9K repo (ahujasid/blender-mcp) came back a false 404 under the old
+    unauthenticated-HEAD burst, so C now makes the same authenticated `gh api` call
+    detector H does. It used to fold every non-404 into 'ok', so GitHub's 429 on the
+    burst turned the whole sweep into a silent no-op that still printed "OK — all
+    612 links resolve". A clean bill of health and a total blackout must never
+    render identically. Network-free: a fake `gh` script on PATH stands in for the
+    real binary, so the real subprocess path — including marker parsing — is what
+    runs, matching TestArchivedProbe's pattern for detector H's sibling call."""
 
     CATALOG = (
         "## Plan\n"
@@ -4049,68 +4049,63 @@ class TestLinkRotUnknowns(unittest.TestCase):
         "| [b](https://github.com/x/b) | tool | one | two | none |\n"
     )
 
-    def setUp(self):
-        self._real = audit.urllib.request.urlopen
+    def _fake_gh(self, d, body):
+        bindir = os.path.join(d, "bin")
+        os.makedirs(bindir, exist_ok=True)
+        p = os.path.join(bindir, "gh")
+        with open(p, "w", encoding="utf-8") as f:
+            f.write("#!/bin/sh\n" + body + "\n")
+        os.chmod(p, 0o755)
+        return bindir
 
-    def tearDown(self):
-        audit.urllib.request.urlopen = self._real  # never leak the fake into later tests
-
-    def _fake(self, behavior):
-        def fake_urlopen(req, timeout=None):
-            raise behavior(req.full_url)
-        audit.urllib.request.urlopen = fake_urlopen
-
-    def _run(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(d, "CATALOG.md", self.CATALOG)
-            return audit.audit_links(audit.DetectorContext(d))
-
-    def test_rate_limit_is_unknown_not_ok(self):
-        # The exact #319 failure: 429 on every request.
-        self._fake(lambda url: urllib.error.HTTPError(url, 429, "Too Many Requests", {}, None))
-        problems, unknowns, total = self._run()
-        self.assertEqual(problems, [])
-        self.assertEqual(total, 2)
-        self.assertEqual(len(unknowns), 2, "a rate-limited link must not count as verified")
-        self.assertEqual({r for _, r in unknowns}, {"HTTP 429"})
-
-    def test_404_is_still_dead(self):
-        # Only a 404 genuinely means "gone" — that verdict must survive the change.
-        self._fake(lambda url: urllib.error.HTTPError(url, 404, "Not Found", {}, None))
-        problems, unknowns, _ = self._run()
-        self.assertEqual([r for _, r in problems], ["dead", "dead"])
-        self.assertEqual(unknowns, [])
-
-    def test_server_error_and_timeout_are_unknown(self):
-        for behavior, expected in (
-            (lambda url: urllib.error.HTTPError(url, 503, "Service Unavailable", {}, None), "HTTP 503"),
-            (lambda url: TimeoutError("timed out"), "TimeoutError"),
-        ):
-            self._fake(behavior)
-            problems, unknowns, _ = self._run()
-            self.assertEqual(problems, [], msg=f"{expected} must not be reported as a finding")
-            self.assertEqual({r for _, r in unknowns}, {expected})
-
-    def test_reporting_says_inconclusive_not_ok(self):
-        # End-to-end through main(): the output a maintainer actually reads must not
-        # claim success when nothing could be checked.
+    def _run(self, gh_body):
+        """(stdout+stderr) of a real `--links` run against a 2-row catalog."""
         with tempfile.TemporaryDirectory() as d:
             shutil.copy(os.path.join(ROOT, "audit-evals.py"), os.path.join(d, "audit-evals.py"))
             shutil.copy(os.path.join(ROOT, "catalog_lib.py"), os.path.join(d, "catalog_lib.py"))
             _write(d, "CATALOG.md", self.CATALOG)
-            # Force the 429 path from inside the child process.
-            _write(d, "sitecustomize.py",
-                   "import urllib.request, urllib.error\n"
-                   "def _boom(req, timeout=None):\n"
-                   "    raise urllib.error.HTTPError(req.full_url, 429, 'Too Many Requests', {}, None)\n"
-                   "urllib.request.urlopen = _boom\n")
-            r = subprocess.run(["python3", "audit-evals.py", "--links"],
-                               cwd=d, capture_output=True, text=True,
-                               env={**os.environ, "PYTHONPATH": d}, check=False)
-            self.assertIn("INCONCLUSIVE", r.stdout, msg=r.stdout + r.stderr)
-            self.assertIn("0/2 checked", r.stdout)
-            self.assertNotIn("OK — all", r.stdout,
-                             msg="a fully rate-limited sweep must never print an all-clear")
+            bindir = self._fake_gh(d, gh_body)
+            r = subprocess.run([sys.executable, "audit-evals.py", "--links"], cwd=d,
+                               capture_output=True, text=True, check=False,
+                               env={**os.environ, "PATH": bindir})
+            return r.stdout + r.stderr
+
+    def test_rate_limit_is_unknown_not_ok(self):
+        # The exact #319 failure, now via an authenticated rate limit on every call.
+        out = self._run('echo "gh: API rate limit exceeded (HTTP 429)" >&2; exit 1')
+        self.assertIn("0/2 checked", out)
+        self.assertIn("INCONCLUSIVE", out)
+        self.assertIn("gh exit 1", out)
+        self.assertNotIn("OK — all", out, msg="a fully rate-limited sweep must never print an all-clear")
+
+    def test_404_is_still_dead(self):
+        # Only a 404 genuinely means "gone" — that verdict must survive the transport change.
+        out = self._run('echo "gh: Not Found (HTTP 404)" >&2; exit 1')
+        self.assertIn("2/2 checked", out)
+        self.assertEqual(out.count("DEAD "), 2)
+        self.assertNotIn("INCONCLUSIVE", out)
+
+    def test_server_error_and_timeout_are_unknown(self):
+        out = self._run('echo "gh: Internal Server Error (HTTP 500)" >&2; exit 1')
+        self.assertNotIn("DEAD ", out)
+        self.assertIn("INCONCLUSIVE", out)
+
+    def test_moved_is_detected_from_the_canonical_full_name(self):
+        # gh api follows GitHub's redirect for a renamed repo — the response names the
+        # new slug directly, so C needs no separate rename probe. Only x/b is renamed;
+        # x/a echoes its own slug back to prove the other row is unaffected.
+        out = self._run('case "$2" in repos/x/a) echo "x/a" ;; repos/x/b) echo "y/b" ;; esac')
+        self.assertIn("MOVED x/b -> y/b", out)
+        self.assertNotIn("MOVED x/a", out)
+
+    def test_reporting_says_inconclusive_not_ok(self):
+        # End-to-end through main(): the output a maintainer actually reads must not
+        # claim success when nothing could be checked.
+        out = self._run('echo "gh: API rate limit exceeded (HTTP 429)" >&2; exit 1')
+        self.assertIn("INCONCLUSIVE", out, msg=out)
+        self.assertIn("0/2 checked", out)
+        self.assertNotIn("OK — all", out,
+                         msg="a fully rate-limited sweep must never print an all-clear")
 
 
 class TestArchivedProbe(unittest.TestCase):
@@ -4258,22 +4253,24 @@ class TestSweepWorkflow(unittest.TestCase):
         self.assertRegex(self.text, r"grep -q '\^== C\\\.'")
         self.assertRegex(self.text, r"grep -q '\^== H\\\.'")
 
-    def test_the_token_comment_does_not_claim_C_is_authenticated(self):
-        """The comment asserted `detectors C/H shell out to gh api`; C issues an
-        unauthenticated urllib HEAD, so ~24% of its population went unverified weekly
-        while the workflow believed otherwise."""
+    def test_the_token_comment_reflects_C_now_authenticated(self):
+        """#498 moved detector C onto authenticated `gh api` (the same call H already
+        makes), after an unauthenticated HEAD burst returned a false DEAD for a live
+        ★25.9K repo (ahujasid/blender-mcp). The workflow comment must track the
+        transport it actually uses, not the stale claim #504 fixed in the other
+        direction."""
         env_comment = self.text.split("GH_TOKEN:")[0].split("env:")[-1]
-        self.assertNotIn("detectors C/H shell out to `gh api`", env_comment)
-        self.assertIn("Detector C does NOT", env_comment)
+        self.assertNotIn("Detector C does NOT", env_comment)
+        self.assertIn("#498", env_comment)
 
-    def test_detector_c_still_uses_an_unauthenticated_head(self):
-        """The premise of the comment above. If C ever moves to `gh api`, the comment and
-        the INCONCLUSIVE handling both need revisiting — fail here rather than let the
-        workflow quietly describe a transport it no longer uses."""
+    def test_detector_c_now_uses_authenticated_gh_api(self):
+        """The premise of the comment above (#498). If C ever moves off `gh api`, the
+        comment and the INCONCLUSIVE handling both need revisiting again — fail here
+        rather than let the workflow quietly describe a transport it no longer uses."""
         src = inspect.getsource(audit.check_repo)
-        self.assertIn('method="HEAD"', src)
-        self.assertIn("urllib.request.urlopen", src)
-        self.assertNotIn("subprocess.run", src)
+        self.assertIn('"gh", "api"', src)
+        self.assertIn("subprocess.run", src)
+        self.assertNotIn("urllib.request.urlopen", src)
 
 
 class TestInstallResolver(unittest.TestCase):
