@@ -3,8 +3,8 @@
 **Repo:** [uczltw6/trace-file-lineage](https://github.com/uczltw6/trace-file-lineage)
 **Stars:** 259  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
-**Last verified:** 2026-07-31
-**Last triaged:** 2026-07-31  <!-- triaged: bulk -->
+**Last verified:** 2026-08-16
+**Last triaged:** 2026-08-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -31,4 +31,4 @@ trace-file-lineage is broader — any file/command/agent lineage, not limited to
 (covers notebooks, data files, arbitrary CLI output). Different scope, not clearly dominated.
 Left for the P0/eval-runner lane.
 
-_Triaged 2026-07-31 by today's discovery lead._
+_Re-triaged 2026-08-16 by the P3 backlog band — no new STACK pick covers this job; reasoning unchanged._

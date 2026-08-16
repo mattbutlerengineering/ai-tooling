@@ -3,8 +3,8 @@
 **Repo:** [Raylinkh/envlatch](https://github.com/Raylinkh/envlatch)
 **Stars:** 70  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
-**Last verified:** 2026-07-31
-**Last triaged:** 2026-07-31  <!-- triaged: bulk -->
+**Last verified:** 2026-08-16
+**Last triaged:** 2026-08-16  <!-- triaged: bulk -->
 **Dev loop stage:** Security & Safety
 **Layer:** Tooling
 
@@ -29,4 +29,4 @@ Left at `discovery-log`: agent-vault is an HTTP credential proxy/vault (cross-pl
 service); envlatch is a macOS-only native Keychain launcher with no running service. Different
 mechanism and platform scope, not clearly dominated. Left for the P0/eval-runner lane.
 
-_Triaged 2026-07-31 by today's discovery lead._
+_Re-triaged 2026-08-16 by the P3 backlog band — no new STACK pick covers this job; reasoning unchanged._
