@@ -4361,6 +4361,104 @@ def audit_duplicate_evals(ctx):
     return findings, len(claims)
 
 
+# ---------------------------------------------------------------- AL. claude verb (report-only)
+# `claude` accepts an unrecognized first argument AS A PROMPT (#439), so a fabricated
+# subcommand never errors — it opens a session with the command as the user's message and
+# sits there. That is why `claude plugins:add-marketplace` survived in README.md until #439
+# and `claude install-plugin` survived in STACK.md until #487: detector A resolves an install
+# command's ARGUMENT and never its VERB, so ten fabricated commands sat on the page whose
+# purpose is to be executed while the gate printed "every install target resolves". #487
+# fixed the ten it found and deliberately declined to build a general gate (#488); this is
+# that gate.
+#
+# The declared verb list is a SNAPSHOT of `claude --help`'s "Commands:" section (taken
+# 2026-08-15, v2.1.233) — re-derive it by running `claude --help` and reading the left
+# column. CI has no `claude` binary and the offline-gate invariant forbids depending on one
+# (detector R's rule), so this mirrors offline what `claude --help` is the authority for — the
+# same split `check-plugin.py` states for `claude plugin validate`.
+CLAUDE_VERBS = frozenset({
+    "agents", "auth", "auto-mode", "doctor", "gateway", "import", "install",
+    "mcp", "plugin", "plugins", "project", "setup-token", "ultrareview",
+    "update", "upgrade",
+})
+
+# The pages a reader or an agent EXECUTES. CLAUDE.md, audit-evals.py and test_automation.py
+# all name fabricated verbs ON PURPOSE — documenting a defect is not committing it, the line
+# detector B's HONEST vocabulary already draws — so none of the three is walked here.
+# plugin/docs/ is a synced MIRROR of these same root files (#437's split) and would double
+# every finding; every other detector in this file reads the root copy only, and so does
+# this one.
+CLAUDE_VERB_PAGES = ("STACK.md", "WORKFLOW.md", "CATALOG.md", "README.md", "PLAYBOOK.md")
+
+# `claude` followed by whitespace, never a hyphen or a dot: keeps "claude-code" (a tool
+# name), "claude-squad: stable 1.0.19" (brew formula output), and ".claude" (the config
+# directory, as in `cp -r .claude /path/to/project/`) from donating a false verb. The
+# lookbehind keeps a mid-token match out too, so "the-claude-thing" isn't read as a command.
+_CLAUDE_CMD = re.compile(r"(?<![\w.-])claude\s+(\S+)")
+
+ClaudeVerbFinding = collections.namedtuple("ClaudeVerbFinding", "rel line verb command")
+
+
+def audit_claude_verbs(ctx):
+    """(findings, walked) — every backticked `claude <word>` command whose word resolves to
+    neither a declared subcommand, a flag, nor a quoted prompt.
+
+    Extraction runs on `` `...` `` spans only — prose describing the CLI in running text
+    ("the claude CLI") is not a command example and carries no verb to check. Three things
+    are NOT findings, ruled out in this order:
+
+      * a flag (`-p`, `--print`, `--resume`, ...) — the word starts with `-`;
+      * a quoted prompt (`claude "fix the bug"`) — the word starts with a quote mark, which
+        is what an agent actually types when the intent is a prompt rather than a verb;
+      * a declared subcommand (CLAUDE_VERBS) — including one whose own sub-verb is being
+        named, so `claude auth login` reads as the real verb `auth` and never flags `login`
+        the way a bare, wrong `claude login` does.
+
+    NEGATION reused rather than re-invented — the issue's own instruction: a command framed
+    as the WRONG one in surrounding prose is a correction note, not a claim to check, the same
+    window detector A already trusts.
+
+    This deliberately does not reproduce #488's hand-built census line for line — two of its
+    four "not a subcommand" rows turn out, under a precise word-boundary match, to be
+    something else entirely: `claude-squad: stable 1.0.19 (bottled)` is Homebrew formula
+    output (a hyphen, not whitespace, follows "claude"), and `claude-code → CLAUDE.md` is a
+    table mapping a tool name to a file. Both would have been false positives; excluding them
+    is the fix, not a miss.
+
+    Report-only (#488's own call): the shape is right for a gate (offline, against a closed
+    list) but the remedy for each live finding is a human's — `claude login` may have been
+    real when its eval was written, `remote-control` may name a third-party wrapper rather
+    than a claim about the CLI, and guessing at a replacement is how a "fix" launders a wrong
+    command into a plausible-looking one, the same rule `rewrite-doc-links.py` follows when it
+    leaves a link broken everywhere alone. Gating is a later call once those are
+    dispositioned, mirroring the `--overlaps` lifecycle.
+    """
+    files = [*CLAUDE_VERB_PAGES,
+             *sorted(glob.glob("evaluations/*.md", root_dir=ctx.root)),
+             *sorted(glob.glob("discovery/*.md", root_dir=ctx.root))]
+    findings, walked = [], 0
+    for rel in files:
+        if not os.path.exists(ctx.path(rel)):
+            continue
+        for i, line in enumerate(ctx.read(rel).splitlines(), 1):
+            for m in re.finditer(r"`([^`]*)`", line):
+                cmd = m.group(1)
+                cm = _CLAUDE_CMD.search(cmd)
+                if not cm:
+                    continue
+                word = cm.group(1)
+                if word.startswith(("-", '"', "'")):
+                    continue
+                walked += 1
+                if word.lower() in CLAUDE_VERBS:
+                    continue
+                window = line[max(0, m.start() - 70):m.end() + 60]
+                if NEGATION.search(window):
+                    continue
+                findings.append(ClaudeVerbFinding(rel, i, word, cmd.strip()))
+    return findings, walked
+
+
 OFFLINE_GATES = ("--fabrication", "--verdicts", "--comparison", "--drift",
                  "--verdict-evidence", "--rows", "--bulk-triage")
 # With no flags at all: the offline gates plus the network install resolver.
@@ -4373,7 +4471,7 @@ REPORT_FLAGS = ("--links", "--archived", "--skills", "--skill-design", "--overla
                 "--license-declared", "--containment", "--conditional-gate",
                 "--license-header", "--duplicate-evals", "--workflow-skips",
                 "--containment-evidence", "--stage-drift", "--repo-installs",
-                "--layer-drift", "--link-identity", "--claim-drift")
+                "--layer-drift", "--link-identity", "--claim-drift", "--claude-verbs")
 DETECTOR_FLAGS = DEFAULT_GATES + REPORT_FLAGS
 # Every argument main() accepts. Anything else is a typo, and a typo used to be silently
 # dropped from `sel` — which made the argument list read as empty and turned `--ofline`
@@ -4445,6 +4543,7 @@ def main():
     do_layer = "--layer-drift" in want  # opt-in report (does not affect exit code)
     do_linkid = "--link-identity" in want  # opt-in report (does not affect exit code)
     do_claim = "--claim-drift" in want  # opt-in report (does not affect exit code)
+    do_claudeverb = "--claude-verbs" in want  # opt-in report (does not affect exit code)
 
     ctx = DetectorContext(ROOT)  # the one place the module global feeds the detectors (#199)
     rc = 0
@@ -5114,6 +5213,17 @@ def main():
         for f in drift:
             print(f"  DRIFT      {f.tool} — {len(f.claim)} distinct claim(s) "
                   f"{'/'.join(f.claim)}: {'; '.join(f.detail)}")
+    if do_claudeverb:
+        cv = audit_claude_verbs(ctx)
+        print(f"== AL. claude verb (report-only) — {len(cv[0])} of {cv[1]} "
+              f"`claude <word>` command(s) name an unrecognized subcommand ==")
+        if not cv[1]:
+            print("  no `claude <word>` commands found — nothing to check")
+        elif not cv[0]:
+            print("  OK — every `claude <word>` command names a declared subcommand or a flag")
+        for f in cv[0]:
+            print(f"  UNRECOGNIZED  {f.rel}:{f.line} — `{f.command}`: "
+                  f"\"{f.verb}\" is not a `claude` subcommand")
     sys.exit(rc)
 
 if __name__ == "__main__":
