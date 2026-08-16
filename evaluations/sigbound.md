@@ -2,8 +2,8 @@
 
 **Repo:** [surya-koritala/sigbound](https://github.com/surya-koritala/sigbound)
 **Stars:** 94  <!-- repo-metadata.json, fetched 2026-08-04 -->
-**Last verified:** 2026-07-30
-**Last triaged:** 2026-07-30  <!-- triaged: bulk -->
+**Last verified:** 2026-08-16
+**Last triaged:** 2026-08-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -30,4 +30,4 @@ are in STACK, and its specific mechanism — optimistic-concurrency auto-merge g
 success for parallel agent branches — is not a job any current STACK pick performs. Not a clean
 redundancy SKIP; left for the P0/eval-runner lane.
 
-_Triaged 2026-07-30 by the P3 backlog band._
+_Re-triaged 2026-08-16 by the P3 backlog band — no new STACK pick covers this job; reasoning unchanged._
