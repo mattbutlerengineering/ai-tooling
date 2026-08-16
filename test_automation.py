@@ -1293,7 +1293,8 @@ class TestDetectorPopulations(unittest.TestCase):
         "--lead-headlines", "--catalog-mirror", "--maintenance", "--scope", "--identity",
         "--license-declared", "--containment", "--conditional-gate", "--license-header",
         "--duplicate-evals", "--workflow-skips", "--containment-evidence", "--stage-drift",
-        "--repo-installs", "--layer-drift", "--link-identity", "--claim-drift")
+        "--repo-installs", "--layer-drift", "--link-identity", "--claim-drift",
+        "--claude-verbs")
 
     # A denominator in any of the shapes the corpus uses: `6/8`, `0 of 693`, `across 619
     # record(s)`, `in 318 of 583`, `644 record(s)`.
@@ -1817,6 +1818,82 @@ class TestInstallExtractor(unittest.TestCase):
         for kept in [("pypi", "markitdown"), ("pypi", "cocoindex-code"),
                      ("gh", "obra/superpowers")]:
             self.assertIn(kept, found, "the widened extractor LOST a target")
+
+
+class TestClaudeVerbs(unittest.TestCase):
+    """#487 fixed the ten fabricated `claude install-plugin`/`install-skill` commands it
+    found and deliberately declined to build a general gate (#488). AL is that gate: every
+    backticked `claude <word>` command whose word is neither a declared subcommand, a flag,
+    nor a quoted prompt."""
+
+    def _ctx(self, d, stack="", eval_body=None, discovery_body=None):
+        _write(d, "STACK.md", stack or "# Stack\n")
+        _write(d, "WORKFLOW.md", "# Workflow\n")
+        _write(d, "CATALOG.md", "# Catalog\n")
+        _write(d, "README.md", "# README\n")
+        _write(d, "PLAYBOOK.md", "# Playbook\n")
+        if eval_body is not None:
+            _write(d, os.path.join("evaluations", "x.md"), eval_body)
+        if discovery_body is not None:
+            _write(d, os.path.join("discovery", "loop1.md"), discovery_body)
+        return audit.DetectorContext(d)
+
+    def _run(self, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            return audit.audit_claude_verbs(self._ctx(d, **kw))
+
+    def test_a_declared_subcommand_is_not_a_finding(self):
+        find, walked = self._run(stack="Run `claude plugin marketplace add obra/superpowers`.\n")
+        self.assertEqual((find, walked), ([], 1))
+
+    def test_a_sub_verb_of_a_real_subcommand_is_not_flagged(self):
+        """`claude auth login` reads as the real verb `auth` — `login` is never checked on
+        its own here, unlike a bare `claude login`."""
+        find, walked = self._run(stack="Run `claude auth login` first.\n")
+        self.assertEqual((find, walked), ([], 1))
+
+    def test_a_flag_is_not_a_verb(self):
+        """Filtered before it becomes a candidate, the same way extract_installs drops a
+        PLACEHOLDER before counting a target — a flag is never a `claude <word>` command."""
+        find, walked = self._run(stack="Run `claude -p --output-format stream-json`.\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_a_quoted_prompt_is_not_a_verb(self):
+        find, walked = self._run(stack='Run `claude "fix the failing test"`.\n')
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_an_unrecognized_word_is_a_finding(self):
+        find, walked = self._run(eval_body="Reuses your session via `claude login`.\n")
+        self.assertEqual([(f.rel, f.verb) for f in find], [("evaluations/x.md", "login")])
+        self.assertEqual(walked, 1)
+
+    def test_discovery_files_are_walked(self):
+        find, walked = self._run(discovery_body="Search terms (`claude code skill`).\n")
+        self.assertEqual([(f.rel, f.verb) for f in find], [("discovery/loop1.md", "code")])
+        self.assertEqual(walked, 1)
+
+    def test_a_dotfile_reference_is_not_a_command(self):
+        """`.claude` is the config directory, not the CLI — a preceding `.` must block the
+        match the same way a preceding word char or hyphen does."""
+        find, walked = self._run(stack="Install via `cp -r .claude /path/to/project/`.\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_a_hyphenated_tool_name_is_not_a_command(self):
+        """`claude-code` and `claude-squad` are tool names, not `claude` followed by a
+        verb — a hyphen right after "claude" must block the match."""
+        find, walked = self._run(
+            stack="`claude-code → CLAUDE.md`; `claude-squad: stable 1.0.19 (bottled)`.\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_bare_claude_with_no_argument_is_not_walked(self):
+        find, walked = self._run(stack="Just run `claude` to start a session.\n")
+        self.assertEqual((find, walked), ([], 0))
+
+    def test_a_command_framed_as_the_wrong_one_is_still_skipped(self):
+        """NEGATION reused rather than re-invented — the issue's own instruction."""
+        find, _walked = self._run(
+            stack="Not `claude bogus-verb` — that command does not exist.\n")
+        self.assertEqual(find, [])
 
 
 class TestRepoInstallRecord(unittest.TestCase):
