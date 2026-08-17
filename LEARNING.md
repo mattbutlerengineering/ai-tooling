@@ -54,7 +54,11 @@ and `youtube.com` was blocked outright too, so neither paper's PDF/HTML was
 directly read and no video search ran this pass. Both papers' figures below are
 paraphrased from multiple independent, differently-worded search results that
 themselves quote the papers' own abstracts — not from a directly-fetched page —
-cross-checked the same way the three entries above were.
+cross-checked the same way the three entries above were. The AGENTS.md entry
+added 2026-08-17 hit the identical wall — `arxiv.org` and `youtube.com` both
+`EGRESS_BLOCKED` again — so both papers' figures below are likewise paraphrased
+from independent search summaries quoting each paper's own abstract, cross-checked
+against each other rather than read directly.
 
 ---
 
@@ -337,6 +341,26 @@ total shrinks — a shift a raw incident-rate trend line would hide. This is squ
 this repo's [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the
 Comprehension Debt / Own the Outer Loop entries above already argue for: the failure mode is not
 agents going rogue, it is agents needing a human to keep catching the same shapes of mistake.
+
+### [Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?](https://arxiv.org/abs/2602.11988) — Thibaud Gloaguen, Niels Mündler, Mark Müller, Veselin Raychev, Martin Vechev (ETH Zurich; arXiv, 2026-02)
+Counter-evidence against a practice this repo's own harness-engineering entries above treat as
+settled — Hashimoto's *"engineer a permanent fix into its environment (a rule in
+`CLAUDE.md`/`AGENTS.md`... rather than re-prompting around it each time)"*. This study built
+AGENTBENCH (138 real-world Python SWE tasks from niche repositories) plus SWE-bench tasks
+carrying LLM-generated context files, and tested both LLM-generated and developer-committed
+`AGENTS.md` files across multiple LLMs and coding agents. Finding: repository-level context files
+do not generally improve task success rate — they measurably *reduce* it in the niche-repository
+setting — while increasing inference cost by over 20% on average, holding across models and
+agents. That directly contradicts a same-cluster study published three weeks earlier,
+[Lulla et al., "On the Impact of AGENTS.md Files on the Efficiency of AI Coding Agents"](https://arxiv.org/abs/2601.20404)
+(arXiv, 2026-01), which ran agents with and without an `AGENTS.md` across 124 pull requests in 10
+repositories and found the opposite on cost — a lower median runtime (Δ28.64%) and reduced output
+token consumption (Δ16.58%) — with comparable task completion. Two controlled studies, three weeks
+apart, disagreeing on both the sign of the cost effect and the direction of the success-rate
+effect: the practice of writing a durable agent-instructions file is still a genuinely open
+empirical question, not the settled win this repo's own harness-engineering reading currently
+implies. Worth weighing the next time `CLAUDE.md` itself is treated as an unqualified good rather
+than a cost this repo has never measured against a no-`CLAUDE.md` baseline.
 
 ---
 
