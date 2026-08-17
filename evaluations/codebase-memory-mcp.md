@@ -3,7 +3,7 @@
 **Repo:** [DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
 **Stars:** 8,056 | **Created:** 2026-02-24 | **Last commit:** 2026-06-19 | **Latest release:** v0.8.1 (2026-06-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-17  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement (inner loop) — code understanding
 **Layer:** Tooling
 
@@ -71,7 +71,7 @@ protocol is explicit that a major tool must not be SKIPped as redundant on a sou
 The right disposition is a head-to-head against codegraph in the P0 measure band — index the
 same repo with both, compare coverage and query latency — not a mechanical skip.
 
-_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
+_Re-triaged 2026-08-17 by the P2 challenger band — no head-to-head against codegraph has been run yet; reasoning unchanged._
 
 ## Catalog entry
 
