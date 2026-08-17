@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 730 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 736 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -333,6 +333,7 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | assay | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | aimock | tool | ✓ | ✓ | discovery-log | REVIEW |
 | keploy | tool | ✓ | ✓ | discovery-log | REVIEW |
+| agentic-playwright | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | midscene | tool | ✓ | ✓ | discovery-log | REVIEW |
 | SceneProof | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -368,6 +369,7 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | PR-Agent | tool | ✓ | ✓ | SKIP | REVIEW |
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
+| crucible | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | ratchet | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -403,6 +405,7 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-vault | tool | | ✓ | discovery-log | REVIEW |
 | envlatch | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
+| 1c-quality-gate | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ship-it | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -424,6 +427,8 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-copilot | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | documentation-writer | skill | | ✓ | ADOPT | MEASURED |
 | documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
+| iso-24495-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| writing-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | documentation (anthropics) | skill | | ✓ | discovery-log | REVIEW |
 | oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 
@@ -706,6 +711,7 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Mintlify Index | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | exeora | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | DesktopCommanderMCP | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| mac-developer-bridge | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | DebugMCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | google-workspace-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | mcp-context-forge | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -816,14 +822,14 @@ All 730 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|-------------|-------------|
 | Plan | 66 | 30 | 6 | 45% |
 | Implement | 230 | 113 | 4 | 49% |
-| Verify | 26 | 12 | 2 | 46% |
-| Review | 57 | 26 | 3 | 46% |
+| Verify | 27 | 12 | 2 | 44% |
+| Review | 59 | 27 | 3 | 46% |
 | Ship | 3 | 1 | 1 | 33% |
-| Reflect | 6 | 4 | 3 | 67% |
+| Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 57 | 18 | 2 | 32% |
 | Skills & Plugins | 102 | 36 | 4 | 35% |
 | Memory & Context | 56 | 21 | 2 | 38% |
-| MCP Servers | 51 | 17 | 2 | 33% |
+| MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 56 | 16 | 4 | 29% |
-| **Total** | **730** | **302** | **34** | **41%** |
+| **Total** | **736** | **303** | **34** | **41%** |

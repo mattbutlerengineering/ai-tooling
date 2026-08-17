@@ -3,7 +3,7 @@
 **Repo:** [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge)
 **Stars:** ~3,930 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-17  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (MCP infrastructure / gateway)
 **Layer:** Infrastructure
 
@@ -66,7 +66,7 @@ What it plainly is: org-scale. Federation over Redis, K8s deployment, RBAC, Open
 single-operator stack that wires up a handful of servers by hand. That makes it low priority,
 and low priority is not elimination — the honest disposition is to leave it queued.
 
-_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
+_Re-triaged 2026-08-17 by the P2 challenger band — no incumbent federates/governs a fleet of MCP/A2A/REST endpoints yet; reasoning unchanged._
 
 ## Catalog entry
 

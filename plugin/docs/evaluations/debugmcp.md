@@ -3,7 +3,7 @@
 **Repo:** [microsoft/DebugMCP](https://github.com/microsoft/DebugMCP)
 **Stars:** ~390 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-17  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (interactive debugging / MCP server)
 **Layer:** Infrastructure
 
@@ -67,7 +67,7 @@ It is also first-party Microsoft and MIT, and it attacks a genuine failure mode 
 cares about (agents debugging by adding print statements and guessing). A capability with no
 incumbent and a plausible Correctness claim belongs in the P0 measure band, not a skip list.
 
-_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
+_Re-triaged 2026-08-17 by the P2 challenger band — no STACK pick gives an agent a real debugger yet; reasoning unchanged._
 
 ## Catalog entry
 

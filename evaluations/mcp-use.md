@@ -3,7 +3,7 @@
 **Repo:** [mcp-use/mcp-use](https://github.com/mcp-use/mcp-use)
 **Stars:** 10,123 | **Last updated:** 2026-06-19 (pushed; created 2025-03-28) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-17  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (build MCP servers/apps) + a thin slice of Verify (the Inspector for testing/debugging servers). It is infrastructure you build *with*, not a tool that intervenes in your project's dev loop — relevant only when the thing you ship *is* an MCP server or MCP app.
 **Layer:** Tooling/Infrastructure — an SDK + scaffolder (`create-mcp-use-app`) + web Inspector + CLI, plus a managed cloud (Manufact) for deploy/observability. Maintained by manufact.com, the commercial host behind it.
 
@@ -72,7 +72,7 @@ Watch item for whoever runs it: the deliberate funnel toward the maintainer's co
 for deploy/observability. Self-hosting the MIT SDK is fine; leaning on the hosted side is a
 lock-in vector, and that distinction is what a real evaluation should settle.
 
-_Triaged 2026-08-03 by the P2 challenger band ([#266](https://github.com/mattbutlerengineering/ai-tooling/issues/266))._
+_Re-triaged 2026-08-17 by the P2 challenger band — MCP Apps/widgets remain additive to fastmcp, not redundant; reasoning unchanged._
 
 ## Catalog entry
 
