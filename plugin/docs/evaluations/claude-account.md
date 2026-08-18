@@ -3,8 +3,8 @@
 **Repo:** [hamzarehmandeveloper/claude-account](https://github.com/hamzarehmandeveloper/claude-account)
 **Stars:** 68  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
-**Last verified:** 2026-07-31
-**Last triaged:** 2026-07-31  <!-- triaged: bulk -->
+**Last verified:** 2026-08-18
+**Last triaged:** 2026-08-18  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -30,4 +30,5 @@ a different problem — a GUI wrapping multiple different CLI agent *tools* — 
 is a narrow CLI utility for switching between isolated *accounts* of the same tool (Claude
 Code). Different job, not clearly dominated. Left for the P0/eval-runner lane.
 
-_Triaged 2026-07-31 by today's discovery lead._
+_Triaged 2026-07-31 by today's discovery lead; re-confirmed 2026-08-18 — still a narrow,
+undominated utility, not a mechanical SKIP._

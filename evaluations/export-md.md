@@ -3,8 +3,8 @@
 **Repo:** [yussufs/export-md](https://github.com/yussufs/export-md)
 **Stars:** 24  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** MIT
-**Last verified:** 2026-07-31
-**Last triaged:** 2026-07-31  <!-- triaged: bulk -->
+**Last verified:** 2026-08-18
+**Last triaged:** 2026-08-18  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -30,4 +30,5 @@ Left at `discovery-log`: neither cli-continues (cross-tool session handoff) nor 
 or archiving. Small, single-purpose utility; not clearly dominated by an incumbent. Left for the
 P0/eval-runner lane.
 
-_Triaged 2026-07-31 by today's discovery lead._
+_Triaged 2026-07-31 by today's discovery lead; re-confirmed 2026-08-18 — still a small,
+undominated single-purpose utility._
