@@ -3,8 +3,8 @@
 **Repo:** [conductor-oss/conductor](https://github.com/conductor-oss/conductor)
 **Stars:** 32,055  <!-- repo-metadata.json, fetched 2026-08-04 -->
 **License:** Apache-2.0
-**Last verified:** 2026-07-31
-**Last triaged:** 2026-07-31  <!-- triaged: bulk -->
+**Last verified:** 2026-08-18
+**Last triaged:** 2026-08-18  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -33,4 +33,5 @@ at 32K stars — is materially different from LangGraph's in-process agent-graph
 mechanical SKIP; deserves a real hands-on eval before any verdict. Left for the P0/eval-runner
 lane.
 
-_Triaged 2026-07-31 by the P3 backlog band._
+_Triaged 2026-07-31 by the P3 backlog band; re-confirmed 2026-08-18 — none of its
+overlaps are STACK incumbents, still deserves a real eval rather than a bulk SKIP._
