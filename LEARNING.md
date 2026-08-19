@@ -58,7 +58,14 @@ cross-checked the same way the three entries above were. The AGENTS.md entry
 added 2026-08-17 hit the identical wall — `arxiv.org` and `youtube.com` both
 `EGRESS_BLOCKED` again — so both papers' figures below are likewise paraphrased
 from independent search summaries quoting each paper's own abstract, cross-checked
-against each other rather than read directly.
+against each other rather than read directly. The Shen & Tamkin skill-formation entry
+added 2026-08-19 hit the same wall a third time (`arxiv.org` and `anthropic.com` both
+`EGRESS_BLOCKED`, and `youtube.com`/`asdlc.io` too — no video search or transcript pull
+ran this pass either), so its figures are likewise cross-checked across multiple
+independent search summaries rather than read from the source. This pass also looked at
+[ASDLC.io](https://asdlc.io/concepts/agentic-sdlc/) (villetakanen/asdlc-io, ★30) as a
+possible new methodology mapping and declined it — a single-maintainer project well
+below the bar 8090's Software Factory and AWS's AI-DLC set for a `methodologies/` doc.
 
 ---
 
@@ -341,6 +348,28 @@ total shrinks — a shift a raw incident-rate trend line would hide. This is squ
 this repo's [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the
 Comprehension Debt / Own the Outer Loop entries above already argue for: the failure mode is not
 agents going rogue, it is agents needing a human to keep catching the same shapes of mistake.
+
+### [How AI Impacts Skill Formation](https://arxiv.org/abs/2601.20245) — Judy Hanwen Shen, Alex Tamkin (Anthropic; arXiv, 2026-02)
+A randomized controlled trial, and notably an Anthropic-authored study testing a **competitor's**
+model rather than Claude — 52 professional developers worked through a warm-up, then two coding
+tasks in Trio (an async Python library new to all of them), then a comprehension quiz; half had
+a GPT-4o assistant available, half did not. Developers who used the assistant scored **17
+percentage points lower** on the comprehension quiz (50% vs. 67%) and finished the coding tasks
+**no measurably faster** — the productivity trade-off the Comprehension Debt entry above assumes
+didn't appear in this design at all; AI use cost understanding without buying speed. The sharper
+finding is the one worth acting on: the paper identifies **six distinct AI-usage patterns**, and
+learning outcome tracks *engagement*, not AI use itself — developers who stayed cognitively
+engaged (asking the assistant for explanations, verifying its output before accepting) retained
+the skill; those who delegated passively learned almost nothing. Directly on point for this
+repo's own [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal): it is
+controlled evidence, from the model vendor's own research org, that unreviewed delegation is a
+specific failure mode with a specific fix (stay engaged, treat the assistant as a tutor rather
+than an answer machine) rather than an unavoidable cost of AI-assisted coding. Confirmed via
+search corroboration only — this pass's sandbox blocked both `arxiv.org` and
+`anthropic.com` outright (`EGRESS_BLOCKED`), so neither the paper nor Anthropic's own research
+post was directly fetched; the design and figures above are cross-checked across Anthropic's own
+post title, the arXiv listing, and multiple independent third-party summaries agreeing on the
+same 52-developer/Trio/17-point figures.
 
 ### [Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?](https://arxiv.org/abs/2602.11988) — Thibaud Gloaguen, Niels Mündler, Mark Müller, Veselin Raychev, Martin Vechev (ETH Zurich; arXiv, 2026-02)
 Counter-evidence against a practice this repo's own harness-engineering entries above treat as
