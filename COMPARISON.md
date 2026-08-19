@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 743 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 746 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -385,6 +385,7 @@ All 743 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shut-up-and-code | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| prove-it | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -513,6 +514,7 @@ All 743 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | godmode | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| autoprompt-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
 | andrej-karpathy-skills | skill | | ✓ | discovery-log | REVIEW |
@@ -623,6 +625,7 @@ All 743 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MineContext | platform | ✓ | ✓ | SKIP | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
+| claude-db | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | memorax-code | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lean-ctx | tool |  | ✓ | CONDITIONAL | REVIEW |
 | letta | platform | | ✓ | DEFER | REVIEW |
@@ -830,13 +833,13 @@ All 743 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 67 | 31 | 6 | 46% |
 | Implement | 232 | 113 | 4 | 49% |
 | Verify | 27 | 12 | 2 | 44% |
-| Review | 62 | 28 | 3 | 45% |
+| Review | 63 | 28 | 3 | 44% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 57 | 18 | 2 | 32% |
-| Skills & Plugins | 102 | 36 | 4 | 35% |
-| Memory & Context | 57 | 21 | 2 | 37% |
+| Skills & Plugins | 103 | 36 | 4 | 35% |
+| Memory & Context | 58 | 22 | 2 | 38% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 20 | 8 | 1 | 40% |
 | Reference | 56 | 16 | 4 | 29% |
-| **Total** | **743** | **305** | **34** | **41%** |
+| **Total** | **746** | **306** | **34** | **41%** |
