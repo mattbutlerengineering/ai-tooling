@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 752 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 758 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -44,6 +44,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | BMAD-METHOD | framework | | ✓ | SKIP | REVIEW |
 | 8090 Software Factory | platform | ✓ | | DEFER | REVIEW |
 | software-factory-plugin | plugin | | ✓ | CONDITIONAL | MEASURED |
+| factory (addyosmani) | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | spec_driven_develop | skill | | ✓ | discovery-log | REVIEW |
 | reversa | framework | ✓ | ✓ | discovery-log | REVIEW |
 | flow-next | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -364,6 +365,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Assumptions | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop (oxlint) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| nopus | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | procoder | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | juror | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | oss-pr-reviewer | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -374,6 +376,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
 | ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
+| vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cdmx-in/security-review | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Quant-Off/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | PR-Agent | tool | ✓ | ✓ | SKIP | REVIEW |
@@ -520,6 +523,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | godmode | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| skills-constitution | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | autoprompt-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AI-Research-SKILLs | skill | | ✓ | discovery-log | REVIEW |
 | alirezarezvani/claude-skills | plugin | | ✓ | SKIP | REVIEW |
@@ -631,6 +635,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MineContext | platform | ✓ | ✓ | SKIP | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
+| ownmem | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-db | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | memorax-code | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lean-ctx | tool |  | ✓ | CONDITIONAL | REVIEW |
@@ -746,6 +751,7 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | aisuite | framework | | ✓ | SKIP | REVIEW |
 | webclaw | tool | | ✓ | SKIP | REVIEW |
 | firecrawl | tool | | ✓/$ | discovery-log | SOURCE-ONLY |
+| oc | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | autoresearch | tool | ✓ | ✓ | SKIP | REVIEW |
 | ARIS | skill | ✓ | ✓ | discovery-log | REVIEW |
 | last30days-skill | skill | | ✓ | ADOPT | MEASURED |
@@ -836,16 +842,16 @@ All 752 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 67 | 31 | 6 | 46% |
+| Plan | 68 | 31 | 6 | 46% |
 | Implement | 233 | 113 | 4 | 48% |
 | Verify | 29 | 12 | 2 | 41% |
-| Review | 66 | 28 | 3 | 42% |
+| Review | 68 | 28 | 3 | 41% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 57 | 18 | 2 | 32% |
-| Skills & Plugins | 103 | 36 | 4 | 35% |
-| Memory & Context | 58 | 22 | 2 | 38% |
+| Skills & Plugins | 104 | 36 | 4 | 35% |
+| Memory & Context | 59 | 22 | 2 | 37% |
 | MCP Servers | 52 | 17 | 2 | 33% |
-| Research & Discovery | 20 | 8 | 1 | 40% |
+| Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 16 | 4 | 29% |
-| **Total** | **752** | **306** | **34** | **41%** |
+| **Total** | **758** | **306** | **34** | **40%** |
