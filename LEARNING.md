@@ -66,6 +66,15 @@ independent search summaries rather than read from the source. This pass also lo
 [ASDLC.io](https://asdlc.io/concepts/agentic-sdlc/) (villetakanen/asdlc-io, ★30) as a
 possible new methodology mapping and declined it — a single-maintainer project well
 below the bar 8090's Software Factory and AWS's AI-DLC set for a `methodologies/` doc.
+The Faros AI "Acceleration Whiplash" entry added 2026-08-21 hit the same wall a fourth
+time — `youtube.com` was blocked outright again (no video search ran), and both
+`faros.ai` and the report's own `pages.faros.ai` PDF host returned `EGRESS_BLOCKED`, so
+its figures are cross-checked across multiple independent third-party write-ups agreeing
+on the same numbers rather than read from the report directly. This pass also checked a
+search-engine claim of an AWS AI-DLC "Workflow 2.0" release dated 2026-08-14 directly
+against `awslabs/aidlc-workflows`'s own GitHub releases page (reachable this pass) and
+found no such release — the newest tag there is v1.0.1 — so nothing was added on that
+lead; it was a search-summary artifact, not a real update.
 
 ---
 
@@ -301,6 +310,24 @@ and logic/correctness issues 75% more common. The most concrete evidence found
 this pass for why unreviewed AI output is the wrong default — it's a data point
 for the Verifiability signal's premise, not a reason to distrust AI coding tools
 outright; the gap is exactly what review process closes.
+
+### [AI Engineering Report 2026: The Acceleration Whiplash](https://pages.faros.ai/hubfs/AI_Engineering_Report_2026_The_Acceleration_Whiplash_Faros.pdf) — Faros AI (2026-03)
+Two years of telemetry — not survey data — from 22,000 developers across 4,000+ teams on the Faros
+platform, comparing each organization's own low-AI-adoption periods against its high-AI-adoption
+periods (a within-org before/after design, pulled from task trackers, IDEs, static analysis, CI/CD,
+version control, and incident-management systems, not a cross-org sample or a self-reported survey).
+Findings: task completion per developer up 34%, epics completed per developer up 66% — genuine
+throughput gains — while bugs per developer rose 54%, the incident-to-PR ratio more than tripled
+(~243%), median PR review time rose roughly 5x (441.5%), and code churn rose 861%. Read against the
+throughput half, this is the sharpest telemetry-scale illustration yet of the trade this repo's
+[Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) exists to catch: the same
+adoption that raises delivery volume degrades the review and stability signals in lockstep, at a
+scale (22K developers, real production incidents, two years of within-org comparison) well past the
+470-PR CodeRabbit sample and the commit-level "Debt Behind the AI Boom" study below. Confirmed via
+multiple independent write-ups agreeing on the same figures (ADTmag, Refactoring/Luca Rossi, Jim
+Nielsen's Notes, Vibe Graveyard) rather than a direct fetch — this pass's sandbox blocked both
+`faros.ai` and the `pages.faros.ai` PDF host outright (`EGRESS_BLOCKED`), so the numbers above are
+cross-checked across independent summaries rather than read from the report itself.
 
 ### ["Debt Behind the AI Boom": A Large-Scale Empirical Study of AI-Generated Code in the Wild](https://arxiv.org/abs/2603.28592) — Yue Liu, Ratnadira Widyasari, Yanjie Zhao, Ivana Clairine Irsan, David Lo (arXiv, 2026-03)
 A far larger version of the CodeRabbit claim above, on public data rather than a vendor sample:
