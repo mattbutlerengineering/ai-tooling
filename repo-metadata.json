@@ -2009,14 +2009,14 @@
     "stars": 5659
   },
   "flowiseai/flowise": {
-    "archived": false,
+    "archived": true,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-08-03T04:46:47Z",
+    "pushed_at": "2026-08-13T12:38:19Z",
     "resolved_name": "FlowiseAI/Flowise",
-    "stars": 55157
+    "stars": 55386
   },
   "formkit/formkit": {
     "archived": false,
@@ -3411,12 +3411,12 @@
     "stars": 8589
   },
   "manavarya09/design-extract": {
-    "archived": null,
-    "fetched_at": "2026-08-07",
-    "license_spdx": "404",
-    "pushed_at": null,
-    "resolved_name": null,
-    "stars": null
+    "archived": false,
+    "fetched_at": "2026-08-23",
+    "license_spdx": "MIT",
+    "pushed_at": "2026-08-22T03:39:36Z",
+    "resolved_name": "Manavarya09/design-extract",
+    "stars": 3361
   },
   "mastra-ai/mastra": {
     "archived": false,
@@ -4286,6 +4286,16 @@
     "pushed_at": "2026-08-05T03:16:46Z",
     "resolved_name": "obra/superpowers",
     "stars": 266647
+  },
+  "oliverb-io1902e8/agent-skills-collection": {
+    "archived": null,
+    "discontinued": null,
+    "fetched_at": "2026-08-23",
+    "license_lost": false,
+    "license_spdx": "404",
+    "pushed_at": null,
+    "resolved_name": null,
+    "stars": null
   },
   "omnigent-ai/omnigent": {
     "archived": false,

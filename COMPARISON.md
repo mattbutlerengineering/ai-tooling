@@ -733,7 +733,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opendocswork-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | plumb-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | figma-mcp-go | MCP server | ✓ | ✓ | SKIP | REVIEW |
-| design-extract | MCP server | | ✓ | SKIP | REVIEW |
+| design-extract | MCP server | | ✓ | CONDITIONAL | REVIEW |
 | pg-aiguide | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp2cli | tool | ✓ | ✓ | discovery-log | REVIEW |
 | mirage | tool | | ✓ | discovery-log | REVIEW |
@@ -821,7 +821,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agentskills | reference | | ✓ | ADOPT | REVIEW |
 | agents-best-practices | skill | | ✓ | discovery-log | REVIEW |
 | buildwithclaude | reference | | ✓ | discovery-log | REVIEW |
-| agent-skills-collection | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-skills-collection | reference | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-mcp-servers | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-deepseek-harness | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | karpathy-llm-wiki | skill | | ✓ | discovery-log | REVIEW |
@@ -864,5 +864,5 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 63 | 23 | 2 | 37% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
-| Reference | 56 | 16 | 4 | 29% |
-| **Total** | **769** | **307** | **34** | **40%** |
+| Reference | 56 | 17 | 4 | 30% |
+| **Total** | **769** | **308** | **34** | **40%** |

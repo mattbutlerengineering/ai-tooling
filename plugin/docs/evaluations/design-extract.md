@@ -1,8 +1,9 @@
 # Evaluation: design-extract (designlang)
 
 **Repo:** [Manavarya09/design-extract](https://github.com/Manavarya09/design-extract)
-**Stars:** 3,294 | **Last updated:** 2026-06-19 (last push; latest tagged release v12.15.0, 2026-05-21) | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Stars:** 3,361 | **Last updated:** 2026-08-22 (last push) | **License:** MIT
+**Last verified:** 2026-08-23
+**Last triaged:** 2026-08-23  <!-- triaged: human -->
 **Dev loop stage:** Implement (design-to-code grounding; also Verify via `grade`/`drift`/`lint`/`visual-diff`)
 **Layer:** Tooling (a CLI + an agent-facing MCP/skill/plugin bridge — not hosted infrastructure)
 
@@ -61,25 +62,44 @@ grep -inE "design-extract|Figma-Context|web-quality-skills|plumb-mcp|figma-mcp-g
 
 ## Verdict
 
-**SKIP** — the repo and its author account (`Manavarya09`) are both gone (404 via the GitHub API)
-as of 2026-08-15, caught by the link-rot sweep after detector C moved onto authenticated `gh api`
-(#498). Nothing left to install or evaluate, and no successor is evident. This demotes the CONDITIONAL
-below, which had no catalog row or COMPARISON.md row to sync against at the time it was written
-(#345's "nothing to sync against" gap) — the repo's disappearance makes the demotion unambiguous
-either way.
+**CONDITIONAL** — `adopt-if:` your source of truth is a **deployed website** rather than a Figma
+file, *and* you have confirmed extraction fidelity on a sample run against your own target. This
+restores the CONDITIONAL preserved below; the SKIP that replaced it on 2026-08-15 is **withdrawn**,
+because its sole stated ground was false.
 
-_Triaged 2026-08-15 after the account/repo was found gone during a repo audit._
+That ground read: *"the repo and its author account (`Manavarya09`) are both gone (404 via the
+GitHub API) as of 2026-08-15."* Both are live. Re-checked 2026-08-23 against `gh api`:
+`repos/Manavarya09/design-extract` returns 200 — `archived: false`, `license: MIT`, ★3,361, last
+push 2026-08-22 — and `users/Manavarya09` resolves with 212 public repos. The 404 the sweep saw was
+**transient**, not a deletion, and a disposition resting on a single unrepeated 404 did not survive
+one re-check six days later. Detector C classifies a 404 as definitive `DEAD` — unlike a 429 or a
+5xx, which it reports as `INCONCLUSIVE` — and that classification is right about what GitHub
+answered; what this case shows is that a *definitive* answer is still a single observation, and a
+verdict built on one unrepeated observation should re-check before it demotes.
 
-## Triage note (superseded)
+The demotion's second thread is **settled rather than refuted**: it noted the CONDITIONAL "had no
+catalog row or COMPARISON.md row to sync against at the time it was written" (#345's gap). It has
+both now, so detector D has something to sync against and the condition that made the verdict
+unverifiable is closed.
 
-Previously **CONDITIONAL** (verbatim, preserved for context):
+Evidence stays **REVIEW** — nothing here has been run, and the restored verdict rests on the
+`adopt-if:` gate above (ADR-0005's second clause), not on a hands-on run. Extraction fidelity
+remains unverified; that is precisely what the gate is for.
+
+_Re-triaged 2026-08-23 in an attended session, after the link-rot sweep finding (#522) was
+re-checked and the 404 did not reproduce._
+
+## Triage note (restored)
+
+The CONDITIONAL reasoning, verbatim as written before the 2026-08-15 demotion. It stands again in
+full except for its closing sentence, which the re-check refutes:
 
 designlang is a capable, actively developed CLI that extracts a full design system from any **live website** and emits standards-aligned DTCG tokens plus Tailwind/shadcn/Figma/multi-platform code, with three legitimate agent on-ramps (Claude Code plugin, skill, MCP server) and a Verify-stage layer (WCAG remediation, grade, drift/lint/visual-diff). **Adopt it when your task is "ground UI work in an existing deployed site's design language" — recreating, re-theming, auditing, or guarding against drift on a real URL — and when you've confirmed the extraction fidelity is good enough for your target on a sample run.** It is the right tool when you have a website but no Figma source.
 
-It is not ADOPT-everywhere: the headline "MCP server" surface is a disk-backed read of prior CLI output (the agent value is really the CLI/plugin/skill, with a one-time crawl needed first); DOM-scraped tokens can conflate intentional design with incidental page styling and fidelity is unverified here; the command/flag surface is very wide and churning fast (v12.x within ~2 months, single maintainer) which is an API-stability risk; and scraping arbitrary third-party sites carries ToS/IP and credential-handling considerations the docs don't address. Not SKIP (at the time) because it solved a real problem its catalog peers didn't — its peers read Figma files, designlang read live sites — and it was broad, standards-aligned, free, and well-integrated with the agent ecosystem. Among the catalog's design-to-code cluster: choose **Figma-Context-MCP / plumb-mcp / figma-mcp-go** when your source of truth is a **Figma file**, and **design-extract** when your source of truth is a **deployed website**; it also overlapped **web-quality-skills** on the WCAG/accessibility-audit axis. Moot now that the repo is gone.
+It is not ADOPT-everywhere: the headline "MCP server" surface is a disk-backed read of prior CLI output (the agent value is really the CLI/plugin/skill, with a one-time crawl needed first); DOM-scraped tokens can conflate intentional design with incidental page styling and fidelity is unverified here; the command/flag surface is very wide and churning fast (v12.x within ~2 months, single maintainer) which is an API-stability risk; and scraping arbitrary third-party sites carries ToS/IP and credential-handling considerations the docs don't address. Not SKIP (at the time) because it solved a real problem its catalog peers didn't — its peers read Figma files, designlang read live sites — and it was broad, standards-aligned, free, and well-integrated with the agent ecosystem. Among the catalog's design-to-code cluster: choose **Figma-Context-MCP / plumb-mcp / figma-mcp-go** when your source of truth is a **Figma file**, and **design-extract** when your source of truth is a **deployed website**; it also overlapped **web-quality-skills** on the WCAG/accessibility-audit axis. ~~Moot now that the repo is gone.~~ (Refuted 2026-08-23 — the repo is live; see the Verdict above.)
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [design-extract](https://github.com/Manavarya09/design-extract) | MCP server | Extract any website's complete design system — DTCG tokens, multi-platform emitters, WCAG remediation (MIT, ★3.3K) | Manual design-token extraction is slow and error-prone, and Figma-based tools can't help when the source of truth is a live deployed site rather than a Figma file | Figma-Context-MCP (design→code, but from Figma not live sites), plumb-mcp, figma-mcp-go, web-quality-skills |
+| [design-extract](https://github.com/Manavarya09/design-extract) | MCP server | Extract any website's complete design system — DTCG tokens, multi-platform emitters, WCAG remediation (MIT, ★3.4K) | Manual design-token extraction is slow and error-prone, and Figma-based tools can't help when the source of truth is a live deployed site rather than a Figma file | Figma-Context-MCP (design→code, but from Figma not live sites), plumb-mcp, figma-mcp-go, web-quality-skills |

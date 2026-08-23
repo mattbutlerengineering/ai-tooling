@@ -1,8 +1,9 @@
 # Evaluation: Flowise
 
 **Repo:** [FlowiseAI/Flowise](https://github.com/FlowiseAI/Flowise)
-**Stars:** 53,727 | **Last updated:** 2026-06-16 (pushed; created 2023-03-31) | **License:** Apache-2.0 with Commons Clause (reported as NOASSERTION / "Other" by the GitHub license API)
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Stars:** 55,386 | **Last updated:** 2026-08-13 (final push before archival; created 2023-03-31) | **License:** Apache-2.0 with Commons Clause (reported as NOASSERTION / "Other" by the GitHub license API)
+**Last verified:** 2026-08-23
+**Status:** ⚠️ **archived** — GitHub reports `archived: true` as of 2026-08-23; the repository is read-only upstream.
 **Dev loop stage:** *Builds the product, not the loop.* Maps loosely to Implement — but the artifact you implement is an end-user LLM *application* (chatbot, RAG pipeline, agent workflow), not your own codebase. It does not write, review, test, or ship the code in your repo; it is a destination you build apps in, adjacent to the dev loop this catalog optimizes.
 **Layer:** Infrastructure (a self-hostable Node/React monorepo app + visual builder) with a managed cloud option
 
@@ -57,12 +58,23 @@ gh api repos/FlowiseAI/Flowise/contributors --jq 'length'  # 30 (page-1 cap; lar
 
 ## Verdict
 
-**SKIP for this catalog's purpose (keep as a reference entry) — it is an excellent product in the wrong loop.** Flowise is a mature, widely adopted, well-engineered visual agent-building platform, and for shipping an LLM *application* without writing orchestration code it is a legitimate choice alongside dify. But this catalog is an operating manual for AI-assisted *software development* — improving how high-quality code gets written, reviewed, tested, and shipped. Flowise builds a different artifact (the end-user app) and, with its hard-to-diff visual flows, actively cuts against the engineering discipline (versioning, review, testing) the catalog's quality signals reward. It earns a catalog entry as a known platform, but it is not a tool to adopt into the dev loop.
+**SKIP for this catalog's purpose (keep as a reference entry) — it is an excellent product in the wrong loop.** *(2026-08-23: the verdict is unchanged, but its subject is now an archived project — see below.)* Flowise is a mature, widely adopted, well-engineered visual agent-building platform, and for shipping an LLM *application* without writing orchestration code it is a legitimate choice alongside dify. But this catalog is an operating manual for AI-assisted *software development* — improving how high-quality code gets written, reviewed, tested, and shipped. Flowise builds a different artifact (the end-user app) and, with its hard-to-diff visual flows, actively cuts against the engineering discipline (versioning, review, testing) the catalog's quality signals reward. It earns a catalog entry as a known platform, but it is not a tool to adopt into the dev loop.
 
 Compared to neighbors: **dify** is the closer and arguably more production-hardened peer in the same visual-workflow lane — if you want this kind of platform, evaluate them head-to-head. **LangGraph** is the code-first inverse: less accessible but Git/test/review-friendly, which makes it the better fit when the workflow must live inside a real engineering process. Flowise wins on accessibility and prototyping speed; it loses on everything that makes a workflow a maintainable software asset.
+
+**Archived upstream (2026-08-23).** GitHub now reports `archived: true`, last push 2026-08-13. This
+does not change the verdict — it was already SKIP-for-this-catalog on scope grounds, and a scope
+argument is indifferent to maintenance status — but it changes what the *row* should tell a reader,
+which is the gap detector H exists to close: the entry advertised a live ★55K platform in the
+present tense while upstream had gone read-only. The catalog row now discloses it.
+
+It also sharpens the head-to-head above. **dify** was named as the closer, more production-hardened
+peer "if you want this kind of platform"; with Flowise read-only, that is no longer a preference
+between two live options. Whether the project continues under another name or fork is not something
+the archival flag says, and no successor is named in the repo, so none is asserted here.
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [Flowise](https://github.com/FlowiseAI/Flowise) | platform | Build LLM apps and agent workflows visually with drag-and-drop; self-host (Node monorepo) or Flowise Cloud | Want to compose RAG/agent workflows and ship them as APIs without writing orchestration code | LangGraph (code-first inverse), dify (production-scale visual peer) |
+| [Flowise](https://github.com/FlowiseAI/Flowise) | platform | Build LLM apps and agent workflows visually with drag-and-drop; self-host (Node monorepo) or Flowise Cloud (★55K; ⚠️ archived 2026-08 — upstream is read-only, no successor named) | Want to compose RAG/agent workflows and ship them as APIs without writing orchestration code | LangGraph (code-first inverse), dify (production-scale visual peer) |
