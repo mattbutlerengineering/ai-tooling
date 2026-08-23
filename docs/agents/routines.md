@@ -65,8 +65,26 @@ trivial to revert, instead of *before* it, on a branch that rots while it waits.
    Expect it to be **slow** rather than fast when the network is unreachable —
    `TIMEOUT = 15` across 85 targets means tens of seconds. Slow is not hung.
 
-4. **Open the PR.** Conventional-commit title, body stating what changed and the gate
-   result.
+4. **Open the PR, and close the scan issue with it.** Conventional-commit title, body
+   stating what changed and the gate result, and a **`Closes #<scan-issue>`** line in the
+   PR body so the merge closes the issue the pass was opened against.
+
+   The keyword is the whole of it. GitHub closes an issue only on one of its
+   [closing keywords](https://docs.github.com/articles/closing-issues-using-keywords) —
+   `Closes`, `Fixes`, `Resolves` — and `Scan issue: #<n>` is **not** one of them. That was
+   the live shape until #522: every pass wrote the reference, every PR merged green, and
+   **13 scan issues from 2026-08-09 to 2026-08-23 sat open** while the work each described
+   had landed the same day. Nothing was wrong with the passes; the word did not close.
+
+   `discovery/README.md` had stated the intended lifecycle the whole time — a scan issue
+   "is closed by the pull request that catalogs those findings" — and nothing coupled that
+   sentence to this file, the one a routine actually reads. That is the two-copies-of-one-
+   fact shape `CLAUDE.md` names for the count extractors, in prose.
+
+   A reference that does not close is worse than no reference: it reads as bookkeeping
+   already handled, so nobody checks it. Put the keyword in the **PR body** — a commit
+   trailer also works, but on a squash merge the subject is the part a routine controls
+   least.
 
 5. **Queue the merge.** `gh pr merge <n> --auto --squash --delete-branch`.
    `main` requires the `audit` check (`.github/workflows/integrity.yml`, which runs
