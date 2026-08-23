@@ -2103,6 +2103,62 @@ class TestRoutineGateContract(unittest.TestCase):
             self.assertIn(token, text, msg=f"routines.md never mentions {token}")
 
 
+# ------------------------------------------------ the routine closes its scan issue (#522)
+class TestRoutineClosesItsScanIssue(unittest.TestCase):
+    """`discovery/README.md` states the scan lifecycle — an issue "is closed by the pull
+    request that catalogs those findings" — and nothing coupled that sentence to
+    `docs/agents/routines.md`, the file a routine actually reads before opening its PR.
+
+    So the passes wrote `Scan issue: #<n>`, which is not one of GitHub's closing keywords
+    and closes nothing. Every pass was correct, every PR merged green, and **13 scan issues
+    from 2026-08-09 to 2026-08-23 sat open** while the work each described had landed the
+    same day. A reference that does not close is worse than no reference: it reads as
+    bookkeeping already handled, so nobody checks it.
+
+    Two copies of one fact coupled by nothing is the shape `CLAUDE.md` records for the
+    count extractors (#443). This pins the two documents to each other.
+
+    Reads the real docs, because the drift is *in* them — TestRoutineGateContract's rule,
+    and a fixture would pin nothing."""
+
+    ROUTINES: ClassVar[str] = os.path.join(ROOT, "docs", "agents", "routines.md")
+    DISCOVERY: ClassVar[str] = os.path.join(ROOT, "discovery", "README.md")
+
+    # The only words GitHub acts on. Anything else is a mention, not a close.
+    _KEYWORD = re.compile(r"\b(clos(e|es|ed)|fix(|es|ed)|resolv(e|es|ed)) +#", re.IGNORECASE)
+
+    @staticmethod
+    def _read(path):
+        with open(path, encoding="utf-8") as fh:
+            return fh.read()
+
+    def test_routines_directs_the_pass_to_use_a_closing_keyword(self):
+        # The instruction has to be in the PR step. Naming the keyword anywhere in the
+        # file would pass while the step itself still said "reference the scan issue".
+        text = self._read(self.ROUTINES)
+        step = text.split("4. **")[1].split("\n5. **")[0]
+        self.assertRegex(
+            step, self._KEYWORD,
+            msg="routines.md step 4 does not tell the pass to use a GitHub closing "
+                "keyword, so a merged PR leaves its scan issue open (#522)")
+
+    def test_it_says_which_reference_does_not_close(self):
+        # The bare rule regrows without the counter-example: `Scan issue: #N` looks like
+        # it works, which is exactly why it survived 13 passes.
+        text = self._read(self.ROUTINES)
+        self.assertIn("Scan issue:", text,
+                      msg="routines.md no longer names the non-closing form that caused "
+                          "#522, so the next author cannot tell it apart from one that works")
+
+    def test_the_two_documents_agree_on_who_closes_a_scan_issue(self):
+        # discovery/README.md is where the lifecycle is *stated*; routines.md is where it
+        # is *performed*. If the statement is ever dropped, this stops being a rule the
+        # routine doc is implementing and becomes an unsourced instruction.
+        self.assertIn("closed by the pull request", self._read(self.DISCOVERY),
+                      msg="discovery/README.md no longer states the scan-issue lifecycle "
+                          "that routines.md step 4 implements")
+
+
 # ------------------------------------------------- agent-facing skill contracts (#477)
 class TestSkillContracts(unittest.TestCase):
     """A project skill is a procedure an agent follows instead of deriving one, so a fact
