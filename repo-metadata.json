@@ -593,12 +593,12 @@
   "anomalyco/opencode": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "MIT",
-    "pushed_at": "2026-08-05T04:41:41Z",
+    "pushed_at": "2026-08-23T23:50:46Z",
     "resolved_name": "anomalyco/opencode",
-    "stars": 193439
+    "stars": 200661
   },
   "antfu/skills": {
     "archived": false,

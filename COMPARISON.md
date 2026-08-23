@@ -213,7 +213,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
 | omp-best-of | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | omnigent | framework | | ✓ | discovery-log | REVIEW |
-| opencode | platform | | ✓ | discovery-log | REVIEW |
+| opencode | platform | | ✓ | CONDITIONAL | RUN |
 | deepseek-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
@@ -854,7 +854,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 69 | 31 | 6 | 45% |
-| Implement | 235 | 113 | 4 | 48% |
+| Implement | 235 | 114 | 4 | 49% |
 | Verify | 30 | 12 | 2 | 40% |
 | Review | 70 | 28 | 3 | 40% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -865,4 +865,4 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 17 | 4 | 30% |
-| **Total** | **769** | **308** | **34** | **40%** |
+| **Total** | **769** | **309** | **34** | **40%** |
