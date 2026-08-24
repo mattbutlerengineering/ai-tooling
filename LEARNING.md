@@ -74,7 +74,22 @@ on the same numbers rather than read from the report directly. This pass also ch
 search-engine claim of an AWS AI-DLC "Workflow 2.0" release dated 2026-08-14 directly
 against `awslabs/aidlc-workflows`'s own GitHub releases page (reachable this pass) and
 found no such release — the newest tag there is v1.0.1 — so nothing was added on that
-lead; it was a search-summary artifact, not a real update.
+lead; it was a search-summary artifact, not a real update. The 2026-08-24 pass re-checked
+that same claim and found it partly right this time — see the dated update in
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) — confirmed by fetching
+`awslabs/aidlc-workflows`'s own `main` and `v2` branch files directly rather than from
+search summaries; `github.com`/`raw.githubusercontent.com` were the only domains this
+pass's sandbox could reach. `arxiv.org`, `youtube.com`, `metr.org`, and every third-party
+write-up site tried (scienceblog.com, letsdatascience.com, particula.tech, aiboffinhub.com,
+valueaddvc.com, startuphub.ai, finance.biggo.com) returned `EGRESS_BLOCKED`. The two METR
+entries added this pass are therefore cross-checked across multiple independent
+search-engine summaries of METR's own two blog posts rather than read from the posts
+directly — every figure below appeared consistently across at least two independently-
+worded summaries. This pass also found a well-documented account of Uber's "Managed
+Software Factory" (Uday Kiran Medisetty and Adam Huda, reportedly at AI Engineer World's
+Fair) and declined to add it: every source describing it in enough detail to write an
+honest entry — the talk itself and every third-party write-up found — sat on a domain this
+pass could not reach, so no resolvable primary URL could be confirmed.
 
 ---
 
@@ -417,6 +432,36 @@ effect: the practice of writing a durable agent-instructions file is still a gen
 empirical question, not the settled win this repo's own harness-engineering reading currently
 implies. Worth weighing the next time `CLAUDE.md` itself is treated as an unqualified good rather
 than a cost this repo has never measured against a no-`CLAUDE.md` baseline.
+
+### [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) — METR (2025-07-10)
+A randomized controlled trial — real day-to-day issues in developers' own mature open-source
+repositories, not a synthetic benchmark — that became one of the most-cited pieces of
+counter-evidence in the AI-coding-productivity debate: experienced developers allowed to use AI
+tools (mainly Cursor Pro with Claude 3.5/3.7 Sonnet) completed their tasks reportedly **19%
+slower** than a matched control group working without AI, even though the same developers
+predicted beforehand they'd be roughly 24% faster and, after finishing, still estimated they'd
+been roughly 20% faster — a self-perception gap running the opposite direction from the measured
+result. Directly on point for this repo's own [Verifiability
+signal](WORKFLOW.md#why-verifiability-is-its-own-signal): a controlled study finding that trust in
+AI assistance and its actual effect can point in opposite directions, in the same population, on
+the same tasks.
+
+### [We are Changing our Developer Productivity Experiment Design](https://metr.org/blog/2026-02-24-uplift-update/) — METR (2026-02-24)
+METR's own follow-up, worth reading against the 2025-07-10 entry above rather than in isolation.
+Continuing the same style of trial into 2026 reportedly surfaced **selection effects that
+undermined the randomization itself**: developers grew reluctant to be assigned to the no-AI
+condition, and some avoided submitting tasks they specifically wanted AI's help with — so the
+tasks and people most likely to show an AI benefit were increasingly missing from the "with AI"
+arm by design, not by chance. Revisiting the same developer cohort under a revised design, METR
+reportedly now estimates roughly **18% faster** with AI — but with a confidence interval of
+**-38% to +9%**, still wide enough to include no effect or a slowdown. METR's own explanation for
+the roughly 37-point swing in seven months is that both the tools and developers' skill using them
+improved — not that the original RCT was wrong, but that a clean randomized estimate of "AI
+coding uplift" gets harder to hold onto the longer developers have had access to what's being
+measured. Read together, the two posts are the strongest documented case that a single
+productivity RCT — however rigorous — is a point-in-time snapshot, not a settled number; worth
+weighing against this repo's own habit of citing a study's headline percentage without dating how
+fast the ground under it moves.
 
 ---
 
