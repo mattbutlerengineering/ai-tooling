@@ -387,7 +387,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-octopus | plugin | ✓ | ✓/$ | discovery-log | REVIEW |
 | crucible | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| tdd-guard | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| tdd-guard | plugin | ✓ | ✓ | CONDITIONAL | RUN |
 | ratchet | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | HERO-Anti-OverDefense | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -856,7 +856,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 69 | 33 | 6 | 48% |
 | Implement | 235 | 115 | 4 | 49% |
 | Verify | 30 | 13 | 2 | 43% |
-| Review | 70 | 28 | 3 | 40% |
+| Review | 70 | 29 | 3 | 41% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 58 | 19 | 2 | 33% |
@@ -865,4 +865,4 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **769** | **315** | **34** | **41%** |
+| **Total** | **769** | **316** | **34** | **41%** |
