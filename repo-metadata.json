@@ -4738,12 +4738,12 @@
   "promptfoo/promptfoo": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "MIT",
-    "pushed_at": "2026-08-05T03:21:40Z",
+    "pushed_at": "2026-08-24T03:18:12Z",
     "resolved_name": "promptfoo/promptfoo",
-    "stars": 23935
+    "stars": 24503
   },
   "punkpeye/awesome-mcp-servers": {
     "archived": false,
