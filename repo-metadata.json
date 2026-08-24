@@ -4200,12 +4200,12 @@
   "nizos/tdd-guard": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "MIT",
-    "pushed_at": "2026-08-04T10:46:44Z",
+    "pushed_at": "2026-08-16T11:57:48Z",
     "resolved_name": "nizos/tdd-guard",
-    "stars": 2294
+    "stars": 2311
   },
   "nousresearch/hermes-agent": {
     "archived": false,
