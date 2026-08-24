@@ -785,7 +785,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-agent-skills | reference | | ✓ | discovery-log | REVIEW |
 | awesome-agent-skills (libukai) | reference | | ✓ | discovery-log | REVIEW |
 | awesome-ai-agents | reference | | ✓ | SKIP | REVIEW |
-| awesome-claude-code | reference | | ✓ | discovery-log | REVIEW |
+| awesome-claude-code | reference | | ✓ | CONDITIONAL | RUN |
 | awesome-claude-code-subagents | reference | | ✓ | discovery-log | REVIEW |
 | ai-agents-for-beginners | reference | | ✓ | discovery-log | REVIEW |
 | mcp-for-beginners | reference | | ✓ | ADOPT | REVIEW |
@@ -864,5 +864,5 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 63 | 23 | 2 | 37% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
-| Reference | 56 | 17 | 4 | 30% |
-| **Total** | **769** | **311** | **34** | **40%** |
+| Reference | 56 | 18 | 4 | 32% |
+| **Total** | **769** | **312** | **34** | **41%** |
