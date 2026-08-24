@@ -5907,12 +5907,12 @@
   "vercel-labs/agent-browser": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "Apache-2.0",
-    "pushed_at": "2026-08-04T23:22:49Z",
+    "pushed_at": "2026-08-24T01:55:39Z",
     "resolved_name": "vercel-labs/agent-browser",
-    "stars": 39929
+    "stars": 41204
   },
   "vercel-labs/agent-skills": {
     "archived": false,

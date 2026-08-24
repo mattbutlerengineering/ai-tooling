@@ -327,7 +327,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agent-browser | tool | | ✓ | discovery-log | REVIEW |
+| agent-browser | tool | | ✓ | CONDITIONAL | RUN |
 | moli | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | codex-proofloop | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex-guard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -855,7 +855,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |-------|-------|-----------|-------------|-------------|
 | Plan | 69 | 33 | 6 | 48% |
 | Implement | 235 | 115 | 4 | 49% |
-| Verify | 30 | 12 | 2 | 40% |
+| Verify | 30 | 13 | 2 | 43% |
 | Review | 70 | 28 | 3 | 40% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
@@ -865,4 +865,4 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **769** | **313** | **34** | **41%** |
+| **Total** | **769** | **314** | **34** | **41%** |
