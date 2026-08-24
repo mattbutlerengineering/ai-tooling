@@ -2273,12 +2273,12 @@
   "github/spec-kit": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "MIT",
-    "pushed_at": "2026-08-04T17:12:43Z",
+    "pushed_at": "2026-08-21T21:29:37Z",
     "resolved_name": "github/spec-kit",
-    "stars": 125334
+    "stars": 130961
   },
   "glips/figma-context-mcp": {
     "archived": false,
