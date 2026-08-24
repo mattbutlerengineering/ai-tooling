@@ -20,6 +20,27 @@ knowing before pointing anyone at that specific post. Kiro has no `CATALOG.md` r
 yet (only mentioned in passing, as one of several config formats `agnix` lints) — worth a
 discovery-lane look given it is now AWS's flagship agentic IDE.
 
+**Update (2026-08-24):** `awslabs/aidlc-workflows`'s `main` branch now announces general
+availability of **"AI-DLC Workflows 2.0"** (confirmed by fetching `main`'s `README.md` directly,
+not from search summaries; the git tag is still `v1.0.1` — that is two independent version
+numbers, package tag vs. methodology name, not a stale-release bug). The shipped GA version adds
+internal structure this doc's pipeline diagram below doesn't yet reflect, but the **Operations gap
+this doc already calls out is unchanged in what's actually shipped**: `main`'s own README still
+reads, verbatim, *"🟡 OPERATIONS PHASE — Deployment and monitoring (future)"*. What's new is
+upstream and not yet released: a `v2` branch (self-versioned `2.6.70`, not merged to `main` or
+tagged) restructures the pipeline into 5 phases / 33 stages / a 14-agent roster, and — the material
+part — its Operation phase is no longer a placeholder. It has 7 concrete stages, each with an
+assigned lead agent: CD pipeline config and rollback runbooks, environment provisioning,
+deployment plus smoke tests, observability dashboards/alarms/SLOs, incident runbooks, load testing
+against NFRs, and a closing SLO report/cost analysis/feedback-loop doc — all 7 conditional and
+skippable for `mvp`/`poc` scope. That would be the first concrete Operations answer from **AWS's
+own** reference implementation; until now only the third-party
+[`bushido-ai-dlc-2026.md`](bushido-ai-dlc-2026.md) fork filled this gap. It just hasn't shipped:
+worth re-checking (and re-mapping the table below) once `v2` merges to `main` and gets a tag.
+Sources: [`main` README](https://github.com/awslabs/aidlc-workflows/blob/main/README.md),
+[`v2` branch](https://github.com/awslabs/aidlc-workflows/tree/v2),
+[`v2`'s phases-and-stages doc](https://github.com/awslabs/aidlc-workflows/blob/v2/docs/guide/04-phases-and-stages.md).
+
 Unlike 8090's Software Factory, AI-DLC is not a paid product:
 AWS ships it as methodology plus an open rule-file reference implementation,
 [`awslabs/aidlc-workflows`](https://github.com/awslabs/aidlc-workflows) (catalogued, evaluated —
