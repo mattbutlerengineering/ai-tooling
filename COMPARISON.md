@@ -487,7 +487,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sentrux | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-fleet | tool | | ✓ | SKIP | REVIEW |
 | agentsview | tool | ✓ | ✓ | discovery-log | REVIEW |
-| promptfoo | tool | ✓ | ✓ | discovery-log | REVIEW |
+| promptfoo | tool | ✓ | ✓ | CONDITIONAL | RUN |
 | garak | tool | ✓ | ✓ | discovery-log | REVIEW |
 | presidio | tool | ✓ | ✓ | discovery-log | REVIEW |
 | NeMo-Guardrails | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -859,10 +859,10 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Review | 70 | 28 | 3 | 40% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
-| Outer Loop | 58 | 18 | 2 | 31% |
+| Outer Loop | 58 | 19 | 2 | 33% |
 | Skills & Plugins | 104 | 36 | 4 | 35% |
 | Memory & Context | 63 | 23 | 2 | 37% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **769** | **314** | **34** | **41%** |
+| **Total** | **769** | **315** | **34** | **41%** |
