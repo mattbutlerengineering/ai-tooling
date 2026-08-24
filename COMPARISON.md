@@ -33,7 +33,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | requirement-ledger | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-coding-prompt-template | skill | | ✓ | SKIP | SOURCE-ONLY |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
-| spec-kit | framework | | ✓ | discovery-log | REVIEW |
+| spec-kit | framework | | ✓ | CONDITIONAL | RUN |
 | Finn-loop | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pm-manager | skill | | ✓ | SKIP | SOURCE-ONLY |
 | claude-code-spec-workflow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -853,7 +853,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 69 | 31 | 6 | 45% |
+| Plan | 69 | 32 | 6 | 46% |
 | Implement | 235 | 114 | 4 | 49% |
 | Verify | 30 | 12 | 2 | 40% |
 | Review | 70 | 28 | 3 | 40% |
@@ -865,4 +865,4 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 17 | 4 | 30% |
-| **Total** | **769** | **309** | **34** | **40%** |
+| **Total** | **769** | **310** | **34** | **40%** |
