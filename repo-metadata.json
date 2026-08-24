@@ -2564,12 +2564,12 @@
   "hesreallyhim/awesome-claude-code": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "NOASSERTION",
-    "pushed_at": "2026-08-05T04:02:39Z",
+    "pushed_at": "2026-08-24T00:12:58Z",
     "resolved_name": "hesreallyhim/awesome-claude-code",
-    "stars": 51669
+    "stars": 52881
   },
   "hetaobackend/mcp-github-trending": {
     "archived": false,
