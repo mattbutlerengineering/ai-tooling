@@ -241,12 +241,12 @@
   "affaan-m/ecc": {
     "archived": false,
     "discontinued": null,
-    "fetched_at": "2026-08-04",
+    "fetched_at": "2026-08-23",
     "license_lost": false,
     "license_spdx": "MIT",
-    "pushed_at": "2026-08-05T02:29:09Z",
+    "pushed_at": "2026-08-21T03:02:03Z",
     "resolved_name": "affaan-m/ECC",
-    "stars": 237755
+    "stars": 242580
   },
   "ag-ui-protocol/ag-ui": {
     "archived": false,
