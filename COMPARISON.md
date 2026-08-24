@@ -16,7 +16,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | CLI-Anything | tool | | ✓ | SKIP | REVIEW |
 | claude-code-templates | tool | | ✓ | SKIP | REVIEW |
 | portly | tool | | ✓ | discovery-log | SOURCE-ONLY |
-| claude-hud | plugin | ✓ | ✓ | discovery-log | REVIEW |
+| claude-hud | plugin | ✓ | ✓ | CONDITIONAL | RUN |
 | ccstatusline | plugin | ✓ | ✓ | SKIP | REVIEW |
 | dsh-TUI | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
@@ -853,7 +853,7 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 69 | 32 | 6 | 46% |
+| Plan | 69 | 33 | 6 | 48% |
 | Implement | 235 | 114 | 4 | 49% |
 | Verify | 30 | 12 | 2 | 40% |
 | Review | 70 | 28 | 3 | 40% |
@@ -865,4 +865,4 @@ All 769 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 21 | 8 | 1 | 38% |
 | Reference | 56 | 17 | 4 | 30% |
-| **Total** | **769** | **310** | **34** | **40%** |
+| **Total** | **769** | **311** | **34** | **40%** |
