@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 776 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 782 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -119,6 +119,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| hermes-conductor | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | conflux-agent-workflow-2026 | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -260,6 +261,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | command-code | harness | | ✓ | SKIP | SOURCE-ONLY |
 | phi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| FrontierAgent | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | Jixu | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -368,6 +370,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | numbat | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | old-coder | skill | | ✓ | SKIP | SOURCE-ONLY |
 | hubo | skill | | ✓ | SKIP | SOURCE-ONLY |
+| review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Assumptions | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop (oxlint) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -401,6 +404,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | prove-it | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | secretguard-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -429,6 +433,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-vault | tool | | ✓ | discovery-log | REVIEW |
 | envlatch | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | brooks-lint | skill | | ✓ | CONDITIONAL | MEASURED |
+| mkanat/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | spotpatch | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | 1c-quality-gate | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ship-it | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -509,6 +514,7 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | decern | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| halofy | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-safe-pipeline | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | pezzo | platform | ✓ | ✓ | SKIP | REVIEW |
 | ragas | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -861,15 +867,15 @@ All 776 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 70 | 33 | 6 | 47% |
-| Implement | 236 | 115 | 4 | 49% |
+| Implement | 238 | 115 | 4 | 48% |
 | Verify | 30 | 13 | 2 | 43% |
-| Review | 71 | 29 | 3 | 41% |
+| Review | 74 | 29 | 3 | 39% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
-| Outer Loop | 59 | 19 | 2 | 32% |
+| Outer Loop | 60 | 19 | 2 | 32% |
 | Skills & Plugins | 106 | 36 | 4 | 34% |
 | Memory & Context | 63 | 23 | 2 | 37% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **776** | **316** | **34** | **41%** |
+| **Total** | **782** | **316** | **34** | **40%** |
