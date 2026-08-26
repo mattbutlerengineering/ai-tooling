@@ -89,7 +89,18 @@ worded summaries. This pass also found a well-documented account of Uber's "Mana
 Software Factory" (Uday Kiran Medisetty and Adam Huda, reportedly at AI Engineer World's
 Fair) and declined to add it: every source describing it in enough detail to write an
 honest entry — the talk itself and every third-party write-up found — sat on a domain this
-pass could not reach, so no resolvable primary URL could be confirmed.
+pass could not reach, so no resolvable primary URL could be confirmed. The 2026-08-26 pass
+hit the identical wall a fifth time — `youtube.com` was blocked outright at the proxy level
+(not just individual videos, confirmed via a bare `ytsearch3:test` query), and `arxiv.org`,
+`openai.com`, `developers.openai.com`, `alphaxiv.org`, and `newsletter.port.io` all returned
+`EGRESS_BLOCKED` — so the two entries added this pass (the CMU code-review study and the
+OpenAI harness entries below) are cross-checked across multiple independently-worded search
+summaries rather than read from source, the same standard applied throughout this page. This
+pass re-checked the Uber "Managed Software Factory" lead once more (a newsletter.port.io
+write-up looked promising) and hit the same unreachable-domain wall as before — still
+declined, for the same reason. `awslabs/aidlc-workflows`'s `v2` branch has not merged to
+`main` since the 2026-08-24 update in [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md), so
+that doc needed no further change this pass.
 
 ---
 
@@ -317,6 +328,28 @@ company's internal architecture for long-running agents, this is the vendor-neut
 for the discipline this repo's own `CLAUDE.md` already calls "harness engineering" throughout
 its integrity-tooling section.
 
+### [Codex as a platform: build on the open agent harness](https://developers.openai.com/blog/codex-as-a-platform) — OpenAI (2026-08-19)
+A second major lab's production answer to the same discipline the Hashimoto/Fowler/Anthropic
+cluster above documents — and, unlike those three, an artifact rather than only prose: OpenAI
+open-sourced the Codex Harness core execution engine under Apache-2.0 (`codex exec`, the Codex
+SDK, and the `app-server` execution loop), explicitly framing the harness — not the chat
+interface — as Codex's most valuable reusable asset. Its own description matches Fowler's
+framing closely: the harness "gathers context, invokes tools, enforces sandbox and approval
+boundaries, streams execution progress, and carries work across multi-turn sessions." Its
+companion essay from earlier the same year,
+[Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
+(2026-02), makes the concrete claim this repo's own harness-engineering framing has otherwise
+only asserted in the abstract: a five-month internal effort shipped a production beta of
+roughly one million lines of code with zero lines typed by a human, the team's own account
+being that they spent the effort building the *harness* — rules, feedback loops, doc structure,
+dependency ordering — rather than typing code directly. Worth reading as evidence the term and
+formula (`Agent = Model + Harness`) have moved from one company's internal vocabulary
+(Hashimoto) through vendor-neutral treatment (Fowler) to a second frontier lab's shipped,
+open-sourced infrastructure — not merely more marketing language reusing the term. Confirmed
+via multiple independent write-ups agreeing on the same facts (Open Source For You, BigGo
+Finance, kenhuangus Substack, note.com) rather than a direct fetch — this pass's sandbox
+blocked both `openai.com` and `developers.openai.com` outright (`EGRESS_BLOCKED`).
+
 ### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
 A measured comparison (not a vendor claim) of 470 real open-source pull requests
 (320 AI-coauthored, 150 human-only): AI-generated code averaged 1.7x more issues
@@ -462,6 +495,25 @@ measured. Read together, the two posts are the strongest documented case that a 
 productivity RCT — however rigorous — is a point-in-time snapshot, not a settled number; worth
 weighing against this repo's own habit of citing a study's headline percentage without dating how
 fast the ground under it moves.
+
+### [3100 Opinions on Code Review in an AI World: Building Causal Theory from Practitioner Discourse](https://arxiv.org/abs/2607.07980) — Shyam Agarwal, Courtney Miller, Christian Kästner, Bogdan Vasilescu (CMU; arXiv, 2026-07)
+Directly on point for this repo's [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal)
+and a useful caution against several of the single-number repo-mining stats cited elsewhere on
+this page. Rather than one more measurement of "does AI help or hurt code review," the authors
+collect 38,709 grey-literature documents about code review (7,630 web articles, 31,079 Reddit
+threads), LLM-code a stratified sample of 3,100, and build a falsifiable causal theory — named
+constructs and moderators — out of where practitioners agree and sharply disagree on whether
+review becomes the bottleneck, whether human review is still necessary, and whether AI quietly
+erodes the understanding review used to build. The paper's own motivating example is the sharpest
+part: an observational analysis of public GitHub activity finds agent-authored pull requests are
+reviewed less often, merged several times faster, and discussed less than human-authored ones —
+and then reports that **the direction of every one of those trends flips under different but
+equally defensible analysis choices**. That is not a result this repo should copy as a headline
+number; it is a warning that a simple PR-mining metric (the same shape as several other findings
+cited on this page) can point either way depending on decisions an author makes without noticing
+they're decisions. Confirmed via multiple independently-worded search summaries converging on the
+same methodology and the same abstract phrasing — this pass's sandbox blocked `arxiv.org` outright
+(`EGRESS_BLOCKED`), so the paper itself was not directly read.
 
 ---
 
