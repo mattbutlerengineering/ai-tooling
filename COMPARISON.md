@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 782 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 787 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -54,6 +54,7 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | opensrc | tool | | ✓ | discovery-log | REVIEW |
 | planning-with-files | skill | | ✓ | SKIP | REVIEW |
 | reporails/cli | tool | | $ | discovery-log | SOURCE-ONLY |
+| claude-md-doctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | repomix | tool | | ✓ | CONDITIONAL | RUN |
 | gitingest | tool | | ✓ | CONDITIONAL | MEASURED |
 | repoprompt-ce | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -394,6 +395,7 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | crucible | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tdd-guard | plugin | ✓ | ✓ | CONDITIONAL | RUN |
 | ratchet | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| cyclomatic-complexity-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | HERO-Anti-OverDefense | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | stop-that-shit | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -592,6 +594,7 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
+| oil-skill-creator | tool | | ✓ | SKIP | SOURCE-ONLY |
 | repo2skill | tool | | ✓ | SKIP | SOURCE-ONLY |
 | biks-claude-loader-update | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Skill_Seekers | tool | | ✓ | discovery-log | REVIEW |
@@ -612,6 +615,7 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | council-of-high-intelligence | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | typescript-mcp-server-generator | skill | | ✓ | discovery-log | REVIEW |
 | attention-control | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| open-steps | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ui-ux-pro-max | skill | | ✓ | discovery-log | REVIEW |
 | scroll-craft | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | oa-design | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -666,6 +670,7 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MemOS | platform | | ✓ | discovery-log | REVIEW |
 | memind | platform | ✓ | ✓ | SKIP | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
+| Recuris | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | evolver | tool | ✓ | ✓ | SKIP | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -866,16 +871,16 @@ All 782 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 70 | 33 | 6 | 47% |
+| Plan | 71 | 33 | 6 | 46% |
 | Implement | 238 | 115 | 4 | 48% |
 | Verify | 30 | 13 | 2 | 43% |
-| Review | 74 | 29 | 3 | 39% |
+| Review | 75 | 29 | 3 | 39% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 60 | 19 | 2 | 32% |
-| Skills & Plugins | 106 | 36 | 4 | 34% |
-| Memory & Context | 63 | 23 | 2 | 37% |
+| Skills & Plugins | 108 | 37 | 4 | 34% |
+| Memory & Context | 64 | 23 | 2 | 36% |
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **782** | **316** | **34** | **40%** |
+| **Total** | **787** | **317** | **34** | **40%** |

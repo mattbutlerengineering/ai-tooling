@@ -327,6 +327,7 @@ Tools for persistent memory across sessions, context compression, and learning f
 | [mex](https://github.com/mex-memory/mex) | tool | Persistent project memory for coding agents — structured scaffold plus drift-detection CLI | Agent project memory drifts from reality; want a structured scaffold with drift detection | claude-mem, cognee, mem0 |  |
 | [ctxwise](https://github.com/FramY2/ctxwise) | tool | Local-first context audit for Codex (Apache-2.0) — see what's loaded, drift detection, and honest token receipts | Codex context loading is opaque; want visibility into what's loaded and when it drifts from what was intended | headroom, context-mode, lean-ctx |  |
 | [memoket-kite](https://github.com/memoket/memoket-kite) | tool | Vector-free long-term memory engine (Apache-2.0) claiming SOTA on LoCoMo and LongMemEval with less context | Vector-DB memory is heavy and lossy; want a lighter engine that beats it on standard long-term-memory benchmarks | mem0, cognee, memU, memvid |  |
+| [Recuris](https://github.com/Gen-Verse/Recuris) | framework | Recursive experiential/working-memory evolution framework (Apache-2.0, arXiv-backed) for long-horizon agent harnesses | Long-horizon agents lose useful experience as context grows; want memory that self-evolves instead of flat accumulation | ACE, hivemind, MemOS |  |
 
 ## Skills & Plugins
 
@@ -453,6 +454,8 @@ Extensions that add domain-specific capabilities to coding agents.
 | [agent-skill-creator](https://github.com/FrancyJGLisboa/agent-skill-creator) | skill | Turn any workflow into one SKILL.md that installs across 17 agent platforms | Authoring a skill once and shipping it to Claude/Cursor/Copilot/Codex/etc. is manual and per-tool | skill-creator, SkillOpt, plugin-dev |  |
 | [wondelai/skills](https://github.com/wondelai/skills) | skill | Agent-skills collection for Claude Code and agentskills.io-compatible agents | Want ready-made skills compatible with the agentskills.io ecosystem | anthropics/skills, vercel-labs/agent-skills, agent-skills |  |
 | [awesome-design-skills](https://github.com/bergside/awesome-design-skills) | reference | Curated list of 67 design SKILL.md files for Claude/Stitch/Codex/Cursor and other agents | No single index of design-focused agent skills across tools | ui-ux-pro-max, open-design, huashu-design |  |
+| [open-steps](https://github.com/kharmanskyi/open-steps) | skill | Skills (MIT) translating a coding agent's output into plain-language honest reports and straight verdicts | Agent output buries what actually happened behind jargon and hedging; want plain-language status and next steps | attention-control, caveman, old-coder |  |
+| [oil-skill-creator](https://github.com/oil-oil/oil-skill-creator) | tool | Product-style workflow (MIT) for creating, reviewing, refining, and publishing Agent Skills | Skills get hand-authored ad hoc with no review/refinement loop; want product-development discipline applied to skill authoring | skill-creator, Skill_Seekers, SkillOpt |  |
 
 ## Code Review & Quality
 
@@ -513,6 +516,7 @@ Tools for automated code review, quality checks, and codebase improvement.
 | [oss-pr-reviewer](https://github.com/vuphongle/oss-pr-reviewer) | tool | AI-powered CLI (MIT) reviewing GitHub PRs for bugs, security risks, regressions, and missing tests, with Markdown reports | Open-source maintainers want automated PR review without a hosted per-seat service | juror, PR-Agent, open-code-review, code-review |  |
 | [spotpatch](https://github.com/huanglvjing/spotpatch) | tool | Click a React UI element to jump to its JSX/TSX source, trace API data flow, and prepare reviewable AI patches (MIT) | Reviewing AI-generated React changes means hunting for the source by hand; want element-to-source-to-patch in one click | code-review, brooks-lint, vet |  |
 | [herdr-hunk-diff](https://github.com/jhochenbaum/herdr-hunk-diff) | plugin | Reviews agent-authored diffs hunk-by-hunk inside herdr and sends inline comments back to the responsible agent (MIT) | herdr shows agent terminals but has no structured way to review and comment on the diffs those agents produce | herdr, code-review, pr-review-toolkit |  |
+| [cyclomatic-complexity-skill](https://github.com/saurabhkumar8112/cyclomatic-complexity-skill) | skill | Claude skill (Apache-2.0) that refactors code to reduce cyclomatic complexity | Linters report complexity metrics but don't fix them; want an agent skill that actively refactors code down to a lower complexity | brooks-lint, ratchet, skylos |  |
 
 ## Maturity Frameworks
 
@@ -614,6 +618,7 @@ Tools for git management, planning, project orchestration, and development proce
 | [facet](https://github.com/Smitner-Studio/facet) | MCP server | Human-in-the-loop approval gates for coding agents (⚠️ no license) — renders agent-written Markdown as a live local page and sends the human's click back to the agent as typed data | Agents need a human decision mid-task but only have blocking chat prompts or nothing at all; want a lightweight local approval UI | plannotator, claude-hud |  |
 | [easel](https://github.com/The-Sentience-Company/easel) | tool | Local review board (⚠️ GPL-3.0) where an agent publishes work, a human annotates in-browser, and feedback returns as JSON | Agents need human sign-off mid-task but only have blocking chat prompts, not a structured review surface | facet, plannotator, hubo |  |
 | [packrehearsal](https://github.com/liyuqin606-del/packrehearsal) | tool | Turns npm, Python, and Rust release evidence into bounded Codex maintenance tasks (Apache-2.0) | Upstream dependency releases need triage into scoped, verifiable maintenance work, not an open-ended agent prompt | maintainer-autopilot, proof-of-done-loop, ralph-claude-code |  |
+| [claude-md-doctor](https://github.com/agent-clinic/claude-md-doctor) | tool | Doctor-style CLAUDE.md/AGENTS.md checkup (MIT) — size vitals, dead references, drifted claims, rule backtesting against session history | Instruction files rot silently — stale references, drifted claims, rules nobody follows; want an evidence-citing audit | reporails/cli, agnix, ACMM |  |
 
 ## MCP Servers
 
