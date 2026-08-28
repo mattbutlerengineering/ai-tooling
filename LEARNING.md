@@ -100,7 +100,21 @@ pass re-checked the Uber "Managed Software Factory" lead once more (a newsletter
 write-up looked promising) and hit the same unreachable-domain wall as before — still
 declined, for the same reason. `awslabs/aidlc-workflows`'s `v2` branch has not merged to
 `main` since the 2026-08-24 update in [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md), so
-that doc needed no further change this pass.
+that doc needed no further change this pass. The 2026-08-28 pass re-checked that repo directly
+(cloned `main` read-only rather than via search) and confirmed it: the newest commit is a
+2026-08-27 issue-template tweak ("mark v2 current in issue forms"), `v2` is still an unmerged
+branch, and `main`'s own README still reads, verbatim, *"🟡 OPERATIONS PHASE — Deployment and
+monitoring (future)"* — no material change since the 2026-08-24 note. This pass hit the same
+egress wall a sixth time — `youtube.com` was blocked at the proxy level again (a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel, confirmed independently via
+a direct `curl` to both `youtube.com` and `arxiv.org`), so no video search or transcript pull ran.
+The three entries added this pass (the Galster configuration-adoption census, the Lahiri
+intent-formalization paper, and the Qwen Team verification-horizon paper) are therefore
+cross-checked across multiple independently-worded search summaries rather than read from source,
+the same standard applied throughout this page. This pass also re-surfaced StrongDM's February
+2026 "dark factory" write-up (the origin of the term this page's Osmani and Horthy entries already
+discuss at length) and declined it — six months old, and it adds no claim beyond what those two
+entries already cover.
 
 ---
 
@@ -514,6 +528,66 @@ cited on this page) can point either way depending on decisions an author makes 
 they're decisions. Confirmed via multiple independently-worded search summaries converging on the
 same methodology and the same abstract phrasing — this pass's sandbox blocked `arxiv.org` outright
 (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [Configuring Agentic AI Coding Tools: An Exploratory Study](https://arxiv.org/abs/2602.14690) — Matthias Galster, Seyedmoein Mohsenimofidi, Jai Lal Lulla, Muhammad Auwal Abubakar, Christoph Treude, Sebastian Baltes (arXiv, 2026-02; accepted AIware 2026)
+The adoption census the two AGENTS.md efficacy studies above (Gloaguen et al. and Lulla et al.)
+run without one — not whether a context file helps, but whether anyone actually writes one, and
+which of the richer mechanisms this repo's own stack layers on top ever get used. Surveys 2,853
+public GitHub repositories configuring five agentic coding tools (Claude Code, GitHub Copilot,
+Cursor, Gemini, Codex) and catalogs eight configuration mechanisms spanning static context through
+executable and external integrations. Adoption counts by repo: Context files 2,586, Settings 290,
+Rules 238, Commands 169, **Skills 158**, Subagents 131, MCP 75, Hooks 42 — context files alone
+account for the large majority, and every mechanism this repo's own `.claude/skills/` and
+`.opencode/plugins/` investment sits in (skills, subagents, hooks) is minority practice by a wide
+margin in the wild. One author (Lulla) co-authored the AGENTS.md *efficacy* study already cited
+above, which is what makes this a companion rather than a duplicate finding — that paper measures
+whether the file helps, this one measures whether it gets written at all, and by very different
+denominators for skills/subagents/hooks versus context files. Worth weighing next to this repo's
+own bet that skills and hooks (not just a `CLAUDE.md`) are worth the investment. Confirmed via
+multiple independent search summaries (the arXiv abstract page, dblp's author listing, the ACM
+AIware 2026 proceedings entry) converging on the same repo count and mechanism breakdown — this
+pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), and `youtube.com` was blocked at
+the proxy level too (a bare `ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel,
+confirmed independently via a direct `curl` to both domains), so no video search ran this pass and
+the paper itself was not directly read.
+
+### [Intent Formalization: A Grand Challenge for Reliable Coding in the Age of AI Agents](https://arxiv.org/abs/2603.17150) — Shuvendu K. Lahiri (Microsoft Research; arXiv, 2026-03)
+Names the mechanism behind the failure mode this repo's Verifiability reading already worries
+about from two other angles — Comprehension Debt's volume problem and Own the Outer Loop's trust
+gap: the *intent gap* between informal natural-language requirements and precise program
+behavior, which the paper argues AI-generated code widens "to an unprecedented scale" rather than
+closes, because a model can satisfy an ambiguous instruction in ways its author never considered.
+Its proposed fix is a tradeoff spectrum rather than one tool — from lightweight tests that
+disambiguate likely misreadings, through full functional specifications suitable for formal
+verification, to domain-specific languages from which correct code is synthesized directly —
+arguing that whether AI makes software more reliable or merely more abundant turns on which point
+on that spectrum a team actually invests in. Directly on point for the spec-driven-development
+cluster this repo already maps (`8090-software-factory-sdlc.md`'s PRD/Blueprints stages,
+`aws-ai-dlc.md`'s Inception phase): both name a spec artifact as the thing that keeps an agent
+honest, and this paper is the formal argument for why that artifact needs to be *checkable*, not
+merely readable, to do that job. Confirmed via multiple independent search summaries (the arXiv
+abstract, Microsoft Research's own publication listing, the RiSE MSR lab's own blog writeup, all
+naming the same single author and submission date) — same egress block as the entry above, so the
+paper was not directly read.
+
+### [The Verification Horizon: No Silver Bullet for Coding Agent Rewards](https://arxiv.org/abs/2606.26300) — Binghai Wang et al. (Qwen Team; arXiv, 2026-06)
+Counter-evidence to a classical intuition this repo's own Verifiability rationale leans on without
+stating it outright — that verifying a solution is easier than producing one. The Qwen Team's own
+account is the reverse for today's coding agents: as raw generation ability improved, reliably
+verifying what a model produced became the harder problem, because every verifier is only a proxy
+for human intent and never the intent itself. The paper frames verification quality along three
+axes — scalability (can the signal be produced cheaply at scale), faithfulness (how much of true
+intent it reflects), and robustness (resistance to reward hacking as training optimizes against
+it) — and argues hitting all three at once is the open problem, testing the claim across four
+verifier constructions: a test verifier for general coding tasks, a rubric verifier for frontend
+work, the user as verifier for real-world agent tasks, and an automated agent verifier for
+long-horizon tasks. Notable as a frontier model lab's own research org stating outright that the
+bottleneck has moved from generation to verification — the same claim this repo's Verifiability
+signal exists to operationalize, from a source with every commercial incentive to say the
+opposite. Confirmed via multiple independent search summaries (the arXiv abstract, the Hugging
+Face paper page, EmergentMind's paper summary, all agreeing on the four-verifier structure and
+three-axis framing) — same egress block as the two entries above, so the paper was not directly
+read.
 
 ---
 
