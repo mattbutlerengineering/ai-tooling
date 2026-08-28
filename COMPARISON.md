@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 787 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 789 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -62,6 +62,7 @@ All 787 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MinerU | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | deepwiki-rs | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
+| neuromesh | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | symbolpeek-mcp | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
 | repowise | tool | ✓ | ✓/$ | discovery-log | REVIEW |
@@ -382,6 +383,7 @@ All 787 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | herdr-hunk-diff | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | kodus-ai | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
+| simplify-codebase | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | gospect-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
@@ -871,10 +873,10 @@ All 787 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 71 | 33 | 6 | 46% |
+| Plan | 72 | 33 | 6 | 46% |
 | Implement | 238 | 115 | 4 | 48% |
 | Verify | 30 | 13 | 2 | 43% |
-| Review | 75 | 29 | 3 | 39% |
+| Review | 76 | 29 | 3 | 38% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 60 | 19 | 2 | 32% |
@@ -883,4 +885,4 @@ All 787 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 52 | 17 | 2 | 33% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **787** | **317** | **34** | **40%** |
+| **Total** | **789** | **317** | **34** | **40%** |
