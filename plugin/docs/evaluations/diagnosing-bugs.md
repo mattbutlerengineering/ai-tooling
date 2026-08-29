@@ -3,7 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/diagnosing-bugs)
 **Stars:** 136,415 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-29  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (debug)
 **Layer:** Process
 
@@ -72,7 +72,9 @@ gh api repos/mattpocock/skills/contents/skills/engineering/diagnosing-bugs/scrip
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — ships inside `mattpocock/skills` — installing the container settles it; it is a component of that artifact, not a competitor to it.
+
+The read below predates the `Ships inside` column (#343) and is kept as color; the disposition above supersedes it.
 
 diagnosing-bugs is a high-quality, well-maintained debug-stage process skill with one genuinely better idea than the catalog's incumbent (a *red-capable artifact* gate and a concrete 10-option feedback-loop menu, plus multi-hypothesis anti-anchoring and agent-grade cleanup hygiene). But it overlaps ~70% with superpowers' `systematic-debugging`, which the user already runs as a plugin, and it is actually *thinner* on root-cause tracing, pattern analysis, and the failed-fix-count escalation that systematic-debugging does well. Running both invites two competing phase-gates on the same "debug this" trigger.
 
@@ -99,6 +101,8 @@ So there are two incumbents here, not zero, and neither makes this a SKIP — th
 that only a measured A/B on real debugging tasks can settle.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-08-29 by the P5 ships-inside band ([#565](https://github.com/mattbutlerengineering/ai-tooling/issues/565)):** this row's `Ships inside` cell (added by #343, after the note above was written) now declares its container as `mattpocock/skills`, which is a settled STACK `ADOPT`. Per `NEXT-EVALS.md`'s P5 disposition, a row that ships inside a settled container is never an independent lead — installing the container already gets you this skill. SKIPped on that mechanical ground; the systematic-debugging head-to-head discussion above no longer needs settling by this lane — it was never a two-incumbent competition, just a component of an already-adopted pack.
 
 ## Catalog entry
 

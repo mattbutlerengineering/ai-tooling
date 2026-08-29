@@ -3,7 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling)
 **Stars:** 136,514 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-29  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (design; touches Reflect when ADRs are recorded after a decision)
 **Layer:** Process
 
@@ -67,7 +67,9 @@ grep -inE "domain-model|CONTEXT.md|ubiquitous|codebase-design|ADR|documentation-
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — ships inside `mattpocock/skills` — installing the container settles it; it is a component of that artifact, not a competitor to it.
+
+The read below predates the `Ships inside` column (#343) and is kept as color; the disposition above supersedes it.
 
 domain-modeling is a high-quality, well-authored Plan-stage process skill whose load-bearing contributions — the three-part ADR gate, the "glossary and nothing else" invariant, and the `_Avoid_`-synonym mechanism that lets an agent *enforce* language rather than merely define it — are genuinely better-specified than the catalog's incumbent `documentation-and-adrs`. Shared-vocabulary modeling is a real dev-loop lever: it improves Maintainability and Correctness by grounding every later session in consistent terms and recorded rationale, and it is the substrate that makes the sibling skills (`grill-with-docs`, `improve-codebase-architecture`) work.
 
@@ -87,6 +89,8 @@ in `mattpocock/skills`, already installed for `resolving-merge-conflicts`, so th
 of testing the claim is near zero — a strong P0 candidate.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+
+**Re-triaged 2026-08-29 by the P5 ships-inside band ([#565](https://github.com/mattbutlerengineering/ai-tooling/issues/565)):** this row's `Ships inside` cell (added by #343, after the note above was written) now declares its container as `mattpocock/skills`, which is a settled STACK `ADOPT`. Per `NEXT-EVALS.md`'s P5 disposition, a row that ships inside a settled container is never an independent lead — installing the container already gets you this skill. SKIPped on that mechanical ground; the "may beat its incumbent" escalation above no longer applies, since P5 is not a redundancy call — this was never a competing lead to begin with, just a component of an already-adopted pack.
 
 ## Catalog entry
 
