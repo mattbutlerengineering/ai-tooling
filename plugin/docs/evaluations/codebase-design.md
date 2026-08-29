@@ -3,7 +3,7 @@
 **Repo:** [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design)
 **Stars:** 136,535 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-29  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (interface/module design; touches Implement when restructuring code and Reflect when deepening existing modules)
 **Layer:** Process
 
@@ -71,7 +71,9 @@ grep -inE "codebase-design|deep module|seam|improve-codebase-architecture|design
 
 ## Verdict
 
-**discovery-log — tentative read**
+**SKIP** — ships inside `mattpocock/skills` — installing the container settles it; it is a component of that artifact, not a competitor to it.
+
+The read below predates the `Ships inside` column (#343) and is kept as color; the disposition above supersedes it.
 
 codebase-design is a high-quality, well-authored Plan-stage process skill that targets a real and specific agent failure mode named in the catalog — agents producing shallow modules with wide interfaces because that *looks* modular — and replaces it with a precise, enforceable vocabulary (depth-as-leverage, seam, locality) plus operational heuristics (the deletion test, dependency-category test strategies, "two adapters means a real seam," replace-don't-layer). Its strongest ideas — redefining depth as leverage and explicitly rejecting Ousterhout's gameable line-ratio, and the `DESIGN-IT-TWICE.md` parallel-sub-agent fan-out — make it genuinely additive: it improves Maintainability and Correctness by giving the agent a criterion for *good* abstraction, not just a habit of abstracting.
 
@@ -100,6 +102,8 @@ because it is self-contained and unconditionally better than the agent default. 
 but project-dependent.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-08-29 by the P5 ships-inside band ([#565](https://github.com/mattbutlerengineering/ai-tooling/issues/565)):** this row's `Ships inside` cell (added by #343, after the note above was written) now declares its container as `mattpocock/skills`, which is a settled STACK `ADOPT`. Per `NEXT-EVALS.md`'s P5 disposition, a row that ships inside a settled container is never an independent lead — installing the container already gets you this skill. SKIPped on that mechanical ground; the redundancy/escalation discussion above no longer applies, since this was never a competing lead to begin with.
 
 ## Catalog entry
 
