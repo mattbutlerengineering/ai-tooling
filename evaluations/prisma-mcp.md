@@ -2,7 +2,7 @@
 
 **Repo:** [prisma/claude-plugin](https://github.com/prisma/claude-plugin) (plugin manifest) / [prisma/prisma](https://github.com/prisma/prisma) (MCP implementation)
 **Stars:** 46,347 (main Prisma repo) | **Last updated:** 2026-06-18 | **License:** Apache-2.0
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-30  <!-- triaged: bulk -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
@@ -98,6 +98,8 @@ go wrong") needs a hands-on run against a real schema, and because whether the r
 ORM or a narrower MCP path is a catalog-shape decision rather than a verdict.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-08-30 by the P5 ships-inside band ([#567](https://github.com/mattbutlerengineering/ai-tooling/issues/567)):** no change. `prisma/prisma` (the ★46.9K ORM this row's `Ships inside` cell names) is not itself a candidate catalog row — it's an ORM, not AI-dev tooling — so "settle the container" has no target here; that is the unfixable shape #405/#431 already name for this row. Left at `discovery-log`.
 
 ## Catalog entry
 

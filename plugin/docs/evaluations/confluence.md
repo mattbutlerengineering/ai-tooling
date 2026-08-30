@@ -3,7 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (latest release v0.21.1, 2026-04-10) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-08-30  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Reflect (read team docs into context up front; write findings/runbooks back out) — touches Implement when a spec lives on the wiki
 **Layer:** Infrastructure (network connector to a live external system — the team's Confluence instance)
 
@@ -98,6 +98,8 @@ promotion decision here is a single decision, not two, and that `triage.py` coun
 overstates the queue.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-08-30 by the P5 ships-inside band ([#567](https://github.com/mattbutlerengineering/ai-tooling/issues/567)):** no change — the container this row's `Ships inside` cell names, `sooperset/mcp-atlassian`, is still itself an undisposed `discovery-log` row (same repo as sibling row `jira`). Left at `discovery-log`.
 
 ## Catalog note (do not edit CATALOG.md as part of this evaluation)
 
