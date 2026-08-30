@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 793 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 803 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -55,6 +55,8 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | planning-with-files | skill | | ✓ | SKIP | REVIEW |
 | reporails/cli | tool | | $ | discovery-log | SOURCE-ONLY |
 | claude-md-doctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| dont-reinvent | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| open-skill-sunset | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | repomix | tool | | ✓ | CONDITIONAL | RUN |
 | gitingest | tool | | ✓ | CONDITIONAL | MEASURED |
 | repoprompt-ce | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -111,6 +113,7 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | herdr | tool | | ✓ | discovery-log | REVIEW |
 | claurst | harness | | ✓ | SKIP | REVIEW |
 | claude-code-harness | harness | | ✓ | SKIP | REVIEW |
+| dot-reflex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-router | tool | | ✓ | discovery-log | REVIEW |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
@@ -376,6 +379,10 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | hubo | skill | | ✓ | SKIP | SOURCE-ONLY |
 | review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Assumptions | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| pr-lens | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| deslop-GPT | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| rubber-duck | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| forward-implementation-first | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | anti-slop (oxlint) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | nopus | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -483,6 +490,7 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | roundtable | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | zoetrope | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agenttrail | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| csift | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Apache DevLake | platform | ✓ | ✓ | DEFER | REVIEW |
 | agentacct | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Composio | plugin | | ✓/$ | discovery-log | SOURCE-ONLY |
@@ -663,6 +671,7 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | kreuzberg | tool | ✓ | ✓ | discovery-log | REVIEW |
 | MineContext | platform | ✓ | ✓ | SKIP | REVIEW |
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
+| hoist-the-elephant | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
 | ownmem | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-db | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -732,6 +741,7 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cloudflare-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | agent-toolkit-for-aws | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | confluence | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| pi-delegate-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | devfleet | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | exa-mcp-server | MCP server | ✓ | ✓/$ | discovery-log | REVIEW |
 | mcp-github-trending | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -877,16 +887,16 @@ All 793 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 72 | 35 | 6 | 49% |
-| Implement | 240 | 116 | 4 | 48% |
+| Plan | 74 | 35 | 6 | 47% |
+| Implement | 241 | 116 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
-| Review | 78 | 29 | 3 | 37% |
+| Review | 82 | 29 | 3 | 35% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
-| Outer Loop | 60 | 19 | 2 | 32% |
+| Outer Loop | 61 | 19 | 2 | 31% |
 | Skills & Plugins | 108 | 38 | 4 | 35% |
-| Memory & Context | 64 | 23 | 2 | 36% |
-| MCP Servers | 52 | 17 | 2 | 33% |
+| Memory & Context | 65 | 23 | 2 | 35% |
+| MCP Servers | 53 | 17 | 2 | 32% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **793** | **322** | **34** | **41%** |
+| **Total** | **803** | **322** | **34** | **40%** |
