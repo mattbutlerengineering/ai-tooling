@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 803 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 808 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -270,6 +270,7 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | FrontierAgent | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | Jixu | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| acryl | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gpt-engineer | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -425,6 +426,7 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | toolpermit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
 | claude-red | skill | | ✓ | SKIP | SOURCE-ONLY |
+| Claude-AD | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pr-review-toolkit | plugin | | ✓ | KEEP | MEASURED |
 | security-guidance | plugin | | ✓ | ADOPT | MEASURED |
 | shadcn/improve | tool | | ✓ | discovery-log | REVIEW |
@@ -504,6 +506,7 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| brink | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-log-cli | tool | | ✓ | SKIP | SOURCE-ONLY |
 | agenta | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | codeburn | tool | | ✓ | ADOPT | MEASURED |
@@ -686,6 +689,7 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | memind | platform | ✓ | ✓ | SKIP | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | REVIEW |
 | Recuris | framework | | ✓ | discovery-log | SOURCE-ONLY |
+| wikiskill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claw-compactor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | evolver | tool | ✓ | ✓ | SKIP | REVIEW |
 | memU | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -725,6 +729,7 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AgentRecall-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| opencontext | MCP server | | ✓ | SKIP | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -888,15 +893,15 @@ All 803 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 74 | 35 | 6 | 47% |
-| Implement | 241 | 116 | 4 | 48% |
+| Implement | 242 | 116 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
-| Review | 82 | 29 | 3 | 35% |
+| Review | 83 | 29 | 3 | 35% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
-| Outer Loop | 61 | 19 | 2 | 31% |
+| Outer Loop | 62 | 19 | 2 | 31% |
 | Skills & Plugins | 108 | 38 | 4 | 35% |
-| Memory & Context | 65 | 23 | 2 | 35% |
+| Memory & Context | 67 | 24 | 2 | 36% |
 | MCP Servers | 53 | 17 | 2 | 32% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **803** | **322** | **34** | **40%** |
+| **Total** | **808** | **323** | **34** | **40%** |
