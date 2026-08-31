@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 789 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 797 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -85,6 +85,8 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | codebase-to-course | skill | | ✓ | SKIP | REVIEW |
 | sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
+| fireworks-open-eli5 | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Implement
 
@@ -113,7 +115,7 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-router | tool | | ✓ | discovery-log | REVIEW |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
-| CLIProxyAPI | tool | | ✓ | discovery-log | REVIEW |
+| CLIProxyAPI | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
@@ -328,6 +330,7 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claudian | plugin | | ✓ | discovery-log | REVIEW |
 | jetbrains-cc-gui | plugin | | ✓ | discovery-log | REVIEW |
 | babysitter | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| governed-agent-skills | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Verify
 
@@ -452,6 +455,7 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | bernstein | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
 | worktrunk | tool | | $ | discovery-log | REVIEW |
+| no-negative-echo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reflect
 
@@ -643,6 +647,8 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skill-creator | skill | | ✓ | SKIP | SOURCE-ONLY |
 | wondelai/skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-design-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| SkillCorpus | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| harness-ai-kit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Memory & Context
 
@@ -712,6 +718,7 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | AgentRecall-MCP | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| llm-wiki-cli | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -796,6 +803,7 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Awesome-LLMOps (InftyAI) | reference | | ✓ | SKIP | SOURCE-ONLY |
 | Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| best-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -873,16 +881,16 @@ All 789 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 72 | 33 | 6 | 46% |
-| Implement | 238 | 115 | 4 | 48% |
+| Plan | 74 | 33 | 6 | 45% |
+| Implement | 239 | 115 | 4 | 48% |
 | Verify | 30 | 13 | 2 | 43% |
 | Review | 76 | 29 | 3 | 38% |
-| Ship | 3 | 1 | 1 | 33% |
+| Ship | 4 | 1 | 1 | 25% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 60 | 19 | 2 | 32% |
-| Skills & Plugins | 108 | 37 | 4 | 34% |
-| Memory & Context | 64 | 23 | 2 | 36% |
+| Skills & Plugins | 110 | 37 | 4 | 34% |
+| Memory & Context | 65 | 23 | 2 | 35% |
 | MCP Servers | 52 | 17 | 2 | 33% |
-| Research & Discovery | 22 | 8 | 1 | 36% |
+| Research & Discovery | 23 | 8 | 1 | 35% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **789** | **317** | **34** | **40%** |
+| **Total** | **797** | **317** | **34** | **40%** |
