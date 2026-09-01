@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 808 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 812 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -134,6 +134,7 @@ All 808 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
+| useagent | tool | | ✓ | SKIP | SOURCE-ONLY |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
 | claude-task-master | tool | | ✓ | SKIP | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
@@ -396,6 +397,7 @@ All 808 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | simplify-codebase | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | gospect-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
+| prod-readiness | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
 | ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
 | vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -594,6 +596,8 @@ All 808 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
+| headcount | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-data-engineering-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | pm-claude-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-infrastructure-showcase | reference | | ✓ | SKIP | SOURCE-ONLY |
@@ -893,15 +897,15 @@ All 808 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 74 | 35 | 6 | 47% |
-| Implement | 242 | 116 | 4 | 48% |
+| Implement | 243 | 117 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
-| Review | 83 | 29 | 3 | 35% |
+| Review | 84 | 30 | 3 | 36% |
 | Ship | 3 | 1 | 1 | 33% |
 | Reflect | 8 | 4 | 3 | 50% |
 | Outer Loop | 62 | 19 | 2 | 31% |
-| Skills & Plugins | 108 | 38 | 4 | 35% |
+| Skills & Plugins | 110 | 39 | 4 | 35% |
 | Memory & Context | 67 | 24 | 2 | 36% |
 | MCP Servers | 53 | 17 | 2 | 32% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
 | Reference | 56 | 18 | 4 | 32% |
-| **Total** | **808** | **323** | **34** | **40%** |
+| **Total** | **812** | **326** | **34** | **40%** |
