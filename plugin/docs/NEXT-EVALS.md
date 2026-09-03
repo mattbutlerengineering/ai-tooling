@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 491 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 494 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 104 distinct values across these 491 leads (211 have zero overlap pressure; largest tie: 33) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 103 distinct values across these 494 leads (214 have zero overlap pressure; largest tie: 35) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 144 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 317 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 145 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 319 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 5 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -41,12 +41,12 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | ghostsecurity/skills | Review | 34.5 | pressure 13, gap 6.5 | `/evaluate-tool ghostsecurity/skills` |
 | agentmemory | Memory & Context | 34.4 | pressure 13, gap 6.4 | `/evaluate-tool agentmemory` |
 | ui-ux-pro-max | Skills & Plugins | 30.4 | pressure 11, gap 6.4 | `/evaluate-tool ui-ux-pro-max` |
+| gastown | Implement | 29.2 | pressure 11, gap 5.2 | `/evaluate-tool gastown` |
 | ralph-claude-code | Implement | 29.2 | pressure 11, gap 5.2 | `/evaluate-tool ralph-claude-code` |
 | claude-octopus | Review | 28.5 | pressure 10, gap 6.5 | `/evaluate-tool claude-octopus` |
 | impeccable | Skills & Plugins | 28.4 | pressure 10, gap 6.4 | `/evaluate-tool impeccable` |
 | ACE (agentic-context-engine) | Memory & Context | 28.4 | pressure 10, gap 6.4 | `/evaluate-tool ACE (agentic-context-engine)` |
 | browser-use | Verify | 27.3 | pressure 10, gap 5.3 | `/evaluate-tool browser-use` |
-| gastown | Implement | 27.2 | pressure 10, gap 5.2 | `/evaluate-tool gastown` |
 | memU | Memory & Context | 26.4 | pressure 9, gap 6.4 | `/evaluate-tool memU` |
 
 ## P1 successor-check — 0 leads
@@ -55,11 +55,11 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 144 leads
+## P2 challenger — 145 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 144 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 145 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
@@ -76,11 +76,11 @@ _Listing 12 of 144 — rerun `python3 triage.py` and read the source for the tai
 | mcp-use | MCP Servers | 18.7 | challenges fastmcp · pressure 5, gap 6.7 | `/triage-lead mcp-use` |
 | agnix | Review | 18.5 | challenges SkillSpector · pressure 5, gap 6.5 | `/triage-lead agnix` |
 
-## P3 backlog — 317 leads
+## P3 backlog — 319 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 317 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 319 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|

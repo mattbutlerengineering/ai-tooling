@@ -1,6 +1,6 @@
 # Recommended Stack
 
-The 30 tools worth installing on every project, distilled from 821 catalog entries and 845 evaluations. Each tool earned its slot by moving a quality signal — see the Evidence tiers below for how far each one was actually validated.
+The 30 tools worth installing on every project, distilled from 824 catalog entries and 848 evaluations. Each tool earned its slot by moving a quality signal — see the Evidence tiers below for how far each one was actually validated.
 
 ## Quick Start — 5 Highest Impact
 
@@ -145,7 +145,7 @@ Valuable but situational, so they're not in the every-project default above (#46
 
 ## What's NOT here
 
-- **821 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
+- **824 tools** are cataloged in [CATALOG.md](CATALOG.md) — this page is the curated subset
 - **CONDITIONAL tools** (context-mode, shadcn/improve, ralph-claude-code, etc.) are documented in [evaluations/](evaluations/) with guidance on when they're worth it
 - **Unevaluated tools** are tracked in [COMPARISON.md](COMPARISON.md) with evaluation coverage by stage
 - **2026-06-19 batch (19 tools), assessed for STACK — excluded (#37).** None met the bar (*"earned its slot by moving a quality signal in real testing"*): all were evaluated **source-grounded, not run hands-on**. Two fill genuine gaps and are flagged for a hands-on eval before any promotion — [code-on-incus](https://github.com/mensfeld/code-on-incus) (per-agent isolation + active defense; Security/Safety) and [brooks-lint](https://github.com/hyhmrright/brooks-lint) (design-decay reviewer; Review). The rest are niche, overlapping, or methodology-not-tool.

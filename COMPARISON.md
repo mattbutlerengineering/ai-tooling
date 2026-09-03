@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 821 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 824 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -135,6 +135,7 @@ All 821 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
 | useagent | tool | | ✓ | SKIP | SOURCE-ONLY |
+| vicoa | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
 | claude-task-master | tool | | ✓ | SKIP | REVIEW |
 | capa | tool | | ✓ | discovery-log | REVIEW |
@@ -274,6 +275,7 @@ All 821 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | acryl | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | LocalAI | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| codex-with-chatgpt | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | gpt-engineer | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | SWE-agent | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | continue | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -837,6 +839,7 @@ All 821 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-agent-skills | reference | | ✓ | discovery-log | REVIEW |
 | awesome-agent-skills (libukai) | reference | | ✓ | discovery-log | REVIEW |
 | awesome-ai-agents | reference | | ✓ | SKIP | REVIEW |
+| awesome-ai-agent-platforms | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL | RUN |
 | awesome-claude-code-subagents | reference | | ✓ | discovery-log | REVIEW |
 | ai-agents-for-beginners | reference | | ✓ | discovery-log | REVIEW |
@@ -906,7 +909,7 @@ All 821 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 74 | 35 | 6 | 47% |
-| Implement | 243 | 117 | 4 | 48% |
+| Implement | 245 | 117 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
 | Review | 85 | 30 | 3 | 35% |
 | Ship | 3 | 1 | 1 | 33% |
@@ -916,5 +919,5 @@ All 821 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Memory & Context | 69 | 25 | 2 | 36% |
 | MCP Servers | 55 | 18 | 2 | 33% |
 | Research & Discovery | 22 | 8 | 1 | 36% |
-| Reference | 56 | 18 | 4 | 32% |
-| **Total** | **821** | **330** | **34** | **40%** |
+| Reference | 57 | 18 | 4 | 32% |
+| **Total** | **824** | **330** | **34** | **40%** |
