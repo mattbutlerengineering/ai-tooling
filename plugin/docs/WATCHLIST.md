@@ -4,7 +4,7 @@ Everything worth re-evaluating or watching, **derived** (not hand-maintained) fr
 
 <!-- WATCHLIST:START -->
 
-## 1. Deferred — re-evaluate when trigger fires (5)
+## 1. Deferred — re-evaluate when trigger fires (6)
 
 Every `DEFER` verdict in the repo: promising but blocked, each with the re-evaluate trigger from its eval's `## Verdict` (per TEMPLATE.md's DEFER definition). A missing trigger is itself an action item. Most are [COMPARISON.md](https://github.com/mattbutlerengineering/ai-tooling/blob/main/COMPARISON.md) rows; an _eval-only_ entry is a DEFER carried by an eval with no catalog row — a bake-off or comparison document, whose subjects have their own rows — so it is linked to the eval instead.
 
@@ -14,6 +14,7 @@ Every `DEFER` verdict in the repo: promising but blocked, each with the re-evalu
 | [agentmemory-vs-claude-mem-bakeoff](evaluations/agentmemory-vs-claude-mem-bakeoff.md) _(eval-only)_ | Reflect | the three arms are actually run and the per-signal results recorded |
 | Apache DevLake | Outer Loop | working in a team context or when managing multiple repos with CI/CD pipelines |
 | letta | Memory & Context | your goal shifts from *augmenting a coding harness* to *building stateful agents into an application* |
+| openwiki | Reflect | running `openwiki --init` + one `--update` cycle with a real key on a mid-size repo (grade the wiki for hallucinations and the update for churn), or when the package passes ~v0.1 with tests |
 | SkillOpt | Skills & Plugins | a turnkey path from real dev sessions to a reward signal exists |
 
 ## 2. Flagged for hands-on before promotion (3)

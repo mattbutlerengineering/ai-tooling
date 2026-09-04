@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 832 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 833 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -488,6 +488,7 @@ All 832 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | documentation (anthropics) | skill | | ✓ | discovery-log | REVIEW |
 | oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 | slideops | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| openwiki | tool | ✓ | ✓ | DEFER | RUN |
 
 ## Outer Loop
 
@@ -921,11 +922,11 @@ All 832 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Verify | 30 | 14 | 2 | 47% |
 | Review | 85 | 30 | 3 | 35% |
 | Ship | 4 | 1 | 1 | 25% |
-| Reflect | 9 | 4 | 3 | 44% |
+| Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 63 | 20 | 2 | 32% |
 | Skills & Plugins | 114 | 40 | 4 | 35% |
 | Memory & Context | 70 | 25 | 2 | 36% |
 | MCP Servers | 55 | 18 | 2 | 33% |
 | Research & Discovery | 23 | 8 | 1 | 35% |
 | Reference | 57 | 18 | 4 | 32% |
-| **Total** | **832** | **330** | **34** | **40%** |
+| **Total** | **833** | **331** | **34** | **40%** |
