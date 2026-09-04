@@ -41,6 +41,40 @@ Sources: [`main` README](https://github.com/awslabs/aidlc-workflows/blob/main/RE
 [`v2` branch](https://github.com/awslabs/aidlc-workflows/tree/v2),
 [`v2`'s phases-and-stages doc](https://github.com/awslabs/aidlc-workflows/blob/v2/docs/guide/04-phases-and-stages.md).
 
+**Update (2026-09-02):** the "worth re-checking once `v2` merges to `main` and gets a tag" note above
+is now resolved — confirmed by cloning `main` read-only (`github.com` and `raw.githubusercontent.com`
+reachable this pass) rather than from search summaries. `main`'s HEAD (`a277af2`, 2026-09-02) now
+reads *"AI-DLC Workflows 2.0 is GA on `main`"*; the newest git tag is `v2.7.0` (2026-09-01, one day
+before this pass), with a full `v2.1.0`–`v2.7.0` tag history behind it, so this is a completed merge
+and release train, not a preview flag. Three things changed from the 3-phase pipeline this doc maps
+below. **The phase count went 3 → 5**: Initialization (0.1–0.3, workspace scaffold) and Ideation
+(1.1–1.7, intent capture through team formation and approval) now precede Inception, for 33 stages
+total run by a 14-agent roster (11 domain experts, 2 quality-gate reviewers, 1 adaptive-workflows
+composer) — Inception, Construction, and Operation keep their names and roughly their old scope.
+**The Operations gap this doc has called a placeholder since it was first written is closed in the
+reference implementation**: Operation (4.1–4.7) now ships seven named, agent-owned conditional
+stages — Deployment Pipeline, Environment Provisioning, Deployment Execution, Observability Setup,
+Incident Response, Performance Validation, and a terminal Feedback & Optimization stage that either
+closes the workflow or loops back to Ideation 1.1 — matching almost exactly what the 2026-08-24
+update above described as still unmerged upstream work. All seven stay skippable for `mvp`/`poc`
+scope, so "Operations is optional" survives; "Operations is unspecified" does not. **"Mob
+Elaboration"/"Mob Construction" as a synchronous, whole-team ceremony no longer appears in the
+shipped docs at all** — the closest surviving concept, `mode: mob` ("mob execution"), is now an
+asynchronous AI-agent mesh: a lead agent drafts, mutually-blind AI collaborators (design/developer/
+quality) each write a contribution file in parallel, the lead integrates, and only unresolved
+judgment calls surface to a human mid-stage. User Stories (2.4) is the one shipped example. That is
+a materially different mechanism than *"product, engineering, and QA reacting live to AI-generated
+questions in the same session"* — the "Single-player, not Mob" divergence bullet below was written
+against the original AWS blog posts' description and is now stale as a description of *this*
+reference implementation specifically; whether AWS's own methodology definition changed the same way
+is unconfirmed — the linked blog posts were not re-fetched this pass, only the OSS implementation's
+own docs, which now cite an "AI-DLC Workflows 2.0 Specification" whitepaper as their source rather
+than the original blog posts. Re-mapping the full stage table below to the 5-phase/33-stage shape is
+a larger job than this pass's conservative-diff mandate covers — flagged here rather than attempted
+piecemeal. Sources: [`main` README](https://github.com/awslabs/aidlc-workflows/blob/main/README.md),
+[`main`'s phases-and-stages guide](https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/04-phases-and-stages.md),
+[`main`'s glossary](https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/glossary.md).
+
 Unlike 8090's Software Factory, AI-DLC is not a paid product:
 AWS ships it as methodology plus an open rule-file reference implementation,
 [`awslabs/aidlc-workflows`](https://github.com/awslabs/aidlc-workflows) (catalogued, evaluated —
@@ -120,14 +154,18 @@ going through async review later. AWS positions this as the difference between a
   the same gap the 8090 mapping calls out as 8090's "multiplayer" claim. Two independently
   designed AI-native methodologies converging on live multi-role validation as differentiator is
   a signal worth taking seriously, even though neither maps onto a single-operator stack.
-- **No formalized Operations phase.** Neither AI-DLC's public reference implementation nor our
-  stack has a real answer for AI-authored deploy/monitor/remediate yet — see the stage note
-  above. **Update (2026-08-07):** a third-party fork of this same methodology,
+- **No formalized Operations phase — on our side only, as of 2026-09-02.** This bullet stood on the
+  claim that *neither* AI-DLC's reference implementation *nor* our stack has a real answer for
+  AI-authored deploy/monitor/remediate; that first half is no longer true. **Update (2026-08-07):**
+  a third-party fork of this same methodology,
   [TheBushidoCollective/ai-dlc](https://github.com/TheBushidoCollective/ai-dlc) (community-authored,
-  not AWS's), fills this gap concretely — declarative Scheduled/Reactive/Process operation specs with
-  explicit `agent`/`human` ownership. See [`bushido-ai-dlc-2026.md`](bushido-ai-dlc-2026.md) for the
-  full reading; our own stack still has no equivalent, but the shape of a filled-in Operations phase is
-  no longer purely hypothetical.
+  not AWS's), filled the gap with declarative Scheduled/Reactive/Process operation specs — see
+  [`bushido-ai-dlc-2026.md`](bushido-ai-dlc-2026.md). **Update (2026-09-02):** AWS's own reference
+  implementation now ships a concrete answer too — see the dated update note earlier in this file:
+  `awslabs/aidlc-workflows` `main` (GA, v2.7.0) runs a seven-stage Operation phase with a named owning
+  agent per stage (deploy, provision, execute, observe, respond to incidents, validate performance,
+  close the loop with a feedback/cost report). Our own stack still has no equivalent — the gap named
+  in this bullet is now specifically ours, not a shared one.
 - **The task-level half is already what we do, per our own evaluation.** Our
   [evaluation](../evaluations/aidlc-workflows.md) of the reference implementation found
   Construction-phase behavior "redundant at the task level" with `superpowers`'s inner loop —

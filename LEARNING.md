@@ -20,7 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-08-05 — the six software-factory channels and talks added
+**Last verified:** 2026-08-31 (this pass's addition, confirmed via search corroboration; see the
+dated footnote below for what else was checked). The rest of the page was previously verified
+2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
 watched end to end). The rest of the page was last confirmed 2026-06-28 — channel
 URLs, listed video links, and web resources confirmed via web fetch. Channels with
@@ -114,7 +116,21 @@ cross-checked across multiple independently-worded search summaries rather than 
 the same standard applied throughout this page. This pass also re-surfaced StrongDM's February
 2026 "dark factory" write-up (the origin of the term this page's Osmani and Horthy entries already
 discuss at length) and declined it — six months old, and it adds no claim beyond what those two
-entries already cover.
+entries already cover. The 2026-08-31 pass hit the identical egress wall a seventh time — a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel and a direct `curl` to both
+`youtube.com` and `arxiv.org` failed identically, so no video search or transcript pull ran and the
+one entry added this pass (below) is cross-checked across independently-worded search summaries
+rather than read from source. `github.com` and `raw.githubusercontent.com` were reachable this pass
+(same as 2026-08-24/2026-08-28), so `awslabs/aidlc-workflows` was re-checked directly by cloning
+`main` read-only rather than via search: `main`'s HEAD (`af650cf9`, 2026-08-29) still carries the
+same "Announcing 2.0 (GA)" banner first noted on 2026-08-24, the `v2` branch is still separate and
+unmerged, and the `OPERATIONS PHASE` section on `main` is still, verbatim, *"Deployment and
+monitoring (future)"* — no material change since the 2026-08-28 note, so nothing was added on that
+thread this pass. This pass also found a Mercari GEARS 2025 talk ("Specs to Code with Coding
+Agents: Where Do Engineers Come In?") on one team's spec-driven-development experience and declined
+it — the only public record is a slide deck, not text that can be quoted verbatim, and its own
+finding (generated code matched spec but needed heavy refactoring to become "good" code) is a single
+team's anecdote rather than a measured result, unlike the entries already on this page.
 
 ---
 
@@ -588,6 +604,29 @@ opposite. Confirmed via multiple independent search summaries (the arXiv abstrac
 Face paper page, EmergentMind's paper summary, all agreeing on the four-verifier structure and
 three-axis framing) — same egress block as the two entries above, so the paper was not directly
 read.
+
+### [The Productivity-Reliability Paradox: Specification-Driven Governance for AI-Augmented Software Development](https://arxiv.org/abs/2605.01160) — Sabry E. Farrag (University of East London; arXiv, 2026-05)
+A synthesis rather than new primary data — a multivocal literature review of 67 sources (2022-2026)
+— and worth citing for what it names rather than what it measures: the **Productivity-Reliability
+Paradox (PRP)**, the same contradiction several entries on this page already document piecemeal
+(METR's 19% slowdown above, the Microsoft rollout study's +24% above, Faros AI's telemetry) folded
+into one formal claim that it is a systematic phenomenon, not a fluke of any one study, arising from
+non-deterministic code generators paired with insufficient specification discipline. Its own headline
+telemetry citation — 10,000+ developers, 98% more pull requests merged, PR review time up 91%, flat
+delivery metrics — is Faros AI's *earlier* 2025 dataset (1,255 teams), a smaller predecessor to the
+22,000-developer "Acceleration Whiplash" report this page already cites, not a new measurement. What
+is new here is the **AI-Augmented Methodology Taxonomy (AAMT)**, classifying six established
+methodologies (TDD, BDD, DDD, Agile, Waterfall, DevOps) across three tiers of AI integration
+(Passive/Active/Autonomous) to isolate which methodological dimension a given tier of AI adoption
+actually stresses, and the **Specification Governance Model (SGM)** — a Transaction-Cost-Economics
+argument that treats a specification as the artifact that lowers the coordination cost non-deterministic
+generation otherwise imposes. Directly on point for the spec-driven-development cluster this repo
+already maps (`8090-software-factory-sdlc.md`'s PRD/Blueprints stages, `aws-ai-dlc.md`'s Inception
+phase, the Lahiri "intent gap" paper above): all three now converge on treating the spec as a
+governance artifact rather than documentation, from three independent angles. Confirmed via multiple
+independently-worded search summaries agreeing on the author, venue, and the PRP/AAMT/SGM structure —
+this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not
+directly read.
 
 ---
 

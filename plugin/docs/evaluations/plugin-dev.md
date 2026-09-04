@@ -3,7 +3,7 @@
 **Repo:** [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 **Stars:** 30,444 (monorepo) | **Last updated:** 2025-12-18 (plugin author: Daisy Hollman, daisy@anthropic.com) | **License:** MIT (per plugin README); monorepo is Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-05  <!-- triaged: human -->
+**Last triaged:** 2026-08-29  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (meta: building the tools you implement *with*)
 **Layer:** Tooling
 
@@ -69,8 +69,9 @@ Repo verification: confirmed. The catalog entry was UNLINKED; the plugin ships f
 
 ## Verdict
 
-**discovery-log — tentative read.** _No verdict is asserted here; see the triage note for why the
-parenthetical that used to sit on this line was wrong on its facts._
+**SKIP** — ships inside `anthropics/claude-plugins-official` — installing the container settles it; it is a component of that artifact, not a competitor to it.
+
+The read below predates the `Ships inside` column (#343) and is kept as color; the disposition above supersedes it. _No independent verdict is asserted; see the triage note for why the parenthetical that used to sit on this line was wrong on its facts, and for the P5 disposition below it._
 
 For anyone authoring Claude Code plugins, skills, agents, hooks, or MCP integrations, this is the strongest candidate in the catalog. It is the only first-party, comprehensive, auto-triggering authoring toolkit, it ships deterministic validators, and its provenance means it tracks the spec it documents better than any third-party alternative. This repo specifically maintains a `plugin/` marketplace package, so plugin-dev is directly applicable here for validating that package's structure and authoring new components.
 
@@ -116,6 +117,8 @@ status is a property of one laptop, so it can never be a CI gate — but it is l
 this one was wrong. Filed separately.
 
 _Triaged 2026-08-05 by a human pass over [#332](https://github.com/mattbutlerengineering/ai-tooling/issues/332)._
+
+**Re-triaged 2026-08-29 by the P5 ships-inside band ([#565](https://github.com/mattbutlerengineering/ai-tooling/issues/565)):** this row's `Ships inside` cell declares its container as `anthropics/claude-plugins-official`, whose own `COMPARISON.md` verdict is a settled `KEEP`. Per `NEXT-EVALS.md`'s P5 disposition, a row that ships inside a settled container is never an independent lead. This is orthogonal to the install-status finding above — that finding was about whether *this specific plugin* is locally enabled, not about whether it needs its own catalog verdict; a component of an already-catalogued marketplace doesn't get one either way, it rides on the container's. SKIPped on that mechanical ground; earning an independent KEEP (per the bar the previous note sets) remains open to a *human* pass, not this bulk lane.
 
 ## Catalog entry
 
