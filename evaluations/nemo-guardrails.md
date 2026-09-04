@@ -3,7 +3,7 @@
 **Repo:** [NVIDIA-NeMo/Guardrails](https://github.com/NVIDIA-NeMo/Guardrails)
 **Stars:** ~6,500 | **Last updated:** 2026-06-19 | **License:** Apache-2.0 (repo SPDX returns NOASSERTION)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-04  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (runtime guardrails / Outer Loop)
 **Layer:** Infrastructure
 
@@ -74,6 +74,8 @@ frames it the same way from the other side.
 Weigh at promotion: added latency, and Colang is a language your team has to learn.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-09-04 by the P3 backlog band (daily discovery pass):** no change — still a live, permissively-licensed guardrails toolkit with genuine overlaps (`superagent`, `presidio`, `garak`) rather than a clean incumbent to be redundant with; left at `discovery-log`.
 
 ## Catalog entry
 
