@@ -3,7 +3,7 @@
 **Repo:** [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)
 **Stars:** 105,414 | **Last updated:** 2026-06-19 (pushed; created 2025-04-17) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-04  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (an interactive terminal coding agent — query/edit codebases, run shell, fetch web; spills into Verify via `/review`, async PR-review skills, and CI automation, and into Plan via its `/full-context` and introspection commands)
 **Layer:** Tooling (a Node.js CLI that wraps Google's Gemini models as an agentic loop with built-in tools, MCP support, and an extension/skill system) — a direct peer of Claude Code, not infrastructure or process
 
@@ -95,6 +95,19 @@ Filed separately rather than acted on here.
 
 This row specifically: Google-owned, Apache-2.0, ★106K, pushed today — the best-resourced member of
 the set and the one an unmeasured comparison would be least likely to dislodge.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+## Triage note
+
+Left at `discovery-log`. The verdict headline already does the eliminate-only reasoning that matters:
+adopt as a second, Gemini-native CLI for big-context/free-tier work, not a replacement harness. Not
+SKIPped — it is a genuinely differentiated first-party alternative (1M-token context, search
+grounding, no-card free tier), not redundant with the catalog's Claude Code-centered incumbents.
+
+**Re-triaged 2026-09-04 by the P3 backlog band (daily discovery pass):** no change — still a live,
+well-resourced alternative harness with a clear complementary use case; nothing structural shifted
+this pass.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
