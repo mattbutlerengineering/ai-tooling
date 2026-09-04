@@ -131,6 +131,22 @@ Agents: Where Do Engineers Come In?") on one team's spec-driven-development expe
 it — the only public record is a slide deck, not text that can be quoted verbatim, and its own
 finding (generated code matched spec but needed heavy refactoring to become "good" code) is a single
 team's anecdote rather than a measured result, unlike the entries already on this page.
+The 2026-09-04 pass hit the identical egress wall an eighth time — a bare `ytsearch3:test`
+yt-dlp query failed with a 403 on the CONNECT tunnel and the agent-proxy's own status endpoint
+recorded `connect_rejected` CONNECT failures for `www.youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `addyosmani.com` alike — so no video search or transcript pull ran, and
+the four entries added this pass (two Anthropic research posts, an Anthropic engineering
+postmortem, and a Universidad Politécnica de Madrid spec-driven-development paper) are
+cross-checked across multiple independently-worded search summaries rather than read from
+source, the same standard applied throughout this page. `github.com` and
+`raw.githubusercontent.com` were reachable this pass (via a read-only `git clone`, the same path
+used since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly rather than via
+search: `main`'s HEAD is unchanged at `a277af2`, the exact commit
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md)'s 2026-09-02 update already confirmed, so nothing
+further was added on that thread this pass. This pass also found `ai-boost/awesome-harness-engineering`,
+a curated list of harness-engineering tools, patterns, and evals — plausibly worth a
+discovery-lane look, named here rather than added, since a `CATALOG.md` row is outside this
+lane's scope.
 
 ---
 
@@ -627,6 +643,80 @@ governance artifact rather than documentation, from three independent angles. Co
 independently-worded search summaries agreeing on the author, venue, and the PRP/AAMT/SGM structure —
 this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not
 directly read.
+
+### [An update on recent Claude Code quality reports](https://www.anthropic.com/engineering/april-23-postmortem) — Anthropic Engineering (2026-04-23)
+Anthropic's own engineering postmortem tracing six weeks of user reports that Claude Code had
+gotten worse (2026-03-04 to 2026-04-20) to three independent harness/product-layer changes rather
+than a model regression: (1) 2026-03-04, the default reasoning effort quietly dropped from high to
+medium to cut thinking latency and usage-limit pressure — Anthropic's own ablations found this cost
+roughly 3% quality on both Opus 4.6 and 4.7; (2) 2026-03-26, a caching optimization meant to clear
+thinking-block context only from sessions idle over an hour instead cleared it on every turn for the
+rest of any session; (3) an overly aggressive system-prompt verbosity limit, costing a further ~3%.
+All three shipped independently, overlapped for weeks before anyone connected them, and were fixed
+by 2026-04-20 (v2.1.116); Anthropic reset usage limits for every subscriber as compensation. Worth
+reading as the concrete case this page's harness-engineering cluster (Hashimoto/Fowler/Anthropic/
+OpenAI above) has otherwise only argued in the abstract: **Agent = Model + Harness**, demonstrated
+here by its own negative case — three changes invisible to any model eval degraded real usage for
+six weeks while the underlying model was untouched, and the fix was the harness-engineering
+discipline those posts already prescribe (find the environmental regression, encode a check against
+its recurrence) rather than anything about the model. Confirmed via multiple independent write-ups
+(VentureBeat, InfoQ, GIGAZINE) quoting the same official Anthropic language, dates, and version
+number — this pass's sandbox blocked `anthropic.com` outright (`EGRESS_BLOCKED`), so the postmortem
+itself was not directly read.
+
+### [Measuring AI agent autonomy in practice](https://www.anthropic.com/research/measuring-agent-autonomy) — Anthropic (2026-02)
+Anthropic's own measured data on the autonomy-ladder topic this page's Zakariasson, Reyes, Osmani,
+and `bushido-ai-dlc-2026.md` entries have so far only theorized: an analysis of millions of Claude
+Code and API tool calls, each scored by Claude itself for risk (1-10) and autonomy (1-10). Roughly
+73% of tool calls show a human in the loop and only 0.8% appear irreversible; software engineering
+alone accounts for roughly half of all tool calls on the public API. The sharper finding is
+behavioral rather than static: auto-approval rises from ~20% of turns for users under 50 sessions to
+over 40% by ~750 sessions, while the interrupt rate rises *alongside* it (roughly 5% → 9%) rather
+than falling — read together, that is not less oversight but a shift from approving each action to
+monitoring a stream and intervening selectively. Turn duration at the 99.9th percentile nearly
+doubled in three months studied (Oct 2025-Jan 2026), from under 25 minutes to over 45. Worth reading
+as this page's first autonomy entry grounded in measured usage rather than a proposed framework.
+Confirmed via multiple independent write-ups (Latent Space's AINews, Cosmic JS, AgentMarketCap,
+the-decoder.com) converging on the same figures — this pass's sandbox blocked `anthropic.com`
+outright (`EGRESS_BLOCKED`), so the post itself was not directly read.
+
+### [Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise) — Anthropic (2026-06-16)
+A companion field study to the autonomy post above, at similar scale: roughly 400,000 Claude Code
+sessions from roughly 235,000 users, October 2025-April 2026. Its central finding complicates the
+Shen & Tamkin skill-formation RCT elsewhere on this page from the opposite direction — that study
+found passive delegation costs comprehension; this one finds what predicts *success* in the first
+place is domain expertise in the problem, not coding proficiency. Every one of the ten largest
+occupation groups succeeds at nearly the software-engineer rate (engineers verified 34%; every group
+lands within seven points), expert-rated sessions succeed 28-33% of the time against 15% for novice
+sessions, and the gap narrows further between experts and intermediates — proficiency, not mastery,
+is most of what the tool rewards. The division of labor holds throughout: people decide what to
+build, the agent decides how, and expert users trigger roughly 12 Claude actions per prompt against
+5 for novices. Over the seven-month window the share of sessions spent debugging fell by roughly
+half as usage shifted toward end-to-end agentic work (deploy, run, analyze data). Worth reading
+alongside Shen & Tamkin's 52-developer RCT as a field-scale complement rather than a duplicate: a
+different question (what drives success, not what it costs), converging on the same answer that
+engagement with the problem — not raw tool skill — is what separates good outcomes from bad ones.
+Confirmed via multiple independent write-ups (TIGZIG, digitalapplied.com, techjacksolutions.com, AI
+Weekly) converging on the same session/user counts and percentages — same `anthropic.com` egress
+block as the entry above, so the post itself was not directly read.
+
+### [Spec-Driven Development for Agentic Software Engineering: Harnessing Human-Agent Teamwork](https://arxiv.org/abs/2609.00252) — Jessica Díaz, Joaquín Gayoso, Andrea Cimminio, Jorge Pérez (Universidad Politécnica de Madrid; arXiv, 2026-08-31)
+Names the same productivity paradox this page already documents piecemeal (Faros AI, the Microsoft
+rollout study, CodeRabbit, "Debt Behind the AI Boom", Farrag's PRP synthesis above) from the
+spec-driven-development side: as individual productivity rises under agentic delegation, team
+throughput, review capacity, and stability degrade because team-scale engineering discipline gets
+neglected. Its contribution is conceptual rather than measured — a gray-literature synthesis, by the
+paper's own account, since peer-reviewed evidence here is still thin — but it is the first entry on
+this page to explicitly frame Spec-Driven Development itself *as* the harness: the technical and
+methodological mechanism through which a team governs agent behavior at scale, rather than a
+documentation practice bolted onto the workflow after the fact. That framing bridges two clusters
+this page tracks separately — the spec-as-governance-artifact reading (`8090-software-factory-sdlc.md`'s
+PRD/Blueprints stages, `aws-ai-dlc.md`'s Inception phase, Lahiri's intent-gap paper, Farrag's PRP/SGM
+synthesis above) and the harness-engineering reading (Hashimoto/Fowler/Anthropic/OpenAI above,
+plus the Anthropic postmortem added this pass) — treating them as one discipline rather than two.
+Confirmed via multiple independent search summaries (the arXiv abstract page and its HTML rendering)
+agreeing on the authors, affiliation, and framing — this pass's sandbox blocked `arxiv.org` outright
+(`EGRESS_BLOCKED`), so the paper itself was not directly read.
 
 ---
 
