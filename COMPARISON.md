@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 824 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 832 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -87,6 +87,8 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | codebase-to-course | skill | | ✓ | SKIP | REVIEW |
 | sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
+| fireworks-open-eli5 | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Implement
 
@@ -117,7 +119,7 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-router | tool | | ✓ | discovery-log | REVIEW |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
-| CLIProxyAPI | tool | | ✓ | discovery-log | REVIEW |
+| CLIProxyAPI | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | litellm | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
@@ -337,6 +339,7 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claudian | plugin | | ✓ | discovery-log | REVIEW |
 | jetbrains-cc-gui | plugin | | ✓ | discovery-log | REVIEW |
 | babysitter | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| governed-agent-skills | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Verify
 
@@ -470,6 +473,7 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | bernstein | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
 | worktrunk | tool | | $ | discovery-log | REVIEW |
+| no-negative-echo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reflect
 
@@ -669,6 +673,8 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-skill-creator | skill | | ✓ | SKIP | SOURCE-ONLY |
 | wondelai/skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-design-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| SkillCorpus | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| harness-ai-kit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Memory & Context
 
@@ -743,6 +749,7 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opencontext | MCP server | | ✓ | SKIP | SOURCE-ONLY |
+| llm-wiki-cli | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -830,6 +837,7 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Awesome-LLMOps (InftyAI) | reference | | ✓ | SKIP | SOURCE-ONLY |
 | Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| best-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -908,16 +916,16 @@ All 824 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 74 | 35 | 6 | 47% |
-| Implement | 245 | 117 | 4 | 48% |
+| Plan | 76 | 35 | 6 | 46% |
+| Implement | 246 | 117 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
 | Review | 85 | 30 | 3 | 35% |
-| Ship | 3 | 1 | 1 | 33% |
+| Ship | 4 | 1 | 1 | 25% |
 | Reflect | 9 | 4 | 3 | 44% |
 | Outer Loop | 63 | 20 | 2 | 32% |
-| Skills & Plugins | 112 | 40 | 4 | 36% |
-| Memory & Context | 69 | 25 | 2 | 36% |
+| Skills & Plugins | 114 | 40 | 4 | 35% |
+| Memory & Context | 70 | 25 | 2 | 36% |
 | MCP Servers | 55 | 18 | 2 | 33% |
-| Research & Discovery | 22 | 8 | 1 | 36% |
+| Research & Discovery | 23 | 8 | 1 | 35% |
 | Reference | 57 | 18 | 4 | 32% |
-| **Total** | **824** | **330** | **34** | **40%** |
+| **Total** | **832** | **330** | **34** | **40%** |
