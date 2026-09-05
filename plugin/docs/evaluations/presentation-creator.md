@@ -5,7 +5,7 @@
 **Dev loop stage:** Skills & Plugins (presentations)
 **Layer:** Process
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-05  <!-- triaged: bulk -->
 
 ---
 
@@ -43,6 +43,8 @@ No eval file existed before this pass; this stub is the placeholder, not an eval
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 **Re-triaged 2026-08-30 by the P5 ships-inside band ([#567](https://github.com/mattbutlerengineering/ai-tooling/issues/567)):** no change — the container this row's `Ships inside` cell names, `getsentry/skills`, is still itself an undisposed `discovery-log` row. Left at `discovery-log`.
+
+**Re-triaged 2026-09-05 by the P5 ships-inside band:** no change — `getsentry/skills` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog entry
 

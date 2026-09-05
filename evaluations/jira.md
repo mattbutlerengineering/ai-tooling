@@ -3,7 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (active) | **License:** MIT (not an official Atlassian product)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-30  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-05  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (read tickets → scope work) and Ship (update status / close tickets); touches Reflect when summarizing what shipped
 **Layer:** Tooling (team-workflow integration; connects the agent to a live Jira instance)
 
@@ -88,6 +88,8 @@ is the alternative to weigh against the community repo's much broader deployment
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
 **Re-triaged 2026-08-30 by the P5 ships-inside band ([#567](https://github.com/mattbutlerengineering/ai-tooling/issues/567)):** no change — the container this row's `Ships inside` cell names, `sooperset/mcp-atlassian`, is still itself an undisposed `discovery-log` row. Per the P5 disposition, settling a component is not this lane's call while its container remains an un-disposed lead; left at `discovery-log`.
+
+**Re-triaged 2026-09-05 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log` (its own eval leaves it deliberately unsettled: a maintained, official-ish umbrella server worth a real look, not a mechanical disposition). Left at `discovery-log`.
 
 ## Catalog entry
 
