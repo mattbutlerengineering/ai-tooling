@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-08-31 (this pass's addition, confirmed via search corroboration; see the
+**Last verified:** 2026-09-07 (this pass's addition, confirmed via search corroboration; see the
 dated footnote below for what else was checked). The rest of the page was previously verified
 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -146,7 +146,24 @@ search: `main`'s HEAD is unchanged at `a277af2`, the exact commit
 further was added on that thread this pass. This pass also found `ai-boost/awesome-harness-engineering`,
 a curated list of harness-engineering tools, patterns, and evals — plausibly worth a
 discovery-lane look, named here rather than added, since a `CATALOG.md` row is outside this
-lane's scope.
+lane's scope. The 2026-09-07 pass hit the identical egress wall a ninth time — a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel and a direct `curl` to both
+`youtube.com` and `arxiv.org` failed identically (`connect_rejected`), so no video search or
+transcript pull ran, and the one entry added this pass (below) is cross-checked across
+independently-worded search summaries rather than read from source, the same standard applied
+throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same
+as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning
+`main` read-only: HEAD moved to `e768988` (2026-09-07, a Windows `safe.directory` test fix) with no
+new tag past `v2.7.0`, and the README's GA banner and phase structure are unchanged from the
+2026-09-02 note in [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) — a maintenance commit, not a
+methodology change, so nothing was added on that thread this pass. This pass also found
+`strongdm/attractor`, a non-interactive coding-agent spec (three markdown files, no code — "feed
+these into your coding agent of choice") built for StrongDM's dark-factory Software Factory —
+plausibly worth a discovery-lane look as an installable artifact, named here rather than added for
+the same reason as `awesome-harness-engineering` above. The StrongDM dark-factory write-up itself
+was already declined on 2026-08-31 as adding no claim beyond what the Osmani/Horthy entries below
+already cover, and that holds for `attractor` too — it is the same factory's tooling, not a new
+methodology claim.
 
 ---
 
@@ -717,6 +734,26 @@ plus the Anthropic postmortem added this pass) — treating them as one discipli
 Confirmed via multiple independent search summaries (the arXiv abstract page and its HTML rendering)
 agreeing on the authors, affiliation, and framing — this pass's sandbox blocked `arxiv.org` outright
 (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [Comprehension Debt in GenAI-Assisted Software Engineering Projects](https://arxiv.org/abs/2604.13277) — Muhammad Ovais Ahmad (Karlstad University; arXiv, 2026-04; presented at EASE 2026, Glasgow)
+The first controlled study found for this page that operationalizes "Comprehension Debt" itself,
+rather than citing the term the way the Osmani entry above coined it. A qualitative study of 621
+reflective diaries from 207 students across an eight-week undergraduate software-engineering
+project, coding how GenAI use accumulates or offsets the gap between what a team knows about its
+codebase and what it needs to know to maintain it. Identifies four accumulation patterns —
+AI-as-black-box code acceptance, context-mismatch debt (locally-correct suggestions that ignore
+project conventions and cost more to adapt than they save), dependency-induced atrophy, and
+verification-bypass — against one mitigating pattern: using GenAI as a comprehension scaffold
+(asking it to explain rather than just accepting its output) built understanding instead of eroding
+it, the same distinction the Shen & Tamkin RCT above draws between passive delegation and engaged
+verification. Weaker evidence than that RCT — a single course cohort rather than a randomized
+trial, and student novices rather than professional developers — but it is the first source on this
+page to name concrete, repeatable *mechanisms* for comprehension debt rather than only its
+aggregate cost, which is what makes it a companion to the Osmani post rather than a duplicate of it.
+Confirmed via multiple independently-worded search summaries (the arXiv abstract page, a third-party
+literature-review summary, a practitioner write-up) agreeing on the same diary/student/pattern
+counts — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, consistent with every
+prior pass since 2026-08-10), so the paper itself was not directly read.
 
 ---
 
