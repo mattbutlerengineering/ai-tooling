@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 875 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 885 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -91,6 +91,7 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
 | fireworks-open-eli5 | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| StructSmith | tool | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Implement
 
@@ -393,6 +394,7 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
 | browser-act/skills | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | why-ui | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| iOS-Trace | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Review
 
@@ -485,6 +487,9 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
 | ctf-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | gitwarren-app | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| MergeProof | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| rseng-agent-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| deedchain | tool | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Ship
 
@@ -584,6 +589,8 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agit | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | ltrace | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-track | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Clawdeck | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| CodingPlanQuota | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Skills & Plugins (domain-specific)
 
@@ -789,6 +796,8 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | llm-wiki-cli | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | KoragraphMCP | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | okf-agent-memory | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Attic | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| MemoryMint | tool | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -879,6 +888,7 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Awesome-LLMOps (tensorchord) | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | best-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| FactReach | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -959,16 +969,16 @@ All 875 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 78 | 35 | 6 | 45% |
+| Plan | 79 | 35 | 6 | 44% |
 | Implement | 260 | 117 | 4 | 45% |
-| Verify | 32 | 14 | 2 | 44% |
-| Review | 87 | 30 | 3 | 34% |
+| Verify | 33 | 14 | 2 | 42% |
+| Review | 90 | 30 | 3 | 33% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 70 | 20 | 2 | 29% |
+| Outer Loop | 72 | 20 | 2 | 28% |
 | Skills & Plugins | 119 | 41 | 4 | 34% |
-| Memory & Context | 76 | 26 | 2 | 34% |
+| Memory & Context | 78 | 26 | 2 | 33% |
 | MCP Servers | 57 | 18 | 2 | 32% |
-| Research & Discovery | 23 | 8 | 1 | 35% |
+| Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 59 | 18 | 4 | 31% |
-| **Total** | **875** | **333** | **34** | **38%** |
+| **Total** | **885** | **333** | **34** | **38%** |
