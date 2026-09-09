@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-07 (this pass's addition, confirmed via search corroboration; see the
+**Last verified:** 2026-09-09 (this pass's addition, confirmed via search corroboration; see the
 dated footnote below for what else was checked). The rest of the page was previously verified
 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -163,7 +163,26 @@ plausibly worth a discovery-lane look as an installable artifact, named here rat
 the same reason as `awesome-harness-engineering` above. The StrongDM dark-factory write-up itself
 was already declined on 2026-08-31 as adding no claim beyond what the Osmani/Horthy entries below
 already cover, and that holds for `attractor` too — it is the same factory's tooling, not a new
-methodology claim.
+methodology claim. The 2026-09-09 pass hit the identical egress wall a tenth time — a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel, confirmed independently via
+the agent proxy's own status endpoint recording `connect_rejected` for `www.youtube.com` — so no
+video search or transcript pull ran, and the one entry added this pass (below) is cross-checked
+across independently-worded search summaries rather than read from source, the same standard
+applied throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass
+(same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by
+cloning `main` read-only: HEAD moved to `52da70a` (2026-09-09, a hook-adapter routing fix) and a new
+tag `v2.8.0` has appeared since the 2026-09-07 note's `v2.7.0`, but the single commit between the
+two tags (`fix: accept source-ref-only provenance checks`) is a bug fix rather than a methodology
+change, and the README's GA banner and phase structure are unchanged — so nothing further was added
+on that thread this pass. This pass also found and declined a September 2026 arXiv survey by a
+Northeastern University author ("Beyond Code Generation: Reliability, Verification, and Cost
+Economics in the Agentic Software Development Lifecycle") — a single-author literature synthesis
+drawing on sources this page already cites individually (Faros AI, the Microsoft rollout study,
+METR) with no new primary measurement or named framework of its own, the same call already made
+against ASDLC.io and the StrongDM re-surfacing above. It also found Addy Osmani's "Agent Harness
+Engineering" essay (May 2026, also republished on O'Reilly Radar) and declined to add it separately:
+its own concrete example is the LangChain benchmark result added below, so citing Osmani's synthesis
+of it would be a re-treatment rather than the primary source.
 
 ---
 
@@ -412,6 +431,22 @@ open-sourced infrastructure — not merely more marketing language reusing the t
 via multiple independent write-ups agreeing on the same facts (Open Source For You, BigGo
 Finance, kenhuangus Substack, note.com) rather than a direct fetch — this pass's sandbox
 blocked both `openai.com` and `developers.openai.com` outright (`EGRESS_BLOCKED`).
+
+### [Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) — LangChain (2026-02-17)
+The first concretely *quantified* evidence in this page's harness-engineering cluster for a claim
+the Hashimoto/Fowler/Anthropic/OpenAI entries above have so far only asserted in the abstract.
+LangChain moved its own coding agent (`deepagents-cli`) from outside the Terminal Bench 2.0 top 30
+into the top 5 — a 13.7-point jump, 52.8 → 66.5 — while holding the underlying model fixed
+(`gpt-5.2-codex`) and changing only the harness: the system prompt (emphasizing a self-verification
+loop), the tools and context injection, and a middleware layer (LangChain's term for hooks around
+model and tool calls) including a `PreCompletionChecklistMiddleware` that forces a verification pass
+before the agent is allowed to report done. This is **Agent = Model + Harness** (Hashimoto's formula
+above) demonstrated as a measured before/after delta on a public leaderboard rather than argued as an
+anecdote — the missing quantified case this page's harness-engineering reading otherwise only makes
+in principle. Confirmed via multiple independent write-ups (StartupHub.ai, blockchain.news,
+explainx.ai) agreeing on the same before/after scores, model, and middleware name — this pass's
+sandbox blocked `langchain.com`/`www.langchain.com` outright (`EGRESS_BLOCKED`), so the post itself
+was not directly read.
 
 ### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
 A measured comparison (not a vendor claim) of 470 real open-source pull requests
