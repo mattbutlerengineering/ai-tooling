@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 885 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 889 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -235,6 +235,7 @@ All 885 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | omnigent | framework | | ✓ | discovery-log | REVIEW |
 | opencode | platform | | ✓ | CONDITIONAL | RUN |
 | deepseek-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| grok-build | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | dsh-ios | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mobilecode | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
@@ -462,6 +463,8 @@ All 885 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skill-scanner | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skilldoctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skill-safety-checker | plugin | | ✓ | SKIP | SOURCE-ONLY |
+| agent-scan | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -484,6 +487,7 @@ All 885 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | 1c-quality-gate | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ship-it | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
+| pullfrog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
 | ctf-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | gitwarren-app | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -970,9 +974,9 @@ All 885 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 79 | 35 | 6 | 44% |
-| Implement | 260 | 117 | 4 | 45% |
+| Implement | 261 | 117 | 4 | 45% |
 | Verify | 33 | 14 | 2 | 42% |
-| Review | 90 | 30 | 3 | 33% |
+| Review | 93 | 30 | 3 | 32% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 72 | 20 | 2 | 28% |
@@ -981,4 +985,4 @@ All 885 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 57 | 18 | 2 | 32% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 59 | 18 | 4 | 31% |
-| **Total** | **885** | **333** | **34** | **38%** |
+| **Total** | **889** | **333** | **34** | **37%** |
