@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-09 (this pass's addition, confirmed via search corroboration; see the
+**Last verified:** 2026-09-11 (this pass's addition, confirmed via search corroboration; see the
 dated footnote below for what else was checked). The rest of the page was previously verified
 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -182,7 +182,23 @@ METR) with no new primary measurement or named framework of its own, the same ca
 against ASDLC.io and the StrongDM re-surfacing above. It also found Addy Osmani's "Agent Harness
 Engineering" essay (May 2026, also republished on O'Reilly Radar) and declined to add it separately:
 its own concrete example is the LangChain benchmark result added below, so citing Osmani's synthesis
-of it would be a re-treatment rather than the primary source.
+of it would be a re-treatment rather than the primary source. The 2026-09-11 pass hit the identical
+egress wall an eleventh time — a bare `ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT
+tunnel and a direct `curl` to `youtube.com`, `arxiv.org`, `anthropic.com`, and `martinfowler.com` all
+failed identically (`connect_rejected`), so no video search or transcript pull ran, and the one entry
+added this pass (below) is cross-checked across independently-worded search summaries rather than
+read from source, the same standard applied throughout this page. `github.com` and
+`raw.githubusercontent.com` were reachable this pass (same as every pass since 2026-08-24), so
+`awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD moved to `0a21d7f`
+(2026-09-11, "add intent archive and unarchive lifecycle verbs") — a CLI feature for the workflow
+tool's own intent-tracking, not a phase or GA-status change — so nothing was added on that thread
+this pass. This pass also checked the dark-factory/lit-factory, ADW, context-engineering, and
+levels-of-autonomy searches the sweep is scoped to and found only re-treatments of ground this page
+already covers in depth (the Osmani/Horthy/Zakariasson/Anthropic-autonomy entries above) or vendor
+content with no new primary claim — nothing there earned a place. The one addition, below, is
+counter-evidence: a controlled difference-in-differences study finding Cursor adoption's velocity
+gain is transient while its complexity and static-analysis-warning cost is not, from the same CMU
+research group (Kästner, Vasilescu, Miller) behind the "3100 Opinions" entry already on this page.
 
 ---
 
@@ -612,6 +628,28 @@ cited on this page) can point either way depending on decisions an author makes 
 they're decisions. Confirmed via multiple independently-worded search summaries converging on the
 same methodology and the same abstract phrasing — this pass's sandbox blocked `arxiv.org` outright
 (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [Speed at the Cost of Quality: How Cursor AI Increases Short-Term Velocity and Long-Term Complexity in Open-Source Projects](https://arxiv.org/abs/2511.04427) — Hao He, Courtney Miller, Shyam Agarwal, Christian Kästner, Bogdan Vasilescu (CMU; arXiv, MSR 2026 Technical Papers)
+A companion paper to the "3100 Opinions" entry above, from three of the same authors (Miller,
+Kästner, Vasilescu), and a methodological step up from most of the observational evidence already
+on this page: a difference-in-differences design with a matched control group rather than a
+before/after or survey read. 806 GitHub projects that adopted Cursor between January 2024 and March
+2025 are compared against 1,380 propensity-score-matched "never-treated" repositories with similar
+size, age, stars, forks, and activity trajectories. Findings: adoption produces a large but
+**transient** velocity gain — lines added roughly 3-5x during month one, dissipating within two
+months — alongside a **persistent** rise in code complexity (reported ~41%) and static analysis
+warnings (reported ~30%) that does not dissipate over the study window. The sharper claim is a
+feedback loop rather than a one-time cost: a panel GMM model finds the accumulated complexity
+subsequently *reduces* future development velocity, i.e. the transient speed-up seeds a persistent
+drag rather than a one-time trade a team pays once and keeps the gain. Directly on point for this
+repo's own [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the strongest
+causal (not merely correlational) counter-evidence on this page yet for the throughput-vs-quality
+trade the Faros AI and "Debt Behind the AI Boom" entries above already document observationally — a
+matched-control design is what the practitioner-vs-vendor number gap this page tracks has been
+missing. Confirmed via multiple independent sources (the arXiv abstract page, the MSR 2026 Technical
+Papers program listing, the CMU StruDeL lab's own hosted PDF, alphaXiv) agreeing on the authors,
+design, and figures — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the
+paper itself was not directly read.
 
 ### [Configuring Agentic AI Coding Tools: An Exploratory Study](https://arxiv.org/abs/2602.14690) — Matthias Galster, Seyedmoein Mohsenimofidi, Jai Lal Lulla, Muhammad Auwal Abubakar, Christoph Treude, Sebastian Baltes (arXiv, 2026-02; accepted AIware 2026)
 The adoption census the two AGENTS.md efficacy studies above (Gloaguen et al. and Lulla et al.)
