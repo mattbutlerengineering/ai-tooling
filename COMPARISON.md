@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 895 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 899 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -337,6 +337,7 @@ All 895 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibecode-pro-max-kit | harness | | ✓ | SKIP | REVIEW |
 | re_gent | tool | | ✓ | discovery-log | REVIEW |
 | ai-terminal-manager | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| rune | tool | | ✓ | SKIP | SOURCE-ONLY |
 | h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cli-continues | tool | | ✓ | discovery-log | REVIEW |
 | export-md | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -447,6 +448,7 @@ All 895 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shut-up-and-code | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | prove-it | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -548,6 +550,7 @@ All 895 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | tracecrate | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| cross-code-organizer | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | brink | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -911,6 +914,7 @@ All 895 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awesome-ai-agent-platforms | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | italia-mcp-servers | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Awesome-OKF | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| awesome-harness-evolution | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-claude-code | reference | | ✓ | CONDITIONAL | RUN |
 | awesome-claude-code-subagents | reference | | ✓ | discovery-log | REVIEW |
 | ai-agents-for-beginners | reference | | ✓ | discovery-log | REVIEW |
@@ -980,15 +984,15 @@ All 895 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 79 | 35 | 6 | 44% |
-| Implement | 261 | 117 | 4 | 45% |
+| Implement | 262 | 118 | 4 | 45% |
 | Verify | 34 | 14 | 2 | 41% |
-| Review | 94 | 30 | 3 | 32% |
+| Review | 95 | 30 | 3 | 32% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 74 | 21 | 2 | 28% |
+| Outer Loop | 75 | 21 | 2 | 28% |
 | Skills & Plugins | 120 | 42 | 4 | 35% |
 | Memory & Context | 79 | 26 | 2 | 33% |
 | MCP Servers | 57 | 18 | 2 | 32% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
-| Reference | 59 | 18 | 4 | 31% |
-| **Total** | **895** | **335** | **34** | **37%** |
+| Reference | 60 | 18 | 4 | 30% |
+| **Total** | **899** | **336** | **34** | **37%** |
