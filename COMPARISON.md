@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 899 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 903 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -337,10 +337,12 @@ All 899 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | vibecode-pro-max-kit | harness | | ✓ | SKIP | REVIEW |
 | re_gent | tool | | ✓ | discovery-log | REVIEW |
 | ai-terminal-manager | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agent-launcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | rune | tool | | ✓ | SKIP | SOURCE-ONLY |
 | h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cli-continues | tool | | ✓ | discovery-log | REVIEW |
 | export-md | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| ai-data-extractor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | weave | tool | ✓ | ✓ | discovery-log | REVIEW |
 | moire | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | airship | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -449,6 +451,7 @@ All 899 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| repro-lens | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | prove-it | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -682,6 +685,7 @@ All 899 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skill-recorder | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | video-to-skill | tool | | ✓ | SKIP | SOURCE-ONLY |
 | SkillOpt | framework | | ✓ | DEFER | REVIEW |
+| SkillAdam | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | stop-slop | skill | | ✓ | discovery-log | REVIEW |
 | taste-skill | skill | | ✓ | discovery-log | REVIEW |
 | agent-vision-toolkit | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -984,15 +988,15 @@ All 899 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 79 | 35 | 6 | 44% |
-| Implement | 262 | 118 | 4 | 45% |
+| Implement | 264 | 118 | 4 | 45% |
 | Verify | 34 | 14 | 2 | 41% |
-| Review | 95 | 30 | 3 | 32% |
+| Review | 96 | 30 | 3 | 31% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 75 | 21 | 2 | 28% |
-| Skills & Plugins | 120 | 42 | 4 | 35% |
+| Skills & Plugins | 121 | 43 | 4 | 36% |
 | Memory & Context | 79 | 26 | 2 | 33% |
 | MCP Servers | 57 | 18 | 2 | 32% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 60 | 18 | 4 | 30% |
-| **Total** | **899** | **336** | **34** | **37%** |
+| **Total** | **903** | **337** | **34** | **37%** |
