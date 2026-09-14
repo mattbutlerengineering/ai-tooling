@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-11 (this pass's addition, confirmed via search corroboration; see the
+**Last verified:** 2026-09-14 (this pass's addition, confirmed via search corroboration; see the
 dated footnote below for what else was checked). The rest of the page was previously verified
 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -199,6 +199,33 @@ content with no new primary claim — nothing there earned a place. The one addi
 counter-evidence: a controlled difference-in-differences study finding Cursor adoption's velocity
 gain is transient while its complexity and static-analysis-warning cost is not, from the same CMU
 research group (Kästner, Vasilescu, Miller) behind the "3100 Opinions" entry already on this page.
+The 2026-09-14 pass hit the identical egress wall a twelfth time — a direct `curl` to `youtube.com`,
+`arxiv.org`, `anthropic.com`, and `martinfowler.com` all failed identically (`connect_rejected`) and
+a bare `ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel, so no video search or
+transcript pull ran, and the two entries added this pass (below) are cross-checked across
+independently-worded search summaries rather than read from source, the same standard applied
+throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `572c826` (43 commits since 2026-09-11's `0a21d7f`), tags now run through
+`v2.8.2` (a `v2.8.3-preview` also exists, a nightly build artifact rather than a release). None of it
+is a methodology change: the diff against `v2.7.0`'s README is almost entirely an install-mechanism
+rewrite (the old per-harness `bun`-copy install replaced by a single native `aidlc` CLI binary
+installer) plus a rename — "adaptive scopes" is now marketed as "workflow profiles," and the
+project's own `docs/guide/workflow-profiles.md` says outright *"the engine calls a workflow profile
+a scope. The two terms describe the same choice from different perspectives"* — so the 5-phase/
+33-stage/14-agent structure this doc mapped on 2026-09-02 is unchanged; nothing was added on that
+thread this pass. This pass also checked the dark-factory/lit-factory, agentic-SDLC,
+harness-engineering, spec-driven-development, and levels-of-autonomy searches the sweep is scoped
+to and found mostly re-treatments already covered (Swarmia's five autonomy levels, March 2026;
+"Agentsway," an AI-native methodology name from an October 2025 preprint; a multi-agent-coordination
+essay cluster from around March 2026 framing concurrent coding agents as a distributed-systems
+problem) or small single-repo academic papers below this page's bar (a Kotlin skill-optimization
+taxonomy, a six-framework SDD process taxonomy) — none of those earned a place on their own. Two
+things did: both are fresh (submitted 2026-09-07 and 2026-09-11, inside this pass's one-week window)
+and both are the highest-value kind of find this sweep is scoped to look for — one is a direct,
+measured contradiction of a specific tool's self-reported numbers that this repo's own catalog had
+already flagged as unverified, the other is the first large-N empirical security study found for
+this page of exactly the skill/hook/MCP-config artifact class this repo installs and catalogs.
 
 ---
 
@@ -827,6 +854,50 @@ Confirmed via multiple independently-worded search summaries (the arXiv abstract
 literature-review summary, a practitioner write-up) agreeing on the same diary/student/pattern
 counts — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, consistent with every
 prior pass since 2026-08-10), so the paper itself was not directly read.
+
+### [Skill Issue: Lessons from Optimizing Repository SKILLs for Coding Agents](https://arxiv.org/abs/2609.12742) (arXiv, 2026-09-11)
+Direct counter-evidence to a specific self-reported claim this repo's own catalog already flagged
+as unverified. Our [`evaluations/skillopt.md`](evaluations/skillopt.md) (verdict **DEFER**, Evidence
+`REVIEW`) explicitly declined to check Microsoft SkillOpt's headline numbers — *"every claim about
+accuracy lifts... is the authors' README/paper framing, which I did not verify"* — and named the
+missing piece as *"a turnkey path from real dev sessions to a reward signal"* on a real codebase,
+as opposed to SkillOpt's own shipped academic benchmarks. This paper builds exactly that: instead of
+the small synthetic tasks prior work (SkillOpt included) saturates with no skill document at all, the
+authors mine a harder benchmark from a repository's own merged pull requests, reverted at a single
+frozen base commit, and score a candidate skill document by whether the same agent does measurably
+better with it than without it. On three real-world Kotlin repositories under that harder benchmark,
+a different optimizer (GEPA) raised the score 4.9 percentage points on average (matching prior
+reports, though inseparable from run-to-run variance at this sample size) — while **SkillOpt's own
+edits left the score 0.1 points above the seed, no measurable improvement at all**. This doesn't
+contradict SkillOpt's numbers on its own benchmarks, but it is the independent, harder, real-repo
+test our eval said didn't exist yet, and on that test the optimizer that inspired our DEFER trigger
+produced nothing — worth folding into that eval's "How we tested" the next time it's revisited (out
+of this lane's scope to do directly). Confirmed via multiple independently-worded search summaries
+(the arXiv abstract page, its HTML rendering) agreeing on the same benchmark design and 4.9pp/0.1pp
+figures — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself
+was not directly read.
+
+### [Scanning the Harness: An Empirical Study of Supply-Chain Defects in AI Coding-Agent Configurations](https://arxiv.org/abs/2609.07360) — Benjamin Kapner, Carmel Soceanu, Alicia Petrunin, Hofni Gartner (Red Hat; arXiv, 2026-09-07)
+The first large-scale empirical study found for this page of exactly the artifact class this repo
+installs and catalogs — instruction files, skills, commands, hooks, MCP server declarations, and
+subagent definitions for Claude Code, Cursor, GitHub Copilot, and Codex. Surveys 3,171 public GitHub
+repositories (2,660 setups assembling two or more component types, 511 published skill collections)
+and frames the whole surface precisely: *"a dependency layer installed from marketplaces and public
+repositories, running with the developer's privileges... with no lockfile, no install-time check, and
+no vocabulary for what a component may do"* — the same gap detector Y's install-record reading
+(#366) and `STACK-LEDGER.md`'s `Install evidence` column exist to partially answer for this repo's
+own installs, generalized to the wild. Reported findings: 9.8% of surveyed setups install an MCP
+server with no version pinned, and 3.1% pre-approve arbitrary execution behind a scoped-looking
+permission grant. Methodologically disciplined for a bulk scan — findings are restricted to rules
+"decidable from bytes" (a security exposure, a configuration that cannot work, or a spec departure),
+and each is validated by an independent re-derivation from the repository's pinned commit plus an
+LLM adjudicator on disagreements and a second independent model recheck — the same
+validate-before-counting discipline this repo's own detectors apply to their findings. Worth
+weighing the next time this repo evaluates a skill collection or MCP server for `CATALOG.md`: the
+install itself, not just the tool's function, is a measured risk surface. Confirmed via multiple
+independently-worded search summaries (the arXiv abstract page, its HTML rendering, an alphaXiv
+translation) agreeing on the same repo/setup counts and the 9.8%/3.1% figures — this pass's sandbox
+blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not directly read.
 
 ---
 
