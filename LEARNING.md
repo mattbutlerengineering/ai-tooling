@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-14 (this pass's addition, confirmed via search corroboration; see the
+**Last verified:** 2026-09-16 (this pass's addition, confirmed via search corroboration; see the
 dated footnote below for what else was checked). The rest of the page was previously verified
 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -226,6 +226,37 @@ and both are the highest-value kind of find this sweep is scoped to look for —
 measured contradiction of a specific tool's self-reported numbers that this repo's own catalog had
 already flagged as unverified, the other is the first large-N empirical security study found for
 this page of exactly the skill/hook/MCP-config artifact class this repo installs and catalogs.
+The 2026-09-16 pass hit the identical egress wall a thirteenth time — a direct `curl` to
+`youtube.com`, `arxiv.org`, `anthropic.com`, and `martinfowler.com` all failed identically
+(`connect_rejected`), and a fresh `pip install yt-dlp` followed by a bare `ytsearch3:test` query
+failed with a 403 on the CONNECT tunnel, so no video search or transcript pull ran, and the one
+entry added this pass (below, citing two companion papers) is cross-checked across independently-
+worded search summaries rather than read from source, the same standard applied throughout this
+page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same as every pass
+since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only:
+HEAD moved to `09be7bd` (2026-09-16), tags now run through `v2.9.0`. The README was substantially
+rewritten in this range — it drops the "GA on main" version-status banner and the "OPERATIONS
+PHASE ... (future)" placeholder language this page's [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md)
+update log has tracked since 2026-08-24, replacing it with a stable multi-harness pitch (Claude
+Code, Kiro CLI, Kiro IDE, Codex CLI, Cursor, opencode, GitHub Copilot) and feature additions (11
+workflow profiles, Commit Provenance, an adversarial AI PR-review agent, on-demand Construction
+autonomy) — but the structure `aws-ai-dlc.md` actually maps, 5 phases / 33 stages / a 14-agent
+roster (11 domain experts, 2 reviewers, 1 adaptive composer), is stated verbatim and unchanged, so
+nothing was added to that file this pass. This pass also checked the dark-factory/lit-factory, ADW,
+harness-engineering, and levels-of-autonomy searches the sweep is scoped to and found only
+re-treatments of ground this page already covers (Osmani's light/dark framing; IndyDevDan's
+software-factory video and its now-productized `disler/super-simple-software-factory` skill —
+named here rather than added, a discovery-lane candidate rather than a methodology claim) or vendor
+content with no new primary claim, including Anthropic's own 2026 Agentic Coding Trends Report (a
+customer-case-study forecast document, not a research paper — declined on the same grounds already
+applied to the Faros/CodeRabbit vendor material this page distinguishes from its measured entries)
+and Cognition's self-reported OCBC/Itaú deployment numbers. Two off-topic near-misses on term
+overlap alone were declined as out of scope rather than as weak evidence: an arXiv paper on
+"verification bandwidth" in *scientific peer review* (not code review), and a longitudinal pilot
+study on a general "verification bottleneck" in human problem-solving with no coding-specific task
+design. The one entry added this pass is the genuine find: the first quantified research this page
+carries specifically against naive "more context is better," directly on the context-engineering
+topic in this sweep's scope.
 
 ---
 
@@ -898,6 +929,25 @@ install itself, not just the tool's function, is a measured risk surface. Confir
 independently-worded search summaries (the arXiv abstract page, its HTML rendering, an alphaXiv
 translation) agreeing on the same repo/setup counts and the 9.8%/3.1% figures — this pass's sandbox
 blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [The Limits of Long-Context Reasoning in Automated Bug Fixing](https://arxiv.org/abs/2602.16069) — Ravi Raju, Mengmeng Ji, Shubhangi Upasani, Bo Li, Urmish Thakker (arXiv, 2026-02; ICLR 2026 ICBINB workshop)
+The first measured counter-evidence found for this page against the naive form of context
+engineering — "give the agent more context" — rather than the curate-and-prune form this repo's
+own dev-loop framing and the harness-engineering cluster above already argue for. Using SWE-bench
+Verified inside an agentic harness (mini-SWE-agent), the paper's token-level analysis finds that
+successful bug-fixing trajectories typically stay under 20k-30k tokens, and that longer accumulated
+context *correlates with lower success rates* rather than higher; forcing an artificially inflated
+64k-token context collapses performance outright — GPT-5-nano resolves none of its test tasks, and
+Qwen3-Coder-30B-A3B drops to a 7% resolve rate. A companion benchmark reaches the same conclusion
+from the retrieval side: [SWE-ContextBench](https://arxiv.org/abs/2602.08316) (Jiayuan Zhu, Junde
+Wu, Minhao Hu, Shengda Zhu, Jiazhen Pan, Weixiang Shen; arXiv, 2026-02), 1,476 tasks across 51
+repositories and 9 languages testing whether agents can reuse experience across related
+issues/PRs, finds that only correctly-selected, compactly-summarized prior context helps —
+unfiltered context gives limited or negative benefit. Together they are the first entries on this
+page to put a number on what context engineering is protecting against: not merely wasted tokens,
+but measurably worse outcomes from more of them. Confirmed via multiple independently-worded search
+summaries agreeing on the same benchmark design, harness, and figures for both papers — this pass's
+sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so neither paper was directly read.
 
 ---
 
