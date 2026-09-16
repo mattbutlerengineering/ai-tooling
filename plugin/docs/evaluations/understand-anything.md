@@ -3,7 +3,7 @@
 **Repo:** [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)
 **Stars:** 63,945 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-16  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (codebase understanding / onboarding before and during implementation)
 **Layer:** Tooling
 
@@ -89,7 +89,10 @@ onboarding guides. Different consumer, different moment. The eval also states ou
 Re-evaluating it toward ADOPT needs the thing this lane cannot do — the eval names the trigger
 (a live MCP query interface, or reproducible cost/quality benchmarks). P0 work.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+Re-examined 2026-09-16 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-stamped 2026-09-16._
 
 ## Catalog entry
 

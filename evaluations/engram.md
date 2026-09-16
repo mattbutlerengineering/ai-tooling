@@ -3,7 +3,7 @@
 **Repo:** [Gentleman-Programming/engram](https://github.com/Gentleman-Programming/engram)
 **Stars:** 4,493 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-16  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -69,7 +69,10 @@ when architectural decisions evolve — are things [`claude-mem`](https://github
 (STACK) does not do. The eval is explicit that claude-mem stays simpler for Claude-Code-only work,
 which is a fit statement, not a redundancy finding.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+Re-examined 2026-09-16 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264)); re-stamped 2026-09-16._
 
 ## Catalog entry
 

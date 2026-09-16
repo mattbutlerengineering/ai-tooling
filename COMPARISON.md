@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 921 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 931 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -141,6 +141,9 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cachebeat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-routing | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| tokenflux | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
@@ -387,6 +390,7 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | CloakBrowser | tool | | ✓ | SKIP | REVIEW |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL | MEASURED |
 | scenario | framework | ✓ | ✓ | discovery-log | REVIEW |
+| eval-genius | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | assay | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentagon | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | aimock | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -442,6 +446,7 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
 | vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cdmx-in/security-review | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| AXguard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | patchbot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Quant-Off/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | PR-Agent | tool | ✓ | ✓ | SKIP | REVIEW |
@@ -471,6 +476,7 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | secretguard-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | toolpermit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Argus | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
 | claude-red | skill | | ✓ | SKIP | SOURCE-ONLY |
 | Claude-AD | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -550,6 +556,8 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | debroid | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | roundtable | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | zoetrope | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-agent-flow | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| flowpane | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | OrcaReplay | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | agenttrail | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | csift | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -569,6 +577,7 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | brink | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| hotseat | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-log-cli | tool | | ✓ | SKIP | SOURCE-ONLY |
 | agenta | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | codeburn | tool | | ✓ | ADOPT | MEASURED |
@@ -672,6 +681,7 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
 | headcount | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| maintainer-skills-lab | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-data-engineering-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | pm-claude-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1006,15 +1016,15 @@ All 921 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 81 | 35 | 6 | 43% |
-| Implement | 269 | 119 | 4 | 44% |
-| Verify | 37 | 14 | 2 | 38% |
-| Review | 98 | 30 | 3 | 31% |
+| Implement | 272 | 119 | 4 | 44% |
+| Verify | 38 | 14 | 2 | 37% |
+| Review | 100 | 30 | 3 | 30% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 77 | 21 | 2 | 27% |
-| Skills & Plugins | 123 | 43 | 4 | 35% |
+| Outer Loop | 80 | 21 | 2 | 26% |
+| Skills & Plugins | 124 | 43 | 4 | 35% |
 | Memory & Context | 81 | 26 | 2 | 32% |
 | MCP Servers | 57 | 18 | 2 | 32% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 60 | 18 | 4 | 30% |
-| **Total** | **921** | **338** | **34** | **37%** |
+| **Total** | **931** | **338** | **34** | **36%** |
