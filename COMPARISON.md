@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 931 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 937 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -437,6 +437,7 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | oss-pr-reviewer | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | herdr-hunk-diff | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | kodus-ai | platform | ✓ | ✓/$ | SKIP | REVIEW |
+| jev-review | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | skylos | tool | ✓ | ✓ | CONDITIONAL | RUN |
 | simplify-codebase | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | gospect-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -497,6 +498,7 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | x64dbg-mcp-server | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ida-headless-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pentest-ai | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| blitzstrike | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | strix | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Claude-BugHunter | skill | | ✓ | SKIP | REVIEW |
 | hol-guard | tool | ✓ | ✓ | SKIP | REVIEW |
@@ -702,6 +704,7 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
 | Only-Skill-You-Need | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | jump-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| skillranker | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | oil-skill-creator | tool | | ✓ | SKIP | SOURCE-ONLY |
 | repo2skill | tool | | ✓ | SKIP | SOURCE-ONLY |
 | biks-claude-loader-update | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -743,6 +746,7 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | web-access | skill | ✓ | ✓ | discovery-log | REVIEW |
 | cc-skills-golang | skill | | ✓ | ADOPT | REVIEW |
 | waza (Microsoft) | tool | ✓ | ✓ | discovery-log | REVIEW |
+| skill-audit | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skills-hub | tool | | ✓ | discovery-log | REVIEW |
 | agent-skill-sync | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skill_manager | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -836,6 +840,8 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opencontext | MCP server | | ✓ | SKIP | SOURCE-ONLY |
+| intent-continuity | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| genesis-memory | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
 | delx-memory | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gogol | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | llm-wiki-cli | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1018,13 +1024,13 @@ All 931 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 81 | 35 | 6 | 43% |
 | Implement | 272 | 119 | 4 | 44% |
 | Verify | 38 | 14 | 2 | 37% |
-| Review | 100 | 30 | 3 | 30% |
+| Review | 102 | 30 | 3 | 29% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 80 | 21 | 2 | 26% |
-| Skills & Plugins | 124 | 43 | 4 | 35% |
-| Memory & Context | 81 | 26 | 2 | 32% |
+| Skills & Plugins | 126 | 43 | 4 | 34% |
+| Memory & Context | 83 | 26 | 2 | 31% |
 | MCP Servers | 57 | 18 | 2 | 32% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 60 | 18 | 4 | 30% |
-| **Total** | **931** | **338** | **34** | **36%** |
+| **Total** | **937** | **338** | **34** | **36%** |
