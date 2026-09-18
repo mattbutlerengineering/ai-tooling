@@ -3,7 +3,7 @@
 **Repo:** [microsoft/autogen](https://github.com/microsoft/autogen)
 **Stars:** 59,615 | **Last updated:** 2026-04-15 (pushed) | **License:** CC-BY-4.0
 **Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-18  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Process (framework)
 
