@@ -3,7 +3,7 @@
 **Repo:** [karanb192/claude-code-hooks](https://github.com/karanb192/claude-code-hooks)
 **Stars:** ~462 | **License:** MIT
 **Last verified:** 2026-08-02
-**Last triaged:** 2026-08-02  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-18  <!-- triaged: bulk -->
 **Dev loop stage:** Skills & Plugins
 **Layer:** Tooling
 

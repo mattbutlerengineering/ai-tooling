@@ -3,7 +3,7 @@
 **Repo:** [hetaoBackend/mcp-github-trending](https://github.com/hetaoBackend/mcp-github-trending)
 **Stars:** 56 | **License:** MIT
 **Last verified:** 2026-08-02
-**Last triaged:** 2026-08-02  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-18  <!-- triaged: bulk -->
 **Dev loop stage:** MCP Servers
 **Layer:** Infrastructure
 
