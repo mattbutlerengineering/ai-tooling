@@ -20,9 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-16 (this pass's addition, confirmed via search corroboration; see the
-dated footnote below for what else was checked). The rest of the page was previously verified
-2026-08-05 — the six software-factory channels and talks added
+**Last verified:** 2026-09-18 (this pass's addition/correction, confirmed via search corroboration;
+see the dated footnote below for what else was checked). The rest of the page was previously
+verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
 watched end to end). The rest of the page was last confirmed 2026-06-28 — channel
 URLs, listed video links, and web resources confirmed via web fetch. Channels with
@@ -257,6 +257,31 @@ study on a general "verification bottleneck" in human problem-solving with no co
 design. The one entry added this pass is the genuine find: the first quantified research this page
 carries specifically against naive "more context is better," directly on the context-engineering
 topic in this sweep's scope.
+The 2026-09-18 pass hit the identical egress wall a fourteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch3:test` query failed with a 403 on the CONNECT tunnel
+(`Tunnel connection failed: 403 Forbidden`), and a direct `curl` to `youtube.com`, `arxiv.org`,
+`anthropic.com`, and `martinfowler.com` all failed identically, so no video search or transcript
+pull ran. `github.com`, `api.github.com`, and `raw.githubusercontent.com` were reachable this pass
+(same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by
+cloning `main` read-only: HEAD moved to `87cc7f0` (2026-09-18), the engine's own tool count grew
+70 → 71, and the roadmap/release-process docs picked up native-binary, config-wizard and
+release-channel detail — all internal engineering and release-process content; the 5-phase/
+33-stage/14-agent structure [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) maps is unchanged, so
+nothing was added on that thread this pass. This pass also checked IBM's "AI-DLC: The AI-Driven
+Development Lifecycle" explainer page and declined it — it is a generic glossary-style term
+explainer with no named pipeline or stage structure of its own, unlike AWS's `aidlc-workflows`
+(a real, versioned, open-source product this page already maps) — its reuse of the identical
+"AI-DLC" initialism for a different, undocumented concept is worth a reader's caution rather than a
+new entry, and none is added here. It also found and declined a June 2026 arXiv paper proposing
+graduated human-oversight tiers for agentic code generation specifically in regulated domains
+(banking/finance compliance, mapped against Bank of Thailand, MAS, NIST AI RMF and EU AI Act
+regimes) as out of this catalog's scope rather than as weak evidence, the same call already made
+against off-topic near-misses in the 2026-09-16 pass. The one addition this pass is a correction
+rather than a new find: the 2026-09-14 pass found arXiv 2609.04681 and declined it as a synthesis
+"with no new primary measurement or named framework of its own" — a closer read this pass, cross-checked
+across three independent sources, shows that call was wrong: the paper does coin four named
+concepts. The entry below corrects the record and cites it on that basis, the same bar Farrag's
+PRP/AAMT/SGM synthesis already cleared elsewhere on this page.
 
 ---
 
@@ -948,6 +973,33 @@ page to put a number on what context engineering is protecting against: not mere
 but measurably worse outcomes from more of them. Confirmed via multiple independently-worded search
 summaries agreeing on the same benchmark design, harness, and figures for both papers — this pass's
 sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so neither paper was directly read.
+
+### [Beyond Code Generation: Reliability, Verification, and Cost Economics in the Agentic Software Development Lifecycle](https://arxiv.org/abs/2609.04681) — Happy Bhati (Northeastern University; arXiv, 2026-09-04)
+A correction to this page's own record rather than a new find. The 2026-09-14 pass located this
+same paper and declined it as *"a single-author literature synthesis drawing on sources this page
+already cites individually... with no new primary measurement or named framework of its own."* A
+closer read this pass shows the "no named framework" half of that call was wrong. The paper is
+still a synthesis, not new primary data — by its own account it "synthesizes peer-reviewed
+software-engineering research, university studies, benchmark audits, production reports... and
+cost-management evidence" from 2024 through September 2026 rather than running a study of its own
+— but it does coin four named concepts, the same shape that already earned Farrag's PRP/AAMT/SGM
+entry above a place on this page: the **Agentic SDLC Throughput Paradox** (code-generation gains
+can outrun release gains, so local productivity growth does not translate linearly into shipped
+value), **Production-Qualified Change (PQC)** (a unit of output that counts a change only once it
+clears review, test, security, deployment and operational gates — not merely a merged diff),
+the **Verification Tax** (the downstream assurance cost of agentic generation made explicit — CI,
+reviewer time, security analysis, rework and escaped failures, not only tokens), and an **Agentic
+SDLC Control Plane** (a policy/telemetry layer allocating models, context, parallelism, retries,
+tests and human review by task risk, reliability evidence, budget and organizational capacity).
+PQC and the Verification Tax read as sharper, checkable restatements of ground this page already
+covers piecemeal — Faros AI's throughput-vs-incident trade, "Debt Behind the AI Boom"'s finding
+that AI-introduced issues persist rather than get cleaned up, and the paper's own citation of the
+Microsoft rollout and METR studies already on this page — so treat this as the naming layer over
+evidence this page already carries, not a fifth independent data point. Confirmed via three
+independent sources agreeing on all four terms, the author, and the submission date (the arXiv
+abstract page itself, pith.science's paper summary, and an X/Twitter summary quoting the report)
+— this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, the fourteenth consecutive
+pass to hit this wall), so the paper itself was not directly read.
 
 ---
 
