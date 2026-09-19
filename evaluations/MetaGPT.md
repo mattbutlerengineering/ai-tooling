@@ -2,8 +2,8 @@
 
 **Repo:** [FoundationAgents/MetaGPT](https://github.com/FoundationAgents/MetaGPT)
 **Stars:** ~69,000 | **License:** MIT
-**Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last verified:** 2026-09-19
+**Last triaged:** 2026-09-19  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Process (framework)
 
@@ -29,4 +29,7 @@ framework with a real architectural identity (simulated software company with fi
 from the general-purpose multi-agent frameworks it's catalogued near. Too significant to SKIP as
 "redundant" on a source-only read. Left for the P0/eval-runner lane.
 
-_Triaged 2026-08-03 by today's discovery lead (5-oldest-untriaged pass)._
+_Re-triaged 2026-09-19 by the daily discovery routine (oldest-untriaged sweep) — disposition
+re-confirmed unchanged: still a major, well-known role-based multi-agent framework with no new
+overlap or STACK incumbent covering its specific "simulated software company" architecture.
+Originally triaged 2026-08-03._

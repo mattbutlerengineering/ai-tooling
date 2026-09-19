@@ -2,8 +2,8 @@
 
 **Repo:** [openai/codex](https://github.com/openai/codex)
 **Stars:** 96,747 | **Last updated:** 2026-07-10 (pushed) | **License:** Apache-2.0
-**Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last verified:** 2026-09-19
+**Last triaged:** 2026-09-19  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -28,4 +28,6 @@ Left at `discovery-log`: at ~97K stars, Codex is OpenAI's first-party terminal c
 direct, highly significant peer to Claude Code itself — clearly not redundant with any single
 catalogued tool, and far too consequential to mechanically SKIP. Left for the P0/eval-runner lane.
 
-_Triaged 2026-08-03 by today's discovery lead (5-oldest-untriaged pass)._
+_Re-triaged 2026-09-19 by the daily discovery routine (oldest-untriaged sweep) — disposition
+re-confirmed unchanged: still OpenAI's first-party terminal coding agent, far too consequential to
+mechanically SKIP. Originally triaged 2026-08-03._

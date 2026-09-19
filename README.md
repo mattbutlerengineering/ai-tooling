@@ -28,11 +28,11 @@ This gives you five skills:
 
 - [PLAYBOOK.md](PLAYBOOK.md) — **start here**: how to use AI for development in one page — what to install, how to work, what to watch
 - [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
-- [CATALOG.md](CATALOG.md) — flat inventory of 947 tools with definitions, problem statements, and overlap markers
+- [CATALOG.md](CATALOG.md) — flat inventory of 957 tools with definitions, problem statements, and overlap markers
 - [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
-- [STACK.md](STACK.md) — the 30 tools worth installing, distilled from 975 evaluations
+- [STACK.md](STACK.md) — the 30 tools worth installing, distilled from 985 evaluations
 - [LEARNING.md](LEARNING.md) — curated AI/AI-coding learning resources: YouTube channels, talks, and web references (passive learning, not catalogued tools)
-- [evaluations/](evaluations/) — 975 evaluation files: 347 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 282 still at `discovery-log` — leads, not verdicts — and 346 stubs and comparison documents
+- [evaluations/](evaluations/) — 985 evaluation files: 348 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 282 still at `discovery-log` — leads, not verdicts — and 355 stubs and comparison documents
 
 ## Integrity
 
