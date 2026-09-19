@@ -2,8 +2,8 @@
 
 **Repo:** [cline/cline](https://github.com/cline/cline)
 **Stars:** 64,504 | **Last updated:** 2026-07-10 (pushed) | **License:** Apache-2.0
-**Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last verified:** 2026-09-19
+**Last triaged:** 2026-09-19  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -29,4 +29,6 @@ Left at `discovery-log`: at ~65K stars, Cline is the most-starred tool in its cl
 significant, widely-adopted autonomous coding agent — clearly not a mechanical SKIP candidate
 despite overlapping other editor-based agents. Left for the P0/eval-runner lane.
 
-_Triaged 2026-08-03 by today's discovery lead (5-oldest-untriaged pass)._
+_Re-triaged 2026-09-19 by the daily discovery routine (oldest-untriaged sweep) — disposition
+re-confirmed unchanged: still the most-starred tool in its class with no new STACK incumbent
+covering it. Originally triaged 2026-08-03._
