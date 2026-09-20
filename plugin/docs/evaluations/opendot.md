@@ -3,7 +3,7 @@
 **Repo:** [vedaant00/opendot](https://github.com/vedaant00/opendot)
 **Stars:** 18 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
 **Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-20  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -31,3 +31,7 @@ reversibility guarantee is a real differentiator worth a first-time look, not a 
 Left for the P0/eval-runner lane.
 
 _Triaged 2026-08-03 by today's discovery lead._
+
+**Re-triaged 2026-09-20 by the P3 backlog band:** no change — the full-undo reversibility
+differentiator against gptme/aider/pi/command-code still stands; left at `discovery-log` for the
+P0/eval-runner lane.

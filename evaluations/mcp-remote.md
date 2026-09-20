@@ -3,7 +3,7 @@
 **Repo:** [abluva/mcp-remote](https://github.com/abluva/mcp-remote)
 **Stars:** 12 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
 **Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-20  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -32,3 +32,7 @@ not squarely covered by the named overlaps. Very low traction (12 stars, 3 days 
 maturity. Left for the P0/eval-runner lane.
 
 _Triaged 2026-08-03 by today's discovery lead._
+
+**Re-triaged 2026-09-20 by the P3 backlog band:** no change — still low traction (still no STACK
+incumbent among its named overlaps), still a narrower real pain point than the broader gateways;
+left at `discovery-log` for the P0/eval-runner lane.
