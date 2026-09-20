@@ -3,7 +3,7 @@
 **Repo:** [mrpulor-gh/nuphus-mcp](https://github.com/mrpulor-gh/nuphus-mcp)
 **Stars:** 50 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
 **Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-20  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Infrastructure
 
@@ -31,3 +31,7 @@ browser devtools rather than the whole desktop. nuphus-mcp's OS-level computer-u
 real gap none of those close. Left for the P0/eval-runner lane.
 
 _Triaged 2026-08-03 by today's discovery lead._
+
+**Re-triaged 2026-09-20 by the P3 backlog band:** no change — the desktop-automation gap this fills
+is still not covered by DesktopCommanderMCP/unity-mcp/chrome-devtools-mcp; left at `discovery-log`
+for the P0/eval-runner lane.

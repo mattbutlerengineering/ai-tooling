@@ -3,7 +3,7 @@
 **Repo:** [HezaoHezao/poirot](https://github.com/HezaoHezao/poirot)
 **Stars:** 110 | **Last updated:** 2026-07-28 (pushed) | **License:** MIT
 **Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-20  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Process (tool)
 
@@ -30,3 +30,7 @@ the one-liner alone doesn't give enough to confidently call it redundant or dist
 mechanical SKIP; needs a real look. Left for the P0/eval-runner lane.
 
 _Triaged 2026-08-03 by today's discovery lead._
+
+**Re-triaged 2026-09-20 by the P2 challenger band:** no change — still not enough beyond the
+one-liner to confidently call it redundant with autoresearch/llm-council/ARIS; left at
+`discovery-log` for the P0/eval-runner lane.
