@@ -3,7 +3,7 @@
 **Repo:** [jeremylongshore/claude-code-plugins-plus-skills](https://github.com/jeremylongshore/claude-code-plugins-plus-skills)
 **Stars:** ~2.6K | **License:** MIT
 **Last verified:** 2026-08-02
-**Last triaged:** 2026-08-02  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-15  <!-- triaged: bulk -->
 **Dev loop stage:** Skills & Plugins
 **Layer:** Tooling
 
@@ -23,4 +23,4 @@ We did **not** install or run this tool. This evaluation is source-grounded only
 
 Left at `discovery-log` rather than SKIPped: unlike existing directory/hub entries (`buildwithclaude`, `claude-plugins-official`), this one ships an actual CLI package manager (`ccpi`) for search/install/update rather than just a browsable list — a meaningfully different mechanism, not a duplicate. That differentiation is worth a real hands-on eval (does `ccpi` actually work, is the catalog curated or scraped) rather than a mechanical SKIP as "redundant with buildwithclaude."
 
-_Triaged 2026-08-02 by the daily discovery routine (today's new lead)._
+_Triaged 2026-09-15 by the daily discovery routine (today's new lead)._

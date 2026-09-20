@@ -3,7 +3,7 @@
 **Repo:** [QwenLM/qwen-code](https://github.com/QwenLM/qwen-code)
 **Stars:** 25,365 (2,536 forks) | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify (a full inner-loop terminal agent — but a *replacement* front-end, not a Claude Code add-on)
 **Layer:** Tooling (an alternative agent harness / standalone CLI), backed by Infrastructure (Alibaba's Qwen models)
 
@@ -90,6 +90,8 @@ this eval lifts it above the flat-SKIP tier it puts `claurst` in. A row with a d
 into the incumbent harness is not redundant with the incumbent.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-09-04 by the P3 backlog band (daily discovery pass):** no change — the CONDITIONAL-shaped read (SKIP as a harness replacement, legitimate for Claw/acpx delegation or a Qwen-centric stack) still stands; no new interop or benchmark evidence surfaced this pass.
 
 ## Catalog entry
 

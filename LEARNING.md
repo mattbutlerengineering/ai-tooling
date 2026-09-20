@@ -20,9 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-08-31 (this pass's addition, confirmed via search corroboration; see the
-dated footnote below for what else was checked). The rest of the page was previously verified
-2026-08-05 — the six software-factory channels and talks added
+**Last verified:** 2026-09-18 (this pass's addition/correction, confirmed via search corroboration;
+see the dated footnote below for what else was checked). The rest of the page was previously
+verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
 watched end to end). The rest of the page was last confirmed 2026-06-28 — channel
 URLs, listed video links, and web resources confirmed via web fetch. Channels with
@@ -131,6 +131,157 @@ Agents: Where Do Engineers Come In?") on one team's spec-driven-development expe
 it — the only public record is a slide deck, not text that can be quoted verbatim, and its own
 finding (generated code matched spec but needed heavy refactoring to become "good" code) is a single
 team's anecdote rather than a measured result, unlike the entries already on this page.
+The 2026-09-04 pass hit the identical egress wall an eighth time — a bare `ytsearch3:test`
+yt-dlp query failed with a 403 on the CONNECT tunnel and the agent-proxy's own status endpoint
+recorded `connect_rejected` CONNECT failures for `www.youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `addyosmani.com` alike — so no video search or transcript pull ran, and
+the four entries added this pass (two Anthropic research posts, an Anthropic engineering
+postmortem, and a Universidad Politécnica de Madrid spec-driven-development paper) are
+cross-checked across multiple independently-worded search summaries rather than read from
+source, the same standard applied throughout this page. `github.com` and
+`raw.githubusercontent.com` were reachable this pass (via a read-only `git clone`, the same path
+used since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly rather than via
+search: `main`'s HEAD is unchanged at `a277af2`, the exact commit
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md)'s 2026-09-02 update already confirmed, so nothing
+further was added on that thread this pass. This pass also found `ai-boost/awesome-harness-engineering`,
+a curated list of harness-engineering tools, patterns, and evals — plausibly worth a
+discovery-lane look, named here rather than added, since a `CATALOG.md` row is outside this
+lane's scope. The 2026-09-07 pass hit the identical egress wall a ninth time — a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel and a direct `curl` to both
+`youtube.com` and `arxiv.org` failed identically (`connect_rejected`), so no video search or
+transcript pull ran, and the one entry added this pass (below) is cross-checked across
+independently-worded search summaries rather than read from source, the same standard applied
+throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same
+as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning
+`main` read-only: HEAD moved to `e768988` (2026-09-07, a Windows `safe.directory` test fix) with no
+new tag past `v2.7.0`, and the README's GA banner and phase structure are unchanged from the
+2026-09-02 note in [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) — a maintenance commit, not a
+methodology change, so nothing was added on that thread this pass. This pass also found
+`strongdm/attractor`, a non-interactive coding-agent spec (three markdown files, no code — "feed
+these into your coding agent of choice") built for StrongDM's dark-factory Software Factory —
+plausibly worth a discovery-lane look as an installable artifact, named here rather than added for
+the same reason as `awesome-harness-engineering` above. The StrongDM dark-factory write-up itself
+was already declined on 2026-08-31 as adding no claim beyond what the Osmani/Horthy entries below
+already cover, and that holds for `attractor` too — it is the same factory's tooling, not a new
+methodology claim. The 2026-09-09 pass hit the identical egress wall a tenth time — a bare
+`ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel, confirmed independently via
+the agent proxy's own status endpoint recording `connect_rejected` for `www.youtube.com` — so no
+video search or transcript pull ran, and the one entry added this pass (below) is cross-checked
+across independently-worded search summaries rather than read from source, the same standard
+applied throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass
+(same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by
+cloning `main` read-only: HEAD moved to `52da70a` (2026-09-09, a hook-adapter routing fix) and a new
+tag `v2.8.0` has appeared since the 2026-09-07 note's `v2.7.0`, but the single commit between the
+two tags (`fix: accept source-ref-only provenance checks`) is a bug fix rather than a methodology
+change, and the README's GA banner and phase structure are unchanged — so nothing further was added
+on that thread this pass. This pass also found and declined a September 2026 arXiv survey by a
+Northeastern University author ("Beyond Code Generation: Reliability, Verification, and Cost
+Economics in the Agentic Software Development Lifecycle") — a single-author literature synthesis
+drawing on sources this page already cites individually (Faros AI, the Microsoft rollout study,
+METR) with no new primary measurement or named framework of its own, the same call already made
+against ASDLC.io and the StrongDM re-surfacing above. It also found Addy Osmani's "Agent Harness
+Engineering" essay (May 2026, also republished on O'Reilly Radar) and declined to add it separately:
+its own concrete example is the LangChain benchmark result added below, so citing Osmani's synthesis
+of it would be a re-treatment rather than the primary source. The 2026-09-11 pass hit the identical
+egress wall an eleventh time — a bare `ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT
+tunnel and a direct `curl` to `youtube.com`, `arxiv.org`, `anthropic.com`, and `martinfowler.com` all
+failed identically (`connect_rejected`), so no video search or transcript pull ran, and the one entry
+added this pass (below) is cross-checked across independently-worded search summaries rather than
+read from source, the same standard applied throughout this page. `github.com` and
+`raw.githubusercontent.com` were reachable this pass (same as every pass since 2026-08-24), so
+`awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD moved to `0a21d7f`
+(2026-09-11, "add intent archive and unarchive lifecycle verbs") — a CLI feature for the workflow
+tool's own intent-tracking, not a phase or GA-status change — so nothing was added on that thread
+this pass. This pass also checked the dark-factory/lit-factory, ADW, context-engineering, and
+levels-of-autonomy searches the sweep is scoped to and found only re-treatments of ground this page
+already covers in depth (the Osmani/Horthy/Zakariasson/Anthropic-autonomy entries above) or vendor
+content with no new primary claim — nothing there earned a place. The one addition, below, is
+counter-evidence: a controlled difference-in-differences study finding Cursor adoption's velocity
+gain is transient while its complexity and static-analysis-warning cost is not, from the same CMU
+research group (Kästner, Vasilescu, Miller) behind the "3100 Opinions" entry already on this page.
+The 2026-09-14 pass hit the identical egress wall a twelfth time — a direct `curl` to `youtube.com`,
+`arxiv.org`, `anthropic.com`, and `martinfowler.com` all failed identically (`connect_rejected`) and
+a bare `ytsearch3:test` yt-dlp query failed with a 403 on the CONNECT tunnel, so no video search or
+transcript pull ran, and the two entries added this pass (below) are cross-checked across
+independently-worded search summaries rather than read from source, the same standard applied
+throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `572c826` (43 commits since 2026-09-11's `0a21d7f`), tags now run through
+`v2.8.2` (a `v2.8.3-preview` also exists, a nightly build artifact rather than a release). None of it
+is a methodology change: the diff against `v2.7.0`'s README is almost entirely an install-mechanism
+rewrite (the old per-harness `bun`-copy install replaced by a single native `aidlc` CLI binary
+installer) plus a rename — "adaptive scopes" is now marketed as "workflow profiles," and the
+project's own `docs/guide/workflow-profiles.md` says outright *"the engine calls a workflow profile
+a scope. The two terms describe the same choice from different perspectives"* — so the 5-phase/
+33-stage/14-agent structure this doc mapped on 2026-09-02 is unchanged; nothing was added on that
+thread this pass. This pass also checked the dark-factory/lit-factory, agentic-SDLC,
+harness-engineering, spec-driven-development, and levels-of-autonomy searches the sweep is scoped
+to and found mostly re-treatments already covered (Swarmia's five autonomy levels, March 2026;
+"Agentsway," an AI-native methodology name from an October 2025 preprint; a multi-agent-coordination
+essay cluster from around March 2026 framing concurrent coding agents as a distributed-systems
+problem) or small single-repo academic papers below this page's bar (a Kotlin skill-optimization
+taxonomy, a six-framework SDD process taxonomy) — none of those earned a place on their own. Two
+things did: both are fresh (submitted 2026-09-07 and 2026-09-11, inside this pass's one-week window)
+and both are the highest-value kind of find this sweep is scoped to look for — one is a direct,
+measured contradiction of a specific tool's self-reported numbers that this repo's own catalog had
+already flagged as unverified, the other is the first large-N empirical security study found for
+this page of exactly the skill/hook/MCP-config artifact class this repo installs and catalogs.
+The 2026-09-16 pass hit the identical egress wall a thirteenth time — a direct `curl` to
+`youtube.com`, `arxiv.org`, `anthropic.com`, and `martinfowler.com` all failed identically
+(`connect_rejected`), and a fresh `pip install yt-dlp` followed by a bare `ytsearch3:test` query
+failed with a 403 on the CONNECT tunnel, so no video search or transcript pull ran, and the one
+entry added this pass (below, citing two companion papers) is cross-checked across independently-
+worded search summaries rather than read from source, the same standard applied throughout this
+page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same as every pass
+since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only:
+HEAD moved to `09be7bd` (2026-09-16), tags now run through `v2.9.0`. The README was substantially
+rewritten in this range — it drops the "GA on main" version-status banner and the "OPERATIONS
+PHASE ... (future)" placeholder language this page's [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md)
+update log has tracked since 2026-08-24, replacing it with a stable multi-harness pitch (Claude
+Code, Kiro CLI, Kiro IDE, Codex CLI, Cursor, opencode, GitHub Copilot) and feature additions (11
+workflow profiles, Commit Provenance, an adversarial AI PR-review agent, on-demand Construction
+autonomy) — but the structure `aws-ai-dlc.md` actually maps, 5 phases / 33 stages / a 14-agent
+roster (11 domain experts, 2 reviewers, 1 adaptive composer), is stated verbatim and unchanged, so
+nothing was added to that file this pass. This pass also checked the dark-factory/lit-factory, ADW,
+harness-engineering, and levels-of-autonomy searches the sweep is scoped to and found only
+re-treatments of ground this page already covers (Osmani's light/dark framing; IndyDevDan's
+software-factory video and its now-productized `disler/super-simple-software-factory` skill —
+named here rather than added, a discovery-lane candidate rather than a methodology claim) or vendor
+content with no new primary claim, including Anthropic's own 2026 Agentic Coding Trends Report (a
+customer-case-study forecast document, not a research paper — declined on the same grounds already
+applied to the Faros/CodeRabbit vendor material this page distinguishes from its measured entries)
+and Cognition's self-reported OCBC/Itaú deployment numbers. Two off-topic near-misses on term
+overlap alone were declined as out of scope rather than as weak evidence: an arXiv paper on
+"verification bandwidth" in *scientific peer review* (not code review), and a longitudinal pilot
+study on a general "verification bottleneck" in human problem-solving with no coding-specific task
+design. The one entry added this pass is the genuine find: the first quantified research this page
+carries specifically against naive "more context is better," directly on the context-engineering
+topic in this sweep's scope.
+The 2026-09-18 pass hit the identical egress wall a fourteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch3:test` query failed with a 403 on the CONNECT tunnel
+(`Tunnel connection failed: 403 Forbidden`), and a direct `curl` to `youtube.com`, `arxiv.org`,
+`anthropic.com`, and `martinfowler.com` all failed identically, so no video search or transcript
+pull ran. `github.com`, `api.github.com`, and `raw.githubusercontent.com` were reachable this pass
+(same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by
+cloning `main` read-only: HEAD moved to `87cc7f0` (2026-09-18), the engine's own tool count grew
+70 → 71, and the roadmap/release-process docs picked up native-binary, config-wizard and
+release-channel detail — all internal engineering and release-process content; the 5-phase/
+33-stage/14-agent structure [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) maps is unchanged, so
+nothing was added on that thread this pass. This pass also checked IBM's "AI-DLC: The AI-Driven
+Development Lifecycle" explainer page and declined it — it is a generic glossary-style term
+explainer with no named pipeline or stage structure of its own, unlike AWS's `aidlc-workflows`
+(a real, versioned, open-source product this page already maps) — its reuse of the identical
+"AI-DLC" initialism for a different, undocumented concept is worth a reader's caution rather than a
+new entry, and none is added here. It also found and declined a June 2026 arXiv paper proposing
+graduated human-oversight tiers for agentic code generation specifically in regulated domains
+(banking/finance compliance, mapped against Bank of Thailand, MAS, NIST AI RMF and EU AI Act
+regimes) as out of this catalog's scope rather than as weak evidence, the same call already made
+against off-topic near-misses in the 2026-09-16 pass. The one addition this pass is a correction
+rather than a new find: the 2026-09-14 pass found arXiv 2609.04681 and declined it as a synthesis
+"with no new primary measurement or named framework of its own" — a closer read this pass, cross-checked
+across three independent sources, shows that call was wrong: the paper does coin four named
+concepts. The entry below corrects the record and cites it on that basis, the same bar Farrag's
+PRP/AAMT/SGM synthesis already cleared elsewhere on this page.
 
 ---
 
@@ -380,6 +531,22 @@ via multiple independent write-ups agreeing on the same facts (Open Source For Y
 Finance, kenhuangus Substack, note.com) rather than a direct fetch — this pass's sandbox
 blocked both `openai.com` and `developers.openai.com` outright (`EGRESS_BLOCKED`).
 
+### [Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) — LangChain (2026-02-17)
+The first concretely *quantified* evidence in this page's harness-engineering cluster for a claim
+the Hashimoto/Fowler/Anthropic/OpenAI entries above have so far only asserted in the abstract.
+LangChain moved its own coding agent (`deepagents-cli`) from outside the Terminal Bench 2.0 top 30
+into the top 5 — a 13.7-point jump, 52.8 → 66.5 — while holding the underlying model fixed
+(`gpt-5.2-codex`) and changing only the harness: the system prompt (emphasizing a self-verification
+loop), the tools and context injection, and a middleware layer (LangChain's term for hooks around
+model and tool calls) including a `PreCompletionChecklistMiddleware` that forces a verification pass
+before the agent is allowed to report done. This is **Agent = Model + Harness** (Hashimoto's formula
+above) demonstrated as a measured before/after delta on a public leaderboard rather than argued as an
+anecdote — the missing quantified case this page's harness-engineering reading otherwise only makes
+in principle. Confirmed via multiple independent write-ups (StartupHub.ai, blockchain.news,
+explainx.ai) agreeing on the same before/after scores, model, and middleware name — this pass's
+sandbox blocked `langchain.com`/`www.langchain.com` outright (`EGRESS_BLOCKED`), so the post itself
+was not directly read.
+
 ### [State of AI vs. Human Code Generation Report](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — CodeRabbit
 A measured comparison (not a vendor claim) of 470 real open-source pull requests
 (320 AI-coauthored, 150 human-only): AI-generated code averaged 1.7x more issues
@@ -545,6 +712,28 @@ they're decisions. Confirmed via multiple independently-worded search summaries 
 same methodology and the same abstract phrasing — this pass's sandbox blocked `arxiv.org` outright
 (`EGRESS_BLOCKED`), so the paper itself was not directly read.
 
+### [Speed at the Cost of Quality: How Cursor AI Increases Short-Term Velocity and Long-Term Complexity in Open-Source Projects](https://arxiv.org/abs/2511.04427) — Hao He, Courtney Miller, Shyam Agarwal, Christian Kästner, Bogdan Vasilescu (CMU; arXiv, MSR 2026 Technical Papers)
+A companion paper to the "3100 Opinions" entry above, from three of the same authors (Miller,
+Kästner, Vasilescu), and a methodological step up from most of the observational evidence already
+on this page: a difference-in-differences design with a matched control group rather than a
+before/after or survey read. 806 GitHub projects that adopted Cursor between January 2024 and March
+2025 are compared against 1,380 propensity-score-matched "never-treated" repositories with similar
+size, age, stars, forks, and activity trajectories. Findings: adoption produces a large but
+**transient** velocity gain — lines added roughly 3-5x during month one, dissipating within two
+months — alongside a **persistent** rise in code complexity (reported ~41%) and static analysis
+warnings (reported ~30%) that does not dissipate over the study window. The sharper claim is a
+feedback loop rather than a one-time cost: a panel GMM model finds the accumulated complexity
+subsequently *reduces* future development velocity, i.e. the transient speed-up seeds a persistent
+drag rather than a one-time trade a team pays once and keeps the gain. Directly on point for this
+repo's own [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the strongest
+causal (not merely correlational) counter-evidence on this page yet for the throughput-vs-quality
+trade the Faros AI and "Debt Behind the AI Boom" entries above already document observationally — a
+matched-control design is what the practitioner-vs-vendor number gap this page tracks has been
+missing. Confirmed via multiple independent sources (the arXiv abstract page, the MSR 2026 Technical
+Papers program listing, the CMU StruDeL lab's own hosted PDF, alphaXiv) agreeing on the authors,
+design, and figures — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the
+paper itself was not directly read.
+
 ### [Configuring Agentic AI Coding Tools: An Exploratory Study](https://arxiv.org/abs/2602.14690) — Matthias Galster, Seyedmoein Mohsenimofidi, Jai Lal Lulla, Muhammad Auwal Abubakar, Christoph Treude, Sebastian Baltes (arXiv, 2026-02; accepted AIware 2026)
 The adoption census the two AGENTS.md efficacy studies above (Gloaguen et al. and Lulla et al.)
 run without one — not whether a context file helps, but whether anyone actually writes one, and
@@ -627,6 +816,190 @@ governance artifact rather than documentation, from three independent angles. Co
 independently-worded search summaries agreeing on the author, venue, and the PRP/AAMT/SGM structure —
 this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not
 directly read.
+
+### [An update on recent Claude Code quality reports](https://www.anthropic.com/engineering/april-23-postmortem) — Anthropic Engineering (2026-04-23)
+Anthropic's own engineering postmortem tracing six weeks of user reports that Claude Code had
+gotten worse (2026-03-04 to 2026-04-20) to three independent harness/product-layer changes rather
+than a model regression: (1) 2026-03-04, the default reasoning effort quietly dropped from high to
+medium to cut thinking latency and usage-limit pressure — Anthropic's own ablations found this cost
+roughly 3% quality on both Opus 4.6 and 4.7; (2) 2026-03-26, a caching optimization meant to clear
+thinking-block context only from sessions idle over an hour instead cleared it on every turn for the
+rest of any session; (3) an overly aggressive system-prompt verbosity limit, costing a further ~3%.
+All three shipped independently, overlapped for weeks before anyone connected them, and were fixed
+by 2026-04-20 (v2.1.116); Anthropic reset usage limits for every subscriber as compensation. Worth
+reading as the concrete case this page's harness-engineering cluster (Hashimoto/Fowler/Anthropic/
+OpenAI above) has otherwise only argued in the abstract: **Agent = Model + Harness**, demonstrated
+here by its own negative case — three changes invisible to any model eval degraded real usage for
+six weeks while the underlying model was untouched, and the fix was the harness-engineering
+discipline those posts already prescribe (find the environmental regression, encode a check against
+its recurrence) rather than anything about the model. Confirmed via multiple independent write-ups
+(VentureBeat, InfoQ, GIGAZINE) quoting the same official Anthropic language, dates, and version
+number — this pass's sandbox blocked `anthropic.com` outright (`EGRESS_BLOCKED`), so the postmortem
+itself was not directly read.
+
+### [Measuring AI agent autonomy in practice](https://www.anthropic.com/research/measuring-agent-autonomy) — Anthropic (2026-02)
+Anthropic's own measured data on the autonomy-ladder topic this page's Zakariasson, Reyes, Osmani,
+and `bushido-ai-dlc-2026.md` entries have so far only theorized: an analysis of millions of Claude
+Code and API tool calls, each scored by Claude itself for risk (1-10) and autonomy (1-10). Roughly
+73% of tool calls show a human in the loop and only 0.8% appear irreversible; software engineering
+alone accounts for roughly half of all tool calls on the public API. The sharper finding is
+behavioral rather than static: auto-approval rises from ~20% of turns for users under 50 sessions to
+over 40% by ~750 sessions, while the interrupt rate rises *alongside* it (roughly 5% → 9%) rather
+than falling — read together, that is not less oversight but a shift from approving each action to
+monitoring a stream and intervening selectively. Turn duration at the 99.9th percentile nearly
+doubled in three months studied (Oct 2025-Jan 2026), from under 25 minutes to over 45. Worth reading
+as this page's first autonomy entry grounded in measured usage rather than a proposed framework.
+Confirmed via multiple independent write-ups (Latent Space's AINews, Cosmic JS, AgentMarketCap,
+the-decoder.com) converging on the same figures — this pass's sandbox blocked `anthropic.com`
+outright (`EGRESS_BLOCKED`), so the post itself was not directly read.
+
+### [Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise) — Anthropic (2026-06-16)
+A companion field study to the autonomy post above, at similar scale: roughly 400,000 Claude Code
+sessions from roughly 235,000 users, October 2025-April 2026. Its central finding complicates the
+Shen & Tamkin skill-formation RCT elsewhere on this page from the opposite direction — that study
+found passive delegation costs comprehension; this one finds what predicts *success* in the first
+place is domain expertise in the problem, not coding proficiency. Every one of the ten largest
+occupation groups succeeds at nearly the software-engineer rate (engineers verified 34%; every group
+lands within seven points), expert-rated sessions succeed 28-33% of the time against 15% for novice
+sessions, and the gap narrows further between experts and intermediates — proficiency, not mastery,
+is most of what the tool rewards. The division of labor holds throughout: people decide what to
+build, the agent decides how, and expert users trigger roughly 12 Claude actions per prompt against
+5 for novices. Over the seven-month window the share of sessions spent debugging fell by roughly
+half as usage shifted toward end-to-end agentic work (deploy, run, analyze data). Worth reading
+alongside Shen & Tamkin's 52-developer RCT as a field-scale complement rather than a duplicate: a
+different question (what drives success, not what it costs), converging on the same answer that
+engagement with the problem — not raw tool skill — is what separates good outcomes from bad ones.
+Confirmed via multiple independent write-ups (TIGZIG, digitalapplied.com, techjacksolutions.com, AI
+Weekly) converging on the same session/user counts and percentages — same `anthropic.com` egress
+block as the entry above, so the post itself was not directly read.
+
+### [Spec-Driven Development for Agentic Software Engineering: Harnessing Human-Agent Teamwork](https://arxiv.org/abs/2609.00252) — Jessica Díaz, Joaquín Gayoso, Andrea Cimminio, Jorge Pérez (Universidad Politécnica de Madrid; arXiv, 2026-08-31)
+Names the same productivity paradox this page already documents piecemeal (Faros AI, the Microsoft
+rollout study, CodeRabbit, "Debt Behind the AI Boom", Farrag's PRP synthesis above) from the
+spec-driven-development side: as individual productivity rises under agentic delegation, team
+throughput, review capacity, and stability degrade because team-scale engineering discipline gets
+neglected. Its contribution is conceptual rather than measured — a gray-literature synthesis, by the
+paper's own account, since peer-reviewed evidence here is still thin — but it is the first entry on
+this page to explicitly frame Spec-Driven Development itself *as* the harness: the technical and
+methodological mechanism through which a team governs agent behavior at scale, rather than a
+documentation practice bolted onto the workflow after the fact. That framing bridges two clusters
+this page tracks separately — the spec-as-governance-artifact reading (`8090-software-factory-sdlc.md`'s
+PRD/Blueprints stages, `aws-ai-dlc.md`'s Inception phase, Lahiri's intent-gap paper, Farrag's PRP/SGM
+synthesis above) and the harness-engineering reading (Hashimoto/Fowler/Anthropic/OpenAI above,
+plus the Anthropic postmortem added this pass) — treating them as one discipline rather than two.
+Confirmed via multiple independent search summaries (the arXiv abstract page and its HTML rendering)
+agreeing on the authors, affiliation, and framing — this pass's sandbox blocked `arxiv.org` outright
+(`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [Comprehension Debt in GenAI-Assisted Software Engineering Projects](https://arxiv.org/abs/2604.13277) — Muhammad Ovais Ahmad (Karlstad University; arXiv, 2026-04; presented at EASE 2026, Glasgow)
+The first controlled study found for this page that operationalizes "Comprehension Debt" itself,
+rather than citing the term the way the Osmani entry above coined it. A qualitative study of 621
+reflective diaries from 207 students across an eight-week undergraduate software-engineering
+project, coding how GenAI use accumulates or offsets the gap between what a team knows about its
+codebase and what it needs to know to maintain it. Identifies four accumulation patterns —
+AI-as-black-box code acceptance, context-mismatch debt (locally-correct suggestions that ignore
+project conventions and cost more to adapt than they save), dependency-induced atrophy, and
+verification-bypass — against one mitigating pattern: using GenAI as a comprehension scaffold
+(asking it to explain rather than just accepting its output) built understanding instead of eroding
+it, the same distinction the Shen & Tamkin RCT above draws between passive delegation and engaged
+verification. Weaker evidence than that RCT — a single course cohort rather than a randomized
+trial, and student novices rather than professional developers — but it is the first source on this
+page to name concrete, repeatable *mechanisms* for comprehension debt rather than only its
+aggregate cost, which is what makes it a companion to the Osmani post rather than a duplicate of it.
+Confirmed via multiple independently-worded search summaries (the arXiv abstract page, a third-party
+literature-review summary, a practitioner write-up) agreeing on the same diary/student/pattern
+counts — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, consistent with every
+prior pass since 2026-08-10), so the paper itself was not directly read.
+
+### [Skill Issue: Lessons from Optimizing Repository SKILLs for Coding Agents](https://arxiv.org/abs/2609.12742) (arXiv, 2026-09-11)
+Direct counter-evidence to a specific self-reported claim this repo's own catalog already flagged
+as unverified. Our [`evaluations/skillopt.md`](evaluations/skillopt.md) (verdict **DEFER**, Evidence
+`REVIEW`) explicitly declined to check Microsoft SkillOpt's headline numbers — *"every claim about
+accuracy lifts... is the authors' README/paper framing, which I did not verify"* — and named the
+missing piece as *"a turnkey path from real dev sessions to a reward signal"* on a real codebase,
+as opposed to SkillOpt's own shipped academic benchmarks. This paper builds exactly that: instead of
+the small synthetic tasks prior work (SkillOpt included) saturates with no skill document at all, the
+authors mine a harder benchmark from a repository's own merged pull requests, reverted at a single
+frozen base commit, and score a candidate skill document by whether the same agent does measurably
+better with it than without it. On three real-world Kotlin repositories under that harder benchmark,
+a different optimizer (GEPA) raised the score 4.9 percentage points on average (matching prior
+reports, though inseparable from run-to-run variance at this sample size) — while **SkillOpt's own
+edits left the score 0.1 points above the seed, no measurable improvement at all**. This doesn't
+contradict SkillOpt's numbers on its own benchmarks, but it is the independent, harder, real-repo
+test our eval said didn't exist yet, and on that test the optimizer that inspired our DEFER trigger
+produced nothing — worth folding into that eval's "How we tested" the next time it's revisited (out
+of this lane's scope to do directly). Confirmed via multiple independently-worded search summaries
+(the arXiv abstract page, its HTML rendering) agreeing on the same benchmark design and 4.9pp/0.1pp
+figures — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself
+was not directly read.
+
+### [Scanning the Harness: An Empirical Study of Supply-Chain Defects in AI Coding-Agent Configurations](https://arxiv.org/abs/2609.07360) — Benjamin Kapner, Carmel Soceanu, Alicia Petrunin, Hofni Gartner (Red Hat; arXiv, 2026-09-07)
+The first large-scale empirical study found for this page of exactly the artifact class this repo
+installs and catalogs — instruction files, skills, commands, hooks, MCP server declarations, and
+subagent definitions for Claude Code, Cursor, GitHub Copilot, and Codex. Surveys 3,171 public GitHub
+repositories (2,660 setups assembling two or more component types, 511 published skill collections)
+and frames the whole surface precisely: *"a dependency layer installed from marketplaces and public
+repositories, running with the developer's privileges... with no lockfile, no install-time check, and
+no vocabulary for what a component may do"* — the same gap detector Y's install-record reading
+(#366) and `STACK-LEDGER.md`'s `Install evidence` column exist to partially answer for this repo's
+own installs, generalized to the wild. Reported findings: 9.8% of surveyed setups install an MCP
+server with no version pinned, and 3.1% pre-approve arbitrary execution behind a scoped-looking
+permission grant. Methodologically disciplined for a bulk scan — findings are restricted to rules
+"decidable from bytes" (a security exposure, a configuration that cannot work, or a spec departure),
+and each is validated by an independent re-derivation from the repository's pinned commit plus an
+LLM adjudicator on disagreements and a second independent model recheck — the same
+validate-before-counting discipline this repo's own detectors apply to their findings. Worth
+weighing the next time this repo evaluates a skill collection or MCP server for `CATALOG.md`: the
+install itself, not just the tool's function, is a measured risk surface. Confirmed via multiple
+independently-worded search summaries (the arXiv abstract page, its HTML rendering, an alphaXiv
+translation) agreeing on the same repo/setup counts and the 9.8%/3.1% figures — this pass's sandbox
+blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [The Limits of Long-Context Reasoning in Automated Bug Fixing](https://arxiv.org/abs/2602.16069) — Ravi Raju, Mengmeng Ji, Shubhangi Upasani, Bo Li, Urmish Thakker (arXiv, 2026-02; ICLR 2026 ICBINB workshop)
+The first measured counter-evidence found for this page against the naive form of context
+engineering — "give the agent more context" — rather than the curate-and-prune form this repo's
+own dev-loop framing and the harness-engineering cluster above already argue for. Using SWE-bench
+Verified inside an agentic harness (mini-SWE-agent), the paper's token-level analysis finds that
+successful bug-fixing trajectories typically stay under 20k-30k tokens, and that longer accumulated
+context *correlates with lower success rates* rather than higher; forcing an artificially inflated
+64k-token context collapses performance outright — GPT-5-nano resolves none of its test tasks, and
+Qwen3-Coder-30B-A3B drops to a 7% resolve rate. A companion benchmark reaches the same conclusion
+from the retrieval side: [SWE-ContextBench](https://arxiv.org/abs/2602.08316) (Jiayuan Zhu, Junde
+Wu, Minhao Hu, Shengda Zhu, Jiazhen Pan, Weixiang Shen; arXiv, 2026-02), 1,476 tasks across 51
+repositories and 9 languages testing whether agents can reuse experience across related
+issues/PRs, finds that only correctly-selected, compactly-summarized prior context helps —
+unfiltered context gives limited or negative benefit. Together they are the first entries on this
+page to put a number on what context engineering is protecting against: not merely wasted tokens,
+but measurably worse outcomes from more of them. Confirmed via multiple independently-worded search
+summaries agreeing on the same benchmark design, harness, and figures for both papers — this pass's
+sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so neither paper was directly read.
+
+### [Beyond Code Generation: Reliability, Verification, and Cost Economics in the Agentic Software Development Lifecycle](https://arxiv.org/abs/2609.04681) — Happy Bhati (Northeastern University; arXiv, 2026-09-04)
+A correction to this page's own record rather than a new find. The 2026-09-14 pass located this
+same paper and declined it as *"a single-author literature synthesis drawing on sources this page
+already cites individually... with no new primary measurement or named framework of its own."* A
+closer read this pass shows the "no named framework" half of that call was wrong. The paper is
+still a synthesis, not new primary data — by its own account it "synthesizes peer-reviewed
+software-engineering research, university studies, benchmark audits, production reports... and
+cost-management evidence" from 2024 through September 2026 rather than running a study of its own
+— but it does coin four named concepts, the same shape that already earned Farrag's PRP/AAMT/SGM
+entry above a place on this page: the **Agentic SDLC Throughput Paradox** (code-generation gains
+can outrun release gains, so local productivity growth does not translate linearly into shipped
+value), **Production-Qualified Change (PQC)** (a unit of output that counts a change only once it
+clears review, test, security, deployment and operational gates — not merely a merged diff),
+the **Verification Tax** (the downstream assurance cost of agentic generation made explicit — CI,
+reviewer time, security analysis, rework and escaped failures, not only tokens), and an **Agentic
+SDLC Control Plane** (a policy/telemetry layer allocating models, context, parallelism, retries,
+tests and human review by task risk, reliability evidence, budget and organizational capacity).
+PQC and the Verification Tax read as sharper, checkable restatements of ground this page already
+covers piecemeal — Faros AI's throughput-vs-incident trade, "Debt Behind the AI Boom"'s finding
+that AI-introduced issues persist rather than get cleaned up, and the paper's own citation of the
+Microsoft rollout and METR studies already on this page — so treat this as the naming layer over
+evidence this page already carries, not a fifth independent data point. Confirmed via three
+independent sources agreeing on all four terms, the author, and the submission date (the arXiv
+abstract page itself, pith.science's paper summary, and an X/Twitter summary quoting the report)
+— this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, the fourteenth consecutive
+pass to hit this wall), so the paper itself was not directly read.
 
 ---
 

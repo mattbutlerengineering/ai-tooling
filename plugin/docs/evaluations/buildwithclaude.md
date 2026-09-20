@@ -3,7 +3,7 @@
 **Repo:** [davepoon/buildwithclaude](https://github.com/davepoon/buildwithclaude)
 **Stars:** 3,087 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (discover the right skill/agent/command/plugin before work)
 **Layer:** Process
 
@@ -69,6 +69,8 @@ shaped: it indexes skills, agents, commands, hooks, plugins *and* marketplace co
 place rather than one artifact type, which is why it is not merely a lesser copy of any of them.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-09-04 by the P3 backlog band (daily discovery pass):** no change — still a discovery hub/marketplace with no catalogued incumbent it is clearly redundant with; nothing structural (license, archival, container) shifted this pass.
 
 ## Catalog entry
 

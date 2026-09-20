@@ -3,7 +3,7 @@
 **Repo:** [humanlayer/12-factor-agents](https://github.com/humanlayer/12-factor-agents)
 **Stars:** 23,418 | **Last updated:** 2025-09-21 (pushed) | **License:** Apache-2.0 (code) / CC-BY-SA-4.0 (content) | **Type:** reference guide
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-20  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (agent engineering principles) — informs Plan/architecture
 **Layer:** Process/Reference (a written methodology, not a tool)
 
@@ -60,6 +60,9 @@ Compared to neighbors: **dictionary-of-ai-coding** defines the vocabulary; **age
 Left at `discovery-log`. Last pushed 2025-09-21 — eleven months, which for a *tool* would be a
 staleness finding and for a principles document is not: the twelve factors are an argument, and
 arguments do not rot on the schedule software does.
+
+**Re-triaged 2026-09-20 by the P3 backlog band:** no change — still a reference document, not a
+tool to dispose of; left at `discovery-log`.
 
 ★24K, and cited in the "Overlaps with" cell of several catalog rows, which makes it load-bearing
 reference material rather than a lead. Licensing is split (Apache-2.0 code, CC-BY-SA content) and

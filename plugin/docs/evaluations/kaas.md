@@ -2,8 +2,8 @@
 
 **Repo:** [bybit-exchange/kaas](https://github.com/bybit-exchange/kaas)
 **Stars:** 81 | **Last updated:** 2026-08-02 (pushed) | **License:** MIT
-**Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last verified:** 2026-09-19
+**Last triaged:** 2026-09-19  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -30,4 +30,6 @@ differentiator (no-embedding, self-hosted Markdown wiki compiler vs. the vector/
 layers those tools are) is a real architectural distinction, not a clone. Left for the
 P0/eval-runner lane.
 
-_Triaged 2026-08-03 by today's discovery lead._
+_Re-triaged 2026-09-19 by the daily discovery routine (oldest-untriaged sweep) — disposition
+re-confirmed unchanged: still no STACK incumbent among its named overlaps. Originally triaged
+2026-08-03._

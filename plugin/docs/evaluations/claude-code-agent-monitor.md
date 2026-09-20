@@ -3,7 +3,7 @@
 **Repo:** [hoangsonww/claude-code-agent-monitor](https://github.com/hoangsonww/claude-code-agent-monitor)
 **Stars:** 781 | **Last updated:** 2026-07-10 (pushed) | **License:** MIT
 **Last verified:** 2026-08-02
-**Last triaged:** 2026-08-02  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-15  <!-- triaged: bulk -->
 **Dev loop stage:** Observability
 **Layer:** Tooling
 
@@ -23,4 +23,4 @@ We did **not** install or run this tool. This evaluation is source-grounded only
 
 Left at `discovery-log` rather than SKIPped: it overlaps `claude-code-hooks-multi-agent-observability` (higher-profile, ★1.5K, also unvalidated discovery-log) on the core "live dashboard of Claude Code session/tool/agent activity" job, and the Kanban status board is a real but narrow differentiator. Neither tool is a validated STACK incumbent, so calling this one "redundant" would be overreaching without a side-by-side hands-on comparison — left for a real eval to decide which (if either) is worth adopting.
 
-_Triaged 2026-08-02 by the daily discovery routine (backlog band: P2 challenger)._
+_Triaged 2026-09-15 by the daily discovery routine (backlog band: P2 challenger)._

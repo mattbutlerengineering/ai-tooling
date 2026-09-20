@@ -2,8 +2,8 @@
 
 **Repo:** [taurus42119-stack/godkiller-mcp](https://github.com/taurus42119-stack/godkiller-mcp)
 **Stars:** 14 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
-**Last verified:** 2026-08-03
-**Last triaged:** 2026-08-03  <!-- triaged: bulk -->
+**Last verified:** 2026-09-19
+**Last triaged:** 2026-09-19  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Infrastructure
 
@@ -32,4 +32,6 @@ step — is different enough integration surface to be worth a first-time look r
 mechanical SKIP. Low traction (14 stars) and a name/branding that reads as low-signal noise; watch
 for maturity before prioritizing. Left for the P0/eval-runner lane.
 
-_Triaged 2026-08-03 by today's discovery lead._
+_Re-triaged 2026-09-19 by the daily discovery routine (oldest-untriaged sweep) — disposition
+re-confirmed unchanged: still no dominating incumbent for its specific MCP-gated `claim_done`
+mechanism. Originally triaged 2026-08-03._
