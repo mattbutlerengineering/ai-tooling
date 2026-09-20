@@ -1,9 +1,9 @@
 # Evaluation: dsh-TUI
 
 **Repo:** [ccch1mneyyy/dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI)
-**Stars:** 1,460 | **Last updated:** 2026-08-16 (pushed) | **License:** MIT
-**Last verified:** 2026-08-16
-**Last triaged:** 2026-08-16  <!-- triaged: bulk -->
+**Stars:** ~3,000 | **Last updated:** 2026-09-14 (pushed) | **License:** MIT
+**Last verified:** 2026-09-14
+**Last triaged:** 2026-09-14  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 
@@ -11,22 +11,24 @@
 
 ## What it does
 
-Claude-Code-style terminal UI plugin for DeepSeek Harness — status bar, streaming thoughts,
-context/TPS gauges, double-Esc rollback.
+Claude-Code-style terminal UI plugin for DeepSeek Harness — status bar, streaming thoughts, context/TPS gauges, double-Esc rollback.
 
 ## How we tested it
 
 **Evidence:** SOURCE-ONLY
 
-We did **not** install or run this tool. This evaluation is source-grounded only: repo metadata
-plus the CATALOG "Overlaps with" cell (ccstatusline, claude-hud, deepseek-harness). That is
-sufficient to place the lead and note none of its named overlaps are STACK incumbents, not to
-support an ADOPT — this eval offers none.
+We did **not** install or run this tool. This evaluation is source-grounded only: the CATALOG one-liner and "Overlaps with" cell; no cached `repo-metadata.json` record existed for this repo, so the star count above is read directly from the GitHub repo page rather than the metadata cache.
+
+## Verdict
+
+**discovery-log — tentative read** — not previously examined; picked up as one of the oldest untriaged leads in the P3 backlog this pass.
 
 ## Triage note
 
-Left at `discovery-log`: ccstatusline and claude-hud are Claude-Code-specific status displays and
-neither is in STACK; dsh-TUI targets a different harness (DeepSeek Harness) with no Claude Code
-equivalent doing this job. Different ecosystem, not redundant. Left for the P0/eval-runner lane.
+P3 backlog (no STACK overlap flagged — `ccstatusline`/`claude-hud` are Claude-Code-specific, not DeepSeek-Harness). Fills a real gap (DSH has no first-party TUI polish) rather than duplicating a STACK pick. Left at discovery-log.
 
-_Triaged 2026-08-16 by the P3 backlog band._
+## Catalog entry
+
+| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |
+|------|------|-----------|-------------------|---------------|--------------|
+| [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | plugin | Claude-Code-style terminal UI plugin (MIT) for DeepSeek Harness — status bar, streaming thoughts, context/TPS gauges, double-Esc rollback | DeepSeek Harness ships no built-in TUI polish; want Claude-Code-grade session visibility | ccstatusline, claude-hud, deepseek-harness |  |

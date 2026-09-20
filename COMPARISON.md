@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 967 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 968 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -79,7 +79,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | sem | tool | ✓ | ✓ | discovery-log | REVIEW |
 | carrick | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | semble | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Understand-Anything | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| Understand-Anything | tool | | ✓ | discovery-log | REVIEW |
 | codebase-design | skill | | ✓ | SKIP | REVIEW |
 | domain-modeling | skill | | ✓ | SKIP | REVIEW |
 | plannotator | tool | | ✓ | discovery-log | REVIEW |
@@ -509,6 +509,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | geiger | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
+| cloudflare/security-audit-skill | skill | | ✓ | CONDITIONAL | RUN |
 | cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | reverify | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -613,7 +614,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | garak | tool | ✓ | ✓ | discovery-log | REVIEW |
 | presidio | tool | ✓ | ✓ | discovery-log | REVIEW |
 | maskit | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| NeMo-Guardrails | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| NeMo-Guardrails | tool | ✓ | ✓ | discovery-log | REVIEW |
 | superagent | tool | ✓ | ✓ | discovery-log | REVIEW |
 | deepeval | framework | ✓ | ✓ | discovery-log | REVIEW |
 | phoenix | platform | ✓ | ✓/$ | SKIP | REVIEW |
@@ -1054,7 +1055,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 84 | 35 | 6 | 42% |
 | Implement | 280 | 119 | 4 | 42% |
 | Verify | 39 | 15 | 2 | 38% |
-| Review | 110 | 30 | 3 | 27% |
+| Review | 111 | 31 | 3 | 28% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 81 | 21 | 2 | 26% |
@@ -1063,4 +1064,4 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 59 | 18 | 2 | 31% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **967** | **342** | **34** | **35%** |
+| **Total** | **968** | **343** | **34** | **35%** |

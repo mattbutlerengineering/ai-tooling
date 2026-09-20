@@ -2,25 +2,33 @@
 
 **Repo:** [krishagarwal314/CodeJury](https://github.com/krishagarwal314/CodeJury)
 **Stars:** 136 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
-**Last verified:** 2026-08-28
-**Last triaged:** 2026-08-28  <!-- triaged: bulk -->
-**Dev loop stage:** Implement
-**Layer:** Process
+**Last verified:** 2026-09-14
+**Last triaged:** 2026-09-14  <!-- triaged: bulk -->
+**Dev loop stage:** Plan
+**Layer:** Tooling
 
 ---
 
 ## What it does
 
-A terminal-first multi-agent SDLC pipeline that scopes requirements, implements, tests, and gates PRs with ensemble review.
+Terminal-first multi-agent SDLC pipeline that scopes requirements, implements, tests, and gates PRs with ensemble review.
 
 ## How we tested it
 
 **Evidence:** SOURCE-ONLY
 
-We did **not** install or run this tool. This evaluation is source-grounded only: repo metadata plus the CATALOG "Overlaps with" cell. That is sufficient for the disposition below, which turns on *redundancy with a catalogued incumbent*, not on the tool's behaviour. It would not support an ADOPT, and this eval offers none.
+We did **not** install or run this tool. This evaluation is source-grounded only: repo metadata (via `repo-metadata.json`, fetched 2026-08-04) plus the CATALOG "Overlaps with" cell.
+
+## Verdict
+
+**discovery-log — tentative read** — not previously examined; picked up as one of the oldest untriaged leads in the P3 backlog this pass.
 
 ## Triage note
 
-Overlaps cell names `BMAD-METHOD`, `ccpm`, and `flow-next` — none of which is a STACK pick — so this lead falls in the P3 backlog band with no structural signal to act on. Left at `discovery-log`.
+P3 backlog (no STACK overlap flagged). Overlaps `BMAD-METHOD`/`ccpm`/`flow-next` (all discovery-log or non-STACK) rather than a STACK pick, so there is no redundancy call to make here. Small (136★) but not clearly dominated — left at discovery-log.
 
-_Triaged 2026-08-28 by the P3 backlog band._
+## Catalog entry
+
+| Name | Type | One-liner | Problem it solves | Overlaps with | Ships inside |
+|------|------|-----------|-------------------|---------------|--------------|
+| [CodeJury](https://github.com/krishagarwal314/CodeJury) | tool | Terminal-first multi-agent SDLC pipeline — scopes requirements, implements, tests, and gates PRs with ensemble review | Ad-hoc agent coding skips requirements/tests and ships PRs with no deterministic QA gate | BMAD-METHOD, ccpm, flow-next |  |
