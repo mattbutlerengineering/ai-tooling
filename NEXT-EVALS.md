@@ -35,17 +35,17 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | awesome-agent-skills (libukai) | Reference | 30.8 | pressure 11, gap 6.8 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | OpenSpec | Plan | 29.4 | pressure 11, gap 5.4 | `/evaluate-tool OpenSpec` |
 | opik | Outer Loop | 28.8 | pressure 10, gap 6.8 | `/evaluate-tool opik` |
-| vet | Review | 38.5 | pressure 15, gap 6.5 | `/evaluate-tool vet` |
+| vet | Review | 38.4 | pressure 15, gap 6.4 | `/evaluate-tool vet` |
 | orca | Implement | 37.2 | pressure 15, gap 5.2 | `/evaluate-tool orca` |
+| ghostsecurity/skills | Review | 36.4 | pressure 14, gap 6.4 | `/evaluate-tool ghostsecurity/skills` |
 | aider | Implement | 35.2 | pressure 15, gap 5.2 | `/evaluate-tool aider` |
-| ghostsecurity/skills | Review | 34.5 | pressure 13, gap 6.5 | `/evaluate-tool ghostsecurity/skills` |
 | agentmemory | Memory & Context | 34.4 | pressure 13, gap 6.4 | `/evaluate-tool agentmemory` |
 | ui-ux-pro-max | Skills & Plugins | 30.5 | pressure 11, gap 6.5 | `/evaluate-tool ui-ux-pro-max` |
 | gastown | Implement | 29.2 | pressure 11, gap 5.2 | `/evaluate-tool gastown` |
 | ralph-claude-code | Implement | 29.2 | pressure 11, gap 5.2 | `/evaluate-tool ralph-claude-code` |
 | impeccable | Skills & Plugins | 28.5 | pressure 10, gap 6.5 | `/evaluate-tool impeccable` |
-| claude-octopus | Review | 28.5 | pressure 10, gap 6.5 | `/evaluate-tool claude-octopus` |
 | ACE (agentic-context-engine) | Memory & Context | 28.4 | pressure 10, gap 6.4 | `/evaluate-tool ACE (agentic-context-engine)` |
+| claude-octopus | Review | 28.4 | pressure 10, gap 6.4 | `/evaluate-tool claude-octopus` |
 | browser-use | Verify | 27.3 | pressure 10, gap 5.3 | `/evaluate-tool browser-use` |
 | memU | Memory & Context | 26.4 | pressure 9, gap 6.4 | `/evaluate-tool memU` |
 
@@ -74,7 +74,7 @@ _Listing 12 of 147 — rerun `python3 triage.py` and read the source for the tai
 | andrej-karpathy-skills | Skills & Plugins | 20.5 | challenges agent-skills, documentation-and-adrs, mattpocock/skills · pressure 6, gap 6.5 | `/triage-lead andrej-karpathy-skills` |
 | strands-agents (harness-sdk) | Implement | 19.2 | challenges fastmcp · pressure 6, gap 5.2 | `/triage-lead strands-agents (harness-sdk)` |
 | mcp-use | MCP Servers | 18.7 | challenges fastmcp · pressure 5, gap 6.7 | `/triage-lead mcp-use` |
-| agnix | Review | 18.5 | challenges SkillSpector · pressure 5, gap 6.5 | `/triage-lead agnix` |
+| agnix | Review | 18.4 | challenges SkillSpector · pressure 5, gap 6.4 | `/triage-lead agnix` |
 
 ## P3 backlog — 325 leads
 

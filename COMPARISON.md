@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 833 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 834 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -443,6 +443,7 @@ All 833 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skilldoctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skill-safety-checker | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
+| cloudflare/security-audit-skill | skill | | ✓ | CONDITIONAL | RUN |
 | cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | x64dbg-mcp-server | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -920,7 +921,7 @@ All 833 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 76 | 35 | 6 | 46% |
 | Implement | 246 | 117 | 4 | 48% |
 | Verify | 30 | 14 | 2 | 47% |
-| Review | 85 | 30 | 3 | 35% |
+| Review | 86 | 31 | 3 | 36% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 63 | 20 | 2 | 32% |
@@ -929,4 +930,4 @@ All 833 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | MCP Servers | 55 | 18 | 2 | 33% |
 | Research & Discovery | 23 | 8 | 1 | 35% |
 | Reference | 57 | 18 | 4 | 32% |
-| **Total** | **833** | **331** | **34** | **40%** |
+| **Total** | **834** | **332** | **34** | **40%** |
