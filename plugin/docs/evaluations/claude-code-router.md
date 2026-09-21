@@ -3,7 +3,7 @@
 **Repo:** [musistudio/claude-code-router](https://github.com/musistudio/claude-code-router)
 **Stars:** 35,136 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-21  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify (intercepts every model request Claude Code makes; spans the whole inner loop)
 **Layer:** Infrastructure
 
@@ -85,7 +85,16 @@ written against a Claude-Code-specific router. If the scope has genuinely broade
 comparison against `CLIProxyAPI` and `bifrost` in that eval is measuring a narrower tool than the one
 that ships today. Flagged for the re-check, not resolved here.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+**Re-check confirmed, 2026-09-21 (5-oldest-untriaged pass):** the repo's current About/README tagline
+reads verbatim "One local control plane for every AI agent: route across models, fuse new
+capabilities, orchestrate tools, and stay fully in control," and the README lists Claude Design,
+Codex, Grok CLI, Kimi CLI, Kilo Code, OpenCode, Pi, ZCode, and WorkBuddy alongside Claude Code as
+supported agents. The scope broadening flagged above is real, not stale phrasing. This is source-only
+confirmation (repo page only, not installed), so it does not change the verdict — re-running the
+`CLIProxyAPI`/`bifrost` comparison against the current, broader tool is P0/eval-runner work, not
+something this bulk pass can do. Left at `discovery-log`; ★37.4K, MIT, still actively pushed.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-09-21._
 
 ## Catalog entry
 

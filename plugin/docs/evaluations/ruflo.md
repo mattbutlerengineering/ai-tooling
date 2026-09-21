@@ -3,7 +3,7 @@
 **Repo:** [ruvnet/ruflo](https://github.com/ruvnet/ruflo)
 **Stars:** 60,327 | **Last updated:** 2026-06-19 (v3.12.4, released 2026-06-18) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-16  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-21  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Reflect (an orchestration + memory + learning layer over Claude Code)
 **Layer:** Infrastructure (MCP server, hooks daemon, WASM kernels, vector DB) + Tooling (45 CLI commands, 35 plugins, 98 agents)
 
@@ -90,7 +90,10 @@ posture stands. Left for the P0/eval-runner lane.
 Re-examined 2026-09-16 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
 by a STACK incumbent.
 
-_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass); re-stamped 2026-09-16._
+Re-examined 2026-09-21 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass); re-stamped 2026-09-16, 2026-09-21._
 
 ## Catalog entry
 

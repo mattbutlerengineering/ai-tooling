@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 967 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 971 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -481,6 +481,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | shut-up-and-code | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| deep-code-review (Perun) | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | frank | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | no-honest-caveat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -504,6 +505,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | skill-scanner | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skilldoctor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skill-quality-suite | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-plugin-lint | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skill-safety-checker | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | agent-scan | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | geiger | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -676,6 +678,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | anthropics/skills | reference | | ✓ | discovery-log | REVIEW |
 | antfu/skills | skill | | ✓ | SKIP | REVIEW |
 | azure-skills | plugin | | ✓ | discovery-log | REVIEW |
+| pactflow-agent-skills | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | book-to-skill | skill | | ✓ | discovery-log | REVIEW |
 | Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
 | claude-seo | skill | | ✓ | discovery-log | REVIEW |
@@ -912,6 +915,7 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | modelcontextprotocol/servers | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | sentry | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| slack-skills-plugin | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | supabase | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -1054,13 +1058,13 @@ All 967 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Plan | 84 | 35 | 6 | 42% |
 | Implement | 280 | 119 | 4 | 42% |
 | Verify | 39 | 15 | 2 | 38% |
-| Review | 110 | 30 | 3 | 27% |
+| Review | 112 | 30 | 3 | 27% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 81 | 21 | 2 | 26% |
-| Skills & Plugins | 128 | 43 | 4 | 34% |
+| Skills & Plugins | 129 | 43 | 4 | 33% |
 | Memory & Context | 87 | 29 | 2 | 33% |
-| MCP Servers | 59 | 18 | 2 | 31% |
+| MCP Servers | 60 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **967** | **342** | **34** | **35%** |
+| **Total** | **971** | **342** | **34** | **35%** |
