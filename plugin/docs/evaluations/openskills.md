@@ -3,7 +3,7 @@
 **Repo:** [numman-ali/openskills](https://github.com/numman-ali/openskills)
 **Stars:** 10,446 | **Last updated:** 2026-01-18 (v1.5.0) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-16  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-21  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (sits beside the inner loop — installs/distributes skills agents load while working; does not change how a skill behaves)
 **Layer:** Infrastructure (skill installation + a load shim around the agent CLI)
 
@@ -120,7 +120,10 @@ never disposes a lead on its own. Read the actual file before installing.
 Re-examined 2026-09-16 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
 by a STACK incumbent.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263)); re-stamped 2026-09-16._
+Re-examined 2026-09-21 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263)); re-stamped 2026-09-16, 2026-09-21._
 
 ## Catalog entry
 
