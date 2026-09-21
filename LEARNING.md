@@ -20,7 +20,7 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-18 (this pass's addition/correction, confirmed via search corroboration;
+**Last verified:** 2026-09-21 (this pass's additions, confirmed via search corroboration;
 see the dated footnote below for what else was checked). The rest of the page was previously
 verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -282,6 +282,36 @@ rather than a new find: the 2026-09-14 pass found arXiv 2609.04681 and declined 
 across three independent sources, shows that call was wrong: the paper does coin four named
 concepts. The entry below corrects the record and cites it on that basis, the same bar Farrag's
 PRP/AAMT/SGM synthesis already cleared elsewhere on this page.
+The 2026-09-21 pass hit the identical egress wall a fifteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch3:test` query failed with a 403 on the CONNECT tunnel, and a direct
+`curl` to `youtube.com`, `arxiv.org`, `anthropic.com`, and `martinfowler.com` all failed identically
+(`connect_rejected`), so no video search or transcript pull ran, and the two entries added this pass
+(folded into the existing AGENTS.md-efficacy and long-context entries above, rather than added as new
+sections, since both are third data points on questions this page already tracks) are cross-checked
+across independently-worded search summaries rather than read from source, the same standard applied
+throughout this page. `github.com` and `raw.githubusercontent.com` were reachable this pass (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `21206e5` (2026-09-21), tags now run through `v2.9.0` (plus two preview
+builds). The diff since `v2.7.0` is substantial in the CLI-reference and harness-integration guides
+(`docs/guide/12-cli-commands.md` and a new `18-install-and-lifecycle.md` alone add over 2,000 lines),
+but `docs/guide/04-phases-and-stages.md` still declares five phases (0-4: Initialization, Ideation,
+Inception, Construction, Operation) matching the structure [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md)
+already maps — an install/CLI documentation expansion, not a methodology change, so nothing was added
+to that file this pass. This pass also checked the software-factory, agentic-SDLC, harness-engineering,
+spec-driven-development, and levels-of-autonomy searches the sweep is scoped to and found mostly
+re-treatments of ground this page already covers (BCG Platinion and iTmethods/Sombra "dark factory"
+vendor explainers with no primary claim beyond Osmani's framing above; a Swarmia five-levels-of-autonomy
+post already cited in the 2026-09-16 note) or single-repo/small-N academic work below this page's bar —
+one exception considered and declined: Monperrus, ["The End of Code Review: Coding Agents Supersede
+Human Inspection"](https://arxiv.org/abs/2606.13175) (arXiv, 2026-06) is a position paper arguing
+human review no longer justifies its cost against capable-enough agents; declined because its three
+claims are argued from named review goals and a cost-benefit framing rather than measured against a
+task set the way every other counter-evidence entry on this page is, so it reads as a strong opinion
+this page's Verifiability rationale already disagrees with, not new evidence for or against it. Two
+genuine finds earned a place instead, both narrowing rather than merely restating open questions this
+page already tracks — a third controlled study on whether `AGENTS.md`/context files help coding
+agents, and a third paper on what "more context" costs a coding agent, each folded into its existing
+entry above rather than opened as a new section.
 
 ---
 
@@ -661,7 +691,22 @@ apart, disagreeing on both the sign of the cost effect and the direction of the 
 effect: the practice of writing a durable agent-instructions file is still a genuinely open
 empirical question, not the settled win this repo's own harness-engineering reading currently
 implies. Worth weighing the next time `CLAUDE.md` itself is treated as an unqualified good rather
-than a cost this repo has never measured against a no-`CLAUDE.md` baseline.
+than a cost this repo has never measured against a no-`CLAUDE.md` baseline. **Added 2026-09-21:**
+a third, later study narrows the disagreement rather than resolving it.
+[Khatri, "Do Context Files Help Coding Agents? A Two-Agent Ablation Study on Real
+Repositories"](https://arxiv.org/abs/2607.27250) (arXiv, 2026-07) ran a controlled ablation
+(NONE / ALWAYS-ON / SELECTIVE context injection) across two frontier agents (Claude Code, Codex),
+17 real tasks from 3 repositories, 288 evaluated runs against gold tests. Finding: context
+strategy does not measurably move correctness on either agent, bounded to ≤10-15pp via
+equivalence testing — and a failure-mode triage explains why: agents mostly fail on
+*implementation skill* (feature design, pattern selection, exact wiring), not on missing
+repository knowledge a context file could supply. A manipulation probe found the real `AGENTS.md`
+never converted a near-miss into a pass on either agent. That is a third vote against the "durable
+instructions file is a clear win" reading — closer to Gloaguen's null/negative correctness finding
+than to Lulla's — while adding a mechanism neither of the first two studies offered: if most
+failures are skill gaps rather than knowledge gaps, a context file's ceiling on task success was
+never as high as the harness-engineering framing assumes, independent of which way any single
+study's cost number leans.
 
 ### [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) — METR (2025-07-10)
 A randomized controlled trial — real day-to-day issues in developers' own mature open-source
@@ -973,6 +1018,22 @@ page to put a number on what context engineering is protecting against: not mere
 but measurably worse outcomes from more of them. Confirmed via multiple independently-worded search
 summaries agreeing on the same benchmark design, harness, and figures for both papers — this pass's
 sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so neither paper was directly read.
+**Added 2026-09-21:** a third companion sharpens *how* rot happens rather than just that it does.
+[Xue, "When and How Context Rot Appears in Coding Agents: A White-Box Study of Agent Skills in Code
+Auditing"](https://arxiv.org/abs/2607.17937) (CertiK; arXiv, 2026-07) ran a production-derived
+code-audit workflow (Codex, gpt-5.4-mini) at three context sizes: a clean 10,991-character context
+(8/10 runs pass), a 299,140-character *relevant* context (3/10 pass), and an equal-length
+*irrelevant* context (also 3/10 pass) — so the failure tracks context *length*, not relevance,
+matching Raju's "more tokens, not more signal" finding above. The sharper result is the mechanism:
+requirement coverage stays at 0.933-0.949 of its clean-context value even as the pass rate drops by
+more than half, meaning rot mostly removes a handful of decisive obligations from an otherwise-intact
+artifact rather than degrading the whole output uniformly — a few silently dropped requirements, not
+a general quality decline a reviewer would notice at a glance. Worth reading with Raju/Zhu above as
+one finding in two parts: they establish that longer context correlates with worse outcomes, this
+one shows the failure is a small number of specific, quietly-dropped obligations. Confirmed via
+multiple independently-worded search summaries agreeing on the same context-size/pass-rate figures —
+this pass hit the same `arxiv.org` egress block as every pass since 2026-08-10, so the paper itself
+was not directly read.
 
 ### [Beyond Code Generation: Reliability, Verification, and Cost Economics in the Agentic Software Development Lifecycle](https://arxiv.org/abs/2609.04681) — Happy Bhati (Northeastern University; arXiv, 2026-09-04)
 A correction to this page's own record rather than a new find. The 2026-09-14 pass located this
