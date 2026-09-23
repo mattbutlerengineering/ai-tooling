@@ -312,6 +312,31 @@ genuine finds earned a place instead, both narrowing rather than merely restatin
 page already tracks — a third controlled study on whether `AGENTS.md`/context files help coding
 agents, and a third paper on what "more context" costs a coding agent, each folded into its existing
 entry above rather than opened as a new section.
+The 2026-09-23 pass hit the identical egress wall a sixteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch1:test` query failed with a 403 on the CONNECT tunnel, and a direct
+`curl` to `arxiv.org` failed identically, so no video search or transcript pull ran, and the three
+entries added this pass (two harness-engineering papers and a spec-driven-development corpus study,
+below) are cross-checked across independently-worded search summaries rather than read from source,
+the same standard applied throughout this page. `github.com`'s HTTPS git endpoint and
+`raw.githubusercontent.com` were both reachable this pass (the web UI at `github.com/owner/repo`
+403'd directly, distinct from the CONNECT-tunnel failure on `arxiv.org`/`youtube.com`), so
+`awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD moved to
+`79ff008` (2026-09-23, a Windows Codex CI readiness fix), and the README still states the same
+5-phase/33-stage structure [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — a
+maintenance commit, not a methodology change, so nothing was added on that thread this pass. This
+pass also checked the software-factory/dark-lit, agentic-SDLC, ADW, and levels-of-autonomy searches
+the sweep is scoped to and found only re-treatments or vendor content with no primary claim beyond
+what this page already covers (a paywalled Gartner analyst report repeating the dark-factory framing
+already covered via Osmani/Horthy; HCLTech, BCG Platinion, and Sombra vendor write-ups in the same
+category as prior passes' declines) plus two out-of-scope near-misses: a Cloud Security Alliance
+autonomy-levels-and-controls framework, declined as an AI-governance/compliance taxonomy rather than
+a coding-delivery autonomy ladder — the same call already made against the regulated-domain
+oversight-tiers paper on 2026-09-18 — and an "AI Developer Workflow" (ADW) open-source framework
+grown out of IndyDevDan's course material, named here rather than added since a `CATALOG.md` row is
+outside this lane's scope. Three genuine finds earned a place instead — two companion papers giving
+this page's harness-engineering cluster its first source-code-grounded and its first controlled
+ablation evidence, after five entries that argued the discipline in prose, and a census of
+spec-driven-development artifacts at a scale the cluster's other entries only theorize about.
 
 ---
 
@@ -1061,6 +1086,58 @@ independent sources agreeing on all four terms, the author, and the submission d
 abstract page itself, pith.science's paper summary, and an X/Twitter summary quoting the report)
 — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, the fourteenth consecutive
 pass to hit this wall), so the paper itself was not directly read.
+
+### [Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents — A Source-Code Study of Eleven Systems](https://arxiv.org/abs/2609.00006) — Paul Barbaste, Tristan Darrigol, Germain Vu, Tom Wiltberger (Wavestone AI Lab; arXiv, 2026-09)
+The first entry in this page's harness-engineering cluster grounded in source code rather than a
+single company's prose account. A comparative audit of eleven production coding harnesses — Claude
+Code, Codex CLI, Gemini CLI, Mistral Vibe, OpenHands, Aider, Mini-SWE-Agent, Hermes, Pi, OpenCode,
+OpenClaw — plus a first meta-harness (Omnigent) read as a contrast point. Defines a harness by seven
+canonical subsystems (the loop, tools, context management, safety controls, orchestration, and
+extension surfaces) and maps each system's minimal and maximal implementation of each, yielding 13
+cross-cutting observations and a catalog of 29 recurring design patterns across the eleven
+codebases. Its central claim — that in the first half of 2026 the coding harness completed a turn
+from tool to platform — is the same **Agent = Model + Harness** thesis the
+Hashimoto/Fowler/Anthropic/OpenAI/LangChain entries above have each argued from one vendor's or one
+author's vantage point, here argued instead from reading eleven systems' own code side by side. **A
+companion paper answers the causal question this one can only describe.**
+[An Empirical Study of Harness Design for Coding Agents](https://arxiv.org/abs/2609.20804) —
+Run-Ze Fan, Zihao Zhang, Simin Ma, Yebowen Hu, Shouju Wang, Kaiqiang Song, Fei Liu, Hamed Zamani,
+Xiaoyang Wang (arXiv, 2026-09) — holds a harness's execution loop fixed and varies only planning,
+action space, and context management, across four models on SWE-Bench Verified and Terminal-Bench
+2.1 (176 matched settings). Findings: planning is an accuracy scaffold for weaker models but only a
+cost-saver for stronger ones, with little accuracy change; a bash-only action space matches or beats
+predefined tools for models with strong bash proficiency, at substantially lower cost; and
+trajectory-level analysis shows each of the three components changes *how* an agent works (where a
+trajectory stops, how granularly it edits) more than *whether* it succeeds — so a harness choice
+this page's prose entries treat as a general lever is conditional on model capability and task
+shape, helping in some regimes and merely costing more in others. Together the two papers are the
+first on this page to move the harness-engineering cluster from described architecture to measured
+effect. Confirmed via multiple independently-worded search summaries (the arXiv abstract pages,
+alphaXiv, ResearchGate, Hugging Face paper pages) agreeing on the same author lists,
+subsystem/pattern counts, and ablation figures — this pass's sandbox blocked `arxiv.org` outright
+(`EGRESS_BLOCKED`, the sixteenth consecutive pass to hit this wall), so neither paper was directly
+read.
+
+### [SpecMine: A Large-Scale Corpus of Spec-Driven Development Artifacts](https://arxiv.org/abs/2608.25202) — Shyam Agarwal, Anmol Singhal, Travis Breaux, Bogdan Vasilescu (CMU; arXiv, 2026-08)
+The adoption census this page's spec-driven-development cluster has lacked — the same role
+Galster's configuration-adoption census plays for AGENTS.md/skills/hooks above, from the same CMU
+lab (Vasilescu) behind the "3100 Opinions" and Cursor-complexity entries elsewhere on this page. Two
+censuses of public GitHub repositories: a broad one covering spec.md/specs.md files from 17 named
+SDD tools (470,795 files across 73,030 repositories) and a separate Kiro census for its distinct
+requirements/design/tasks layout (98,574 files across 12,910 repositories), plus a curated sample of
+5,992 spec-touching pull requests across 581 repositories with full changesets. Headline finding:
+99.7% of specs were first committed in 2025 or later and 92% in 2026 alone, so the corpus captures
+spec-driven development from its birth rather than a mature practice — directly relevant to how
+much weight this page's other SDD entries (Lahiri's intent-gap argument, Farrag's PRP/SGM synthesis,
+the UPM harness-as-governance paper above) should carry as claims about an established discipline
+versus a one-year-old one. Among developer-adopted tools (excluding Caffeine.ai, an app generator
+whose repositories are mostly auto-generated single apps rather than adopted tooling), Kiro, Spec
+Kit, and OpenSpec lead by repository count, and most sampled spec-touching PRs also changed code in
+the same PR — spec and implementation moving together rather than the spec sitting stale after being
+written once, though the paper does not report a drift measurement over time. Confirmed via multiple
+independently-worded search summaries (the arXiv abstract page and its HTML rendering) agreeing on
+the same census counts and tool rankings — this pass's sandbox blocked `arxiv.org` outright, so the
+paper itself was not directly read.
 
 ---
 
