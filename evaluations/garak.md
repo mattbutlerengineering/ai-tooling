@@ -3,7 +3,7 @@
 **Repo:** [NVIDIA/garak](https://github.com/NVIDIA/garak)
 **Stars:** ~8,150 | **Last updated:** 2026-06-17 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-23  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (security red-teaming)
 **Layer:** Tooling
 
@@ -68,6 +68,9 @@ loop is AI-assisted *development*, where that endpoint does not exist.
 
 Apache-2.0, NVIDIA-maintained, ★8.4K, actively pushed. The right row to keep and the right tool to
 reach for the moment an LLM feature ships; `promptfoo`'s red-team mode is the lighter first step.
+
+**Re-triaged 2026-09-23 by the P2 challenger band:** no change — still scans a shipped model
+endpoint, a different job than `SkillSpector`'s pre-install skill scan; left at `discovery-log`.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 

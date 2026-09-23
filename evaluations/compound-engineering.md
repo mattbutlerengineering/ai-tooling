@@ -3,7 +3,7 @@
 **Repo:** [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin)
 **Stars:** 21,725 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-23  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (full-loop: Plan → Implement → Review → Reflect)
 **Layer:** Tooling
 
@@ -79,6 +79,9 @@ replacement question in either direction.
 ★22.9K, MIT, pushed today, and it runs across Claude Code, Codex and Cursor. The P0 read is a
 head-to-head against GSD on a disclosed task set, with the specific question being whether the
 compounding actually compounds over repeated runs — a claim only sequential measurement can test.
+
+**Re-triaged 2026-09-23 by the P2 challenger band:** no change — still a replacement question
+against GSD rather than a redundancy one; left at `discovery-log` for a measured P0 head-to-head.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
 

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 971 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 981 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -33,6 +33,7 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | CodeJury | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | know-before-act | skill | | ✓ | SKIP | SOURCE-ONLY |
 | requirement-ledger | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-sdlc-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cli-faq-shortcuts | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-coding-prompt-template | skill | | ✓ | SKIP | SOURCE-ONLY |
 | claude-modular | framework | | ✓ | SKIP | REVIEW |
@@ -104,6 +105,7 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | agency-agents | harness | | ✓ | SKIP | REVIEW |
 | sol-skill | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| astra-flash-orchestrator | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | CoordClaw | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | IvyClaw | framework | | ✓ | SKIP | SOURCE-ONLY |
 | opendot | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -118,11 +120,14 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | fleetpost | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-link | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | aster | harness | | ✓ | SKIP | SOURCE-ONLY |
+| agent-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
 | tldr | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
 | eigent | platform | ✓ | ✓ | SKIP | REVIEW |
 | herdr | tool | | ✓ | discovery-log | REVIEW |
+| herdr-gpui | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| sno-station | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claurst | harness | | ✓ | SKIP | REVIEW |
 | claude-code-harness | harness | | ✓ | SKIP | REVIEW |
 | dot-reflex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -143,6 +148,7 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | task-state-guard | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | conflux-agent-workflow-2026 | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| esf | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cachebeat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -487,6 +493,8 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | repro-lens | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gap-trap | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| code-quality | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| ming-qa | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | prove-it | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -868,6 +876,7 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | getspecstory | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | mex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opencontext | MCP server | | ✓ | SKIP | SOURCE-ONLY |
+| briefd | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | intent-continuity | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | genesis-memory | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
 | delx-memory | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -887,6 +896,7 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | awslabs/mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | nuphus-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-remote | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| farhand | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | unity-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -1055,16 +1065,16 @@ All 971 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 84 | 35 | 6 | 42% |
-| Implement | 280 | 119 | 4 | 42% |
+| Plan | 85 | 35 | 6 | 41% |
+| Implement | 285 | 119 | 4 | 42% |
 | Verify | 39 | 15 | 2 | 38% |
-| Review | 112 | 30 | 3 | 27% |
+| Review | 114 | 30 | 3 | 26% |
 | Ship | 4 | 1 | 1 | 25% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 81 | 21 | 2 | 26% |
 | Skills & Plugins | 129 | 43 | 4 | 33% |
-| Memory & Context | 87 | 29 | 2 | 33% |
-| MCP Servers | 60 | 18 | 2 | 30% |
+| Memory & Context | 88 | 29 | 2 | 33% |
+| MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **971** | **342** | **34** | **35%** |
+| **Total** | **981** | **342** | **34** | **35%** |

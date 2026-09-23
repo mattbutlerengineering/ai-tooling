@@ -3,7 +3,7 @@
 **Repo:** [ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui)
 **Stars:** ~14,300 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-23  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (protocol / Implement when integrating)
 **Layer:** Infrastructure
 
@@ -62,6 +62,9 @@ agents stream state to user-facing apps, MIT, ★14.7K, CopilotKit-backed, pushe
 In scope but adjacent: it matters when you are *building* an agent-backed product surface, not when
 you are using an agent to write code. The catalog's `generative-ui-frameworks` cluster is where this
 question actually lives, and `openui` and `MCP Apps (ext-apps)` are the two rows to read beside it.
+
+**Re-triaged 2026-09-23 by the P3 backlog band:** no change — still a protocol standard, not a
+runnable dev-loop tool; left at `discovery-log`.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
 
