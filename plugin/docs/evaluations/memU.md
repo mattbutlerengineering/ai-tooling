@@ -3,7 +3,7 @@
 **Repo:** [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU)
 **Stars:** 14.4K | **Last updated:** 2026-09-08 (pushed) | **License:** NOASSERTION (no detected LICENSE file)
 **Last verified:** 2026-09-08
-**Last triaged:** 2026-09-08  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-24  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -26,7 +26,8 @@ it would not support an ADOPT, and this eval offers none.
 
 Left at `discovery-log`, not SKIPped as redundant with `claude-mem` despite the overlap citation. memU's file-structured, human-readable Markdown-tree approach is architecturally distinct from claude-mem's semantic-search/knowledge-graph plugin design, and at 14.4K★ it is one of the largest, most established projects in the entire Memory & Context category — that scale and a genuinely different design (inspectable filesystem vs. searchable index) argue for a real hands-on comparison, not a mechanical SKIP. `repo-metadata.json` also records `license_spdx: NOASSERTION` (no LICENSE file GitHub's detector recognizes); worth confirming during a real eval before any positive verdict, per the license bar.
 
-_Triaged 2026-09-08 by the P2 challenger band._
+_Triaged 2026-09-08, re-checked 2026-09-24, by the P2 challenger band — no new evidence since the
+last pass; the scale/architecture argument and the open license question both still stand._
 
 ## Catalog entry
 

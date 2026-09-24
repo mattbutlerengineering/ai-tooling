@@ -3,7 +3,7 @@
 **Repo:** [mex-memory/mex](https://github.com/mex-memory/mex)
 **Stars:** 1,149 | **Last updated:** 2026-07-08 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-24  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context
 **Layer:** Tooling
 
@@ -39,4 +39,4 @@ nothing in STACK does.
 Small (1.1K stars) and unverified, so the claim needs exercising before it counts — P0 work, not a
 bulk SKIP.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+_Triaged 2026-08-04, re-checked 2026-09-24, by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264)) — no new evidence since the last pass; the drift-detection differentiator still stands, still unverified._
