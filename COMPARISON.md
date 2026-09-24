@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 981 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 989 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -140,6 +140,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
+| mast | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-dispatcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -155,6 +156,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cache-tax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jev-use | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-routing | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| magpie | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tokenflux | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
@@ -206,6 +208,8 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | harness | skill | | ✓ | SKIP | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
 | compact-adviser | plugin | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
+| taskcut | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| tokencut | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ctxwise | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-context-optimizer | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
@@ -442,6 +446,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | old-coder | skill | | ✓ | SKIP | SOURCE-ONLY |
 | i-dont-believe-you | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hubo | skill | | ✓ | SKIP | SOURCE-ONLY |
+| objection | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Assumptions | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pr-lens | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -541,6 +546,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | explain-diff-html | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | 1c-quality-gate | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ship-it | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| phyll | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | pullfrog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -558,6 +564,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 |------|------|------|------|------|------|
 | bernstein | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
+| golive-skill | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | worktrunk | tool | | $ | discovery-log | REVIEW |
 | no-negative-echo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -786,6 +793,7 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-code-plugins-plus-skills | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-hooks (karanb192) | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
+| pi-skill-orchestrator | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-skill-creator | skill | | ✓ | SKIP | SOURCE-ONLY |
@@ -1066,15 +1074,15 @@ All 981 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 85 | 35 | 6 | 41% |
-| Implement | 285 | 119 | 4 | 42% |
+| Implement | 289 | 120 | 4 | 42% |
 | Verify | 39 | 15 | 2 | 38% |
-| Review | 114 | 30 | 3 | 26% |
-| Ship | 4 | 1 | 1 | 25% |
+| Review | 116 | 30 | 3 | 26% |
+| Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 81 | 21 | 2 | 26% |
-| Skills & Plugins | 129 | 43 | 4 | 33% |
+| Skills & Plugins | 130 | 43 | 4 | 33% |
 | Memory & Context | 88 | 29 | 2 | 33% |
 | MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **981** | **342** | **34** | **35%** |
+| **Total** | **989** | **343** | **34** | **35%** |

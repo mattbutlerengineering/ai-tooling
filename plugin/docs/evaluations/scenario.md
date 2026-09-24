@@ -3,7 +3,7 @@
 **Repo:** [langwatch/scenario](https://github.com/langwatch/scenario)
 **Stars:** ~900 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-24  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (agent testing)
 **Layer:** Tooling
 
@@ -68,7 +68,7 @@ The eval's operational advice is the part worth keeping: pin judge and simulator
 scenarios, or CI signals will not be stable. That is the standard hazard of LLM-judged testing, and it
 is the thing a hands-on run would need to show is manageable before this reaches ADOPT.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+_Triaged 2026-08-04, re-checked 2026-09-24, by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)) — no new evidence since the last pass; the evalview dependency still stands._
 
 ## Catalog entry
 
