@@ -337,6 +337,39 @@ outside this lane's scope. Three genuine finds earned a place instead — two co
 this page's harness-engineering cluster its first source-code-grounded and its first controlled
 ablation evidence, after five entries that argued the discipline in prose, and a census of
 spec-driven-development artifacts at a scale the cluster's other entries only theorize about.
+The 2026-09-25 pass hit the identical egress wall a seventeenth time — a direct `curl` to
+`youtube.com` and `arxiv.org` both failed with a 403 on the CONNECT tunnel, and a WebFetch of
+`arxiv.org` failed identically (`EGRESS_BLOCKED`), so no video search or transcript pull ran, and
+the one entry added this pass (below) is cross-checked across independently-worded search summaries
+rather than read from source, the same standard applied throughout this page. `github.com`'s HTTPS
+git endpoint and `raw.githubusercontent.com` were both reachable this pass (same as every pass since
+2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD
+moved to `60214a0` (2026-09-25, a CI-only nightly-preview-build fix), and a new `2.10.0` release
+(2026-09-24, up from the `v2.9.0`/`v2.8.x` tags noted 2026-09-21) rolls up conversation-aware review
+workflows, stronger Construction gates, and multi-harness project coexistence — but
+`docs/guide/04-phases-and-stages.md` still declares the same 5-phase/33-stage structure
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, so nothing was added on that thread this
+pass. This pass also checked the software-factory/dark-lit, agentic-SDLC, harness-engineering,
+spec-driven-development, ADW, and levels-of-autonomy searches the sweep is scoped to and found mostly
+re-treatments or vendor explainers with no primary claim beyond what this page already covers
+(HCLTech and BCG Platinion "agentic software factory" write-ups repeating the Osmani/Zakariasson
+framing above; MindStudio and HackerNoon dark-factory explainers repeating Osmani's Light and Dark
+post nearly verbatim; a BCG "Harness Engineering" post and a LangChain "Anatomy of an Agent Harness"
+post, both on domains this pass's sandbox blocked outright — `bcg.com` and `www.langchain.com` both
+`EGRESS_BLOCKED` — so neither could be read and neither is cited; a marmelab.com "State of AI Harness
+Engineering 2026" post published the day before this pass, also `EGRESS_BLOCKED` and likewise not
+cited) plus one considered and declined on substance:
+[Wheeler, "The Substrate Collapse: AI Code Generation Invalidates Authorship-Based Knowledge
+Metrics"](https://arxiv.org/abs/2606.20882) (arXiv, 2026-06) argues truck-factor and
+degree-of-authorship metrics are invalidated because AI-generated code severs the
+authorship-implies-comprehension inference they rest on — genuinely on-topic for this page's
+Verifiability framing, but a single-author argued position with no task-set measurement behind it,
+the same shape the Monperrus paper was declined for on 2026-09-21. The one addition this pass is the
+sharpest kind of counter-evidence the sweep is scoped to find, this time cutting the *other* way
+against this page's own accumulated pessimism: a fuzz-testing reliability study finding AI-generated
+reimplementations of ten Linux utilities failed *less* often under AFL++ than their human-written
+reference versions (see below). Confirmed via multiple independently-worded search summaries — this
+pass's sandbox blocked `arxiv.org` outright, so the paper itself was not directly read.
 
 ---
 
@@ -1138,6 +1171,25 @@ written once, though the paper does not report a drift measurement over time. Co
 independently-worded search summaries (the arXiv abstract page and its HTML rendering) agreeing on
 the same census counts and tool rankings — this pass's sandbox blocked `arxiv.org` outright, so the
 paper itself was not directly read.
+
+### [A Study of the Reliability of Agentic AI-Generated Programs](https://arxiv.org/abs/2609.18298) — Ayesha Shafique, Barton P. Miller, Elisa R. Heymann (University of Wisconsin–Madison; arXiv, 2026-09-16, revised 2026-09-23)
+Counter-evidence cutting against this page's own accumulated pessimism rather than adding to it —
+the sharpest kind of find this sweep is scoped to look for. Rather than a synthetic benchmark, the
+authors point an agentic coding workflow at reimplementing ten well-known, release-quality
+human-written Linux utility programs, using the real utilities as ground truth, then fuzz-test both
+the AI-generated and human-written versions with classic black-box and AFL++ coverage-guided
+fuzzing. Reported result: the AI-generated versions were typically as reliable, often more reliable,
+than the reference implementations — 5 unique crash/hang failures against 19 in the human-written
+versions (24 unique failures total across all ten programs) — with a failure-mode split running the
+opposite direction from the memory-safety headlines elsewhere on this page: AI-generated code was
+less prone to memory errors like buffer overflows but more prone to hangs like infinite loops. The
+paper's own caveat keeps this from reading as a clean win for automation — reliability tracked
+"careful practice and human supervision" and depended heavily on the prompts and skill of the person
+directing the agent, the same verification-is-not-optional reading this page's [Verifiability
+signal](WORKFLOW.md#why-verifiability-is-its-own-signal) entries already argue, just measured here on
+the reliability axis rather than the review-cost axis. Confirmed via multiple independently-worded
+search summaries agreeing on the same 5/19/24 figures and failure-mode split — this pass's sandbox
+blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not directly read.
 
 ---
 
