@@ -3,7 +3,7 @@
 **Repo:** [kayba-ai/agentic-context-engine](https://github.com/kayba-ai/agentic-context-engine)
 **Stars:** 2,449 | **Last updated:** 2026-06-13 (pushed) | **License:** Apache-2.0 | **Language:** Python (`ace-framework`; LiteLLM, 100+ providers)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-25  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (in-context learning / self-improvement)
 **Layer:** Infrastructure (framework/library; open-source engine behind the hosted Kayba service)
 
@@ -83,6 +83,13 @@ tokens**, both unverified. The second falls squarely under
 `evaluations/token-savings-protocol.md`. A P0/eval-runner candidate.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+
+Re-examined 2026-09-25 (5-oldest-untriaged pass): reasoning still holds — none of the
+named overlaps (pro-workflow, hivemind, MemOS, memind, claude-reflect) is a STACK
+incumbent that clearly dominates this lead; still a P0/eval-runner candidate, not a
+mechanical SKIP.
+
+_Triaged 2026-08-06 by the daily discovery routine; re-stamped 2026-09-25._
 
 ## Catalog entry
 

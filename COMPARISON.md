@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 989 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 991 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -175,6 +175,7 @@ All 989 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | claude-account | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-rotate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | BossConsole | platform | | ✓ | SKIP | SOURCE-ONLY |
+| bettercode | tool | | ✓ | SKIP | SOURCE-ONLY |
 | commit-commands | plugin | | ✓ | SKIP | REVIEW |
 | compound-engineering | plugin | | ✓ | discovery-log | REVIEW |
 | context-mode | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -679,6 +680,7 @@ All 989 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | agent-rules-books | skill |  | ✓ | CONDITIONAL | REVIEW |
 | doctrine | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
+| modern-react-guidance | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | godmode | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1074,15 +1076,15 @@ All 989 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 85 | 35 | 6 | 41% |
-| Implement | 289 | 120 | 4 | 42% |
+| Implement | 290 | 121 | 4 | 42% |
 | Verify | 39 | 15 | 2 | 38% |
 | Review | 116 | 30 | 3 | 26% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 81 | 21 | 2 | 26% |
-| Skills & Plugins | 130 | 43 | 4 | 33% |
+| Skills & Plugins | 131 | 43 | 4 | 33% |
 | Memory & Context | 88 | 29 | 2 | 33% |
 | MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **989** | **343** | **34** | **35%** |
+| **Total** | **991** | **344** | **34** | **35%** |
