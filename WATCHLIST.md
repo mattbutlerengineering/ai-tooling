@@ -39,13 +39,14 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 _0 eval(s) carry no `**Last verified:**` date (field presence is gated separately by `backfill-lastverified.py`)._
 <!-- WATCHLIST:STALE:END -->
 
-## 4. Unverified claims & measurement backlog (17)
+## 4. Unverified claims & measurement backlog (18)
 
-**Unverified token-savings claims (15).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
+**Unverified token-savings claims (16).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
 
 | Tool | Evidence | Disclaimer in row? |
 |------|----------|--------------------|
 | ACE (agentic-context-engine) | REVIEW | no |
+| buried-injections | SOURCE-ONLY | no |
 | claude-code-memory-setup | REVIEW | yes |
 | claw-compactor | REVIEW | no |
 | cocoindex-code | REVIEW | no |

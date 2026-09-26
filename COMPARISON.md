@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 991 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 997 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -212,6 +212,7 @@ All 991 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | taskcut | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tokencut | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ctxwise | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| context-guard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-context-optimizer | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hive | harness | | ✓ | SKIP | REVIEW |
 | humanlayer | harness | | ✓ | SKIP | REVIEW |
@@ -431,6 +432,7 @@ All 991 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | frama-c-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | qodo-cover | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | passmark | tool | ✓ | ✓ | SKIP | REVIEW |
+| claude-skill-playwright-browser | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pixelpact | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | diagnosing-bugs | skill | | ✓ | SKIP | REVIEW |
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
@@ -538,6 +540,9 @@ All 991 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | OpenOSINT | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | agnix | tool | ✓ | ✓ | discovery-log | REVIEW |
 | trustmcp | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| mcp-audit-tool | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| SENTINEL | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| buried-injections | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-vault | tool | | ✓ | discovery-log | REVIEW |
 | envlatch | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | kru | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
@@ -636,6 +641,7 @@ All 991 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | deepeval | framework | ✓ | ✓ | discovery-log | REVIEW |
 | phoenix | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agent-otel-gateway | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | bough | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
@@ -1076,15 +1082,15 @@ All 991 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 85 | 35 | 6 | 41% |
-| Implement | 290 | 121 | 4 | 42% |
-| Verify | 39 | 15 | 2 | 38% |
-| Review | 116 | 30 | 3 | 26% |
+| Implement | 291 | 121 | 4 | 42% |
+| Verify | 40 | 15 | 2 | 38% |
+| Review | 119 | 30 | 3 | 25% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 81 | 21 | 2 | 26% |
+| Outer Loop | 82 | 21 | 2 | 26% |
 | Skills & Plugins | 131 | 43 | 4 | 33% |
 | Memory & Context | 88 | 29 | 2 | 33% |
 | MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **991** | **344** | **34** | **35%** |
+| **Total** | **997** | **344** | **34** | **35%** |

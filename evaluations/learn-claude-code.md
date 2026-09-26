@@ -3,7 +3,7 @@
 **Repo:** [shareAI-lab/learn-claude-code](https://github.com/shareAI-lab/learn-claude-code)
 **Stars:** 67,447 | **Last updated:** 2026-06-07 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-26  <!-- triaged: bulk -->
 **Dev loop stage:** Reference
 **Layer:** Process
 
