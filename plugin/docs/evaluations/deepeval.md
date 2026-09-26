@@ -3,7 +3,7 @@
 **Repo:** [confident-ai/deepeval](https://github.com/confident-ai/deepeval)
 **Stars:** ~16,300 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-26  <!-- triaged: bulk -->
 **Dev loop stage:** Verify / Reflect (LLM evaluation)
 **Layer:** Tooling
 

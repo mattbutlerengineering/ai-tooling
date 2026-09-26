@@ -3,7 +3,7 @@
 **Repo:** [microsoft/agent-governance-toolkit](https://github.com/microsoft/agent-governance-toolkit)
 **Stars:** ~4,430 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-26  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (agent governance / Outer Loop)
 **Layer:** Infrastructure
 
