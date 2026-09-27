@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 997 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1001 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -89,6 +89,7 @@ All 997 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | Remarc | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| jevgrep | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | SocratiCode | tool | ✓ | ✓ | discovery-log | REVIEW |
 | gortex | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | codebase-to-course | skill | | ✓ | SKIP | REVIEW |
@@ -155,9 +156,11 @@ All 997 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | cachebeat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cache-tax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jev-use | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| quicksilver | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-routing | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | magpie | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | tokenflux | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| usagetrim | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
@@ -615,6 +618,7 @@ All 997 tools from CATALOG.md with dev loop stage, automation capability, pricin
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
 | token-step-tracker | tool | | ✓ | SKIP | SOURCE-ONLY |
 | tokentab | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-console | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | opencode-cache-stats | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1081,16 +1085,16 @@ All 997 tools from CATALOG.md with dev loop stage, automation capability, pricin
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 85 | 35 | 6 | 41% |
-| Implement | 291 | 121 | 4 | 42% |
+| Plan | 86 | 35 | 6 | 41% |
+| Implement | 293 | 121 | 4 | 41% |
 | Verify | 40 | 15 | 2 | 38% |
 | Review | 119 | 30 | 3 | 25% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 82 | 21 | 2 | 26% |
+| Outer Loop | 83 | 21 | 2 | 25% |
 | Skills & Plugins | 131 | 43 | 4 | 33% |
 | Memory & Context | 88 | 29 | 2 | 33% |
 | MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **997** | **344** | **34** | **35%** |
+| **Total** | **1001** | **344** | **34** | **34%** |
