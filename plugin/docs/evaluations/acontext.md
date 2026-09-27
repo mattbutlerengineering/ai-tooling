@@ -3,7 +3,7 @@
 **Repo:** [memodb-io/Acontext](https://github.com/memodb-io/Acontext)
 **Stars:** ~3,500 | **Last updated:** 2026-06-16 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-27  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (Memory & Context)
 **Layer:** Infrastructure
 
