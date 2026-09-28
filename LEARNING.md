@@ -370,6 +370,30 @@ against this page's own accumulated pessimism: a fuzz-testing reliability study 
 reimplementations of ten Linux utilities failed *less* often under AFL++ than their human-written
 reference versions (see below). Confirmed via multiple independently-worded search summaries — this
 pass's sandbox blocked `arxiv.org` outright, so the paper itself was not directly read.
+The 2026-09-28 pass hit the identical egress wall an eighteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch3:test` query failed with a 403 on the CONNECT tunnel, and a WebFetch of
+`arxiv.org` failed identically (`EGRESS_BLOCKED`), so no video search or transcript pull ran, and the
+one entry added this pass (below) is cross-checked across independently-worded search summaries rather
+than read from source, the same standard applied throughout this page. `github.com`'s HTTPS git
+endpoint was reachable this pass (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows`
+was re-checked directly by cloning `main` read-only: HEAD moved to `e51888b` (2026-09-28, a Bolt
+worktree/submodule fix), only preview tags exist past the `v2.10.0` release noted 2026-09-25, and
+`docs/guide/04-phases-and-stages.md` still declares the same 5-phase/33-stage structure
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — a maintenance commit, not a methodology
+change, so nothing was added on that thread this pass. This pass also checked the software-factory/
+dark-lit, agentic-SDLC, ADW, context-engineering, and levels-of-autonomy searches the sweep is scoped
+to and found mostly re-treatments or vendor explainers with no primary claim beyond what this page
+already covers (Gartner, BCG Platinion, iTmethods, and Sombra "dark factory"/"agentic software
+factory" write-ups repeating the Osmani/Zakariasson/Horthy framing above; Mastra's September 2026
+"Factory Beta" self-reported PR/issue percentages, the same self-reported-vendor-number shape already
+declined for Cognition's OCBC/Itaú numbers) plus one near-miss word-overlap false lead worth recording
+so it isn't re-surfaced: arXiv 2609.05995, "Agentic Pressure: The Endogenous Entropy of Reliable
+Autonomy," matched this sweep's "back pressure" search only on the word "pressure" — it is an AI
+*safety* paper about jailbreak-adjacent goal-pressure dynamics, not a coding-agent SDLC finding, and
+is out of scope rather than weak evidence. The one addition this pass is a genuine, not-yet-covered
+paper squarely on this sweep's "verification bandwidth / back pressure" topic, naming a governance
+mechanism the page's existing throughput-vs-review entries (Faros AI, "Debt Behind the AI Boom") have
+so far only measured as a correlation.
 
 ---
 
@@ -1119,6 +1143,28 @@ independent sources agreeing on all four terms, the author, and the submission d
 abstract page itself, pith.science's paper summary, and an X/Twitter summary quoting the report)
 — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, the fourteenth consecutive
 pass to hit this wall), so the paper itself was not directly read.
+
+### [Software Engineering in the Agent Era: From Trustworthy Change to Human-Agent Software Organizations](https://arxiv.org/abs/2609.04630) — Zhongjie Wang, Mingyi Liu (arXiv, 2026-09-04)
+Names two constructs squarely on this page's verification-bandwidth/back-pressure scope, in vocabulary
+distinct from the Farrag PRP/SGM and Bhati ASDLC-Throughput-Paradox entries above rather than a
+restatement of either. Its central object is **Trustworthy Change (TC)** — a unit of engineering work
+tracked from intent through delegated execution, verification, integration, acceptance, and
+operation — governed by a **Responsibility Topology**: whether an organization holds one final anchor
+of residual-risk acceptance authority (single-center) or requires joint acceptance across
+independently governed domains (multi-anchor). Its sharpest claim for this page's [Verifiability
+signal](WORKFLOW.md#why-verifiability-is-its-own-signal): software agents make generation elastic —
+replicable and parallelizable without proportional human headcount — while verification, integration,
+attention, and residual-risk acceptance stay bounded by human cognition and organizational authority,
+so a growing verification queue is itself an observable **backpressure signal**, and under queue
+pressure the responsible party has a stronger incentive to lean on automated reviewers and faster
+approvals — which can quietly weaken the engineering judgment the queue exists to protect. That is a
+mechanism-level account of the same throughput-vs-review trade this page already documents only as a
+correlation via Faros AI's telemetry and "Debt Behind the AI Boom"'s persistence numbers above — naming
+the incentive dynamic underneath the number rather than adding a fifth measurement of it. Confirmed via
+multiple independently-worded sources (the arXiv abstract page, its HTML rendering, and pith.science's
+paper summary) agreeing on the authors, submission date, and the TC/Responsibility-Topology framing —
+this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, the eighteenth consecutive pass to
+hit this wall), so the paper itself was not directly read.
 
 ### [Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents — A Source-Code Study of Eleven Systems](https://arxiv.org/abs/2609.00006) — Paul Barbaste, Tristan Darrigol, Germain Vu, Tom Wiltberger (Wavestone AI Lab; arXiv, 2026-09)
 The first entry in this page's harness-engineering cluster grounded in source code rather than a
