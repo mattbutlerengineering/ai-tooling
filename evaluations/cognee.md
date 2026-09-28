@@ -3,6 +3,7 @@
 **Repo:** [topoteretes/cognee](https://github.com/topoteretes/cognee)
 **Stars:** 17,903 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Retrospect
 **Layer:** Infrastructure
 
@@ -61,6 +62,10 @@ Reviewed: MCP server tool implementations (12 MCP primitives: 3 core tools + 9 U
 **discovery-log — tentative read**
 
 Use when you need relationship-aware memory that connects concepts across documents and sessions — the knowledge graph genuinely adds value for complex, multi-domain projects where flat text search misses relationships. The Claude Code integration is the deepest hook-based memory integration in the catalog. Choose claude-mem (ADOPT) for simpler setups where you want local-first memory without infrastructure overhead, or engram (CONDITIONAL) for portable cross-agent memory. Choose cognee when you need the knowledge graph layer, published benchmarks matter, or you're building a team-wide memory infrastructure.
+
+## Triage note
+
+Cites claude-mem (STACK ADOPT) in Overlaps with, but the eval's own REVIEW already draws the line: cognee's knowledge-graph layer and published benchmarks are a differentiated job from claude-mem's zero-friction Claude Code memory, not a redundant re-implementation. ★29.8K, Apache-2.0, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
 
 ## Catalog entry
 
