@@ -3,6 +3,7 @@
 **Repo:** [aaif-goose/goose](https://github.com/aaif-goose/goose) (moved from block/goose to Linux Foundation AAIF)
 **Stars:** 49,786 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -58,6 +59,10 @@ gh api "repos/aaif-goose/goose/git/trees/main?recursive=1" --jq '.tree[].path' |
 **discovery-log — tentative read**
 
 Use goose when you need a model-agnostic agent platform (multi-provider support is its primary differentiator), when you're building a custom agent distribution for an organization, or when you want to avoid Claude Code's model lock-in. Choose Claude Code when you want the deepest ecosystem (skills, plugins, marketplace), structured development methodology (superpowers, agent-skills), and Anthropic-optimized performance. The two don't compose — it's a platform choice.
+
+## Triage note
+
+Cites claude-squad (STACK ADOPT) in Overlaps with, but the eval's own verdict already draws the line: this is a platform choice (model-agnostic agent runtime) versus claude-squad's parallel-session TUI, not a redundant re-implementation. ★52.3K, Apache-2.0, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
 
 ## Catalog entry
 

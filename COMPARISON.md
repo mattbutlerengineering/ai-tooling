@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1001 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1007 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -28,6 +28,7 @@ All 1001 tools from CATALOG.md with dev loop stage, automation capability, prici
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | GSD (Get Shit Done) | framework | | ✓ | KEEP | MEASURED |
+| forge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Foreman | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-spring-architect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CodeJury | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -153,6 +154,9 @@ All 1001 tools from CATALOG.md with dev loop stage, automation capability, prici
 | esf | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| model-citizen | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| opus-manager | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| clodfarm | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cachebeat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cache-tax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jev-use | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -499,6 +503,8 @@ All 1001 tools from CATALOG.md with dev loop stage, automation capability, prici
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | deep-code-review (Perun) | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| first-pass | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| code-review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | frank | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | no-honest-caveat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1085,10 +1091,10 @@ All 1001 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 86 | 35 | 6 | 41% |
-| Implement | 293 | 121 | 4 | 41% |
+| Plan | 87 | 36 | 6 | 41% |
+| Implement | 296 | 121 | 4 | 41% |
 | Verify | 40 | 15 | 2 | 38% |
-| Review | 119 | 30 | 3 | 25% |
+| Review | 121 | 30 | 3 | 25% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 83 | 21 | 2 | 25% |
@@ -1097,4 +1103,4 @@ All 1001 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 61 | 18 | 2 | 30% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **1001** | **344** | **34** | **34%** |
+| **Total** | **1007** | **345** | **34** | **34%** |

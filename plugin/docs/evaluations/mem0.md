@@ -3,6 +3,7 @@
 **Repo:** [mem0ai/mem0](https://github.com/mem0ai/mem0)
 **Stars:** 58,871 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -63,6 +64,10 @@ gh api search/repositories -f q='mem0 mcp server' -f sort=stars --jq '.items[] |
 **discovery-log — tentative read**
 
 Use mem0 when you need memory that works across multiple AI editors (Claude Code + Codex + Cursor), when your memory store exceeds ~5K entries and needs entity linking for retrieval quality, or when you need publishable retrieval benchmarks to justify the tool to stakeholders. For Claude Code-only workflows, claude-mem (ADOPT) remains the better choice: zero-friction install, auto-capture via hooks, and 18+ bundled workflow skills. Do not run both simultaneously.
+
+## Triage note
+
+Cites claude-mem (STACK ADOPT) in Overlaps with, but the eval's own REVIEW already draws the line: mem0's cross-platform reach (Codex/Cursor, not just Claude Code) and published retrieval benchmarks are a differentiated job from claude-mem's Claude Code-only auto-capture, not a redundant re-implementation. ★62.5K, Apache-2.0, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
 
 ## Catalog entry
 

@@ -3,6 +3,7 @@
 **Repo:** [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
 **Stars:** 27,206 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory + context layer for AI apps and agents)
 **Layer:** Infrastructure (memory/context engine + hosted app; cloud API or fully self-hostable)
 
@@ -63,6 +64,10 @@ gh api repos/supermemoryai/supermemory/readme --jq '.content' | base64 -d | head
 **discovery-log — tentative read** — supermemory is one of the most capable memory+context engines in this catalog: a benchmark-leading (self-reported), full-stack system with fact extraction, user profiles, hybrid RAG, connectors, and multimodal ingestion, MIT-licensed with TS/Python SDKs. Adopt it when you're **building an AI app or a personal/company "brain"** that needs the whole context stack — not just session memory. For a solo developer whose goal is Claude Code continuity, it's heavier and largely redundant with claude-mem + OMEGA, and the headline path leans on the hosted cloud. Pilot on your own data, confirm the self-host scope, and measure recall quality before depending on it.
 
 Compared to neighbors: **mem0** is the broad universal memory layer; **cognee** a self-hosted knowledge-graph memory; **MemOS** a self-evolving "memory OS" with policy/skill layers; **Memori** drop-in production memory with multi-tenant attribution; **memsearch** a Milvus-backed shared layer. supermemory's distinguishing pitch is **benchmark-topping breadth — memory + profiles + RAG + connectors + multimodal in one engine** — closer to a context platform than a memory library.
+
+## Triage note
+
+Cites claude-mem (STACK ADOPT) in Overlaps with, but the eval's own comparison already draws the line: this is a benchmark-topping cross-cutting context platform (memory + RAG + connectors + multimodal), not a redundant re-implementation of claude-mem's Claude Code-only auto-capture. ★28.8K, MIT, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
 
 ## Catalog entry
 

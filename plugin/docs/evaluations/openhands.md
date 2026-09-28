@@ -3,6 +3,7 @@
 **Repo:** [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)  <!-- was All-Hands-AI/OpenHands at eval time; the org renamed itself, re-checked 2026-08-04 -->
 **Stars:** 83,137 (re-checked 2026-08-04) | **Last updated:** 2026-06-19 | **License:** MIT (enterprise/ directory separate)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -59,6 +60,10 @@ Assessed release cadence (v1.6.0 → v1.7.0 → v1.8.0 over 3 months), community
 **discovery-log — tentative read**
 
 Use OpenHands when you need a self-hosted agent orchestration platform with multi-backend support, automation triggers (scheduled/webhook), or ACP-compatible multi-agent management — especially for team environments where agents need to run on shared infrastructure. Choose Claude Code directly when you want the deepest ecosystem (skills, plugins, marketplace, hooks), structured methodology (superpowers, agent-skills), and the simplest setup (single CLI, no Docker required). Like goose and opencode, this is a platform choice, not a complement. Skills (SKILL.md format) are portable between platforms.
+
+## Triage note
+
+Cites claude-squad (STACK ADOPT) in Overlaps with, but the eval's own verdict already draws the line: this is a platform choice (self-hosted, multi-backend agent control center) versus claude-squad's parallel-session TUI, not a redundant re-implementation. ★83.1K, MIT, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
 
 ## Catalog entry
 
