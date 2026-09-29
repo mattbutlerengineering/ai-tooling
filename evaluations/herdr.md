@@ -4,7 +4,7 @@
 **Stars:** 24,375 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0 | **Language:** Go/Rust (terminal app)
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-09-29  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration — multi-agent terminal multiplexer
 **Layer:** Tooling (terminal multiplexer, `curl | sh` install)
 

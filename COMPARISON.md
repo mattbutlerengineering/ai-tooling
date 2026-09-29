@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1007 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1011 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -535,6 +535,7 @@ All 1007 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agent-scan | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | geiger | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| aisrf | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
 | cve-mcp-server | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | ida-pro-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -914,6 +915,8 @@ All 1007 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MemoryMint | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | friday | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | winnow | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| Recollect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| jevmem | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -925,6 +928,7 @@ All 1007 tools from CATALOG.md with dev loop stage, automation capability, prici
 | farhand | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | blender-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | unity-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| oh-my-android | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | fastapi_mcp | framework | | ✓ | discovery-log | REVIEW |
 | mcp-use | framework | | ✓ | discovery-log | REVIEW |
@@ -1094,13 +1098,13 @@ All 1007 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Plan | 87 | 36 | 6 | 41% |
 | Implement | 296 | 121 | 4 | 41% |
 | Verify | 40 | 15 | 2 | 38% |
-| Review | 121 | 30 | 3 | 25% |
+| Review | 122 | 30 | 3 | 25% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 83 | 21 | 2 | 25% |
 | Skills & Plugins | 131 | 43 | 4 | 33% |
-| Memory & Context | 88 | 29 | 2 | 33% |
-| MCP Servers | 61 | 18 | 2 | 30% |
+| Memory & Context | 90 | 29 | 2 | 32% |
+| MCP Servers | 62 | 18 | 2 | 29% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **1007** | **345** | **34** | **34%** |
+| **Total** | **1011** | **345** | **34** | **34%** |
