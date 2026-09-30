@@ -394,6 +394,41 @@ is out of scope rather than weak evidence. The one addition this pass is a genui
 paper squarely on this sweep's "verification bandwidth / back pressure" topic, naming a governance
 mechanism the page's existing throughput-vs-review entries (Faros AI, "Debt Behind the AI Boom") have
 so far only measured as a correlation.
+The 2026-09-30 pass hit the identical egress wall a nineteenth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch1:test` query failed with a 403 on the CONNECT tunnel
+(`Tunnel connection failed: 403 Forbidden`), and a direct `curl`/WebFetch to `youtube.com`, `arxiv.org`,
+and `dora.dev` all failed identically (`EGRESS_BLOCKED`/`000`), so no video search or transcript pull
+ran, and the three entries added this pass (below) are cross-checked across independently-worded
+search summaries rather than read from source, the same standard applied throughout this page.
+`github.com`'s HTTPS git endpoint was reachable this pass (same as every pass since 2026-08-24), so
+`awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD moved to `984d301`
+(2026-09-30, a `.gitignore` fix naming the rules that hide shared records), and
+`docs/guide/04-phases-and-stages.md` still declares the same 5-phase/33-stage structure
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — a maintenance commit, not a methodology
+change, so nothing was added on that thread this pass. This pass also checked the software-factory,
+agentic-SDLC, ADW, spec-driven-development, and levels-of-autonomy searches the sweep is scoped to and
+found mostly re-treatments or vendor material already covered (BCG Platinion's "Agentic Software
+Factory" piece; Gartner's September 2026 SDLC market overview, both repeating the
+Osmani/Zakariasson/Horthy framing above) plus three near-misses considered and declined. Spotify
+Engineering's own account of "Honk," its internal migration agent (650+ PRs/month, senior engineers
+reportedly not hand-writing code since December 2025) is a genuine, well-documented deployment, but
+self-reported by the vendor's own customer with no independent measurement — the same shape already
+declined for Cognition's OCBC/Itaú numbers and Anthropic's own Agentic Coding Trends Report, so it is
+named here rather than cited as evidence. A widely-summarized "DORA 2026" set of figures (22,000
+developers, +54% bugs, +242.7% incidents/PR, +441% PR review time) turned out on closer checking to be
+search-engine conflation, not a second data point: those are the *Faros AI* "Acceleration Whiplash"
+figures already cited above, misattributed to DORA's separately-published "ROI of AI-assisted Software
+Development" report by multiple summarized sources — `dora.dev` was `EGRESS_BLOCKED` this pass, so the
+real DORA report's own figures could not be confirmed independently, and nothing was added on that
+lead rather than risk citing Faros's numbers twice under two names. `SDAD: Spec-Driven Agentic
+Development for the AI-Native SDLC` (arXiv 2608.20341, submitted 2026-05-05, two academic authors) was
+also declined for a `methodologies/` doc — a formalization proposal with no shipped, adopted tooling
+behind it, well below the bar 8090's Software Factory and AWS's AI-DLC set (the same call already made
+against ASDLC.io, Mercari's GEARS talk, and Uber's "Managed Software Factory"). Three genuine finds
+earned a place instead: a qualitative framework reconfiguring supervisory-control theory specifically
+for coding-agent delegation, an audit paper naming which parts of agent accountability go undocumented
+as supervision recedes, and a controlled study that is the first source on this page to directly
+instrument verification burden as a measured HCI variable rather than an inferred cost.
 
 ---
 
@@ -1236,6 +1271,60 @@ signal](WORKFLOW.md#why-verifiability-is-its-own-signal) entries already argue, 
 the reliability axis rather than the review-cost axis. Confirmed via multiple independently-worded
 search summaries agreeing on the same 5/19/24 figures and failure-mode split — this pass's sandbox
 blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [The Work Behind Delegation: A Framework for Supervising AI Coding Agents](https://arxiv.org/abs/2609.24234) — Yeon Su Park, Nadia Arvi, Hae Ri Lee, Sehoon Lim, Qianou Ma, Juho Kim (arXiv, 2026-09-21)
+The first entry on this page to operationalize "Own the Outer Loop" (Osmani, above) into a testable
+stage model instead of an accountability narrative. Drawing on observations and workflow diagrams from
+19 experienced developers, the authors reconfigure Sheridan's (1992) five-stage human supervisory
+control model — Plan, Teach, Monitor, Intervene, Learn — into seven stages specific to supervising AI
+coding agents: **Plan, Monitor, Wait, Review, Teach, Manual Fix, Update Assets**. Applied to a corpus of
+public developer discussions on Reddit, the framework finds supervisory demand does not concentrate at
+one stage — it extends across all seven — and that developers cope with the load three ways:
+front-loading effort into planning, delegating supervisory work to other agents, and turning recurring
+guidance into reusable assets. That last coping strategy is Hashimoto's harness-engineering formula
+(above) showing up independently in developer behavior rather than as a prescribed discipline — encode a
+permanent fix instead of re-prompting around the same correction. Confirmed via multiple
+independently-worded search summaries agreeing on the author list, the Sheridan-model reconfiguration,
+and the seven named stages — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`), so the
+paper itself was not directly read.
+
+### [When Agents Act Unwatched: The Reduced-Supervision Paradox in Agentic AI](https://arxiv.org/abs/2609.29547) — Hanjing Shi, Dominic DiFranzo (Lehigh University; arXiv, 2026-09)
+Names the specific failure mode at the far end of the autonomy ladder Osmani's Agentic Autonomy Levels
+entry (above) frames only as "new failure modes paired with each expansion." A 63-artifact audit across
+46 research papers and 17 engineering/documentation/security/governance sources, examining how visible
+different oversight and governance mechanisms are in the wild as step-by-step supervision recedes. Its
+central claim: verification does not disappear as an agent is watched less — it moves into runtime
+infrastructure that has to answer who authorized an action, what record makes it reviewable, who may
+question it, and what repair remains possible. The finding is an **accountability inversion**: tool
+mediation and monitoring traces were clearly visible in 40 and 37 of the 63 artifacts respectively, while
+checkpoint placement was visible in only 6, validator independence in 4, recovery in 2, and
+contestability in exactly **1**. The parts of unwatched-agent autonomy that are easiest to build
+(watching, mediating tool calls) are exactly the parts publicly documented; the parts that would let
+someone contest or recover from an agent's unwatched action are almost entirely undocumented. Confirmed
+via multiple independently-worded search summaries agreeing on the author affiliation, the 63-artifact
+audit design, and the six named mechanism counts — this pass's sandbox blocked `arxiv.org` outright
+(`EGRESS_BLOCKED`), so the paper itself was not directly read.
+
+### [When Help Hurts: Verification Load and Fatigue with AI Coding Assistants](https://doi.org/10.1145/3772318.3791176) — Guangrui Fan, Dandan Liu, Lihu Pan, Rui Zhang (CHI 2026, published 2026-04-13)
+The first source on this page to directly instrument verification burden as a measured HCI variable
+rather than an inferred cost — a controlled complement to the diary-based EASE 2026 Comprehension Debt
+study and the Osmani/Own-the-Outer-Loop entries above, which argue the cost qualitatively. A controlled
+study (N=60) held a single LLM fixed and had participants solve three Python tasks under one of four
+conditions — Inline suggestions, Chat, Structured prompting, or a no-AI control. Read only as far as the
+topline numbers, this looks like unqualified good news: AI assistance cut workload by 18.2 NASA-TLX
+points, cut time by 22% (25.0 vs. 32.1 minutes), and improved correctness (OR = 1.71). The paper's real
+contribution is a mode-agnostic **verification-load index** — built from failures, time-to-first-compile,
+churn, pauses, and mode switches — that varies systematically by interaction mode and task complexity and
+**partially mediates rising stress and fatigue even as the raw productivity numbers look good**: Inline
+is fastest and lowest-load on simple work, Chat wins on correctness only past a complexity threshold
+without costing more time, and Structured mode specifically helps novices at moderate complexity.
+Directly on point for this repo's [Verifiability
+signal](WORKFLOW.md#why-verifiability-is-its-own-signal): a productivity win and a hidden, measurable
+verification cost can coexist in the same dataset, and a study that stopped at the abstract would miss
+the second half entirely. Confirmed via multiple independently-worded search summaries (the ACM DL
+listing, a CHI reviewer's own write-up) agreeing on the same N=60 design, author list, and DOI — this
+pass's sandbox could not reach `dl.acm.org` to confirm independently via direct fetch, so the paper
+itself was not directly read.
 
 ---
 
