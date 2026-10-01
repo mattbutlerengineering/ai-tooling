@@ -3,7 +3,7 @@
 **Repo:** [deepaksinghcs14/deadeye-cc](https://github.com/deepaksinghcs14/deadeye-cc)
 **Stars:** 3 | **License:** MIT
 **Last verified:** 2026-08-05
-**Last triaged:** 2026-08-05  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-01  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling (plugin/hooks)
 
@@ -31,3 +31,6 @@ before it runs* via a deterministic hooks-based policy. A real, differently-time
 optimization worth a hands-on look rather than a redundancy SKIP. Very early (3 stars).
 
 _Triaged 2026-08-05 by the daily discovery routine (today's new lead)._
+
+**Re-triaged 2026-10-01 by the P3 backlog band (daily discovery pass):** no change — still 3
+stars, no overlaps resolving to a STACK pick, no new adoption signal. Left at `discovery-log`.

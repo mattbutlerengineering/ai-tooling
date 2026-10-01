@@ -45,7 +45,7 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 
 | Tool | Evidence | Disclaimer in row? |
 |------|----------|--------------------|
-| ACE (agentic-context-engine) | REVIEW | no |
+| ACE (agentic-context-engine) | SOURCE-ONLY | no |
 | buried-injections | SOURCE-ONLY | no |
 | claude-code-memory-setup | REVIEW | yes |
 | claw-compactor | REVIEW | no |
