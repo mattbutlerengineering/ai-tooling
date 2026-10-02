@@ -46,7 +46,7 @@ agent-skills (REVIEW)
 | Tool | What it does | Install | Signal |
 |------|-------------|---------|--------|
 | [context7](https://github.com/upstash/context7) | Live documentation lookup — current APIs, not stale training data | `claude mcp add --transport sse context7 https://mcp.context7.com/sse` | Correctness |
-| [GSD](https://github.com/obra/superpowers) | Structured project planning with milestone/phase management | `claude plugin marketplace add obra/superpowers && claude plugin install superpowers@superpowers-dev` | Correctness, Speed |
+| [GSD](https://github.com/open-gsd/gsd-core) | Structured project planning with milestone/phase management | `npx @opengsd/gsd-core@latest --claude --global` | Correctness, Speed |
 | [feature-dev](https://github.com/anthropics/claude-plugins-official) | 7-phase guided feature development for single features | `claude plugin marketplace add anthropics/claude-plugins-official && claude plugin install feature-dev@claude-plugins-official` | Correctness |
 | [github-mcp-server](https://github.com/github/github-mcp-server) | GitHub's official MCP server — repos, issues, PRs, actions, search | `claude mcp add --transport http github https://api.githubcopilot.com/mcp/` | Speed, Correctness |
 | [codegraph](https://github.com/colbymchenry/codegraph) | Always-on code-intelligence graph — agents query structure instead of reading whole files | `npm install -g @colbymchenry/codegraph` (then it auto-wires the MCP server into Claude Code) | Speed, Cost Efficiency |
@@ -115,9 +115,9 @@ The table above covers outer-loop *observability*. The outer loop's *work* stage
 
 | Stage | Use | Where it lives on this page |
 |-------|-----|------------------------------|
-| Discover | [last30days](https://github.com/mvanhorn/last30days-skill) engagement-weighted research; [GSD](https://github.com/obra/superpowers) discovery discussion | Research; Plan |
-| Architect | [GSD](https://github.com/obra/superpowers) planning + [graphify](https://github.com/Graphify-Labs/graphify) knowledge-graph views (CONDITIONAL/MEASURED — see [evaluations/](evaluations/)) | Plan (GSD); graphify is not in STACK — evaluations/ only |
-| Decompose | [GSD](https://github.com/obra/superpowers) milestone/phase breakdown; [mattpocock/skills](https://github.com/mattpocock/skills) `to-issues` vertical slicing | Plan; Implement |
+| Discover | [last30days](https://github.com/mvanhorn/last30days-skill) engagement-weighted research; [GSD](https://github.com/open-gsd/gsd-core) discovery discussion | Research; Plan |
+| Architect | [GSD](https://github.com/open-gsd/gsd-core) planning + [graphify](https://github.com/Graphify-Labs/graphify) knowledge-graph views (CONDITIONAL/MEASURED — see [evaluations/](evaluations/)) | Plan (GSD); graphify is not in STACK — evaluations/ only |
+| Decompose | [GSD](https://github.com/open-gsd/gsd-core) milestone/phase breakdown; [mattpocock/skills](https://github.com/mattpocock/skills) `to-issues` vertical slicing | Plan; Implement |
 | Integrate | [claude-squad](https://github.com/smtg-ai/claude-squad) parallel-session management (worktrunk is a candidate pending a hands-on eval — #188 Gap 4) | Implement |
 | Retrospect | [claude-mem](https://github.com/thedotmack/claude-mem) timeline + semantic recall across sessions | Memory |
 

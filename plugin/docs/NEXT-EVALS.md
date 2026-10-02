@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 211 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 443 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 200 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 454 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 5 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -55,17 +55,15 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 211 leads
+## P2 challenger — 200 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 211 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 200 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
 | engram | Memory & Context | 28.9 | challenges claude-mem · pressure 10, gap 6.9 | `/triage-lead engram` |
-| gstack | Implement | 28.0 | challenges GSD · pressure 10, gap 6.0 | `/triage-lead gstack` |
-| ruflo | Implement | 28.0 | challenges GSD · pressure 10, gap 6.0 | `/triage-lead ruflo` |
 | ACE (agentic-context-engine) | Memory & Context | 26.9 | challenges claude-reflect · pressure 10, gap 6.9 | `/triage-lead ACE (agentic-context-engine)` |
 | openskills | Skills & Plugins | 26.7 | challenges skill-creator · pressure 9, gap 6.7 | `/triage-lead openskills` |
 | Understand-Anything | Plan | 25.8 | challenges codegraph · pressure 10, gap 5.8 | `/triage-lead Understand-Anything` |
@@ -73,29 +71,31 @@ _Listing 12 of 211 — rerun `python3 triage.py` and read the source for the tai
 | agnix | Review | 25.5 | challenges SkillSpector · pressure 8, gap 7.5 | `/triage-lead agnix` |
 | roundtable | Outer Loop | 25.5 | challenges abtop · pressure 9, gap 7.5 | `/triage-lead roundtable` |
 | memU | Memory & Context | 24.9 | challenges claude-mem · pressure 9, gap 6.9 | `/triage-lead memU` |
-| compound-engineering | Implement | 24.0 | challenges GSD · pressure 8, gap 6.0 | `/triage-lead compound-engineering` |
 | mex | Memory & Context | 22.9 | challenges claude-mem · pressure 8, gap 6.9 | `/triage-lead mex` |
+| garak | Outer Loop | 21.5 | challenges SkillSpector · pressure 6, gap 7.5 | `/triage-lead garak` |
+| Skill_Seekers | Skills & Plugins | 20.7 | challenges skill-creator · pressure 6, gap 6.7 | `/triage-lead Skill_Seekers` |
+| andrej-karpathy-skills | Skills & Plugins | 20.7 | challenges agent-skills, documentation-and-adrs, mattpocock/skills · pressure 6, gap 6.7 | `/triage-lead andrej-karpathy-skills` |
 
-## P3 backlog — 443 leads
+## P3 backlog — 454 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 443 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 454 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
+| gstack | Implement | 28.0 | pressure 10, gap 6.0 | `/triage-lead gstack` |
+| ruflo | Implement | 28.0 | pressure 10, gap 6.0 | `/triage-lead ruflo` |
 | CLIProxyAPI | Implement | 26.0 | pressure 10, gap 6.0 | `/triage-lead CLIProxyAPI` |
 | gptme | Implement | 26.0 | pressure 9, gap 6.0 | `/triage-lead gptme` |
 | qwen-code | Implement | 26.0 | pressure 9, gap 6.0 | `/triage-lead qwen-code` |
 | buildwithclaude | Reference | 25.0 | pressure 8, gap 7.0 | `/triage-lead buildwithclaude` |
 | scenario | Verify | 24.3 | pressure 8, gap 6.3 | `/triage-lead scenario` |
 | deadeye-cc | Implement | 24.0 | pressure 9, gap 6.0 | `/triage-lead deadeye-cc` |
+| compound-engineering | Implement | 24.0 | pressure 8, gap 6.0 | `/triage-lead compound-engineering` |
 | gemini-cli | Implement | 24.0 | pressure 8, gap 6.0 | `/triage-lead gemini-cli` |
 | NeMo-Guardrails | Outer Loop | 23.5 | pressure 8, gap 7.5 | `/triage-lead NeMo-Guardrails` |
 | ag-ui | Reference | 23.0 | pressure 7, gap 7.0 | `/triage-lead ag-ui` |
-| awesome-claude-skills (Composio) | Reference | 23.0 | pressure 7, gap 7.0 | `/triage-lead awesome-claude-skills (Composio)` |
-| slidev | Skills & Plugins | 22.7 | pressure 7, gap 6.7 | `/triage-lead slidev` |
-| bifrost | Implement | 22.0 | pressure 7, gap 6.0 | `/triage-lead bifrost` |
 
 ## P4 mechanical-skip — 0 leads
 
