@@ -44,7 +44,7 @@ true; a build must not fail because a laptop changed. Do not hand-edit the colum
 | serena | ADOPT | Plan | conditional | | n/a |
 | beads | KEEP | Implement | yes | | n/a |
 | caveman | ADOPT | Implement | yes | | lockfile 2026-08-05 |
-| superpowers | ADOPT | Implement | yes | (install source for GSD — STACK installs `obra/superpowers`) | cache 5.1.0 2026-08-05 |
+| superpowers | ADOPT | Implement | no | Was in STACK only as the misattributed install source for GSD (#483); GSD installs independently via `npx @opengsd/gsd-core`, and superpowers was never picked on its own merits | cache 5.1.0 2026-08-05 |
 | resolving-merge-conflicts | ADOPT | Implement | yes | (listed under STACK's Ship table) | lockfile 2026-08-05 |
 | playwright | ADOPT | Verify | yes | | n/a |
 | code-review | KEEP | Review | yes | | collision 2026-08-05 |
