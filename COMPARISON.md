@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1033 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1043 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -442,6 +442,7 @@ All 1033 tools from CATALOG.md with dev loop stage, automation capability, prici
 | crossmatch | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
+| playwright-cli | tool | | ✓ | CONDITIONAL | MEASURED |
 | jev-browser | MCP server | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | jev-judge-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | behalf-chrome-agent | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -454,6 +455,15 @@ All 1033 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-skill-playwright-browser | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pixelpact | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | diagnosing-bugs | skill | | ✓ | SKIP | REVIEW |
+| tdd | skill | | ✓ | CONDITIONAL | MEASURED |
+| setup-pre-commit | skill | ✓ | ✓ | SKIP | REVIEW |
+| systematic-debugging | skill | | ✓ | SKIP | REVIEW |
+| verification-before-completion | skill | | ✓ | CONDITIONAL | MEASURED |
+| superpowers:test-driven-development | skill | | ✓ | SKIP | REVIEW |
+| agent-skills:test-driven-development | skill | | ✓ | SKIP | REVIEW |
+| verify-and-stop | skill | | ✓ | SKIP | REVIEW |
+| webapp-testing | skill | | ✓ | discovery-log | REVIEW |
+| playwright-best-practices | skill | | ✓ | discovery-log | REVIEW |
 | mirrord | tool | | ✓/$ | discovery-log | REVIEW |
 | browser-act/skills | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | why-ui | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1119,7 +1129,7 @@ All 1033 tools from CATALOG.md with dev loop stage, automation capability, prici
 |-------|-------|-----------|-------------|-------------|
 | Plan | 88 | 37 | 6 | 42% |
 | Implement | 306 | 123 | 4 | 40% |
-| Verify | 41 | 15 | 2 | 37% |
+| Verify | 51 | 23 | 2 | 45% |
 | Review | 126 | 31 | 3 | 25% |
 | Ship | 5 | 1 | 1 | 20% |
 | Reflect | 10 | 5 | 3 | 50% |
@@ -1129,4 +1139,4 @@ All 1033 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 63 | 18 | 2 | 29% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 61 | 18 | 4 | 30% |
-| **Total** | **1033** | **349** | **34** | **34%** |
+| **Total** | **1043** | **357** | **34** | **34%** |
