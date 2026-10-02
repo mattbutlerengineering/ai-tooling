@@ -429,6 +429,41 @@ earned a place instead: a qualitative framework reconfiguring supervisory-contro
 for coding-agent delegation, an audit paper naming which parts of agent accountability go undocumented
 as supervision recedes, and a controlled study that is the first source on this page to directly
 instrument verification burden as a measured HCI variable rather than an inferred cost.
+The 2026-10-02 pass hit the identical egress wall a twentieth time — a fresh `pip install yt-dlp`
+followed by a bare `ytsearch3:test` query failed with a 403 on the CONNECT tunnel
+(`Tunnel connection failed: 403 Forbidden`), so no video search or transcript pull ran, and the three
+entries added this pass (below) are cross-checked across independently-worded search summaries rather
+than read from source — a direct `WebFetch` of `arxiv.org` and of `marmelab.com` both failed with
+`EGRESS_BLOCKED` this pass too, the same standard applied throughout this page. `github.com`'s HTTPS
+git endpoint was reachable this pass (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows`
+was re-checked directly by cloning `main` read-only: HEAD moved to `04f41ca8` (2026-10-02), the newest
+tag is still a preview build (`v2.10.1-preview.20260928.1`, no stable release past `v2.10.0`), and
+`docs/guide/04-phases-and-stages.md` still declares the same 5-phase/33-stage structure
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — a maintenance commit, not a methodology
+change, so nothing was added on that thread this pass. This pass also checked the software-factory/
+dark-lit, agentic-SDLC, ADW, and levels-of-autonomy searches the sweep is scoped to and found mostly
+re-treatments or vendor explainers with no primary claim beyond what this page already covers
+(`varun1505/awesome-software-factories`, a curated tool list rather than a methodology claim, named
+here rather than catalogued since that is the discovery lane's call; MindStudio and i-SCOOP dark-factory
+explainers repeating Shapiro's five-level ladder and Osmani's framing already covered; a September 2026
+Gartner "Innovation Insight: Coding Agent Harness Engineering" report, paywalled with no public figures
+to cite) plus one near-miss on substance: [Zheng et al., "Separating Capability from Permission: A
+Governance Framework for Agentic AI Autonomy Levels"](https://arxiv.org/abs/2607.23438) (arXiv,
+2026-07) proposes a real distinction — Allowed Autonomy Level (a risk/oversight/accountability
+authorization) versus Autonomous Capability Level (what the agent can technically do) — but its
+worked example is an enterprise data-engineering agent, not a coding-delivery pipeline, the same
+AI-governance-rather-than-coding-autonomy-ladder call already made against the Cloud Security
+Alliance framework on 2026-09-18; declined on scope, not weak evidence. Three genuine finds earned a
+place instead. One is the sharpest kind of counter-evidence this sweep is scoped to find: a 28-month
+panel study instrumenting an enterprise's own documented "2x more PRs per engineer" mandate end to
+end, showing the throughput gain is real but is paid for by review being automated away rather than
+scaled up — a mechanism this page's Faros AI and Wang/Liu "backpressure" entries above have so far
+only inferred from a correlation. The second is the first source-grounded, large-scale field audit in
+this page's harness-engineering cluster (246 repositories, 57 publications), with the first clean
+model-held-constant ablation showing harness choice alone swings success rate by twenty points. The
+third is a Google-authored controlled ablation giving the spec-driven-development cluster its first
+measured result on a concrete sub-task (bug-detecting test generation) rather than an argued claim
+about the whole SDLC.
 
 ---
 
@@ -767,6 +802,28 @@ total shrinks — a shift a raw incident-rate trend line would hide. This is squ
 this repo's [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) and the
 Comprehension Debt / Own the Outer Loop entries above already argue for: the failure mode is not
 agents going rogue, it is agents needing a human to keep catching the same shapes of mistake.
+
+### [AI Writes Faster Than Humans Can Review: A Longitudinal Study of an Enterprise "2×" Mandate](https://arxiv.org/abs/2607.01904) — Hao He, Shyam Agarwal, Yegor Denisov-Blanch, Pavel Azaletskiy, Sanmi Koyejo, Bogdan Vasilescu (arXiv, 2026-07)
+The sharpest kind of counter-evidence this sweep is scoped to find — not a new correlation like
+Faros AI's or "Debt Behind the AI Boom"'s above, but the mechanism behind one, tracked over time
+rather than measured before/after. A quantitative case study of a mid-sized, AI-forward company's
+own documented policy — a "2×" mandate committed in mid-2025 to doubling merged pull requests per
+engineer — instrumented with a panel of 802 developers and 196,212 pull requests from January 2024
+through April 2026 (three of the same authors, Agarwal and Vasilescu, co-author the "3100 Opinions"
+and Cursor-complexity entries elsewhere on this page). Per-capita throughput did reach the target,
+2.09× the pre-mandate baseline by April 2026, and the gain grew with accumulated use rather than
+arriving all at once. The mechanism is the finding: per-reviewer load roughly doubled and automated
+review overtook human review as the primary gate, while merge and revert rates held steady — so the
+throughput number looks clean only because review coverage quietly fell to make room for it, not
+because review got more efficient. The paper's own framing matches this page's own skepticism of
+headline multiples: an enterprise AI mandate is a process-redesign problem, not a tooling rollout,
+and the "2×" was paid for downstream rather than eliminated. Directly sharpens the backpressure
+mechanism Wang & Liu's "Trustworthy Change" entry above states only in the abstract — a growing
+verification queue creating pressure to lean on automated reviewers — into a 28-month measured
+instance of exactly that substitution happening. Confirmed via multiple independently-worded search
+summaries (the arXiv abstract page, its HTML rendering) agreeing on the same developer/PR counts and
+the 2.09× figure — this pass's `WebFetch` of `arxiv.org` failed with `EGRESS_BLOCKED`, so the paper
+itself was not directly read.
 
 ### [How AI Impacts Skill Formation](https://arxiv.org/abs/2601.20245) — Judy Hanwen Shen, Alex Tamkin (Anthropic; arXiv, 2026-02)
 A randomized controlled trial, and notably an Anthropic-authored study testing a **competitor's**
@@ -1232,6 +1289,31 @@ subsystem/pattern counts, and ablation figures — this pass's sandbox blocked `
 (`EGRESS_BLOCKED`, the sixteenth consecutive pass to hit this wall), so neither paper was directly
 read.
 
+### [The State Of AI Harness Engineering 2026](https://marmelab.com/blog/2026/09/24/the-state-of-ai-harness-engineering-2026.html) — Marmelab (2026-09-24)
+First surfaced on 2026-09-25 and declined that pass only because the sandbox could not reach
+`marmelab.com` at all (`EGRESS_BLOCKED`) — now added, corroborated across independent sources
+(a daily.dev repost quoting the same figures, a GitHub-hosted AI-coding-news digest citing the
+same post). The first entry in this page's harness-engineering cluster built from its own
+large-scale audit of the wild rather than one company's internal account (Hashimoto, Anthropic,
+OpenAI) or a narrow academic ablation (Barbaste et al., Fan et al. above): 246 open-source
+repositories audited plus 57 publications read. Its central measured result holds the model fixed
+and varies only the harness — the same design as the LangChain and Fan-et-al entries above, at a
+larger scale: the identical model run through 8 different harnesses on the same 25 tasks, same
+provider, same tools, produced success rates ranging from 68% to 88%, a 20-point swing from harness
+design alone. Two supporting findings sharpen what "harness" means in practice rather than in
+theory: only 11 of the audited repositories passed strict criteria for actually testing their own
+harness, 60% of testable harnesses ship with neither tests nor evals, and a prose-written rule
+("always do X") is reportedly enforced only 4-16% of the time versus an executable guard (a hook or
+script) that enforces it by construction. That last number is worth reading against this repo's own
+practice directly — `CLAUDE.md`'s own Integrity audit section exists because of exactly this gap,
+preferring `make check`'s deterministic detectors over prose instructions for anything that must
+actually hold, and `plugin/README.md`'s "gate the shared facts, not the file" rule is the same
+argument stated independently here as a measured industry-wide enforcement rate rather than this
+repo's own design principle. Confirmed via multiple independently-worded sources (the marmelab post
+itself as quoted by daily.dev, and a GitHub-hosted digest issue citing the same figures) — this
+pass's `WebFetch` of `marmelab.com` failed with `EGRESS_BLOCKED`, so the report itself was not
+directly read.
+
 ### [SpecMine: A Large-Scale Corpus of Spec-Driven Development Artifacts](https://arxiv.org/abs/2608.25202) — Shyam Agarwal, Anmol Singhal, Travis Breaux, Bogdan Vasilescu (CMU; arXiv, 2026-08)
 The adoption census this page's spec-driven-development cluster has lacked — the same role
 Galster's configuration-adoption census plays for AGENTS.md/skills/hooks above, from the same CMU
@@ -1252,6 +1334,25 @@ written once, though the paper does not report a drift measurement over time. Co
 independently-worded search summaries (the arXiv abstract page and its HTML rendering) agreeing on
 the same census counts and tool rankings — this pass's sandbox blocked `arxiv.org` outright, so the
 paper itself was not directly read.
+
+### [Grounding AI Agents in Contracts: An Empirical Evaluation of Spec-Driven Test Generation](https://arxiv.org/abs/2608.17177) — Michele Tufano, James McClure, José Cambronero, Runxiang Cheng, Sherry Y. Shi, Renyao Wei, Dorothy Chen, Franjo Ivančić, Livio Dalloro, Pat Rondon (Google; arXiv, 2026-08)
+The spec-driven-development cluster's first controlled ablation rather than an argued or surveyed
+claim — narrower in scope than Lahiri's intent-gap argument or Farrag's PRP/SGM synthesis above
+(one sub-task, test generation, not the whole SDLC), but it is a real measured number from inside a
+frontier lab rather than a position. The method: before generating tests, the agent first writes
+down a semi-formal specification of the code's behavior — pre-conditions, post-conditions, and
+undefined behaviors — and that artifact becomes a "cognitive scaffold" the subsequent test-writing
+step is grounded in, rather than generating tests directly from the code. Evaluated on 90 real
+production bugs pulled from Google's own issue tracker across C++, Java, Python, and Go. Against a
+baseline agent that writes tests without the intermediate spec step, the spec-grounded agent found
+9.8 percentage points more bugs and achieved 2.5 percentage points higher branch coverage. Directly
+on point for the same claim this page's SDD cluster has so far only argued in the abstract — that a
+spec earns its keep by being checkable rather than merely readable (Lahiri's framing above) — here
+demonstrated as a measured delta on one concrete, auditable task rather than claimed of the whole
+discipline. Confirmed via multiple independently-worded search summaries (the arXiv abstract page,
+its HTML rendering, alphaXiv) agreeing on the same author list, bug count, and percentage-point
+figures — this pass's `WebFetch` of `arxiv.org` failed with `EGRESS_BLOCKED`, so the paper itself
+was not directly read.
 
 ### [A Study of the Reliability of Agentic AI-Generated Programs](https://arxiv.org/abs/2609.18298) — Ayesha Shafique, Barton P. Miller, Elisa R. Heymann (University of Wisconsin–Madison; arXiv, 2026-09-16, revised 2026-09-23)
 Counter-evidence cutting against this page's own accumulated pessimism rather than adding to it —
