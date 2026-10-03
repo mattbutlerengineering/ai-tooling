@@ -3,7 +3,7 @@
 **Repo:** [router-for-me/CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI)
 **Stars:** 46,193 | **Last updated:** 2026-08-04 (pushed) | **License:** MIT | ⚠️ provider-ToS gray-area
 **Last verified:** 2026-09-14
-**Last triaged:** 2026-09-14  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-03  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -26,6 +26,9 @@ We did **not** install or run this tool. This evaluation is source-grounded only
 ## Triage note
 
 P3 backlog. At ★46.2K this is one of the largest tools in the catalog — clearly significant, not a mechanical-disposition candidate. Its provider-ToS gray-area status (reusing CLI-subscription auth to serve an OpenAI-compatible API) is a real adoption caveat that a hands-on eval, not a bulk pass, should weigh. Left at discovery-log.
+
+Re-examined 2026-10-03 (5-oldest-untriaged pass): reasoning still holds — still a significant,
+differentiated tool with a caveat only a hands-on eval should weigh.
 
 ## Catalog entry
 

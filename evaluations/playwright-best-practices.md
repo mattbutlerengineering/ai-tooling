@@ -3,6 +3,7 @@
 **Repo:** [currents-dev/playwright-best-practices-skill](https://github.com/currents-dev/playwright-best-practices-skill)
 **Stars:** 386 | **Last updated:** 2026-07-21 | **License:** MIT
 **Last verified:** 2026-10-02
+**Last triaged:** 2026-10-03  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -63,6 +64,18 @@ gh api repos/$R/commits?per_page=5 --jq '.[]|.commit.author.date+" "+.commit.mes
 ## Verdict
 
 **discovery-log — tentative read** — the strongest Playwright-specific *authoring* skill in this scan, and a clean example of progressive disclosure: a router SKILL.md over 57 references, MIT, agnix-linted, with almost no vendor promotion in the content. It complements rather than replaces [webapp-testing](webapp-testing.md) (drive and inspect a running app with Python scripts) and the [playwright](playwright-mcp.md) MCP server (drive a browser through tool calls). This one shapes the TypeScript test suite you keep. It wasn't exercised, so it gets no real verdict. A hands-on eval should measure triggering against other testing skills and the flake rate of a suite written with and without it.
+
+## Triage note
+
+Bands as a P2 challenger against `playwright` (STACK, the `microsoft/playwright-mcp` server,
+RUN) — but the two do different jobs. STACK's `playwright` pick drives a real browser over MCP
+tool calls for visual verification; this skill shapes the TypeScript `@playwright/test` suite an
+agent writes, and never touches a browser itself. Confirmed directly from the eval's own "What
+didn't work" section: "it ships no scripts or server helper... it shapes the tests the agent
+writes. It doesn't drive the browser itself." Not redundant — left at `discovery-log`.
+
+_Triaged 2026-10-03 by the P2 challenger band (daily discovery-and-triage routine, bulk,
+eliminate-only). Left, not SKIPped._
 
 ## Catalog entry
 
