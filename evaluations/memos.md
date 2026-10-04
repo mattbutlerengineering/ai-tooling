@@ -3,6 +3,7 @@
 **Repo:** [MemTensor/MemOS](https://github.com/MemTensor/MemOS)
 **Stars:** 9,928 | **Last updated:** 2026-06-18 (pushed; created 2025-07-06) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-10-04  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory layer for agents across sessions)
 **Layer:** Infrastructure (TypeScript; cloud service or self-hosted; npm `@memtensor/memos`, plugins)
 

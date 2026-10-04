@@ -3,6 +3,7 @@
 **Repo:** [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 **Stars:** 25,784 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-10-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
