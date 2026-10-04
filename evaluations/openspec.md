@@ -3,6 +3,7 @@
 **Repo:** [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec)
 **Stars:** 55,646 | **Last updated:** 2026-06-13 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-10-04  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (primary), with Implement (`/opsx:apply`) and Verify (`/opsx:verify`, `openspec validate`)
 **Layer:** Process (with a thin Tooling layer — the `openspec` CLI scaffolds/validates/archives)
 

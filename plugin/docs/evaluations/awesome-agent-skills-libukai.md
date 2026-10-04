@@ -3,6 +3,7 @@
 **Repo:** [libukai/awesome-agent-skills](https://github.com/libukai/awesome-agent-skills)
 **Stars:** 4,737 | **Last updated:** 2026-03-26 | **License:** none declared (README badge claims Apache-2.0)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
+**Last triaged:** 2026-10-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
