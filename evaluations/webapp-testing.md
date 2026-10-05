@@ -3,6 +3,7 @@
 **Repo:** [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/webapp-testing)
 **Stars:** 179,396 (the container, `anthropics/skills`; the skill has no count of its own) | **Last updated:** 2026-09-29 | **License:** Apache-2.0 (the skill folder's own `LICENSE.txt`; the container repo root declares none)
 **Last verified:** 2026-10-02
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -63,6 +64,14 @@ gh api repos/anthropics/skills/contents/skills/webapp-testing/scripts/with_serve
 ## Verdict
 
 **discovery-log — tentative read** — the best-built lightweight option in this scan for "drive my local web app and look at it". Server lifecycle and rendered-DOM recon are the two things agent browser checks most often get wrong, and both are handled. It is Apache-2.0 by its own folder license even though the container has no root license. Next to [playwright-skill](playwright-skill.md) (stale) it is the maintained choice for scripts. Next to the [playwright](playwright-mcp.md) MCP server and [agent-browser](agent-browser.md) it is a script-first alternative to driving a browser through tool calls. For writing a real `@playwright/test` suite, [playwright-best-practices](playwright-best-practices.md) is the better fit. It wasn't exercised, and its container is itself only a `discovery-log` lead, so it gets no real verdict until a hands-on A/B against the MCP route.
+
+## Triage note
+
+P5 ships-inside — the row declares `Ships inside: anthropics/skills`. The container itself
+is still an undisposed `discovery-log` lead in `COMPARISON.md`, so per the P5 rule ("if the
+container is itself an un-disposed lead, leave the component and say so") this is left at
+`discovery-log` rather than SKIPped. Settling `anthropics/skills` is a decision about the
+container's own row, not this lane's to make here.
 
 ## Catalog entry
 

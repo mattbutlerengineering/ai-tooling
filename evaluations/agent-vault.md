@@ -3,7 +3,7 @@
 **Repo:** [Infisical/agent-vault](https://github.com/Infisical/agent-vault)
 **Stars:** 1,699 | **Last updated:** 2026-06-19 | **License:** MIT (Expat; `ee/` dir reserved for enterprise)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Ship / Implement (runtime infrastructure that wraps the agent process during any outbound API call)
 **Layer:** Infrastructure
 
@@ -92,7 +92,10 @@ Two facts worth keeping in view for whoever picks this up: it is pre-1.0 "Previe
 API, and the licence line reads `MIT (Expat; ee/ dir reserved for enterprise)` — an open-core split, so
 the grant covers what is in the main tree and not necessarily the whole product.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-05 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-05._
 
 ## Catalog entry
 

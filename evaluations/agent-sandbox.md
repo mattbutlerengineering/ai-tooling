@@ -3,7 +3,7 @@
 **Repo:** [agent-sandbox/agent-sandbox](https://github.com/agent-sandbox/agent-sandbox)
 **Stars:** ~150 | **Last updated:** 2026-06-08 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (code-execution infrastructure)
 **Layer:** Infrastructure
 
@@ -70,7 +70,10 @@ production" is untouched. Losing a comparator does not make a young project prov
 self-hosted sandbox lane thinner than the catalog currently implies, which is a gap to record rather
 than a promotion to award.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-05 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-05._
 
 ## Catalog entry
 

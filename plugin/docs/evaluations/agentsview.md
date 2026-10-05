@@ -3,7 +3,7 @@
 **Repo:** [kenn-io/agentsview](https://github.com/kenn-io/agentsview)
 **Stars:** 2,946 | **Last updated:** 2026-06-20 (pushed) | **License:** MIT | **Distribution:** install script, Homebrew cask, desktop app, Docker
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Observability (Reflect / outer loop — see what your agents did and what they cost)
 **Layer:** Tooling (single local binary + local SQLite + web UI)
 
@@ -80,7 +80,10 @@ question is the one the evaluation named: verify its cost numbers against a prov
 trusting them — `ccusage` (STACK) is the reference for that, and where the two disagree is the
 whole finding. That is a measurement, so it is P0 work.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+Re-examined 2026-10-05 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267)); re-stamped 2026-10-05._
 
 ## Catalog entry
 
