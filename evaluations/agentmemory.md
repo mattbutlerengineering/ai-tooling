@@ -3,7 +3,7 @@
 **Repo:** [rohitg00/agentmemory](https://github.com/rohitg00/agentmemory)
 **Stars:** 23,426 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -70,7 +70,10 @@ found a real split rather than a loss: agentmemory wins on published retrieval b
 tools), and battle-testing. A challenger that leads the incumbent on a named, measurable axis is
 not redundant — it is unmeasured, which is a different problem and a different band.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+Re-examined 2026-10-05 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264)); re-stamped 2026-10-05._
 
 ## Catalog entry
 

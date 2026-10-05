@@ -3,7 +3,7 @@
 **Repo:** [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners)
 **Stars:** 67,572 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-05  <!-- triaged: bulk -->
 **Dev loop stage:** Discover / Plan (outer loop)
 **Layer:** Process
 
@@ -69,7 +69,10 @@ Agent *building* rather than agent-assisted coding, the same adjacency as `genai
 `agents-towards-production`. All three stay because the Reference section's job is findability, and
 a maintained first-party course is the thing a newcomer should hit first.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-05 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
+by a STACK incumbent.
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-05._
 
 ## Catalog entry
 
