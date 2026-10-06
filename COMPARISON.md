@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1069 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1075 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -215,6 +215,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | bricks | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | buildd | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | stargate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| p3-stack | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentweaver | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | goose | platform | | ✓ | discovery-log | REVIEW |
 | open-interpreter | harness | | ✓ | discovery-log | REVIEW |
@@ -381,6 +382,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
 | strands-agents (harness-sdk) | framework | ✓ | ✓ | discovery-log | REVIEW |
 | Aegis | skill | | ✓ | SKIP | REVIEW |
+| Autoloom | harness | | ✓ | SKIP | SOURCE-ONLY |
 | occam | skill | | ✓ | SKIP | SOURCE-ONLY |
 | agentdock-mcp-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | superset | tool | | ✓ | SKIP | REVIEW |
@@ -407,6 +409,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | phantom | platform | ✓ | ✓ | discovery-log | REVIEW |
 | useagent | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rmux | tool | | ✓ | discovery-log | REVIEW |
+| ThinkTerm | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | MiMo-Code | platform | | ✓ | discovery-log | REVIEW |
 | kimi-code | platform | | ✓ | discovery-log | REVIEW |
 | gentle-ai | harness | ✓ | ✓ | discovery-log | REVIEW |
@@ -478,6 +481,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | browser-act/skills | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | why-ui | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ilse | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| figma-maxxing | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | iOS-Trace | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Review
@@ -822,6 +826,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | video-to-skill | tool | | ✓ | SKIP | SOURCE-ONLY |
 | SkillOpt | framework | | ✓ | DEFER | REVIEW |
 | SkillAdam | plugin | | ✓ | SKIP | SOURCE-ONLY |
+| skill-creator-plus | skill | | ✓ | SKIP | SOURCE-ONLY |
 | stop-slop | skill | | ✓ | discovery-log | REVIEW |
 | taste-skill | skill | | ✓ | discovery-log | REVIEW |
 | agent-vision-toolkit | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1011,6 +1016,7 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | modelcontextprotocol/servers | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sequential-thinking | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | sentry | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| watchtower | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | slack-skills-plugin | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | server-filesystem | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | server-github | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -1154,15 +1160,15 @@ All 1069 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 89 | 37 | 6 | 42% |
-| Implement | 315 | 123 | 4 | 39% |
-| Verify | 52 | 23 | 2 | 44% |
+| Implement | 318 | 124 | 4 | 39% |
+| Verify | 53 | 23 | 2 | 43% |
 | Review | 129 | 31 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 92 | 21 | 2 | 23% |
-| Skills & Plugins | 133 | 43 | 4 | 32% |
+| Skills & Plugins | 134 | 44 | 4 | 33% |
 | Memory & Context | 93 | 29 | 2 | 31% |
-| MCP Servers | 64 | 18 | 2 | 28% |
+| MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1069** | **357** | **34** | **33%** |
+| **Total** | **1075** | **359** | **34** | **33%** |

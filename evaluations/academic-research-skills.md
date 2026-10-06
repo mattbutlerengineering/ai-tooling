@@ -3,7 +3,7 @@
 **Repo:** [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)
 **Stars:** 32,912 | **Last updated:** 2026-06-19 (pushed; created 2026-02-26) | **License:** CC BY-NC 4.0 (NonCommercial)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-06  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (research, outline, literature) → and a Review/Verify analogue for the *writing* loop (peer-review and integrity gates over a manuscript, not over code)
 **Layer:** Process / Tooling (a Claude Code plugin: four parent skills, ~30+ agent definitions, modes, hooks; prompt-driven, optional Python guard)
 
@@ -84,6 +84,8 @@ verification, literature-grounded integrity gates, an explicit "copilot not pilo
 is no non-license ground to eliminate on either.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-06 by the P3 backlog band:** no change — the CC BY-NC 4.0 NonCommercial license is still a real adoption blocker but still outside P4's disqualifying-license vocabulary (`NONE`/`AGPL`/`GPL`/`CC-BY-SA`/`EUPL`); widening that list is a `triage.py` change, not a bulk-lane verdict. Left at `discovery-log`.
 
 ## Catalog entry
 

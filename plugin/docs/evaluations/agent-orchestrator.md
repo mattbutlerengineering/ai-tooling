@@ -4,7 +4,7 @@
 **Stars:** 8,799 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-06  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -77,6 +77,8 @@ push today. Those are now recorded. What a real read must answer is whether the 
 distinguishes a genuine test failure from a flaky one before it spends an agent turn on a fix.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+
+**Re-triaged 2026-10-06 by the P2 challenger band:** no change — the reaction system (automated CI-fail → agent-fix → re-run loop) is still a distinct job from `claude-squad`'s session management per the eval's own split. Left at `discovery-log`.
 
 ## Catalog entry
 
