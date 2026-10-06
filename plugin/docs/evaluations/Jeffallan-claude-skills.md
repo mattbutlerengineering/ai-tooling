@@ -3,7 +3,7 @@
 **Repo:** [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)
 **Stars:** 10,050 | **Last updated:** 2026-05-20 (pushed; created 2025-10-20) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-06  <!-- triaged: bulk -->
 **Dev loop stage:** Spans Implement and Verify/Review by *technology*, not by stage — most of the 66 skills are framework/language "experts" (react-expert, nestjs-expert, golang-pro, postgres-pro) that fire during Implement; a thinner band (code-reviewer, secure-code-guardian, test-master, debugging-wizard) covers Review/Verify. A 9-command outer-loop layer (`common-ground`, Jira/Confluence workflow commands) touches Plan and Ship.
 **Layer:** Process + Tooling (installable Claude Code plugin: 66 `SKILL.md` files with bundled `references/`, plus slash commands; no runtime beyond Claude Code's skill loader, though workflow commands require an Atlassian MCP server)
 
@@ -81,6 +81,8 @@ Real progressive disclosure at that scale is also worth measuring rather than gu
 makes this P0 work.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
+
+**Re-triaged 2026-10-06 by the P2 challenger band:** no change — the eval's head-to-head against `mattpocock/skills` on release discipline and reference depth is a judgment this bulk lane may not overrule in either direction. Left at `discovery-log`.
 
 ## Catalog entry
 

@@ -3,7 +3,7 @@
 **Repo:** [codejunkie99/agentic-stack](https://github.com/codejunkie99/agentic-stack)
 **Stars:** 2,117 | **Last updated:** 2026-05-25 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-06  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -87,6 +87,8 @@ capture. That is an auditability-versus-friction trade, and it is measurable.
 No DB, no API key on the default path: the lightest footprint of any memory tool evaluated here.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-06 by the P3 backlog band:** no change — the cross-harness portability axis still doesn't compete with the installed `claude-mem` incumbent on this user's single-harness setup. Left at `discovery-log`.
 
 ## Catalog entry
 

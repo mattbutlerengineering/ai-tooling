@@ -3,7 +3,7 @@
 **Repo:** [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
 **Stars:** 21,922 | **Last updated:** 2026-05-21 (pushed; created 2026-02-12) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-06  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the whole loop *for one domain* — Plan (brainstorm, GDD, epics/stories), Implement (engine specialists), Verify/Review (QA, design review, director gates), Ship (release-manager), Reflect (sprint retrospective hook). It is a full game-studio workflow scaffold, not a single-stage tool.
 **Layer:** Process + Tooling — a `.claude/` directory you copy into a game project: agent personas + slash-command skills + lifecycle hooks + path-scoped rules + document templates, all wired into a studio hierarchy. No runtime of its own.
 
@@ -76,6 +76,8 @@ by fiat, which is the one thing the eliminate-only rule is meant to prevent.
 Narrow domain (game dev), which is in scope under the broad Skills & Plugins blurb.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-06 by the P3 backlog band:** no change — the existing read still stands (orchestrated Director→Lead→Specialist hierarchy with executable hooks, close to ADOPT for anyone shipping a game); narrow domain keeps it out of a mechanical SKIP. Left at `discovery-log`.
 
 ## Catalog entry
 
