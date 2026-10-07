@@ -3,7 +3,7 @@
 **Repo:** [DenisSergeevitch/agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices)
 **Stars:** 1,976 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-07  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement
 **Layer:** Tooling
 
@@ -69,6 +69,8 @@ a skill that genuinely reads the same across Codex and Claude Code is rarer than
 and it is the sort of thing only a triggering test would settle.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-07 by the P3 backlog band:** no change — still a reference skill, not a mechanical SKIP candidate; the provider-neutral claim is still untested. Left at `discovery-log`.
 
 ## Catalog entry
 

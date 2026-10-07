@@ -4,7 +4,7 @@
 **Stars:** 362 | **Last updated:** 2026-08-04 (pushed) | **License:** MIT
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-07  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect
 **Layer:** Infrastructure
 
@@ -88,6 +88,8 @@ carries **no record for it** — the cache is keyed on the current slug and this
 license/stars/archived are unknown to the triage bands.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+
+**Re-triaged 2026-10-07 by the P2 challenger band:** no change — the `claude-reflect` comparison gap flagged above still hasn't been run, and nothing about AgentRecall-X's maturity or the STACK picture has shifted since. Left at `discovery-log`.
 
 ## Catalog entry
 
