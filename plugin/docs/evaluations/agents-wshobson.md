@@ -3,7 +3,7 @@
 **Repo:** [wshobson/agents](https://github.com/wshobson/agents)
 **Stars:** 36,966 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-07  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-loop marketplace)
 **Layer:** Tooling
 
@@ -83,6 +83,8 @@ One catalog correction the eval already records and is worth not losing: the lis
 *everything-claude-code (ECC)* is a **separate** marketplace, not this repo.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-07 by the P3 backlog band:** no change — the cherry-pick case this eval already made (CONDITIONAL over SKIP, install only the net-new plugins) still stands; eliminate-only may not overturn a human's prior CONDITIONAL call. Left at `discovery-log`.
 
 ## Catalog entry
 

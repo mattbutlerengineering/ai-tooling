@@ -3,7 +3,7 @@
 **Repo:** [fujibee/agmsg](https://github.com/fujibee/agmsg)
 **Stars:** 757 | **Last updated:** 2026-06-19 (pushed; created 2026-04-02) | **License:** MIT | **Requires:** `bash` + `sqlite3`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-07  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (peer-to-peer messaging across CLI agents)
 **Layer:** Tooling (a shared local SQLite file + a skill/command per agent)
 
@@ -79,6 +79,8 @@ acting on each other's unverified output is the main risk."* That is a Verifiabi
 it is the thing a hands-on read would need to test first. MIT, ★981, pushed today.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+
+**Re-triaged 2026-10-07 by the P2 challenger band:** no change — still a message-bus primitive distinct from `beads`' work-coordination job; the category-error banding this eval already named hasn't been fixed. Left at `discovery-log`.
 
 ## Catalog entry
 

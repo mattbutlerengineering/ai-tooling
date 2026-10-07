@@ -3,7 +3,7 @@
 **Repo:** [google/agents-cli](https://github.com/google/agents-cli)
 **Stars:** 3,012 | **Last updated:** 2026-06-15 (pushed; created 2026-04-08) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-07  <!-- triaged: bulk -->
 **Dev loop stage:** Spans the loop *for one narrow domain* — building, evaluating, and deploying agents on Google Cloud: Plan/Implement (scaffold + ADK), Verify (eval generate/grade/analyze/optimize), Ship (deploy, CI/CD, publish to Gemini Enterprise), Reflect (observability via Cloud Trace). It is not a general coding agent.
 **Layer:** Tooling + Process — a PyPI CLI (`google-agents-cli`) that does the Google Cloud heavy lifting, plus an installable **Skills pack** that teaches *your* coding assistant how to drive it.
 
@@ -77,6 +77,8 @@ Skills & Plugins pass); here it would push a domain pack into a coding-CLI compa
 never have been in.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-07 by the P3 backlog band:** no change — still a GCP/ADK-vertical pack, out of this user's scope without being out of the catalog's; the mis-pointed "Overlaps with" cell this eval flagged is still unfixed. Left at `discovery-log`.
 
 ## Catalog entry
 

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1075 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1080 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -101,6 +101,7 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 | fireworks-open-eli5 | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | StructSmith | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| wadah-engine | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | harness-audit | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Implement
@@ -481,6 +482,7 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 | browser-act/skills | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | why-ui | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ilse | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| sim-agentation | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | figma-maxxing | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | iOS-Trace | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -615,6 +617,7 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MergeProof | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | rseng-agent-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | deedchain | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| openqodex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | paranoid | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | easy-unlocker | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -740,6 +743,7 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agent-track | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Clawdeck | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CodingPlanQuota | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| brow | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Skills & Plugins (domain-specific)
 
@@ -977,6 +981,7 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 | winnow | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | Recollect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jevmem | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| ctx-handoff-mod | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -1159,16 +1164,16 @@ All 1075 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 89 | 37 | 6 | 42% |
+| Plan | 90 | 38 | 6 | 42% |
 | Implement | 318 | 124 | 4 | 39% |
-| Verify | 53 | 23 | 2 | 43% |
-| Review | 129 | 31 | 3 | 24% |
+| Verify | 54 | 23 | 2 | 43% |
+| Review | 130 | 31 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 10 | 5 | 3 | 50% |
-| Outer Loop | 92 | 21 | 2 | 23% |
+| Outer Loop | 93 | 21 | 2 | 23% |
 | Skills & Plugins | 134 | 44 | 4 | 33% |
-| Memory & Context | 93 | 29 | 2 | 31% |
+| Memory & Context | 94 | 29 | 2 | 31% |
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1075** | **359** | **34** | **33%** |
+| **Total** | **1080** | **360** | **34** | **33%** |
