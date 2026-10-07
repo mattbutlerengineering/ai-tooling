@@ -20,7 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-09-21 (this pass's additions, confirmed via search corroboration;
+**Last verified:** 2026-10-07 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-09-21 (that pass's additions, confirmed via search corroboration;
 see the dated footnote below for what else was checked). The rest of the page was previously
 verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -312,6 +313,49 @@ genuine finds earned a place instead, both narrowing rather than merely restatin
 page already tracks — a third controlled study on whether `AGENTS.md`/context files help coding
 agents, and a third paper on what "more context" costs a coding agent, each folded into its existing
 entry above rather than opened as a new section.
+The 2026-10-07 pass found the egress wall gone rather than merely cracked once: a direct
+`curl` to `youtube.com`, `arxiv.org`, `martinfowler.com`, and `anthropic.com` all returned
+`200`, and `yt-dlp` ran real `ytsearch` queries and fetched video metadata without the proxy
+403 that blocked every pass since 2026-08-10 (one brief 2026-10-05 exception for `arxiv.org`
+only) — though per-video subtitle/transcript downloads still hit YouTube's own bot-detection
+wall (`HTTP Error 429` then "Sign in to confirm you're not a bot") independent of the proxy,
+so no transcript was read this pass. Both entries added below were read directly from their
+own pages rather than cross-checked from search summaries — the first pass able to do that
+for more than one source. `github.com`'s HTTPS git endpoint was reachable too (same as every
+pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `a49da8b` (2026-10-07), the newest tag is still a preview build
+(`v2.10.1-preview.20261006.2`, no stable release past the `v2.10.0` noted since 2026-09-25),
+and `docs/guide/04-phases-and-stages.md` still declares the same 5-phase/33-stage structure
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — a maintenance commit, not a
+methodology change, so nothing was added on that thread this pass. This pass also checked the
+software-factory/dark-lit, agentic-SDLC, ADW, spec-driven-development, context-engineering, and
+levels-of-autonomy searches the sweep is scoped to and found mostly re-treatments or vendor
+explainers with no primary claim beyond what this page already covers (a Swarmia five-levels
+post already cited 2026-09-16; a cluster of "agentic developer workflow" explainers restating
+the delegate/review/own pattern IndyDevDan's and `implement-issue`'s entries above already
+cover) plus three near-misses declined on substance or scope rather than added: a Y Combinator
+Paper Club talk, "Why The Harness Matters More Than The Model," whose concrete evidence (a
+model scoring 30% vs. 95% on ARC-AGI under different harnesses) is about general
+abstract-reasoning benchmarks rather than coding delivery, the same scope line already drawn
+against the Cloud Security Alliance and Zheng et al. governance papers on 2026-09-18/10-02; a
+VERA context-compression paper (arXiv 2608.29897) that matched this sweep's "context
+engineering" search only on the term — its seven benchmarks are general multimodal/long-horizon
+agent tasks, not coding, the same off-topic-overlap shape as the "Agentic Pressure" false lead
+declined 2026-09-28; and a Hannah Foxwell QCon London talk, "The Reinvention of the Dev Team,"
+which a web-search summary first dated to this week but which the conference's own listing
+places in March 2026 — seven months old, and its team-composition advice is ground Osmani's
+Own the Outer Loop and Zakariasson's talk above already cover. Two genuine finds earned a place
+instead. One is a direct, measured complication of this page's own Marmelab entry: a controlled
+UC Berkeley/Arena study running 7 models through 3 harnesses on 2 benchmarks finds harness
+choice barely moves success rate (97.8% vs. 96.7% for the same model on the same benchmark)
+while moving cost by up to 5x — a different axis than Marmelab's 20-point harness-driven
+success-rate swing, read together as evidence that *which* axis a harness controls (cost vs.
+correctness) may itself depend on the model/task regime, the same conditionality Fan et al.'s
+companion ablation above already found. The other is the largest single synthesis yet in this
+page's harness-engineering cluster: a 164-scholarly-source literature review building a public,
+versioned catalog of 206 reliability records, arguing the same system-over-model case this
+cluster's other entries have each made from one company's or one paper's vantage point, backed
+by a concrete illustration of why self-reported agent completion is not evidence of correctness.
 The 2026-09-23 pass hit the identical egress wall a sixteenth time — a fresh `pip install yt-dlp`
 followed by a bare `ytsearch1:test` query failed with a 403 on the CONNECT tunnel, and a direct
 `curl` to `arxiv.org` failed identically, so no video search or transcript pull ran, and the three
@@ -1486,6 +1530,52 @@ production systems while seeking reference solutions, and an Anthropic-reported 
 Claude capture-the-flag runs reaching real production systems through misconfigured evaluation
 environments. Read directly via `arxiv.org`, which was reachable this pass for the first time in
 twenty consecutive passes — see the dated note below.
+
+### [HarnessTax: How Much Does the Harness Matter for Coding Agents?](https://arena.ai/blog/coding-agents-harness-tax) — Melissa Z. Pan, Shuo Yang, Negar Arabzadeh, Wei-Lin Chiang, Ion Stoica, Matei Zaharia (UC Berkeley / Arena Intelligence; 2026-09-16)
+Direct, measured complication of this page's own Marmelab entry above, from two of the same
+UC Berkeley authors (Stoica, Zaharia) behind the "Reality Is the Final Verifier" entry just
+above. Where Marmelab held the model fixed and found an 8-harness, 20-point swing in success
+rate, this study holds the *harness* comparison fixed in the other direction — 7 models
+(Claude Fable 5, Claude Opus 4.8, Claude Sonnet 4.6, Claude Haiku 4.5, GPT-5.6 Sol, GPT-5.6
+Luna, Kimi K3) run through 3 harnesses (Claude Code, Codex CLI, and Pi, a minimal open-source
+harness) on SWE-bench Lite and Terminal-Bench 2.0, 30 tasks each, 3 repeats per model-harness
+pair (90 attempts, capped at 100 agent turns). Its own framing: *"success barely moved; cost
+moved a lot."* Claude Fable 5 scores 97.8% (93.3-100.0) in Claude Code at $1.329 (1.10-1.60)
+per attempt against 96.7% (91.1-100.0) in Pi at $0.666 (0.49-0.88) on SWE-bench Lite — a
+statistically indistinguishable success rate at roughly 2x the cost — and the authors report a
+5x cost spread elsewhere in the model-harness grid at similarly matched success. This does not
+contradict Marmelab's number on its own terms (a different model, different harness set,
+different tasks), but it is the sharpest evidence yet that *which* axis a harness choice moves
+— correctness or cost — is not a fixed property of "harness quality" in general; it depends on
+the model/task regime, the same conditionality Fan et al.'s companion ablation above already
+found (planning helps weaker models' accuracy but only saves cost for stronger ones). Worth
+reading against this repo's own install-evidence and cost-tracking gaps: a team that benchmarks
+only for success rate, the way most of this page's harness-engineering cluster has framed the
+comparison so far, can still be paying a multiple in cost with nothing to show for it. Read
+directly via `arena.ai`, reachable this pass.
+
+### [Engineering Reliable Coding Agents: Evaluating and Operating the System Around the Model](https://arxiv.org/abs/2608.13867) — Stephanie Jarmak (arXiv, 2026-08-14)
+The largest single synthesis yet in this page's harness-engineering cluster, and — unlike the
+Farrag PRP/AAMT/SGM or Bhati ASDLC-Throughput-Paradox syntheses above — delivered as a public,
+versioned catalog rather than only prose: a 314-page self-published "technical review and
+engineering monograph" (cs.SE/cs.AI, sole author, no stated institutional affiliation — flagged
+as such rather than left implicit) drawing on 164 scholarly works, 100 practitioner records, 29
+benchmark records, and 17 other sources, organized into a reliability dependency chain of six
+stages — evaluation measurement, evaluation/grading systems, containment and recovery, context
+engineering, human review and accountability, and work allocation/cost — yielding 206 "reliability
+records": 193 gated practices (56 developed in depth) plus 13 open research leads, published as
+an explorable companion site (sjarmak.ai). Its central claim is the same **Agent = Model +
+Harness** thesis this cluster's Hashimoto/Fowler/Anthropic/OpenAI/LangChain/Barbaste/Fan/Marmelab
+entries above have each argued from one company's or one paper's vantage point — *"many apparent
+model failures originate elsewhere in the system"* — but at a scale of source material none of
+them individually covers, and grounded in a concrete illustration of why that matters for
+verification specifically: *"one model submitted work in 100% of its trials but resolved only
+44% under an external oracle,"* a measured instance of the proxy-metric-gaming failure mode this
+page's Verifiability framing and Qwen Team's Verification Horizon entry above already name in the
+abstract. Not peer-reviewed, and a self-published solo monograph of this size and format is an
+unusual publication shape for this page to cite — noted plainly rather than smoothed over; its
+scale and the independently verifiable companion catalog are why it clears the bar anyway. Read
+directly via `arxiv.org` and `sjarmak.ai`, both reachable this pass.
 
 ---
 
