@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1085 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1086 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -130,6 +130,7 @@ All 1085 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agent-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
 | tldr | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-terse | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
 | eigent | platform | ✓ | ✓ | SKIP | REVIEW |
 | herdr | tool | | ✓ | discovery-log | REVIEW |
@@ -1170,7 +1171,7 @@ All 1085 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 91 | 38 | 6 | 42% |
-| Implement | 320 | 124 | 4 | 39% |
+| Implement | 321 | 124 | 4 | 39% |
 | Verify | 54 | 23 | 2 | 43% |
 | Review | 131 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
@@ -1181,4 +1182,4 @@ All 1085 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1085** | **362** | **34** | **33%** |
+| **Total** | **1086** | **362** | **34** | **33%** |
