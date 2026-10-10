@@ -2581,6 +2581,16 @@
     "resolved_name": "hetaoBackend/mcp-github-trending",
     "stars": 56
   },
+  "heycubit/effortless": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-10-10",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-10-10T00:00:00Z",
+    "resolved_name": "HeyCubit/effortless",
+    "stars": 93
+  },
   "heygen-com/hyperframes": {
     "archived": false,
     "discontinued": null,
@@ -4745,6 +4755,16 @@
     "resolved_name": "promptfoo/promptfoo",
     "stars": 24503
   },
+  "pullboard-dev/pullboard": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-10-10",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-10-10T00:00:00Z",
+    "resolved_name": "pullboard-dev/pullboard",
+    "stars": 83
+  },
   "punkpeye/awesome-mcp-servers": {
     "archived": false,
     "discontinued": null,
@@ -5110,6 +5130,16 @@
     "resolved_name": "sentrux/sentrux",
     "stars": 2632
   },
+  "sequester-ag/bug-bounty-triage": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-10-10",
+    "license_lost": false,
+    "license_spdx": "MIT",
+    "pushed_at": "2026-10-10T00:00:00Z",
+    "resolved_name": "Sequester-AG/bug-bounty-triage",
+    "stars": 71
+  },
   "shadcn/improve": {
     "archived": false,
     "discontinued": null,
@@ -5387,6 +5417,16 @@
     "pushed_at": "2026-07-16T05:06:31Z",
     "resolved_name": "Storybloq/storybloq",
     "stars": 685
+  },
+  "strands-agents/box": {
+    "archived": false,
+    "discontinued": null,
+    "fetched_at": "2026-10-10",
+    "license_lost": false,
+    "license_spdx": "Apache-2.0",
+    "pushed_at": "2026-10-10T12:06:44Z",
+    "resolved_name": "strands-agents/box",
+    "stars": 303
   },
   "strands-agents/harness-sdk": {
     "archived": false,
