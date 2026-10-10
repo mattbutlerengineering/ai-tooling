@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1082 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1085 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -18,6 +18,7 @@ All 1082 tools from CATALOG.md with dev loop stage, automation capability, prici
 | portly | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-hud | plugin | ✓ | ✓ | CONDITIONAL | RUN |
 | ccstatusline | plugin | ✓ | ✓ | SKIP | REVIEW |
+| effortless | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | dsh-TUI | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
 | code-review-graph | tool | | ✓ | discovery-log | REVIEW |
@@ -216,6 +217,7 @@ All 1082 tools from CATALOG.md with dev loop stage, automation capability, prici
 | bricks | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | buildd | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | stargate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| pullboard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | p3-stack | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentweaver | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | goose | platform | | ✓ | discovery-log | REVIEW |
@@ -524,6 +526,7 @@ All 1082 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
 | claude-cybersecurity | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| bug-bounty-triage | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cdmx-in/security-review | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AXguard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | patchbot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1166,10 +1169,10 @@ All 1082 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 90 | 38 | 6 | 42% |
-| Implement | 319 | 124 | 4 | 39% |
+| Plan | 91 | 38 | 6 | 42% |
+| Implement | 320 | 124 | 4 | 39% |
 | Verify | 54 | 23 | 2 | 43% |
-| Review | 130 | 32 | 3 | 25% |
+| Review | 131 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 93 | 21 | 2 | 23% |
@@ -1178,4 +1181,4 @@ All 1082 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1082** | **362** | **34** | **33%** |
+| **Total** | **1085** | **362** | **34** | **33%** |
