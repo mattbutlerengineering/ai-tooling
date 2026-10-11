@@ -275,12 +275,12 @@ Cost efficiency isn't a stage — it's a property of every stage. A cluster of t
 
 | Tool | Mechanism |
 |------|-----------|
-| [ponytail](https://github.com/DietrichGebert/ponytail) | "Lazy senior dev" pre-write decision ladder (YAGNI → stdlib → native → dep → one-liner) with explicit safety carve-outs; benchmarked ([eval](evaluations/ponytail.md)) |
+| [ponytail](https://github.com/DietrichGebert/ponytail) | "Lazy senior dev" pre-write decision ladder (YAGNI → stdlib → native → dep → one-liner) with explicit safety carve-outs; measured CONDITIONAL — −37% implementation LOC on hidden-test-scored over-build traps, but +6% cost on small tasks, and needs the plugin hook to activate ([eval](evaluations/ponytail.md)) |
 | [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | CLAUDE.md guidelines derived from known LLM coding pitfalls ([eval](evaluations/andrej-karpathy-skills.md)) |
 
 **Layer 4 — avoid the read entirely** — semantic code search returns the few relevant snippets instead of loading whole files, cutting Layer-1 input at the source. These live under [Code Understanding](CATALOG.md) (`semble`, [serena](https://github.com/oraios/serena), `claude-context`, `cocoindex-code`, `gortex`, `code-context-engine`).
 
-> **Why the distinction bites:** Layers 1–2 are *token-efficiency* plays — same work, smaller bill. Layer 3 is a *code-quality* play whose token savings are incidental. `ponytail`'s own benchmark uses `caveman` as the baseline and beats it on every code metric, precisely because `caveman` only changes how work is *described* while `ponytail` changes what gets *built*. Your global `implementation-discipline.md` already encodes much of Layer 3 by default.
+> **Why the distinction bites:** Layers 1–2 are *token-efficiency* plays — same work, smaller bill. Layer 3 is a *code-quality* play whose token savings are incidental. `ponytail`'s own benchmark uses `caveman` as the baseline and beats it on every code metric, precisely because `caveman` only changes how work is *described* while `ponytail` changes what gets *built*. (Our own A/B bears out the axis split: less code, not a smaller bill — see the eval.) Your global `implementation-discipline.md` already encodes much of Layer 3 by default.
 
 ---
 

@@ -32,7 +32,7 @@ This gives you five skills:
 - [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
 - [STACK.md](STACK.md) — the 30 tools worth installing, distilled from 1113 evaluations
 - [LEARNING.md](LEARNING.md) — curated AI/AI-coding learning resources: YouTube channels, talks, and web references (passive learning, not catalogued tools)
-- [evaluations/](evaluations/) — 1113 evaluation files: 369 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 302 still at `discovery-log` — leads, not verdicts — and 442 stubs and comparison documents
+- [evaluations/](evaluations/) — 1113 evaluation files: 370 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 301 still at `discovery-log` — leads, not verdicts — and 442 stubs and comparison documents
 
 ## Integrity
 

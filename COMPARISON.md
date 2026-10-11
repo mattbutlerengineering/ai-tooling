@@ -819,7 +819,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | vercel-labs/skills | tool | | ✓ | discovery-log | REVIEW |
 | plugin-dev | plugin | | ✓ | SKIP | REVIEW |
 | pm-skills | skill | | ✓ | discovery-log | REVIEW |
-| ponytail | skill | | ✓ | discovery-log | REVIEW |
+| ponytail | skill | | ✓ | CONDITIONAL | MEASURED |
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
@@ -1177,9 +1177,9 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 10 | 5 | 3 | 50% |
 | Outer Loop | 93 | 21 | 2 | 23% |
-| Skills & Plugins | 135 | 44 | 4 | 33% |
+| Skills & Plugins | 135 | 45 | 4 | 33% |
 | Memory & Context | 94 | 30 | 2 | 32% |
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1086** | **362** | **34** | **33%** |
+| **Total** | **1086** | **363** | **34** | **33%** |
