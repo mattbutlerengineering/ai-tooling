@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1086 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1091 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -130,7 +130,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agent-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
 | tldr | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| claude-terse | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-terse | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
 | eigent | platform | ✓ | ✓ | SKIP | REVIEW |
 | herdr | tool | | ✓ | discovery-log | REVIEW |
@@ -180,6 +180,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | HolyClaude | platform | ✓ | ✓ | discovery-log | REVIEW |
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
+| claude-command-center | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | useagent | tool | | ✓ | SKIP | SOURCE-ONLY |
 | vicoa | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
@@ -233,6 +234,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | happy | platform | | $ | discovery-log | REVIEW |
 | harness | skill | | ✓ | SKIP | REVIEW |
 | headroom | tool | ✓ | ✓ | CONDITIONAL | MEASURED |
+| billion-context | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | jCodeMunch-MCP | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | compact-adviser | plugin | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
 | taskcut | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -442,6 +444,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | codex-guard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
 | opencli | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-chrome-relay | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | browser-use | framework | | ✓ | discovery-log | REVIEW |
 | groundhog | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | nanobrowser | tool | | ✓ | SKIP | REVIEW |
@@ -647,6 +650,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | documentation-and-adrs | skill | | ✓ | ADOPT | MEASURED |
 | iso-24495-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | writing-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| asd-ste100-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | documentation (anthropics) | skill | | ✓ | discovery-log | REVIEW |
 | oo-component-documentation | skill | | ✓ | SKIP | REVIEW |
 | slideops | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -911,6 +915,7 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ownmem | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | varve | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | daidocs | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| OpenLtm | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | agentic-stack-desktop | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-db | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | Perenna | MCP server | | ✓ | SKIP | SOURCE-ONLY |
@@ -1171,15 +1176,15 @@ All 1086 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 91 | 38 | 6 | 42% |
-| Implement | 321 | 124 | 4 | 39% |
-| Verify | 54 | 23 | 2 | 43% |
+| Implement | 323 | 126 | 4 | 39% |
+| Verify | 55 | 23 | 2 | 42% |
 | Review | 131 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
-| Reflect | 10 | 5 | 3 | 50% |
+| Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 93 | 21 | 2 | 23% |
 | Skills & Plugins | 135 | 45 | 4 | 33% |
-| Memory & Context | 94 | 30 | 2 | 32% |
+| Memory & Context | 95 | 31 | 2 | 33% |
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1086** | **363** | **34** | **33%** |
+| **Total** | **1091** | **366** | **34** | **34%** |

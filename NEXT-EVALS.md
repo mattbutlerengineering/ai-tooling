@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 723 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 725 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 110 distinct values across these 723 leads (311 have zero overlap pressure; largest tie: 65) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 112 distinct values across these 725 leads (311 have zero overlap pressure; largest tie: 65) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 207 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 485 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 206 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 488 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 6 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -26,19 +26,19 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | langfuse | Outer Loop | 45.7 | pressure 19, gap 7.7 | `/evaluate-tool langfuse` |
 | sandcastle | Implement | 36.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
 | vet | Review | 65.6 | pressure 28, gap 7.6 | `/evaluate-tool vet` |
-| cognee | Memory & Context | 54.8 | pressure 23, gap 6.8 | `/evaluate-tool cognee` |
+| cognee | Memory & Context | 54.7 | pressure 23, gap 6.7 | `/evaluate-tool cognee` |
 | orca | Implement | 50.1 | pressure 21, gap 6.1 | `/evaluate-tool orca` |
-| mem0 | Memory & Context | 44.8 | pressure 18, gap 6.8 | `/evaluate-tool mem0` |
+| mem0 | Memory & Context | 44.7 | pressure 18, gap 6.7 | `/evaluate-tool mem0` |
 | claude-octopus | Review | 41.6 | pressure 16, gap 7.6 | `/evaluate-tool claude-octopus` |
 | ghostsecurity/skills | Review | 41.6 | pressure 16, gap 7.6 | `/evaluate-tool ghostsecurity/skills` |
 | aider | Implement | 40.1 | pressure 17, gap 6.1 | `/evaluate-tool aider` |
 | OpenHands | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool OpenHands` |
 | gastown | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool gastown` |
 | goose | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool goose` |
-| agentmemory | Memory & Context | 36.8 | pressure 14, gap 6.8 | `/evaluate-tool agentmemory` |
-| supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
-| browser-use | Verify | 33.7 | pressure 13, gap 5.7 | `/evaluate-tool browser-use` |
-| MemOS | Memory & Context | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |
+| agentmemory | Memory & Context | 36.7 | pressure 14, gap 6.7 | `/evaluate-tool agentmemory` |
+| supermemory | Memory & Context | 34.7 | pressure 13, gap 6.7 | `/evaluate-tool supermemory` |
+| browser-use | Verify | 33.8 | pressure 13, gap 5.8 | `/evaluate-tool browser-use` |
+| MemOS | Memory & Context | 32.7 | pressure 12, gap 6.7 | `/evaluate-tool MemOS` |
 | impeccable | Skills & Plugins | 32.7 | pressure 12, gap 6.7 | `/evaluate-tool impeccable` |
 | ui-ux-pro-max | Skills & Plugins | 32.7 | pressure 12, gap 6.7 | `/evaluate-tool ui-ux-pro-max` |
 | worktrunk | Ship | 32.3 | pressure 11, gap 8.3 | `/evaluate-tool worktrunk` |
@@ -55,32 +55,32 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 207 leads
+## P2 challenger — 206 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 207 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 206 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
-| claude-terse | Implement | 6.1 | challenges caveman · pressure 0, gap 6.1 | `/triage-lead claude-terse` |
-| engram | Memory & Context | 28.8 | challenges claude-mem · pressure 10, gap 6.8 | `/triage-lead engram` |
+| engram | Memory & Context | 28.7 | challenges claude-mem · pressure 10, gap 6.7 | `/triage-lead engram` |
 | Understand-Anything | Plan | 27.8 | challenges codegraph · pressure 11, gap 5.8 | `/triage-lead Understand-Anything` |
 | skill-scanner | Review | 27.6 | challenges SkillSpector · pressure 10, gap 7.6 | `/triage-lead skill-scanner` |
-| ACE (agentic-context-engine) | Memory & Context | 26.8 | challenges claude-reflect · pressure 10, gap 6.8 | `/triage-lead ACE (agentic-context-engine)` |
+| ACE (agentic-context-engine) | Memory & Context | 26.7 | challenges claude-reflect · pressure 10, gap 6.7 | `/triage-lead ACE (agentic-context-engine)` |
 | openskills | Skills & Plugins | 26.7 | challenges skill-creator · pressure 9, gap 6.7 | `/triage-lead openskills` |
 | roundtable | Outer Loop | 25.7 | challenges abtop · pressure 9, gap 7.7 | `/triage-lead roundtable` |
 | agnix | Review | 25.6 | challenges SkillSpector · pressure 8, gap 7.6 | `/triage-lead agnix` |
-| memU | Memory & Context | 24.8 | challenges claude-mem · pressure 9, gap 6.8 | `/triage-lead memU` |
-| mex | Memory & Context | 22.8 | challenges claude-mem · pressure 8, gap 6.8 | `/triage-lead mex` |
+| memU | Memory & Context | 24.7 | challenges claude-mem · pressure 9, gap 6.7 | `/triage-lead memU` |
+| mex | Memory & Context | 22.7 | challenges claude-mem · pressure 8, gap 6.7 | `/triage-lead mex` |
 | garak | Outer Loop | 21.7 | challenges SkillSpector · pressure 6, gap 7.7 | `/triage-lead garak` |
+| ownmem | Memory & Context | 20.7 | challenges claude-mem · pressure 7, gap 6.7 | `/triage-lead ownmem` |
 | Skill_Seekers | Skills & Plugins | 20.7 | challenges skill-creator · pressure 6, gap 6.7 | `/triage-lead Skill_Seekers` |
 
-## P3 backlog — 485 leads
+## P3 backlog — 488 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 485 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 488 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
@@ -95,7 +95,7 @@ _Listing 12 of 485 — rerun `python3 triage.py` and read the source for the tai
 | bifrost | Implement | 24.1 | pressure 8, gap 6.1 | `/triage-lead bifrost` |
 | compound-engineering | Implement | 24.1 | pressure 8, gap 6.1 | `/triage-lead compound-engineering` |
 | gemini-cli | Implement | 24.1 | pressure 8, gap 6.1 | `/triage-lead gemini-cli` |
-| NeMo-Guardrails | Outer Loop | 23.7 | pressure 8, gap 7.7 | `/triage-lead NeMo-Guardrails` |
+| scenario | Verify | 23.8 | pressure 8, gap 5.8 | `/triage-lead scenario` |
 
 ## P4 mechanical-skip — 0 leads
 
@@ -110,7 +110,7 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
 | prisma | MCP Servers | 15.2 | ships inside `prisma/prisma` · pressure 3, gap 7.2 | `/triage-lead prisma` |
-| webapp-testing | Verify | 9.7 | ships inside `anthropics/skills` · pressure 1, gap 5.7 | `/triage-lead webapp-testing` |
+| webapp-testing | Verify | 9.8 | ships inside `anthropics/skills` · pressure 1, gap 5.8 | `/triage-lead webapp-testing` |
 | confluence | MCP Servers | 9.2 | ships inside `sooperset/mcp-atlassian` · pressure 0, gap 7.2 | `/triage-lead confluence` |
 | jira | MCP Servers | 9.2 | ships inside `sooperset/mcp-atlassian` · pressure 0, gap 7.2 | `/triage-lead jira` |
 | typescript-mcp-server-generator | Skills & Plugins | 8.7 | ships inside `github/awesome-copilot` · pressure 0, gap 6.7 | `/triage-lead typescript-mcp-server-generator` |
