@@ -3,7 +3,7 @@
 **Repo:** [CopilotKit/aimock](https://github.com/CopilotKit/aimock)
 **Stars:** ~630 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-12  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (test infrastructure)
 **Layer:** Tooling
 

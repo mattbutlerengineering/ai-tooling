@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1091 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1095 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -71,6 +71,7 @@ All 1091 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MinerU | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | deepwiki-rs | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
+| pensieve | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | neuromesh | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | symbolpeek-mcp | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ts-morph | tool | | ✓ | CONDITIONAL | RUN |
@@ -474,6 +475,7 @@ All 1091 tools from CATALOG.md with dev loop stage, automation capability, prici
 | qodo-cover | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | passmark | tool | ✓ | ✓ | SKIP | REVIEW |
 | claude-skill-playwright-browser | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-show-your-work | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pixelpact | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | diagnosing-bugs | skill | | ✓ | SKIP | REVIEW |
 | tdd | skill | | ✓ | CONDITIONAL | MEASURED |
@@ -661,6 +663,7 @@ All 1091 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | ACMM | framework | | ✓ | discovery-log | REVIEW |
+| fde-gym | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | abtop | tool | | ✓ | CONDITIONAL | MEASURED |
 | hud-mode | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rimz | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -784,6 +787,7 @@ All 1091 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
 | claude-seo | skill | | ✓ | discovery-log | REVIEW |
 | excalidraw-diagram-skill | skill | | ✓ | SKIP | REVIEW |
+| SeeCode | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | architecture-drawer | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | formkit | framework | | ✓ | SKIP | REVIEW |
 | frontend-slides | skill | | ✓ | discovery-log | REVIEW |
@@ -1175,16 +1179,16 @@ All 1091 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 91 | 38 | 6 | 42% |
+| Plan | 92 | 38 | 6 | 41% |
 | Implement | 323 | 126 | 4 | 39% |
-| Verify | 55 | 23 | 2 | 42% |
+| Verify | 56 | 23 | 2 | 41% |
 | Review | 131 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 93 | 21 | 2 | 23% |
-| Skills & Plugins | 135 | 45 | 4 | 33% |
+| Outer Loop | 94 | 21 | 2 | 22% |
+| Skills & Plugins | 136 | 45 | 4 | 33% |
 | Memory & Context | 95 | 31 | 2 | 33% |
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1091** | **366** | **34** | **34%** |
+| **Total** | **1095** | **366** | **34** | **33%** |

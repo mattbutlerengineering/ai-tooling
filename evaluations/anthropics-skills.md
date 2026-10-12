@@ -3,7 +3,7 @@
 **Repo:** [anthropics/skills](https://github.com/anthropics/skills)
 **Stars:** 152,538 | **Last updated:** 2026-06-09 | **License:** Apache-2.0 (example skills), source-available (document skills)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-12  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Reflect
 **Layer:** Tooling
 
