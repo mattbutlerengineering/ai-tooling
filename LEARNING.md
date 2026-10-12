@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-07 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-09-21 (that pass's additions, confirmed via search corroboration;
+**Last verified:** 2026-10-12 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-07 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-09-21 (that pass's additions, confirmed via search corroboration;
 see the dated footnote below for what else was checked). The rest of the page was previously
 verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
 below were confirmed live at that date (metadata pulled directly, and each talk was
@@ -536,6 +537,56 @@ Bhati's syntheses did: UC Berkeley researchers (Zaharia and Stoica, Spark/Ray's 
 distinct, checkable failure gaps — requirement and model — that unify reward hacking and hallucination
 under one vocabulary and sit squarely on this page's Verifiability framing, complementing rather than
 repeating the Qwen Verification Horizon entry already here.
+The 2026-10-12 pass found the egress wall still open, same as 2026-10-05: a direct `curl` to
+`youtube.com`, `arxiv.org`, `martinfowler.com`, and `anthropic.com` all returned `200`. `yt-dlp`'s
+search API worked without the proxy 403 (`ytsearch10:` queries against software-factory, AI-DLC,
+spec-driven-development, context-engineering, and levels-of-autonomy/harness-engineering terms all
+returned real results), but per-video metadata and subtitle fetches hit YouTube's own bot-detection
+wall again ("Sign in to confirm you're not a bot") on every id tried but one — so no transcript was
+read, and the handful of new-looking channel hits below could not be dated or corroborated well
+enough to add; all four entries added this pass were read directly from their own pages rather than
+cross-checked from search summaries. `github.com`'s HTTPS git endpoint was reachable too (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `d2a35b7` (2026-10-12), and a new stable release, `v2.11.0` (2026-10-08, up
+from the `v2.10.0` noted 2026-09-25), adds a parallel-execution and team-mode layer — stage-major vs.
+Unit-major Construction walks, swarm batches of independent Units, and per-person checkouts in team
+mode — but `docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"the AI-DLC lifecycle is organized into
+5 phases containing 33 stages,"* so this is an execution-model feature addition, not a phase/stage
+structure change, and nothing was added to that file this pass. This pass also checked the
+software-factory/dark-lit, agentic-SDLC, ADW, and levels-of-autonomy searches the sweep is scoped to
+and found mostly re-treatments or vendor explainers with no primary claim beyond what this page
+already covers (getunblocked.com's and truefoundry.com's "software factory buyer's guide" posts
+repeating the Osmani/BCG-Platinion framing above; a Cloudflare engineering blog post announcing its
+own "Agent Development Lifecycle," read directly and declined as a product-and-vendor-pitch name
+rather than a methodology with its own stages — it explicitly keeps the traditional seven SDLC
+phases and maps Cloudflare products onto each one, with no distinct pipeline of its own, so it fails
+the bar 8090's Software Factory and AWS's AI-DLC set) plus two low-signal YouTube near-misses named
+rather than chased further given the bot-detection wall: "Harness Engineering with Claude Code"
+(QurioSkill, uploaded 2026-10-11, 22 views at search time) and "How I Get Fable 5 Level Autonomy with
+Any Model Using AI Harness Engineering" (Jordan Urbs), both single-channel, uncorroborated claims
+with no independent write-up found. One single-author academic methodology proposal was also
+considered and declined for a `methodologies/` doc on the same grounds as SDAD on 2026-09-30: Chen &
+Cheng, ["A Design Theory for AI-Assisted Software Development Derived from Christopher Alexander's
+Theory of Form"](https://arxiv.org/abs/2610.01372) (arXiv, 2026-10-01) names a real methodology
+("Misfit-Governed Development") with a genuinely new mechanism — specification fit is checkable only
+negatively, through named "misfits," closed by deterministic detectors plus a human-gated circuit —
+and explicitly calls itself "a practice of harness engineering," but its only evidence is one
+academic case study (rebuilding a four-aggregate Scrum system from 64 problem-frame specs), with no
+shipped, adopted tooling behind it. Four genuine finds earned a place instead. The first is the
+sharpest kind of counter-evidence this sweep is scoped to find, and the strongest single addition in
+months: a large-scale, Microsoft-telemetry-grounded event study finding that AI coding gains shrink
+sharply the further they travel down the production chain, extending rather than merely restating
+the Faros AI / "Debt Behind the AI Boom" / "2×" mandate entries above with a different mechanism (a
+weak-link production bottleneck, not review-capacity substitution) at a scale none of them
+individually reaches. The second is the first large-scale empirical study found for this page asking
+specifically whether coding agents' own self-reported performance-validation claims hold up under
+scrutiny — directly on this page's Verifiability framing, at real-world PR scale. The third is a
+position paper from SWE-bench's own creators formally naming "Verifiability" as one of four
+checkable human-agent interaction dimensions, independently converging on the exact vocabulary this
+repo's own [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) uses. The fourth
+sharpens this page's harness-engineering cost cluster (Marmelab, HarnessTax) with a broader,
+task-general finding: multi-agent designs are rarely worth their cost.
 
 ---
 
@@ -1576,6 +1627,90 @@ abstract. Not peer-reviewed, and a self-published solo monograph of this size an
 unusual publication shape for this page to cite — noted plainly rather than smoothed over; its
 scale and the independently verifiable companion catalog are why it clears the bar anyway. Read
 directly via `arxiv.org` and `sjarmak.ai`, both reachable this pass.
+
+### [Writing Code vs. Shipping Code: Productivity Effects Across Generations of AI Coding Tools](https://www.nber.org/papers/w35275) — Mert Demirer, Leon Musolff, Liyuan Yang (NBER Working Paper 35275, 2026-05, revised 2026-09)
+The sharpest counter-evidence this sweep has found since the "2×" mandate study above, and at a
+scale none of this page's other throughput-vs-output entries reach: telemetry from more than
+500,000 GitHub developers combined with their AI usage data, read with a matched event-study
+design rather than a survey or a vendor sample. Each successive generation of coding tool raises
+commit activity by more — autocomplete +30%, interactive coding agents +180%, autonomous coding
+agents +240% (cumulative) — but those gains shrink hard moving down the production chain: the
+240% commit-level figure for autonomous agents falls to **80% for completed projects** and
+**30% for actual releases**. A cross-check across four software marketplaces finds the same
+pattern from the supply side — a sharp rise in new apps published, but no increase in total
+usage. The authors read this as a **weak-link** effect (human bottlenecks downstream of code
+generation — review, integration, release decisions — cap how much of a task-level gain ever
+ships) and back it with a structural estimate: an elasticity of substitution between AI and human
+effort of just 0.23, i.e. strong complementarity, not substitution. In the paper's own words,
+*"large task-level AI productivity gains have therefore translated only partially into shipped
+and used software thus far."* This extends rather than restates the Faros AI telemetry, "Debt
+Behind the AI Boom," and the "2×" mandate study above — each of those found the throughput gain
+paid for by degraded review or quality signals; this one finds the gain itself mostly never
+reaches the output a team or user actually sees, which is a different and arguably sharper
+critique of "lines of code" or "commits merged" as adoption metrics. Disclosed plainly rather
+than left implicit: two of the three authors, per NBER's own author page, previously held
+postdoctoral research positions at Microsoft and currently work as paid research consultants for
+the company — Microsoft sells both the AI coding tools and (via GitHub) the telemetry platform
+this paper measures, so read the framing with that in mind even though the underlying data (real
+developer and marketplace activity, not a self-reported survey) is a stronger evidentiary class
+than the vendor material this page already treats skeptically (8090's "80x", Cognition's
+self-reported deployment numbers). Read directly via `nber.org`, reachable this pass.
+
+### [How Do Coding Agents Optimize Software and Report Performance Validation? A Large-Scale Empirical Study of Open-Source Pull Requests](https://arxiv.org/abs/2610.03969) — Huiyun Peng, Ricardo Calvo, Kelechi G. Kalu, James C. Davis (arXiv, 2026-10-02)
+The first large-scale empirical study found for this page asking specifically whether coding
+agents' own self-reported performance claims hold up, rather than whether agents help or hurt
+overall — a narrower, more checkable question than this page's other Verifiability entries, and
+answered at real-world pull-request scale: 1,130 agent-authored and 1,130 matched human-authored
+performance-optimization PRs through June 2026. Agentic PRs merge markedly less often than human
+ones on the same kind of change (54.4% vs. 73.3%), and lean more on static reasoning and less on
+benchmarking their own claims (46.1% vs. 57.2%, though the gap narrows over the study window). The
+sharper finding is about the PRs that *do* report validation: *"about half of validated PRs
+report no quantitative performance metric,"* and trade-offs (a speed win that costs memory, say)
+are rarely quantified at all — so a PR can read as validated while asserting nothing a reviewer
+could actually check. The paper's own recommendation is exactly this page's Verifiability
+framing stated as a methods note for the field: evaluation should "measure intended effects and
+relevant costs rather than treating the presence of validation alone as sufficient." Confirmed via
+direct fetch of the arXiv abstract page, reachable this pass.
+
+### [Humans are Missing from AI Coding Agent Research](https://arxiv.org/abs/2608.12355) — Zora Z. Wang, John Yang, Kilian Lieret, Alexa Tartaglini, Valerie Chen, Yuxiang Wei, Zijian Wang, Lingming Zhang, Karthik Narasimhan, Ludwig Schmidt, Graham Neubig, Daniel Fried, Diyi Yang (arXiv, 2026-07-04)
+A position paper rather than new measured data — the same shape as the Krentsel/Zaharia-Stoica
+"Reality Is the Final Verifier" and Wang & Liu "Trustworthy Change" entries above, which this page
+cites for naming a real, checkable construct rather than for a dataset — but worth citing on
+authorship alone: several of the thirteen authors (John Yang, Karthik Narasimhan, Graham Neubig)
+co-created SWE-bench, the benchmark most of this page's own measured entries report results
+against. Its argument: coding-agent research optimizes for autonomous task-solving ability, but
+*"the primary bottleneck to practical usefulness"* is increasingly the interface between agent and
+developer — whether a person can set the task's real goals, redirect the agent mid-run, verify
+what changed, and have their preferences retained — not raw completion rate. It names four
+checkable interaction-level dimensions: **task alignment**, **verifiability**, **steerability**,
+and **adaptability**. The second of those converges, independently and from a different research
+lineage entirely, on the exact word and framing this repo's own
+[Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) already uses — worth
+reading as outside confirmation that the construct this repo treats as a first-class quality
+signal is one the field's own benchmark-builders are now naming the same way, not a parochial
+framing this repo invented. Confirmed via direct fetch of the arXiv abstract page, reachable this
+pass.
+
+### [Engineering Sustainable Agents: A Systematic Comparison of Agentic LLMs for Developer Workflows](https://arxiv.org/abs/2610.03010) — Merve Astekin, Yan Naing Tun, Arda Goknil, Erik Johannes Husom, Lwin Khin Shar, Hasan Sözer, Ratnadira Widyasari, Hui Song (arXiv, 2026-10-02)
+Sharpens this page's harness-engineering cost cluster (the Marmelab and HarnessTax entries above,
+which measure cost-vs-correctness trade-offs specifically for coding harnesses) with a broader,
+task-general measurement: accuracy, inference latency, and energy consumption across five
+software-engineering tasks (code generation, technical-debt identification, vulnerability
+detection, log parsing, log analysis), six open-weight LLMs, two prompt strategies, and
+configurations ranging from a single non-agentic query to full multi-agent workflows. Headline
+result: *"multi-agent designs consume on average 6.36×"* the energy of the non-agentic baseline
+and run roughly 6.07× longer, with worst-case slowdowns up to 160× on individual task/hardware
+pairs — while *"accuracy gains from additional agents are limited and task-specific."* Plotting
+accuracy against combined cost, lightweight non-agentic and single-agent configurations hold **59
+of 66** Pareto-optimal points; multi-agent designs only win outright on vulnerability detection.
+The caveat worth stating plainly: only two of the five tasks (code generation, and loosely
+technical-debt identification) are inner-loop coding-delivery work in this page's usual sense —
+log parsing/analysis and vulnerability detection are adjacent SE-research tasks, not the
+dev-loop-specific scope HarnessTax and Marmelab measure, so read the 6.36×/59-of-66 figures as
+evidence from a wider task mix rather than a coding-harness-specific number. Still the first
+measurement found for this page stating outright, across a task-general sweep rather than one
+benchmark, that the field's default instinct toward more agents is usually the wrong trade.
+Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
 
 ---
 
