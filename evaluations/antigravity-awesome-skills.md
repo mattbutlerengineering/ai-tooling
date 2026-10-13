@@ -3,7 +3,7 @@
 **Repo:** [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) (renamed from `sickn33/antigravity-awesome-skills`)
 **Stars:** 41,059 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-13  <!-- triaged: bulk -->
 **Dev loop stage:** All (reference + installable catalog)
 **Layer:** Tooling
 

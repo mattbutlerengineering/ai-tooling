@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1095 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1099 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -91,6 +91,7 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 | facet | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | easel | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Remarc | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| big-arrow-on-the-screen | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | jevgrep | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -102,6 +103,7 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 | sourcebot | platform | ✓ | ✓ | discovery-log | REVIEW |
 | fireworks-open-eli5 | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| ikea-style-manual | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | StructSmith | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | wadah-engine | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | harness-audit | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -158,6 +160,7 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 | openrig | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-dispatcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cross-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hermes-conductor | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | task-state-guard | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | conflux-agent-workflow-2026 | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -182,6 +185,7 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Nimbalyst | platform | | ✓ | SKIP | REVIEW |
 | agent-of-empires | tool | | ✓ | SKIP | REVIEW |
 | claude-command-center | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-standup | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | useagent | tool | | ✓ | SKIP | SOURCE-ONLY |
 | vicoa | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | AgentsMesh | platform | ✓ | ✓ | SKIP | REVIEW |
@@ -1179,8 +1183,8 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 92 | 38 | 6 | 41% |
-| Implement | 323 | 126 | 4 | 39% |
+| Plan | 94 | 38 | 6 | 40% |
+| Implement | 325 | 126 | 4 | 39% |
 | Verify | 56 | 23 | 2 | 41% |
 | Review | 131 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
@@ -1191,4 +1195,4 @@ All 1095 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1095** | **366** | **34** | **33%** |
+| **Total** | **1099** | **366** | **34** | **33%** |
