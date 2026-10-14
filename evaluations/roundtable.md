@@ -3,7 +3,7 @@
 **Repo:** [Kostakurta8/roundtable](https://github.com/Kostakurta8/roundtable)
 **Stars:** 14 | **Last updated:** 2026-08-10 (pushed) | **License:** MIT
 **Last verified:** 2026-08-10
-**Last triaged:** 2026-10-01  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-14  <!-- triaged: bulk -->
 **Dev loop stage:** Outer Loop
 **Layer:** Tooling
 
@@ -36,3 +36,6 @@ _Triaged 2026-08-10 by the P2 challenger band._
 **Re-triaged 2026-10-01 by the P2 challenger band (daily discovery pass):** no change — the
 replay/cost-attribution differentiation from `abtop` still holds, no new adoption or measurement
 signal surfaced. Left at `discovery-log`.
+
+**Re-triaged 2026-10-14 by the P2 challenger band (5-oldest-untriaged pass):** no change — the
+replay/cost-attribution differentiation from `abtop` still holds. Left at `discovery-log`.

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1099 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1108 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -24,6 +24,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | code-review-graph | tool | | ✓ | discovery-log | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
 | feature-dev | plugin | | ✓ | KEEP | MEASURED |
+| turbo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | graphify | skill | | ✓ | CONDITIONAL | MEASURED |
 | source-reading-methodology | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
@@ -90,6 +91,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | plannotator | tool | | ✓ | discovery-log | REVIEW |
 | facet | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | easel | tool | | ✓ | SKIP | SOURCE-ONLY |
+| human-in-the-loop | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | Remarc | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | big-arrow-on-the-screen | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
@@ -416,6 +418,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ai-data-extractor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | weave | tool | ✓ | ✓ | discovery-log | REVIEW |
 | moire | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-bulkhead | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | airship | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | trace-file-lineage | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | phantom | platform | ✓ | ✓ | discovery-log | REVIEW |
@@ -576,6 +579,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | your-cto-jev | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | secretguard-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | toolpermit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| jev-permission-gate | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Argus | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pentest-ai-agents | skill | | ✓ | SKIP | REVIEW |
 | claude-red | skill | | ✓ | SKIP | SOURCE-ONLY |
@@ -687,6 +691,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | otelyssey | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| opentelemetry-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
 | agenttrace | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | blazo | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -700,6 +705,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cross-code-organizer | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-monitor | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-statusline-burnrate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-code-usage-quota-mod | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | brink | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hotseat | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-log-cli | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -721,6 +727,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-otel-gateway | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| claude-flightdeck | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | bough | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | swe-sweep | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -746,6 +753,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | textgrad | framework | ✓ | ✓ | SKIP | REVIEW |
 | ping-island | tool | ✓ | ✓ | SKIP | REVIEW |
 | claude-nanny | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| muster | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ai-pulse | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | coucou | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | dotpals | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1001,6 +1009,7 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Recollect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jevmem | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ctx-handoff-mod | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| project-sentinel | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -1183,16 +1192,16 @@ All 1099 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 94 | 38 | 6 | 40% |
-| Implement | 325 | 126 | 4 | 39% |
+| Plan | 96 | 38 | 6 | 40% |
+| Implement | 326 | 126 | 4 | 39% |
 | Verify | 56 | 23 | 2 | 41% |
-| Review | 131 | 32 | 3 | 24% |
+| Review | 132 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 94 | 21 | 2 | 22% |
+| Outer Loop | 98 | 21 | 2 | 21% |
 | Skills & Plugins | 136 | 45 | 4 | 33% |
-| Memory & Context | 95 | 31 | 2 | 33% |
+| Memory & Context | 96 | 31 | 2 | 32% |
 | MCP Servers | 65 | 18 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 62 | 18 | 4 | 29% |
-| **Total** | **1099** | **366** | **34** | **33%** |
+| **Total** | **1108** | **366** | **34** | **33%** |
