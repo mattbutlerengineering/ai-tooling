@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-12 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-07 (that pass's additions, likewise
+**Last verified:** 2026-10-14 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-12 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-10-07 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-09-21 (that pass's additions, confirmed via search corroboration;
 see the dated footnote below for what else was checked). The rest of the page was previously
 verified 2026-09-16, and before that 2026-08-05 — the six software-factory channels and talks added
@@ -587,6 +588,38 @@ checkable human-agent interaction dimensions, independently converging on the ex
 repo's own [Verifiability signal](WORKFLOW.md#why-verifiability-is-its-own-signal) uses. The fourth
 sharpens this page's harness-engineering cost cluster (Marmelab, HarnessTax) with a broader,
 task-general finding: multi-agent designs are rarely worth their cost.
+The 2026-10-14 pass found the egress wall still open, same as 2026-10-07/10-12: `yt-dlp` ran real
+`ytsearch` queries against all nine of this sweep's scoped topics (software-factory/dark-lit,
+agentic-SDLC, AWS AI-DLC, spec-driven-development, context-engineering, verification-bandwidth/
+back-pressure, levels-of-autonomy, harness-engineering, ADW) and returned real, dated results, and
+a direct `WebFetch` of two arXiv abstract pages (below) succeeded, so both entries added this pass
+were read from the papers' own pages rather than cross-checked from search summaries. No YouTube
+candidate this pass cleared the bar for a transcript pull, so the per-video bot-detection wall noted
+2026-10-07/10-12 was not re-tested. `github.com`'s HTTPS git endpoint was reachable too (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `2f01bf4` (2026-10-14), the newest stable release is still `v2.11.0` (noted
+2026-10-12) with only preview tags past it (`v2.11.1-preview.20261013.1`), and
+`docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is organized
+into 5 phases containing 33 stages,"* so nothing was added to that file this pass. The nine YouTube
+searches returned mostly channels and talks this page already covers (IBM Technology, LangChain,
+Google Cloud Tech, IndyDevDan, Zen van Riel) or small/uncorroborated single-upload channels (a
+200-view "AI Autonomy Levels Explained" upload, a 26-view "agentic engineer 2" upload) not worth
+chasing without independent corroboration. Several web near-misses were considered and declined on
+substance: a cluster of "software factory buyer's guide" vendor posts (getunblocked.com,
+truefoundry.com, BCG Platinion, HCLTech) repeating the Osmani/BCG-Platinion framing already covered;
+Zencoder's "Autonomy is a Dial, Not a Switch" newsletter post and Berkeley RDI's SAE-inspired
+three-tier autonomy framing, both blog-level re-framings of Swarmia's five levels (already cited)
+with no primary measurement of their own; and a "Meta-Engineering Harnesses for AI-Native Software
+Production" paper (arXiv 2605.25665) styled as an "early deployment report" rather than a measured
+study, declined for the same single-source-anecdote reason the Mercari GEARS talk was declined
+2026-08-31. Two genuine finds earned a place instead, both read directly from arXiv. The first
+narrows a question this page's AGENTS.md-efficacy cluster (Gloaguen, Lulla, Khatri) asks from a
+different angle — not whether context files help, but what is actually written into them — with
+the largest census found yet of the artifact class this repo installs and catalogs. The second is
+the first large academic synthesis found for this page's harness-engineering cluster that proposes a
+new unifying frame ("code as agent harness") rather than measuring one more axis of cost or
+correctness within the frame the cluster's other entries already share.
 
 ---
 
@@ -1711,6 +1744,35 @@ evidence from a wider task mix rather than a coding-harness-specific number. Sti
 measurement found for this page stating outright, across a task-general sweep rather than one
 benchmark, that the field's default instinct toward more agents is usually the wrong trade.
 Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
+
+### [Agent READMEs: An Empirical Study of Context Files for Agentic Coding](https://arxiv.org/abs/2511.12884) — Worawalan Chatlatanagulchai, Hao Li, Yutaro Kashiwa, Brittany Reid, Kundjanasith Thonglek, Pattara Leelaprute, Arnon Rungsawang, Bundit Manaskasemsak, Bram Adams, Ahmed E. Hassan, Hajimu Iida (arXiv, v1 2025-11-17, v2 2026-08-09)
+This page's AGENTS.md-efficacy cluster (Gloaguen, Lulla, Khatri, above) all ask the same question —
+does a durable context file (`AGENTS.md`/`CLAUDE.md`) move task success or cost — and disagree with
+each other on the answer. This paper asks a different question of the same artifact class: not
+whether the file helps, but what is actually written into it. Mining 2,303 context files from 1,925
+GitHub repositories, the authors find these files are not static documentation but evolve through
+frequent small edits much like configuration code, and that what developers actually write skews
+heavily toward functional context — test procedures, implementation detail, architecture — while
+*"non-functional requirements such as security (14.8%) and performance (14.5%) are rarely
+specified."* Read against this repo's own `CLAUDE.md`, which is almost entirely process/safety rules
+rather than architecture or test-procedure notes, the finding is a reminder that the typical
+`AGENTS.md`/`CLAUDE.md` in the wild is not doing the safety-rail job this repo's own file does —
+most are task-context notes with little to say about what an agent should *not* do. Confirmed via
+direct fetch of the arXiv abstract page.
+
+### [Code as Agent Harness](https://arxiv.org/abs/2605.18747) — Xuying Ning, Katherine Tieu, Dongqi Fu, Tianxin Wei, et al. (42 authors; UIUC, Meta, Stanford and others; arXiv, 2026-05-18)
+This page's harness-engineering cluster (Jarmak, Barbaste et al., Marmelab, HarnessTax, Astekin et
+al., above) each measure one axis of cost or correctness inside a shared, unstated frame: a coding
+agent's harness is the code around the model. This 42-author survey makes that frame explicit and
+names it — *"code as agent harness: a unified view that centers code as the basis for agent
+infrastructure"* — then organizes the whole space under it: a harness-interface layer, a
+harness-mechanisms layer (planning, memory, tool use, feedback-driven control), and a scaling axis
+from single-agent to multi-agent systems. It adds no new measurement of its own; what earns it a
+place is being the first large academic synthesis found for this cluster that proposes the
+organizing frame itself as a contribution, the way Farrag's and Bhati's syntheses earned theirs
+elsewhere on this page — and its single-to-multi-agent scaling layer is the same axis Astekin et
+al.'s multi-agent cost finding above measures, giving that finding a place in a larger structure
+rather than leaving it a standalone number. Confirmed via direct fetch of the arXiv abstract page.
 
 ---
 
