@@ -946,7 +946,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | baron | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | letta | platform | | ✓ | DEFER | REVIEW |
 | claude-subconscious | plugin | ✓ | ✓ | SKIP | REVIEW |
-| cognee | platform | | ✓ | discovery-log | REVIEW |
+| cognee | platform | | ✓ | discovery-log | MEASURED |
 | graphersal | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | EvoOntology | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | MemOS | platform | | ✓ | discovery-log | REVIEW |

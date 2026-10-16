@@ -1,9 +1,9 @@
 # Evaluation: cognee
 
 **Repo:** [topoteretes/cognee](https://github.com/topoteretes/cognee)
-**Stars:** 17,903 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
+**Stars:** 29,784 | **Last updated:** 2026-08-04 | **License:** Apache-2.0
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect / Retrospect
 **Layer:** Infrastructure
 
@@ -17,51 +17,68 @@ The platform ships as a Python library (`pip install cognee`), CLI (`cognee-cli`
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** MEASURED
 
-Architecture-level review of the main repo, MCP server, Claude Code plugin, and published benchmarks. Did not install or run locally due to infrastructure requirements.
+**Hands-on, measured.** Installed cognee 1.6.4 from PyPI into a clean Python 3.11 venv, ingested a five-document fixture with known facts through `cognee.add` and `cognee.cognify`, then asked five questions whose answers are fixed strings and scored cognee's `CHUNKS` retrieval against a keyword-grep baseline over the same files. No LLM key was set (`LLM_API_KEY` unset throughout).
 
-```bash
-gh api repos/topoteretes/cognee --jq '.description, .stargazers_count, .updated_at'
-gh api repos/topoteretes/cognee/git/trees/main --jq '.tree[].path'
-gh api repos/topoteretes/cognee/contents/cognee-mcp/src/server.py --jq '.content' | base64 -d
-gh api repos/topoteretes/cognee-integrations/git/trees/main?recursive=1 --jq '.tree[].path'
-gh api repos/topoteretes/cognee/contents/evals/README.md --jq '.content' | base64 -d
+```
+python3 -m venv v && v/bin/pip install cognee     # rc=0, 1m43s, 170 packages in the venv
+v/bin/pip install s3fs                            # needed: first cognee.add() raised ModuleNotFoundError: No module named 's3fs'
+env -u LLM_API_KEY v/bin/python run1.py           # cognee.add 3.9s; cognee.cognify 83s wall (first run, includes local model fetch)
+env -u LLM_API_KEY v/bin/python run2.py           # 5 questions x (grep top-2 files) vs (cognee CHUNKS top_k=2)
 ```
 
-Reviewed: MCP server tool implementations (12 MCP primitives: 3 core tools + 9 UI/management tools), Claude Code plugin hooks architecture (6 lifecycle hooks with session-to-graph sync), evaluation benchmarks (45 cycles on HotPotQA against Mem0, Graphiti, LightRAG), and deployment options (6 platforms: Cloud, Modal, Railway, Fly.io, Render, Daytona).
+Fixture (`/tmp/eval-cognee/fx`, five one-or-two-sentence files): Alice Nguyen owns the billing service, which depends on the ledger-db Postgres cluster (d1); Bob Ortiz maintains ledger-db, which failed over on 2026-03-02 after a disk-full incident (d2); the checkout API calls billing and is owned by Carol Diaz (d3); Decision 14 chose Postgres over DynamoDB for ledger-db for transactional guarantees (d4); the mobile app uses the checkout API and Dev Patel leads mobile (d5).
+
+Printed results (hit = every expected string appears in the returned text):
+
+```
+Q1 Who maintains the database that the billing service depends on?  expect "Bob Ortiz"              grep=False  cognee=False
+Q2 Why did we choose Postgres for ledger-db?                          expect "transactional guarantees" grep=False  cognee=True
+Q3 What happened on 2026-03-02?                                       expect "failed over"             grep=True   cognee=True
+Q4 Who leads the mobile team?                                         expect "Dev Patel"               grep=True   cognee=True
+Q5 Who owns the service that the mobile app uses?                     expect "Carol Diaz"              grep=False  cognee=True
+RESULT grep 2/5  cognee-chunks 4/5
+```
+
+Under the hood the log reported the embedder as local (`FastembedEmbeddingEngine`, `BAAI/bge-small-en-v1.5`) and the graph as 37 nodes and 56 edges after `cognify`, built with no LLM call. `SearchType.SUMMARIES` returned 5 summary payloads in 0.1s.
+
+## Test design
+
+- **Task / corpus:** the five-file fixture above plus five questions with fixed expected strings; two questions need a hop across documents (Q1, Q5).
+- **Baseline:** keyword grep, stop-words removed, files ranked by keyword hit count, top 2 files concatenated.
+- **Treatment:** `cognee.search(query_type=SearchType.CHUNKS, top_k=2)` after `add` + `cognify` on a CPU-only sandbox with no LLM key.
+- **Metric:** k/N questions where all expected strings appear in the returned text (mechanical oracle, Correctness protocol in `measurement-protocols.md`); wall-clock for add, cognify and search.
+- **Reproduce:** recreate the five files from the description, run the commands above, score by substring match. N=5 is small and the fixture is tiny, so the 4/5 vs 2/5 gap is an indication, not a benchmark.
 
 ## What worked
 
-- **Published comparative benchmarks** — 45 evaluation cycles on HotPotQA against Mem0, Graphiti, and LightRAG. Only memory platform in the catalog with peer-reviewed competitive benchmarks (arXiv paper: 2505.24478). Cognee showed consistent improvements across EM, F1, and DeepEval Correctness.
-- **Mature Claude Code integration** — 6-hook lifecycle with genuine architectural thought. PostToolUse captures tool traces (not just prompts), PreCompact preserves memory across context resets, SessionEnd bridges session data into the permanent graph. This is the deepest Claude Code hook integration of any memory tool in the catalog.
-- **Minimal MCP API** — only 3 core tools (remember, recall, forget) vs mem0's larger surface. Auto-routing in `recall` picks the best search strategy (vector, graph, hybrid) without the user specifying. Session-aware memory with separate fast cache and permanent graph storage.
-- **Research-backed architecture** — cognitive-science-grounded ontology generation is a genuine differentiator. The knowledge graph evolves its schema as knowledge grows, rather than using a fixed schema.
-- **Deployment flexibility** — 6 one-click deployment options plus managed cloud. Docker Compose for local, Modal/Railway/Fly.io/Render for cloud, Daytona for sandboxes.
+- **Zero-key local path exists.** With no `LLM_API_KEY`, `add` and `cognify` completed and built a 37-node, 56-edge graph using a local embedder and a local extractor; retrieval then returned answers in about 0.1s per query after the first (4.6s, model load).
+- **Beat keyword grep on this fixture.** 4/5 against 2/5; the semantic chunk search found the "why" question (Q2) and the indirect-ownership question (Q5), which share few keywords with their answer files.
+- **Broad surface in one package.** The CLI exposes `add, search, cognify, memify, remember, recall, improve, forget, serve, eval, doctor` among others, and the Python API exposes the 1.0 `remember/recall/forget/improve` set alongside the V1 calls.
 
 ## What didn't work or surprised us
 
-- **Heavy infrastructure for local use** — requires Python 3.10+, an LLM API key (OpenAI by default), and builds a local SQLite/graph database. Docker Compose setup adds PostgreSQL. This is significantly heavier than claude-mem (npm plugin, no external dependencies) or engram (single Go binary).
-- **OpenAI dependency by default** — `LLM_API_KEY` defaults to OpenAI for graph construction. The remember operation uses LLM calls to build the knowledge graph, adding cost and latency. Other providers are documented but OpenAI is the happy path.
-- **Claude Code plugin is in a separate repo** — `cognee-integrations`, not the main monorepo. Discovery is harder, and the plugin repo has lower visibility. Installation requires cloning the integrations repo and pointing `--plugin-dir` at it — not a marketplace install.
-- **Commercial trajectory** — Cognee Cloud is the managed product; the OSS version is the on-ramp. The `serve()` API for cloud connection is prominent in docs. Apache-2.0 license is genuine, but the product incentives point toward cloud.
-- **Benchmark limitations acknowledged** — the team notes that HotPotQA is a "benchmark mismatch" for memory systems and that LLM-as-judge evaluation carries inconsistencies. Honest, but means the competitive claims are weaker than they appear.
+- **Clean install is incomplete.** After `pip install cognee`, the first `cognee.add()` raised `ModuleNotFoundError: No module named 's3fs'`, and `cognify()` failed with `CognifyFailedError` (status 422) for the same reason, after 96s. Installing `s3fs` by hand fixed it.
+- **The headline graph-reasoning path needs an LLM key.** `GRAPH_COMPLETION` and `RAG_COMPLETION` both failed with `LLMAPIKeyNotSetError: LLM API key is not set`, and `TRIPLET_COMPLETION` failed with `NoDataError` until a `create_triplet_embeddings` memify pipeline is run. So the knowledge-graph answering that distinguishes cognee was not measured here.
+- **The multi-hop question that motivates a graph still missed.** Q1 (billing → ledger-db → Bob Ortiz) failed for both arms with chunk retrieval alone.
+- **Heavy for a first run.** 170 packages, a 1m43s install, 83s for the first `cognify` of five one-line files (including a local model fetch), and the log warns that session memory and multi-user access control are on by default.
+- **Scope of the claim.** N=5 on a synthetic fixture; no Claude Code plugin hooks, MCP server or cloud path were exercised, and the published HotPotQA benchmark claims were not re-run.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Graph-connected memory with relationship reasoning surfaces context that flat search misses |
-| Speed | neutral | Graph construction adds latency to `remember`; `recall` auto-routing is fast but requires infrastructure |
-| Maintainability | + | Knowledge graph evolves with the codebase; relationships between concepts are explicit |
-| Safety | + | Dataset-level isolation, user/tenant separation, audit traits |
-| Cost Efficiency | - | LLM calls for graph construction add cost; heavier infrastructure than lightweight alternatives |
+| Correctness | + | 4/5 vs 2/5 for keyword grep on a disclosed five-question fixture (chunk retrieval only; graph completion needs an LLM key) |
+| Speed | neutral | ~0.1s per query after load, but 1m43s install and 83s first `cognify` on five tiny files |
+| Maintainability | neutral | Explicit graph is queryable, but a missing `s3fs` dependency on a clean install is a packaging defect |
+| Safety | neutral | Multi-user access control on by default per the startup log; no isolation test was run |
+| Cost Efficiency | + | The measured path ran with no LLM key and no API spend; graph answering would add LLM cost |
+| Verifiability | neutral | Retrieval returns raw chunks a human can check against source; graph-completion answers were not produced to check |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-Use when you need relationship-aware memory that connects concepts across documents and sessions — the knowledge graph genuinely adds value for complex, multi-domain projects where flat text search misses relationships. The Claude Code integration is the deepest hook-based memory integration in the catalog. Choose claude-mem (ADOPT) for simpler setups where you want local-first memory without infrastructure overhead, or engram (CONDITIONAL) for portable cross-agent memory. Choose cognee when you need the knowledge graph layer, published benchmarks matter, or you're building a team-wide memory infrastructure.
+**discovery-log — tentative read** — cognee runs locally without a key and its chunk retrieval beat keyword grep 4/5 vs 2/5 on a five-question fixture, but the graph-completion path that is its differentiator needs an LLM key, the one multi-hop question missed, and a clean install needed a manual `s3fs` fix. A key-backed run of `GRAPH_COMPLETION` against claude-mem on a larger fixture is what a real verdict needs.
 
 ## Triage note
 
@@ -71,4 +88,4 @@ Cites claude-mem (STACK ADOPT) in Overlaps with, but the eval's own REVIEW alrea
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [cognee](https://github.com/topoteretes/cognee) | platform | Open-source AI memory with self-hosted knowledge graph engine for persistent agent memory | Need structured knowledge graph memory that agents can query across sessions | claude-mem, OMEGA, SimpleMem |
+| [cognee](https://github.com/topoteretes/cognee) | platform | Open-source AI memory with self-hosted knowledge graph engine for persistent agent memory | Need structured knowledge graph memory that agents can query across sessions | claude-mem, OMEGA, SimpleMem, OpenViking, MemOS, supermemory |
