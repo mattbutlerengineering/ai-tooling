@@ -344,7 +344,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | packrehearsal | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | osaurus | harness | ✓ | ✓ | discovery-log | REVIEW |
 | aichat | harness | ✓ | ✓ | discovery-log | REVIEW |
-| aider | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| aider | harness | ✓ | ✓ | discovery-log | RUN |
 | eve | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Trellis | harness | | ✓ | SKIP | SOURCE-ONLY |
 | software-factory-harness | harness | | ✓ | SKIP | SOURCE-ONLY |
