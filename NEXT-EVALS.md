@@ -2,7 +2,7 @@
 
 The 749 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 122 distinct values across these 749 leads (324 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 121 distinct values across these 749 leads (324 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -38,7 +38,6 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
 | sandcastle | Implement | 34.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
 | MemOS | Memory & Context | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |
-| ui-ux-pro-max | Skills & Plugins | 32.6 | pressure 12, gap 6.6 | `/evaluate-tool ui-ux-pro-max` |
 | worktrunk | Ship | 32.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
 | ralph-claude-code | Implement | 32.1 | pressure 12, gap 6.1 | `/evaluate-tool ralph-claude-code` |
 | OpenSpec | Plan | 32.1 | pressure 12, gap 6.1 | `/evaluate-tool OpenSpec` |
@@ -47,6 +46,7 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | awesome-agent-skills | Reference | 31.1 | pressure 11, gap 7.1 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 31.1 | pressure 11, gap 7.1 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | impeccable | Skills & Plugins | 30.6 | pressure 12, gap 6.6 | `/evaluate-tool impeccable` |
+| ui-ux-pro-max | Skills & Plugins | 30.6 | pressure 12, gap 6.6 | `/evaluate-tool ui-ux-pro-max` |
 | claude-code-router | Implement | 30.1 | pressure 11, gap 6.1 | `/evaluate-tool claude-code-router` |
 
 ## P1 successor-check — 0 leads

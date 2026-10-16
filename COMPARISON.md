@@ -875,7 +875,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | typescript-mcp-server-generator | skill | | ✓ | discovery-log | REVIEW |
 | attention-control | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | open-steps | skill | | ✓ | discovery-log | SOURCE-ONLY |
-| ui-ux-pro-max | skill | | ✓ | discovery-log | REVIEW |
+| ui-ux-pro-max | skill | | ✓ | discovery-log | RUN |
 | open-claude-design | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | super-prototyping | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | scroll-craft | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
