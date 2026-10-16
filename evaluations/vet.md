@@ -2,8 +2,8 @@
 
 **Repo:** [imbue-ai/vet](https://github.com/imbue-ai/vet)
 **Stars:** 476 | **Last updated:** 2026-06-10 (pushed) | **License:** AGPL-3.0 | **Language:** Python (PyPI: `verify-everything`)
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Code Review & Quality / Verify
 **Layer:** Tooling (CLI + agent skill + CI)
 
@@ -15,58 +15,68 @@ Vet (by [Imbue](https://imbue.com)) is **a standalone verification tool for code
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-**Source-grounded inspection — not installed, not run.** No changes verified, no agent session exported.
+**Hands-on** — installed it via `pip install verify-everything` (PyPI, v0.2.16) into a clean venv and ran the CLI against a two-commit fixture repo under `/tmp/eval-vet/fx`: `calc.py` committed with a correct `average()`, then an uncommitted edit introducing a planted off-by-one (`/ (len(xs) + 1)`) plus an unclosed file handle in a new `load()`. The model-backed review is the tool's core job and needs an Anthropic/OpenAI key or a logged-in agent CLI; neither exists in this sandbox, so what was exercised is everything that works before the model call.
 
-```bash
-gh api repos/imbue-ai/vet --jq '{stars,license:.license.spdx_id,pushed:.pushed_at}'   # 476, AGPL-3.0, pushed 2026-06-10
-gh api repos/imbue-ai/vet/readme --jq '.content' | base64 -d | head -60               # reviews intent+code, runs anywhere, BYO-model, skill install
 ```
+$ vet --version                    -> vet 0.2.16
+$ vet --list-issue-codes           -> 28 codes (logic_error, incorrect_algorithm, fails_silently, hardcoded_secret, insecure_code, ...)
+$ vet --list-models                -> anthropic: claude-fable-5, claude-haiku-4-5, claude-opus-4-x ... (plus other providers)
+$ vet --list-configs               -> "No configurations found." (reads ~/.config/vet/configs.toml and <repo>/.vet/configs.toml)
+$ vet "fix average" --repo .       (no key, 3.9s wall)
+analyzing . (relative to HEAD)
+vet: Neither ANTHROPIC_API_KEY nor ANTHROPIC_AUTH_TOKEN environment variable is set
+hint: If you have a Claude, Codex, or OpenCode subscription, try --agentic to use your
+      locally installed coding agent CLI instead.
+$ env -i ... vet --repo .          (no goal, no key)  -> same message, exit code 2
+$ ANTHROPIC_API_KEY=invalid vet "fix average" --repo .   -> prints "analyzing . (relative to HEAD)", then no output until a 60s timeout killed it (exit 124)
+```
+
+## Test design
+
+- **Task/corpus:** fixture repo `/tmp/eval-vet/fx` — `calc.py` with a planted off-by-one in `average()` and an unclosed file handle in `load()`, as an uncommitted diff against HEAD.
+- **Baseline:** none for the detection question — no model was reachable, so there is no with/without detection delta. The baseline arm (no tool) is trivially "defects unflagged".
+- **Metric:** install success, CLI surface, startup-to-failure wall-clock (3.9s), exit code and message clarity when the credential is missing.
+- **Reproduce:** `python3 -m venv v && v/bin/pip install verify-everything && cd <git repo with a diff> && v/bin/vet "goal"`; add `--agentic` with a logged-in `claude`/`codex`/`opencode` CLI to use a subscription.
 
 ## What worked
 
-- **Verifies intent *and* code — not just the diff.** Checking the agent *conversation* for goal adherence (did it do what the user asked?) alongside code correctness targets the failure mode pure diff-review misses: confidently-wrong work that drifts from the request. This is the distinctive idea.
-- **Independent verifier.** A separate tool reviewing the agent's behavior is exactly the "evidence before completion" discipline good workflows preach — and harder for the agent to rationalize past than self-review.
-- **Runs everywhere, auto-triggers.** Terminal, CI, or an agent skill that proactively runs after changes; cross-installs for Claude Code/Codex/OpenCode so it's agent-agnostic.
-- **BYO-model, no data collection.** Uses your keys/subscriptions, requests go straight to your provider, no account — privacy-friendly and cheap if you already pay for a model.
-- **Credible origin.** Imbue is a serious AI-research lab; the framing ("verify everything") is principled.
+- **Clean install.** One `pip install` from PyPI, a `vet` entry point, no extra setup; the package name (`verify-everything`) differs from the repo name but resolves and matches the catalog's note.
+- **Honest failure on a missing credential.** Fails fast (3.9s) with a named missing variable and a pointer to `--agentic`, and a non-zero exit (2) that CI can gate on.
+- **Documented, enumerable surface.** `--list-issue-codes` shows 28 concrete issue classes (logic errors, incorrect algorithms, silent failures, hardcoded secrets, insecure code, instruction-file disobedience, commit-message mismatch) that line up with the README's "intent + code" pitch; `--history-loader` accepts a conversation-history command to derive the goal, `--staged` and `--base-commit` scope the diff, and `--max-spend` caps cost.
+- **Subscription path exists.** `--agentic` with `--agent-harness {claude,codex,opencode}` delegates to a local agent CLI instead of an API key.
 
 ## What didn't work or surprised us
 
-- **AGPL-3.0.** Strong copyleft — fine for a dev-time tool you run, but a consideration if embedded into a product/service.
-- **Lower traction (476 stars).** Younger/smaller than the review incumbents; less battle-tested than code-review/pr-review-toolkit.
-- **Verification costs inference.** Reviewing intent + code per change is model calls; cheap on a subscription but not free, and adds a step.
-- **Quality is model-bound.** "Find issues worth your attention" depends on the chosen model's judgment; false-positive/negative rate unverified here.
-- **Overlaps the review field.** Conceptually near code-review/pr-review-toolkit/brooks-lint; the wedge is intent-adherence + agent-behavior verification, not code-only review.
+- **The core job went unexercised.** No key and no logged-in agent CLI were available, so whether vet flags the planted off-by-one or the unclosed handle is unknown; false-positive and false-negative rates remain unmeasured, and all claims about review quality stay vendor claims.
+- **A bad key hangs silently.** With an invalid key and a walled network the run printed one line and then produced nothing for 60s; whether that is the sandbox proxy or missing client-side timeout handling is unresolved.
+- **AGPL-3.0.** Strong copyleft — fine for a dev-time tool you run, a consideration if embedded in a product or service.
+- **Verification costs inference.** Every review is model calls; `--max-spend` mitigates but the cost is real.
+- **Overlaps the review field.** Conceptually near code-review/pr-review-toolkit/brooks-lint; the wedge is intent-adherence and agent-behavior verification.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Independently checks diffs for correctness *and* whether the agent did what was asked — catches goal drift. |
-| Speed | neutral | Auto-running after changes adds a verification step; faster than discovering drift in review/prod. |
-| Maintainability | + | Catches request↔action mismatches early, before wrong work compounds. |
-| Safety | + | An independent verifier of agent behavior is a guard against over-claimed/incorrect completion. |
-| Cost Efficiency | neutral | Free/AGPL, BYO-model; per-change verification consumes inference (cheap on a subscription). |
+| Correctness | neutral | Detection quality unmeasured here; the 28 issue codes and intent-vs-diff design target correctness, but no model run backs it. |
+| Speed | neutral | Startup-to-failure was 3.9s; per-review latency with a model is unmeasured. |
+| Maintainability | neutral | Not measured; the issue-code list includes refactoring/duplication classes. |
+| Safety | + | Fails closed with exit 2 and a clear message when no credential is present; `hardcoded_secret` and `insecure_code` are among its codes (detection unmeasured). |
+| Cost Efficiency | neutral | Free, AGPL-3.0, BYO-model with `--max-spend`; model spend per review unmeasured. |
+| Verifiability | + | Output is machine-formattable (`--output-format`, `--output-fields`) and issues carry a code and confidence threshold, so a human can check each finding; accuracy of findings is unverified. |
 
 ## Verdict
 
-**discovery-log — tentative read** — Vet is a principled, Imbue-built **independent verifier** whose distinctive value is checking **both** the diff for correctness **and** the agent conversation for goal adherence — catching the "confidently did the wrong thing" failure that code-only review misses. Adopt it as an auto-running agent skill (or CI step) when you want an outside check on agent behavior, not just its output, and you're comfortable with AGPL-3.0 and BYO-model inference. It's CONDITIONAL given lower traction (476 stars), the AGPL license, and model-dependent judgment quality. It complements rather than replaces diff-reviewers: pair it with code-review/pr-review-toolkit for code rigor and let Vet own intent-adherence.
+**discovery-log — tentative read** — Installs and runs cleanly and fails fast with a clear message when no model credential exists, but its actual job (flagging the planted off-by-one and unclosed handle, and checking goal adherence) was never exercised for lack of a key or logged-in agent CLI, so there is no detection evidence either way. A human with an API key or an agent subscription should rerun the fixture above (`vet "fix average" --repo /tmp/eval-vet/fx`, or with `--agentic`) and score findings against the two planted defects before any promotion; AGPL-3.0 and the near-peers code-review/pr-review-toolkit are the other open points.
 
 Compared to neighbors: **code-review**/**pr-review-toolkit** review the diff across dimensions; **brooks-lint** reviews for design decay. Vet's distinguishing pitch is **verifying coding-agent behavior (goal adherence) alongside code correctness, runnable as a terminal/CI/skill, BYO-model.**
 
 ## Triage note
 
-Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
-real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
-verdict; this bulk pass has no authority to promote it. `code-review`/`pr-review-toolkit`
-are the STACK incumbents for diff review, but vet's distinct wedge — verifying agent
-*intent-adherence* alongside code correctness — isn't something either does, so this isn't a
-clean redundancy SKIP despite the AGPL-3.0 license (a real cost for embedding, not for
-running it as a dev-time check). Left for the P0/eval-runner lane.
+Re-examined 2026-10-16 by the P0 measure lane (`eval-runner` routine): upgraded from a README review to a RUN of the install and credential-free CLI surface. Left at `discovery-log`; no verdict authority was exercised.
 
-_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
+_Triaged 2026-10-16 by the P0 measure band (unattended eval-runner pass)._
 
 ## Catalog entry
 

@@ -563,7 +563,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | sloptrim | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | shut-up-and-code | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | slopware-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
-| vet | tool | ✓ | ✓/$ | discovery-log | REVIEW |
+| vet | tool | ✓ | ✓/$ | discovery-log | RUN |
 | deep-code-review (Perun) | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | first-pass | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
