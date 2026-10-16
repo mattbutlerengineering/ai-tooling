@@ -822,7 +822,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | html-anything | tool | | ✓ | SKIP | REVIEW |
 | humanizer | skill | | ✓ | discovery-log | REVIEW |
 | sepia | skill | | ✓ | SKIP | SOURCE-ONLY |
-| impeccable | skill | | ✓ | discovery-log | REVIEW |
+| impeccable | skill | | ✓ | discovery-log | RUN |
 | frontend-design | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | Jeffallan/claude-skills | skill | | ✓ | discovery-log | REVIEW |
 | marketingskills | skill | | ✓ | discovery-log | REVIEW |

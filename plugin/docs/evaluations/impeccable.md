@@ -1,9 +1,9 @@
 # Evaluation: impeccable
 
 **Repo:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
-**Stars:** 39,641 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Stars:** 55,344 | **Last updated:** 2026-08-04 | **License:** Apache-2.0
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (build/refine frontend UI) + Review (critique/audit of design quality)
 **Layer:** Process (design vocabulary + rules) with a Tooling component (deterministic detector + edit hook)
 
@@ -25,20 +25,28 @@ Installs across many harnesses (`npx impeccable install`): Claude Code, Cursor, 
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-Source-grounded review over the GitHub API. I did NOT install the skill or run any `/impeccable` command on a live project, and I generated no before/after UI. I read the repository metadata, the full `README.md`, the complete `SKILL.md`, the file tree, the plugin manifest, and verified the detector rule count by counting rule IDs in the antipatterns registry. Any judgement about output quality below is reasoning about the rules and structure, not a measured rendering result. The "44 deterministic rules" figure is the repo's own claim, which I confirmed against the source; I did not independently audit each rule's correctness.
+**Hands-on** — installed the published CLI with `npm i impeccable` (v4.6.0, Node 22.22) in a scratch directory and ran its deterministic `detect` command against hand-built HTML fixtures with known planted defects.
 
-```bash
-gh search repos impeccable --limit 20 --json fullName,description,stargazersCount,url
-gh api repos/pbakaus/impeccable --jq '{description, stars:.stargazers_count, license:.license.spdx_id, pushed:.pushed_at, created:.created_at, homepage}'
-gh api "repos/pbakaus/impeccable/git/trees/HEAD?recursive=1" --jq '.tree[] | "\(.type)\t\(.size)\t\(.path)"'
-gh api "repos/pbakaus/impeccable/contents/README.md"                         --jq '.content' | base64 -d
-gh api "repos/pbakaus/impeccable/contents/.agents/skills/impeccable/SKILL.md" --jq '.content' | base64 -d
-gh api "repos/pbakaus/impeccable/contents/.claude-plugin/plugin.json"         --jq '.content' | base64 -d
-gh api "repos/pbakaus/impeccable/contents/.agents/skills/impeccable/scripts/detector/registry/antipatterns.mjs" --jq '.content' | base64 -d | grep -cE "id:\s*['\"]"   # -> 44
-grep -in "impeccable" /Users/mbutler/github/ai-tooling/CATALOG.md
+### Test design
+
+- **Task/corpus:** three single-file HTML pages written for this eval. `slop.html` plants nine known AI-design tells: Inter font, purple-to-blue gradient, gradient-text headline, tracked-caps eyebrow above the hero h1, side-stripe card border, nested cards, 32px card radius, low-contrast gray text (#bbb on #fafafe), and a hero-metric block. `fixed.html` is the same page with each planted defect removed by hand. `clean2.html` and `clean.html` are plain pages (white background and cream background respectively) with readable contrast.
+- **Baseline:** none for the model side. No model credentials were available, so the skill prompt (`SKILL.md`, 23 commands) was never driven and this run measures only the bundled deterministic detector; the with-skill-vs-baseline output comparison and the should-fire/shouldn't-fire triggering test are unmeasured.
+- **Metric:** per-rule findings from `impeccable detect --json`, scored as planted defects caught out of nine, plus findings on the clean and fixed pages, plus wall-clock.
+- **Reproduce:** `mkdir run && cd run && npm init -y && npm i impeccable`, write the fixtures, then `npx impeccable detect --json ../fx/<file>.html`.
+
+```text
+$ npx impeccable detect fx/slop.html     -> 11 anti-patterns + 1 advisory (12 in --json), exit 2
+  --json rule counts: ai-color-palette 1, gradient-text 2, gray-on-color 1, hero-eyebrow-chip 1,
+                      low-contrast 2, nested-cards 1, overused-font 1, side-tab 2, undersized-ui-text 1
+$ npx impeccable detect fx/fixed.html    -> 0 findings
+$ npx impeccable detect fx/clean2.html   -> 0 findings
+$ npx impeccable detect fx/clean.html    -> 1 anti-pattern: cream-palette (rgb(246, 241, 231) page background)
+wall-clock per file: 0.59s (slop), 0.54s (clean)
 ```
+
+Planted-defect result: 7 of 9 caught (Inter, purple palette, gradient text, eyebrow, side-stripe, nested cards, low contrast). Findings are reported with the matched value (for example `1.8:1 (need 4.5:1) — text #bbbbbb on #fafafe`), so each is checkable by hand. Removing the planted defects took the page from 12 findings to 0, so the detector works as a fix-until-clean oracle.
 
 ## What worked
 
@@ -55,25 +63,24 @@ grep -in "impeccable" /Users/mbutler/github/ai-tooling/CATALOG.md
 - **Heavy footprint for what it is.** The repo bundles large detector assets (one browser detector file is ~217 KB; `checks.mjs` ~116 KB). Installed, this is a meaningfully larger skill than a typical prose skill, and the Node detector adds a runtime dependency the agent must shell out to.
 - **Strong overlap with several catalog entries.** ui-ux-pro-max, frontend-design plugin, huashu-design, baoyu-design, open-design, and garden-skills all target "AI generates generic/ugly UIs." impeccable is the most-starred and arguably the most rigorous (deterministic detector + ban list), so it is the strongest *implementation* — but this is a consolidation question, not six independent adopts.
 - **Some rules are aggressive defaults that need human judgement.** "Cards are the lazy answer," "no bounce/elastic ever," the cream/sand/beige ban, and full-pill radius limits are opinionated stances that are usually right but will occasionally fight a legitimate brief. They are framed as defaults, not laws, but an agent applying them mechanically could over-correct a design the user actually wanted.
-- **Not verified hands-on.** The verdict rests on reading the skill and confirming the rule count, not on measured UI output. The case-study before/afters live on the author's site and are self-selected.
+- **Two of nine planted defects were missed.** The 32px card radius and the 99.9% hero-metric block, both on `SKILL.md`'s own ban list, produced no finding; the radius appears only inside the `side-tab` snippet text (`border-left: 4px + border-radius: 32px`). The detector's 44 rules are a subset of the prose bans.
+- **One opinionated hit on a plain page.** A readable cream-background page was flagged `cream-palette`; the same page on white produced zero findings. That rule is a stated default, but it flags a page with no other tell.
+- **Skill effect unmeasured.** The skill prompt's influence on generated UI needs a model; this run measures the detector alone. The edit hook and `live` mode were not exercised either (no devserver or agent loop in the sandbox).
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | For frontend work, the contrast floors, a11y/responsive audits, and the deterministic detector catch real defects (sub-4.5:1 text, overflow, clipped dropdowns) that ship broken UI; no effect outside the frontend |
+| Correctness | + | Detector caught 7 of 9 planted defects with 0 findings on a clean white page and on the fixed page. For frontend work, the contrast floors, a11y/responsive audits, and the deterministic detector catch real defects (sub-4.5:1 text, overflow, clipped dropdowns) that ship broken UI; no effect outside the frontend |
 | Speed | neutral | Adds critique/audit/polish passes and a detector run that cost time; offsets rework from generic output — roughly a wash, leaning slower per task but fewer redesign loops |
 | Maintainability | + | PRODUCT.md/DESIGN.md plus extracted tokens/components push toward a consistent, documented design system instead of one-off styles |
 | Safety | neutral | Prompt + local Node detector with no network/API key; the edit hook executes a bundled script on file edits (a small added execution surface), but no credentials or external calls |
+| Verifiability | + | Every finding names the rule and the matched value (e.g. `1.8:1 text #bbbbbb on #fafafe`) and the run is deterministic and fast (~0.5s/file), so a human can confirm each one |
 | Cost Efficiency | neutral | Larger always-available skill and per-command reference loads add tokens; the detector itself is free (no LLM), and fewer generic-output redesign cycles can offset the overhead |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-impeccable is the strongest entry in the catalog's crowded "make AI design well" cluster: it pairs a concrete, refusable rule set and a 23-command shared vocabulary with a genuinely deterministic 44-rule detector and an edit-time feedback hook — the inner/outer loop pattern, applied to frontend design, with no API key needed. Provenance is excellent (39.6K stars, Apache-2.0, named author, active same-day maintenance, broad multi-harness support).
-
-Adopt it **when the project has a real frontend** and visual quality is a deliverable — landing pages, dashboards, product UI, component libraries. It is dead weight on backend-only or CLI/library work, it is a heavier install than a typical skill, and it overlaps directly with ui-ux-pro-max / frontend-design / huashu-design / baoyu-design — if the catalog consolidates that cluster, impeccable is the one to keep. It does not belong in a universal default stack (most repos aren't frontend-heavy), but for frontend-focused work it is a default-grade pick. The existing CATALOG.md entry is accurate and needs no change.
+**discovery-log — tentative read** — the bundled detector works as advertised on a planted-defect fixture (7 of 9 caught, 0 false hits on a clean page, ~0.5s per file, no API key), but the skill prompt that is the other half of the tool needs a model run (with/without violation counts, as the triage note suggests) before any real verdict.
 
 ## Triage note
 
