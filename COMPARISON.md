@@ -693,7 +693,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | factorylog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Composio | plugin | | ✓/$ | discovery-log | SOURCE-ONLY |
 | Infracost | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
-| langfuse | platform | | ✓ | discovery-log | SOURCE-ONLY |
+| langfuse | platform | | ✓ | discovery-log | RUN |
 | otelyssey | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | opentelemetry-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
