@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 212 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 512 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 211 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 513 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 6 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -47,7 +47,7 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | impeccable | Skills & Plugins | 30.7 | pressure 12, gap 6.7 | `/evaluate-tool impeccable` |
 | ui-ux-pro-max | Skills & Plugins | 30.7 | pressure 12, gap 6.7 | `/evaluate-tool ui-ux-pro-max` |
 | ralph-claude-code | Implement | 30.2 | pressure 12, gap 6.2 | `/evaluate-tool ralph-claude-code` |
-| claude-code-router | Implement | 30.2 | pressure 11, gap 6.2 | `/evaluate-tool claude-code-router` |
+| engram | Memory & Context | 28.8 | pressure 10, gap 6.8 | `/evaluate-tool engram` |
 
 ## P1 successor-check — 0 leads
 
@@ -55,17 +55,16 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 212 leads
+## P2 challenger — 211 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 212 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 211 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
 | codedna | Plan | 6.1 | challenges codegraph · pressure 0, gap 6.1 | `/triage-lead codedna` |
 | pensieve | Plan | 6.1 | challenges claude-mem, serena · pressure 0, gap 6.1 | `/triage-lead pensieve` |
-| engram | Memory & Context | 28.8 | challenges claude-mem · pressure 10, gap 6.8 | `/triage-lead engram` |
 | Understand-Anything | Plan | 28.1 | challenges codegraph · pressure 11, gap 6.1 | `/triage-lead Understand-Anything` |
 | skill-scanner | Review | 27.6 | challenges SkillSpector · pressure 10, gap 7.6 | `/triage-lead skill-scanner` |
 | ACE (agentic-context-engine) | Memory & Context | 26.8 | challenges claude-reflect · pressure 10, gap 6.8 | `/triage-lead ACE (agentic-context-engine)` |
@@ -75,12 +74,13 @@ _Listing 12 of 212 — rerun `python3 triage.py` and read the source for the tai
 | memU | Memory & Context | 24.8 | challenges claude-mem · pressure 9, gap 6.8 | `/triage-lead memU` |
 | mex | Memory & Context | 22.8 | challenges claude-mem · pressure 8, gap 6.8 | `/triage-lead mex` |
 | garak | Outer Loop | 21.9 | challenges SkillSpector · pressure 6, gap 7.9 | `/triage-lead garak` |
+| mcp-context-forge | MCP Servers | 21.3 | challenges fastmcp · pressure 6, gap 7.3 | `/triage-lead mcp-context-forge` |
 
-## P3 backlog — 512 leads
+## P3 backlog — 513 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 512 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 513 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
@@ -94,8 +94,8 @@ _Listing 12 of 512 — rerun `python3 triage.py` and read the source for the tai
 | agentplay | Implement | 6.2 | pressure 0, gap 6.2 | `/triage-lead agentplay` |
 | terravision | Plan | 6.1 | pressure 0, gap 6.1 | `/triage-lead terravision` |
 | claude-show-your-work | Verify | 5.9 | pressure 0, gap 5.9 | `/triage-lead claude-show-your-work` |
+| claude-code-router | Implement | 28.2 | pressure 11, gap 6.2 | `/triage-lead claude-code-router` |
 | gstack | Implement | 28.2 | pressure 10, gap 6.2 | `/triage-lead gstack` |
-| ruflo | Implement | 28.2 | pressure 10, gap 6.2 | `/triage-lead ruflo` |
 
 ## P4 mechanical-skip — 0 leads
 

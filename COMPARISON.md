@@ -149,7 +149,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-harness | harness | | ✓ | SKIP | REVIEW |
 | dot-reflex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | castra | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| claude-code-router | tool | | ✓ | discovery-log | REVIEW |
+| claude-code-router | tool | | ✓ | discovery-log | RUN |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | CLIProxyAPI | tool | | ✓ | discovery-log | SOURCE-ONLY |

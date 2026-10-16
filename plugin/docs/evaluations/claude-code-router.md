@@ -1,15 +1,17 @@
 # Evaluation: claude-code-router
 
 **Repo:** [musistudio/claude-code-router](https://github.com/musistudio/claude-code-router)
-**Stars:** 35,136 | **Last updated:** 2026-06-19 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-21  <!-- triaged: bulk -->
+**Stars:** 36,419 | **Last updated:** 2026-08-04 | **License:** MIT
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Verify (intercepts every model request Claude Code makes; spans the whole inner loop)
 **Layer:** Infrastructure
 
 ---
 
 ## What it does
+
+> **Staleness note (2026-10-16 run):** the description below was written against CCR 2.0.0. The npm package now installs **3.1.3**, which is a different product surface (a UI-managed gateway with Agent Profiles and rule-based routing; see the run below). Read this section as history.
 
 claude-code-router (CCR) is a local proxy that sits between Claude Code and the model. Its catalog one-liner is "Route and customize how you interact with Claude Code while inheriting upstream updates"; the repo's own framing is blunter: "Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic." The mechanism: Claude Code speaks the Anthropic Messages API to a *local* HTTP endpoint (default `http://127.0.0.1:3456`) instead of to api.anthropic.com, and CCR decides — per request — which provider and model actually fulfills it, rewriting the payload as needed.
 
@@ -19,54 +21,65 @@ The second half is **transformers** — small adapters that reshape requests/res
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-Architecture/surface-area review. Inspected the GitHub repo via the API: the full README, the repo tree, `config.example.json` structure, `custom-router.example.js`, the `docs/` site tree (CLI command + config reference), and version metadata. Confirmed the published npm version (`@musistudio/claude-code-router` = **2.0.0**) and latest git tag (**v2.0.0**). **Did NOT install or run it** — no live Claude Code session was routed through CCR, so no latency, no cost-savings percentages, and no model-quality comparisons are reported below. Any such number would be fabricated. This evaluation decides catalog placement from documented capability and maturity, the same lens applied to the headroom and fast-agent calibration evals.
+**Hands-on** — installed `@musistudio/claude-code-router` with `npm install` into `/tmp/eval-claude-code-router`, started the service with `ccr start --no-open`, configured it through the service's own RPC (`POST /api/ccr/rpc`, methods `getConfig`/`saveConfig`/`restartGateway`), and sent Anthropic Messages requests at the gateway on `127.0.0.1:3456`. Upstreams were two local mock OpenAI-compatible servers (`cheap` on :9101, `strong` on :9102) that log every request they receive, so routing is checked against the upstream logs rather than against CCR's own claims. No model credentials were used, so no real model output was involved.
 
-```bash
-gh api repos/musistudio/claude-code-router --jq '{stars,license,description,pushed_at,open_issues,forks}'
-gh api repos/musistudio/claude-code-router/readme --jq '.content' | base64 -d
-gh api "repos/musistudio/claude-code-router/git/trees/main?recursive=1" --jq '.tree[].path'
-npm view @musistudio/claude-code-router version          # -> 2.0.0
-gh api repos/musistudio/claude-code-router/tags --jq '.[0].name'   # -> v2.0.0
+```
+$ npm install @musistudio/claude-code-router   # -> 3.1.3 (not 2.0.0)
+$ ccr start --no-open                          # 2.3s, "CCR service started at http://127.0.0.1:3458/?ccr_web_token=..."
+# Providers: cheap -> :9101 (small-model), strong -> :9102 (big-model)
+# Router.rules: model-prefix "claude-haiku" -> cheap,small-model ; model-prefix "claude-sonnet" -> strong,big-model
+== A. 20 Anthropic-shaped requests (10 haiku, 10 sonnet, 1 tool def each)
+anthropic-shaped OK: 20 / 20   median latency ms 9.1
+  haiku  -> 200 {"type":"message","model":"small-model","content":[{"type":"text","text":"reply-from-cheap"}],...}
+  sonnet -> 200 {"type":"message","model":"big-model","content":[{"type":"text","text":"reply-from-strong"}],...}
+upstream logs: cheap received 10 non-streaming + 1 streaming from CCR, strong received 10; tools:1 on every request
+== B. no key -> 401 "Missing auth token header"; wrong key -> 401 "Invalid or expired API key"
+== C. stream:true -> 200, Anthropic SSE (message_start, content_block_start, content_block_delta ...)
+== D. model matching no rule (claude-opus-4-1) -> 400 "All target providers failed ... not configured for target provider"
+== E. same mock hit directly, no CCR: median 1.1 ms   (CCR path: 9.1 ms)
+== F. saveConfig with 2.x-style Router {default, background, longContext, longContextThreshold:1000}
+saveConfig ok:true; then haiku, sonnet and a 30,000-char sonnet prompt -> all three HTTP 400 "All target providers failed"; 0 requests reached either upstream
 ```
 
-Reviewed: the `Router` category model (default/background/think/longContext/webSearch/image + `longContextThreshold`), the transformer pipeline and built-in adapter list, `/model` live switching, `<CCR-SUBAGENT-MODEL>` subagent routing, `CUSTOM_ROUTER_PATH`, `ccr activate`/`ccr preset`/`ccr ui`/`ccr model`, env-var interpolation (`$VAR`/`${VAR}`), the `APIKEY`/`HOST` security coupling, and the GitHub Actions integration.
+## Test design
+
+- **Task/corpus:** 20 fixed Anthropic `/v1/messages` requests (10 `claude-haiku-4-5`, 10 `claude-sonnet-4-5`, prompts `prompt 0..9`, one `get_weather` tool definition each) plus five single-request probes (auth, streaming, unmatched model, legacy config, direct baseline). Upstreams are mock servers that return a fixed OpenAI `chat.completion` and log model, tool count and auth header.
+- **Baseline:** the same mock hit directly with an OpenAI-shaped request, for added latency only. There is no with/without arm for model quality, because no real model was available.
+- **Metric:** requests landing on the intended upstream (k/N, read from the upstream logs); response shape (`type: message`, text content); HTTP status for auth and error cases; median wall-clock per request.
+- **Reproduce:** the scripts live in `/tmp` only. Rebuild from the Task/corpus line: install the npm package, `ccr start --no-open`, read the token from the printed URL, call `saveConfig` with two `Providers` entries (`api_base_url`, `api_key`, `models`) and two `Router.rules` entries (`type: model-prefix`, `pattern`, `target: "provider,model"`), then POST to `http://127.0.0.1:3456/v1/messages` with an `x-api-key` from `APIKEYS`.
 
 ## What worked
 
-- **Category-aware, token-threshold routing is the differentiator.** Routing `background` to a local Ollama model, `think` to a reasoning model, and `longContext` to a high-context model *automatically* — keyed off task type and a `longContextThreshold` — is more granular than "pick one cheaper model for everything." This is the core Cost-Efficiency lever: expensive reasoning stays on a strong model while cheap turns fall to a local one.
-- **Broad provider + transformer coverage.** OpenRouter, DeepSeek, Gemini, Volcengine, SiliconFlow, ModelScope, DashScope, Groq, Ollama, and Vertex are documented with working transformer configs, including pragmatic adapters (`enhancetool` for flaky tool-call JSON, `maxtoken`, `reasoning`) that address the real failure modes of pointing Claude Code at non-Anthropic APIs.
-- **Escape hatches at every level.** Static `Router` rules, live `/model`, per-subagent prefix routing, and a full `CUSTOM_ROUTER_PATH` JS module mean routing logic can be as simple or as arbitrary as needed without forking the tool.
-- **Zero-code integration path.** `ccr code` launches Claude Code through the proxy and `eval "$(ccr activate)"` redirects the bare `claude` command and Agent-SDK apps — no edits to Claude Code's own config. The "inherit upstream Anthropic updates" promise holds because CC itself is unmodified; CCR only intercepts the API endpoint.
-- **Sane secret handling.** Env-var interpolation (`$OPENAI_API_KEY`) keeps keys out of `config.json`; `ccr preset export` auto-sanitizes keys to `{{field}}` placeholders for sharing; and `HOST` is force-pinned to `127.0.0.1` whenever `APIKEY` is unset, preventing an accidentally world-exposed unauthenticated proxy.
-- **Strong maturity signals.** 35.1K stars, 2.9K forks, MIT, pushed the day of evaluation, just shipped a **2.0.0** major release, has a real docs site and a UI. Clearly the dominant tool in its niche.
+- **Rule routing sent every request to the intended upstream.** 20 of 20 requests landed on the provider the `model-prefix` rule named (10 on `cheap`, 10 on `strong`), the provider's own API key and model name were substituted (`Bearer k-cheap`, `small-model`), and the tool definition survived the translation (`tools: 1` on each upstream request).
+- **The Anthropic-to-OpenAI translation held for this fixture.** Non-streaming replies came back as valid Anthropic `message` objects with usage mapped to `input_tokens`/`output_tokens`, and `stream: true` came back as Anthropic SSE events.
+- **Gateway auth works.** A missing key and a wrong key both returned 401 before anything reached an upstream.
+- **Setup is scriptable without the browser.** The management RPC accepted `getConfig`/`saveConfig` with an `x-ccr-web-auth` header, so the whole configuration could be applied from a script; `saveConfig` uses a `configRevision` check and rejects a stale write with a clear message.
 
 ## What didn't work or surprised us
 
-- **Quality drop from weaker models is the unmeasured central risk.** The entire value proposition routes Claude Code's agentic traffic to non-Claude models. DeepSeek/Qwen/GLM are capable but differ from Claude on instruction-following, tool-call discipline, and long-horizon agentic coherence — the exact things Claude Code is tuned for. The `enhancetool` transformer existing *at all* (error tolerance for malformed tool-call JSON, which disables tool-call streaming) is direct evidence that weaker models misbehave on CC's tool protocol. No accuracy/retention benchmarks are published, unlike headroom's GSM8K/BFCL tables.
-- **It is on the critical path of every request.** A CCR bug, transformer mismatch, or crash breaks the agent entirely, not just one turn. **968 open issues** (very high) reflect the surface area of being a live interception/translation layer across a dozen heterogeneous provider APIs that drift independently.
-- **ToS / "inherit upstream updates" tension.** Routing Claude Code — an Anthropic product — to third-party and local models is squarely a gray area, and several transformers are explicitly *unofficial* CLI-bridge hacks (`gemini-cli`, `qwen-cli`, `rovo-cli`, loaded from gists). The "enjoy updates from Anthropic" framing is real for CC's binary, but each CC release can also break CCR's payload assumptions; maintenance is a treadmill against both Anthropic and N providers.
-- **Configuration complexity scales with ambition.** A single-cheap-model setup is trivial, but the full promise (per-category routing, per-model transformers with options, custom routers, subagent prefixes) is a meaningful JSON surface. The `ccr ui`/`ccr model` helpers mitigate this but don't remove it.
-- **Maintainer concentration + sponsorship dependence.** Effectively `musistudio`'s project, prominently sponsored by Z.ai/GLM — a soft incentive in a tool whose job is to choose models. Not disqualifying (it is the de-facto standard), but a concentration/independence note for something on the critical path.
+- **The product changed under the existing eval.** The prior eval described 2.0.0 and its `default`/`background`/`think`/`longContext` categories. The npm package is now 3.1.3, the README has no `Router` category keys, and `ccr code`, `ccr model`, `ccr preset` and `ccr activate` are not in `ccr --help`; the help shows `start|ui|serve|stop|<profile>`. Any reader following the old eval's config would be configuring a different tool.
+- **The old category routing did not work under 3.1.3 in this run.** A config using `Router.default`, `background` and `longContext` was accepted by `saveConfig` (`ok: true`) and then every request returned HTTP 400 with nothing reaching either upstream. We did not print the stored `Router` back, so we cannot say whether the keys were dropped or stored and ignored; only the 400s are observed. The 3.x equivalent is explicit `Router.rules` (condition or `model-prefix`); the `longContextThreshold` behaviour was not re-tested in rule form.
+- **No default route.** A model name that matches no rule returns 400 rather than falling to a default provider, so a rule set has to cover every model name Claude Code sends.
+- **Added latency was small but not zero.** Median 9.1 ms through CCR against 1.1 ms direct to a local mock (about 8 ms over 20 requests per arm); this says nothing about a real remote provider.
+- **The model-quality risk the old eval flagged is untouched.** We had no model credentials, so we ran nothing on tool-call fidelity, instruction following or real cost. The mock always returns text, so tool-call translation in the response direction was not exercised.
+- **Config UX is heavier than the old CLI.** Provider setup needs a management token, a client API key and the RPC or UI; the README's quick start assumes the browser UI.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | - | Routing agentic traffic to weaker non-Claude models risks degraded tool-calling and instruction-following; `enhancetool` exists precisely to paper over malformed tool calls; no accuracy benchmarks published |
-| Speed | neutral | Could be faster (Groq/local) or slower (extra proxy hop + transform, remote provider latency); not measured, genuinely workload-dependent |
-| Maintainability | - | Adds a critical-path layer that must track Claude Code releases AND a dozen provider APIs; 968 open issues; unofficial CLI-bridge transformers |
-| Safety | neutral | Good defaults (env-var keys, preset sanitization, `127.0.0.1`-pin when no APIKEY) offset by ToS gray area and traffic leaving for third-party providers |
-| Cost Efficiency | + | The core value: category/threshold routing sends expensive reasoning to strong models and cheap/background turns to local or low-cost models, cutting per-session spend |
+| Correctness | neutral | Routing and request/response translation were right on a 20-request fixture (20/20), but nothing about real-model tool-call quality was measured |
+| Speed | neutral | Median 9.1 ms through CCR vs 1.1 ms direct to a local mock; real provider latency dominates and was not measured |
+| Maintainability | - | The product moved from 2.0.0 to 3.1.3 and the old category config stopped routing; an eval, and a user's config, can go stale in weeks |
+| Safety | + | Gateway rejected missing and wrong client keys with 401; provider keys stay in CCR and the client only holds a CCR key |
+| Cost Efficiency | neutral | Rules can send chosen model names to a cheaper provider (verified mechanically), but no spend or token numbers were measured |
+| Verifiability | + | Routing outcome is checkable from the upstream request logs, which the tool does not control |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-claude-code-router is the dominant, mature (35K stars, MIT, just hit 2.0.0) way to make Claude Code talk to models other than Claude, and its category-aware routing (`background`/`think`/`longContext` with a token threshold) is a genuinely good Cost-Efficiency lever — the strongest in its catalog cluster for *keeping the Claude Code UX while paying less per token*. That earns it a real place in the dev loop as an Infrastructure layer.
-
-It is CONDITIONAL, not ADOPT, because the value comes from routing Claude Code's carefully-tuned agentic traffic to weaker models, and the correctness cost of that is real and unquantified (the `enhancetool` adapter is a tell), it sits on the critical path of every request with 968 open issues, and it lives in a ToS gray area with unofficial provider bridges. **Adopt it when** cost or provider-flexibility outweighs peak quality: heavy long-session users wanting cheap `background`/local routing, teams on a GLM/DeepSeek/Qwen subscription or air-gapped/local-only models, or CI pipelines routing `@claude` tasks to cheap models off-peak. **Skip it when** you are on a flat-rate Claude plan, do quality-sensitive agentic coding where Claude's tool discipline matters, or want to minimize critical-path moving parts — in which case run Claude Code natively. It differs from its overlaps: claude-code-templates ships *configs/agents/skills* for stock Claude Code (no model redirection); CLIProxyAPI is a general multi-CLI LLM proxy, whereas CCR is purpose-built for Claude Code's request shape with CC-specific routing categories and subagent prefixes.
+**discovery-log — tentative read** — the 3.1.3 gateway routes Anthropic-shaped requests to the rule's provider correctly (20/20 on a mock fixture), but the old eval's category config no longer routes, no real model was available to test quality or cost, and so no adoption read is supported yet. A real-model run (tool-call fidelity, spend per session) is what would turn this into a verdict.
 
 ## Triage note
 
