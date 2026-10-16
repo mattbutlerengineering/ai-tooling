@@ -388,7 +388,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | qwen-code | platform | | ✓ | discovery-log | REVIEW |
 | gemini-cli | platform | | ✓ | discovery-log | REVIEW |
 | agents-cli | skill | | ✓ | discovery-log | REVIEW |
-| ralph-claude-code | harness | ✓ | ✓ | discovery-log | REVIEW |
+| ralph-claude-code | harness | ✓ | ✓ | discovery-log | RUN |
 | ralph | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
