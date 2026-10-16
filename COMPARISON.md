@@ -539,7 +539,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-gauntlet | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | prod-readiness | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
-| ghostsecurity/skills | skill | | ✓ | discovery-log | REVIEW |
+| ghostsecurity/skills | skill | | ✓ | discovery-log | RUN |
 | claude-cybersecurity | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | bug-bounty-triage | skill | | ✓ | discovery-log | SOURCE-ONLY |

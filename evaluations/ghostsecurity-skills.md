@@ -1,9 +1,9 @@
 # Evaluation: ghostsecurity/skills
 
 **Repo:** [ghostsecurity/skills](https://github.com/ghostsecurity/skills)
-**Stars:** 393 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Stars:** 396 | **Last updated:** 2026-03-11 | **License:** Apache-2.0
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -15,66 +15,97 @@ A Claude Code plugin providing 7 skills for application security scanning, cover
 
 The scan-code skill alone covers 103 vulnerability vectors across 4 project types (backend, frontend, mobile, library), organized by OWASP category (injection, authz, authn, crypto, data exposure, etc.). Each vector has per-severity thresholds, CWE mappings, file-candidate heuristics, and multi-criteria validation rules. The verifier agent independently re-checks every finding against the source code before it reaches the report.
 
+Update from the 2026-10-16 run: the repo is now a two-plugin marketplace (`ghost` and `exo`), the scan-code index lists **102** vectors (the 103 above is the older figure), and the three helper binaries are published as open-source Apache-2.0 repos (`ghostsecurity/poltergeist`, `ghostsecurity/wraith`, plus Reaper). The earlier note that the scanners are closed-source no longer holds.
+
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-Architecture review of all 7 SKILL.md files and supporting prompts/criteria. Read the full scan-code pipeline (planner → nominator → analyzer → verifier), the backend.yaml criteria for injection/authz vectors, the validate SKILL.md for live DAST flow, and the scan-deps orchestrator for SCA pipeline.
+**Hands-on** — cloned `ghostsecurity/skills` @ `25fdf06`, built the two scanner binaries the skills shell out to from source (`ghostsecurity/poltergeist` @ `20d3fa3`, `ghostsecurity/wraith` @ `1c5f44c`), and ran each against a disclosed planted-defect fixture under `/tmp`, next to an incumbent scanner and a naive baseline. Ran `claude plugin validate` on the plugin and parsed all 7 SKILL.md frontmatters and the scan-code criteria index. The LLM-driven layer (the skills' subagent orchestration) was out of reach without model credentials; see "What didn't work".
 
 ```
-gh api repos/ghostsecurity/skills/git/trees/main?recursive=1 --jq '.tree[].path'
-# 79 files: 7 SKILL.md files, 4 criteria YAML files, 5 prompt files, 1 loop script
-# Read: scan-code/SKILL.md, repo-context/SKILL.md, validate/SKILL.md, scan-deps/SKILL.md
-# Read: criteria/index.yaml, criteria/backend.yaml, prompts/verifier.md
+# build (installer's version lookup is walled here; GitHub release assets unreachable)
+apt-get install -y libhyperscan-dev
+(cd poltergeist && CGO_ENABLED=1 go build -o bin/poltergeist ./cmd/poltergeist)
+(cd wraith && go build -o bin/wraith ./cmd/wraith)
+go install github.com/google/osv-scanner/v2/cmd/osv-scanner@v2.0.2   # wraith shells out to it
+go install github.com/zricethezav/gitleaks/v8@v8.18.4               # incumbent baseline
+pip install pip-audit                                                # incumbent baseline
+
+# secrets: 10 planted secrets (S1-S10) + a decoys file, scored by file:line
+poltergeist -format json -output pg.json secrets/
+gitleaks detect --no-git -s secrets -f json -r gl.json
+grep -rniE 'password|secret|api[_-]?key|token|BEGIN .*PRIVATE' secrets/
+python3 score.py
+poltergeist: planted caught 8/10 [2, 3, 5, 6, 7, 8, 9, 10]  missed [1, 4]  total flagged lines 8  decoy-file hits 0
+gitleaks:    planted caught 8/10 [1, 2, 3, 4, 5, 6, 8, 9]  missed [7, 10] total flagged lines 9  decoy-file hits 1
+grep:        planted caught 6/10 [2, 3, 5, 6, 8, 9]       missed [1, 4, 7, 10] total flagged lines 11 decoy-file hits 5
+
+# deps: requirements.txt with 5 known-vulnerable pins + 2 clean pins
+wraith scan --format json --output wr.json requirements.txt     # 5 packages, 123 vulnerabilities
+osv-scanner scan source -L requirements.txt --format json       # django 75, flask 8, pyyaml 4, requests 10, urllib3 26 = 123
+pip-audit -r requirements.txt --no-deps --disable-pip           # 120 vulnerabilities in 5 packages
+# clean pins (requests-toolbelt==1.0.0, certifi==2024.8.30): 0 findings in all three
+
+# plugin package + scan-code criteria index
+claude plugin validate plugins/ghost    # Validation passed
+python3 count_vectors.py                # backend 47, frontend 15, library 14, mobile 26 = 102 indexed, 0 missing from the criteria files
 ```
 
-Not hands-on tested (requires a project with security-relevant code to scan meaningfully). Evaluation is architecture-and-content review.
+Wall-clock on the fixture: poltergeist 1.5 s (163 rules, Hyperscan engine), gitleaks 0.05 s; wraith 1.5 s, pip-audit 1.3 s.
+
+## Test design
+
+- **Task/corpus:** `/tmp/eval-ghostsecurity-skills/fx/secrets` — 10 synthetic secrets in 9 files (S1 AWS access key id, S2 AWS secret key, S3 GitHub PAT, S4 OpenAI-shaped key without the `T3BlbkFJ` marker, S5 Stripe live key, S6 Slack bot token, S7 Postgres URL with password, S8 RSA private key block, S9 hex `api_key`, S10 OpenAI `sk-proj-` key with the marker and 74+74 chars) plus a `decoys.py` of placeholders, the documented AWS example key id, an env lookup and a sha256 hash. `fx/deps/requirements.txt` — django==2.2.0, requests==2.19.0, pyyaml==5.3, flask==0.12.2, urllib3==1.24.1 (vulnerable) and requests-toolbelt==1.0.0, certifi==2024.8.30 (clean). The values are random strings generated with a fixed seed; none is a live credential.
+- **Baseline:** a keyword `grep` (no tool), and the incumbents `gitleaks` v8.18.4 (secrets) and `osv-scanner` v2.0.2 / `pip-audit` 2.10.1 (deps).
+- **Metric:** planted secrets caught (k/10) by file:line, hits inside the decoys file; vulnerable packages found (k/5), clean packages flagged (k/2), vulnerability count.
+- **Reproduce:** the command block above. Fixture generator and scorer were throwaway scripts under `/tmp`; the planted-line convention is a `S<n>` comment on the line before each secret.
+
+### Test design — skills
+
+- **Triggering:** not measured. Firing is decided by the model reading each SKILL.md `description`; with no model credentials there is no deterministic score to report. What was checked mechanically: all 7 skills parse with a `name` and a `description` (232-518 chars), and two of them (`ghost-proxy`, `ghost-validate`) declare no `allowed-tools`.
+- **Output A/B:** not measured for the same reason. The part of the pipeline that is deterministic (the binaries) is what the secrets and deps comparisons above measure; the AI analysis layered on top (exploitability, context assessment, the verifier agent, `ghost-scan-code` SAST) was not exercised.
+- **Not run:** `ghost-scan-code`, `ghost-validate`, `ghost-proxy`, the Reaper proxy and the subagent orchestration.
 
 ## What worked
 
-- **103 vulnerability vectors with per-criteria validation** — each vector in `criteria/backend.yaml` has specific candidate file heuristics, CWE mapping, severity tiers, and 3-4 boolean criteria that must be independently confirmed. This is practitioner-level specificity, not a generic OWASP checklist.
-- **Independent verifier agent** — the scan-code pipeline has a dedicated verifier step that re-reads the source, checks line number accuracy, validates each criterion independently, and checks for missed mitigations. This is the kind of adversarial verification that prevents false positives from reaching reports.
-- **Full AppSec pipeline in one plugin** — repo context → SAST → SCA → secrets → DAST validation → combined report. Each skill can be invoked independently, and they share cached repo context via `~/.ghost/repos/`.
-- **Live validation via proxy** — the `ghost-validate` skill can confirm findings against a running application using `ghost-proxy` (HTTP interception), turning static findings into confirmed exploits. This is a DAST capability rare in agent tooling.
-- **Proper orchestration pattern** — scan-deps and scan-secrets use the Task tool to spawn subagents, keeping context clean. scan-code uses a bash loop script for resumable execution with timeout handling.
+- **Poltergeist is a credible secrets scanner.** On the fixture it caught 8 of 10 planted secrets with zero hits on the decoys file, against 6 of 10 and 5 decoy hits for keyword grep. It is on par with gitleaks by count (8 of 10 each) with a different miss set: poltergeist alone caught the Postgres URL (S7) and the full-length OpenAI key (S10); gitleaks alone caught the AWS access key id (S1) and the marker-less OpenAI-shaped string (S4).
+- **Redaction and entropy filtering are on by default** — the JSON output carries `redacted` values and per-rule entropy thresholds, so scan output is safe to paste into a report.
+- **Wraith matches the incumbent exactly.** It found 5 of 5 vulnerable pins, 0 of 2 clean pins flagged, and 123 vulnerabilities — identical to `osv-scanner` run directly (75+8+4+10+26). `pip-audit` found 120 in the same 5 packages.
+- **Package hygiene:** `claude plugin validate` passes; the scan-code criteria index lists 102 vectors and every indexed vector has an entry in its platform criteria file.
+- **The binaries are now open source (Apache-2.0)** and built from source here in under a minute each, which removes the closed-binary trust objection the earlier review raised.
 
 ## What didn't work or surprised us
 
-- **Low star count (393) relative to quality** — this is significantly underrated compared to the star-inflated alternatives. The criteria YAML files alone contain more security depth than most 10K+ star security skill collections.
-- **Requires custom binaries** — scan-deps installs "wraith" and scan-secrets installs "poltergeist" (Ghost Security's own binaries). These aren't open-source tools you can audit — you're trusting Ghost Security's closed-source scanners. The skills orchestrate around them rather than using only open tools.
-- **Tool restrictions are inconsistent** — scan-code allows `Read, Write, Edit, Glob, Grep, Bash` while scan-deps allows `Read, Glob, Grep, Bash, Task, TodoRead, TodoWrite`. No explanation for why some have Task access and others don't.
-- **No auto-triggering** — skills must be manually invoked (`/ghost-scan-code`). No hooks for pre-commit or pre-push scanning. Compare with agentlint which has runtime guardrails.
+- **The skills themselves were not exercised.** Triggering, the subagent pipeline, the verifier agent and the DAST validation all need a model; the verdict below rests on the tool layer only. The headline claim (AI judgment on top of deterministic tools produces better findings) is untested here.
+- **Poltergeist needs CGO and Hyperscan to build** (`libhyperscan-dev`); a `CGO_ENABLED=0` build fails. The skills install the prebuilt release binary instead, so this only matters when building from source.
+- **Wraith is a thin wrapper over osv-scanner** and fails at runtime with "osv-scanner not found" unless that binary is on `PATH`. The tool layer adds no detection beyond the incumbent osv-scanner; any value is in the skill layer's exploitability analysis.
+- **Poltergeist does not flag a bare AWS access key id** (S1) and its OpenAI rule requires the exact `T3BlbkFJ` shape with 74 characters each side, so S4 is a fixture-shape miss rather than a detector bug. Gitleaks flags the documented AWS example key (`AKIAIOSFODNN7EXAMPLE`) in the decoys file; poltergeist does not.
+- **Fixture caveat:** secrets are synthetic and the rules are pattern-based, so recall on real leaked credentials may differ; n=10 planted secrets and 5 vulnerable pins is a smoke-test sample, not a benchmark.
+- **Install path:** the installer scripts the skills run (`curl ... | bash` against `updates.ghostsecurity.ai`) could not resolve a version in this sandbox, so the shipped binaries were not the ones tested.
+- **Tool restrictions are still inconsistent** across skills (see the `allowed-tools` note under Test design).
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Independent verifier agent reduces false positives; 103-vector coverage catches real issues |
-| Speed | neutral | Multi-agent pipeline is thorough but slow — full scan is token-expensive |
-| Maintainability | neutral | Doesn't affect code quality directly; findings feed review process |
-| Safety | ++ | Full AppSec pipeline (SAST + SCA + secrets + DAST) in one plugin; 103 vectors with per-criteria thresholds |
-| Cost Efficiency | - | Multi-agent orchestration with subagent spawning uses significant tokens, especially at `full` depth |
+| Correctness | neutral | Secrets: poltergeist 8/10 vs gitleaks 8/10 vs grep 6/10 with 0/1/5 decoy hits; deps: wraith 5/5 vulnerable, 0/2 false flags, 123 vulns, identical to osv-scanner. The AI verifier's effect on false positives was not measured |
+| Speed | neutral | Scanners finish in 1.5 s on the fixture; the multi-agent skill pipeline was not timed |
+| Maintainability | neutral | Findings feed review; no direct effect on code structure |
+| Safety | + | Real scanners with redaction on by default and now open-source binaries; no better than gitleaks/osv-scanner on detection by count |
+| Cost Efficiency | neutral | The scanners are free and local; Wraith queries the OSV API. The subagent orchestration's token cost was not measured |
+| Verifiability | + | Scanner output is structured JSON with rule IDs, entropy and file:line, so each finding can be checked against the source mechanically; the AI-verified layer was not assessed |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-Use when your project needs structured security scanning beyond what trailofbits/skills provides. trailofbits/skills (ADOPT) gives you audit methodology — how to systematically review code for security issues. ghostsecurity/skills gives you automated scanning pipelines — SAST, SCA, secrets, and DAST validation with 103 vulnerability vectors and independent verification. They're complementary: trailofbits for manual security review discipline, ghostsecurity for automated scanning coverage. The closed-source scanner binaries (wraith, poltergeist) are a trust tradeoff — you get deeper SCA/secrets scanning but can't audit the scanner itself.
+**discovery-log — tentative read** — the tool layer works and is on par with the incumbents (poltergeist 8/10 planted secrets with 0 decoy hits vs gitleaks 8/10 with 1; wraith identical to osv-scanner at 123/123 vulnerabilities), but the skills that make this a catalog entry (SAST, verifier, DAST, orchestration) need a model to exercise and were not measured, so there is no evidence yet that the package beats `gitleaks` + `osv-scanner` + `security-guidance`. A human or credentialed run of `ghost-scan-code` against a planted-vulnerability app is what a real read needs.
 
 ## Triage note
 
-Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
-real CONDITIONAL read at Evidence REVIEW — a tentative lead-level read, not a promotable
-verdict; this bulk pass has no authority to promote it. `security-guidance` (ADOPT/STACK)
-is in-loop diff-time security review; ghostsecurity/skills is a separate, deeper AppSec
-scanning pipeline (SAST/SCA/secrets/DAST) the existing eval already marks complementary
-rather than redundant, so a mechanical SKIP isn't defensible here. Left for the
-P0/eval-runner lane.
-
-_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass)._
+Left at `discovery-log` — no SKIP: the tools work, the repo is active (last commit 2026-09-28) and not redundant at the skill layer. Earlier triage (2026-08-04) left it for the P0/eval-runner lane; this pass reached RUN evidence on the scanner binaries only.
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [ghostsecurity/skills](https://github.com/ghostsecurity/skills) | skill | AppSec skills for AI coding agents — SAST, SCA, secrets, DAST with 103 vulnerability vectors | Need automated security scanning with per-criteria validation and independent verification | trailofbits/skills (complementary: methodology vs scanning), SkillSpector, Anthropic-Cybersecurity-Skills |
+| [ghostsecurity/skills](https://github.com/ghostsecurity/skills) | skill | AppSec skills for AI coding agents — OWASP, threat modeling, secure defaults | Need security-focused skills that catch vulnerabilities during development, not just review | SkillSpector, security-guidance |
