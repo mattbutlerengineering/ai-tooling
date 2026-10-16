@@ -392,7 +392,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ralph | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rtk | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
-| sandcastle | framework | | ✓ | discovery-log | REVIEW |
+| sandcastle | framework | | ✓ | discovery-log | RUN |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
 | orchestkit | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |

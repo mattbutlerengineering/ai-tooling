@@ -23,7 +23,6 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
-| sandcastle | Implement | 36.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
 | vet | Review | 65.6 | pressure 28, gap 7.6 | `/evaluate-tool vet` |
 | cognee | Memory & Context | 56.8 | pressure 24, gap 6.8 | `/evaluate-tool cognee` |
 | orca | Implement | 52.1 | pressure 22, gap 6.1 | `/evaluate-tool orca` |
@@ -38,6 +37,7 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | agentmemory | Memory & Context | 36.8 | pressure 14, gap 6.8 | `/evaluate-tool agentmemory` |
 | supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
 | worktrunk | Ship | 34.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
+| sandcastle | Implement | 34.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
 | browser-use | Verify | 33.9 | pressure 13, gap 5.9 | `/evaluate-tool browser-use` |
 | MemOS | Memory & Context | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |
 | impeccable | Skills & Plugins | 32.6 | pressure 12, gap 6.6 | `/evaluate-tool impeccable` |
