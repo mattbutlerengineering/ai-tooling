@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1116 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1123 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -21,6 +21,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | effortless | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | dsh-TUI | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codegraph | tool | ✓ | ✓ | ADOPT | MEASURED |
+| codedna | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-review-graph | tool | | ✓ | discovery-log | REVIEW |
 | context7 | MCP server | ✓ | ✓ | KEEP | RUN |
 | feature-dev | plugin | | ✓ | KEEP | MEASURED |
@@ -70,7 +71,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | repoprompt-ce | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | markitdown | tool | | ✓ | ADOPT | MEASURED |
 | eleven | tool | | ✓ | discovery-log | SOURCE-ONLY |
-| decomp.wtf | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| decomp.wtf | tool | | ✓ | SKIP | SOURCE-ONLY |
 | MinerU | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | deepwiki-rs | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
@@ -109,6 +110,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | show-me | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ikea-style-manual | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | StructSmith | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| terravision | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | wadah-engine | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | harness-audit | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
@@ -304,6 +306,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | dsh-ios | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mobilecode | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | simfleet | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| PortPilot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
@@ -568,6 +571,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | first-pass | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-review-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | ship-ready | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| repopilot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | frank | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | no-honest-caveat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-delivery-gates | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -743,6 +747,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | opik | platform | ✓ | ✓ | discovery-log | REVIEW |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | decern | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| systemprompt-core | tool | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
 | ctrlrun | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | squidbrake | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-airlock | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -803,6 +808,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Claude-Code-Game-Studios | plugin | | ✓ | discovery-log | REVIEW |
 | claude-seo | skill | | ✓ | discovery-log | REVIEW |
 | excalidraw-diagram-skill | skill | | ✓ | SKIP | REVIEW |
+| archify | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | SeeCode | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | architecture-drawer | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | formkit | framework | | ✓ | SKIP | REVIEW |
@@ -1126,6 +1132,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | awesome-agent-skills (libukai) | reference | | ✓ | discovery-log | REVIEW |
 | awesome-ai-agents | reference | | ✓ | SKIP | REVIEW |
 | awesome-ai-agent-platforms | reference | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-infrastructure-landscape | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | italia-mcp-servers | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | Awesome-OKF | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-harness-evolution | reference | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1200,16 +1207,16 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 98 | 38 | 6 | 39% |
-| Implement | 327 | 126 | 4 | 39% |
+| Plan | 100 | 39 | 6 | 39% |
+| Implement | 328 | 126 | 4 | 38% |
 | Verify | 56 | 23 | 2 | 41% |
-| Review | 133 | 32 | 3 | 24% |
+| Review | 134 | 32 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 98 | 21 | 2 | 21% |
-| Skills & Plugins | 137 | 46 | 4 | 34% |
+| Outer Loop | 99 | 21 | 2 | 21% |
+| Skills & Plugins | 138 | 46 | 4 | 33% |
 | Memory & Context | 97 | 31 | 2 | 32% |
 | MCP Servers | 66 | 18 | 2 | 27% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
-| Reference | 63 | 18 | 4 | 29% |
-| **Total** | **1116** | **367** | **34** | **33%** |
+| Reference | 64 | 18 | 4 | 28% |
+| **Total** | **1123** | **368** | **34** | **33%** |
