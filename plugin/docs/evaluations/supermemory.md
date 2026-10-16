@@ -1,9 +1,9 @@
 # Evaluation: supermemory
 
 **Repo:** [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
-**Stars:** 27,206 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
+**Stars:** 28,780 | **Last updated:** 2026-08-05 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory + context layer for AI apps and agents)
 **Layer:** Infrastructure (memory/context engine + hosted app; cloud API or fully self-hostable)
 
@@ -27,12 +27,31 @@ It ships TS + Python SDKs, a hosted dashboard/console, and a documented self-hos
 
 **Evidence:** REVIEW
 
-**Source-grounded inspection — not installed, not run.** No SDK wired in, no memory store exercised, no benchmark reproduced. Claims (including the #1 benchmark positioning and the ~50ms profile latency) come from the repository's own README and metadata, not observed behavior.
+**Source-grounded review — not run hands-on.** The self-hosted engine (`npx supermemory local`, the `curl -fsSL https://supermemory.ai/install | bash` installer, or the Docker compose image) was not run: this unattended sandbox blocked executing the downloaded installer, and the other two routes fetch and run the same vendor binary or image, so none was tried. The hosted cloud API needs a vendor key that the sandbox does not have. What was executed is only the PyPI client library, against a throwaway local HTTP stub on `127.0.0.1:6767` — that checks the SDK's request surface, not memory extraction, search quality or the vendor's benchmark claims, which remain the vendor's own.
 
 ```bash
-gh api repos/supermemoryai/supermemory --jq '{stars,license:.license.spdx_id,pushed:.pushed_at}'   # 27.2K, MIT
-gh api repos/supermemoryai/supermemory/readme --jq '.content' | base64 -d | head -60   # engine scope, benchmarks, connectors, multimodal
+python3 -m venv v && v/bin/pip install supermemory        # -> supermemory 5.0.0 (PyPI)
+# stub server returns {} for every POST; client pointed at it via base_url
+v/bin/python mock2.py
+  no-key client: SupermemoryError The api_key client option must be set either by passing api_key to the client or by setting the SUPERMEMORY_API_KEY envi...
+  add ok DocumentRef
+  search ok SearchResponse
+  profile ok ProfileResponse
+  ('POST', '/ns/u1/document', 'Bearer sm_test', '{"content":"I prefer tabs over spaces"}')
+  ('POST', '/ns/u1/search', 'Bearer sm_test', '{"query":"indent style"}')
+  ('POST', '/ns/u1/profile', 'Bearer sm_test', '{}')
+# the README's Python quickstart, verbatim, against the same stub
+v/bin/python readme_snippet.py
+  README add(): TypeError Supermemory.add() got an unexpected keyword argument 'container_tag'
+  README profile(): TypeError Supermemory.profile() got an unexpected keyword argument 'container_tag'
 ```
+
+## Test design
+
+- **Task/corpus:** the three client calls the README lists first (`add`, `search`, `profile`) plus the README's own Python quickstart snippet, run against a local stub that records each request.
+- **Baseline:** none — no with/without arm; this is a surface check of the released SDK against its README.
+- **Metric:** whether the documented call signature runs, and which HTTP path/auth header the SDK emits.
+- **Reproduce:** `pip install supermemory==5.0.0`, start any HTTP server on port 6767 that answers POSTs with `{}`, point `Supermemory(api_key=..., base_url=...)` at it and call the snippet from README lines 224-234.
 
 ## What worked
 
@@ -43,6 +62,9 @@ gh api repos/supermemoryai/supermemory/readme --jq '.content' | base64 -d | head
 
 ## What didn't work or surprised us
 
+- **The README's Python quickstart does not run against the released SDK.** It passes `container_tag=` to `add()` and `profile()`; `supermemory` 5.0.0 on PyPI takes a positional `namespace` and raises `TypeError` on the README form. The SDK posts to `/ns/<namespace>/document|search|profile`, and `search` is a method taking `query=`, not the README's `client.search.documents()` table entry. A newcomer's first copy-paste fails.
+- **The engine itself is unmeasured.** Extraction quality, recall, the ~50ms profile latency and the self-host footprint were not observed here.
+- **Self-host still wants a model key for memory extraction** by the README's own account (OpenAI/Anthropic/Gemini/Groq or Ollama); only embeddings default to a local model.
 - **Heavy and product-shaped for a solo dev loop.** The connectors (Gmail/Drive/Notion), profiles, and hosted console are aimed at app builders / "company brain" use cases — overkill for a single developer already running claude-mem + OMEGA for Claude Code session continuity.
 - **Cloud-first happy path.** The quickstart leans on the hosted API/console; self-hosting the full engine is documented but is not the front-and-center story. Confirm the self-host scope before assuming "MIT = run it all yourself."
 - **Benchmarks are self-reported.** The #1 claims are the vendor's; unverified here.
@@ -58,10 +80,11 @@ gh api repos/supermemoryai/supermemory/readme --jq '.content' | base64 -d | head
 | Maintainability | neutral / − | Broad engine slots in via SDKs, but adds a substantial external dependency (and connector surface) to maintain. |
 | Safety | neutral / − | Cloud-first default and connectors (Gmail/Drive) send personal/conversation data off-box — privacy surface to govern (self-host mitigates). |
 | Cost Efficiency | neutral | MIT core; hosted API is the paid path; good retrieval can trim re-explanation tokens. |
+| Verifiability | neutral / − | Benchmark rank is self-reported, and the README's quickstart not matching the 5.0.0 SDK shows its examples are not kept in step with releases; a self-hosted run would let a reader check recall on their own data. |
 
 ## Verdict
 
-**discovery-log — tentative read** — supermemory is one of the most capable memory+context engines in this catalog: a benchmark-leading (self-reported), full-stack system with fact extraction, user profiles, hybrid RAG, connectors, and multimodal ingestion, MIT-licensed with TS/Python SDKs. Adopt it when you're **building an AI app or a personal/company "brain"** that needs the whole context stack — not just session memory. For a solo developer whose goal is Claude Code continuity, it's heavier and largely redundant with claude-mem + OMEGA, and the headline path leans on the hosted cloud. Pilot on your own data, confirm the self-host scope, and measure recall quality before depending on it.
+**discovery-log — tentative read** — the engine could not be run here (installer blocked, no vendor key); only the Python client was exercised, and the README's Python quickstart fails with `TypeError` on SDK 5.0.0. Prior read, unchanged by this pass: supermemory is one of the most capable memory+context engines in this catalog: a benchmark-leading (self-reported), full-stack system with fact extraction, user profiles, hybrid RAG, connectors, and multimodal ingestion, MIT-licensed with TS/Python SDKs. Adopt it when you're **building an AI app or a personal/company "brain"** that needs the whole context stack — not just session memory. For a solo developer whose goal is Claude Code continuity, it's heavier and largely redundant with claude-mem + OMEGA, and the headline path leans on the hosted cloud. Pilot on your own data, confirm the self-host scope, and measure recall quality before depending on it.
 
 Compared to neighbors: **mem0** is the broad universal memory layer; **cognee** a self-hosted knowledge-graph memory; **MemOS** a self-evolving "memory OS" with policy/skill layers; **Memori** drop-in production memory with multi-tenant attribution; **memsearch** a Milvus-backed shared layer. supermemory's distinguishing pitch is **benchmark-topping breadth — memory + profiles + RAG + connectors + multimodal in one engine** — closer to a context platform than a memory library.
 
