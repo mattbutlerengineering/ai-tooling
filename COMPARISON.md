@@ -651,7 +651,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-action | tool | ✓ | ✓ | ADOPT | RUN |
 | golive-skill | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | shipstores | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| worktrunk | tool | | $ | discovery-log | REVIEW |
+| worktrunk | tool | | $ | discovery-log | MEASURED |
 | no-negative-echo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reflect

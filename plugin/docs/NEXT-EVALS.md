@@ -36,12 +36,12 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | gastown | Implement | 36.1 | pressure 15, gap 6.1 | `/evaluate-tool gastown` |
 | goose | Implement | 36.1 | pressure 15, gap 6.1 | `/evaluate-tool goose` |
 | supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
-| worktrunk | Ship | 34.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
 | sandcastle | Implement | 34.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
 | browser-use | Verify | 33.9 | pressure 13, gap 5.9 | `/evaluate-tool browser-use` |
 | MemOS | Memory & Context | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |
 | impeccable | Skills & Plugins | 32.6 | pressure 12, gap 6.6 | `/evaluate-tool impeccable` |
 | ui-ux-pro-max | Skills & Plugins | 32.6 | pressure 12, gap 6.6 | `/evaluate-tool ui-ux-pro-max` |
+| worktrunk | Ship | 32.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
 | ralph-claude-code | Implement | 32.1 | pressure 12, gap 6.1 | `/evaluate-tool ralph-claude-code` |
 | OpenSpec | Plan | 32.1 | pressure 12, gap 6.1 | `/evaluate-tool OpenSpec` |
 | opik | Outer Loop | 31.9 | pressure 11, gap 7.9 | `/evaluate-tool opik` |

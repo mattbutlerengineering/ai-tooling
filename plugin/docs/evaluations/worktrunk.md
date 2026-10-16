@@ -1,9 +1,9 @@
 # Evaluation: worktrunk
 
 **Repo:** [max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
-**Stars:** 5,495 | **Last updated:** 2026-06-17 | **License:** proprietary
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-04  <!-- triaged: bulk -->
+**Stars:** 6,292 | **Last updated:** 2026-08-05 | **License:** NOASSERTION <!-- repo-metadata.json reads NOASSERTION; the repo's root LICENSE file is a dual MIT / Apache-2.0 grant, and Cargo.toml reads `MIT OR Apache-2.0`. The earlier "proprietary" header was wrong. -->
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -15,71 +15,73 @@ CLI for managing git worktrees, designed specifically for parallel AI agent work
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** MEASURED
 
-**README/CLI-surface review — not run.** worktrunk wraps git worktrees to give each parallel agent session its own branch+worktree; a real test means driving multiple concurrent agent sessions, not done here. Documented lifecycle:
+**Hands-on, measured.** Installed the real artifact from crates.io (`cargo install worktrunk`, v0.80.0, binary `wt`) and ran a with/without A/B on a disclosed fixture, 3 runs per arm, scored by end-state assertions on the repo. Then ran five targeted safety probes on dirty and unmerged worktrees.
 
 ```
-worktrunk new feat/auth         # creates worktree + branch in one step
-worktrunk new feat/api-routes
-worktrunk list                  # active worktrees with status
-worktrunk clean                 # removes merged/stale worktrees
+$ cargo install worktrunk --root /tmp/eval-worktrunk/inst   # rc=0, ~6 min compile
+$ wt --version
+wt 0.80.0
+
+# A/B, 3 runs per arm, identical fixture; ARM lines are the script's own output
+ARM=raw CMDS=24 CHARS=579 SECS=.144   main files: app.txt feature-a.txt feature-b.txt feature-c.txt   worktrees: 1  branches: main
+ARM=wt  CMDS=12 CHARS=312 SECS=.617   main files: app.txt feature-a.txt feature-b.txt feature-c.txt   worktrees: 1  branches: main
+(runs 2 and 3: CMDS/CHARS/end-state identical; SECS raw .123 / .121, wt .626 / .610)
+
+# safety probes
+S1 wt remove <dirty worktree>        -> "Cannot remove worktree: dirty has uncommitted changes", exit=1, wip.txt still on disk
+S2 wt remove <committed, unmerged>   -> worktree removed, "Branch unmerged; to delete, run wt remove -D unm", branch kept
+S3 git worktree remove <dirty>       -> "contains modified or untracked files, use --force", exit=128
+   git branch -d <unmerged>          -> "not fully merged", exit=1
+S5 wt remove d2 -f (dirty)           -> removed with --force, exit=0
 ```
 
-The create/list/switch/cleanup flow below is from the documented command surface, not an observed multi-session run.
+## Test design
+
+- **Task/corpus:** a fresh git repo with one commit (`app.txt`); three parallel "agent" tasks `a`, `b`, `c`, each = create an isolated branch + worktree, add one file (`feature-<n>.txt`), land it on `main`, clean up the worktree and branch. The file edit is the same in both arms and is not counted.
+- **Baseline:** raw git — `git worktree add -b`, `git add -A`, `git commit`, `git merge`, `git worktree remove`, `git branch -d` (24 counted commands including `cd`).
+- **Metric:** correctness oracle on the end state (`main` holds all four files, `git worktree list` has 1 entry, only `main` branch remains), counted commands, typed characters, wall-clock over the whole sequence.
+- **Reproduce:** `cargo install worktrunk`; for the treatment arm run per task `wt -y switch --create feat-<n> --no-cd`, `cd ../repo.feat-<n>`, edit, `wt -y merge main`, `cd` back; assert the end state above.
 
 ## What worked
 
-- `worktrunk new` combines worktree creation and branch setup in one step — cleaner than raw `git worktree add -b`
-- `worktrunk list` shows meaningful status (branch, last commit, dirty state) vs. `git worktree list`'s bare paths
-- Automatic cleanup of stale worktrees after branches are merged — no manual `git worktree remove`
-- Handles the edge cases that trip up raw git worktree usage (nested worktrees, locked worktrees, orphaned paths)
-- Fast — all operations complete in under a second
+- **Correctness oracle passed in both arms, 3/3 runs each:** `main` ended with all four files, one worktree and one branch left. `wt merge` auto-stages the untracked file, commits, merges to `main` and removes the worktree and branch in one command.
+- **Fewer steps:** 12 commands / 312 typed characters vs 24 / 579 for raw git (about half), identical in all three runs.
+- **Safety guard on dirty worktrees:** `wt remove` refuses a worktree with modified or untracked files (S1) and names `--force` as the opt-in; this matches raw git's refusal (S3).
+- **Unmerged work survives:** removing a worktree whose branch is unmerged keeps the branch and prints the exact `-D` command to delete it (S2).
+- **`wt list`** shows per-worktree dirty state (`?`, `!?`, `+N` counts) in a single table, where `git worktree list` shows only path, sha and branch.
+- **License is permissive:** the root LICENSE file grants MIT and Apache-2.0 dual terms. The previous eval's "proprietary" claim was wrong.
 
 ## What didn't work or surprised us
 
-- Proprietary license — cannot fork if the project is abandoned (5.5K stars is solid but not guaranteed longevity)
-- The real value only appears at 3+ parallel agents — with 1-2, raw `git worktree` commands are manageable
-- No integration with claude-squad or other multi-agent managers (you manage worktrees and agents separately)
-- `worktrunk clean` is aggressive by default — it removed a worktree for a branch that was merged upstream but had local uncommitted changes
+- **Slower in wall-clock:** 0.61 s vs 0.12 s for the three-task sequence (about 5x), though both are sub-second in absolute terms. Removal runs in the background, so the cost is mostly process startup per `wt` call.
+- **`wt merge` uses a fallback commit message** (`Changes to feature-a.txt`) when no LLM command is configured; the quality of commit messages depends on setup that needs a model credential, and that path was out of scope here.
+- **No shell integration in this sandbox:** every `wt switch` warned it cannot change directory, so the arm used an explicit `cd ../repo.feat-<n>`; with `wt config shell install` that step goes away and the command count would drop further.
+- **Build cost:** the crate pulls a large dependency tree and took about 6 minutes to compile; the project also ships prebuilt binaries, which this run left untried.
+- **Scope of the A/B:** it is a single-user, scripted lifecycle on a toy repo. Concurrent live agent sessions, `wt hooks`, CI status columns and the PR checkout path (`wt switch pr:N`) were left untested. The earlier eval's claim that `wt clean` discarded uncommitted changes is not reproduced: the command names are different in v0.80.0 (`wt remove`) and the dirty-worktree probe refused removal.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Doesn't affect code quality directly |
-| Speed | + | Reduces friction of parallel agent workflows |
-| Maintainability | neutral | No impact on code structure |
-| Safety | - | Aggressive cleanup can discard uncommitted work if you're not careful |
-| Cost Efficiency | neutral | Doesn't affect token usage |
+| Correctness | + | Oracle passed 3/3 runs: `main` held all merged files, 1 worktree and 1 branch left |
+| Speed | + | Half the commands (12 vs 24) and 312 vs 579 typed characters; wall-clock itself is slower, 0.61 s vs 0.12 s |
+| Maintainability | neutral | Operates on git state, no effect on code structure |
+| Safety | + | Dirty worktree removal refused (exit 1); unmerged branch kept; `--force` required to discard |
+| Cost Efficiency | neutral | No model calls on the paths exercised; free and open source |
+| Verifiability | + | `wt list` surfaces dirty and ahead/behind state per worktree, making agent branch state easy to confirm; the commit messages were generic without an LLM hook |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-Adopt if running 3+ parallel agent sessions regularly — the worktree lifecycle management saves meaningful time and prevents the git state tangles that plague raw `git worktree` usage. Skip for solo sequential work where `git worktree add/remove` suffices. The proprietary license is a risk factor; if an open-source alternative emerges with similar UX, prefer that.
+**discovery-log — measured; promotion candidate** — ran clean 3/3 on a disclosed worktree-lifecycle fixture at half the commands of raw git, with a working dirty-worktree guard and a permissive MIT / Apache-2.0 license; would read ADOPT or CONDITIONAL (adopt-if: running 3+ parallel agent sessions) on human confirmation, which should also test live concurrent agent sessions and hooks.
 
 ## Triage note
 
-Left at `discovery-log`, examined and not disposed. The tentative read above already does the hard
-part — parallel-agent worktree lifecycle management, worth it at 3+ concurrent sessions, `git worktree
-add/remove` sufficient below that — so there is nothing this lane can add by way of elimination.
-
-The one thing worth re-stating from the header rather than the prose: the licence is **proprietary**.
-That is the single fact most likely to decide this row, and per the adoption bar it forecloses ADOPT
-regardless of how well the tool works. The verdict names an open-source alternative as the preferred
-outcome if one appears; nothing in this pass found one.
-
-Not SKIPped, because the capability is real and there is no catalogued incumbent to be redundant with.
-Promotion would need a hands-on run *and* a licence the bar accepts — the second is not ours to fix,
-which makes this a watch rather than a queue item.
-
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
-
-**Re-triaged 2026-09-04 by the P3 backlog band (daily discovery pass):** no change — still proprietary-licensed with no catalogued incumbent to be redundant with; the watch-for-an-OSS-alternative posture from the prior pass still holds, and this pass found none.
+Hands-on pass on 2026-10-16 (eval-runner lane). Replaces the 2026-08/09 watch posture: the license ground it rested on was false (the repo ships a dual MIT / Apache-2.0 LICENSE, which GitHub reported as NOASSERTION), and the safety claim about aggressive cleanup is not reproduced in v0.80.0. Left at `discovery-log` because a human owns the promotion.
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [worktrunk](https://github.com/max-sixty/worktrunk) | tool | CLI for git worktree management, designed for parallel AI agent workflows | Raw git worktree commands are error-prone when running multiple agents | — |
+| [worktrunk](https://github.com/max-sixty/worktrunk) | tool | CLI for git worktree management, designed for parallel AI agent workflows | Need isolated git branches for multiple agents working simultaneously | dmux |
