@@ -1,9 +1,9 @@
 # Evaluation: gastown
 
 **Repo:** [gastownhall/gastown](https://github.com/gastownhall/gastown)
-**Stars:** 15,976 | **Last updated:** 2026-06-17 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Stars:** 17,448 | **Last updated:** 2026-08-05 | **License:** MIT
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement + Ship (also Plan/Review — convoys, merge queue, escalation)
 **Layer:** Infrastructure (a full coordination substrate, not a single tool)
 
@@ -19,23 +19,44 @@ Beyond isolation, Gas Town adds an autonomous operations layer most peers lack: 
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-Inspected the repo metadata, full README, repository tree, release/tag history, contributor count, open-issue stream, and the `.claude/` (skills + commands) and `plugins/` directories via the GitHub API. **Did not install or run it.** Running it meaningfully requires Go 1.25+, Dolt, beads, tmux, sqlite3, and at least one agent CLI, then provisioning a multi-agent town — an interactive, stateful, long-running setup rather than a scriptable one-shot command. This is a repo/README/structure review, not hands-on usage. No timing, throughput, or "scales to 20–30 agents" numbers are claimed here; those are the project's.
+**Hands-on** — built `gt` 1.2.1 from source (`go build ./cmd/gt` at commit `649b832`; the module needs Go 1.26.2, fetched by `GOTOOLCHAIN=auto`; the build also needs `libicu-dev`), installed `bd` 1.3.1 via `go install github.com/steveyegge/beads/cmd/bd@latest` and Dolt 2.4.2 from the release tarball, in a fresh Linux sandbox with tmux, no model credentials. Created a town (`gt install hq --git`), added a rig from a local bare repo, filed three beads, grouped them into a convoy, and slung each to a fresh polecat (`gt sling <bead> fx`). Then ran a scripted conflict-isolation comparison on a 2-line `calc.py` fixture.
 
-```bash
-gh api repos/gastownhall/gastown --jq '{stars,license,description,pushed_at,created_at,forks,open_issues,language}'
-gh api repos/gastownhall/gastown/readme --jq '.content' | base64 -d
-gh api "repos/gastownhall/gastown/git/trees/HEAD" --jq '.tree[].path'
-gh api repos/gastownhall/gastown/contributors --jq 'length'        # 30
-gh api repos/gastownhall/gastown/releases --jq '.[0:5] | .[] | {tag,date: .published_at}'  # v1.2.1 .. v1.0.0
-gh api "repos/gastownhall/gastown/contents/.claude/skills" --jq '.[].name'
-gh api "repos/gastownhall/gastown/contents/.claude/commands" --jq '.[].name'
-gh api "repos/gastownhall/gastown/contents/plugins" --jq '.[].name'
-gh api "repos/gastownhall/gastown/issues?state=open&per_page=5" --jq '.[].title'
-# Catalog overlap + parallel-agent cluster:
-grep -inE "gastown|claude-squad|dmux|worktrunk|beads" /Users/mbutler/github/ai-tooling/CATALOG.md
+```text
+$ gt version
+gt version 1.2.1 (dev: 649b832b7672)
+$ gt install hq --git            # 10.0s wall, "HQ created successfully", Dolt server started
+$ gt rig add fx file:///tmp/eval-gastown/fx.git
+   ✓ Created shared bare repo / mayor clone / refinery worktree / agent beads fx-witness, fx-refinery
+$ bd migrate schema              # required once per beads DB (rig, then town) before any write
+✓ Schema already at v66
+$ gt convoy create demo fx-0oj fx-6mc fx-drj
+  Tracking: 3 issues   Owner: overseer
+$ gt sling fx-0oj fx             # x3, one per bead
+Created polecat: furiosa  (nux, slit for the other two)
+✓ Formula wisp created: fx-wisp-j8x
+✓ Work attached to hook (status=hooked)
+$ git -C fx/.repo.git worktree list
+.../polecats/furiosa/fx  ce52bf0 [polecat/furiosa/fx-0oj+mvasj4hb]
+.../polecats/nux/fx      ce52bf0 [polecat/nux/fx-6mc+mvasjn93]
+.../polecats/slit/fx     ce52bf0 [polecat/slit/fx-drj+mvask7l8]
+.../refinery/rig         ce52bf0 [main]
+$ tmux capture-pane -t fx-furiosa
+Welcome to Claude Code v2.1.301 / Let's get started. / Choose the text style ...
+
+$ bash ab.sh   # 3 scripted "agents", each appends one function to calc.py
+baseline (one shared checkout, each writes whole file back): functions surviving 1 of 3
+treatment (3 polecat worktrees, one commit each, sequential merge into refinery main):
+  3 of 3 edits committed on separate branches; merged cleanly 1, conflicted 2 (same-line appends)
 ```
+
+## Test design
+
+- **Task/corpus:** town + rig built from a 2-line `calc.py` repo; three beads ("task N: edit calc.py"); three scripted workers each appending one distinct function to the same file. Fixture and `ab.sh` live under `/tmp/eval-gastown/` (not committed).
+- **Baseline:** the same three edits made in a single shared checkout, each worker reading the file at start and writing it back whole.
+- **Metric:** edits retained (k of 3); merge outcomes (clean / conflicted); commands that completed vs. stopped.
+- **Reproduce:** build `gt`/`bd`/`dolt` as above, then `gt install`, `gt rig add`, `bd create`, `gt convoy create`, `gt sling`, then the three-writer script. Single run, n=1; this isolates the worktree primitive only, which plain `git worktree` also provides.
 
 ## What worked
 
@@ -47,7 +68,9 @@ grep -inE "gastown|claude-squad|dmux|worktrunk|beads" /Users/mbutler/github/ai-t
 
 ## What didn't work or surprised us
 
-- **Not validated hands-on here.** Everything above is from README/structure/issues. Claims about 20–30-agent scaling, merge-queue reliability, and watchdog recovery are the project's, not observed.
+- **The core function stayed out of reach.** Polecats, the Mayor, Witness and Refinery are Claude Code sessions; without model credentials each pane stops at Claude Code's first-run theme prompt, so no agent ever worked a bead. The 20–30-agent scaling, merge-queue bisection and watchdog recovery claims are the project's and were not exercised.
+- **Conflict-isolation result is thin.** All three scripted edits survived on separate branches versus 1 of 3 in a shared checkout, but that is what any `git worktree` setup gives; the merge step still conflicted 2 of 3 times on same-line appends, which in a real fleet falls to the Refinery agent.
+- **Setup friction measured.** Native build needed Go 1.26.2 (sandbox shipped 1.24.7), `libicu-dev` headers, and a manual `bd migrate schema` on both the rig and town beads DBs before writes worked; `gt rig add` rejects a bare local path and wants a git URL; `gt doctor --fix` left custom-types/statuses warnings.
 - **Very heavy install and a large conceptual surface.** Go 1.25+, Dolt, beads, sqlite3, tmux, plus an agent CLI — and a glossary of ~15 bespoke concepts (Town/Rig/Polecat/Hook/Convoy/Bead/Molecule/Refinery/Deacon/Witness/Seance/Wasteland…). The civic metaphor is charming but the learning curve and operational footprint are an order of magnitude above dmux or claude-squad.
 - **macOS `go install` is broken by design.** Unsigned binaries get SIGKILLed; you must `brew install` or build via `make`. `go install` is Linux-only. A real friction point the README itself flags.
 - **Hard external dependency on Dolt + DoltHub.** The ledger and the Wasteland federation ride on Dolt (a versioned SQL database). That's an unusual, non-trivial dependency, and the open issues show Dolt-layer instability (connection storms wedging the sql-server under load).
@@ -62,11 +85,12 @@ grep -inE "gastown|claude-squad|dmux|worktrunk|beads" /Users/mbutler/github/ai-t
 | Speed | + | Many agents run truly in parallel in isolated worktrees; autonomous dispatch/merge removes manual coordination — at the cost of heavy setup before you get there. |
 | Maintainability | + | Worktree-per-agent + git-backed Beads ledger + persistent identity keep history and work state clean and recoverable across crashes/restarts. |
 | Safety | + | Polecats never push to main (gated merge queue); three-tier watchdog detects/recovers stuck agents; severity-routed escalation surfaces blockers instead of silent stalls. |
+| Verifiability | neutral | Convoys, beads and worktree branches are inspectable with `gt convoy`/`bd list`/`git worktree list`, so a human can see what each polecat was handed; whether the merged output is correct was not observable without live agents. |
 | Cost Efficiency | neutral | Free/MIT and the Scheduler caps concurrency to avoid rate-limit waste, but running 20–30 agents multiplies underlying token spend dramatically; this is a throughput play, not a savings play. |
 
 ## Verdict
 
-**discovery-log — tentative read**
+**discovery-log — tentative read** — the install and dispatch plumbing ran (town, rig, beads, convoy, three polecats in separate worktrees) but every agent session stops at Claude Code's first-run prompt without credentials, so autonomous operation is unmeasured.
 
 Adopt Gas Town when you are deliberately running a **large fleet (10–30) of coding agents** on real repos and need autonomous orchestration — gated merge queue, stuck-agent recovery, persistent crash-survivable work state, and escalation — and you can absorb a heavy install (Go, Dolt, beads, tmux) and a sizable conceptual model. It is a mature, actively developed (v1.2.1, 30 contributors, 16K stars) system with first-class Claude Code integration, and it is the most complete autonomous multi-agent operations substrate in this cluster of the catalog. It is decisively **not** a default: for a single agent, or for the "watch and merge a handful of agents" use case, it is massive overkill — reach for dmux or claude-squad instead. Re-evaluate the Dolt-layer stability (current open issues) and the unsigned-macOS-binary friction before committing a team to it.
 

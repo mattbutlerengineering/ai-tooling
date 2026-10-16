@@ -222,7 +222,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Flowise | platform | | ✓ | SKIP | REVIEW |
 | langflow | platform | | ✓ | SKIP | SOURCE-ONLY |
 | forkd | tool | | ✓ | discovery-log | REVIEW |
-| gastown | tool | | ✓ | discovery-log | REVIEW |
+| gastown | tool | | ✓ | discovery-log | RUN |
 | claude-codex-coop | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | duo | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | cline-pilot | skill | | ✓ | discovery-log | SOURCE-ONLY |
