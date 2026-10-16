@@ -1,9 +1,9 @@
 # Evaluation: browser-use
 
 **Repo:** [browser-use/browser-use](https://github.com/browser-use/browser-use)
-**Stars:** 99,580 | **Last updated:** 2026-06-15 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-06  <!-- triaged: bulk -->
+**Stars:** 107,900 | **Last updated:** 2026-08-05 | **License:** MIT
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -23,74 +23,72 @@ MCP is offered as one more integration ("custom tools, MCP, and more on our Docs
 
 There is a heavily-promoted hosted **Cloud** offering (stealth browsers, proxy rotation, CAPTCHA solving, 1000+ integrations) layered on top of the OSS core; the OSS library is MIT and free, but production scaling is steered toward the paid cloud.
 
+**Correction from the 2026-10-16 run:** the installed 0.13.11 package's `browser-use` command is no longer the `open/state/click/type` indexed CLI described above. It is a thin wrapper over `browser-harness` 0.1.13: a Python snippet on stdin with pre-imported CDP helpers (`new_tab`, `fill_input`, `js`, `wait_for_element`, `capture_screenshot`, ...) drives a Chrome/Chromium the daemon attaches to. The autonomous loop is the separate `browser_use.Agent` library class.
+
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** MEASURED
 
-Method, stated honestly: **inspected the GitHub repo metadata, the full README, and the documented CLI/skill/library surfaces. Did not install or run the agent against a live site.** No hands-on metrics below are invented — where I lack first-hand numbers I say so and reason from the architecture and from our two calibration evals (agent-browser ADOPT, Playwright MCP ADOPT), which were tested hands-on on local dev servers.
+**Hands-on, measured.** Installed `browser-use` 0.13.11 from PyPI into a fresh venv and drove a local Chromium 141 (headless, `--remote-debugging-port=9222`) through the `browser-use` stdin harness. Fixture: a 40-line Python HTTP server on 127.0.0.1:8765 serving a login form; it logs every POST body and answers `Welcome alice` only for `alice`/`s3cret`, otherwise `Denied`. Task: open the page, fill both fields, submit, read `#msg`. Oracle: the server-side POST log (exact credentials received) plus the text of `#msg`. Baseline arm: the same task as a 12-line Playwright script attached to the same Chromium over CDP; treatment arm: a 9-line `browser-use` harness script.
 
-```bash
-# Metadata
-gh api repos/browser-use/browser-use --jq '{stars,license,description,pushed_at}'
-# -> 99,580 stars, MIT, actively pushed (2026-06-15)
+```
+$ browser-use <<'PY'   # treatment (bu_task.py)
+new_tab("http://127.0.0.1:8765/"); wait_for_load()
+fill_input("#user","alice"); fill_input("#pw","s3cret")
+js("document.querySelector('#go').click()")
+wait_for_element("#msg", timeout=10); wait_for_load()
+print("RESULT", js("document.querySelector('#msg').textContent"))
+PY
+RESULT Welcome alice            # server.log: {"user":["alice"],"pw":["s3cret"]}
 
-# Surfaces reviewed (not executed):
-uvx browser-use init --template default      # scaffold a starter agent
-browser-use open https://example.com         # stateful CLI navigate
-browser-use state                            # list clickable elements
-browser-use click 5                          # act by element index
-# Claude Code skill install:
-curl -o ~/.claude/skills/browser-use/SKILL.md \
-  https://raw.githubusercontent.com/browser-use/browser-use/main/skills/browser-use/SKILL.md
+arm  correct/10   median wall-clock (s, incl. process start)
+pw   10/10        1.127  (min 1.007, max 1.490)
+bu   10/10        1.002  (min 0.732, max 60.809)   # first pass, one 60.8s run
+bu sequential re-run, wrong password x10: 10/10 correct, 7 of 10 took 60.8-61.5s, 3 took 0.81-0.93s
+bu three further instrumented runs: INSCRIPT 0.76-0.83s, total 1.08-1.20s
 ```
 
-For the dev-loop comparison I leaned on the existing hands-on evals of the two overlapping tools rather than re-deriving their behavior.
+Across the 23 sequential `browser-use` runs every result and every POST body was correct (23/23); 8 of 23 took about 61 seconds, and the 15 fast runs had median 0.98s (min 0.73, max 1.20). Per-step timing of a fast run: `new_tab` 0.04s, `fill_input` 0.04-0.11s each, `wait_for_element` 0.3-0.9s.
+
+## Test design
+
+- **Task / corpus:** one login-form task, two credential sets (valid, invalid), 5 runs each per arm in the main A/B (20 runs), plus 13 extra harness runs. The fixture is described above and rebuilds in a few lines.
+- **Baseline:** Playwright `connect_over_cdp` to the same browser, same task, same selectors.
+- **Metric:** correctness (server-side POST log equals the intended credentials and `#msg` text matches) and wall-clock per invocation including interpreter start.
+- **Reproduce:** `pip install browser-use playwright`, start Chromium with `--remote-debugging-port=9222`, run the server, set `BU_CDP_URL=http://127.0.0.1:9222`, pipe the snippet into `browser-use`.
 
 ## What worked
 
-- **Massive, current ecosystem.** ~99.6K stars, 11K forks, MIT, pushed within days — this is the dominant OSS browser-agent project, not an experiment. Low abandonment risk.
-- **True autonomy is real value for the long tail.** For multi-step, exploratory, or under-specified web tasks ("apply to this job with my resume," "find PC parts and compare") where you cannot enumerate the steps up front, a goal-driven agent is the right shape. Playwright MCP and agent-browser both require you (the orchestrating agent) to drive each action.
-- **Stateful CLI is a clean fit for an agent loop.** Persisting the browser across `open/state/click` commands and acting by element index avoids re-navigation cost and gives Claude Code a low-friction way to step through a page.
-- **Pluggable LLMs.** Works with Claude (`ChatAnthropic`/`ChatBrowserUse(model='anthropic/...')`), GPT, Gemini, or local Ollama — no lock-in at the model layer for the OSS path.
-- **Published benchmark.** A 100-task open benchmark (browser-use/benchmark) exists, which is more rigor than most tools in this category offer.
+- **The CDP harness matched Playwright on a scripted form task.** 23/23 correct, and the fast runs' median (0.98s) sat below Playwright's 1.13s, with a 9-line script against 12.
+- **Zero-config attach.** With `BU_CDP_URL` set, the daemon connected to an already-running Chromium on the first call; helpers such as `fill_input` (framework-safe typing) and `wait_for_element` behave as documented.
+- **Ecosystem and licence** per repo-metadata: MIT, about 107.9K stars, last push 2026-08-05, not archived.
 
 ## What didn't work or surprised us
 
-- **Autonomy is overkill — and a liability — for deterministic UI verification.** Our Verify loop wants a repeatable, cheap, fast check that "the form submits and shows Welcome." A planning LLM choosing its own steps each run is non-deterministic, slower (an LLM call per decision step), and harder to assert against than Playwright MCP's `browser_click` + `browser_snapshot`. For the catalog's stated problem (verify UIs in the dev loop), this is the wrong abstraction.
-- **Cost profile is materially worse for verification.** Each autonomous step burns an LLM call. agent-browser and Playwright MCP let the *already-running* Claude Code session drive actions directly; browser-use adds a second nested agent loop. That is real token/latency cost for verification work.
-- **Type mismatch in the catalog.** Listed as "MCP server," but the product is a library/framework first; MCP is a side integration. The "How it's used in a Claude Code Verify loop" answer is really "via the Claude Code skill or the stateful CLI," not an MCP server.
-- **Strong commercial pull toward Cloud.** The README repeatedly routes production, stealth, CAPTCHA, and scaling to the paid hosted product. Fine for the use case browser-use targets (scraping/automation against third-party sites), but irrelevant-to-mildly-distracting for verifying your own local dev server.
-- **Beta churn.** The 0.13 Rust core + `browser_use.beta` Agent is new; the autonomous agent surface is explicitly beta, so expect API movement.
+- **Intermittent 61-second stalls.** 8 of 23 sequential harness runs spent about 61s before returning, although the result printed correctly and the same script took 0.8s in other runs. A run launched concurrently with another failed with `Cannot read properties of null` because both shared the daemon's attached tab. Three clean instrumented re-runs afterwards did not reproduce the stall, so the cause is unconfirmed. The harness also never closed its tabs (38 page targets had accumulated in the browser), a candidate cause that was not isolated. Playwright had no stall in 10 runs.
+- **The autonomous agent, the product's headline, was not run.** `ChatBrowserUse()` raises `ValueError: BROWSER_USE_API_KEY is not set`, and this sandbox has no model credentials, so the goal-driven loop, its cost per step and its determinism are unmeasured. The earlier cost and non-determinism concerns remain reasoning, not data.
+- **The CLI described in the earlier review is gone.** Version 0.13.11 ships the stdin harness instead of `open/state/click`.
+- **Install weight.** The venv was 346 MB (108 packages) against 171 MB for Playwright.
+- **Single fixture, one browser, five runs per cell** in the main A/B; no third-party sites, CAPTCHA or stealth claims tested.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + (for autonomous tasks) / neutral (for UI verification) | Goal-driven loop completes under-specified multi-step web tasks; but non-determinism makes it weaker than Playwright MCP for repeatable assertions |
-| Speed | - | An LLM call per decision step; slower than agent-browser's ~3-5s/action and far slower than Playwright MCP's ~1-2s/action for verification |
-| Maintainability | neutral | No selector test code to maintain, but beta API churn and a nested-agent layer add moving parts |
-| Safety | neutral/- | Autonomous agent acting on web pages widens blast radius; mitigated by `allowed_domains` allowlist in `BrowserProfile` |
-| Cost Efficiency | - | Nested autonomous loop roughly doubles LLM spend vs driving the browser from the existing Claude Code session |
+| Correctness | neutral | 23/23 harness runs matched the server-side oracle, same as Playwright's 10/10; autonomous planning accuracy unmeasured |
+| Speed | neutral / - | Fast runs median 0.98s vs Playwright 1.13s, but 8 of 23 runs stalled about 61s |
+| Maintainability | neutral | 9-line script vs 12; the package surface changed between the reviewed version and 0.13.11 |
+| Safety | neutral | Attaches to whatever browser the CDP URL exposes; the domain allowlist was not exercised |
+| Cost Efficiency | neutral | Harness path needs no LLM; the agent path's token cost is unmeasured |
+| Verifiability | neutral | Output is plain text plus a screenshot checkable against a server log; the harness has no built-in assertion layer |
 
 ## Verdict
 
-**discovery-log — tentative read**
-
-Use browser-use when the task is **genuinely autonomous web automation** — under-specified, multi-step, or exploratory tasks against external sites where the steps can't be enumerated up front (form-filling from a resume, cross-site research, scraping workflows). For that job it is the strongest OSS option in existence (99.6K stars, MIT, active, benchmarked) and earns a place in the catalog.
-
-For the catalog's *stated* problem — verifying your own UI in the Claude Code Verify loop — it is **redundant with and inferior to** the two ADOPT tools we already have. Playwright MCP gives deterministic, fast, cheap, assertable checks; agent-browser gives zero-setup intent-based exploratory verification driven by the session you already have running. browser-use's autonomous planning loop adds latency, token cost, and non-determinism that verification does not want. It is additive to the catalog (it covers autonomous automation, which neither ADOPT tool targets), but it does not displace either for visual/UI verification. Adopt only when the autonomy is the point; otherwise reach for Playwright MCP or agent-browser. Recommend correcting the catalog Type from "MCP server" to "framework" (or "tool") to reflect what it actually is.
+**discovery-log — tentative read** — the scripted CDP harness matched Playwright on correctness (23/23) and fast-run speed (0.98s vs 1.13s median) but stalled about 61s in 8 of 23 runs with an unconfirmed cause, and the autonomous Agent loop that defines the product needs an API key unavailable here, so no verdict-grade read of its stated job exists. The earlier conclusion (redundant with Playwright MCP and agent-browser for deterministic UI verification, additive only for genuinely autonomous web tasks) is unchanged by this run.
 
 ## Triage note
 
-Left at `discovery-log` (date-stamped only, no bulk marker): this eval already carries a
-real CONDITIONAL-shaped read at Evidence REVIEW — the existing analysis concludes
-browser-use is redundant with Playwright MCP/agent-browser for the catalog's *stated*
-Verify-stage job but additive for genuinely autonomous web automation, which neither
-ADOPT tool targets. That nuance isn't a clean "redundant with `<incumbent>`" SKIP, and
-promoting/demoting it further is outside bulk-triage authority. Left for the
-P0/eval-runner lane.
-
-_Triaged 2026-08-06 by the daily discovery routine (oldest-untriaged pass)._
+Re-run 2026-10-16 by the eval-runner routine at Evidence MEASURED for the harness surface only. A human with a model key could run the `Agent` arm against the same fixture to settle the verdict; this lane may not.
 
 ## Catalog entry
 

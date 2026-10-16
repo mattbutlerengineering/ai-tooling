@@ -456,7 +456,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | web-quality-skills | skill | | ✓ | ADOPT | MEASURED |
 | opencli | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-chrome-relay | tool | | ✓ | discovery-log | SOURCE-ONLY |
-| browser-use | framework | | ✓ | discovery-log | REVIEW |
+| browser-use | framework | | ✓ | discovery-log | MEASURED |
 | groundhog | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | nanobrowser | tool | | ✓ | SKIP | REVIEW |
 | page-agent | tool | ✓ | ✓ | SKIP | REVIEW |
