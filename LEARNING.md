@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-14 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-12 (that pass's additions, likewise
+**Last verified:** 2026-10-16 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-14 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-10-12 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-07 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-09-21 (that pass's additions, confirmed via search corroboration;
 see the dated footnote below for what else was checked). The rest of the page was previously
@@ -620,6 +621,38 @@ the largest census found yet of the artifact class this repo installs and catalo
 the first large academic synthesis found for this page's harness-engineering cluster that proposes a
 new unifying frame ("code as agent harness") rather than measuring one more axis of cost or
 correctness within the frame the cluster's other entries already share.
+The 2026-10-16 pass found the egress wall still open, same as every pass since 2026-10-05: a direct
+`curl` to `youtube.com`, `arxiv.org`, `martinfowler.com`, and `anthropic.com` all returned `200`, and
+`yt-dlp` ran real `ytsearch` queries against all nine of this sweep's scoped topics and returned real,
+dated results, but per-video metadata/subtitle fetches hit YouTube's own bot-detection wall again
+(`HTTP Error 429` then "Sign in to confirm you're not a bot"), the same wall noted 2026-10-07/10-12/
+10-14, so no transcript was read this pass. `github.com`'s HTTPS git endpoint was reachable too (same
+as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `ba2b050` (2026-10-16), the newest stable release is still `v2.11.0` (noted
+2026-10-12) with only preview tags past it (`v2.11.1-preview.20261015.1`), and
+`docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is organized into
+5 phases containing 33 stages,"* so nothing was added to that file this pass. The nine YouTube
+searches returned mostly channels this page already covers (IBM Technology, Google Cloud Tech,
+Cursor, AWS Events, Thoughtworks) or small/single-upload channels not worth chasing without
+independent corroboration. Several web near-misses were considered and declined on substance: an
+Agentic AI Foundation "Glass Town" post (2026-10-14, read directly) describing one author's own
+software-factory build (five worker roles, a Git-commit audit trail via the Entire CLI) — declined as
+a single-author anecdotal experience report with no measured data and no formal stage-gated pipeline,
+the same bar SDAD, ASDLC.io, and the Mercari GEARS talk were declined against; a Stanford Law "Built
+by Agents, Tested by Agents, Trusted by Whom?" post (read directly), declined as an eight-month-old
+(2026-02) position piece reasoning from StrongDM's dark-factory manifesto already covered via the
+Osmani/Horthy entries above, with no original data of its own; a Thoughtworks YouTube talk on
+"harness engineering… sensors," declined as a re-treatment of Böckeler's framing this page's Fowler
+"Maintainability sensors for coding agents" entry already covers; and two backpressure-adjacent blog
+posts (Tian Pan's "Backpressure in Agent Pipelines," Lucas Costa's "Backpressure is All You Need")
+matching this sweep's "back pressure" search only on the orchestration-throughput sense of the term —
+runaway multi-agent loops burning tokens, not the human-review-bandwidth sense this page's
+Verifiability framing tracks — the same off-topic word-overlap shape as the "Agentic Pressure" ICLR
+paper already declined 2026-09-28. The one addition this pass, read directly from source rather than
+cross-checked from search summaries, is a direct sequel to this page's own Faros AI entry: a newer
+report in the same longitudinal telemetry program that both extends and complicates the Acceleration
+Whiplash figures already cited — see below.
 
 ---
 
@@ -911,6 +944,27 @@ multiple independent write-ups agreeing on the same figures (ADTmag, Refactoring
 Nielsen's Notes, Vibe Graveyard) rather than a direct fetch — this pass's sandbox blocked both
 `faros.ai` and the `pages.faros.ai` PDF host outright (`EGRESS_BLOCKED`), so the numbers above are
 cross-checked across independent summaries rather than read from the report itself.
+
+### [The Speed Trap: 8 takeaways from our latest AI engineering research](https://www.faros.ai/blog/ai-speed-trap-takeaways) — Faros AI (2026-09-18)
+A direct sequel to the Acceleration Whiplash entry above, on the same longitudinal telemetry program
+(22,000 developers, 4,000+ teams on the Faros platform) but a later window — the most recent 12
+months rather than the prior two-year within-org comparison — published internally as the "AI
+Engineering Report Q3 2026." Read directly from source (`faros.ai` was reachable this pass, unlike
+every prior attempt): PR size is up 71.8%; work restarts — "tasks that had already moved on to review
+or QA and were sent back to the start" — are up 66.7%, nearly 5x the April report's 13.8% figure; time
+in QA is up 300.6%, the largest deterioration among the major flow metrics; and the share of PRs
+merged without any review has grown from the already-cited 31.3% rise to 76.3%. That half extends
+Whiplash's throughput-vs-review trade at the same telemetry scale. The complicating half is the
+genuine find: incidents per PR are up only 14.5% this round, against 242.7% in the April report — the
+per-change risk signal behind Whiplash's sharpest claim has *stabilized* even as review coverage kept
+eroding — while monthly incidents (a volume rather than a rate measure) are still up 125.4% and code
+churn has "fallen dramatically," reversing Whiplash's 861% figure outright. Faros's own candidate
+explanation is a genuine countermeasure rather than a reversion to caution: teams running agentic
+review on a majority of PRs see faster first-review times and lower change-failure rates, which the
+report is explicit is correlational, not causal. Read against the existing entry, this is the first
+data in this page's throughput-vs-review cluster showing the trade is not monotonic — some signals
+keep worsening, one has reversed outright, and the report's own read is that the mechanism (review
+automation, not merely review erosion) matters more than adoption depth alone.
 
 ### ["Debt Behind the AI Boom": A Large-Scale Empirical Study of AI-Generated Code in the Wild](https://arxiv.org/abs/2603.28592) — Yue Liu, Ratnadira Widyasari, Yanjie Zhao, Ivana Clairine Irsan, David Lo (arXiv, 2026-03)
 A far larger version of the CodeRabbit claim above, on public data rather than a vendor sample:
