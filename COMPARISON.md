@@ -232,7 +232,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | pullboard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | p3-stack | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentweaver | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| goose | platform | | ✓ | discovery-log | REVIEW |
+| goose | platform | | ✓ | discovery-log | RUN |
 | open-interpreter | harness | | ✓ | discovery-log | REVIEW |
 | kilocode | platform | | ✓ | discovery-log | REVIEW |
 | grok-cli | platform | | ✓ | discovery-log | REVIEW |

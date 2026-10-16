@@ -1,9 +1,9 @@
 # Evaluation: goose
 
 **Repo:** [aaif-goose/goose](https://github.com/aaif-goose/goose) (moved from block/goose to Linux Foundation AAIF)
-**Stars:** 49,786 | **Last updated:** 2026-06-19 | **License:** Apache-2.0
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-28  <!-- triaged: bulk -->
+**Stars:** 52,278 | **Last updated:** 2026-08-05 | **License:** Apache-2.0
+**Last verified:** 2026-10-16
+**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -17,55 +17,84 @@ The architecture is clean: a `goosed` server process exposes a REST API that any
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** RUN
 
-Architecture review of the Rust crate structure (458 .rs files across 10 crates), CUSTOM_DISTROS.md, AGENTS.md, provider system, MCP integration, and recipe system. Compared against Claude Code (proprietary, model-locked) and opencode (CONDITIONAL, TypeScript/Effect, 176K stars) on developer surface, extensibility, and ecosystem maturity.
+**Hands-on** — installed the v1.54.0 Linux CLI from the release tarball (`goose-x86_64-unknown-linux-gnu.tar.bz2`, `HOME` pointed at a scratch dir) and ran its credential-free surface: `--version`, `info`, `doctor`, `skills list`, `recipe validate` against a nine-file fixture. The sandbox has no model credentials, so the agent loop itself (`session`, `run`) stops at goose's own "No provider configured" gate.
 
-```bash
-gh api repos/aaif-goose/goose --jq '.description, .stargazers_count, .updated_at, .license.spdx_id'
-gh api repos/aaif-goose/goose/releases --jq '.[0:3] | .[] | "\(.tag_name) \(.published_at)"'
-gh api "repos/aaif-goose/goose/git/trees/main?recursive=1" --jq '.tree[].path' | grep '^crates/[^/]*$'
+```text
+$ goose --version            -> 1.54.0   (binary 307,756,800 bytes; tarball 80,909,320 bytes; 0.011s wall)
+$ goose run -i -  (stdin "say hi")
+  error: No provider configured. Run 'goose configure' first.
+$ goose doctor
+  error: No provider configured. Run 'goose configure' first.
+$ goose skills list
+  goose-doc-guide | builtin://skills/goose-doc-guide   (817 content tokens)
+  web-search      | builtin://skills/web-search        (546 content tokens)
+
+fixture: 1 valid recipe + 8 single-defect recipes; baseline = PyYAML safe_load, treatment = goose recipe validate
+file                              pyyaml  goose_rc  goose message
+r0_valid                          ok      0         recipe file is valid
+r1_yaml_syntax (bad indent)       ERR     1         parameters[0]: missing field `input_type`
+r2_missing_title                  ok      1         missing field `title`
+r3_no_instructions_or_prompt      ok      1         must specify at least one of `instructions` or `prompt`
+r4_undeclared_param               ok      1         Missing definitions for parameters ...: path
+r5_unused_param                   ok      1         Unnecessary parameter definitions: path
+r6_bad_input_type (banana)        ok      1         unknown variant `banana`, expected string|number|boolean|date|file|select
+r7_optional_no_default            ok      1         Optional parameters missing default values ...: path
+r8_bad_template ({{ path)         ok      1         syntax error: unexpected identifier, expected end of variable block (in recipe:6)
+
+5 x `goose recipe validate` on the valid recipe: 0.058s total
 ```
+
+## Test design
+
+- **Task/corpus:** one valid goose recipe (title, description, instructions, prompt, one required string parameter `path` used as `{{ path }}`) plus eight copies each carrying exactly one planted defect: indentation error, missing `title`, neither `instructions` nor `prompt`, template variable with no declared parameter, declared parameter never used, `input_type: banana`, optional parameter with no default, unclosed `{{`.
+- **Baseline:** Python `yaml.safe_load`, the check a team has with no goose installed: parseable or not.
+- **Metric:** defects flagged out of 8, false positives on the 1 valid file, process exit code.
+- **Reproduce:** download the release tarball, extract, set `HOME` to a scratch directory, run `goose recipe validate <file>` over the fixture and compare with `python3 -c "import yaml; yaml.safe_load(open(f))"`; the nine files are described above and are each under 12 lines.
+
+Result: baseline flags 1 of 8 (the indentation error); `goose recipe validate` flags 8 of 8 with 0 false positives on the valid file, and exits 1 on every invalid file, so it works as a CI gate. n=1 per defect class, a narrow slice of the product (recipe schema checking only), and the baseline is deliberately minimal.
 
 ## What worked
 
-- **Rust foundation is a genuine advantage.** 458 .rs files with clean crate separation (goose core, goose-cli, goose-server, goose-mcp, goose-providers, goose-sdk). Binary distribution means no Node/Python dependency hell — one binary, runs everywhere.
-- **Provider abstraction is production-grade.** 15+ providers including ACP (use existing Claude/ChatGPT/Gemini subscriptions without API keys), declarative provider definitions in `crates/goose/src/providers/declarative/`, and a clean Provider trait for custom additions.
-- **Custom distro system is unique.** No other coding agent in the catalog explicitly supports white-labelling — preconfigured providers, bundled extensions, custom branding, targeted audiences (devs, legal, designers). This makes goose viable as an enterprise platform, not just a dev tool.
-- **Linux Foundation governance.** GOVERNANCE.md, MAINTAINERS.md, SECURITY.md, AAIF foundation membership — institutional backing that de-risks adoption for enterprises. OSSF Scorecard integration shows maturity.
-- **Active development.** v1.38.0 (June 17), weekly releases, 5,273 forks, 214 open issues (manageable for a project this size), CI passing.
-- **Recipe system for automation.** YAML-based task definitions with sub-recipes and subagents enable guided workflows without code — lower barrier than Claude Code's Workflow tool.
+- **`recipe validate` is a real structural and semantic check.** It catches missing fields, bad enums, undeclared and unused template parameters, and malformed template syntax, none of which a YAML parser sees (8/8 vs 1/8 on the fixture).
+- **Exit codes are right.** 0 for the valid recipe, 1 for all eight invalid ones and for a missing file, so it drops straight into a pre-commit or CI step.
+- **Single static binary, instant start.** 0.011s for `--version`; no Node or Python runtime needed.
+- **Fails closed with a clear message when unconfigured.** `run` and `doctor` stop at one actionable line rather than a stack trace.
+- **Built-in skills surface.** `goose skills list` shows two builtin skills with token costs per skill, which makes context overhead visible.
 
 ## What didn't work or surprised us
 
-- **Replaces Claude Code entirely.** There's no "use goose alongside Claude Code" story. It's a different runtime with a different CLI, different config format, different extension model. Skills (.goosehints vs SKILL.md) overlap in concept but aren't interoperable without adaptation.
-- **Ecosystem is thinner.** 70+ MCP extensions vs Claude Code's 200+ plugins, 50+ skills, and marketplace. The skill/recipe ecosystem is nascent compared to the Claude Code skill explosion (antigravity lists 1,595 SKILL.md files).
-- **No built-in TDD enforcement or review workflow.** Claude Code's superpowers/agent-skills provide structured development methodology; goose provides raw agent capability. You'd need to build the methodology yourself via recipes or extensions.
-- **Documentation is split.** goose-docs.ai for user docs, CUSTOM_DISTROS.md for white-labelling, AGENTS.md for development, README for overview — no single comprehensive reference.
-- **ACP adds provider complexity.** Using existing AI subscriptions via ACP is clever but adds a proxy layer and authentication complexity that API keys don't have.
+- **The agent loop was not exercised.** No provider credentials exist here, so the claims in the earlier architecture review (15+ providers, ACP, recipes driving subagents, 70+ extensions) are still the project's own description. Nothing measured says whether goose completes coding tasks better or worse than Claude Code or aider.
+- **Error output carries a Rust backtrace.** Each validation failure prints a ten-plus-line `Stack backtrace` after the one-line message, which is noise in CI logs.
+- **The indentation-error case got a misleading message.** PyYAML rejects the file; goose reported `missing field input_type`, which describes a symptom of how its parser read the misindented list, not the actual cause.
+- **Large binary.** 307 MB unpacked (81 MB download), against a one-binary pitch.
+- **`goose mcp developer` is not a valid server name** in 1.54.0; the bundled server names are not discoverable from `--help`, which only prints `<SERVER>`.
+- **Replaces Claude Code entirely.** It is a different runtime with its own config and extension model (`.goosehints`, recipes), so it is a platform choice rather than an add-on.
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | neutral | Same LLM-powered capabilities as Claude Code; no unique correctness advantages |
-| Speed | + | Rust binary starts faster; recipe system enables automation without context overhead |
-| Maintainability | + | Clean crate architecture; Provider trait makes adding models straightforward |
-| Safety | + | Linux Foundation governance, OSSF Scorecard, SECURITY.md with responsible disclosure |
-| Cost Efficiency | + | Model-agnostic lets you pick cheaper providers; ACP avoids API key costs for subscription users |
+| Correctness | neutral | Recipe validation measured 8/8 defects vs 1/8 for a YAML parse; the agent's own output quality is unmeasured here |
+| Speed | + | 0.011s startup, 5 validations in 0.058s; task speed unmeasured |
+| Maintainability | + | Validator rejects unused and undeclared parameters, which keeps recipes tidy; clean crate layout from the earlier review |
+| Safety | neutral | Fails closed without a provider; sandboxing and permission model of the agent loop unmeasured |
+| Cost Efficiency | neutral | Per-skill token costs are shown by `skills list`; model spend untested |
+| Verifiability | + | `recipe validate` gives a mechanical pass/fail with exit code on workflow definitions, so a human can confirm a recipe is well-formed without running it |
 
 ## Verdict
 
-**discovery-log — tentative read**
+**discovery-log — tentative read** — the credential-free surface is solid (recipe validation 8/8 vs 1/8 for a YAML parse, correct exit codes, instant start), but goose's value is the agent loop, which needs a model provider this run did not have, so there is no measured basis to promote or eliminate it. A real read needs a provider key and a coding-task A/B against Claude Code or aider.
 
-Use goose when you need a model-agnostic agent platform (multi-provider support is its primary differentiator), when you're building a custom agent distribution for an organization, or when you want to avoid Claude Code's model lock-in. Choose Claude Code when you want the deepest ecosystem (skills, plugins, marketplace), structured development methodology (superpowers, agent-skills), and Anthropic-optimized performance. The two don't compose — it's a platform choice.
+Use goose when you need a model-agnostic agent platform (multi-provider support is its primary differentiator), when you are building a custom agent distribution for an organization, or when you want to avoid Claude Code's model lock-in. Choose Claude Code when you want the deepest ecosystem (skills, plugins, marketplace), structured development methodology (superpowers, agent-skills) and Anthropic-optimized performance. The two don't compose — it's a platform choice.
 
 ## Triage note
 
-Cites claude-squad (STACK ADOPT) in Overlaps with, but the eval's own verdict already draws the line: this is a platform choice (model-agnostic agent runtime) versus claude-squad's parallel-session TUI, not a redundant re-implementation. ★52.3K, Apache-2.0, actively pushed. Left for a real hands-on eval rather than a mechanical SKIP.
+Cites claude-squad (STACK ADOPT) in Overlaps with, but the eval's own verdict already draws the line: this is a platform choice (model-agnostic agent runtime) versus claude-squad's parallel-session TUI, not a redundant re-implementation. Apache-2.0, actively pushed. Run on 2026-10-16 to RUN level; the agent loop remains the open measurement.
 
 ## Catalog entry
 
 | Name | Type | One-liner | Problem it solves | Overlaps with |
 |------|------|-----------|-------------------|---------------|
-| [goose](https://github.com/aaif-goose/goose) | platform | Model-agnostic AI agent with desktop, CLI, API — Rust, 15+ providers, custom distros (49.8K stars) | Want a provider-neutral, extensible agent platform with enterprise governance | OpenHands, opencode, claude-squad |
+| [goose](https://github.com/aaif-goose/goose) | platform | Extensible AI agent that can install, execute, edit, and test with any LLM | Want a model-agnostic agent platform with plugin extensibility | OpenHands, claude-squad |
