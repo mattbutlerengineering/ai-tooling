@@ -307,7 +307,7 @@ All 1116 tools from CATALOG.md with dev loop stage, automation capability, prici
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
-| OpenHands | platform | | ✓ | discovery-log | REVIEW |
+| OpenHands | platform | | ✓ | discovery-log | RUN |
 | daytona | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | agent-sandbox | tool | ✓ | ✓ | discovery-log | REVIEW |
 | axern | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |

@@ -2,7 +2,7 @@
 
 The 749 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 121 distinct values across these 749 leads (324 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 122 distinct values across these 749 leads (324 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -31,10 +31,10 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | aider | Implement | 40.1 | pressure 17, gap 6.1 | `/evaluate-tool aider` |
 | claude-octopus | Review | 39.6 | pressure 16, gap 7.6 | `/evaluate-tool claude-octopus` |
 | ghostsecurity/skills | Review | 39.6 | pressure 16, gap 7.6 | `/evaluate-tool ghostsecurity/skills` |
-| OpenHands | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool OpenHands` |
 | gastown | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool gastown` |
 | goose | Implement | 38.1 | pressure 15, gap 6.1 | `/evaluate-tool goose` |
 | agentmemory | Memory & Context | 36.8 | pressure 14, gap 6.8 | `/evaluate-tool agentmemory` |
+| OpenHands | Implement | 36.1 | pressure 15, gap 6.1 | `/evaluate-tool OpenHands` |
 | supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
 | worktrunk | Ship | 34.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
 | sandcastle | Implement | 34.1 | pressure 14, gap 6.1 | `/evaluate-tool sandcastle` |
