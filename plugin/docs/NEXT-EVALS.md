@@ -2,7 +2,7 @@
 
 The 755 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 115 distinct values across these 755 leads (325 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 114 distinct values across these 755 leads (325 have zero overlap pressure; largest tie: 67) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -31,10 +31,10 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | aider | Implement | 40.2 | pressure 17, gap 6.2 | `/evaluate-tool aider` |
 | claude-octopus | Review | 39.6 | pressure 16, gap 7.6 | `/evaluate-tool claude-octopus` |
 | ghostsecurity/skills | Review | 39.6 | pressure 16, gap 7.6 | `/evaluate-tool ghostsecurity/skills` |
-| agentmemory | Memory & Context | 36.8 | pressure 14, gap 6.8 | `/evaluate-tool agentmemory` |
 | OpenHands | Implement | 36.2 | pressure 15, gap 6.2 | `/evaluate-tool OpenHands` |
 | gastown | Implement | 36.2 | pressure 15, gap 6.2 | `/evaluate-tool gastown` |
 | goose | Implement | 36.2 | pressure 15, gap 6.2 | `/evaluate-tool goose` |
+| agentmemory | Memory & Context | 34.8 | pressure 14, gap 6.8 | `/evaluate-tool agentmemory` |
 | supermemory | Memory & Context | 34.8 | pressure 13, gap 6.8 | `/evaluate-tool supermemory` |
 | sandcastle | Implement | 34.2 | pressure 14, gap 6.2 | `/evaluate-tool sandcastle` |
 | MemOS | Memory & Context | 32.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |

@@ -925,7 +925,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
-| agentmemory | tool | | ✓ | discovery-log | REVIEW |
+| agentmemory | tool | | ✓ | discovery-log | MEASURED |
 | open-index | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | kaas | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | PageIndex | tool | ✓ | ✓/$ | discovery-log | REVIEW |
