@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1123 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1126 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -549,6 +549,8 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cdmx-in/security-review | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | AXguard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | patchbot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| openhack | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| open-kritt | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | Quant-Off/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | PR-Agent | tool | ✓ | ✓ | SKIP | REVIEW |
 | open-code-review | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -747,7 +749,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | opik | platform | ✓ | ✓ | discovery-log | RUN |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | decern | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| systemprompt-core | tool | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
+| systemprompt-core | tool | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | ctrlrun | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | squidbrake | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-airlock | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -835,6 +837,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | mattpocock/skills | skill | | ✓ | ADOPT | MEASURED |
 | headcount | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | maintainer-skills-lab | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| eigenwise-toolshed | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-data-engineering-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | pm-claude-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1210,13 +1213,13 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Plan | 100 | 39 | 6 | 39% |
 | Implement | 328 | 126 | 4 | 38% |
 | Verify | 56 | 23 | 2 | 41% |
-| Review | 134 | 32 | 3 | 24% |
+| Review | 136 | 33 | 3 | 24% |
 | Ship | 6 | 1 | 1 | 17% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 99 | 21 | 2 | 21% |
-| Skills & Plugins | 138 | 46 | 4 | 33% |
+| Outer Loop | 99 | 22 | 2 | 22% |
+| Skills & Plugins | 139 | 46 | 4 | 33% |
 | Memory & Context | 97 | 31 | 2 | 32% |
 | MCP Servers | 66 | 18 | 2 | 27% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1123** | **368** | **34** | **33%** |
+| **Total** | **1126** | **370** | **34** | **33%** |
