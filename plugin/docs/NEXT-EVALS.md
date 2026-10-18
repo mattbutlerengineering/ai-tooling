@@ -39,7 +39,6 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | sandcastle | Implement | 34.2 | pressure 14, gap 6.2 | `/evaluate-tool sandcastle` |
 | worktrunk | Ship | 32.3 | pressure 12, gap 8.3 | `/evaluate-tool worktrunk` |
 | browser-use | Verify | 31.9 | pressure 13, gap 5.9 | `/evaluate-tool browser-use` |
-| opik | Outer Loop | 31.9 | pressure 11, gap 7.9 | `/evaluate-tool opik` |
 | awesome-agent-skills | Reference | 31.2 | pressure 11, gap 7.2 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 31.2 | pressure 11, gap 7.2 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | MemOS | Memory & Context | 30.8 | pressure 12, gap 6.8 | `/evaluate-tool MemOS` |
@@ -47,6 +46,7 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | ui-ux-pro-max | Skills & Plugins | 30.7 | pressure 12, gap 6.7 | `/evaluate-tool ui-ux-pro-max` |
 | ralph-claude-code | Implement | 30.2 | pressure 12, gap 6.2 | `/evaluate-tool ralph-claude-code` |
 | OpenSpec | Plan | 30.1 | pressure 12, gap 6.1 | `/evaluate-tool OpenSpec` |
+| opik | Outer Loop | 29.9 | pressure 11, gap 7.9 | `/evaluate-tool opik` |
 | engram | Memory & Context | 28.8 | pressure 10, gap 6.8 | `/evaluate-tool engram` |
 
 ## P1 successor-check — 0 leads

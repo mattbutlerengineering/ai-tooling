@@ -744,7 +744,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rogue | tool | ✓ | ✓/$ | discovery-log | REVIEW |
 | giskard-oss | tool | ✓ | ✓ | discovery-log | REVIEW |
-| opik | platform | ✓ | ✓ | discovery-log | REVIEW |
+| opik | platform | ✓ | ✓ | discovery-log | RUN |
 | agent-governance-toolkit | framework | ✓ | ✓ | discovery-log | REVIEW |
 | decern | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | systemprompt-core | tool | ✓ | ✓/$ | discovery-log | SOURCE-ONLY |
