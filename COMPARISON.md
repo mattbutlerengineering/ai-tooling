@@ -955,7 +955,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cognee | platform | | ✓ | discovery-log | MEASURED |
 | graphersal | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | EvoOntology | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| MemOS | platform | | ✓ | discovery-log | REVIEW |
+| MemOS | platform | | ✓ | discovery-log | RUN |
 | memind | platform | ✓ | ✓ | SKIP | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Recuris | framework | | ✓ | discovery-log | SOURCE-ONLY |

@@ -39,9 +39,9 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 _0 eval(s) carry no `**Last verified:**` date (field presence is gated separately by `backfill-lastverified.py`)._
 <!-- WATCHLIST:STALE:END -->
 
-## 4. Unverified claims & measurement backlog (18)
+## 4. Unverified claims & measurement backlog (17)
 
-**Unverified token-savings claims (16).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
+**Unverified token-savings claims (15).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
 
 | Tool | Evidence | Disclaimer in row? |
 |------|----------|--------------------|
@@ -55,7 +55,6 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 | GenericAgent | REVIEW | no |
 | gortex | REVIEW | no |
 | h5i | SOURCE-ONLY | no |
-| MemOS | REVIEW | no |
 | OmniRoute | SOURCE-ONLY | yes |
 | rtk | REVIEW | no |
 | semble | REVIEW | no |
