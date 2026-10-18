@@ -50,7 +50,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | ccpm | skill | | ✓ | discovery-log | REVIEW |
 | featherspec | tool | | ✓ | discovery-log | SOURCE-ONLY |
-| OpenSpec | framework | | ✓ | discovery-log | REVIEW |
+| OpenSpec | framework | | ✓ | discovery-log | MEASURED |
 | BMAD-METHOD | framework | | ✓ | SKIP | REVIEW |
 | 8090 Software Factory | platform | ✓ | | DEFER | REVIEW |
 | software-factory-plugin | plugin | | ✓ | CONDITIONAL | MEASURED |
