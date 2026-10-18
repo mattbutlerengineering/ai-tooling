@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1126 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1129 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -27,6 +27,7 @@ All 1126 tools from CATALOG.md with dev loop stage, automation capability, prici
 | feature-dev | plugin | | ✓ | KEEP | MEASURED |
 | turbo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | graphify | skill | | ✓ | CONDITIONAL | MEASURED |
+| graphicle | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | source-reading-methodology | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | gentleman-book-mcp | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | git-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -149,6 +150,7 @@ All 1126 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-harness | harness | | ✓ | SKIP | REVIEW |
 | dot-reflex | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | castra | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| touri | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-router | tool | | ✓ | discovery-log | RUN |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
@@ -658,6 +660,7 @@ All 1126 tools from CATALOG.md with dev loop stage, automation capability, prici
 | golive-skill | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | shipstores | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | worktrunk | tool | | $ | discovery-log | MEASURED |
+| gitai | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | no-negative-echo | skill | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reflect
@@ -1210,11 +1213,11 @@ All 1126 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 100 | 39 | 6 | 39% |
-| Implement | 328 | 126 | 4 | 38% |
+| Plan | 101 | 39 | 6 | 39% |
+| Implement | 329 | 126 | 4 | 38% |
 | Verify | 56 | 23 | 2 | 41% |
 | Review | 136 | 33 | 3 | 24% |
-| Ship | 6 | 1 | 1 | 17% |
+| Ship | 7 | 1 | 1 | 14% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 99 | 22 | 2 | 22% |
 | Skills & Plugins | 139 | 46 | 4 | 33% |
@@ -1222,4 +1225,4 @@ All 1126 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 66 | 18 | 2 | 27% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1126** | **370** | **34** | **33%** |
+| **Total** | **1129** | **370** | **34** | **33%** |
