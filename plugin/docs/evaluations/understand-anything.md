@@ -1,9 +1,9 @@
 # Evaluation: Understand-Anything
 
 **Repo:** [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything)
-**Stars:** 63,945 | **Last updated:** 2026-06-19 | **License:** MIT
-**Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-16  <!-- triaged: bulk -->
+**Stars:** 77,525 | **Last updated:** 2026-07-30 | **License:** MIT
+**Last verified:** 2026-10-19
+**Last triaged:** 2026-10-19  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (codebase understanding / onboarding before and during implementation)
 **Layer:** Tooling
 
@@ -21,60 +21,67 @@ Consumption is primarily **human-facing**: `/understand-dashboard` opens an inte
 
 ## How we tested it
 
-**Evidence:** REVIEW
+**Evidence:** MEASURED
 
-**Method: inspected the GitHub repo, full README, plugin manifest, recursive file tree, releases, and test layout. Not installed or run hands-on.** No `/understand` pipeline was executed against a real codebase, so no graph-quality, token-cost, or dashboard-UX numbers below are reproduced figures — token-usage and incremental-update claims are the author's. Honesty note per the catalog integrity rule: this is an architecture/maturity review calibrated against `evaluations/codegraph.md` (ADOPT) and `evaluations/code-context-engine.md` (CONDITIONAL).
-
-What was actually inspected:
+**Hands-on, measured.** Cloned `Egonex-AI/Understand-Anything` at `f2d0164` (2026-10-12), ran `pnpm install --frozen-lockfile` (17s, builds `@understand-anything/core`), and ran the plugin's own test suite plus its deterministic structural layer (the Tree-sitter `TreeSitterPlugin` and `GraphBuilder` exported by `core`) against a disclosed five-file fixture with hand-written ground truth. The LLM half of the pipeline (`/understand`'s multi-agent summaries, layers and tours) needs a model session and was out of reach in this sandbox, so what is measured is the structural graph the LLM stage sits on, versus a grep baseline.
 
 ```
-gh api repos/Egonex-AI/Understand-Anything --jq '{stars,license,description,pushed_at,created_at,language,forks}'
-# {stars:63945, license:MIT, lang:TypeScript, created:2026-03-15, pushed:2026-06-19, forks:5284}
-
-gh api repos/Egonex-AI/Understand-Anything/readme --jq '.content' | base64 -d        # full README
-gh api repos/Egonex-AI/Understand-Anything/releases --jq '.[].tag_name'              # v2.7.3 ... v1.2.0
-gh api 'repos/Egonex-AI/Understand-Anything/git/trees/HEAD?recursive=1' --jq '.tree[].path'  # 40+ test files, monorepo
-gh api repos/Egonex-AI/Understand-Anything/contents/.claude-plugin/marketplace.json  # plugin manifest
+git clone --depth 1 https://github.com/Egonex-AI/Understand-Anything && cd Understand-Anything
+pnpm install --frozen-lockfile                       # Done in 16.6s
+npx vitest run                                       # Test Files 38 passed | 1 skipped; Tests 786 passed | 12 skipped (170s)
+node run.mjs                                         # fixture A/B, below
+tree-sitter: 8/8 found, 0 spurious | 2/2 found, 0 spurious | 4/4 found, 0 spurious | 4/4 found, 1 spurious
+grep       : 8/8 found, 2 spurious | 2/2 found, 0 spurious | 4/4 found, 0 spurious | 4/4 found, 2 spurious
+  (columns: symbols | classes | imports | project-internal call targets)
+tree-sitter calls spurious= ["sum"]     grep symbols spurious= ["commentedOut","insideString"]
+grep calls spurious= ["round","sum"]    analysis wall-clock ms (5 files): 15.8
+node graph.mjs                                       # GraphBuilder + validateGraph
+{"nodes":12,"edges":10,"nodesByType":{"file":5,"function":5,"class":2},"edgesByType":{"contains":7,"imports":3},"valid":true,"issues":7}
 ```
 
-Cross-referenced against `evaluations/codegraph.md` (the catalog's ADOPT auto-syncing MCP code-intelligence tool) and the graphify entry it overlaps with.
+## Test design
+
+- **Task/corpus:** a five-file fixture (`billing.ts`, `util.ts`, `types.ts`, `report.py`, `billing_py.py`; 9 project symbols, 2 classes, 4 imports, 4 internal call edges) with planted traps for text matching: a commented-out `function commentedOut`, a string literal containing `function insideString() {}`, an arrow-function `const`, class methods, a Python `# def commented_out` comment and a `"def inside_string"` string. Ground truth is written by hand before running.
+- **Baseline:** a regex grep a developer would write for the same job (`function X`, `const X = (`, `def X`, `class X`, `import ... from`), with the call-site grep handed the true internal symbol list, which flatters grep.
+- **Metric:** per category, ground-truth items found and spurious items reported, counted by exact name; wall-clock of the analysis loop.
+- **Reproduce:** the scripts are described by the commands above; the fixture contents are the planted traps listed here.
+
+### Test design — skills (required when Type is skill or plugin)
+
+- **Triggering:** the nine skills (`understand`, `understand-chat`, `understand-dashboard`, `understand-diff`, `understand-domain`, `understand-explain`, `understand-figma`, `understand-knowledge`, `understand-onboard`) are slash-command driven; no should/shouldn't-fire prompt set was run, because firing needs a live model session.
+- **Output A/B:** the with-tool versus baseline comparison above applies to the deterministic extraction layer only; summaries, layers and tours that the skills produce were not generated, so their quality is unmeasured.
 
 ## What worked
 
-- **Strong traction and maturity for a young repo:** 63.9K stars, 5.3K forks, created 2026-03-15, pushed today, at **v2.7.3** (past 2.0). This is the opposite of a thin repo — it clears the maturity bar comfortably.
-- **Real test surface:** 40+ test files across the monorepo (`packages/core`, `packages/dashboard`, per-language extractor tests for go/java/python/rust/php/ruby/kotlin/dart/cpp/csharp), Vitest config, ESLint, CI directory. Not a README-only project.
-- **Tree-sitter + LLM hybrid is the right architecture** — deterministic structural edges (reproducible) plus LLM semantics (summaries, layers, domains). Same split codegraph and CCE use; sound.
-- **Incremental updates + optional auto-update hook** mitigate the usual batch-tool staleness problem: fingerprint-based change detection re-analyzes only changed files, and `--auto-update` installs a post-commit hook to keep a committed graph fresh.
-- **Genuinely distinctive output:** an interactive, persona-adaptive visual dashboard plus guided tours, diff-impact view, and onboarding-guide generation. This is a *human onboarding/comprehension* artifact, which neither codegraph (agent-facing MCP, no viz) nor a typical search index produces.
-- **Broad platform reach + commit-and-share model:** one pipeline configures ~17 platforms; the JSON graph commits to the repo so teammates and PR reviewers reuse it without re-running.
+- **Extraction beat grep on traps.** Tree-sitter reported 0 spurious symbols where the grep baseline reported 2 (`commentedOut` from a comment, `insideString` from a string literal); both found all 8 symbols, 2 classes and 4 imports.
+- **Python needs no extra setup once the right constructor is used.** Passing `builtinLanguageConfigs` (42) and `builtinExtractors` (13) to `TreeSitterPlugin` gave 15 languages including Python, with call edges attributed to a caller (`render -> total_py`, `run -> render`).
+- **Fast and deterministic.** 15.8 ms for five files, no network, no key; the graph validated (`valid: true`) with file, function and class nodes plus `contains` and `imports` edges.
+- **Healthy engineering signal.** The repo's own suite passed 786 tests (38 files) from a clean install.
 
 ## What didn't work or surprised us
 
-- **It is a batch pipeline, not an always-on MCP server.** This is the decisive contrast with codegraph (ADOPT). Understanding is produced by invoking `/understand` (and refreshed incrementally or via a post-commit hook); there is **no MCP server an agent queries live mid-loop** for "who calls this?" / "where's the definition?". The agent-loop ergonomics are weaker — the graph informs humans and on-demand commands (`/understand-chat`, `/understand-explain`), not transparent in-session navigation.
-- **First run is token-expensive.** The README itself warns the initial whole-codebase `/understand` "can consume a significant number of tokens on large projects" and recommends a subscription/token plan or a local model. Codegraph's local indexing has no per-token LLM cost for the structural graph.
-- **No reproducible cost/quality benchmark in-repo.** Unlike codegraph (16% cost / 58% fewer tool calls) and CCE (published R@10 numbers), there are no committed retrieval/accuracy or savings benchmarks — the value case is qualitative.
-- **Overlap with graphify is real on the visualization axis.** Both turn a codebase into an explorable clustered graph (HTML/JSON). Understand-Anything is codebase-specialized (layers, tours, domains, diff-impact, multi-platform plugin); graphify is general-input (code/docs/papers/images) and is the user's own ADOPT-adjacent skill.
-- **Primary value is human comprehension, not raising code quality.** Like all code-understanding tools it improves navigation/onboarding; it doesn't directly make the code more correct or maintainable.
+- **Default `new TreeSitterPlugin()` registers only `typescript` and `javascript`.** A Python file came back `{"status":"unsupported"}` and an empty analysis until the builtin configs were passed in; a script that follows the bare constructor silently sees nothing for other languages.
+- **The headline feature is unmeasured.** Summaries, architectural layers, guided tours and the chat/diff skills all depend on a model session; this run says nothing about whether those are accurate or what they cost in tokens (the README itself warns the first `/understand` "can consume a significant number of tokens").
+- **Call-edge precision is name-based.** `sum` was reported as a project call because the fixture's `Ledger.sum` shares a name with the Python builtin; the caller-scoped edge is right, the project-internal filter in the harness is what collided, but real repos with common names will see the same ambiguity.
+- **Graph validation auto-corrected 7 nodes** that lacked a `summary` (defaulted to the node name) because no LLM stage supplied one; the graph is only useful as intended after that stage runs.
+- **Two eval files exist for this tool.** `evaluations/Understand-Anything.md` is an older stub reading `SOURCE-ONLY`; it differs only by filename case and was left untouched here (detector AD territory, a human merge).
 
 ## Quality signals affected
 
 | Signal | Impact | Evidence |
 |--------|--------|----------|
-| Correctness | + | Layer/domain/diff-impact views give humans (and `/understand-chat`/`/understand-explain`) structural context, reducing blind edits — but no benchmarked correctness gain |
-| Speed | + | Onboarding and "where does X live" comprehension is far faster via the dashboard/tours than reading 200K LOC blind; committed graph lets teammates skip the pipeline |
-| Maintainability | neutral | Helps humans understand structure; doesn't change the code itself |
-| Safety | neutral | Local-first option (Ollama) for privacy; no specific security tooling, but sends code to an LLM by default |
-| Cost Efficiency | - | First-run analyzes the whole codebase via LLM agents and "can consume a significant number of tokens"; incremental runs are cheaper but there's a real upfront LLM cost codegraph doesn't have |
+| Correctness | + | Structural layer matched hand-written ground truth on symbols, classes and imports with 0 spurious, versus 2 spurious for grep; the LLM layer is unmeasured |
+| Speed | neutral | 15.8 ms for the five-file structural pass; the LLM pipeline's wall-clock was not run |
+| Maintainability | neutral | Produces a graph artifact for humans; does not change the code it analyzes |
+| Safety | neutral | Dashboard is served read-only from local disk per its README; the multi-agent stage sends code to a model, not exercised here |
+| Cost Efficiency | neutral | The deterministic stage costs no tokens; the README warns the full `/understand` pass is token-heavy and no figure was measured |
+| Verifiability | + | Structural nodes and edges carry line ranges and validate against a schema, so a human can spot-check them; LLM summaries have no such check in this run |
 
 ## Verdict
 
-**discovery-log — tentative read**
+**discovery-log — tentative read** — the deterministic Tree-sitter graph layer is sound (786 repo tests pass; 0 spurious symbols versus grep's 2 on a disclosed fixture), but the LLM-generated graph, tours and onboarding output that make up the product were not exercised, so this is not yet a read on the tool itself.
 
-Understand-Anything is a mature, well-tested, high-traction (63.9K-star, v2.7.3, MIT) code-comprehension plugin with a genuinely distinctive output: an interactive visual dashboard plus guided tours, domain mapping, diff-impact, and onboarding-guide generation across ~17 platforms. It clears the maturity bar easily — this is not a SKIP-for-thinness case.
-
-**vs codegraph (the key comparison): additive, different shape, not a replacement.** Codegraph is an always-on, auto-syncing **MCP server** agents query live for structural facts during a task (definitions, callers, callees) — invisible, cheap, agent-loop-native, which is why it's ADOPT. Understand-Anything is a **batch pipeline producing a human-facing visual graph** plus on-demand comprehension commands; it has incremental updates and an optional post-commit hook, but no live MCP query surface and a real first-run token cost. They serve different jobs: codegraph makes the *agent* navigate better mid-loop; Understand-Anything helps a *human* (and on-demand the agent) comprehend an unfamiliar codebase and onboard. You could run both.
-
-**Use Understand-Anything when:** you're onboarding to a large/unfamiliar codebase (its stated 200K-LOC use case), you want a shareable committed visual graph for team onboarding/PR review/docs-as-code, or you want guided tours / domain mapping / diff-impact that a search index doesn't produce — and you can absorb the first-run token cost (or point it at a local model). For transparent, always-on, low-cost structural awareness *inside the agent loop*, codegraph remains the default. Re-evaluate toward ADOPT if it adds a live MCP query interface or publishes reproducible cost/quality benchmarks.
+Left at `discovery-log` on `MEASURED` evidence for the structural layer only. A promotion read needs a model session: run `/understand` on a real repository, compare against `codegraph` on the same questions, and record token cost. The overlap analysis against `codegraph` (additive, different consumer) from the earlier review stands.
 
 ## Triage note
 
@@ -92,7 +99,7 @@ Re-evaluating it toward ADOPT needs the thing this lane cannot do — the eval n
 Re-examined 2026-09-16 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
 by a STACK incumbent.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-stamped 2026-09-16._
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-stamped 2026-09-16, 2026-10-19 (structural layer measured; LLM layer still open)._
 
 ## Catalog entry
 
