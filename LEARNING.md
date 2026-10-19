@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-16 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-14 (that pass's additions, likewise
+**Last verified:** 2026-10-19 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-16 (that pass's addition, likewise
+confirmed via direct fetch), and before that 2026-10-14 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-12 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-07 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-09-21 (that pass's additions, confirmed via search corroboration;
@@ -653,6 +654,32 @@ paper already declined 2026-09-28. The one addition this pass, read directly fro
 cross-checked from search summaries, is a direct sequel to this page's own Faros AI entry: a newer
 report in the same longitudinal telemetry program that both extends and complicates the Acceleration
 Whiplash figures already cited — see below.
+The 2026-10-19 pass found `pip install --user yt-dlp` silently installs against the wrong Python
+(the system `python3` resolves to 3.11; pip resolved to a 3.13 user site-packages directory that
+`python3 -m yt_dlp` cannot see), so `uvx yt-dlp` was used instead and worked throughout. Real,
+dated `ytsearch`/search-URL queries ran against all nine of this sweep's scoped topics
+(software-factory/dark-lit, agentic-SDLC, AWS AI-DLC, spec-driven-development, context-engineering,
+verification-bandwidth/back-pressure, levels-of-autonomy, harness-engineering, ADW) and returned
+real results, almost all channels and talks this page already covers or declines on substance
+(IBM Technology, Google Cloud Tech, JetBrains — explainer-format videos re-treating material this
+page cites elsewhere) or small/single-upload channels not worth chasing without independent
+corroboration; per-video metadata fetches worked for most candidates checked (unlike the bot-detection
+wall noted 2026-10-07 through 2026-10-16) but none cleared the bar for a transcript pull. `WebFetch` of
+`arxiv.org` abstract pages was reachable this pass and every paper below was read directly rather than
+cross-checked from search summaries. `awslabs/aidlc-workflows` was re-checked by cloning `main`
+read-only: HEAD moved to `c664791` (2026-10-19), the newest stable release is still `v2.11.0` (noted
+2026-10-12) with only preview tags past it (`v2.11.1-preview.20261018.1`), and
+`docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, so nothing was added to that file this
+pass. Three genuine finds earned a place, all sharpening this page's existing harness-engineering
+cluster rather than opening a new one: the first direct measurement of how little of a harness's own
+LLM-dependent code is covered by tests, complete with a real bug count rather than an argued risk; the
+sharpest single security-tradeoff number this cluster has recorded (auto-approve roughly tripling
+attack success in a controlled benchmark across six production harnesses, Claude Code among them);
+and the first benchmark treating harness construction itself, rather than task success inside a fixed
+harness, as the gradable skill, finding even frontier models fail it close to half the time. No
+counter-evidence surfaced this pass, no new named methodology cleared the bar 8090's Software Factory
+and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery lane.
 
 ---
 
@@ -1827,6 +1854,64 @@ organizing frame itself as a contribution, the way Farrag's and Bhati's synthese
 elsewhere on this page — and its single-to-multi-agent scaling layer is the same axis Astekin et
 al.'s multi-agent cost finding above measures, giving that finding a place in a larger structure
 rather than leaving it a standalone number. Confirmed via direct fetch of the arXiv abstract page.
+
+### [Complex Agents, Shallow Tests: Demystifying and Enhancing Test Adequacy of Agent Harness in the Wild](https://arxiv.org/abs/2610.04921) — Yifan Xiong, Jingyi Ge, Zhenpeng Chen, Yiling Lou (arXiv, 2026-10-04)
+The first entry in this page's harness-engineering cluster to measure test adequacy directly rather
+than argue it. Marmelab's "State Of AI Harness Engineering 2026" entry above found, across its
+246-repo audit, that only 11 repositories passed strict criteria for testing their own harness and
+60% of testable harnesses ship with neither tests nor evals — a count of *whether* tests exist. This
+paper measures what those tests actually cover: the first empirical study of test adequacy for agent
+harnesses in real-world systems, finding the LLM-dependent harness code — the part that parses model
+output and governs agent behavior from it, as distinct from ordinary application glue — covered by
+existing tests at under half of its lines and branches. The authors' own fix, `HarnessTester`, builds
+test cases from explicit agent-harness contracts and reports larger gains in line coverage, branch
+coverage, and mutation score than general-purpose test generators; applied to widely-used systems
+including OpenClaw, it surfaced 122 real harness bugs, 88 previously unknown and 69 already confirmed
+by the systems' own developers — a hands-on bug count rather than a coverage percentage, and the kind
+of concrete yield Marmelab's blog post could only gesture at from the outside. Confirmed via direct
+fetch of the arXiv abstract page, reachable this pass.
+
+### [HarnessSecurity-Bench: Do Security Mechanisms Really Protect Coding Agent Harnesses?](https://arxiv.org/abs/2610.07639) — Zhengyang Zhu, Liming Huang, Runmin Ji, Mingxi Ye, Zihan Zhou, Hanyang Guo, Jingwen Wu, Yuhan Ye, Yuming Feng, Hong-Ning Dai, Zibin Zheng (arXiv, v1 2026-10-06, v2 2026-10-10)
+This page's `AGENTS.md`/harness-engineering entries describe "safety controls" as one of the
+canonical subsystems a harness provides (Barbaste et al.'s eleven-system source study, above) and
+"Scanning the Harness" (above) finds supply-chain defects in how harnesses are *configured*; this is
+the first entry to measure whether the runtime security mechanisms those configurations turn on
+actually hold under attack. The authors build a ten-mechanism taxonomy and rate 400
+harness-mechanism combinations across open- and closed-source harnesses (researcher plus LLM-judge
+rating), finding roughly half of confirmed mechanism implementations are opt-in and that
+closed-source harnesses carry the largest evidence gaps about what protection they actually offer.
+The benchmark half — 23 tasks across five attack surfaces, run against six production harnesses
+including Claude Code, Codex CLI, Gemini CLI, and GitHub Copilot, with a controlled LLM (GLM-5.2)
+driving 2,500 trials (81,155 tool calls, over 2.2 billion tokens), scored by separate deterministic
+oracles for task utility and attack effect — turns that taxonomy into a number: enabling auto-approve
+raises utility but drives attack success from 29.2% to 95.6%, the sharpest single trade-off figure
+this page's harness-engineering cluster has yet recorded. The other mechanisms split more finely than
+a binary safe/unsafe read would suggest — network isolation and read-only mode cut attack effects but
+at a real utility cost, command allowlisting cuts attack effects for a small utility cost, and command
+denylisting cuts attack effects while *increasing* utility slightly — and task-level cases show that
+restricting a shared capability can block legitimate and malicious operations together, while an
+allowlisted tool or command can still leave an unauthorized operation reachable through a different
+execution path the allowlist didn't anticipate. Directly relevant to this repo's own default-permissive
+tool-approval habits: a convenience setting measured here, not merely argued, to roughly triple
+attack success. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
+
+### [Doc2Harness: Benchmarking LLMs on Long-Horizon Harness Engineering of Coding Agents](https://arxiv.org/abs/2610.20344) — Yuyao Ge, Shenghua Liu, Peizhong Gao, Chendi Ge, Chenxu Liu, Yiwei Wang, Lingrui Mei, Baolong Bi, Jiayu Yao, Jiafeng Guo, Xueqi Cheng (arXiv, 2026-10-14)
+A different axis than the rest of this cluster: not measuring an existing production harness
+(Marmelab, HarnessTax, the two entries above) or arguing what one is (Jarmak, Barbaste et al., "Code
+as Agent Harness"), but measuring whether an LLM can *build* one. A build model, working inside a
+fixed builder harness from an interface-only contract skeleton plus a development document
+summarizing behavior across twelve frontier harnesses, constructs a complete candidate harness in an
+isolated container; that frozen harness is then driven end to end, one test case per container, by a
+scripted mock model and scored on four observable channels (requests sent to the model, files written
+to disk, process exit code, command output), with positive controls to guard against tests that pass
+trivially. Across nineteen frontier models, three independent builds each, 328 test cases: the top
+model (GPT-6 Astra) clears only 53.05%, the weakest 27.44%, and failures concentrate where
+cross-cutting functionality has to be split correctly across modules rather than written in one
+place — a concrete difficulty signal for anyone assembling custom harness code rather than adopting
+one of the eleven systems Barbaste et al. studied. The authors position it as the first deterministic
+benchmark for long-horizon harness engineering specifically, as distinct from the many benchmarks
+this page already cites for task success *inside* a fixed harness. Confirmed via direct fetch of the
+arXiv abstract page, reachable this pass.
 
 ---
 
