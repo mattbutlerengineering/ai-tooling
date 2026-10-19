@@ -969,7 +969,7 @@ All 1123 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Memori | platform | | ✓ | discovery-log | REVIEW |
 | OpenViking | platform | | ✓ | SKIP | REVIEW |
 | RAGFlow | platform | ✓ | ✓ | SKIP | REVIEW |
-| engram | tool | | ✓ | discovery-log | REVIEW |
+| engram | tool | | ✓ | discovery-log | MEASURED |
 | ballast | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mem0 | MCP server | | ✓ | discovery-log | MEASURED |
 | ReMe | platform | | ✓ | discovery-log | SOURCE-ONLY |
