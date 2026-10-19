@@ -91,7 +91,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | sem | tool | ✓ | ✓ | discovery-log | REVIEW |
 | carrick | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | semble | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
-| Understand-Anything | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| Understand-Anything | tool | | ✓ | discovery-log | RUN |
 | codebase-design | skill | | ✓ | SKIP | REVIEW |
 | domain-modeling | skill | | ✓ | SKIP | REVIEW |
 | plannotator | tool | | ✓ | discovery-log | REVIEW |
