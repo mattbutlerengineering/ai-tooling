@@ -2,8 +2,8 @@
 
 **Repo:** [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
 **Stars:** 28,780 | **Last updated:** 2026-08-05 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
-**Last verified:** 2026-10-16
-**Last triaged:** 2026-10-16  <!-- triaged: bulk -->
+**Last verified:** 2026-10-19
+**Last triaged:** 2026-10-19  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory + context layer for AI apps and agents)
 **Layer:** Infrastructure (memory/context engine + hosted app; cloud API or fully self-hostable)
 
@@ -27,7 +27,7 @@ It ships TS + Python SDKs, a hosted dashboard/console, and a documented self-hos
 
 **Evidence:** REVIEW
 
-**Source-grounded review — not run hands-on.** The self-hosted engine (`npx supermemory local`, the `curl -fsSL https://supermemory.ai/install | bash` installer, or the Docker compose image) was not run: this unattended sandbox blocked executing the downloaded installer, and the other two routes fetch and run the same vendor binary or image, so none was tried. The hosted cloud API needs a vendor key that the sandbox does not have. What was executed is only the PyPI client library, against a throwaway local HTTP stub on `127.0.0.1:6767` — that checks the SDK's request surface, not memory extraction, search quality or the vendor's benchmark claims, which remain the vendor's own.
+**Source-grounded review — not run hands-on.** The self-hosted engine (`npx supermemory local`, the `curl -fsSL https://supermemory.ai/install | bash` installer, or the Docker compose image) was not run: this unattended sandbox blocked executing the downloaded installer, and the other two routes fetch and run the same vendor binary or image (a second pass 2026-10-19 reached the installer through the npm CLI, `supermemory local install`, and it answered HTTP 403 from the sandbox proxy; Docker has no daemon here), so none was tried. The hosted cloud API needs a vendor key that the sandbox does not have. What was executed is only the PyPI client library, against a throwaway local HTTP stub on `127.0.0.1:6767` — that checks the SDK's request surface, not memory extraction, search quality or the vendor's benchmark claims, which remain the vendor's own.
 
 ```bash
 python3 -m venv v && v/bin/pip install supermemory        # -> supermemory 5.0.0 (PyPI)
@@ -44,6 +44,17 @@ v/bin/python mock2.py
 v/bin/python readme_snippet.py
   README add(): TypeError Supermemory.add() got an unexpected keyword argument 'container_tag'
   README profile(): TypeError Supermemory.profile() got an unexpected keyword argument 'container_tag'
+# second pass 2026-10-19: npm CLI 5.0.2, same stub (SUPERMEMORY_API_URL / SUPERMEMORY_API_KEY set)
+node_modules/.bin/supermemory local install
+  Installing local Supermemory via https://supermemory.ai/install
+  curl: (22) The requested URL returned error: 403
+  Error: installer exited with code 22
+node_modules/.bin/supermemory local status   -> {"installed": null, "reachable": false, "url": "http://localhost:6767"}
+node_modules/.bin/supermemory add "I prefer tabs" --namespace u1 ; search "indent" ; profile
+  stub log: GET /v3/session ; POST /ns/u1/document {"content":"I prefer tabs"} ; POST /ns/u1/search {"query":"indent"} ; POST /ns/u1/profile {}
+v/bin/python rd.py   # README quickstart form, PyPI supermemory 5.0.0
+  README add TypeError Supermemory.add() got an unexpected keyword argument 'container_tag'
+  README profile TypeError Supermemory.profile() got an unexpected keyword argument 'container_tag'
 ```
 
 ## Test design
@@ -63,6 +74,7 @@ v/bin/python readme_snippet.py
 ## What didn't work or surprised us
 
 - **The README's Python quickstart does not run against the released SDK.** It passes `container_tag=` to `add()` and `profile()`; `supermemory` 5.0.0 on PyPI takes a positional `namespace` and raises `TypeError` on the README form. The SDK posts to `/ns/<namespace>/document|search|profile`, and `search` is a method taking `query=`, not the README's `client.search.documents()` table entry. A newcomer's first copy-paste fails.
+- **The npm CLI (5.0.2) and the PyPI SDK (5.0.0) emit the same `/ns/<namespace>/document|search|profile` paths** against the stub, so the CLI surface is consistent with the SDK; the CLI also issues a `GET /v3/session` first. This is still a request-shape check only.
 - **The engine itself is unmeasured.** Extraction quality, recall, the ~50ms profile latency and the self-host footprint were not observed here.
 - **Self-host still wants a model key for memory extraction** by the README's own account (OpenAI/Anthropic/Gemini/Groq or Ollama); only embeddings default to a local model.
 - **Heavy and product-shaped for a solo dev loop.** The connectors (Gmail/Drive/Notion), profiles, and hosted console are aimed at app builders / "company brain" use cases — overkill for a single developer already running claude-mem + OMEGA for Claude Code session continuity.
