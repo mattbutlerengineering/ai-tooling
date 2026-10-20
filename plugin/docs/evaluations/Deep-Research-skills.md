@@ -3,7 +3,7 @@
 **Repo:** [Weizhena/Deep-Research-skills](https://github.com/Weizhena/Deep-Research-skills)
 **Stars:** 1,860 | **Last updated:** 2026-05-07 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-20  <!-- triaged: bulk -->
 **Dev loop stage:** Research & Discovery
 **Layer:** Process
 
@@ -42,7 +42,11 @@ the `SKILL.md` (a triggering test plus a with/without A/B is the only honest mea
 `TEMPLATE.md`), and it was last pushed 2026-05-07 — three months, which is aging for a skill whose
 tool-use instructions have to track harness behaviour.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+Re-examined 2026-10-20 (5-oldest-untriaged pass): reasoning still holds — `last30days`
+remains a recency lookup rather than a structured HITL research procedure, and no
+newly-added STACK pick competes with this tool's job.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267)); re-stamped 2026-10-20. Left, not SKIPped._
 
 ## Catalog entry
 

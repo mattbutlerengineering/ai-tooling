@@ -3,7 +3,7 @@
 **Repo:** [opendatalab/MinerU](https://github.com/opendatalab/MinerU)
 **Stars:** 74,101 | **Last updated:** 2026-07-10 (pushed) | **License:** NOASSERTION ⚠️
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-20  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Tooling
 
@@ -40,4 +40,8 @@ a standard SPDX identifier** (`NOASSERTION` in `repo-metadata.json`, already fla
 its CATALOG row) — that needs reading before adoption, and it is the most likely reason this
 lead never graduates.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+Re-examined 2026-10-20 (5-oldest-untriaged pass): reasoning still holds — `markitdown`
+remains the fast/broad converter and MinerU the heavyweight layout/OCR pipeline for the
+hard-PDF case; the license caveat is unchanged and still the likely blocker to adoption.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-stamped 2026-10-20. Left, not SKIPped._

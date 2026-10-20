@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1137 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1143 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -75,6 +75,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | markitdown | tool | | ✓ | ADOPT | MEASURED |
 | eleven | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | decomp.wtf | tool | | ✓ | SKIP | SOURCE-ONLY |
+| rea | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | MinerU | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | deepwiki-rs | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | serena | MCP server | ✓ | ✓ | ADOPT | MEASURED |
@@ -304,6 +305,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | mindsdb/minds | platform | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | oh-my-claudecode | harness | | ✓ | discovery-log | REVIEW |
 | oh-my-agent | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| homebased | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | oh-my-openagent | harness | | ✓ | SKIP | REVIEW |
 | lazycodex | harness | ✓ | ✓ | discovery-log | REVIEW |
 | oh-my-pi | platform | | ✓ | SKIP | REVIEW |
@@ -406,6 +408,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ruflo | harness | | ✓ | discovery-log | REVIEW |
 | sandcastle | framework | | ✓ | discovery-log | RUN |
 | superpowers | plugin | | ✓ | ADOPT | SOURCE-ONLY |
+| natural-intelligence | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | orchestkit | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | eca | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | letta-code | harness | ✓ | ✓ | discovery-log | REVIEW |
@@ -693,6 +696,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ACMM | framework | | ✓ | discovery-log | REVIEW |
 | fde-gym | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | abtop | tool | | ✓ | CONDITIONAL | MEASURED |
+| tokmeter | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | hud-mode | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rimz | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -822,6 +826,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-seo | skill | | ✓ | discovery-log | REVIEW |
 | excalidraw-diagram-skill | skill | | ✓ | SKIP | REVIEW |
 | archify | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| diagram-design | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | SeeCode | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | architecture-drawer | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | formkit | framework | | ✓ | SKIP | REVIEW |
@@ -867,6 +872,7 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 | refly | platform | | ✓ | SKIP | REVIEW |
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
+| better-skill-creator | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | claude-code-mods | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Only-Skill-You-Need | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | jump-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1221,16 +1227,16 @@ All 1137 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 104 | 39 | 6 | 38% |
-| Implement | 333 | 126 | 4 | 38% |
+| Plan | 105 | 39 | 6 | 37% |
+| Implement | 335 | 126 | 4 | 38% |
 | Verify | 56 | 23 | 2 | 41% |
 | Review | 136 | 33 | 3 | 24% |
 | Ship | 7 | 1 | 1 | 14% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 100 | 22 | 2 | 22% |
-| Skills & Plugins | 139 | 46 | 4 | 33% |
+| Outer Loop | 101 | 22 | 2 | 22% |
+| Skills & Plugins | 141 | 47 | 4 | 33% |
 | Memory & Context | 97 | 31 | 2 | 32% |
 | MCP Servers | 66 | 18 | 2 | 27% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1137** | **370** | **34** | **33%** |
+| **Total** | **1143** | **371** | **34** | **32%** |

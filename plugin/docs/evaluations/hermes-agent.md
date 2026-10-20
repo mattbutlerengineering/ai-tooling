@@ -3,7 +3,7 @@
 **Repo:** [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 **Stars:** ~197,700 (unusually high — reported as-is, unverified) | **Last updated:** 2026-06-20 (pushed; created 2025-07-22) | **License:** MIT | **Forks:** ~35K
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-20  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (general self-improving personal agent; tangential to the coding dev loop)
 **Layer:** Harness (CLI + gateway + TUI; runs on VPS/GPU/serverless)
 
@@ -73,7 +73,11 @@ MIT, ★212K, from a credible lab, pushed today. The scale of the star count is 
 dispose it in a bulk lane: whatever it is, a very large number of people are running it, and the
 skills-from-experience mechanism is the direction this catalog's memory cluster is heading.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+Re-examined 2026-10-20 (5-oldest-untriaged pass): reasoning still holds — the overlap with
+`claude-reflect` remains a category error (in-session reflection skill vs. standing
+personal agent), and nothing newly added to STACK competes with its job.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262)); re-stamped 2026-10-20. Left, not SKIPped._
 
 ## Catalog entry
 

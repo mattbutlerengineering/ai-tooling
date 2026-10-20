@@ -3,7 +3,7 @@
 **Repo:** [NVIDIA/skills](https://github.com/NVIDIA/skills)
 **Stars:** 2,790 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-20  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (domain vertical)
 **Layer:** Tooling
 
@@ -41,7 +41,11 @@ alone.
 The stale record is the failure mode detector R exists to age: `repo-metadata.json` is a committed
 snapshot, and every record in it is currently undated.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
+Re-examined 2026-10-20 (5-oldest-untriaged pass): reasoning still holds — the overlap
+with `SkillSpector` remains a shared-vendor coincidence, not a shared job; still an
+off-scope domain-vertical pack rather than a redundancy.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263)); re-stamped 2026-10-20. Left, not SKIPped._
 
 ## Catalog entry
 
