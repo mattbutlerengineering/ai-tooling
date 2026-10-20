@@ -3,7 +3,7 @@
 **Repo:** [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
 **Stars:** 91,824 | **Last updated:** 2026-08-03 (pushed) | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-20  <!-- triaged: bulk -->
 **Dev loop stage:** Reference (discovery)
 **Layer:** Process
 
@@ -40,7 +40,11 @@ No further work is queued. It is not an install decision, it does not compete fo
 at ~92K stars with pushes this week it needs no maintenance watch. The row stands as the answer to
 "where do I look for an MCP server".
 
-_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+Re-examined 2026-10-20 (5-oldest-untriaged pass): reasoning still holds — it indexes MCP
+servers, a different artifact from the Claude-Code-plugin and Claude-resource indexes it's
+banded against; still no STACK-slot competition.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267)); re-stamped 2026-10-20. Left, not SKIPped._
 
 ## Catalog entry
 
