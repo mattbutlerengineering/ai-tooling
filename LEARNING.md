@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-19 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-16 (that pass's addition, likewise
+**Last verified:** 2026-10-21 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-19 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-10-16 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-14 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-12 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-07 (that pass's additions, likewise
@@ -680,6 +681,40 @@ and the first benchmark treating harness construction itself, rather than task s
 harness, as the gradable skill, finding even frontier models fail it close to half the time. No
 counter-evidence surfaced this pass, no new named methodology cleared the bar 8090's Software Factory
 and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery lane.
+The 2026-10-21 pass found `yt-dlp`'s search API working without a proxy 403 across all ten of this
+sweep's scoped queries (software-factory/dark-lit, agentic-SDLC, AWS AI-DLC, ADW, agentic-engineering,
+spec-driven-development, context-engineering, verification-bandwidth/back-pressure, levels-of-autonomy,
+harness-engineering) and returned real, dated results, but — the same bot-detection wall noted on every
+pass since 2026-10-07 — per-video metadata fetches on the few candidates that looked promising
+(AI Engineer conference talks by Jediah Katz/SpaceXAI and Dru Knox/Tessl, a Sonar Summit 2026 talk, a
+Google "Harness²" explainer) all failed with "Sign in to confirm you're not a bot," and WebSearch could
+not independently corroborate any of the four as dated, substantive, or even confirm the Katz talk
+exists under that title — none were added. `WebFetch` of `arxiv.org` succeeded this pass, so both
+entries added below were read from source rather than cross-checked from search summaries: one direct
+from the arXiv abstract page, the other from the paper's own PDF (`pdftotext` against a local download,
+since the raw `WebFetch` returned only the undecoded PDF byte stream). `github.com`'s HTTPS git endpoint
+was reachable too (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked
+directly by cloning `main` read-only: HEAD moved to `5d06037` (2026-10-21, same-day), the version badge
+moved to `v2.11.1` (a patch release, up from the `v2.11.0` noted 2026-10-12), and
+`docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is organized into
+5 phases containing 33 stages,"* so nothing was added to that file this pass. This pass also checked the
+software-factory, agentic-SDLC, ADW, and spec-driven-development searches the sweep is scoped to and
+found mostly re-treatments or vendor explainers with no primary claim beyond what this page already
+covers (a Greg Isenberg "Building a Software Factory" course, Cursor's and Google Antigravity's own
+SDLC-automation pitches, a cluster of IBM Technology/JetBrains spec-driven-development explainers,
+and further "software factory buyer's guide"/"AI-native digital factory" vendor posts from Publicis
+Sapient, Factory.ai, Warp, and BCG Platinion repeating ground already covered). Two genuine finds
+earned a place instead, both read directly from source. The first is the sharpest counter-evidence
+this sweep has found yet, and a different mechanism than anything already on this page: a Harvard
+job-market paper using a 718-firm, 725,938-worker proprietary engineering-analytics dataset finds AI
+coding agents raise code output 20-30% but firm-level *output* — issues and epics actually resolved —
+does not move at a statistically significant rate, because the productivity gain is absorbed by a
+formally modeled code-review bottleneck rather than passed through. The second extends the
+harness-engineering cluster along a new axis: a longitudinal source study tracking two harnesses that
+started from opposite architectural philosophies and converged on the same five-element design over
+time, naming the one dimension where they have not converged — external, runtime-independent
+verifiability — as the gap to watch next.
 
 ---
 
@@ -992,6 +1027,40 @@ report is explicit is correlational, not causal. Read against the existing entry
 data in this page's throughput-vs-review cluster showing the trade is not monotonic — some signals
 keep worsening, one has reversed outright, and the report's own read is that the mechanism (review
 automation, not merely review erosion) matters more than adoption depth alone.
+
+### [Artificial Intelligence in the Firm: Bottlenecks in Software Production](https://fion.ac/jellyfish.pdf) — Fiona Chen, James Stratton (Harvard University; Job Market Paper, first version 2026-01-07, current version 2026-08-04)
+The sharpest counter-evidence this page has found for its own throughput-vs-review cluster (Faros AI's
+two reports and "Debt Behind the AI Boom" below), on a different data source and a different mechanism
+than any of them: not telemetry self-reported to a vendor platform, but a proprietary dataset from
+Jellyfish (an engineering-analytics firm) joined to LinkedIn employment records from Revelio Labs —
+300 million work events across five systems (HR, GitHub, Jira, Google Calendar, and generative-AI usage
+logs for GitHub Copilot, Cursor, and Claude Code) spanning 718 firms and 725,938 workers, January 2021
+through March 2026. A staggered difference-in-differences design exploits variation in when each firm
+adopted AI coding assistants versus AI coding agents, on the identifying assumption that procurement
+delays (security review, legal approval, piloting) are plausibly orthogonal to a firm's own growth
+trajectory. AI agents raise individual coding output substantially — lines of code +30%, commits +20%,
+pull requests +23% (assistants show smaller, mostly statistically insignificant effects). The genuine
+finding is what happens next: resolution of Jira issues and epics — the paper's two measures of actual
+firm-level software *output*, as distinct from coding *activity* — shows small, statistically
+insignificant effects for both technologies, with the 95% confidence interval for agents ruling out an
+output increase larger than 12% of baseline, well below the 30% individual-level productivity gain. The
+authors rule out a simple "bigger issues" explanation (no measured change in machine-learning-predicted
+issue-resolution time) and instead trace the gap to a code-review bottleneck: average pull-request
+review time rises 49%, the share of pull requests receiving a formal change request nearly doubles
+(13% baseline), review comments per pull request rise 35%, and the share of workers doing any code
+review rises 14% — a bottleneck that *persists after* AI code-review-tool adoption (nearly 80% of firms
+by March 2026), since those tools generate only 23.3% of review comments and touch only 10.8% of pull
+requests. Employment effects are a precise zero in both directions (ruling out declines beyond 2.9%
+overall, 13.8% in engineering) — pass-through to layoffs is also incomplete. The paper formalizes this
+with a two-stage production model (code writing, code review) in which AI raises both the productivity
+*and* the error rate of the writing stage, generating exactly the review bottleneck the empirical
+results show. Read against this page's other throughput entries, this is the first to isolate "more
+code produced" from "more software shipped" as two variables that can move independently, and the first
+to model the review bottleneck formally rather than infer it from a correlation between PR volume and
+incident rate. Confirmed via a validated primary-source read: the PDF was downloaded directly and its
+text extracted locally (`pdftotext`), since a raw `WebFetch` of the URL returns only the undecoded PDF
+byte stream; the abstract, methodology, and every figure cited above were verified against that
+extracted text rather than secondary coverage.
 
 ### ["Debt Behind the AI Boom": A Large-Scale Empirical Study of AI-Generated Code in the Wild](https://arxiv.org/abs/2603.28592) — Yue Liu, Ratnadira Widyasari, Yanjie Zhao, Ivana Clairine Irsan, David Lo (arXiv, 2026-03)
 A far larger version of the CodeRabbit claim above, on public data rather than a vendor sample:
@@ -1912,6 +1981,28 @@ one of the eleven systems Barbaste et al. studied. The authors position it as th
 benchmark for long-horizon harness engineering specifically, as distinct from the many benchmarks
 this page already cites for task success *inside* a fixed harness. Confirmed via direct fetch of the
 arXiv abstract page, reachable this pass.
+
+### [The Empire, Long Divided, Must Unite: Architectural Convergence in Three LLM Agent Harnesses](https://arxiv.org/abs/2608.23953) — Dai Jiahong (arXiv, 2026-08-25)
+A different axis than the rest of this cluster again: not a cross-sectional snapshot of many harnesses
+(Barbaste et al.'s eleven systems, Marmelab's 246-repo audit) but a longitudinal, source-level case
+study of three — LangChain's `deepagents` (batteries-included), Earendil's `pi` (minimalist), and
+DeepSeek's `dsh` (plugin-based) — read at a pinned commit and then followed through their own commit
+history. The two mature harnesses moved in opposite directions: `deepagents` stripped away authored
+scaffolding over time, `pi` added durable infrastructure. Despite starting from opposite philosophies,
+both converge on the same five-element design: a standardized agent loop, an append-only session record
+that can be replayed, model quirks handled as data rather than special-cased code, progressive
+disclosure of context, and explicit extension points. `dsh`, read afterward as a holdout check, already
+has all five — and one of its extension points reuses code directly from one of the other two — which
+the author reads as parallel discovery, diffusion between projects, and literal code reuse rather than
+independent invention each time. The sharpest finding for this page: the one dimension with *no*
+convergence across any of the three is external verifiability — a tamper-evident record an outside
+party can check without first trusting the harness's own runtime — which the author treats as marking
+where harnesses for provenance-sensitive domains will diverge next. Directly on this page's own
+[Verifiability framing](WORKFLOW.md#why-verifiability-is-its-own-signal): the gap this paper finds isn't
+that today's harnesses can't produce an audit trail (several of this cluster's other entries describe
+exactly that capability), it's that none of the architectures that have converged on everything else
+have converged on making that trail checkable by someone who doesn't already trust the harness
+producing it. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
 
 ---
 
