@@ -3,7 +3,7 @@
 **Repo:** [kenryu42/cc-safety-net](https://github.com/kenryu42/cc-safety-net)
 **Stars:** 1,405 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-21  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Ship (runtime guardrail, not post-hoc Review)
 **Layer:** Infrastructure
 
@@ -89,6 +89,10 @@ one. Feed it a set of known bypass strings with and without the hook and count w
 That measurement is the whole disposition, and it is P0 work. Nothing here to eliminate.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-10-21 by the P3 backlog band:** no change — the measurement this eval calls for
+(bypass strings with/without the hook) is still unrun; nothing structural to eliminate. Left at
+`discovery-log`.
 
 ## Catalog entry
 
