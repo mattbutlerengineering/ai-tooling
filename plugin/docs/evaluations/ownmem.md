@@ -3,7 +3,7 @@
 **Repo:** [grpcer/ownmem](https://github.com/grpcer/ownmem)
 **Stars:** 81 | **Last updated:** 2026-08-19 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-08-21
-**Last triaged:** 2026-08-21  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-21  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context
 **Layer:** Tooling
 
@@ -32,3 +32,7 @@ memory tools (memU, agentmemory, beads, staffetta) undisposed rather than
 mechanically SKIPping every memory tool against one incumbent.
 
 _Triaged 2026-08-21 by the P2 challenger band._
+
+**Re-triaged 2026-10-21 by the P2 challenger band:** no change — `claude-mem` is still the only
+Claude-Code-specific incumbent in STACK; ownmem's cross-harness, deterministic-file architecture
+remains a genuine differentiator. Left at `discovery-log`.
