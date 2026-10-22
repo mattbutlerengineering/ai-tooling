@@ -219,7 +219,7 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 | GenericAgent | REVIEW | no |
 | gortex | REVIEW | no |
 | h5i | SOURCE-ONLY | no |
-| LeanKG | (no eval) | yes |
+| LeanKG | SOURCE-ONLY | yes |
 | OmniRoute | SOURCE-ONLY | yes |
 | rtk | REVIEW | no |
 | semble | REVIEW | no |
