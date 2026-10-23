@@ -1060,7 +1060,7 @@ All 1169 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Attic | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | MemoryMint | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | friday | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
-| AgentMemory (hsuanshao) | tool | ✓ | ✓ | discovery-log | MEASURED |
+| AgentMemory (hsuanshao) | tool | ✓ | ✓ | discovery-log | RUN |
 | winnow | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | TokenForge | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Recollect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
