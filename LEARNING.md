@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-21 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-19 (that pass's additions, likewise
+**Last verified:** 2026-10-23 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-21 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-10-19 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-16 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-14 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-12 (that pass's additions, likewise
@@ -715,6 +716,54 @@ harness-engineering cluster along a new axis: a longitudinal source study tracki
 started from opposite architectural philosophies and converged on the same five-element design over
 time, naming the one dimension where they have not converged — external, runtime-independent
 verifiability — as the gap to watch next.
+The 2026-10-23 pass found `pip install --user yt-dlp` and `uvx yt-dlp` both worked without the
+wrong-Python trap noted 2026-10-19, and ran real `ytsearch6` queries against all eleven of this
+sweep's scoped topics (software factories dark/lit, agentic SDLC, AWS AI-DLC, ADLC, ADW, agentic
+engineering, spec-driven development, context engineering, harness engineering, verification
+bandwidth/back pressure/comprehension debt, levels of autonomy) and returned real, dated results;
+per-video subtitle fetches hit the same YouTube bot-detection wall noted on every pass since
+2026-10-07 ("Sign in to confirm you're not a bot"), so no transcript was read. `WebFetch` of
+`arxiv.org` and of `drops.dagstuhl.de` both succeeded this pass, and the one entry added below was
+read from the paper's own PDF text (via `pdftotext`) rather than cross-checked from search
+summaries. `github.com`'s HTTPS git endpoint was reachable too, so `awslabs/aidlc-workflows` was
+re-checked directly by cloning `main` read-only: HEAD moved to `3289f7b` (2026-10-23, same-day), no
+new stable release exists past `v2.11.1` (noted 2026-10-21; only preview tags run ahead of it,
+through `v2.11.2-preview.20261022.1`), and `docs/guide/04-phases-and-stages.md` still opens with the
+identical sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps — so nothing further
+changed on that thread beyond the divergence note this pass added citing the one entry below. This
+pass also checked the "ADLC" term specifically, since it surfaced repeatedly across the agentic-SDLC
+and ADW searches, and found the acronym is contested rather than owned by one framework: Arthur's,
+Salesforce's, and HoneyHive's "Agent Development Lifecycle" posts are all vendor methodologies for
+building and operating AI agents as products (chatbots, enterprise automation) — the same
+out-of-scope category `CLAUDE.md`'s own P0-scope-mismatch reasoning already excludes ("for building
+AI products, not for your own dev workflow") — while a GrowwStacks blog post and an "AI LABS"
+YouTube video both label a seven-phase AI-coding walkthrough "ADLC" with no named creator and no
+attribution to Anthropic or any other framework-owner; none of the four is a named, documented
+methodology for AI-assisted *software delivery* clearing the bar 8090's Software Factory and AWS's
+AI-DLC set, so none was added. An Overcut webinar literally titled "From SDLC to ADLC" (July 2026)
+was also checked and declined — a past vendor webinar with no public recording or stage
+documentation found. Two further near-misses were considered and declined on substance: Addy
+Osmani's "The 80% Problem in Agentic Coding" (2026-01-28), read directly, is a synthesis of sources
+this page already cites individually (Faros AI's Acceleration Whiplash, the DORA/Atlassian/Stack
+Overflow survey cluster) plus informal polls that visibly contradict each other in the post's own
+text, the same re-treatment call already made against Osmani's "Agent Harness Engineering" essay
+2026-09-16; and a secondary write-up's claim of a new CMU/Google paper, "Spec-Driven Development as
+Prescribed and as Practiced," could not be confirmed as a real, findable paper distinct from
+`SpecMine` (already cited above) under its own title, so nothing was added on that lead rather than
+risk citing a paper that may not exist under that name. A fresh talk was also considered and
+declined for a different reason: "Is the Agent Harness Dead? — Jediah Katz, SpaceXAI" (AI Engineer,
+uploaded 2026-10-19, confirmed real via direct metadata fetch and cross-checked across five
+independent write-ups) argues harness work cycles rather than only grows — features that once
+patched model weaknesses get absorbed as models improve, freeing the harness for infrastructure,
+security, and cost work models don't absorb — but offers no new primary measurement of its own (its
+cited UC Berkeley/Arena study is the same one this page's `HarnessTax` entry already cites), no
+verbatim quote could be confirmed matching across two independent sources, and this page's
+harness-engineering cluster is already large enough that one more argued synthesis without new data
+does not clear this sweep's conservative bar; named here rather than silently dropped since the
+"harness work is cyclical, not monotonic" framing may be worth a line if an independent measurement
+of it turns up. The one addition this pass is the sharpest kind of find this sweep is scoped to
+look for: the first large-scale empirical test of spec-driven development's own central vendor
+claim, with a null result that complicates both methodology docs this page maps.
 
 ---
 
@@ -1659,6 +1708,41 @@ discipline. Confirmed via multiple independently-worded search summaries (the ar
 its HTML rendering, alphaXiv) agreeing on the same author list, bug count, and percentage-point
 figures — this pass's `WebFetch` of `arxiv.org` failed with `EGRESS_BLOCKED`, so the paper itself
 was not directly read.
+
+### [Specification Artifacts in Open-Source Pull Request Workflows Do Not Reduce Defects: An Empirical Test of Spec-Driven Development Claims](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESEM.2026.84) — Brenn Hill (Independent Researcher; ESEM 2026, LIPIcs vol. 394, article 84)
+The sharpest counter-evidence this sweep has found, and squarely on the spec-driven-development
+cluster's own central premise: the paper opens by noting "no vendor has published empirical
+evidence" for SDD's quality claims, and this is the first large-scale test of them. Five
+hypotheses are drawn verbatim from SDD vendor marketing — GitHub's Spec Kit and Amazon's Kiro are
+named directly — and tested against 88,052 merged pull requests across 119 open-source
+repositories, with defects traced via the SZZ algorithm and each developer's spec'd PRs compared
+against their own unspec'd PRs to control for developer-level confounding, backed by twelve
+robustness checks (propensity score matching, complexity stratification, AI/human subgroups).
+**None of the five hypotheses are supported.** After matching, spec'd and unspec'd PRs are
+statistically indistinguishable in defect introduction (−0.6pp, p = 0.133). Rework shows no
+protective effect — if anything the opposite: +1.2pp within-author (p = 0.001, significant but in
+the direction opposite the vendor claim) and +0.5pp matched (p = 0.146, not significant).
+Specification quality predicts neither defects (p = 0.164) nor rework (p = 0.860), and specs do
+not constrain the scope of AI-tagged changes (p = 0.997). The raw positive correlation between
+specs and defects — the pattern a less careful read would take as "specs cause problems" — is
+explained by task complexity: developers write specs for their hardest work, not their safest.
+One subgroup cuts the other way (no-detected-AI-use repos show less rework with specs, −3.3pp,
+p = 0.014) but is one of six subgroup tests and does not survive multiple-comparison correction.
+The paper's second finding matters as much as the first: **no repository in the sample commits
+actual SDD-tool output** — every "specification artifact" in the dataset is a tracking-issue or
+ticket reference, so SDD tool adoption itself remains untested even as the practice proxy is
+refuted. This is the direct, measured counterweight to the premise `8090-software-factory-sdlc.md`'s
+Requirements/Blueprints stages and `aws-ai-dlc.md`'s Inception phase both rest on (clearer
+requirements → fewer defects) and to the conceptual case Díaz et al. above argues for spec-as-
+governance-harness. Read against Tufano et al.'s narrow positive result above, the two bound the
+real shape of the claim: a semi-formal spec immediately consumed by the same test-generation step
+it grounds moves a measured 9.8 points on one sub-task, while a human-facing spec artifact sitting
+in a PR description moves nothing detectable on defects or rework at the scale of a whole
+development process. Read directly from the paper's own PDF (`pdftotext` against the Dagstuhl DOI
+page's PDF, since the raw `WebFetch` returned only the undecoded PDF byte stream, the same path the
+2026-10-21 pass used for its own arXiv source) — `drops.dagstuhl.de` was reachable this pass. A
+replication package is published (`zenodo.org/records/19415187`), so this is independently
+checkable rather than resting on the paper's own account.
 
 ### [A Study of the Reliability of Agentic AI-Generated Programs](https://arxiv.org/abs/2609.18298) — Ayesha Shafique, Barton P. Miller, Elisa R. Heymann (University of Wisconsin–Madison; arXiv, 2026-09-16, revised 2026-09-23)
 Counter-evidence cutting against this page's own accumulated pessimism rather than adding to it —
