@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1162 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1169 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -90,6 +90,7 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | discovery-log | REVIEW |
 | codebase-map | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | project-mentor | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| rederive | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-context | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | cocoindex-code | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sem | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -105,6 +106,7 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | human-in-the-loop | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | mergegate | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | Remarc | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| scrawl | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | big-arrow-on-the-screen | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | code-context-engine | MCP server | ✓ | ✓ | CONDITIONAL | REVIEW |
 | trace-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
@@ -135,6 +137,7 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | IvyClaw | framework | | ✓ | SKIP | SOURCE-ONLY |
 | opendot | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | filesnap | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| oops | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-orchestrator | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sigbound | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agmsg | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -488,6 +491,7 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | page-agent | tool | ✓ | ✓ | SKIP | REVIEW |
 | CloakBrowser | tool | | ✓ | SKIP | REVIEW |
 | chrome-devtools-mcp | MCP server | | ✓ | CONDITIONAL | MEASURED |
+| axuse | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
 | scenario | framework | ✓ | ✓ | discovery-log | REVIEW |
 | eval-genius | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | assay | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -585,6 +589,7 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | abide | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | zodchiy | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cyclomatic-complexity-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| lessloc | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pristine-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | HERO-Anti-OverDefense | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | stop-that-shit | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1055,7 +1060,9 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Attic | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | MemoryMint | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | friday | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| AgentMemory (hsuanshao) | tool | ✓ | ✓ | discovery-log | MEASURED |
 | winnow | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| TokenForge | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Recollect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jevmem | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ctx-handoff-mod | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -1246,16 +1253,16 @@ All 1162 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 110 | 39 | 6 | 35% |
-| Implement | 341 | 126 | 4 | 37% |
-| Verify | 57 | 23 | 2 | 40% |
-| Review | 138 | 33 | 3 | 24% |
+| Plan | 112 | 39 | 6 | 35% |
+| Implement | 342 | 126 | 4 | 37% |
+| Verify | 58 | 23 | 2 | 40% |
+| Review | 139 | 33 | 3 | 24% |
 | Ship | 7 | 1 | 1 | 14% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 104 | 22 | 2 | 21% |
 | Skills & Plugins | 141 | 47 | 4 | 33% |
-| Memory & Context | 98 | 31 | 2 | 32% |
+| Memory & Context | 100 | 31 | 2 | 31% |
 | MCP Servers | 67 | 18 | 2 | 27% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1162** | **371** | **34** | **32%** |
+| **Total** | **1169** | **371** | **34** | **32%** |
