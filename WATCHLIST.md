@@ -203,9 +203,9 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 _0 eval(s) carry no `**Last verified:**` date (field presence is gated separately by `backfill-lastverified.py`)._
 <!-- WATCHLIST:STALE:END -->
 
-## 4. Unverified claims & measurement backlog (18)
+## 4. Unverified claims & measurement backlog (19)
 
-**Unverified token-savings claims (16).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
+**Unverified token-savings claims (17).** CATALOG rows with a numeric token-savings headline whose eval is not run-backed (`MEASURED`/`RUN`). Run the token-savings protocol to verify, or add an in-row disclaimer.
 
 | Tool | Evidence | Disclaimer in row? |
 |------|----------|--------------------|
@@ -225,6 +225,7 @@ _0 eval(s) carry no `**Last verified:**` date (field presence is gated separatel
 | semble | REVIEW | no |
 | SocratiCode | REVIEW | no |
 | token-optimizer-mcp | REVIEW | no |
+| TokenForge | SOURCE-ONLY | yes |
 
 **ADOPT skills lacking measured backing (2).** ADOPT-verdict skill evals not yet graduated to a measured run (#38): agent-skills-addyosmani, cc-skills-golang.
 
