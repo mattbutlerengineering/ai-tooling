@@ -148,6 +148,19 @@ going through async review later. AWS positions this as the difference between a
 
 ## Where our open-tool stack diverges from AI-DLC
 
+- **The Inception premise itself now has a direct empirical test, and it fails — added 2026-10-23.**
+  Inception's whole justification is the causal chain "clearer requirements → less ambiguity →
+  fewer defects," the same premise `8090-software-factory-sdlc.md`'s Requirements/Blueprints
+  stages rest on. [Hill (ESEM 2026)](../LEARNING.md) tests that chain directly — 88,052 pull
+  requests, 119 repositories, SZZ-traced defects, within-developer comparison, twelve robustness
+  checks — and finds no effect: spec'd and unspec'd PRs are statistically indistinguishable in
+  defect introduction, and rework is not reduced (if anything the opposite, though not surviving
+  correction). This is not a refutation of Inception's governance value — the paper's own sample
+  contains no actual SDD-tool output, only tracking-issue references, so the ceremony AI-DLC
+  specifically prescribes (structured Mob Elaboration producing Units of Work) remains untested —
+  but it is a direct empirical complication of the premise, not merely an argued one, and it
+  belongs beside this file's other honest divergences rather than left for a reader to discover
+  on their own. See the full entry in `LEARNING.md`'s spec-driven-development section.
 - **Single-player, not Mob.** AI-DLC's core mechanism is synchronous multi-role validation —
   product, engineering, and QA reacting live to AI-generated questions in the same session. Our
   pipeline is one operator driving skills in sequence, coordinated through the issue tracker —
