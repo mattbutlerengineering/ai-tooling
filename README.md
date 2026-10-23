@@ -30,9 +30,9 @@ This gives you five skills:
 - [WORKFLOW.md](WORKFLOW.md) — the dev loop (inner + outer), tools per stage, quality signals, adoption guide
 - [CATALOG.md](CATALOG.md) — flat inventory of 1169 tools with definitions, problem statements, and overlap markers
 - [COMPARISON.md](COMPARISON.md) — all tools at a glance with evaluation status by dev loop stage
-- [STACK.md](STACK.md) — the 30 tools worth installing, distilled from 1198 evaluations
+- [STACK.md](STACK.md) — the 30 tools worth installing, distilled from 1199 evaluations
 - [LEARNING.md](LEARNING.md) — curated AI/AI-coding learning resources: YouTube channels, talks, and web references (passive learning, not catalogued tools)
-- [evaluations/](evaluations/) — 1198 evaluation files: 378 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 336 still at `discovery-log` — leads, not verdicts — and 484 stubs and comparison documents
+- [evaluations/](evaluations/) — 1199 evaluation files: 378 carrying a verdict (ADOPT/KEEP/CONDITIONAL/SKIP/DEFER), 337 still at `discovery-log` — leads, not verdicts — and 484 stubs and comparison documents
 
 ## Integrity
 
