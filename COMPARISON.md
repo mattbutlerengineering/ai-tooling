@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1180 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1183 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -132,6 +132,7 @@ All 1180 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agency-agents | harness | | ✓ | SKIP | REVIEW |
+| cindy | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | sol-skill | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | astra-flash-orchestrator | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | CoordClaw | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -575,6 +576,7 @@ All 1180 tools from CATALOG.md with dev loop stage, automation capability, prici
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
 | ghostsecurity/skills | skill | | ✓ | discovery-log | RUN |
 | claude-cybersecurity | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| Claude-Red (SnailSploit) | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | vuln-report-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | bug-bounty-triage | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | cdmx-in/security-review | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -677,6 +679,7 @@ All 1180 tools from CATALOG.md with dev loop stage, automation capability, prici
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | pullfrog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
+| sandbox-runtime | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | ctf-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | gitwarren-app | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | MergeProof | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1265,9 +1268,9 @@ All 1180 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 113 | 39 | 6 | 35% |
-| Implement | 344 | 126 | 4 | 37% |
+| Implement | 345 | 126 | 4 | 37% |
 | Verify | 58 | 23 | 2 | 40% |
-| Review | 142 | 33 | 3 | 23% |
+| Review | 144 | 33 | 3 | 23% |
 | Ship | 7 | 1 | 1 | 14% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 105 | 22 | 2 | 21% |
@@ -1276,4 +1279,4 @@ All 1180 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 68 | 18 | 2 | 26% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1180** | **371** | **34** | **31%** |
+| **Total** | **1183** | **371** | **34** | **31%** |
