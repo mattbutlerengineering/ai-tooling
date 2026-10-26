@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-23 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-21 (that pass's additions, likewise
+**Last verified:** 2026-10-26 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-23 (that pass's addition, likewise
+confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-19 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-16 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-14 (that pass's additions, likewise
@@ -764,6 +765,45 @@ does not clear this sweep's conservative bar; named here rather than silently dr
 of it turns up. The one addition this pass is the sharpest kind of find this sweep is scoped to
 look for: the first large-scale empirical test of spec-driven development's own central vendor
 claim, with a null result that complicates both methodology docs this page maps.
+The 2026-10-26 pass found both `pip install --user yt-dlp` and `uvx yt-dlp` working without the
+wrong-Python trap noted 2026-10-19, and ran real `ytsearch8` queries against all eleven of this
+sweep's scoped topics (software factories dark/lit, agentic SDLC, AWS AI-DLC, ADLC, AI developer
+workflows, agentic engineering, spec-driven development, context engineering, harness engineering,
+verification bandwidth/back pressure/comprehension debt, levels of autonomy) and returned real,
+dated results; per-video metadata/subtitle fetches hit the same YouTube bot-detection wall noted on
+every pass since 2026-10-07 ("Sign in to confirm you're not a bot" after an HTTP 429) on every id
+tried, so no transcript was read. `WebFetch` of `arxiv.org` succeeded for both an abstract page and
+a paper's own PDF (read via `pdftotext` against the downloaded binary, the same path used
+2026-10-21/10-23), so the one entry added below was read directly from the paper's own text rather
+than cross-checked from search summaries. `github.com`'s HTTPS git endpoint was reachable too (same
+as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning
+`main` read-only: HEAD moved to `4808155` (2026-10-26, same-day, a settings-recording fix), the
+version badge is still `v2.11.1` (noted 2026-10-21) with only preview tags past it
+(`v2.11.2-preview.20261026.1`), and `docs/guide/04-phases-and-stages.md` still opens with the
+identical sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC
+lifecycle is organized into 5 phases containing 33 stages,"* so nothing was added to that file this
+pass. The eleven YouTube searches returned mostly channels and talks this page already covers (IBM
+Technology, AWS Events, Cursor, Google Cloud Tech, AI Engineer) or vendor/course content with no
+primary claim beyond what this page already covers (Greg Isenberg's and Warp's "software factory"
+course/walkthrough videos, both already declined in substance on 2026-10-21/10-05; a Sonar Summit
+2026 talk and an Overcut "From SDLC to ADLC" webinar restating the agentic-SDLC/ADLC framing already
+covered, the latter already checked and declined 2026-10-23; an "AI LABS" ADLC video already
+declined 2026-10-23; and Arthur's, Salesforce's, and IBM's "Agent Development Lifecycle" posts, the
+same AI-agent-ops-product category already excluded 2026-10-23 and by `CLAUDE.md`'s own
+P0-scope-mismatch reasoning). Two web near-misses were checked and declined for want of a
+confirmable primary source rather than for weak evidence: a "Dark Software Factory is a Non-Solution
+to a Non-Problem" talk surfaced by a YouTube search under a Ray Myers attribution, which no web
+search could independently confirm exists under that title or by that author, so nothing was added
+rather than risk citing a talk that may not be real; and a secondary aggregator's claim of a
+"Catalini/Hui/Wu" economics paper on verification cost (surfaced only inside a blog's summary of
+someone else's summary) could not be traced to a real, citable primary source distinct from the Qwen
+Verification Horizon paper already cited above — the same search-conflation risk this page declined
+on 2026-09-30 for a misattributed "DORA 2026" figure set. No new named methodology cleared the bar
+8090's Software Factory and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy
+tool for the discovery lane. The one addition this pass, read directly from the paper's own PDF
+text, is the first *practitioner*-population empirical grounding this page's Comprehension Debt
+cluster has had — distinct from both the originating essay and the existing student-cohort study,
+see below.
 
 ---
 
@@ -1484,6 +1524,30 @@ Confirmed via multiple independently-worded search summaries (the arXiv abstract
 literature-review summary, a practitioner write-up) agreeing on the same diary/student/pattern
 counts — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, consistent with every
 prior pass since 2026-08-10), so the paper itself was not directly read.
+
+### [How Do Practitioners Build SE Agents? Insights from a Mixed-Methods Study](https://arxiv.org/abs/2607.10856) — Yunbo Lyu, David Williams, Jieke Shi, Zhensu Sun, Chao Peng, Zhou Yang, Federica Sarro, David Lo (Singapore Management University, UCL, Tencent, University of Alberta; arXiv, 2026-07-12, rev. 2026-07-25)
+A third source on this page's Comprehension Debt cluster, and the most industrially-grounded one —
+not a blog essay (Osmani, above) and not a student cohort (Ahmad's EASE 2026 diary study, above),
+but semi-structured interviews with 20 practitioners from 12 organizations (startups through large
+tech companies) who build SE agents themselves, corroborated by an online survey of a further 80
+practitioners. Comprehension debt is one of six challenges the paper identifies in how teams build
+SE agents (alongside unreliable evaluation signals, provider-side model-update instability,
+safety-vs-performance trade-offs, inaccessible tacit project knowledge, and productivity metrics
+that break down under agent-generated volume), and its own definition is sharper than the label:
+*"we characterize this knowingly deferred understanding as comprehension debt: code is accepted
+before developers can explain, modify, and maintain it safely. Unlike an unnoticed knowledge gap,
+teams recognized the future liability but carried it forward while the code continued to work."*
+Survey respondents rated comprehension debt the most-agreed-real of the six challenges (82% agree,
+4% disagree, mean 4.09/5) — but agreement on the paper's own proposed mitigations for it was the
+*weakest* of the six, which the authors read as evidence the problem "remains unresolved." Two
+findings sharpen the mechanism beyond what Osmani's essay or Ahmad's diary study name: review
+backlog shifts downstream rather than disappearing (*"Previously, a week's commits might contain a
+few hundred lines. Now... it is 10K or 20K lines. There is really no way to read it."* — P15), and a
+proposed alternative the authors call *regenerative software* — preserving the specs, tests, and
+infrastructure needed to reconstruct an artifact rather than the artifact itself — as an emerging
+response to a debt teams can't repay by reading faster. Read directly from the paper's own PDF text
+(`pdftotext` against a direct arXiv download, `arxiv.org` was reachable this pass); a preprint
+(cs.SE/cs.AI/cs.HC), not confirmed accepted at a venue.
 
 ### [Skill Issue: Lessons from Optimizing Repository SKILLs for Coding Agents](https://arxiv.org/abs/2609.12742) (arXiv, 2026-09-11)
 Direct counter-evidence to a specific self-reported claim this repo's own catalog already flagged
