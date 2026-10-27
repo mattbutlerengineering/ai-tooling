@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1183 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1185 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -379,6 +379,7 @@ All 1183 tools from CATALOG.md with dev loop stage, automation capability, prici
 | software-factory-harness | harness | | ✓ | SKIP | SOURCE-ONLY |
 | command-code | harness | | ✓ | SKIP | SOURCE-ONLY |
 | Baize | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| codeAgent | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | phi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | pi | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | FrontierAgent | harness | | ✓ | discovery-log | SOURCE-ONLY |
@@ -874,6 +875,7 @@ All 1183 tools from CATALOG.md with dev loop stage, automation capability, prici
 | gemini-skills | skill | | ✓ | discovery-log | REVIEW |
 | google/skills | skill | | ✓ | discovery-log | REVIEW |
 | terraform-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| BeautifulRust | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | googleworkspace/cli | tool | | ✓ | SKIP | REVIEW |
 | guizang-ppt-skill | skill | | ✓ | SKIP | REVIEW |
 | html-anything | tool | | ✓ | SKIP | REVIEW |
@@ -1268,15 +1270,15 @@ All 1183 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 113 | 39 | 6 | 35% |
-| Implement | 345 | 126 | 4 | 37% |
+| Implement | 346 | 126 | 4 | 36% |
 | Verify | 58 | 23 | 2 | 40% |
 | Review | 144 | 33 | 3 | 23% |
 | Ship | 7 | 1 | 1 | 14% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 105 | 22 | 2 | 21% |
-| Skills & Plugins | 142 | 47 | 4 | 33% |
+| Skills & Plugins | 143 | 47 | 4 | 33% |
 | Memory & Context | 102 | 31 | 2 | 30% |
 | MCP Servers | 68 | 18 | 2 | 26% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 64 | 18 | 4 | 28% |
-| **Total** | **1183** | **371** | **34** | **31%** |
+| **Total** | **1185** | **371** | **34** | **31%** |
