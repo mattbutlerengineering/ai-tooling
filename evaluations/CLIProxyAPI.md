@@ -3,7 +3,7 @@
 **Repo:** [router-for-me/CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI)
 **Stars:** 46,193 | **Last updated:** 2026-08-04 (pushed) | **License:** MIT | ⚠️ provider-ToS gray-area
 **Last verified:** 2026-09-14
-**Last triaged:** 2026-10-03  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-28  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 

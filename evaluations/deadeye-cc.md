@@ -3,7 +3,7 @@
 **Repo:** [deepaksinghcs14/deadeye-cc](https://github.com/deepaksinghcs14/deadeye-cc)
 **Stars:** 3 | **License:** MIT
 **Last verified:** 2026-08-05
-**Last triaged:** 2026-10-01  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-28  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling (plugin/hooks)
 
