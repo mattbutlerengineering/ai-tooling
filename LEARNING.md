@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-26 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-23 (that pass's addition, likewise
+**Last verified:** 2026-10-28 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-26 (that pass's addition, likewise
+confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-19 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-16 (that pass's addition, likewise
@@ -804,6 +805,37 @@ tool for the discovery lane. The one addition this pass, read directly from the 
 text, is the first *practitioner*-population empirical grounding this page's Comprehension Debt
 cluster has had — distinct from both the originating essay and the existing student-cohort study,
 see below.
+The 2026-10-28 pass found both `pip install --user yt-dlp` and a fresh `ytsearch6`/`ytsearch10` run
+working without a proxy 403 across all eleven of this sweep's scoped topics (software factories
+dark/lit, agentic SDLC, AWS AI-DLC, ADLC, AI developer workflows, agentic engineering, spec-driven
+development, context engineering, harness engineering, verification bandwidth/back pressure/
+comprehension debt, levels of autonomy) and returned real, dated results, though a bare
+`verification bandwidth AI agents` query returned only off-topic telecom-industry hits on the word
+"bandwidth," the same term-overlap risk already named for the "Agentic Pressure" false lead declined
+2026-09-28. Per-video metadata/subtitle fetches hit the same YouTube bot-detection wall noted on every
+pass since 2026-10-07, so no transcript was read; neither YouTube search surfaced a candidate
+substantive enough to chase through it anyway, mostly channels this page already covers (IBM
+Technology, AI Engineer, Google Cloud Tech, IndyDevDan, Zen van Riel) or small comprehension-debt
+explainer uploads with no new primary claim. `WebFetch` of `arxiv.org` and of `anthropic.com` both
+succeeded, so both entries added below were read directly from their own pages rather than
+cross-checked from search summaries. `github.com`'s HTTPS git endpoint was reachable too (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `ce988e9` (2026-10-28), the newest tags are still preview builds past
+`v2.11.1` (`v2.11.2-preview.20261027.2`), and `docs/guide/04-phases-and-stages.md` still opens with
+the identical sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC
+lifecycle is organized into 5 phases containing 33 stages,"* so nothing was added to that file this
+pass. This pass also checked the ADLC and software-factory web searches and found only re-treatments
+or vendor/trademark announcements below this page's bar for a new `methodologies/` doc — a "SIGNAL
+Method" post-agile framework launch and a "Quantum Agile" trademark filing, both single-vendor
+announcements with no documented pipeline of their own, the same call already made against the SDAD
+and Chen & Cheng proposals on 2026-09-30/10-12 — and no new lead for the discovery lane. Two genuine
+finds earned a place instead, both read directly from source rather than cross-checked. The first is
+Anthropic's own internal workforce study, read directly from `anthropic.com`, giving this page's
+autonomy-measurement cluster its first org-level (rather than session- or tool-call-level) data point,
+with a labor-composition finding sharper than anything this page's autonomy entries have so far only
+theorized about. The second isolates a coding agent's verification *toolset* as a single controlled
+variable for the first time in this page's harness-engineering cluster, read directly from the arXiv
+abstract page.
 
 ---
 
@@ -1487,6 +1519,24 @@ Confirmed via multiple independent write-ups (TIGZIG, digitalapplied.com, techja
 Weekly) converging on the same session/user counts and percentages — same `anthropic.com` egress
 block as the entry above, so the post itself was not directly read.
 
+### [How employment is changing at Anthropic](https://www.anthropic.com/research/employment-at-anthropic) — Nathan Wilmers, Regina Catipon, Maxim Massenkoff, Peter McCrory (The Anthropic Institute, 2026-10-16)
+A third entry in this cluster, this one aimed past the tool-call/session telemetry of the two entries
+above at the org chart itself: an internal study of Anthropic's own workforce drawing on employment,
+usage, output, survey, and hiring records plus 17 employee interviews, explicitly presented as an
+early indicator for the wider economy. The headline autonomy figure sharpens "Measuring AI agent
+autonomy in practice"'s turn-duration finding into a crossover: company-wide agent work hours first
+exceeded human work hours in March 2026, and by August, agents an employee personally directs were
+logging roughly six times that employee's own hours. The hiring data is the sharper, less comfortable
+finding, and the first labor-composition number this cluster has had rather than a theorized one:
+junior technical hires fell from 27% to 9% of hires (postings dropped sharply after December 2025),
+junior share of technical headcount fell 21% to 14%, and technical departments' overall headcount
+share fell 61% to 56%. The coding-specific data is more equivocal, and the report says so itself:
+commits per engineer rose roughly 5x over six months (the fastest-growing function measured), but a
+192-vs-74 adopter comparison explicitly flags that adopters were already trending up before adopting
+— not a controlled result — and a same-person agent-vs-human revert-rate comparison found no quality
+difference, a narrow but genuine data point cutting against this page's own Comprehension Debt
+framing rather than for it. Read directly from the report's own page.
+
 ### [Spec-Driven Development for Agentic Software Engineering: Harnessing Human-Agent Teamwork](https://arxiv.org/abs/2609.00252) — Jessica Díaz, Joaquín Gayoso, Andrea Cimminio, Jorge Pérez (Universidad Politécnica de Madrid; arXiv, 2026-08-31)
 Names the same productivity paradox this page already documents piecemeal (Faros AI, the Microsoft
 rollout study, CodeRabbit, "Debt Behind the AI Boom", Farrag's PRP synthesis above) from the
@@ -2151,6 +2201,23 @@ that today's harnesses can't produce an audit trail (several of this cluster's o
 exactly that capability), it's that none of the architectures that have converged on everything else
 have converged on making that trail checkable by someone who doesn't already trust the harness
 producing it. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
+
+### [The reach of a verification tool decides its value: A controlled study of verification surface, artifact quality, and cost in AI coding agents](https://arxiv.org/abs/2608.28795) — Achint Mehta (arXiv, 2026-08-28, rev. 2026-09-29)
+A different axis than the rest of this cluster, and the first entry here to isolate a coding agent's
+verification *toolset* as the sole controlled variable. A minimal custom agent built 1,116 web
+applications across six models and eight tool configurations (none, a boot probe, a full shell, a
+screenshot tool, and combinations), graded blind against a frozen rubric by a human rater plus
+automated, API-observable probes. With no tools at all, roughly one build in seven fails to even
+launch; a single boot probe — a cheap liveness check, not a general-purpose shell — removes nearly
+all of that failure class at roughly 35% of a full shell's token cost, while giving the agent a full
+shell multiplies cost 2.35x for a mostly redundant gain on top of the probe. Screenshots help on
+failures a human would catch by looking (misplaced elements, broken interactions) but add nothing on
+failures that have to be measured rather than seen (e.g. scroll performance on a 100k-row list), and
+their edge over a shell alone doesn't survive correction for multiple comparisons. The paper's own
+framing is the sharpest counter to "more tools, better agent" as a harness-design default: a
+verification tool earns its cost only where its reach covers the way the application actually fails
+— matching tool to failure mode, not maximizing tool count. Data and code released on Zenodo.
+Confirmed via direct fetch of the arXiv abstract page.
 
 ---
 
