@@ -14,6 +14,40 @@
 A hosted MCP server providing free web search and page fetching for agents, with no API key
 required.
 
+## Try it in Claude Code
+
+With [Claude Code](https://code.claude.com/docs/en/mcp) installed, run this from the
+project where you want to research current API documentation:
+
+```bash
+claude mcp add --transport http --scope local Parallel-Search-MCP https://search.parallel.ai/mcp
+```
+
+Local scope keeps this opt-in configuration private to you and limited to the current
+project. It does not add a shared `.mcp.json` or replace your existing MCP servers.
+Start Claude Code in that project and run `/mcp` to confirm the server is connected.
+
+For example, ask:
+
+> Use Parallel-Search-MCP to find the current official documentation for Python's
+> `asyncio.TaskGroup`. Fetch the relevant page and explain how task cancellation works,
+> citing the source URLs. Distinguish documented behavior from your own inference.
+
+The server exposes `web_search` and `web_fetch`; search uses Fast mode on the anonymous
+endpoint. No Parallel account or API key is needed for light use. The free endpoint has
+lower rate limits; see the [setup and authentication guide](https://docs.parallel.ai/integrations/mcp/search-mcp)
+for higher-limit options. Only send queries and URLs that you can share with a hosted
+service, and check the cited documentation before applying an answer to code.
+
+To remove this local configuration:
+
+```bash
+claude mcp remove --scope local Parallel-Search-MCP
+```
+
+These are setup instructions, not a hands-on search-quality evaluation. The historical
+evaluation and triage status below are unchanged.
+
 ## How we tested it
 
 **Evidence:** SOURCE-ONLY
