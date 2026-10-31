@@ -3,7 +3,7 @@
 **Repo:** [CoderLuii/HolyClaude](https://github.com/CoderLuii/HolyClaude)
 **Stars:** 2,352 | **Last updated:** 2026-06-19 (pushed; created 2026-03-22) | **License:** MIT | **Run:** `docker compose up`
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-31  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Orchestration (a containerized coding workstation)
 **Layer:** Platform (Docker stack bundling agent + web UI + tools)
 
@@ -72,7 +72,11 @@ is a standing patch obligation, and this catalog's frame rewards capability.
 Left rather than disposed because "not a new capability" is a judgement about its merits, and this
 lane's authority runs to redundancy with an incumbent, which is not what is happening here.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+Re-examined 2026-10-31 (5-oldest-untriaged pass): reasoning still holds — `claude-squad` is
+still the STACK incumbent this band challenges against, and the job mismatch (environment
+bootstrap vs. session manager) hasn't changed; not archived.
+
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262)); re-stamped 2026-10-31._
 
 ## Catalog entry
 

@@ -3,7 +3,7 @@
 **Repo:** [exa-labs/exa-mcp-server](https://github.com/exa-labs/exa-mcp-server)
 **Stars:** 4,593 | **Last updated:** 2026-06-08 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-31  <!-- triaged: bulk -->
 **Dev loop stage:** Research / Plan (live web grounding) — touches Implement when used as a code-search source
 **Layer:** Tooling (retrieval layer; the default hosted endpoint is Infrastructure-adjacent — a remote, paid service)
 
@@ -87,7 +87,10 @@ research. That is a cluster decision, and it is why nothing in this neighbourhoo
 The concrete promotion path the eval already names: pin to `webSearch`/`webFetch`/`exaCode` and drop
 the people/company tools, then measure whether open-web search answers questions `context7` cannot.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-31 (5-oldest-untriaged pass): reasoning still holds — overlaps
+`firecrawl-mcp`/`Agent-Reach`, neither a STACK incumbent; not archived, license unchanged (MIT).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-31._
 
 ## Catalog entry
 
