@@ -3,7 +3,7 @@
 **Repo:** [firecrawl/firecrawl-mcp-server](https://github.com/firecrawl/firecrawl-mcp-server)
 **Stars:** 6,629 | **Last updated:** 2026-06-19 (pushed) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-31  <!-- triaged: bulk -->
 **Dev loop stage:** Research/Discovery (gathering web content) — touches Plan when scraping docs/data to ground a task
 **Layer:** Tooling (retrieval layer; the default cloud path is Infrastructure-adjacent — a remote paid API)
 
@@ -86,7 +86,10 @@ metered cloud API, and `FIRECRAWL_API_URL` self-hosting removes both the per-cre
 third-party data path. Whether the self-hosted route is as good is the measurable question a
 promotion would answer.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-31 (5-oldest-untriaged pass): reasoning still holds — overlaps only
+`exa-mcp-server`, not a STACK incumbent; not archived, license unchanged (MIT).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-31._
 
 ## Catalog entry
 

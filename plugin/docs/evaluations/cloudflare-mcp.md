@@ -3,7 +3,7 @@
 **Repo:** [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
 **Stars:** 3,878 | **Last updated:** pushed 2026-06-08 (created 2024-11-27) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-31  <!-- triaged: bulk -->
 **Dev loop stage:** Ship (deploy/operate Cloudflare infra from agent sessions) — with Verify/Reflect use (observability, logs, analytics)
 **Layer:** Infrastructure (managed remote MCP servers fronting Cloudflare's account APIs)
 
@@ -85,7 +85,10 @@ run on Cloudflare.
 Standing safety note from the eval, not this pass: scope tokens to least privilege and prefer
 read-only unless the agent genuinely needs to mutate infrastructure.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-31 (5-oldest-untriaged pass): reasoning still holds — overlaps only
+`awslabs/mcp`, not a STACK incumbent; not archived, license unchanged (Apache-2.0).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-31._
 
 ## Catalog entry
 

@@ -3,7 +3,7 @@
 **Repo:** [idosal/git-mcp](https://github.com/idosal/git-mcp)
 **Stars:** 8,183 | **Last updated:** 2026-05-08 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-10-31  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (grounding code generation in real APIs) — touches Plan when researching an unfamiliar library
 **Layer:** Tooling (knowledge/retrieval layer; the hosted variant is Infrastructure-adjacent — it's a remote service)
 
@@ -96,7 +96,11 @@ be better than what it reads.
 
 Apache-2.0, ★8.2K, pushed 2026-05-08.
 
-_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+Re-examined 2026-10-31 (5-oldest-untriaged pass): reasoning still holds — overlaps only
+`context7` (complementary, not competing), not a STACK incumbent; not archived, license
+unchanged (Apache-2.0).
+
+_Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268)); re-stamped 2026-10-31._
 
 ## Catalog entry
 
