@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1203 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1213 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -91,6 +91,9 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 | PocketFlow-Tutorial-Codebase-Knowledge | tool | ✓ | ✓ | discovery-log | REVIEW |
 | Vesalius | tool | ✓ | | SKIP | SOURCE-ONLY |
 | floorplan | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| stack-diagram | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| mycel | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| fpga-project-analyzer | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-map | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | project-mentor | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | rederive | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -188,6 +191,9 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agentbox | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex-mobile-bridge | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CodeRail | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| paddock | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cheap-ag | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| frugent | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | groundcrew | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrig | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-dispatcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -252,6 +258,7 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 | onyx | platform | | ✓ | SKIP | SOURCE-ONLY |
 | dmux | tool | | ✓ | SKIP | REVIEW |
 | ECC | harness | | ✓ | CONDITIONAL | RUN |
+| helixharness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | fast-agent | framework | | ✓ | discovery-log | REVIEW |
 | Flowise | platform | | ✓ | SKIP | REVIEW |
 | langflow | platform | | ✓ | SKIP | SOURCE-ONLY |
@@ -1010,6 +1017,8 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 | obsidian-second-brain | skill | ✓ | ✓ | discovery-log | REVIEW |
 | hoist-the-elephant | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-mem | plugin | ✓ | ✓ | ADOPT | MEASURED |
+| thenwise | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| mem-forge | MCP server | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | memora | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | jarvis-os | tool | | ✓ | SKIP | SOURCE-ONLY |
 | ownmem | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1135,6 +1144,7 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 | jira | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | mcp-toolbox | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | prisma | MCP server | ✓ | ✓ | discovery-log | REVIEW |
+| halfnine | tool | | ✓ | SKIP | SOURCE-ONLY |
 | llm-safe-sql | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Stepgate | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | modelcontextprotocol/servers | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1287,16 +1297,16 @@ All 1203 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 116 | 41 | 6 | 35% |
-| Implement | 351 | 126 | 4 | 36% |
+| Plan | 119 | 41 | 6 | 34% |
+| Implement | 355 | 126 | 4 | 35% |
 | Verify | 59 | 23 | 2 | 39% |
 | Review | 149 | 33 | 3 | 22% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 106 | 22 | 2 | 21% |
 | Skills & Plugins | 144 | 47 | 4 | 33% |
-| Memory & Context | 102 | 31 | 2 | 30% |
-| MCP Servers | 68 | 18 | 2 | 26% |
+| Memory & Context | 104 | 33 | 2 | 32% |
+| MCP Servers | 69 | 19 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1203** | **373** | **34** | **31%** |
+| **Total** | **1213** | **376** | **34** | **31%** |
