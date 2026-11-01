@@ -3,7 +3,7 @@
 **Repo:** [AMAP-ML/LongHorizon-Harness](https://github.com/AMAP-ML/LongHorizon-Harness)
 **Stars:** 121 | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-01  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Harness
 
