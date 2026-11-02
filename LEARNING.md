@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-10-28 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-26 (that pass's addition, likewise
+**Last verified:** 2026-11-02 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-10-28 (that pass's additions, likewise
+confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-19 (that pass's additions, likewise
@@ -836,6 +837,48 @@ with a labor-composition finding sharper than anything this page's autonomy entr
 theorized about. The second isolates a coding agent's verification *toolset* as a single controlled
 variable for the first time in this page's harness-engineering cluster, read directly from the arXiv
 abstract page.
+The 2026-11-02 pass found `pip install --user yt-dlp` working without the wrong-Python trap noted
+2026-10-19, and ran real `ytsearch6` queries against all ten of this sweep's scoped topics (software
+factories dark/lit, agentic SDLC, AWS AI-DLC, ADW, agentic engineering, spec-driven development,
+context engineering, harness engineering, verification bandwidth/back pressure/comprehension debt,
+levels of autonomy) and returned real, dated results; per-video metadata fetches hit the same
+YouTube bot-detection wall noted on every pass since 2026-10-07 ("Sign in to confirm you're not a
+bot" after an HTTP 429), so no transcript was read. `WebFetch` of `arxiv.org` succeeded for both an
+abstract page and a paper's own PDF (read via `pdftotext` against the downloaded binary, the same
+path used since 2026-10-21), so the one entry added below was read directly from the paper's own
+text rather than cross-checked from search summaries. `github.com`'s HTTPS git endpoint was
+reachable too (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked
+directly by cloning `main` read-only: HEAD moved to `cc22ef5` (2026-11-02, same-day), the newest
+stable release is still `v2.11.2` with only preview tags past it (`v2.11.3-preview.20261030.1`), and
+`docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is organized
+into 5 phases containing 33 stages,"* so nothing was added to that file this pass. The ten YouTube
+searches returned mostly channels and talks this page already covers (IBM Technology, AWS Events,
+Cursor, Google Cloud Tech, AI Engineer, IndyDevDan, Zen van Riel) or vendor/course content with no
+primary claim beyond what this page already covers (Greg Isenberg's "Software Factory" course,
+already declined in substance 2026-10-21; AI LABS' Factory-AI-droid walkthroughs; a Sonar Summit
+2026 "Agentic SDLC" talk restating the framing already covered; a cluster of IBM Technology/Google
+Cloud Tech explainer videos on context engineering, spec-driven development, and harness engineering
+re-treating material this page cites elsewhere). This pass also checked several web near-misses and
+declined all of them: Addy Osmani's "The Orchestration Tax is You" (read directly) names review
+capacity as a serial bottleneck on agent throughput — a fresh framing of an idea, but by the
+author's own account it is an argued essay drawing on a conference-panel anecdote, the GIL and
+Amdahl's Law as analogies, and the author's personal work habits, with no new measurement of its
+own, the same re-treatment call already made against his "80% Problem in Agentic Coding" essay
+2026-10-23; a Dev Interrupted podcast episode built around the same "orchestrator's tax" framing
+(dated 2026-07-31, four months old) was checked and declined for the same reason, plus being a
+secondary podcast account rather than a primary source; Berkeley RDI's SAE-inspired three-tier
+autonomy framing and a Cloud Security Alliance autonomy-levels taxonomy both resurfaced on this
+pass's searches and were both already declined 2026-10-14/2026-09-23 for the same reasons (no new
+primary measurement; an AI-governance taxonomy rather than a coding-delivery ladder); and a Uvik
+Software vendor benchmark (dated 2026-10-15, found via search) reporting a positive spec-driven-
+development result on some ticket types was checked and declined on the same self-reported-vendor-
+benchmark grounds already applied to Mastra's Factory Beta and Spotify's Honk numbers, rather than
+added as a counterweight to Hill's null result above. No new named methodology cleared the bar
+8090's Software Factory and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy
+tool for the discovery lane. The one addition this pass, read directly from the paper's own PDF
+text, narrows this page's spec-driven-development question from "does a spec artifact help" (Hill's
+null result, above) to "does the upstream construction of the requirement help" — see below.
 
 ---
 
@@ -1857,6 +1900,38 @@ page's PDF, since the raw `WebFetch` returned only the undecoded PDF byte stream
 2026-10-21 pass used for its own arXiv source) — `drops.dagstuhl.de` was reachable this pass. A
 replication package is published (`zenodo.org/records/19415187`), so this is independently
 checkable rather than resting on the paper's own account.
+
+### [WiseSpec: Requirements-Driven Agents for Code Generation](https://arxiv.org/abs/2609.00568) — Zhao Tian (ASE 2026, Student Research Competition track; arXiv, 2026-09-01)
+
+Reads against Hill's null result immediately above, this paper narrows *which* half of
+"spec-driven development" the claim should be about. Hill tests whether a spec artifact
+sitting in a PR description reduces defects in real-world development and finds nothing;
+WiseSpec tests whether the *upstream construction* of the requirement itself — not its mere
+presence — improves an agent's resolution rate, under a controlled benchmark rather than a
+PR-mining study. WiseSpec is a requirements-driven agent that builds a structured requirement
+from a task description, scores it by execution-based evaluation (does code written to it pass
+gold tests), and iteratively refines it before any code generation starts — i.e. it treats
+"write a good spec" as a loop with its own quality oracle, not a one-shot artifact. Evaluated
+against three coding agents (Agentless, Trae-agent, Claude Code) across three SWE-bench variants
+(Lite, Verified, Pro; 100 sampled instances each) and two underlying LLMs (DeepSeek-V3.2,
+Qwen-Plus-2025-12-01) — six settings in all — WiseSpec's own requirements loop improves
+%Resolved (passes all gold tests) by 2–29 percentage points and %Applied (patch applies cleanly)
+by 11–63pp over every baseline in every setting; on SWE-bench-Pro with DeepSeek-V3.2 specifically,
+Claude Code resolves 24% against WiseSpec's 35%. A Wilcoxon signed-rank test (α = 0.05, p <
+2.5×10⁻⁴) backs the improvement as statistically significant for both metrics. A follow-up run
+checks generalization to a stronger model: on SWE-bench-Pro, Claude-Opus-4.8 resolves 53% without
+WiseSpec and 56% with it — a far smaller gain than the weaker-model settings, which the paper
+doesn't explain and which matters more as frontier models close the gap WiseSpec's loop is filling.
+Read against Hill: the two results are not in tension so much as about different things — a spec
+artifact a human writes once and an agent may or may not consult is not the same claim as an
+agent-internal loop that drafts, scores, and repeatedly rewrites its own requirement before
+generating code, and only the second shows a measured gain here. Disclosed honestly rather than
+inflated: this is a single-author Student Research Competition paper (a short/poster track, not
+ASE's main research track), so the result is a real controlled benchmark finding rather than a
+vendor claim, but a thinner evidentiary base than the CMU/ETH/Berkeley entries elsewhere on this
+page — worth a line, not yet worth treating as settled. Read directly from the paper's own PDF
+(`pdftotext` against a local download, the same path used since 2026-10-21, since the raw
+`WebFetch` returned only the undecoded PDF byte stream).
 
 ### [A Study of the Reliability of Agentic AI-Generated Programs](https://arxiv.org/abs/2609.18298) — Ayesha Shafique, Barton P. Miller, Elisa R. Heymann (University of Wisconsin–Madison; arXiv, 2026-09-16, revised 2026-09-23)
 Counter-evidence cutting against this page's own accumulated pessimism rather than adding to it —
