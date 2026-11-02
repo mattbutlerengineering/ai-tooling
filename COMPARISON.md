@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1213 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1223 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -159,6 +159,8 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | reason-network | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CallBoard | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | imbo | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| flopwire | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| omux | tool | | ✓ | SKIP | SOURCE-ONLY |
 | aster | harness | | ✓ | SKIP | SOURCE-ONLY |
 | agent-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
@@ -196,6 +198,7 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | frugent | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | groundcrew | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openrig | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| tucano | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-dispatcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | cedr | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -412,6 +415,8 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | void | harness | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | GenericAgent | harness | ✓ | ✓ | discovery-log | REVIEW |
 | gptme | harness | ✓ | ✓ | discovery-log | REVIEW |
+| uncut | harness | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-purge | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | mini-harness | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | zeroshot | harness | ✓ | ✓ | discovery-log | REVIEW |
 | ccs | tool | ✓ | ✓ | discovery-log | REVIEW |
@@ -700,6 +705,8 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | phyll | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | pullfrog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| farol | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| rexmod | tool | | ✓ | SKIP | SOURCE-ONLY |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sandbox-runtime | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | ctf-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
@@ -777,6 +784,9 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | opencode-cache-stats | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| shoulder | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| agent-tracedown | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| spoor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | tracecrate | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-orchestration-standard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-super-sidebar | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1298,15 +1308,15 @@ All 1213 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 119 | 41 | 6 | 34% |
-| Implement | 355 | 126 | 4 | 35% |
+| Implement | 360 | 127 | 4 | 35% |
 | Verify | 59 | 23 | 2 | 39% |
-| Review | 149 | 33 | 3 | 22% |
+| Review | 151 | 34 | 3 | 23% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 106 | 22 | 2 | 21% |
+| Outer Loop | 109 | 22 | 2 | 20% |
 | Skills & Plugins | 144 | 47 | 4 | 33% |
 | Memory & Context | 104 | 33 | 2 | 32% |
 | MCP Servers | 69 | 19 | 2 | 28% |
 | Research & Discovery | 24 | 8 | 1 | 33% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1213** | **376** | **34** | **31%** |
+| **Total** | **1223** | **378** | **34** | **31%** |

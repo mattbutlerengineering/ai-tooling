@@ -3,7 +3,7 @@
 **Repo:** [TanStack/cli](https://github.com/TanStack/cli)
 **Stars:** ~1,300 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-02  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (scaffolding + agent integration)
 **Layer:** Tooling
 
