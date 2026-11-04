@@ -5,7 +5,7 @@
 **Dev loop stage:** Reference
 **Layer:** Process
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-04  <!-- triaged: bulk -->
 
 ---
 
@@ -38,6 +38,12 @@ It is agent *building* rather than agent-assisted coding, the standing adjacency
 teaching cluster. Licence resolves to `NOASSERTION` (unparsed, not absent).
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-04 (oldest-untriaged sweep): still the production-hardening half of its
+pair with `genai-agents`, still agent-*building* rather than agent-assisted coding; no
+STACK-pick overlap. Left as-is.
+
+_Re-triaged 2026-11-04 by the P3 backlog band._
 
 ## Catalog entry
 
