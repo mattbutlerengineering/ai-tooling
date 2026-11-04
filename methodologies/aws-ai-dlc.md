@@ -75,6 +75,22 @@ piecemeal. Sources: [`main` README](https://github.com/awslabs/aidlc-workflows/b
 [`main`'s phases-and-stages guide](https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/04-phases-and-stages.md),
 [`main`'s glossary](https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/glossary.md).
 
+**Update (2026-11-04):** `awslabs/aidlc-workflows` tagged **v2.11.3** today (confirmed by cloning
+`main` read-only and diffing `v2.11.2`→`v2.11.3`, not from search summaries), and it corrects a
+claim the 2026-09-02 update above made in good faith. That update described Stage 4.7 as "a
+terminal Feedback & Optimization stage that either closes the workflow or loops back to Ideation
+1.1." The `v2.11.3` `CHANGELOG.md` discloses that the loop-back was never a real mechanism: *"the
+Approval & Handoff and Feedback & Optimization gates no longer offer 'Reject Initiative (end
+workflow)' or 'Start New Ideation Cycle', which nothing carried out (say in your own words to end
+the work or start new work)."* The option existed in the gate's prompt and did nothing when picked;
+`v2.11.3` removes it rather than wiring it up. `docs/guide/04-phases-and-stages.md` changed to
+match — the Stage 4.7 flowchart dropped the `Start New Cycle → Return to Ideation 1.1` edge and the
+"the feedback loop from 4.7 back to 1.1 enables iterative development cycles" bullet, and its text
+fallback now reads "On approval of Stage 4.7 the workflow is complete." Stage 4.7 is purely terminal
+now, in the docs and in the gate's actual choices alike; the 5-phase/33-stage structure itself is
+unchanged. Sources: [`v2.11.3` CHANGELOG entry](https://github.com/awslabs/aidlc-workflows/blob/v2.11.3/CHANGELOG.md),
+[`v2.11.3`'s phases-and-stages guide](https://github.com/awslabs/aidlc-workflows/blob/v2.11.3/docs/guide/04-phases-and-stages.md).
+
 Unlike 8090's Software Factory, AI-DLC is not a paid product:
 AWS ships it as methodology plus an open rule-file reference implementation,
 [`awslabs/aidlc-workflows`](https://github.com/awslabs/aidlc-workflows) (catalogued, evaluated —
