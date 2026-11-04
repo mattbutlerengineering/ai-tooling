@@ -879,6 +879,51 @@ added as a counterweight to Hill's null result above. No new named methodology c
 tool for the discovery lane. The one addition this pass, read directly from the paper's own PDF
 text, narrows this page's spec-driven-development question from "does a spec artifact help" (Hill's
 null result, above) to "does the upstream construction of the requirement help" — see below.
+The 2026-11-04 pass found the egress wall open (same as every pass since 2026-10-05): a direct
+`curl` to `youtube.com`, `arxiv.org`, `martinfowler.com`, and `anthropic.com` all returned `200`,
+and `pip install --user yt-dlp` plus real `ytsearch8` queries ran against all ten of this sweep's
+scoped topics (software factories dark/lit, agentic SDLC, AWS AI-DLC, ADLC, AI developer workflows,
+agentic engineering, spec-driven development, context engineering, verification bandwidth/back
+pressure/comprehension debt, levels of autonomy) and returned real, dated results; a "verification
+bandwidth" query alone returned off-topic hits until narrowed to "review bottleneck," the same
+term-overlap risk named for the "Agentic Pressure" false lead declined 2026-09-28. The ten searches
+returned only channels/talks this page already covers or declines in substance (IBM Technology,
+AWS Events, Google Cloud Tech, Cole Medin's dark-factory demo, Dan Shapiro's five-level ladder via
+a Nate B Jones explainer already covered through Zakariasson/Shapiro citations, "Is the Agent
+Harness Dead?" already declined 2026-10-23) or small/uncorroborated single-upload channels. Several
+web near-misses were checked and declined. Margaret-Anne Storey's ["From Technical Debt to Cognitive
+and Intent Debt"](https://arxiv.org/abs/2603.22106) (arXiv:2603.22106, cs.SE, single-author, read
+directly) names a real, useful distinction this page's Comprehension Debt cluster doesn't yet draw
+(cognitive debt in people vs. intent debt in externalized rationale) — but it is, by its own
+abstract, a conceptual model that "discusses" implications with no data, experiment, or case study
+behind it, the same single-author-argued-position shape already declined for Monperrus
+(2026-09-21) and Wheeler (2026-09-25); declined on that precedent rather than added. A LinearB 2026
+Software Engineering Benchmarks Report claim (AI-generated PRs wait 4.6–5.3x longer for a reviewer
+to pick them up, merge/acceptance rate 32.7% vs. 84.4%) looked like a genuine addition to this
+page's review-bottleneck cluster (Faros AI, the Harvard/Jellyfish paper below) until read directly:
+LinearB's own report page states the multiplier two different ways (4.6x in one place, 5.3x in the
+chart caption) with no reconciliation and discloses no methodology for what counts as "AI-generated"
+— declined for unreliability rather than for topic, distinct from Faros AI's entries below, which
+disclose their method. A YouTube hit for "Dan Adler, Sourcegraph — AI Coding Agents Are Breaking Big
+Codebases" (AI Engineer, 2026-10-04) could not be independently corroborated under that exact title
+by a web search — Sourcegraph's own channels and Adler's own writing describe adjacent but
+differently-titled material — so nothing was added rather than risk citing a talk that may not
+exist under that title, the same caution already applied to a Ray Myers talk declined 2026-10-26.
+A search summary citing a 49%-review-time-increase "Harvard paper by Fiona Chen and James Stratton"
+turned out to be fresh press coverage (dated around 2026-10-11/12) of the same paper this page
+already cites in full below — "Artificial Intelligence in the Firm: Bottlenecks in Software
+Production" — confirmed by matching the 718-firm/725,938-worker/49% figures exactly; nothing new
+there. No new named methodology cleared the bar 8090's Software Factory and AWS's AI-DLC set, and
+nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery lane. This pass's one real
+finding was outside LEARNING.md's own resource list: `github.com`'s HTTPS git endpoint was reachable
+too, so `awslabs/aidlc-workflows` was re-checked by cloning `main` read-only and diffing against the
+`v2.11.2` tag noted 2026-11-02. A new stable release, `v2.11.3` (2026-11-04, same-day), removes the
+"Start New Ideation Cycle" option from the Operation phase's closing gate — and AWS's own
+`CHANGELOG.md` discloses that option "carried out" nothing when picked, i.e. the Stage 4.7 → Ideation
+1.1 loop-back this page's [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) has described since
+2026-09-02 was dead UI, not a real mechanism. Corrected there with a new dated update rather than
+edited in place, per this page's own append-only convention for corrections; the 5-phase/33-stage
+structure itself is unchanged.
 
 ---
 
