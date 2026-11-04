@@ -3,7 +3,7 @@
 **Repo:** [aaddrick/attention-control](https://github.com/aaddrick/attention-control)
 **Stars:** 39 | **License:** MIT
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-04  <!-- triaged: bulk -->
 **Dev loop stage:** Skills & Plugins
 **Layer:** Process (skill)
 
@@ -31,3 +31,10 @@ overengineering respectively; headroom compresses tool output. None targets outp
 differentiation is real and worth a hands-on eval rather than a redundancy SKIP.
 
 _Triaged 2026-08-04 by the daily discovery routine (today's new lead)._
+
+Re-checked 2026-11-04 (oldest-untriaged sweep, P2 challenger band — cites STACK picks
+`caveman` and `headroom`): the differentiation still holds — both incumbents target token-count
+compression, this skill targets output *structure/scannability*, a different problem. Not a
+redundancy SKIP; left for a real hands-on eval.
+
+_Re-triaged 2026-11-04 by the P2 challenger band._

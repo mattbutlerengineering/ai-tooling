@@ -5,7 +5,7 @@
 **Dev loop stage:** Reference (MCP extension)
 **Layer:** Process
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-04  <!-- triaged: bulk -->
 
 ---
 
@@ -38,6 +38,11 @@ certainly means an unusual file layout rather than an absent grant, and is worth
 anything here is vendored.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-04 (oldest-untriaged sweep): still a first-party MCP extension, not a
+competing proposal; no STACK-pick overlap. Left as-is.
+
+_Re-triaged 2026-11-04 by the P3 backlog band._
 
 ## Catalog entry
 

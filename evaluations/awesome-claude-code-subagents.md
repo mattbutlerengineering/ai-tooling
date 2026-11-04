@@ -3,7 +3,7 @@
 **Repo:** [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents)
 **Stars:** 22,115 | **Created:** 2025-07-30 | **Last commit:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-04  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -71,6 +71,11 @@ worth more than one that ships links. Not disposed, and a plausible source if th
 ever needs widening.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-04 (oldest-untriaged sweep): still the quantity-and-distribution reference,
+still no STACK-pick overlap, still a plausible source rather than disposed. Left as-is.
+
+_Re-triaged 2026-11-04 by the P3 backlog band._
 
 ## Catalog entry
 

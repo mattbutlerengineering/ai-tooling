@@ -5,7 +5,7 @@
 **Dev loop stage:** Research & Discovery (reference list)
 **Layer:** Reference
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-04  <!-- triaged: bulk -->
 
 ---
 
@@ -39,6 +39,11 @@ The scope caveat is the same as for every LLMOps reference here: serving and fin
 operations for people shipping models, not stages of the loop for people shipping software with an
 agent's help. A row to keep findable, not a lead to promote.
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-04 (oldest-untriaged sweep): nothing has changed — still the surviving half
+of its duplicate pair, still `discovery-log`, no STACK-pick overlap. Left as-is.
+
+_Re-triaged 2026-11-04 by the P3 backlog band._
 
 ## Catalog entry
 
