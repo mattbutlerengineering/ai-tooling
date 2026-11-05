@@ -5,7 +5,7 @@
 **Dev loop stage:** Skills & Plugins (reference list)
 **Layer:** Reference
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-05  <!-- triaged: bulk -->
 
 ---
 
@@ -43,6 +43,13 @@ a twenty-times-larger CC0 twin). Nothing comparable applies here.
 
 No eval file existed before this pass; this stub is the placeholder, not an evaluation.
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-05 (oldest-untriaged sweep): still archived=false, license unchanged
+(MIT), no new overlap with a STACK pick (`ui-ux-pro-max`, `open-design`, `huashu-design`
+are all catalogued leads, not STACK picks). No disposition change — left at
+`discovery-log`.
+
+_Re-triaged 2026-11-05 by the P3 backlog band._
 
 ## Catalog entry
 

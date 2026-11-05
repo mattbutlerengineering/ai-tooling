@@ -5,7 +5,7 @@
 **Dev loop stage:** Reference
 **Layer:** Process
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-05  <!-- triaged: bulk -->
 
 ---
 
@@ -37,6 +37,11 @@ useful row in the section rather than merely a stale one.
 Broad gen-AI rather than dev-loop-specific, which is why it stays in Reference.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-05 (oldest-untriaged sweep): still archived=false, license unchanged
+(MIT), no new overlap with a STACK pick. No disposition change — left at `discovery-log`.
+
+_Re-triaged 2026-11-05 by the P3 backlog band._
 
 ## Catalog entry
 
