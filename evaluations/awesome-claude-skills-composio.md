@@ -3,7 +3,7 @@
 **Repo:** [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills)
 **Stars:** 65,223 | **Last updated:** 2026-05-22 | **License:** none declared (README badge claims Apache-2.0)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-05  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -70,6 +70,12 @@ of the explainer is not reusable), and it was last pushed 2026-05-22 — the lon
 large skill directories, worth watching in a category that adds entries weekly.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-05 (oldest-untriaged sweep): still archived=false, no discontinuation
+banner, license unchanged (no LICENSE file; Apache-2.0 claimed only in the README), no new
+overlap with a STACK pick. No disposition change — left at `discovery-log`.
+
+_Re-triaged 2026-11-05 by the P3 backlog band._
 
 ## Catalog entry
 

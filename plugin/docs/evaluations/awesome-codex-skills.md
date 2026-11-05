@@ -4,7 +4,7 @@
 **Stars:** 15,598 | **Created:** 2026-01-12 | **Last updated:** 2026-07-26 (pushed) | **License:** none (no LICENSE file)
 <!-- repo renamed; metadata refreshed 2026-08-04 (#280). Eval content not re-checked — see Last verified. -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-05  <!-- triaged: bulk -->
 **Dev loop stage:** Discover (outer loop)
 **Layer:** Infrastructure
 
@@ -76,6 +76,12 @@ list of links is a licensing question about the curation itself rather than abou
 install.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-checked 2026-11-05 (oldest-untriaged sweep): still archived=false, no discontinuation
+banner, license unchanged (no LICENSE file), no new overlap with a STACK pick. No
+disposition change — left at `discovery-log`.
+
+_Re-triaged 2026-11-05 by the P3 backlog band._
 
 ## Catalog entry
 
