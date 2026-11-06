@@ -28,7 +28,7 @@ Candidates the [STACK.md](STACK.md) prose flags for a hands-on eval before any p
 | [brooks-lint](https://github.com/hyhmrright/brooks-lint) | flagged for a hands-on eval |
 
 <!-- WATCHLIST:STALE:START -->
-## 3. Stale / undated evals (165 stale)
+## 3. Stale / undated evals (170 stale)
 
 A point-in-time eval rots. The staleness sweep flags evals whose `**Last verified:**` date is older than its category threshold. This section is a **report**, refreshed by `make fix` — it is the one part of this page derived from today's date rather than from file content, so `watchlist.py --check` does not gate on it. Ages are not printed; only the crossing matters.
 
@@ -62,13 +62,16 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 | cherry-studio | platform | 2026-06-22 | 120 |
 | claude-code-harness | harness | 2026-06-22 | 120 |
 | claude-code-staff-engineer | harness | 2026-06-22 | 120 |
+| claude-context | MCP server | 2026-07-08 | 120 |
 | claude-modular | framework | 2026-06-22 | 120 |
 | claude-plugins-official | platform | 2026-06-22 | 120 |
 | claurst | harness | 2026-06-22 | 120 |
 | clawcodex | harness | 2026-06-22 | 120 |
 | cloudflare-mcp | MCP server | 2026-06-22 | 120 |
+| code-context-engine | MCP server | 2026-07-08 | 120 |
 | codebase-memory-mcp | MCP server | 2026-06-22 | 120 |
 | confluence | MCP server | 2026-06-22 | 120 |
+| context-mode | MCP server | 2026-07-08 | 120 |
 | context7 | MCP server | 2026-06-22 | 120 |
 | continuous-claude-v3 | harness | 2026-06-22 | 120 |
 | copilotkit | framework | 2026-06-22 | 120 |
@@ -103,6 +106,7 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 | git-mcp | MCP server | 2026-06-22 | 120 |
 | github-mcp-server | MCP server | 2026-06-22 | 120 |
 | google-workspace-mcp | MCP server | 2026-06-22 | 120 |
+| gortex | MCP server | 2026-07-08 | 120 |
 | gptme | harness | 2026-06-22 | 120 |
 | grok-cli | platform | 2026-06-22 | 120 |
 | gsd | framework | 2026-06-22 | 120 |
@@ -190,6 +194,7 @@ A point-in-time eval rots. The staleness sweep flags evals whose `**Last verifie
 | supabase-mcp | MCP server | 2026-06-22 | 120 |
 | tabby | platform | 2026-06-22 | 120 |
 | textgrad | framework | 2026-06-22 | 120 |
+| token-optimizer-mcp | MCP server | 2026-07-08 | 120 |
 | trace-mcp | MCP server | 2026-06-22 | 120 |
 | trigger-dev | platform | 2026-06-22 | 120 |
 | txtai | framework | 2026-06-22 | 120 |
