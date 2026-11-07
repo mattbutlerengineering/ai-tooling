@@ -220,7 +220,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | flow (Aixle) | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | esf | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| deadeye-cc | plugin | ✓ | ✓ | discovery-log | REVIEW |
 | open-effort | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | model-citizen | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | stalemap | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |

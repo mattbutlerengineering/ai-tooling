@@ -41,13 +41,13 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | gastown | Implement | 36.7 | pressure 15, gap 6.7 | `/evaluate-tool gastown` |
 | supermemory | Memory & Context | 34.9 | pressure 13, gap 6.9 | `/evaluate-tool supermemory` |
 | ralph-claude-code | Implement | 34.7 | pressure 14, gap 6.7 | `/evaluate-tool ralph-claude-code` |
+| deadeye-cc | Implement | 34.7 | pressure 13, gap 6.7 | `/evaluate-tool deadeye-cc` |
 | browser-use | Verify | 34.2 | pressure 14, gap 6.2 | `/evaluate-tool browser-use` |
 | awesome-agent-skills | Reference | 33.2 | pressure 12, gap 7.2 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 33.2 | pressure 12, gap 7.2 | `/evaluate-tool awesome-agent-skills (libukai)` |
 | impeccable | Skills & Plugins | 32.8 | pressure 13, gap 6.8 | `/evaluate-tool impeccable` |
 | ui-ux-pro-max | Skills & Plugins | 32.8 | pressure 13, gap 6.8 | `/evaluate-tool ui-ux-pro-max` |
 | claude-code-router | Implement | 32.7 | pressure 13, gap 6.7 | `/evaluate-tool claude-code-router` |
-| deadeye-cc | Implement | 32.7 | pressure 13, gap 6.7 | `/evaluate-tool deadeye-cc` |
 
 ## P1 successor-check — 0 leads
 
