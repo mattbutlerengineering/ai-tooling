@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1259 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1269 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -57,6 +57,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-my-workflow | tool | | ✓ | SKIP | SOURCE-ONLY |
 | design.md | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | ccpm | skill | | ✓ | discovery-log | REVIEW |
+| roost | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | featherspec | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | OpenSpec | framework | | ✓ | discovery-log | MEASURED |
 | BMAD-METHOD | framework | | ✓ | SKIP | REVIEW |
@@ -188,6 +189,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | bifrost | tool | ✓ | ✓ | discovery-log | REVIEW |
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
+| foreman (ilkemerol) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | KLIDE | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | mast | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -219,6 +221,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | esf | platform | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | multiplayer-ai | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | deadeye-cc | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| open-effort | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | model-citizen | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | stalemap | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | landmines | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -367,6 +370,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | orchestra (TheAlejo160) | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-chief-of-staff | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | devvm | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| sandbox-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | forgecode | harness | | ✓ | discovery-log | REVIEW |
 | opencode-swarm | plugin | | ✓ | discovery-log | REVIEW |
 | OpenHands | platform | | ✓ | discovery-log | RUN |
@@ -477,6 +481,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
 | codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
 | agy-staff | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| antiglaude | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agents-council | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | agencil | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | vibecode-pro-max-kit | harness | | ✓ | SKIP | REVIEW |
@@ -487,6 +492,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | jolo | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | rune | tool | | ✓ | SKIP | SOURCE-ONLY |
 | h5i | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cogit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cli-continues | tool | | ✓ | discovery-log | REVIEW |
 | hermes (Vinyl-Davyl) | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | export-md | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -848,6 +854,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agent-otel-gateway | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
 | claude-flightdeck | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| foreman-vision-pub | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | bough | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | swe-sweep | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -956,6 +963,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | maintainer-skills-lab | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | eigenwise-toolshed | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | awesome-data-engineering-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
+| claude-code-data-engineering-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | pm-claude-skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | thinking-claude | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-infrastructure-showcase | reference | | ✓ | SKIP | SOURCE-ONLY |
@@ -1029,6 +1037,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-plugins-plus-skills | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-hooks (karanb192) | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-mods (hamzafer) | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| merman | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | my-claude-code-mods | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | context-engineering-kit | plugin | ✓ | ✓ | SKIP | REVIEW |
 | pi-skill-orchestrator | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1081,6 +1090,7 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cognee | platform | | ✓ | discovery-log | MEASURED |
 | graphersal | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | EvoOntology | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| auto-ontology-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | MemOS | platform | | ✓ | discovery-log | RUN |
 | memind | platform | ✓ | ✓ | SKIP | REVIEW |
 | ACE (agentic-context-engine) | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1343,16 +1353,16 @@ All 1259 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 121 | 41 | 6 | 34% |
-| Implement | 379 | 128 | 4 | 34% |
+| Plan | 122 | 41 | 6 | 34% |
+| Implement | 384 | 128 | 4 | 33% |
 | Verify | 61 | 23 | 2 | 38% |
 | Review | 155 | 35 | 3 | 23% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 111 | 22 | 2 | 20% |
-| Skills & Plugins | 147 | 47 | 4 | 32% |
-| Memory & Context | 105 | 33 | 2 | 31% |
+| Outer Loop | 112 | 22 | 2 | 20% |
+| Skills & Plugins | 149 | 47 | 4 | 32% |
+| Memory & Context | 106 | 33 | 2 | 31% |
 | MCP Servers | 71 | 19 | 2 | 27% |
 | Research & Discovery | 25 | 8 | 1 | 32% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1259** | **380** | **34** | **30%** |
+| **Total** | **1269** | **380** | **34** | **30%** |
