@@ -3,7 +3,7 @@
 **Repo:** [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph)
 **Stars:** 18,696 | **Last updated:** 2026-06-14 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-08  <!-- triaged: bulk -->
 **Dev loop stage:** Review (primary); Plan (codebase navigation)
 **Layer:** Tooling
 
@@ -87,7 +87,7 @@ sets, risk scoring, test-gap detection, a CI PR-review gate).
 The eval names its own ADOPT trigger — published co-change recall, replacing the admittedly
 circular "recall 1.0" headline. That is a measurement, so this belongs in P0.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-examined 2026-11-08, no change — codegraph remains the Plan-stage incumbent and code-review-graph's Review-stage specialty is still additive, not redundant._
 
 ## Catalog entry
 

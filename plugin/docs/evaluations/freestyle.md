@@ -3,7 +3,7 @@
 **Repo:** [freestyle-voice/freestyle](https://github.com/freestyle-voice/freestyle)
 **Stars:** ~390 | **Last updated:** 2026-06-20 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-08  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (voice input)
 **Layer:** Tooling
 
@@ -70,7 +70,7 @@ custom dictionary mapping spoken forms to identifiers (`"type script"` → `Type
 contextual reformatting. MIT, local-first, BYO-key across six providers or a local model, ★458. The
 open question is the obvious one and needs a hands-on read: STT accuracy on code-heavy dictation.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+_Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262)); re-examined 2026-11-08, no change — still a category error against `caveman` (output compression vs. input dictation), and still the only entry for its modality._
 
 ## Catalog entry
 

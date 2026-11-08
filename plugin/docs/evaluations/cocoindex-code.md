@@ -3,7 +3,7 @@
 **Repo:** [cocoindex-io/cocoindex-code](https://github.com/cocoindex-io/cocoindex-code)
 **Stars:** 2,175 | **Last updated:** 2026-06-19 (pushed) | **License:** Apache-2.0 | **Language:** Python (built on the Rust CocoIndex engine)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-08  <!-- triaged: bulk -->
 **Dev loop stage:** Code Understanding (semantic code search) — Implement
 **Layer:** Tooling (CLI + Claude Code skill / plugin + MCP server)
 
@@ -67,7 +67,7 @@ The claim that would decide it is measurable and unmeasured (a 70% figure this e
 says to verify on your own repo), plus index freshness on fast-moving code. Both need the tool
 run — P0, not a bulk pass.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265)); re-examined 2026-11-08, no change — the serena axis-of-competition analysis above still holds and the 70% claim remains unmeasured._
 
 ## Catalog entry
 
