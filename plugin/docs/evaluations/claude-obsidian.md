@@ -3,7 +3,7 @@
 **Repo:** [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian)
 **Stars:** 7,151 | **Last updated:** 2026-05-28 (pushed; created 2026-04-07) | **License:** MIT | **Latest:** v1.9.2
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-08  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (persistent knowledge base for Claude Code)
 **Layer:** Skill pack / plugin (15 Claude Code skills over an Obsidian vault)
 
@@ -73,7 +73,7 @@ dominating the other.
 Worth noting for whoever evaluates it: an Obsidian vault is already part of this operator's setup,
 so the integration cost that would sink this for most users is near zero here.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264))._
+_Triaged 2026-08-04 by the P2 challenger band ([#264](https://github.com/mattbutlerengineering/ai-tooling/issues/264)); re-examined 2026-11-08, no change — the claude-mem overlap-by-shape analysis above still holds._
 
 ## Catalog entry
 

@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1269 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -40,6 +40,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | jaekit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | forge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | Foreman | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| mythical-agent-month | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | superbrainstorming | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | claude-spring-architect | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CodeJury | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -182,6 +183,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | castra | harness | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | touri | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-router | tool | | ✓ | discovery-log | RUN |
+| 9routerx | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | cursor-bridge | tool | | ✓ | SKIP | SOURCE-ONLY |
 | codex-bridge | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | CLIProxyAPI | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -199,6 +201,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | agentbox | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex-mobile-bridge | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | CodeRail | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| callmeclaude | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | paddock | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Pi-Remote | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cheap-ag | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -211,6 +214,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cedr | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cross-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| overseer | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | crewyard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | orchestra | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | hermes-conductor | reference | | ✓ | discovery-log | SOURCE-ONLY |
@@ -228,6 +232,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | tetriz-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | opus-manager | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | pitroom | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| offload-mcp-server | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | clodfarm | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cachebeat | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cache-tax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -625,6 +630,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | code-review | plugin | ✓ | ✓ | KEEP | MEASURED |
 | claude-code-gauntlet | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | prod-readiness | plugin | | ✓ | SKIP | SOURCE-ONLY |
+| git-cowork | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | design-council | plugin | | ✓ | discovery-log | REVIEW |
 | ghostsecurity/skills | skill | | ✓ | discovery-log | RUN |
 | claude-cybersecurity | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -701,6 +707,8 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | bounty-guard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | geiger | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-warden | tool | ✓ | | discovery-log | SOURCE-ONLY |
+| AIVault | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| vibe-shield | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | safe-ai-coding | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | aisrf | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -819,6 +827,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | peek | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | bar-observatory | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | shoulder | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| rexpad | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-tracedown | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | spoor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | tracecrate | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1267,6 +1276,7 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Deep-Research-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | best-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | FactReach | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| mouseketool | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Reference
 
@@ -1353,16 +1363,16 @@ All 1269 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 122 | 41 | 6 | 34% |
-| Implement | 384 | 128 | 4 | 33% |
+| Plan | 123 | 41 | 6 | 33% |
+| Implement | 388 | 130 | 4 | 34% |
 | Verify | 61 | 23 | 2 | 38% |
-| Review | 155 | 35 | 3 | 23% |
+| Review | 158 | 36 | 3 | 23% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
-| Outer Loop | 112 | 22 | 2 | 20% |
+| Outer Loop | 113 | 22 | 2 | 19% |
 | Skills & Plugins | 149 | 47 | 4 | 32% |
 | Memory & Context | 106 | 33 | 2 | 31% |
 | MCP Servers | 71 | 19 | 2 | 27% |
-| Research & Discovery | 25 | 8 | 1 | 32% |
+| Research & Discovery | 26 | 8 | 1 | 31% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1269** | **380** | **34** | **30%** |
+| **Total** | **1279** | **383** | **34** | **30%** |
