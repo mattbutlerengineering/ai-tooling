@@ -3,7 +3,7 @@
 **Repo:** [strands-agents/harness-sdk](https://github.com/strands-agents/harness-sdk)
 **Stars:** 6,218 | **Last updated:** 2026-06-20 (pushed) | **License:** Apache-2.0 | **Language:** Python + TypeScript (PyPI: `strands-agents`; npm: `@strands-agents/sdk`)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-09  <!-- triaged: bulk -->
 **Dev loop stage:** Agent Harnesses (agent-building SDK) — Implement
 **Layer:** Infrastructure (SDK/framework for building production agents)
 
@@ -93,6 +93,10 @@ Left at `discovery-log` deliberately rather than by omission. A false SKIP here 
 catalog's clearest example of the exception that makes the scope bar a test instead of a ban.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+Re-examined 2026-11-09 (5-oldest-triaged pass): `fastmcp` is unchanged in STACK.md (building
+MCP servers in Python) — still a different layer than this agent-building SDK. Reasoning
+still holds; re-stamped, no verdict change.
 
 ## Catalog entry
 

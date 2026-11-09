@@ -3,7 +3,7 @@
 **Repo:** [Helvesec/rmux](https://github.com/Helvesec/rmux)
 **Stars:** 1,799 | **Last updated:** 2026-06-19 (pushed; created 2026-05-15) | **License:** MIT OR Apache-2.0 (dual; GitHub reports NOASSERTION because of the dual SPDX) | **Releases:** 10
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-09  <!-- triaged: bulk -->
 **Dev loop stage:** Implement / Agent Orchestration (a programmable multiplexer for driving agents and CLIs)
 **Layer:** Infrastructure (Rust multiplexer + typed Rust/Python SDKs)
 
@@ -76,6 +76,10 @@ WSL and post-quantum browser session sharing are genuinely unusual; neither is a
 currently has.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+
+Re-examined 2026-11-09 (5-oldest-triaged pass): `claude-squad` is unchanged in STACK.md;
+rmux is still a builder's substrate (pre-1.0, typed SDK) rather than a competing
+end-user multiplexer. Reasoning still holds; re-stamped, no verdict change.
 
 ## Catalog entry
 

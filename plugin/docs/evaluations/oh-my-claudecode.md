@@ -3,7 +3,7 @@
 **Repo:** [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)
 **Stars:** 36,643 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-09  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review (a full-loop orchestration layer)
 **Layer:** Tooling
 
@@ -89,6 +89,10 @@ cost-routing plus verify-fix discipline pay for the footprint on a disclosed tas
 call.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#262](https://github.com/mattbutlerengineering/ai-tooling/issues/262))._
+
+Re-examined 2026-11-09 (5-oldest-triaged pass): `claude-squad` is unchanged in STACK.md
+(TUI for managing parallel agent sessions) — still a different layer (OS-level sessions vs.
+in-session sub-agent routing). Reasoning still holds; re-stamped, no verdict change.
 
 ## Catalog entry
 
