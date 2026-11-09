@@ -3,7 +3,7 @@
 **Repo:** [shadcn/improve](https://github.com/shadcn/improve)
 **Stars:** 5,185 | **Last updated:** 2026-06-17 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-09  <!-- triaged: bulk -->
 **Dev loop stage:** Review (outer loop — periodic audits)
 **Layer:** Tooling
 
@@ -68,6 +68,10 @@ unknown because this was a README read, not a run. Also note the install is `npx
 shadcn/improve` (a skill), not a CLI.
 
 _Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+
+Re-examined 2026-11-09 (5-oldest-triaged pass): `code-review` is unchanged in STACK.md
+(reactive, per-PR review) — still a different clock than this periodic audit tool.
+Reasoning still holds; re-stamped, no verdict change.
 
 ## Catalog entry
 

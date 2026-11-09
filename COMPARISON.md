@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1279 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1287 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -142,6 +142,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Tool | Type | Auto | Free | Evaluated | Evidence |
 |------|------|------|------|------|------|
 | agency-agents | harness | | ✓ | SKIP | REVIEW |
+| ryph | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | cindy | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | sol-skill | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | astra-flash-orchestrator | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -192,6 +193,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-staff-engineer | harness | | ✓ | SKIP | REVIEW |
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
 | foreman (ilkemerol) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| numbrone | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | KLIDE | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | mast | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -373,6 +375,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | plandex | platform | ✓ | ✓ | SKIP | REVIEW |
 | sutra | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | orchestra (TheAlejo160) | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| harness-relay | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-chief-of-staff | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | devvm | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | sandbox-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -994,6 +997,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-code-mods | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Only-Skill-You-Need | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | jump-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| ai-agent-skill-router | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skillranker | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | oil-skill-creator | tool | | ✓ | SKIP | SOURCE-ONLY |
 | repo2skill | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -1024,6 +1028,8 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | super-prototyping | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | scroll-craft | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | oa-design | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| flawless-ui-ux | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| kubai-icons | skill | | ✓ | SKIP | SOURCE-ONLY |
 | Waza | skill | | ✓ | SKIP | REVIEW |
 | agents (wshobson) | plugin | | ✓ | discovery-log | REVIEW |
 | agent-sprite-forge | skill | | ✓ | SKIP | REVIEW |
@@ -1059,6 +1065,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | harness-ai-kit | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | skillfid | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | skilldiff | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-skills-linter | tool | | ✓ | discovery-log | SOURCE-ONLY |
 
 ## Memory & Context
 
@@ -1185,6 +1192,7 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | oh-my-android | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codebase-memory-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | fastapi_mcp | framework | | ✓ | discovery-log | REVIEW |
+| nestjs/mcp | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | mcp-use | framework | | ✓ | discovery-log | REVIEW |
 | cloudflare-mcp | MCP server | ✓ | ✓ | discovery-log | REVIEW |
 | agent-toolkit-for-aws | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1364,15 +1372,15 @@ All 1279 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 123 | 41 | 6 | 33% |
-| Implement | 388 | 130 | 4 | 34% |
+| Implement | 391 | 130 | 4 | 33% |
 | Verify | 61 | 23 | 2 | 38% |
 | Review | 158 | 36 | 3 | 23% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 113 | 22 | 2 | 19% |
-| Skills & Plugins | 149 | 47 | 4 | 32% |
+| Skills & Plugins | 153 | 48 | 4 | 31% |
 | Memory & Context | 106 | 33 | 2 | 31% |
-| MCP Servers | 71 | 19 | 2 | 27% |
+| MCP Servers | 72 | 19 | 2 | 26% |
 | Research & Discovery | 26 | 8 | 1 | 31% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1279** | **383** | **34** | **30%** |
+| **Total** | **1287** | **384** | **34** | **30%** |
