@@ -20,8 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-02 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-09 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -924,6 +924,55 @@ too, so `awslabs/aidlc-workflows` was re-checked by cloning `main` read-only and
 2026-09-02 was dead UI, not a real mechanism. Corrected there with a new dated update rather than
 edited in place, per this page's own append-only convention for corrections; the 5-phase/33-stage
 structure itself is unchanged.
+The 2026-11-09 pass found the egress wall fully open: a direct `curl` to `youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `anthropic.com` all returned `200`, `uvx yt-dlp` ran real `ytsearch6` queries
+against nine of this sweep's scoped topics (software factories dark/lit, agentic SDLC, AI developer
+workflows/agentic engineering, spec-driven development, harness engineering, ADLC, context
+engineering, comprehension debt, verification bandwidth), and `WebFetch` of `arxiv.org` succeeded for
+both entries added below, read from their own PDF text (`pdftotext`) rather than cross-checked from
+search summaries. The nine searches returned almost entirely channels and talks this page already
+covers or has already declined in substance (IBM Technology, Google Cloud Tech, Cole Medin, Owain
+Lewis, "Is the Agent Harness Dead?" already declined 2026-10-23) or vendor/course content with no
+primary claim (Greg Isenberg's "Software Factory" course; a Sonar Summit 2026 "Agentic SDLC" talk; a
+ThinkAi.Social "Lit vs. Dark Factories" upload at 4 views, not worth chasing without independent
+corroboration). A "verification bandwidth" query returned only telecom-industry hits on the bare word
+"bandwidth," the same term-overlap risk already named for the "Agentic Pressure" false lead declined
+2026-09-28. `github.com`'s HTTPS git endpoint was reachable too (same as every pass since 2026-08-24),
+so `awslabs/aidlc-workflows` was re-checked directly by cloning `main` read-only: HEAD moved to
+`01b80253` (2026-11-09, same-day), a new stable release `v2.11.3` (2026-11-04, up from `v2.11.2`
+noted 2026-11-02) ships a native-binary security fix (CVE-2026-111497 in Bun's bundled Brotli
+decoder) and a long list of UX/compatibility fixes, but `docs/guide/04-phases-and-stages.md` still
+opens with the identical sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, "The
+AI-DLC lifecycle is organized into 5 phases containing 33 stages," so nothing was added on that
+thread this pass. Several web near-misses were checked and declined. Addy Osmani's "The Factory
+Model: How Coding Agents Changed Software Engineering" (addyosmani.com, dated 2026-02-25, read
+directly) was found via search but declined as mostly a synthesis of Osmani's own prior posts
+already cited above (agentic engineering, context windows, guardrails) plus adoption-growth figures
+it attributes to a linked third-party chart rather than its own measurement — the same re-treatment
+call already made against his "80% Problem" and "Orchestration Tax" essays. Ona's (formerly Gitpod)
+"Software Factory: What We Learned" post (read directly, 2026-04-30) — a 10-day experiment building
+a note-taking app with reportedly 375 PRs merged and 87% of merged work done without human
+involvement — was checked and declined on the same self-reported-vendor-numbers grounds already
+applied to Spotify's Honk and Mastra's Factory Beta figures: no baseline, no defined denominator for
+"without human involvement," and the post ends with its own product call-to-action. Two further
+harness-engineering preprints surfaced by search were considered and declined for thinness relative
+to how saturated this page's cluster already is: Mohsen Arjmandi's single-author "Harness or Model?"
+(arXiv 2609.11987) reports a stratified native-vs-neutral-harness split (trailing on repository
+tasks, leading on contest tasks) that the paper's own text flags as chosen after seeing the data and
+needing a designed replication, with 58 of 800 runs missing the usage records its own cost claim
+rests on; and the 11-author "Agentic Harness Engineering" (arXiv 2604.25850, 2026-04) proposes a
+closed-loop system for automatically tuning a harness and reports gains only against its own
+self-built baselines, the same self-reported-improvement shape already applied skeptically to
+vendor throughput claims elsewhere on this page. No new named methodology cleared the bar 8090's
+Software Factory and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy tool for
+the discovery lane. Two genuine finds earned a place instead, both read directly from source. The
+first generalizes the Anthropic April-2026 postmortem above from one documented incident into a
+35-release measured pattern: harness churn that consumes nearly double the tokens for no significant
+resolve-rate gain. The second is a direct complication of this page's own context-rot cluster
+(Raju/Zhu/Xue), showing the "more context, worse outcomes" finding is conditional on how the harness
+manages that context under pressure rather than a fixed property of context volume — disclosed
+honestly as a thin, unaffiliated single-author source, the weakest evidentiary base of any entry in
+either cluster, but engaging directly enough with existing findings to be worth a line.
 
 ---
 
@@ -1571,6 +1620,29 @@ its recurrence) rather than anything about the model. Confirmed via multiple ind
 number — this pass's sandbox blocked `anthropic.com` outright (`EGRESS_BLOCKED`), so the postmortem
 itself was not directly read.
 
+### [Don't Blame the Large Language Model: How Agent Harness Evolution Shapes Coding Agent Quality](https://arxiv.org/abs/2607.03691) — Oussama Ben Sghaier, Hao Li, Bram Adams, Ahmed E. Hassan (Queen's University; arXiv, 2026-07, rev. 2026-07-20)
+Generalizes the Anthropic postmortem above from a single six-week incident into a systematic,
+measured pattern. The first controlled longitudinal study to isolate the harness's own contribution
+to coding-agent quality: rather than fixing the harness and varying the model (standard practice),
+the authors fix the LLM and vary only the harness, surveying release velocity across five major
+open-source harnesses (Codex, Qwen Code, Gemini, OpenCode, OpenHands — exceeding two releases a day
+and thousands of issues within months) before a controlled deep dive into 35 sequential Qwen Code
+CLI releases, each scored against the same 50 stratified SWE-bench Verified tasks with the LLM held
+fixed. Finding: despite continuous development activity and growing codebase complexity, there is
+**no statistically significant improvement in resolve rate across the 35 releases for a fixed LLM**
+— and later versions consume nearly double the tokens and tool calls for no corresponding quality
+gain. The authors trace specific regressions to two levels: project-level development patterns
+(feature-heavy releases, fix-heavy releases, scattered small changes correlate differently with
+quality swings) and specific high-risk architectural components, illustrated with concrete
+pull-request-to-quality-shift links rather than only an aggregate statistic. Directly sharpens this
+page's harness-engineering cluster (Hashimoto/Fowler/Anthropic/OpenAI/LangChain/Barbaste/Fan/
+Marmelab above): those entries each argue or measure that the harness matters as much as the model;
+this is the first to show that a harness's own *continuous evolution* does not reliably make it
+better by the measure that counts, turning the April 2026 postmortem's one-off "three invisible
+regressions" story into a 35-release-long absence of net progress with a cost that keeps climbing.
+Submitted to ACM Transactions on Software Engineering and Methodology (not yet confirmed accepted).
+Read directly via `arxiv.org`, reachable this pass; full PDF text extracted with `pdftotext`.
+
 ### [Measuring AI agent autonomy in practice](https://www.anthropic.com/research/measuring-agent-autonomy) — Anthropic (2026-02)
 Anthropic's own measured data on the autonomy-ladder topic this page's Zakariasson, Reyes, Osmani,
 and `bushido-ai-dlc-2026.md` entries have so far only theorized: an analysis of millions of Claude
@@ -1765,6 +1837,29 @@ one shows the failure is a small number of specific, quietly-dropped obligations
 multiple independently-worded search summaries agreeing on the same context-size/pass-rate figures —
 this pass hit the same `arxiv.org` egress block as every pass since 2026-08-10, so the paper itself
 was not directly read.
+
+### [Same Model, Different Harness: Different Coding-Agent Results](https://arxiv.org/abs/2608.26218) — Sydney Lewis (arXiv, 2026-08-26)
+Read against Raju/Zhu/Xue immediately above, this paper complicates rather than contradicts "more
+context correlates with worse outcomes": it isolates *how a harness manages* context under pressure,
+rather than how much context exists, as the lever. The author compares two configurations of one
+harness on three coding benchmarks (SWE-bench Verified, SWE-bench Pro, FeatureBench), holding the
+model fixed: a control that feeds the full conversation history in order, against a treatment that
+mechanically shortens older tool results as the window fills and reacts to repeated or stalled work.
+Under a tight 20,480-token window and a fixed 480-second attempt limit on 169 SWE-bench Verified
+tasks, the treatment raises mean per-task fail-to-pass fraction from 28% to 49% and complete
+solutions from 43 to 72 — and the same frozen treatment, with no model-specific retuning, raises
+both endpoints for three further models of different designs. Under a wide context window the gap
+mostly closes, which is the mechanism this page's Raju/Zhu/Xue entries above already point to:
+the treatment's advantage shows up precisely where context pressure is the binding constraint, not
+as a general property of "better context management." The paper's own framing is a methods point
+worth taking seriously regardless of the specific numbers: "changing the harness changed what
+unchanged model weights could accomplish," so a coding-agent evaluation that varies only the model
+is measuring the pairing, not the model. Disclosed plainly rather than inflated: a bare single-author
+arXiv preprint with no stated institutional affiliation and no venue, a thinner evidentiary base than
+almost every other entry in this page's harness-engineering and context-engineering clusters — worth
+a line given the specificity of the numbers and the direct engagement with Raju/Zhu/Xue's existing
+finding, not yet worth treating as a settled result. Read directly via `arxiv.org`, reachable this
+pass; full PDF text extracted with `pdftotext`.
 
 ### [Beyond Code Generation: Reliability, Verification, and Cost Economics in the Agentic Software Development Lifecycle](https://arxiv.org/abs/2609.04681) — Happy Bhati (Northeastern University; arXiv, 2026-09-04)
 A correction to this page's own record rather than a new find. The 2026-09-14 pass located this
