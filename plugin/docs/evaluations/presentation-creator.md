@@ -5,7 +5,7 @@
 **Dev loop stage:** Skills & Plugins (presentations)
 **Layer:** Process
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-09-17  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-11  <!-- triaged: bulk -->
 
 ---
 
@@ -47,6 +47,8 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 **Re-triaged 2026-09-05 by the P5 ships-inside band:** no change — `getsentry/skills` is still `discovery-log`. Left at `discovery-log`.
 
 **Re-triaged 2026-09-17 by the P5 ships-inside band:** no change — `getsentry/skills` is still `discovery-log`. Left at `discovery-log`.
+
+**Re-triaged 2026-11-11 by the P5 ships-inside band:** no change — `getsentry/skills` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog entry
 

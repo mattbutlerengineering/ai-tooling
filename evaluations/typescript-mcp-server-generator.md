@@ -3,7 +3,7 @@
 **Repo:** [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills/typescript-mcp-server-generator)
 **Stars:** N/A (skill within a collection) | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-09-17  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-11  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -109,6 +109,8 @@ _Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbut
 **Re-triaged 2026-09-05 by the P5 ships-inside band:** no change — `github/awesome-copilot` is still `discovery-log` (its own eval declines a mechanical redundancy SKIP: a maintained, official 37K-star community library is a different kind of artifact than a single skill pack). Left at `discovery-log`.
 
 **Re-triaged 2026-09-17 by the P5 ships-inside band:** no change — `github/awesome-copilot` is still `discovery-log`. Left at `discovery-log`.
+
+**Re-triaged 2026-11-11 by the P5 ships-inside band:** no change — `github/awesome-copilot` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog entry
 
