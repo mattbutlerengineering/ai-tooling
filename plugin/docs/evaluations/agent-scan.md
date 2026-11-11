@@ -3,7 +3,7 @@
 **Repo:** [snyk/agent-scan](https://github.com/snyk/agent-scan)
 **Stars:** 3.0K | **Last updated:** 2026-09-10 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-09-10
-**Last triaged:** 2026-09-10  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-11  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -37,7 +37,7 @@ closer rather than dismiss as a duplicate — a false SKIP here would be the exp
 direction. Worth a real hands-on comparison against SkillSpector before concluding either
 way.
 
-_Triaged 2026-09-10 by the P2 challenger band._
+_Triaged 2026-09-10, re-checked 2026-11-11, by the P2 challenger band — still un-escalated; no hands-on comparison against SkillSpector has been run, and a bulk pass cannot run it._
 
 ## Catalog entry
 
