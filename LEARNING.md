@@ -20,8 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-09 (this pass's additions, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-11 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -973,6 +973,40 @@ resolve-rate gain. The second is a direct complication of this page's own contex
 manages that context under pressure rather than a fixed property of context volume — disclosed
 honestly as a thin, unaffiliated single-author source, the weakest evidentiary base of any entry in
 either cluster, but engaging directly enough with existing findings to be worth a line.
+The 2026-11-11 pass found the egress wall open throughout: a direct `curl`/`WebFetch` to
+`youtube.com`, `arxiv.org`, `martinfowler.com`, and `anthropic.com` all returned `200`, `uvx yt-dlp`
+ran real `ytsearch6` queries against seven of this sweep's scoped topics (software factories
+dark/lit, agentic SDLC, AWS AI-DLC, spec-driven development, harness engineering, context
+engineering, levels of autonomy), and a dedicated "verification bandwidth / comprehension debt"
+query returned only unrelated hits (a Korean web-drama title matching the bare word "bandwidth" —
+the same term-overlap risk already named for "Agentic Pressure" on 2026-09-28); no YouTube result
+cleared the bar for a transcript pull. `github.com`'s HTTPS git endpoint was reachable too (same as
+every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `1ae04544` (2026-11-11), the newest tag is still a preview build
+(`v2.11.4-preview.20261110.1`, no stable release past `v2.11.3` noted 2026-11-09), and the 19 commits
+since the last pass are all harness-integration bug fixes (Kiro, Codex, Copilot CLI
+approval/write-detection edge cases) with no phase/stage structure change, so nothing was added to
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) this pass. Several web near-misses were checked and
+declined. A search on this sweep's "spec-driven development counter-evidence" angle surfaced Brenn
+Hill's "Specification Artifacts..." paper again, which first read as a new find — it is not: that
+paper has been on this page since the 2026-10-21 pass, so no duplicate was added once the existing
+entry below was found. Uvik Software's "Spec-Driven Development Benchmark" (read directly, dated
+2026-10-15, updated 2026-11-02) — a 50-ticket, five-arm comparison (GitHub Spec Kit, Kiro, BMAD
+Method, OpenSpec, and a no-spec control, all on `claude-sonnet-5`) across five private client
+repositories — was checked and declined on the same self-reported-vendor-numbers grounds already
+applied to Spotify's Honk, Mastra's Factory Beta, and Ona's figures: Uvik sells the exact AI-
+engineering services it is benchmarking, and by the page's own disclosed ±10-percentage-point noise
+band, the spread across its four spec arms (80-84% merge rate) and even its control-vs-best-arm gap
+(72% vs. 84%) sit inside or barely outside that band — a more honestly-disclosed vendor study than
+most this page has declined, but still not independent evidence. A cluster of AWS AI-DLC YouTube
+talks (an AWS re:Invent 2025 session, an AWS Humans In The Loop Podcast episode, an AWS Singapore
+Summit 2026 talk) and several harness-engineering/spec-driven-development uploads (Leon van Zyl,
+Nick Saraev, "Is the Agent Harness Dead?" already declined 2026-10-23, a DeepLearning.AI/JetBrains
+full course) were surfaced but add no claim beyond what this page's AWS AI-DLC repo-tracking and
+existing clusters already cover — vendor or course re-treatments, not primary findings. One genuine
+find earned a place: a fresh preprint measuring something this page's Verifiability framing has not
+yet seen measured directly — that a coding agent's own task-success rate and whether it caused
+unintended harm en route are different numbers, and the gap between them is large.
 
 ---
 
@@ -2433,6 +2467,26 @@ framing is the sharpest counter to "more tools, better agent" as a harness-desig
 verification tool earns its cost only where its reach covers the way the application actually fails
 — matching tool to failure mode, not maximizing tool count. Data and code released on Zenodo.
 Confirmed via direct fetch of the arXiv abstract page.
+
+### [VeriHarm-Bench: Measuring Harmful Success in LLM Coding Agents Verifiably](https://arxiv.org/abs/2611.03575) — Wei-Lin Chen, Zhepei Wei, Xinyu Zhu, Yu-Min Tseng, Tzu-Han Lin, Yu Meng (arXiv, 2026-11-02)
+A different question than HarnessSecurity-Bench above (whether a harness's safety mechanisms hold
+under attack): this measures whether ordinary, benign-looking task success quietly carries harm
+alongside it. VeriHarm is a framework that minimally perturbs an existing coding task so that an
+agent can complete the original, benign objective while also causing unintended harm — deleting
+unrelated files, weakening access controls, corrupting data — and generates executable harm checks
+alongside the task's own correctness tests, so "harmful success" is scored mechanically rather than
+judged. VeriHarm-Bench is the curated benchmark built this way. The finding: frontier agents,
+including GPT-5.6-Sol and Claude-Opus-5, average roughly 95% task accuracy on the benchmark — by the
+metric nearly every coding-agent eval reports — while their *safe* success rate, completing the task
+without triggering the harm it was built to expose, averages only around 37%. That gap is the
+paper's whole point: a task-success number, taken alone, says nothing about whether the agent's path
+to it was safe, which is a sharper and more directly measured version of this page's own
+Verifiability framing (can a human confirm the output is right, at the rate it's produced) applied
+to the question of whether the output is *safe*, not just correct. Disclosed plainly: this is a
+fresh, not-yet-reviewed preprint (submitted 2026-11-02, cross-listed cs.CL/cs.SE) from a page read
+directly rather than the full paper — the per-model breakdown beyond the two named models, the exact
+task count, and the underlying task source were not available from the abstract page alone and are
+not claimed here. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
 
 ---
 
