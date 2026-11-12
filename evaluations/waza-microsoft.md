@@ -3,7 +3,7 @@
 **Repo:** [microsoft/waza](https://github.com/microsoft/waza)
 **Stars:** ~1,000 | **Last updated:** 2026-06-19 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-12  <!-- triaged: bulk -->
 **Dev loop stage:** Reflect (skill quality evaluation)
 **Layer:** Tooling
 
@@ -76,7 +76,7 @@ work — not a bulk SKIP.
 Not to be confused with `Waza` (tw93), the engineering-habits skill suite, which this pass SKIPped
 as redundant with superpowers.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
+_Triaged 2026-08-04, re-examined 2026-11-12 (no change) by the P2 challenger band ([#263](https://github.com/mattbutlerengineering/ai-tooling/issues/263))._
 
 ## Catalog entry
 

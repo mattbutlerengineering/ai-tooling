@@ -3,7 +3,7 @@
 **Repo:** [alibaba/open-code-review](https://github.com/alibaba/open-code-review)
 **Stars:** 18,770 | **Last updated:** 2026-08-04 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-08-04
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-12  <!-- triaged: bulk -->
 **Dev loop stage:** Review
 **Layer:** Tooling
 
@@ -46,7 +46,7 @@ What a P0 read has to answer: do the deterministic rules fire on TypeScript/Pyth
 useful ruleset JVM-shaped like its provenance suggests? That decides whether the non-redundant half
 reaches this stack at all.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+_Triaged 2026-08-04, re-examined 2026-11-12 (no change) by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 
