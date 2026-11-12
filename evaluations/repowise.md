@@ -3,7 +3,7 @@
 **Repo:** [repowise-dev/repowise](https://github.com/repowise-dev/repowise)
 **Stars:** ~2,460 | **Last updated:** 2026-06-20 | **License:** AGPL-3.0  <!-- full license text added upstream 2026-07-12 (`chore: use full AGPL-3.0 license text so GitHub detects it`); the header froze at the pre-detection NOASSERTION reading -->
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-12  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (codebase intelligence)
 **Layer:** Tooling
 
@@ -66,7 +66,7 @@ Two open items this lane cannot close, both already named in the eval: the licen
 standard SPDX identifier** (`NOASSERTION`), and the OSS-vs-hosted boundary needs confirming
 before adoption. Those are read-the-terms questions for a real evaluation, not triage.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
+_Triaged 2026-08-04, re-examined 2026-11-12 (no change) by the P2 challenger band ([#265](https://github.com/mattbutlerengineering/ai-tooling/issues/265))._
 
 ## Catalog entry
 

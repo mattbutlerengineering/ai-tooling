@@ -3,7 +3,7 @@
 **Repo:** [keploy/keploy](https://github.com/keploy/keploy)
 **Stars:** ~17,600 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-12  <!-- triaged: bulk -->
 **Dev loop stage:** Verify (test generation)
 **Layer:** Tooling
 
@@ -70,7 +70,7 @@ Open questions a bulk pass cannot settle: captured tests encode *current* behavi
 bugs, so they need curating, and eBPF capture has platform requirements worth confirming before it
 goes in a loop. Apache-2.0, ★18K, actively pushed.
 
-_Triaged 2026-08-04 by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
+_Triaged 2026-08-04, re-examined 2026-11-12 (no change) by the P2 challenger band ([#267](https://github.com/mattbutlerengineering/ai-tooling/issues/267))._
 
 ## Catalog entry
 
