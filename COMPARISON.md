@@ -807,7 +807,7 @@ All 1294 tools from CATALOG.md with dev loop stage, automation capability, prici
 | rimz | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | debroid | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
-| roundtable | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| roundtable | tool | ✓ | ✓ | discovery-log | MEASURED |
 | zoetrope | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-agent-flow | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | flowpane | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
