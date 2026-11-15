@@ -42,9 +42,9 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | OpenHands | Implement | 36.8 | pressure 15, gap 6.8 | `/evaluate-tool OpenHands` |
 | claude-code-router | Implement | 36.8 | pressure 15, gap 6.8 | `/evaluate-tool claude-code-router` |
 | gastown | Implement | 36.8 | pressure 15, gap 6.8 | `/evaluate-tool gastown` |
-| deadeye-cc | Implement | 36.8 | pressure 14, gap 6.8 | `/evaluate-tool deadeye-cc` |
 | supermemory | Memory & Context | 35.0 | pressure 13, gap 7.0 | `/evaluate-tool supermemory` |
 | impeccable | Skills & Plugins | 34.9 | pressure 14, gap 6.9 | `/evaluate-tool impeccable` |
+| deadeye-cc | Implement | 34.8 | pressure 14, gap 6.8 | `/evaluate-tool deadeye-cc` |
 | ralph-claude-code | Implement | 34.8 | pressure 14, gap 6.8 | `/evaluate-tool ralph-claude-code` |
 | awesome-agent-skills | Reference | 33.2 | pressure 12, gap 7.2 | `/evaluate-tool awesome-agent-skills` |
 | awesome-agent-skills (libukai) | Reference | 33.2 | pressure 12, gap 7.2 | `/evaluate-tool awesome-agent-skills (libukai)` |
