@@ -20,8 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-11 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-16 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -1007,6 +1007,66 @@ existing clusters already cover — vendor or course re-treatments, not primary 
 find earned a place: a fresh preprint measuring something this page's Verifiability framing has not
 yet seen measured directly — that a coding agent's own task-success rate and whether it caused
 unintended harm en route are different numbers, and the gap between them is large.
+The 2026-11-16 pass found the egress wall open throughout: a direct `curl` to `youtube.com`,
+`arxiv.org`, `martinfowler.com`, `anthropic.com`, and `addyosmani.com` all returned a reachable
+response (`200`, or a `301` redirect to the canonical host), and `yt-dlp` ran real `ytsearch6`
+queries against all nine of this sweep's scoped topics (AI-DLC, software factories dark/lit,
+agentic SDLC, spec-driven development, context engineering, verification bandwidth/back pressure,
+levels of autonomy, harness engineering, AI developer workflows) and returned real, dated results;
+`WebFetch` of arXiv and university publication pages succeeded directly (below). Per-video YouTube
+metadata and subtitle fetches hit the same bot-detection wall noted 2026-10-07/10-12/10-14 ("Sign in
+to confirm you're not a bot") independent of the egress proxy, so no transcript was read even where
+a candidate looked promising — an AWS Q2 2026 retail-meetup customer talk ("9 Months to 1 Week with
+AWS AI-DLC") could not be corroborated past its title for that reason and is named rather than
+added. The nine searches otherwise returned mostly channels this page already covers (IBM
+Technology, Google Cloud Tech, AWS Events, IndyDevDan, Zen van Riel) or a repeat AWS AI-DLC YouTube
+cluster (an AWS re:Invent 2025 session, an AWS Humans In The Loop Podcast episode, an AWS Singapore
+Summit 2026 talk) and a Spring I/O 26 / AI Native DevCon spec-driven-development talk cluster
+(Simon Martinelli) adding no claim beyond this page's existing AWS AI-DLC repo-tracking and
+spec-driven-development entries — the AWS cluster specifically re-surfacing the same three talks
+already declined 2026-11-11. `github.com`'s HTTPS git endpoint was reachable too (same as every
+pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `8efe179` (2026-11-16), the newest tag is still a preview build
+(`v2.11.5-preview.20261115.1`, no stable release past `v2.11.3`/`v2.11.4` noted in prior passes),
+and `docs/guide/04-phases-and-stages.md` still opens with the identical sentence
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is organized
+into 5 phases containing 33 stages,"* — the commits since the last pass are harness-integration and
+workflow-state bug fixes (Kiro project upgrades, team-mode claim handling, pin/doctor checks) with
+no phase/stage structure change, so nothing was added to that file this pass.
+
+This pass also checked several web near-misses and declined all of them. Berkeley RDI's
+SAE-inspired three-tier autonomy framing ("Towards Autonomous Software Development," Wang, Song, et
+al., rdi.berkeley.edu) resurfaced again on this pass's searches and was already declined
+2026-10-14/2026-10-23 for the same reason — a blog-level re-framing of Swarmia's five levels with no
+new primary measurement. [Hassan, Li, Lin, Adams, Chen, Kashiwa, Qiu, "Agentic Software
+Engineering: Foundational Pillars and a Research Roadmap"](https://arxiv.org/abs/2509.06216)
+(arXiv, v1 2025-09-07, rev. v4 2026-11-02) — read directly, from the same Ahmed E. Hassan already
+cited twice on this page for measured harness-engineering work — was checked and declined: it is a
+conceptual vision paper proposing two new workbenches (an "Agent Command Environment" for human
+orchestration, an "Agent Execution Environment" for agent task execution) plus a research roadmap,
+explicitly framed by its own authors as a conceptual scaffold for community discussion rather than
+a definitive solution, with no measured study and no shipped tooling behind it, and no numbered
+autonomy-level scheme in its own abstract despite several secondary summaries describing one — so
+it is declined on the same no-measurement grounds as the Berkeley RDI framing rather than added as
+a counterpart. [Anderson, "The AI Codebase Maturity Model: From Assisted Coding to Fully Autonomous
+Systems"](https://arxiv.org/abs/2604.09388) (arXiv, 2026-04, rev. 2026-04-27) surfaced on a "levels
+of autonomy" search and was checked directly — it is the ACMM `CLAUDE.md` already names as
+vocabulary this repo deliberately avoids, already catalogued and evaluated in this repo, and a
+single-author anecdotal case study of one project rather than new ground, so it is out of this
+lane's scope rather than a new find. An Oregon State/ICER 2025 controlled study of GitHub Copilot in
+brownfield programming tasks (Shihab, Hundhausen, Tariq, Haque, Qiao, Mulanda; arXiv 2506.10051) was
+checked and declined: secondary sources disagree on its own details (the paper's own reported
+10-undergraduate sample and 34.9% speedup vs. an "18 graduate students"/"nearly 50%" figure in one
+blog summary), and its qualitative finding — faster task completion with no comprehension gain —
+sits squarely inside ground this page's Comprehension Debt cluster (the EASE 2026 Karlstad diary
+study, the Shen & Tamkin Anthropic RCT above) already covers with cleaner sourcing, so it is
+declined as a thinner, conflictingly-reported duplicate rather than added as a third data point. A
+cluster of software-factory vendor case studies (Augment's self-reported 17,200-merged-PR
+median-time metric, a two-week "Memo" public experiment, a Forrester blog post, a Wavect "the
+factory returns" essay) were checked and declined on the same self-reported-vendor-numbers and
+re-treatment grounds already applied throughout this page. One genuine find earned a place: a
+large-scale OSS commit-mining study sharpening the review-burden mechanism the "2×" mandate study
+above measures inside one company, this time across public open-source projects — see below.
 
 ---
 
@@ -1422,6 +1482,27 @@ instance of exactly that substitution happening. Confirmed via multiple independ
 summaries (the arXiv abstract page, its HTML rendering) agreeing on the same developer/PR counts and
 the 2.09× figure — this pass's `WebFetch` of `arxiv.org` failed with `EGRESS_BLOCKED`, so the paper
 itself was not directly read.
+
+### [AI-Assisted Programming May Decrease the Productivity of Experienced Developers by Increasing Maintenance Burden](https://arxiv.org/abs/2510.10165) — Feiyang (Amber) Xu, Poonacha Medappa, Murat Tunç, Martijn Vroegindeweij, Jan C. Fransoo (Tilburg University, Information Systems & Operations Management; arXiv, v1 2025-10-11, rev. v3 2026-01-28)
+Sharpens the review-burden mechanism the "2×" mandate study above measures inside one company's
+internal panel, on a different evidence class entirely: large-scale open-source commit mining,
+tracking 1,699 developers across 2,755 GitHub projects before and after GitHub Copilot's
+introduction. Productivity does rise, but asymmetrically — the gain comes mainly from
+less-experienced ("peripheral") contributors, while the experienced "core" developers a project
+actually depends on absorb the cost: they review roughly **6.5% more code** after Copilot's
+introduction while their own original-code productivity drops **about 19%**. Code written after
+Copilot's adoption also needs more rework to meet repository standards — a second, independent
+signal pointing the same way. The authors' own framing, per Tilburg University's publication
+summary: productivity gains "may mask the growing burden of maintenance on a shrinking pool of
+experts." Where the "2×" mandate study above finds throughput held steady by review coverage
+quietly shrinking, this finds a different-shaped version of the same trade in ordinary OSS
+maintenance — review work holding (or growing) by quietly consuming the time a project's most
+experienced maintainers would otherwise spend writing their own code. Scope caveat the authors
+state themselves: the sample focuses on OSS projects owned by Microsoft, which had early access to
+the Copilot-era model, so the magnitude may not generalize to all open-source work. Confirmed via
+direct fetch of both the arXiv abstract page and Tilburg University's own publication page, both
+reachable this pass; the arXiv version (v3) carries a slightly reworded title ("Decreases" rather
+than "May Decrease") from the January 2026 revision — the title above matches Tilburg's own listing.
 
 ### [How AI Impacts Skill Formation](https://arxiv.org/abs/2601.20245) — Judy Hanwen Shen, Alex Tamkin (Anthropic; arXiv, 2026-02)
 A randomized controlled trial, and notably an Anthropic-authored study testing a **competitor's**
