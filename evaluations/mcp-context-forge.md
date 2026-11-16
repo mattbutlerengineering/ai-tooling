@@ -3,7 +3,7 @@
 **Repo:** [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge)
 **Stars:** ~3,930 | **Last updated:** 2026-06-20 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-10-21  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-16  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (MCP infrastructure / gateway)
 **Layer:** Infrastructure
 
@@ -71,6 +71,9 @@ _Re-triaged 2026-08-17 by the P2 challenger band — no incumbent federates/gove
 **Re-triaged 2026-10-21 by the P2 challenger band:** no change — `fastmcp` is still a server
 framework, not a gateway, and nothing new in STACK federates/governs MCP/A2A/REST endpoints.
 Left at `discovery-log`.
+
+**Re-triaged 2026-11-16 by the P2 challenger band (daily discovery pass):** no change —
+no STACK pick federates/governs a fleet of MCP/A2A/REST endpoints yet. Left at `discovery-log`.
 
 ## Catalog entry
 
