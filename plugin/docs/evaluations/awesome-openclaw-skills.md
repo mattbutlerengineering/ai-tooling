@@ -3,7 +3,7 @@
 **Repo:** [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills)
 **Stars:** 50,368 | **Last updated:** 2026-06-16 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** N/A (discovery reference)
 **Layer:** N/A
 
@@ -73,6 +73,10 @@ a 5,400-entry registry is readable regardless of which harness you run. Referenc
 findability, not on installability.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-11-17 by the P3 backlog band (5-oldest-untriaged pass):** no change — still
+a reference/discovery index, judged on findability rather than installability; no new
+adoption or measurement signal surfaced. Left at `discovery-log`.
 
 ## Catalog entry
 

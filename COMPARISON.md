@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1338 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1344 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -187,6 +187,7 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | herdr | tool | | ✓ | discovery-log | REVIEW |
 | herdr-gpui | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | herdr-kanso | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| coordinator | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | sno-station | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claurst | harness | | ✓ | SKIP | REVIEW |
 | claude-code-harness | harness | | ✓ | SKIP | REVIEW |
@@ -229,6 +230,8 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | cedr | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cross-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| Parallax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| poo | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | overseer | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | crewyard | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | orchestra | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -588,6 +591,7 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | crossmatch | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
+| turbo-browser-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | browser-hands | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | playwright-cli | tool | | ✓ | CONDITIONAL | MEASURED |
 | jev-browser | MCP server | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
@@ -717,6 +721,7 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | godkiller-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
+| rust-anything | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | your-cto-jev | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vps-forge | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -781,6 +786,7 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | 1c-quality-gate | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | ship-it | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | phyll | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| unslopovich | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openreview | tool | ✓ | ✓ | SKIP | REVIEW |
 | pullfrog | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | farol | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1423,9 +1429,9 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 404 | 130 | 4 | 32% |
-| Verify | 65 | 23 | 2 | 35% |
-| Review | 167 | 37 | 3 | 22% |
+| Implement | 407 | 130 | 4 | 32% |
+| Verify | 66 | 23 | 2 | 35% |
+| Review | 169 | 37 | 3 | 22% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 11 | 5 | 3 | 45% |
 | Outer Loop | 123 | 22 | 2 | 18% |
@@ -1434,4 +1440,4 @@ All 1338 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 73 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 65 | 18 | 4 | 28% |
-| **Total** | **1338** | **386** | **34** | **29%** |
+| **Total** | **1344** | **386** | **34** | **29%** |

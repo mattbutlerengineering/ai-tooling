@@ -3,7 +3,7 @@
 **Repo:** [microsoft/azure-skills](https://github.com/microsoft/azure-skills)
 **Stars:** 1,220 | **Last updated:** 2026-06-18 (pushed; created 2026-02-26) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** Outer loop — Ship (deploy/validate) and Operate (diagnostics, monitoring, cost, compliance). Touches inner-loop Implement only for Azure-SDK wiring; its center of gravity is the cloud-operations end of the loop, not writing application code.
 **Layer:** Tooling + Infrastructure — a packaged capability layer that pairs guidance *skills* (the "brain") with the Azure MCP Server and Foundry MCP (the "hands") that reach live Azure resources.
 
@@ -78,6 +78,10 @@ vendor cloud pack is exactly what the section is for. Same reasoning that spared
 the previous slice.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-11-17 by the P3 backlog band (5-oldest-untriaged pass):** no change — still
+a complement to, not a duplicate of, `microsoft/skills`; no new adoption or measurement signal
+surfaced. Left at `discovery-log`.
 
 ## Catalog entry
 
