@@ -3,7 +3,7 @@
 **Repo:** [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design)
 **Stars:** 1,622 | **Last updated:** 2026-06-19 (pushed; created 2026-06-07) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Implement on the *design* track — it drives a clarify → context → produce-HTML → preview → verify loop that yields UI mockups, prototypes, decks, and wireframes before (or instead of) production code. Outer-loop-adjacent for pitch/deck artifacts.
 **Layer:** Process + Tooling — the design methodology is markdown (`SKILL.md` + `system-prompt.md` + built-in skills), but it ships a real **67-file Node/TypeScript toolchain** (PPTX pipeline, offline Figma `.fig` decoder, design-system compiler/checker) that executes.
 
@@ -86,6 +86,10 @@ claims.
 The `claude.ai/design`-parity claim is unverified and should be treated as marketing until measured.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-11-17 by the P3 backlog band (5-oldest-untriaged pass):** no change — the
+"vet the toolchain and pin a commit first" caution still stands for this executable-code skill;
+no new adoption or measurement signal surfaced. Left at `discovery-log`.
 
 ## Catalog entry
 

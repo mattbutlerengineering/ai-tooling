@@ -3,7 +3,7 @@
 **Repo:** [beam-cloud/beta9](https://github.com/beam-cloud/beta9)
 **Stars:** ~1,670 | **Last updated:** 2026-06-20 | **License:** AGPL-3.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** Implement (serverless execution / sandboxes)
 **Layer:** Infrastructure
 
@@ -71,6 +71,11 @@ Types. The eval's "weigh AGPL-3.0 for productized/networked use" is the correct 
 condition on adoption, not on cataloguing.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-11-17 by the P3 backlog band (5-oldest-untriaged pass):** no change — still a
+broader-runtime platform rather than a purpose-built sandbox, AGPL-3.0 remains a non-issue for a
+`platform` you merely operate; no new adoption or measurement signal surfaced. Left at
+`discovery-log`.
 
 ## Catalog entry
 

@@ -3,7 +3,7 @@
 **Repo:** [awslabs/mcp](https://github.com/awslabs/mcp)
 **Stars:** 9,296 | **Last updated:** 2026-06-18 | **License:** Apache-2.0
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-08-04  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Infrastructure
 
@@ -78,6 +78,10 @@ open-source servers remain the better development-workflow option today. That is
 moving target and is exactly the kind of claim a fresh look should verify first.
 
 _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutlerengineering/ai-tooling/issues/268))._
+
+**Re-triaged 2026-11-17 by the P3 backlog band (5-oldest-untriaged pass):** no change — the
+Agent Toolkit for AWS succession question is still unverified and `cloudflare-mcp` remains the
+complementary, non-redundant peer. Left at `discovery-log`.
 
 ## Catalog entry
 
