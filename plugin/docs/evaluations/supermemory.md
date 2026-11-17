@@ -2,8 +2,8 @@
 
 **Repo:** [supermemoryai/supermemory](https://github.com/supermemoryai/supermemory)
 **Stars:** 28,780 | **Last updated:** 2026-08-05 (pushed) | **License:** MIT | **Packages:** npm `supermemory`, PyPI `supermemory`
-**Last verified:** 2026-11-05
-**Last triaged:** 2026-11-05  <!-- triaged: bulk -->
+**Last verified:** 2026-11-17
+**Last triaged:** 2026-11-17  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory + context layer for AI apps and agents)
 **Layer:** Infrastructure (memory/context engine + hosted app; cloud API or fully self-hostable)
 
@@ -70,6 +70,20 @@ v/bin/python t.py   # add/search/profile with a positional namespace, then the R
   README add TypeError Supermemory.add() got an unexpected keyword argument 'container_tag'
   README profile TypeError Supermemory.profile() got an unexpected keyword argument 'container_tag'
   stub log: POST /ns/u1/document {"content":"I prefer tabs over spaces"} ; POST /ns/u1/search {"query":"indent style"} ; POST /ns/u1/profile {}
+# fifth pass 2026-11-17: installer now runs, binary download is where it stops
+curl -sSL https://supermemory.ai/install -o install.sh   # -> HTTP 200, 11155 bytes
+HOME=/tmp/eval-supermemory/home SUPERMEMORY_NO_START=1 SUPERMEMORY_NO_PROMPT=1 bash install.sh
+  -> Platform: linux-x64
+  -> curl: (22) The requested URL returned error: 403      # github.com/supermemoryai/supermemory/releases/... via the sandbox proxy
+curl -sS -o /dev/null -w '%{http_code}' -L https://github.com/supermemoryai/supermemory/releases/latest   # -> 403
+git clone --depth 1 https://github.com/supermemoryai/supermemory   # ok (git reads served); repo has apps/ + packages/ (SDKs, MCP, docs) and no engine source
+v/bin/pip install supermemory   # -> supermemory 5.0.1 (unchanged since fourth pass)
+v/bin/python t.py   # same stub, namespace-positional calls then the README snippet's keyword form
+  add ok DocumentRef
+  search ok SearchResponse
+  profile ok ProfileResponse
+  README add TypeError Supermemory.add() got an unexpected keyword argument 'container_tag'
+  README profile TypeError Supermemory.profile() got an unexpected keyword argument 'container_tag'
 ```
 
 ## Test design
@@ -91,6 +105,7 @@ v/bin/python t.py   # add/search/profile with a positional namespace, then the R
 - **The README's Python quickstart does not run against the released SDK.** It passes `container_tag=` to `add()` and `profile()`; `supermemory` 5.0.0 on PyPI takes a positional `namespace` and raises `TypeError` on the README form. The SDK posts to `/ns/<namespace>/document|search|profile`, and `search` is a method taking `query=`, not the README's `client.search.documents()` table entry. A newcomer's first copy-paste fails.
 - **The npm CLI (5.0.2) and the PyPI SDK (5.0.0) emit the same `/ns/<namespace>/document|search|profile` paths** against the stub, so the CLI surface is consistent with the SDK; the CLI also issues a `GET /v3/session` first. This is still a request-shape check only.
 - **Fourth pass (2026-11-05): SDK 5.0.1 shipped, and the README quickstart (`main`, lines 224-234, still `container_tag=`) fails identically** — `TypeError` on both `add()` and `profile()`; the namespace-positional calls and request paths are unchanged. The engine was not re-attempted, since the earlier passes' installer route is blocked by the sandbox and a direct binary fetch would be the same refused action.
+- **Fifth pass (2026-11-17): the installer script now executes, but its binary download is the block.** The script resolves `linux-x64`, then the release asset fetch from `github.com/supermemoryai/supermemory/releases` answers HTTP 403 from the sandbox proxy (git clones are served, release downloads are not). The cloned tree holds the SDKs, MCP server, docs and playgrounds, with no source for the `supermemory-server` engine, so there is no build-from-source route either. SDK is still 5.0.1 and the README quickstart still fails with `TypeError` on `container_tag=`. Nothing about the engine was measured.
 - **Third pass changed nothing on the engine.** The installer URL now answers HTTP 200 (it was a 403 on 2026-10-19), but the sandbox refused to execute the downloaded script, and PyPI still lists `supermemory` 5.0.0 as the latest release, so the README-vs-SDK mismatch above was not re-tested against a newer client.
 - **The engine itself is unmeasured.** Extraction quality, recall, the ~50ms profile latency and the self-host footprint were not observed here.
 - **Self-host still wants a model key for memory extraction** by the README's own account (OpenAI/Anthropic/Gemini/Groq or Ollama); only embeddings default to a local model.
@@ -113,7 +128,7 @@ v/bin/python t.py   # add/search/profile with a positional namespace, then the R
 
 ## Verdict
 
-**discovery-log — tentative read** — the engine could not be run here (installer execution refused by the sandbox on three passes, no vendor key; a fourth pass on SDK 5.0.1 re-confirmed only the README-vs-SDK mismatch); only the Python client was exercised, and the README's Python quickstart fails with `TypeError` on SDK 5.0.0. Prior read, unchanged by this pass: supermemory is one of the most capable memory+context engines in this catalog: a benchmark-leading (self-reported), full-stack system with fact extraction, user profiles, hybrid RAG, connectors, and multimodal ingestion, MIT-licensed with TS/Python SDKs. Adopt it when you're **building an AI app or a personal/company "brain"** that needs the whole context stack — not just session memory. For a solo developer whose goal is Claude Code continuity, it's heavier and largely redundant with claude-mem + OMEGA, and the headline path leans on the hosted cloud. Pilot on your own data, confirm the self-host scope, and measure recall quality before depending on it.
+**discovery-log — tentative read** — the engine could not be run here (installer execution refused on three passes, then on a fifth the installer ran and its release-binary download answered HTTP 403; no vendor key; the engine ships only as a release binary or image; passes four and five re-confirmed only the README-vs-SDK mismatch on SDK 5.0.1); only the Python client was exercised, and the README's Python quickstart fails with `TypeError` on SDK 5.0.0. Prior read, unchanged by this pass: supermemory is one of the most capable memory+context engines in this catalog: a benchmark-leading (self-reported), full-stack system with fact extraction, user profiles, hybrid RAG, connectors, and multimodal ingestion, MIT-licensed with TS/Python SDKs. Adopt it when you're **building an AI app or a personal/company "brain"** that needs the whole context stack — not just session memory. For a solo developer whose goal is Claude Code continuity, it's heavier and largely redundant with claude-mem + OMEGA, and the headline path leans on the hosted cloud. Pilot on your own data, confirm the self-host scope, and measure recall quality before depending on it.
 
 Compared to neighbors: **mem0** is the broad universal memory layer; **cognee** a self-hosted knowledge-graph memory; **MemOS** a self-evolving "memory OS" with policy/skill layers; **Memori** drop-in production memory with multi-tenant attribution; **memsearch** a Milvus-backed shared layer. supermemory's distinguishing pitch is **benchmark-topping breadth — memory + profiles + RAG + connectors + multimodal in one engine** — closer to a context platform than a memory library.
 
