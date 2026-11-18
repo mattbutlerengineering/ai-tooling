@@ -20,8 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-16 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-18 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -1067,6 +1067,46 @@ factory returns" essay) were checked and declined on the same self-reported-vend
 re-treatment grounds already applied throughout this page. One genuine find earned a place: a
 large-scale OSS commit-mining study sharpening the review-burden mechanism the "2×" mandate study
 above measures inside one company, this time across public open-source projects — see below.
+The 2026-11-18 pass found the egress wall fully open: a direct `curl` to `youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `anthropic.com` all returned `200`, and `uvx yt-dlp` ran real `ytsearch6`
+queries against all eleven of this sweep's scoped topics (software factories dark/lit, agentic SDLC,
+AWS AI-DLC, ADLC, AI developer workflows, agentic engineering, spec-driven development, context
+engineering, harness engineering, verification bandwidth/back pressure/comprehension debt, levels of
+autonomy) and returned real, dated results; none cleared the bar for a transcript pull, so the
+per-video bot-detection wall noted on every pass since 2026-10-07 was not re-tested. The eleven
+searches returned almost entirely channels and talks this page already covers or has already
+declined in substance (IBM Technology, Google Cloud Tech, AWS Events, Cursor, IndyDevDan, Cole Medin,
+Owain Lewis) or vendor/course content with no primary claim (Greg Isenberg's "Software Factory"
+course; a ThinkAi.Social "Lit vs. Dark Factories" upload, still in single-digit views). `github.com`'s
+HTTPS git endpoint was reachable too (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows`
+was re-checked directly by cloning `main` read-only: HEAD moved to `e67406f` (2026-11-18, same-day), a
+new stable release `v2.11.4` (2026-11-13, up from `v2.11.3` noted 2026-11-09) splits the Kiro harness
+into `kiro` (Kiro IDE + Kiro CLI v3) and `kiro-v2` (Kiro CLI on its V2 engine) and adds team-mode and
+install/lifecycle fixes, but `docs/guide/04-phases-and-stages.md` still opens with the identical
+sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is
+organized into 5 phases containing 33 stages,"* so nothing was added to that file this pass. Several
+web near-misses were checked and declined. Dex Horthy's "Harness Engineering is not Enough: Why
+Software Factories Fail" (AI Engineer, 2026-06-30, confirmed via a session-page transcript) argues no
+amount of harness work fixes a model-capability problem — but it is an argued talk with no new primary
+measurement from an author this page already cites extensively (the HumanLayer entry added
+2026-08-12), the same re-treatment call already made against his other material. `FDE-Gym: The Last
+Mile of AI Delivery` (arXiv 2610.22350, read directly) — 95 end-to-end customer-delivery tasks across
+18 sectors, best model configuration scoring a mean 0.56 — was checked and declined on scope: it
+benchmarks forward-deployed-engineer-style requirements discovery and stakeholder negotiation for
+deploying AI agent products to customers, the same AI-agent-ops-for-building-AI-products category
+`CLAUDE.md`'s own P0-scope-mismatch reasoning already excludes, not a claim about this repo's own dev
+workflow. `Co-Design Bench` (arXiv, 2026-10-26; top model meeting ~70% of acceptance criteria per task
+but fully completing only ~26% of 273 real-user tasks) was checked and declined for an unreliable
+secondary record rather than for topic — the model name, the shared harness, and even the author
+affiliation are reported differently across the write-ups found, and this pass could not reach a
+primary account to settle them, the same caution already applied to a disputed "DORA 2026" figure set
+declined 2026-09-30. Imbue's "A case study in testing with 100+ Claude agents in parallel" (`mngr`,
+read directly) resurfaced on this pass's searches but is the vendor's own tool demonstration with no
+control group, dated April 2026 rather than new, the same self-reported-vendor-numbers grounds already
+applied throughout this page. One genuine find earned a place: the first randomized controlled trial
+found for this page's Comprehension Debt cluster, rather than an argued essay or an observational/
+diary study, read directly from the arXiv HTML and cross-checked against a Lund University
+research-portal record for its November 2026 journal publication date — see below.
 
 ---
 
@@ -1850,8 +1890,34 @@ literature-review summary, a practitioner write-up) agreeing on the same diary/s
 counts — this pass's sandbox blocked `arxiv.org` outright (`EGRESS_BLOCKED`, consistent with every
 prior pass since 2026-08-10), so the paper itself was not directly read.
 
+### [Echoes of AI: Investigating the Downstream Effects of AI Assistants on Software Maintainability](https://arxiv.org/abs/2507.00788) — Markus Borg, Dave Hewett, Nadim Hagatulah, Noric Couderc, Emma Söderberg, Donald Graham, Uttam Kini, Dave Farley (preregistered at ICSME 2025 as a Registered Report; arXiv, 2025-07, rev. 2026-02; published in *Empirical Software Engineering* 31(6), 2026-11)
+A third source on this page's Comprehension Debt cluster, and the first with an actual randomized
+controlled trial on the specific claim the cluster otherwise only argues (Osmani) or observes
+qualitatively (Ahmad's diary study above): does code written with AI assistance cost *someone else*
+more to evolve later. Two phases, 151 participants total (95% professional developers), both working
+on the same Java "RecipeFinder" web app. Phase 1 (observational): participants free to use an AI
+assistant (GitHub Copilot and similar tools, self-selected, no agentic harness) completed a first
+feature with a 30.7% median reduction in completion time, and a Bayesian model's posterior-mean
+effect for habitual AI users was a 55.9% speedup. Phase 2 is the actual RCT and the paper's real
+contribution: a second, independent set of 75 participants evolved Phase 1's solutions with **no**
+AI assistance, randomized over which original solution (AI-assisted or not) they inherited, scored on
+CodeHealth (CodeScene's 1-10 maintainability metric) and test coverage (JaCoCo) of the result.
+Finding: "no significant differences... with respect to completion time or code quality," and the
+Bayesian analysis puts any residual effect of the original AI use as "at most small and highly
+uncertain" — in the authors' own words, "we did not detect systematic maintainability advantages or
+disadvantages." That complicates this cluster's prevailing pessimism from the measured, rather than
+argued or diaried, side — directly on point for this repo's own Maintainability quality signal — but
+the complication cuts toward *no detected harm*, not toward *proven safe*, and the authors disclose
+the limit themselves: data collection ran October 2024-January 2025, and the paper's own introduction
+states the study "largely predates the third generation" of autonomous coding agents, so it speaks to
+Copilot-era assistants rather than the agentic harnesses this repo catalogs. Read directly from the
+arXiv HTML text (the journal's own page sat behind a Springer paywall this pass); the 2026-11
+*Empirical Software Engineering* 31(6) publication, found via a Lund University research-portal
+record, is what makes this a fresh find rather than a re-surfacing of an already-stale mid-2025
+preprint.
+
 ### [How Do Practitioners Build SE Agents? Insights from a Mixed-Methods Study](https://arxiv.org/abs/2607.10856) — Yunbo Lyu, David Williams, Jieke Shi, Zhensu Sun, Chao Peng, Zhou Yang, Federica Sarro, David Lo (Singapore Management University, UCL, Tencent, University of Alberta; arXiv, 2026-07-12, rev. 2026-07-25)
-A third source on this page's Comprehension Debt cluster, and the most industrially-grounded one —
+A fourth source on this page's Comprehension Debt cluster, and the most industrially-grounded one —
 not a blog essay (Osmani, above) and not a student cohort (Ahmad's EASE 2026 diary study, above),
 but semi-structured interviews with 20 practitioners from 12 organizations (startups through large
 tech companies) who build SE agents themselves, corroborated by an online survey of a further 80
