@@ -3,7 +3,7 @@
 **Repo:** [garrytan/gstack](https://github.com/garrytan/gstack)
 **Stars:** 111,392 | **Last updated:** 2026-06-18 | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-10-28  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-20  <!-- triaged: bulk -->
 **Dev loop stage:** Plan + Implement + Verify + Review + Ship + Reflect (a full-sprint workflow)
 **Layer:** Process (with a Tooling browser/eval substrate underneath)
 
@@ -90,7 +90,11 @@ by a STACK incumbent.
 Re-examined 2026-10-02 (5-oldest-untriaged pass): reasoning still holds, not newly dominated
 by a STACK incumbent.
 
-_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass); re-stamped 2026-09-16, 2026-09-21, 2026-09-25, 2026-10-02._
+Re-examined 2026-11-20 (5-oldest-untriaged pass, daily discovery-and-triage routine): reasoning
+still holds — ★126K celebrity-curated role pack is not newly dominated by a STACK incumbent;
+not archived, license unchanged (MIT).
+
+_Triaged 2026-08-04 by the P2 challenger band (5-oldest-untriaged pass); re-stamped 2026-09-16, 2026-09-21, 2026-09-25, 2026-10-02, 2026-11-20._
 
 ## Catalog entry
 

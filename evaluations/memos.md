@@ -3,7 +3,7 @@
 **Repo:** [MemTensor/MemOS](https://github.com/MemTensor/MemOS)
 **Stars:** 10,591 | **Last updated:** 2026-08-05 (pushed; created 2025-07-06) | **License:** Apache-2.0
 **Last verified:** 2026-10-18
-**Last triaged:** 2026-10-18  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-20  <!-- triaged: bulk -->
 **Dev loop stage:** Memory & Context (cross-cutting — persistent memory layer for agents across sessions)
 **Layer:** Infrastructure (TypeScript; cloud service or self-hosted; npm `@memtensor/memos`, plugins)
 
@@ -73,6 +73,15 @@ top1 5 / 5   ms/query 0.5
 **discovery-log — tentative read** — it installs and its own tests pass cleanly once the documented extras are added (861 passed; the 6 remaining reds all need PyTorch), and the local vector layer retrieved 5/5, but the self-evolving memory pipeline and the benchmark claims need an LLM key and Neo4j and were not exercised, so there is no basis for a real verdict. Compare against mem0, cognee and agentmemory by integration fit and pilot on your own workload with a key before committing.
 
 Compared to neighbors: **mem0** is the broad "universal memory layer"; **cognee** an open-source memory platform; **agentmemory** a persistent store. MemOS's distinguishing pitch is self-evolving, layered memory (trace to policy to world-model) with crystallized skill reuse, which is exactly the part this keyless run could not reach.
+
+## Triage note
+
+P3 backlog. Not archived, license unchanged (Apache-2.0, ★10.6K). The self-evolving pipeline and
+benchmark claims still need an LLM key and Neo4j to exercise — a hands-on eval's job, not a
+mechanical disposition. Left at `discovery-log`.
+
+Re-examined 2026-11-20 (5-oldest-untriaged pass, daily discovery-and-triage routine): reasoning
+still holds — nothing structural changed since the 2026-10-18 read.
 
 ## Catalog entry
 
