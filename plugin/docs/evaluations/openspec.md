@@ -3,7 +3,7 @@
 **Repo:** [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec)
 **Stars:** 63,815 | **Last updated:** 2026-08-05 | **License:** MIT
 **Last verified:** 2026-10-18
-**Last triaged:** 2026-10-18  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-20  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (primary), with Implement (`/opsx:apply`) and Verify (`/opsx:verify`, `openspec validate`)
 **Layer:** Process (with a thin Tooling layer — the `openspec` CLI scaffolds/validates/archives)
 
@@ -95,6 +95,16 @@ Result: the control passes; of the seven planted-defect changes, `validate --str
 ## Verdict
 
 **discovery-log — measured; promotion candidate** — the CLI layer measurably does its stated structural job (6 of 7 planted defects blocked, 0 false positives, atomic archive) and would read CONDITIONAL on human confirmation, with the condition "adopt if the team does non-trivial or brownfield feature work and CI runs `openspec validate --all --strict`"; the agent-driven proposal quality and comparison with spec-kit were not measured.
+
+## Triage note
+
+P3 backlog. Not archived, license unchanged (MIT, ★63.8K). Already carries a measured,
+promotion-candidate read with a stated `adopt-if:` condition — real human/eval-runner work, not
+a mechanical disposition this lane may make. Left at `discovery-log`.
+
+Re-examined 2026-11-20 (5-oldest-untriaged pass, daily discovery-and-triage routine): reasoning
+still holds — the promotion-candidate read and its condition are unchanged, and promoting it is
+still a human/non-bulk action, not this lane's to take.
 
 ## Catalog entry
 

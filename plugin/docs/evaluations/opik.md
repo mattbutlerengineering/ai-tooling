@@ -3,7 +3,7 @@
 **Repo:** [comet-ml/opik](https://github.com/comet-ml/opik)
 **Stars:** 21,115 | **Last updated:** 2026-08-05 (pushed) | **License:** Apache-2.0 | **Language:** Python + TS (by Comet)
 **Last verified:** 2026-10-18
-**Last triaged:** 2026-10-18  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-20  <!-- triaged: bulk -->
 **Dev loop stage:** Observability / Verify — LLM tracing, evaluation, optimization
 **Layer:** Infrastructure (self-hostable server + client SDKs)
 
@@ -83,6 +83,15 @@ Equals(case_sensitive=True).score('OK','ok') = 0.0 ; LevenshteinRatio(case_sensi
 **discovery-log — tentative read** — The SDK installs cleanly, traces nested calls to a backend without altering results, and its heuristic metrics match stdlib checks (18/20 by default, 20/20 with `case_sensitive=True`); but the server, LLM-judge metrics and optimizer that justify the platform were never exercised (no Docker or model key), so there is no basis yet to promote or eliminate it. Next step for a human: run the self-hosted stack and one judge metric.
 
 Compared to neighbors: **langfuse** is tracing/observability + prompt management; **promptfoo** is declarative eval + red-teaming; **giskard-oss** is agent red-teaming; **ragas** is RAG metrics. Opik's distinguishing pitch is **unified tracing + evaluation + automatic prompt/tool optimization for agentic systems.**
+
+## Triage note
+
+P3 backlog. Not archived, license unchanged (Apache-2.0, ★21.1K). The server, LLM-judge metrics
+and optimizer that justify the platform still need Docker and a model key to exercise — a
+hands-on eval's job, not a mechanical disposition. Left at `discovery-log`.
+
+Re-examined 2026-11-20 (5-oldest-untriaged pass, daily discovery-and-triage routine): reasoning
+still holds — nothing structural changed since the 2026-10-18 read.
 
 ## Catalog entry
 

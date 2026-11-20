@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1357 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1366 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -214,6 +214,9 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | kanzo | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | orca | platform | ✓ | ✓ | discovery-log | RUN |
+| claudes-workbench | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| claude-antigravity | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| DSH-projects | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | t3code | platform | | ✓ | discovery-log | SOURCE-ONLY |
 | agentbox | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | codex-mobile-bridge | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -436,6 +439,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | eino | framework | ✓ | ✓ | SKIP | REVIEW |
 | vercel/workflow | framework | ✓ | ✓/$ | SKIP | SOURCE-ONLY |
 | proof-of-done-loop | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
+| TRACE | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-flow | skill | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | timeboxed-execution | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | maintainer-autopilot | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -555,6 +559,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | O9-RD-MAO-Governance | framework | | ✓ | discovery-log | SOURCE-ONLY |
 | embedded-project-governance | skill | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-rein | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| session-sentinel | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-wise | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | tasktrooper | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | seanswarm | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -603,6 +608,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | behalf-chrome-agent | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | playwright-skill | skill | | ✓ | SKIP | REVIEW |
 | stryker-js | tool | ✓ | ✓ | CONDITIONAL | RUN |
+| testscope | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | testseal | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | frama-c-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | qodo-cover | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
@@ -854,6 +860,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | dev3000 | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | debroid | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | roundtable | tool | ✓ | ✓ | discovery-log | MEASURED |
+| ai-terrarium | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | zoetrope | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-agent-flow | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | flowpane | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1123,6 +1130,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | baoyu-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Generative-Media-Skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-skill-creator | skill | | ✓ | SKIP | SOURCE-ONLY |
+| engineering-skills (solidgate) | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | wondelai/skills | skill | | ✓ | SKIP | SOURCE-ONLY |
 | awesome-design-skills | reference | | ✓ | discovery-log | SOURCE-ONLY |
 | SkillCorpus | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1244,6 +1252,7 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | jevmem | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | ctx-handoff-mod | plugin | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | project-sentinel | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| dsh-context-bridge | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 
 ## MCP Servers (infrastructure)
 
@@ -1442,15 +1451,15 @@ All 1357 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 411 | 130 | 4 | 32% |
-| Verify | 66 | 23 | 2 | 35% |
+| Implement | 416 | 130 | 4 | 31% |
+| Verify | 67 | 23 | 2 | 34% |
 | Review | 172 | 37 | 3 | 22% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
-| Outer Loop | 126 | 24 | 2 | 19% |
-| Skills & Plugins | 156 | 49 | 4 | 31% |
-| Memory & Context | 109 | 33 | 2 | 30% |
+| Outer Loop | 127 | 24 | 2 | 19% |
+| Skills & Plugins | 157 | 49 | 4 | 31% |
+| Memory & Context | 110 | 33 | 2 | 30% |
 | MCP Servers | 73 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1357** | **390** | **34** | **29%** |
+| **Total** | **1366** | **390** | **34** | **29%** |
