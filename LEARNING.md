@@ -20,8 +20,8 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-18 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-20 (this pass found nothing new — see the dated footnote below). The
+page was previously verified 2026-11-18 (that pass's addition, confirmed via direct fetch), and before that 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -1107,6 +1107,38 @@ applied throughout this page. One genuine find earned a place: the first randomi
 found for this page's Comprehension Debt cluster, rather than an argued essay or an observational/
 diary study, read directly from the arXiv HTML and cross-checked against a Lund University
 research-portal record for its November 2026 journal publication date — see below.
+The 2026-11-20 pass found the egress wall fully open: a direct `curl` to `youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `anthropic.com` all returned `200`, and `uvx yt-dlp` ran real `ytsearch6`
+queries against all eleven of this sweep's scoped topics (software factories dark/lit, agentic SDLC,
+AWS AI-DLC, ADLC, AI developer workflows, agentic engineering, spec-driven development, context
+engineering, harness engineering, verification bandwidth/back pressure/comprehension debt, levels of
+autonomy) and returned real, dated results; the "verification bandwidth / back pressure /
+comprehension debt" query again returned pure noise (titles matching only the bare word
+"bandwidth"), the same term-overlap problem noted on every prior pass. The eleven searches returned
+only channels/talks this page already covers or has already declined in substance (IBM Technology,
+AWS Events, Cole Medin, IndyDevDan, Zen van Riel, Owain Lewis, AI LABS, Sonar Summit) plus one vendor
+case study — GitHub's own "17 agents, one SDLC" customer piece — declined on the same self-reported,
+no-control grounds applied throughout this page. `github.com`'s HTTPS git endpoint was reachable too
+(same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning
+`main` read-only: HEAD moved to `56547da3` (2026-11-20, same-day), no new stable release exists past
+`v2.11.4` noted 2026-11-18 (only preview tags run ahead of it, through
+`v2.11.5-preview.20261119.1`), and `docs/guide/04-phases-and-stages.md` still opens with the identical
+sentence [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) already maps, *"The AI-DLC lifecycle is
+organized into 5 phases containing 33 stages,"* so nothing was added to that file this pass. Several
+web near-misses were checked and declined, none close calls: Koch's "Agentic Agile-V" / "Agile V"
+(arXiv 2605.20456 / 2602.20684) are single-author process-framework proposals with no measured study
+and no shipped tooling, the same bar SDAD and Chen & Cheng were declined against; the "Beyond Code
+Generation" survey (arXiv 2609.04681) is a synthesis with no new primary measurement, matching the
+Northeastern survey already declined 2026-09-16; Uvik's spec-driven-development benchmark resurfaced
+and was declined again on the same self-reported-vendor-numbers grounds as 2026-11-11/11-16. One
+near-duplicate was checked and confirmed already covered rather than re-added: Xu, Medappa, Tunç,
+Vroegindeweij & Fransoo (Tilburg University), "AI-Assisted Programming May Decrease the Productivity
+of Experienced Developers by Increasing Maintenance Burden" (arXiv 2510.10165), surfaced again on
+this pass's review-bottleneck search but has been on this page since an earlier pass (see the Tilburg
+entry below) — no duplicate added. No new named methodology cleared the bar 8090's Software Factory
+and AWS's AI-DLC set, no counter-evidence or measured result distinct from what this page already
+carries turned up, and nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery lane.
+This is an empty pass — no entry added.
 
 ---
 
