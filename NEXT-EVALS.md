@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 976 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 982 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 119 distinct values across these 976 leads (407 have zero overlap pressure; largest tie: 91) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 120 distinct values across these 982 leads (413 have zero overlap pressure; largest tie: 93) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -10,8 +10,8 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 |------|------------|-------|-----------------------|
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
-| **P2 challenger** | overlaps a tool already in STACK | 279 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 666 | leave; stamp `**Last triaged:**` only |
+| **P2 challenger** | overlaps a tool already in STACK | 284 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
+| **P3 backlog** | everything else | 667 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 6 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -26,8 +26,8 @@ _human or `eval-runner` only — the one band that may reach ADOPT._
 | vet | Review | 71.8 | pressure 32, gap 7.8 | `/evaluate-tool vet` |
 | orca | Implement | 64.9 | pressure 29, gap 6.9 | `/evaluate-tool orca` |
 | cognee | Memory & Context | 61.0 | pressure 27, gap 7.0 | `/evaluate-tool cognee` |
+| langfuse | Outer Loop | 50.1 | pressure 21, gap 8.1 | `/evaluate-tool langfuse` |
 | mem0 | Memory & Context | 49.0 | pressure 21, gap 7.0 | `/evaluate-tool mem0` |
-| langfuse | Outer Loop | 48.1 | pressure 20, gap 8.1 | `/evaluate-tool langfuse` |
 | Understand-Anything | Plan | 44.8 | pressure 19, gap 6.8 | `/evaluate-tool Understand-Anything` |
 | aider | Implement | 42.9 | pressure 18, gap 6.9 | `/evaluate-tool aider` |
 | worktrunk | Ship | 42.8 | pressure 17, gap 8.8 | `/evaluate-tool worktrunk` |
@@ -55,11 +55,11 @@ _repoint the link to a successor, or SKIP "archived, no successor"._
 
 _(none)_
 
-## P2 challenger — 279 leads
+## P2 challenger — 284 leads
 
 _SKIP "redundant with `<incumbent>`", or leave at discovery-log._
 
-_Listing 12 of 279 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 284 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
@@ -76,11 +76,11 @@ _Listing 12 of 279 — rerun `python3 triage.py` and read the source for the tai
 | memU | Memory & Context | 25.0 | challenges claude-mem · pressure 9, gap 7.0 | `/triage-lead memU` |
 | mex | Memory & Context | 25.0 | challenges claude-mem · pressure 9, gap 7.0 | `/triage-lead mex` |
 
-## P3 backlog — 666 leads
+## P3 backlog — 667 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 666 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 667 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
@@ -110,7 +110,7 @@ _settle the container, or SKIP "ships inside `<container>`" — never an indepen
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
 | prisma | MCP Servers | 17.4 | ships inside `prisma/prisma` · pressure 4, gap 7.4 | `/triage-lead prisma` |
-| webapp-testing | Verify | 14.6 | ships inside `anthropics/skills` · pressure 3, gap 6.6 | `/triage-lead webapp-testing` |
+| webapp-testing | Verify | 16.6 | ships inside `anthropics/skills` · pressure 4, gap 6.6 | `/triage-lead webapp-testing` |
 | confluence | MCP Servers | 9.4 | ships inside `sooperset/mcp-atlassian` · pressure 0, gap 7.4 | `/triage-lead confluence` |
 | jira | MCP Servers | 9.4 | ships inside `sooperset/mcp-atlassian` · pressure 0, gap 7.4 | `/triage-lead jira` |
 | typescript-mcp-server-generator | Skills & Plugins | 8.9 | ships inside `github/awesome-copilot` · pressure 0, gap 6.9 | `/triage-lead typescript-mcp-server-generator` |

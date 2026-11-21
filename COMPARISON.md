@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1366 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1372 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -232,6 +232,8 @@ All 1366 tools from CATALOG.md with dev loop stage, automation capability, prici
 | tucano | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-dispatcher | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | cedr | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| cospan | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| openfabriq | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | diri | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cross-harness | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | Parallax | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -599,6 +601,7 @@ All 1366 tools from CATALOG.md with dev loop stage, automation capability, prici
 | SceneProof | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | crossmatch | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
+| otpkit | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
 | turbo-browser-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | browser-hands | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -879,6 +882,8 @@ All 1366 tools from CATALOG.md with dev loop stage, automation capability, prici
 | ccusage | tool | | ✓ | ADOPT | MEASURED |
 | cache-maxxing | tool | | ✓ | SKIP | SOURCE-ONLY |
 | worklog | tool | | ✓ | SKIP | SOURCE-ONLY |
+| traxagent-claude-plugin | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| toki | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | Tracely | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agenttrace | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | blazo | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1064,6 +1069,7 @@ All 1366 tools from CATALOG.md with dev loop stage, automation capability, prici
 | scientific-agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | skill-creator | plugin | | ✓ | ADOPT | MEASURED |
 | better-skill-creator | plugin | | ✓ | SKIP | SOURCE-ONLY |
+| skill-distill | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-mods | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | Only-Skill-You-Need | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | jump-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1451,15 +1457,15 @@ All 1366 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 416 | 130 | 4 | 31% |
-| Verify | 67 | 23 | 2 | 34% |
+| Implement | 418 | 130 | 4 | 31% |
+| Verify | 68 | 23 | 2 | 34% |
 | Review | 172 | 37 | 3 | 22% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
-| Outer Loop | 127 | 24 | 2 | 19% |
-| Skills & Plugins | 157 | 49 | 4 | 31% |
+| Outer Loop | 129 | 24 | 2 | 19% |
+| Skills & Plugins | 158 | 49 | 4 | 31% |
 | Memory & Context | 110 | 33 | 2 | 30% |
 | MCP Servers | 73 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1366** | **390** | **34** | **29%** |
+| **Total** | **1372** | **390** | **34** | **28%** |
