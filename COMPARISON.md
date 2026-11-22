@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1372 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1377 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -209,6 +209,7 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | claude-squad | tool | | ✓ | CONDITIONAL | RUN |
 | foreman (ilkemerol) | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | numbrone | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| ai4ai | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | KLIDE | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | mast | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vibe-kanban | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -521,6 +522,7 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | resolving-merge-conflicts | skill | | ✓ | ADOPT | MEASURED |
 | codex-plugin-cc | plugin | | ✓ | discovery-log | REVIEW |
 | agy-staff | plugin | | ✓ | discovery-log | SOURCE-ONLY |
+| agy-fast | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | antiglaude | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agents-council | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | agencil | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -736,6 +738,7 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | AgentSeed | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | openrewrite | framework | ✓ | ✓/$ | discovery-log | REVIEW |
 | rust-anything | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| fast-anything | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | cc-safety-net | tool | ✓ | ✓ | discovery-log | REVIEW |
 | your-cto-jev | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | vps-forge | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -938,6 +941,7 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | openinference | framework | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agent-otel-gateway | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-devtools | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| rounds | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | claude-flightdeck | plugin | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | foreman-vision-pub | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | bough | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -994,6 +998,7 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | doctrine | plugin | | ✓ | discovery-log | SOURCE-ONLY |
 | vercel-labs/agent-skills | skill | | ✓ | discovery-log | REVIEW |
 | android/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
+| nestjs-agent-skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | modern-react-guidance | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-skills | skill | | ✓ | ADOPT | REVIEW |
 | coleam00/skills | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1457,15 +1462,15 @@ All 1372 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 418 | 130 | 4 | 31% |
+| Implement | 420 | 130 | 4 | 31% |
 | Verify | 68 | 23 | 2 | 34% |
-| Review | 172 | 37 | 3 | 22% |
+| Review | 173 | 37 | 3 | 21% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
-| Outer Loop | 129 | 24 | 2 | 19% |
-| Skills & Plugins | 158 | 49 | 4 | 31% |
+| Outer Loop | 130 | 24 | 2 | 18% |
+| Skills & Plugins | 159 | 49 | 4 | 31% |
 | Memory & Context | 110 | 33 | 2 | 30% |
 | MCP Servers | 73 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1372** | **390** | **34** | **28%** |
+| **Total** | **1377** | **390** | **34** | **28%** |
