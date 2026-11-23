@@ -1,8 +1,8 @@
 # Next evals — a banded promotion queue
 
-The 987 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
+The 989 `discovery-log` leads, **derived** (not hand-maintained) from data already in the repo plus `repo-metadata.json`. Regenerate with `python3 triage.py`; do not edit between the markers.
 
-Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 120 distinct values across these 987 leads (416 have zero overlap pressure; largest tie: 95) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
+Leads are grouped into **bands**, not a single ranked list. Within a band the order is `2*overlap_pressure + stage_gap_weight + evidence_bonus` (see `next-evals.py`), but that score has only 121 distinct values across these 989 leads (417 have zero overlap pressure; largest tie: 95) — enough to pick a head, not to rank a tail. Leads already stamped `**Last triaged:**` sink within their band so each pass surfaces un-examined ones.
 
 **Eliminate-only.** Outside `P0 measure`, an unattended agent may SKIP a lead or leave it at `discovery-log`; it may never write ADOPT/KEEP/CONDITIONAL. A false SKIP is cheap and reversible; a false ADOPT poisons STACK. Detector Q gates this.
 
@@ -11,7 +11,7 @@ Leads are grouped into **bands**, not a single ranked list. Within a band the or
 | **P0 measure** | score-ranked head | 25 | human or `eval-runner` only — the one band that may reach ADOPT |
 | **P1 successor-check** | `archived == true` | 0 | repoint the link to a successor, or SKIP "archived, no successor" |
 | **P2 challenger** | overlaps a tool already in STACK | 287 | SKIP "redundant with `<incumbent>`", or leave at discovery-log |
-| **P3 backlog** | everything else | 669 | leave; stamp `**Last triaged:**` only |
+| **P3 backlog** | everything else | 671 | leave; stamp `**Last triaged:**` only |
 | **P4 mechanical-skip** | vendored Type under a disqualifying license | 0 | SKIP — zero judgement |
 | **P5 ships-inside** | the row declares a `Ships inside` container (#343) | 6 | settle the container, or SKIP "ships inside `<container>`" — never an independent lead |
 
@@ -64,8 +64,8 @@ _Listing 12 of 287 — rerun `python3 triage.py` and read the source for the tai
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
 | nestjs-agent-skills | Skills & Plugins | 6.9 | challenges agent-skills, documentation-and-adrs · pressure 0, gap 6.9 | `/triage-lead nestjs-agent-skills` |
+| agent-scan | Review | 31.9 | challenges SkillSpector · pressure 12, gap 7.9 | `/triage-lead agent-scan` |
 | roundtable | Outer Loop | 30.2 | challenges abtop · pressure 11, gap 8.2 | `/triage-lead roundtable` |
-| agent-scan | Review | 29.9 | challenges SkillSpector · pressure 11, gap 7.9 | `/triage-lead agent-scan` |
 | skill-scanner | Review | 29.9 | challenges SkillSpector · pressure 11, gap 7.9 | `/triage-lead skill-scanner` |
 | foreman (ilkemerol) | Implement | 28.9 | challenges claude-squad · pressure 11, gap 6.9 | `/triage-lead foreman (ilkemerol)` |
 | Foreman | Plan | 28.8 | challenges GSD · pressure 11, gap 6.8 | `/triage-lead Foreman` |
@@ -76,11 +76,11 @@ _Listing 12 of 287 — rerun `python3 triage.py` and read the source for the tai
 | agnix | Review | 25.9 | challenges SkillSpector · pressure 8, gap 7.9 | `/triage-lead agnix` |
 | memU | Memory & Context | 25.0 | challenges claude-mem · pressure 9, gap 7.0 | `/triage-lead memU` |
 
-## P3 backlog — 669 leads
+## P3 backlog — 671 leads
 
 _leave; stamp `**Last triaged:**` only._
 
-_Listing 12 of 669 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
+_Listing 12 of 671 — rerun `python3 triage.py` and read the source for the tail (no silent cap)._
 
 | Tool | Stage | Score | Why | Command |
 |------|-------|-------|-----|---------|
