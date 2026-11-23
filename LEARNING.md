@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-20 (this pass found nothing new — see the dated footnote below). The
-page was previously verified 2026-11-18 (that pass's addition, confirmed via direct fetch), and before that 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
+**Last verified:** 2026-11-23 (this pass's addition, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-20 (that pass found nothing new), and
+before that 2026-11-18 (that pass's addition, confirmed via direct fetch), and before that 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-21 (that pass's additions, likewise
@@ -1139,6 +1140,54 @@ entry below) — no duplicate added. No new named methodology cleared the bar 80
 and AWS's AI-DLC set, no counter-evidence or measured result distinct from what this page already
 carries turned up, and nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery lane.
 This is an empty pass — no entry added.
+The 2026-11-23 pass found the egress wall fully open: a direct `curl` to `youtube.com`, `arxiv.org`,
+`martinfowler.com`, and `anthropic.com` all returned `200`, and `uvx yt-dlp` ran real `ytsearch6`
+queries against all ten of this sweep's scoped topics (software factories dark/lit, agentic SDLC,
+AWS AI-DLC, ADW, agentic engineering, spec-driven development, context engineering, verification
+bandwidth/back pressure/comprehension debt, levels of autonomy, harness engineering) and returned
+real, dated results; none cleared the bar for a transcript pull. The ten searches returned almost
+entirely channels and talks this page already covers or has already declined in substance (IBM
+Technology, AWS Events, Johnny Chivers, Zen van Riel, IndyDevDan, Cole Medin, Owain Lewis, Matt
+Pocock/David Ondrej, Nick Saraev, Leon van Zyl, "Is the Agent Harness Dead?" already declined
+2026-10-23, DeepLearningAI/JetBrains' full course, Simon Martinelli's spec-driven-development talk
+cluster already declined 2026-11-16) or single-digit/low-view uploads not worth chasing (a
+personal-workflow "AI-DLC explained: one person, 29 stages" upload describing the author's own
+process rather than AWS's published structure; a 24-view "AI Agent Autonomy: The 4-Level Framework
+for Project Managers" upload). `github.com`'s HTTPS git endpoint was reachable too (same as every
+pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked directly by cloning `main`
+read-only: HEAD moved to `8f5e1c9` (2026-11-23, same-day), no new stable release exists past
+`v2.11.4` noted 2026-11-18 (only preview tags run ahead of it, through `v2.11.5-preview.20261122.1`),
+and the ~24 commits since the last pass are all harness-integration and gate-flow bug fixes (plan
+handling, Kiro helpers, gate-ordering edge cases) with no phase/stage structure change — the opening
+sentence of `docs/guide/04-phases-and-stages.md` is unchanged — so nothing was added to
+[`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) this pass.
+
+This pass also checked several web near-misses and declined all of them. [Xu & Chen, "Cross-Provider
+Review as a Runtime Contract for Coding Agents: A Controlled Pilot and Fault-Injection
+Study"](https://arxiv.org/abs/2610.10961) (arXiv, 2026-10-07, read directly in full) is squarely on
+this page's verification-bandwidth/harness-engineering scope — a protocol for having a second coding
+agent from a different provider review a completed turn — but was declined rather than added: it
+studies the authors' own unreleased, proprietary runtime (OpenTerminalAgent), one author discloses a
+direct financial interest in its adoption, the pilot is 20 agent-authored (not user-sampled) turns
+with a 95% CI of 19.1–63.9% on its one headline number, and most of the paper is a first-person
+account of the authors finding and fixing three measurement bugs in their own tooling — the paper's
+own text repeatedly disclaims generality ("not a claim... from 20 turns," "No gate result is
+reported"). A companion paper cited in its related work, read directly instead, clears the bar: see
+below. [Song, "When Does a Second Model Help? Cross-Model Review in LLM
+Verification"](https://arxiv.org/abs/2610.01471) (arXiv, v1 2026-10-01, v2 2026-10-06) was also
+checked directly — a single-author, unaffiliated preprint building on the same author's "earlier
+preprints," with data "available from the author on request" rather than published, and its own
+headline comparison explicitly confounded ("model difference and reviewer capability are not
+separated") — too thin to stand alone, but one of its findings (partial, not full, overlap in which
+errors cross-model versus same-model review catches) is folded into the entry below as a hedge on an
+otherwise-clean result. A GitHub customer case study ("17 agents, one SDLC," the Levi Strauss piece
+already surfaced and declined 2026-11-20) resurfaced on this pass's searches; no duplicate was added.
+No new named methodology cleared the bar 8090's Software Factory and AWS's AI-DLC set, and nothing in
+scope pointed at a `CATALOG.md`-worthy tool for the discovery lane. One genuine find earned a place:
+a controlled study measuring something this page's harness-engineering cluster has so far only
+gestured at in passing (the OpenAI Codex-plugin-for-Claude-Code tool, cited in passing by Xu & Chen
+above) — that cross-model code review is not symmetric, and the direction that doesn't work actively
+hurts rather than merely failing to help.
 
 ---
 
@@ -2666,6 +2715,38 @@ fresh, not-yet-reviewed preprint (submitted 2026-11-02, cross-listed cs.CL/cs.SE
 directly rather than the full paper — the per-model breakdown beyond the two named models, the exact
 task count, and the underlying task source were not available from the abstract page alone and are
 not claimed here. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
+
+### [Cross-Model LLM Code Review: Should you use Claude to review Codex or vice versa?](https://arxiv.org/abs/2607.21656) — Zuodong Xiang, Yike Zhang, YueMing Zhang, Hailu Xu (arXiv, 2026-07-22; accepted, Agentic SE @ KDD'26)
+The first entry on this page to measure cross-model code review itself as a verification
+mechanism, rather than describe a harness's safety controls (Barbaste et al. above) or test
+whether its security mechanisms hold under attack (HarnessSecurity-Bench above) — directly
+relevant to this repo's own dual-axis review practice and to the cross-provider review tooling
+(the OpenAI Codex plugin for Claude Code) that practice increasingly relies on. A controlled
+experiment on 116 hard/medium LiveCodeBench tasks, running Claude and Codex through six
+conditions — both solo baselines, both cross-model orderings, and both same-model
+(self-)orderings — with the reviewer seeing the problem and the writer's draft but unable to
+execute tests, approximating a code-review step rather than a test-and-fix loop. The result is
+sharply asymmetric rather than "review helps": Claude reviewing Codex's drafts raises the pass
+rate from 71.6% to 89.7% (Benjamini-Hochberg-adjusted p=.001), and Codex reviewing its own drafts
+raises it to 84.5% (p=.022) — but the reverse direction actively *hurts*: Codex reviewing Claude's
+drafts **drops** the pass rate from 91.4% to 82.8% (p=.046), while Claude reviewing its own drafts
+leaves that baseline unchanged. The authors' own reading: "the useful pairing is asymmetric — use
+Claude to review Codex, not the other way around." Worth reading as a sharper, controlled version
+of this page's harness-engineering cost cluster's standing caution against "more tools/more agents
+as a default good" (Astekin et al., HarnessTax above) — here the finding isn't that a second
+reviewer costs more for little gain, it's that the wrong-direction pairing is actively
+counterproductive, a distinct and more specific failure mode than wasted cost. **Added
+2026-11-23:** a thinner, single-author, unaffiliated companion — [Song, "When Does a Second Model
+Help? Cross-Model Review in LLM Verification"](https://arxiv.org/abs/2610.01471) (arXiv, v1
+2026-10-01, v2 2026-10-06; 30 artifacts, 150 planted errors, 900 review sessions, three reviewer
+models from two developers; data available from the author on request rather than published) —
+complicates the clean asymmetry above on one axis without contradicting it: cross-model and
+same-model review find only partly overlapping sets of planted errors (Jaccard 41.2%), so even the
+"right-direction" pairing above is catching a different subset of problems than self-review would,
+not a strict superset of it. Song's own headline comparison is explicitly confounded ("model
+difference and reviewer capability are not separated"), so it earns a hedge rather than its own
+entry. Both read directly from their own text (`pdftotext` against the downloaded PDF and the
+arXiv HTML respectively) — `arxiv.org` was reachable this pass.
 
 ---
 
