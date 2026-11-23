@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1377 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1379 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -289,6 +289,7 @@ All 1377 tools from CATALOG.md with dev loop stage, automation capability, prici
 | align-dev | tool | | ✓ | SKIP | REVIEW |
 | cc-switch | tool | | ✓ | SKIP | REVIEW |
 | claude-account | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| claude-multi-desktop | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-rotate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | BossConsole | platform | | ✓ | SKIP | SOURCE-ONLY |
 | bettercode | tool | | ✓ | SKIP | SOURCE-ONLY |
@@ -769,6 +770,7 @@ All 1377 tools from CATALOG.md with dev loop stage, automation capability, prici
 | vibe-shield | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lasik | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| safe-anything | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | safe-ai-coding | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | aisrf | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | trailofbits/skills | skill | | ✓ | SKIP | REVIEW |
@@ -1462,9 +1464,9 @@ All 1377 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 420 | 130 | 4 | 31% |
+| Implement | 421 | 130 | 4 | 31% |
 | Verify | 68 | 23 | 2 | 34% |
-| Review | 173 | 37 | 3 | 21% |
+| Review | 174 | 37 | 3 | 21% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
 | Outer Loop | 130 | 24 | 2 | 18% |
@@ -1473,4 +1475,4 @@ All 1377 tools from CATALOG.md with dev loop stage, automation capability, prici
 | MCP Servers | 73 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1377** | **390** | **34** | **28%** |
+| **Total** | **1379** | **390** | **34** | **28%** |
