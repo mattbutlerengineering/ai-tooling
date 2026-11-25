@@ -20,8 +20,9 @@ which reduces six of the talks listed below to what they agree on, what they spl
 on, and which side to take. This page stays a *pointer* list; the distillations are
 their own artifacts.
 
-**Last verified:** 2026-11-23 (this pass's addition, confirmed via direct fetch — see the dated
-footnote below). The page was previously verified 2026-11-20 (that pass found nothing new), and
+**Last verified:** 2026-11-25 (this pass's additions, confirmed via direct fetch — see the dated
+footnote below). The page was previously verified 2026-11-23 (that pass's addition, confirmed via
+direct fetch), and before that 2026-11-20 (that pass found nothing new), and
 before that 2026-11-18 (that pass's addition, confirmed via direct fetch), and before that 2026-11-16 (that pass's addition, confirmed via direct fetch), and before that 2026-11-11 (that pass's addition, confirmed via direct fetch), and before that 2026-11-09 (that pass's additions, confirmed via direct fetch), and before that 2026-11-02 (that pass's addition, confirmed via direct fetch), and before that 2026-10-28 (that pass's additions, likewise
 confirmed via direct fetch), and before that 2026-10-26 (that pass's addition, likewise
 confirmed via direct fetch), and before that 2026-10-23 (that pass's addition, likewise
@@ -1188,6 +1189,50 @@ a controlled study measuring something this page's harness-engineering cluster h
 gestured at in passing (the OpenAI Codex-plugin-for-Claude-Code tool, cited in passing by Xu & Chen
 above) — that cross-model code review is not symmetric, and the direction that doesn't work actively
 hurts rather than merely failing to help.
+The 2026-11-25 pass found the egress wall fully open: a direct `curl` to `youtube.com` (301,
+www-redirect), `arxiv.org`, and `martinfowler.com` (both `200`) all resolved, and `uvx yt-dlp` ran
+real `ytsearch6` queries against all ten of this sweep's scoped topics (software factories
+dark/lit, agentic SDLC, AWS AI-DLC, AI developer workflows, agentic engineering, spec-driven
+development, context engineering, verification bandwidth/back pressure/comprehension debt, levels
+of autonomy, harness engineering) and returned real, dated results; per-video metadata fetches hit
+the same YouTube bot-detection wall noted on every pass since 2026-10-07 ("Sign in to confirm
+you're not a bot" after an HTTP 429), so no transcript was read. The ten searches returned almost
+entirely channels and talks this page already covers or has already declined in substance (IBM
+Technology, AWS Events, Johnny Chivers, IndyDevDan, Matt Pocock/David Ondrej, Nick Saraev, Caleb
+Writes Code, "Is the Agent Harness Dead?" already declined 2026-10-23) plus one unconfirmable
+candidate: a YouTube listing titled "Build the Workshop Before the Software Factory — Armin
+Ronacher, Earendil" (AI Engineer channel) could not be corroborated under that exact title by
+independent web search — the closest confirmed match is a secondary (Japanese-language) write-up
+of a differently-titled Ronacher/Earendil talk, "The Software Atelier," arguing the same
+"improve the workshop before the factory" thesis this page's Osmani Light/Dark-factory entry
+already covers, with no primary measurement of its own — declined on substance (argued synthesis,
+not new data) and on an unconfirmed title either way. `github.com`'s HTTPS git endpoint was
+reachable too (same as every pass since 2026-08-24), so `awslabs/aidlc-workflows` was re-checked
+directly by cloning `main` read-only: HEAD moved to `bff87ae` (2026-11-25), a new stable release
+`v2.11.5` has landed (up from `v2.11.4` noted 2026-11-18), and the commits since the last pass are
+all harness-integration bug fixes (submodule-move handling, Kiro CLI v2 engine, checkout-scoped
+traceability/review/test-command fixes) with no phase/stage structure change — the opening sentence
+of `docs/guide/04-phases-and-stages.md`, "organized into 5 phases containing 33 stages," is
+unchanged — so nothing was added to [`aws-ai-dlc.md`](methodologies/aws-ai-dlc.md) this pass. This
+pass also checked several web near-misses and declined all of them: Hailin Zhong & Shengxin Zhu's
+"AI Harness Engineering" (arXiv 2605.13357, 2026-05-13, read directly) proposes a four-level
+harness-exposure ladder and a trace-based evidence protocol, validated on a single controlled task —
+the same argued-framework-with-thin-validation shape this page's harness-engineering cluster has
+already declined twice (2026-11-09's Arjmandi and "Agentic Harness Engineering" entries); Uvik
+Software's spec-driven-development benchmark resurfaced on this pass's searches under a different
+summarized figure set than the one already declined 2026-11-11 — no duplicate was added, since it
+is the same study; and a GitHub customer case study ("17 agents, one SDLC," the Levi Strauss piece
+already declined 2026-11-20/11-23) resurfaced again — still no public detail beyond the session
+title, so no duplicate was added. No new named methodology cleared the bar 8090's Software Factory
+and AWS's AI-DLC set, and nothing in scope pointed at a `CATALOG.md`-worthy tool for the discovery
+lane (the one tool named in passing, `sodiumsun/agenttrail`, is already catalogued). Two genuine
+finds earned a place, both read directly from their own arXiv pages and both sharpening this page's
+existing delegation/supervision and Verifiability clusters rather than opening new ones: a
+203-developer survey finding that careful code review does not transfer to careful action approval,
+paired with a small pilot measuring a concrete mechanism (bounded/inspectable/protected file labels)
+that moves exactly the needle the survey's respondents asked for; and the first entry on this page
+to put hard numbers on how much of a *real* multi-agent coding session's claimed work has no
+verification evidence behind it at all.
 
 ---
 
@@ -2747,6 +2792,52 @@ not a strict superset of it. Song's own headline comparison is explicitly confou
 difference and reviewer capability are not separated"), so it earns a hedge rather than its own
 entry. Both read directly from their own text (`pdftotext` against the downloaded PDF and the
 arXiv HTML respectively) — `arxiv.org` was reachable this pass.
+
+### [From Delegation to Action Approval: An Exploratory Study of Developers' Practices in Collaborating with AI Coding Agents](https://arxiv.org/abs/2611.10058) — Yinan Wu, Dominik Wermke, Ze Shi Li, Kathryn T. Stolee, Bowen Xu (arXiv, 2026-11-06)
+Sharpens this page's delegation/supervision cluster ("The Work Behind Delegation," Osmani's
+Agentic Autonomy Levels, above) with a direct measured complication: careful code review does not
+carry over to careful action approval. A 203-developer survey finds that of developers who
+carefully review most or all AI-generated code, 61% still often approve at least one class of
+agent action — running a shell command, reading a file — without close review; developers aware
+of a security or privacy incident involving agents approved unreviewed actions *more* often than
+those unaware, the opposite of the intuitive "awareness produces caution" read. Autonomy varied
+more between developers than between development activities, the same individual-coping-strategy
+axis "The Work Behind Delegation" found dominating over task type. Workload was reported lighter,
+but supervision stayed mentally demanding regardless. Asked what would earn more autonomy, over
+half of responses named agents that are **bounded, observable, or reversible** — a design target,
+not a reliability target. A concurrent pilot gives a small measured instance of exactly that ask:
+[Eun et al., "Toward Bounding Coding-Agent Autonomy in Software Maintenance: A Pilot Study of
+Boundary Contracts"](https://arxiv.org/abs/2611.01265) (arXiv, 2026-10-31; accepted JAWS 2 @ ASE
+2026) labels task-specific files editable/inspect-only/required/protected before a Codex-based
+agent touches a real enterprise repo, raising macro edit-selection F1 from 0.440 to 0.682 and
+strictly-acceptable patches from 9/40 to 18/40 across 40 maintenance tasks — a gain that survives a
+21-task check controlling for simple file localization. The authors are explicit that a
+single-repo, single-agent, 40-task pilot "does not establish general effectiveness," so read it as
+an existence proof that bounding helps, not a generalizable number. Both read directly from their
+own arXiv abstract pages, reachable this pass.
+
+### [Soei: Structured Observability of Evidence and Intent for Multi-Agent AI Software Engineering](https://arxiv.org/abs/2610.39468) — Mohammed Nayeem Khan, K S Sarun Kumar (arXiv, 2026-10-29)
+Squarely on this page's Verifiability framing — measures how much of a real coding-agent session's
+claimed work is actually checkable, rather than arguing it should be. The authors first
+source-audit `sodiumsun/agenttrail`, an open-source observability tool this repo already catalogs
+([catalog entry](CATALOG.md)), against its own code at a pinned commit, finding an
+unauthenticated local mutation surface and two event pipelines that never unify — a concrete
+instance of "the observability tool can't itself be trusted," the problem this page's
+harness-engineering cluster raises only in the abstract. The empirical core is 45 real
+coding-agent sessions (~102k records, 20.6k tool executions): **23.4% of code-editing episodes**
+(95% CI 17.1–35.7) **end with no independent check after the last edit**, and **57.8% of to-dos
+the agent marked complete after editing had no verification evidence recorded in between** — a
+session can report done with nothing behind the claim, the same gap this page's self-reported-
+performance entries (Peng et al.'s PR study, above) find at pull-request scale, now measured
+inside the session itself. Two further operational findings: a naive 10-minute timing heuristic
+recovers only 6 of 24 content-linked session hand-offs, so session boundaries alone are not a
+reliable audit unit; and 1,326 records across 16 sessions contained credential-like strings, a
+live instance of exactly the secret-leakage risk this page's harness-security entries
+(HarnessSecurity-Bench, above) treat as a configuration question rather than hard evidence. The
+authors' own fix — Soei, a hash-chained local ledger plus a W3C PROV-aligned graph — is evaluated
+only against its own corpus, so read that half with the same self-built-baseline skepticism this
+page applies to vendor and self-reported tooling claims elsewhere; the measurement half stands on
+its own. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
 
 ---
 
