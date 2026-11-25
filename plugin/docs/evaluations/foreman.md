@@ -3,7 +3,7 @@
 **Repo:** [Turki-Sh/Foreman](https://github.com/Turki-Sh/Foreman)
 **Stars:** 15 | **Last updated:** 2026-08-11 (pushed) | **License:** MIT
 **Last verified:** 2026-08-11
-**Last triaged:** 2026-08-11  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-25  <!-- triaged: bulk -->
 **Dev loop stage:** Plan
 **Layer:** Process
 
@@ -28,6 +28,9 @@ We did **not** install or run this tool. This evaluation is source-grounded only
 Newly discovered and catalogued today. Left at `discovery-log`, not SKIPped as redundant with `GSD` — Foreman is narrowly scoped to a single artifact type (website builds: design-system lock, build brief, ship, index) rather than GSD's general-purpose Discuss→Plan→Execute→Verify→Ship loop for arbitrary codebases. Worth a real look given the narrower, more concrete scope, but too early (15 stars, 1 day old) to weigh further today.
 
 _Triaged 2026-08-11 by the daily discovery-and-triage pass._
+
+**Re-triaged 2026-11-25 by the daily discovery-and-triage pass:** no change — still narrower in
+scope than `GSD` (website-build-specific vs. general-purpose); left at `discovery-log`.
 
 ## Catalog entry
 

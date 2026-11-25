@@ -3,7 +3,7 @@
 **Repo:** [Kostakurta8/roundtable](https://github.com/Kostakurta8/roundtable)
 **Stars:** 14 | **Last updated:** 2026-08-10 (pushed) | **License:** MIT
 **Last verified:** 2026-11-12
-**Last triaged:** 2026-11-16  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-25  <!-- triaged: bulk -->
 **Dev loop stage:** Outer Loop
 **Layer:** Tooling
 
@@ -106,6 +106,10 @@ signal surfaced. Left at `discovery-log`.
 replay/cost-attribution differentiation from `abtop` still holds. Left at `discovery-log`.
 
 **Re-triaged 2026-11-16 by the P2 challenger band (daily discovery pass):** no change — still
+differentiated from `abtop` by exact visual replay and per-agent cost attribution; no new
+adoption or measurement signal surfaced. Left at `discovery-log`.
+
+**Re-triaged 2026-11-25 by the P2 challenger band (daily discovery pass):** no change — still
 differentiated from `abtop` by exact visual replay and per-agent cost attribution; no new
 adoption or measurement signal surfaced. Left at `discovery-log`.
 

@@ -3,7 +3,7 @@
 **Repo:** [ilkemerol/foreman](https://github.com/ilkemerol/foreman)
 **Stars:** 36 | **Last updated:** 2026-11-04 (pushed) | **License:** MIT
 **Last verified:** 2026-11-07
-**Last triaged:** 2026-11-07  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-25  <!-- triaged: bulk -->
 **Dev loop stage:** Implement
 **Layer:** Tooling
 
@@ -36,3 +36,6 @@ agent *processes* in parallel, while `foreman (ilkemerol)` is a single Claude Co
 session's main agent planning and delegating to its own subagents — a different
 delegation mechanism (intra-session vs multi-process), not a clear duplicate. Left for
 a real hands-on eval rather than a mechanical SKIP.
+
+_Triaged 2026-11-07, re-checked 2026-11-25, by the P2 challenger band — no change; still a
+different delegation mechanism from `claude-squad`, left at `discovery-log`._
