@@ -3,7 +3,7 @@
 **Repo:** [prisma/prisma](https://github.com/prisma/prisma)
 **Stars:** 46,900 | **Last updated:** 2026-09-04 (pushed) | **License:** Apache-2.0
 **Last verified:** 2026-09-05
-**Last triaged:** 2026-10-21  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-26  <!-- triaged: bulk -->
 **Dev loop stage:** MCP Servers
 **Layer:** Infrastructure
 
@@ -41,3 +41,7 @@ catalog row (and per the note above, should not gain one). Left at `discovery-lo
 
 **Re-triaged 2026-10-21 by the P5 ships-inside band:** no change — `prisma/prisma` still has no
 catalog row and the scope argument against adding one still holds. Left at `discovery-log`.
+
+**Re-triaged 2026-11-26 by the P5 ships-inside band:** no change — `prisma/prisma` still has no
+catalog row and should not gain one (the ORM is out of scope, not merely unexamined). Left at
+`discovery-log`.

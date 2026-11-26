@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1397 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1402 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -182,6 +182,7 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | aster | harness | | ✓ | SKIP | SOURCE-ONLY |
 | agent-harness | harness | | ✓ | discovery-log | SOURCE-ONLY |
 | caveman | skill | | ✓ | ADOPT | MEASURED |
+| inference-optimisation-skill | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | tldr | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-terse | plugin | | ✓ | SKIP | SOURCE-ONLY |
 | cherry-studio | platform | | ✓ | SKIP | REVIEW |
@@ -426,6 +427,7 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | sim | platform | ✓ | ✓/$ | SKIP | REVIEW |
 | haystack | framework | ✓ | ✓ | SKIP | REVIEW |
 | Portkey-gateway | tool | ✓ | ✓ | CONDITIONAL | REVIEW |
+| TrustGate | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | OmniRoute | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | baml | framework | ✓ | ✓ | SKIP | REVIEW |
 | moai-adk | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -608,6 +610,7 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | crossmatch | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | evalview | MCP server | ✓ | ✓ | SKIP | REVIEW |
 | otpkit | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
+| autologin-mcp | MCP server | | ✓ | discovery-log | SOURCE-ONLY |
 | playwright | MCP server | | ✓ | ADOPT | RUN |
 | turbo-browser-mcp | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | browser-hands | MCP server | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -781,6 +784,7 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | vibe-shield | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lasik | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| cybedefend | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | safe-anything | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | kuron-security | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | safe-ai-coding | skill | | ✓ | discovery-log | SOURCE-ONLY |
@@ -961,6 +965,7 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | bough | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | harbor | framework | ✓ | ✓ | discovery-log | REVIEW |
 | swe-sweep | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| WebsiteBench | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-hooks-multi-agent-observability | tool | ✓ | ✓ | SKIP | REVIEW |
 | multi-agent-workflow-lab | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | claude-code-agent-monitor | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -1482,15 +1487,15 @@ All 1397 tools from CATALOG.md with dev loop stage, automation capability, prici
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
 | Plan | 131 | 42 | 6 | 32% |
-| Implement | 424 | 130 | 4 | 31% |
-| Verify | 70 | 23 | 2 | 33% |
-| Review | 181 | 37 | 3 | 20% |
+| Implement | 426 | 130 | 4 | 31% |
+| Verify | 71 | 23 | 2 | 32% |
+| Review | 182 | 38 | 3 | 21% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
-| Outer Loop | 130 | 24 | 2 | 18% |
+| Outer Loop | 131 | 24 | 2 | 18% |
 | Skills & Plugins | 162 | 49 | 4 | 30% |
 | Memory & Context | 112 | 33 | 2 | 29% |
 | MCP Servers | 74 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1397** | **390** | **34** | **28%** |
+| **Total** | **1402** | **391** | **34** | **28%** |
