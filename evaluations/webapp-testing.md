@@ -3,7 +3,7 @@
 **Repo:** [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/webapp-testing)
 **Stars:** 179,396 (the container, `anthropics/skills`; the skill has no count of its own) | **Last updated:** 2026-09-29 | **License:** Apache-2.0 (the skill folder's own `LICENSE.txt`; the container repo root declares none)
 **Last verified:** 2026-10-02
-**Last triaged:** 2026-11-11  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-26  <!-- triaged: bulk -->
 **Dev loop stage:** Verify
 **Layer:** Tooling
 
@@ -74,6 +74,8 @@ container is itself an un-disposed lead, leave the component and say so") this i
 container's own row, not this lane's to make here.
 
 **Re-triaged 2026-11-11 by the P5 ships-inside band:** no change — `anthropics/skills` is still `discovery-log`. Left at `discovery-log`.
+
+**Re-triaged 2026-11-26 by the P5 ships-inside band:** no change — `anthropics/skills` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog entry
 
