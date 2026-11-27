@@ -1,6 +1,6 @@
 # Tool Comparison
 
-All 1402 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
+All 1406 tools from CATALOG.md with dev loop stage, automation capability, pricing, and evaluation status at a glance.
 
 **Verdict vocabulary** (per [ADR-0005](docs/adr/0005-verdict-vocabulary.md), implemented in #69):
 
@@ -69,6 +69,7 @@ All 1402 tools from CATALOG.md with dev loop stage, automation capability, prici
 | 8090 Software Factory | platform | ✓ | | DEFER | REVIEW |
 | software-factory-plugin | plugin | | ✓ | CONDITIONAL | MEASURED |
 | factory (addyosmani) | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| ai-sdlc-factory | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | spec_driven_develop | skill | | ✓ | discovery-log | REVIEW |
 | reversa | framework | ✓ | ✓ | discovery-log | REVIEW |
 | flow-next | plugin | ✓ | ✓ | discovery-log | REVIEW |
@@ -784,6 +785,7 @@ All 1402 tools from CATALOG.md with dev loop stage, automation capability, prici
 | vibe-shield | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | lasik | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | agentshield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| SlopSquatShield | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | cybedefend | tool | ✓ | ✓ | SKIP | SOURCE-ONLY |
 | safe-anything | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | kuron-security | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
@@ -827,6 +829,7 @@ All 1402 tools from CATALOG.md with dev loop stage, automation capability, prici
 | farol | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | genesis | skill | | ✓ | discovery-log | SOURCE-ONLY |
 | mobile-agent-testers | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
+| agent-sim | tool | ✓ | ✓ | discovery-log | SOURCE-ONLY |
 | rexmod | tool | | ✓ | SKIP | SOURCE-ONLY |
 | code-on-incus | tool | ✓ | ✓ | discovery-log | REVIEW |
 | sandbox-runtime | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -920,6 +923,7 @@ All 1402 tools from CATALOG.md with dev loop stage, automation capability, prici
 | lot-map | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | airoom | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | togo | tool | | ✓ | discovery-log | SOURCE-ONLY |
+| pop-agent | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | agent-tracedown | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | spoor | tool | | ✓ | discovery-log | SOURCE-ONLY |
 | harness-profiler | tool | | ✓ | discovery-log | SOURCE-ONLY |
@@ -1486,16 +1490,16 @@ All 1402 tools from CATALOG.md with dev loop stage, automation capability, prici
 
 | Stage | Tools | Validated | Recommended | Validated % |
 |-------|-------|-----------|-------------|-------------|
-| Plan | 131 | 42 | 6 | 32% |
+| Plan | 132 | 42 | 6 | 32% |
 | Implement | 426 | 130 | 4 | 31% |
 | Verify | 71 | 23 | 2 | 32% |
-| Review | 182 | 38 | 3 | 21% |
+| Review | 184 | 38 | 3 | 21% |
 | Ship | 8 | 1 | 1 | 12% |
 | Reflect | 12 | 6 | 3 | 50% |
-| Outer Loop | 131 | 24 | 2 | 18% |
+| Outer Loop | 132 | 24 | 2 | 18% |
 | Skills & Plugins | 162 | 49 | 4 | 30% |
 | Memory & Context | 112 | 33 | 2 | 29% |
 | MCP Servers | 74 | 19 | 2 | 26% |
 | Research & Discovery | 27 | 8 | 1 | 30% |
 | Reference | 66 | 18 | 4 | 27% |
-| **Total** | **1402** | **391** | **34** | **28%** |
+| **Total** | **1406** | **391** | **34** | **28%** |
