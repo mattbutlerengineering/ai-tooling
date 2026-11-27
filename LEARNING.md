@@ -2839,6 +2839,52 @@ only against its own corpus, so read that half with the same self-built-baseline
 page applies to vendor and self-reported tooling claims elsewhere; the measurement half stands on
 its own. Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
 
+### [Your Next Bottleneck Is Code Review](https://www.techempower.com/blog/2026/11/10/your-next-bottleneck-is-code-review/) — Tony Karrer, TechEmpower (2026-11-10)
+A practitioner answer to the same back-pressure problem this page's verification-bandwidth cluster
+(Comprehension Debt above, 3100 Opinions on Code Review, AI Writes Faster Than Humans Can Review)
+mostly treats as diagnosis. Cites LinearB's analysis of 8.1M PRs finding AI-assisted PRs ~2.6x
+larger than unassisted ones at the 75th percentile, with median review time climbing from 33 to 77
+minutes, then argues the fix isn't reviewing faster but reviewing selectively: treat code review
+as a risk-management problem rather than one gate for every change, with deterministic rules
+(change size, protected files, test results) sorting changes into a fast track, a normal-judgment
+track, and a high-scrutiny track for sensitive code — and an AI reviewer operating inside those
+rules rather than setting them. Backs this with three named rollouts rather than one vendor's
+numbers: Imprint's 1,000-line small-change policy (~10% of PRs qualify), PostHog's StampHog (500
+lines/20 files, final AI approval on ~1/3 of merged PRs), and Rewind (~40% auto-approval via a
+policy engine the model can flag against but not override). Its sharpest point for this repo:
+approval and merge are different permissions, and collapsing them is how "AI-approved" quietly
+erodes human accountability — the erosion this repo's eliminate-only rule exists to prevent at the
+triage layer, named here one level up at the PR-review layer. Prescribes shadow-mode rollout on
+one repo first, measuring review latency, eligibility, safety (reverts/incidents), and reviewer
+accuracy before expanding — the same with/without-a-baseline discipline
+[`measurement-protocols.md`](evaluations/measurement-protocols.md) asks of this repo's own
+MEASURED evals, applied to a review policy instead of a tool claim. Opinion piece, not a study —
+its three case numbers are self-reported by each company and not independently verified.
+
+### [How Much Do Coding Agents Over-Edit, and Why? An Empirical Study of Unneeded Edits in Repository-Level Agent Patches](https://arxiv.org/abs/2611.34875) — Aakash Goel, Benjamin Steenhoek, Yu Hu (arXiv, 2026-11-25)
+Counter-evidence to the "bigger diff means sloppier agent" reading this page's comprehension-debt
+cluster leans on by default. Agent patches genuinely are larger than developers' — nobody here
+disputes that — but size alone says nothing about whether the extra edits are *needed*. The
+authors introduce Delta Residue Attribution (DRA): replay the agent's trajectory, trace every
+block of the final patch to the step that wrote it, revert that block, and rerun the task's tests
+to see whether the patch still resolves. Applied to 7,660 resolved GitHub Copilot CLI trajectories
+across 18 frontier models on SWE-bench Verified and DeepSWE, and graded against developer patches
+by the same method: on SWE-bench Verified most extra edits are tests (61%) and docs (13%), not
+code; on DeepSWE most extra edits are code (58%). By this necessity measure, agent code is on
+average at least as necessary as developers' on both benchmarks (mean 0.887 vs. 0.864 on
+SWE-bench Verified — 11 of 18 models leave *less* unneeded code than the developers did; 0.797 vs.
+0.785 on DeepSWE). The honest remainder: ~11% of an agent patch's code units on SWE-bench Verified
+are still unneeded, and 89% of those change behavior rather than sitting inert, so "mostly
+necessary" is not "harmless" — and necessity here is test-verified, not a comprehension or
+maintainability judgment, a gap the paper states rather than papers over (this page's Verifiability
+signal asks exactly the question DRA doesn't). Necessity varies by model and is uncorrelated with
+resolve rate on SWE-bench Verified, negatively correlated on DeepSWE (Spearman -0.59, p=0.01) — a
+reason to stop treating "agent code is bloated" as one fact about agents rather than a
+per-model, per-benchmark one. Recommends benchmarks report code necessity alongside resolve rate,
+the same discipline [`measurement-protocols.md`](evaluations/measurement-protocols.md) already
+asks of this repo's own MEASURED evals: a delta against a disclosed baseline, not a raw count.
+Confirmed via direct fetch of the arXiv abstract page, reachable this pass.
+
 ---
 
 *Suggest additions or fixes via PR. Keep entries developer-focused, verify links
