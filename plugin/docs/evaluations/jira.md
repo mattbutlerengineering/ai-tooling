@@ -3,7 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (active) | **License:** MIT (not an official Atlassian product)
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-11-26  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-28  <!-- triaged: bulk -->
 **Dev loop stage:** Plan (read tickets → scope work) and Ship (update status / close tickets); touches Reflect when summarizing what shipped
 **Layer:** Tooling (team-workflow integration; connects the agent to a live Jira instance)
 
@@ -94,6 +94,8 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 **Re-triaged 2026-09-17 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
 
 **Re-triaged 2026-11-26 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
+
+**Re-triaged 2026-11-28 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog entry
 
