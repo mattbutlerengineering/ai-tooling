@@ -3,7 +3,7 @@
 **Repo:** [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)
 **Stars:** 5,422 | **Last updated:** 2026-06-18 (latest release v0.21.1, 2026-04-10) | **License:** MIT
 **Last verified:** 2026-06-22  <!-- backfilled from last git edit; not a hands-on re-check -->
-**Last triaged:** 2026-11-26  <!-- triaged: bulk -->
+**Last triaged:** 2026-11-28  <!-- triaged: bulk -->
 **Dev loop stage:** Plan / Reflect (read team docs into context up front; write findings/runbooks back out) — touches Implement when a spec lives on the wiki
 **Layer:** Infrastructure (network connector to a live external system — the team's Confluence instance)
 
@@ -106,6 +106,8 @@ _Triaged 2026-08-04 by the P3 backlog band ([#268](https://github.com/mattbutler
 **Re-triaged 2026-09-17 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
 
 **Re-triaged 2026-11-26 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
+
+**Re-triaged 2026-11-28 by the P5 ships-inside band:** no change — `sooperset/mcp-atlassian` is still `discovery-log`. Left at `discovery-log`.
 
 ## Catalog note (do not edit CATALOG.md as part of this evaluation)
 
